@@ -1,4 +1,5 @@
 all: lint update push
+db: migrate su
 lint: yapf flake
 flake:
 	flake8 project/*.py
@@ -11,3 +12,7 @@ push:
 yapf:
 	yapf -i project/*.py
 	yapf -i project/app/*.py
+migrate:
+	python manage.py migrate
+su:
+	python manage.py createsuperuser

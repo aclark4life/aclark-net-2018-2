@@ -34,7 +34,8 @@ INSTALLED_APPS = ('django_admin_bootstrapped',
                   'django.contrib.contenttypes',
                   'django.contrib.sessions',
                   'django.contrib.messages',
-                  'django.contrib.staticfiles', )
+                  'django.contrib.staticfiles',
+                  'project.app', )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
