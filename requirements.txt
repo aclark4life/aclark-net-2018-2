@@ -2,4 +2,5 @@ Django
 django-admin-bootstrapped
 flake8
 gunicorn
+whitenoise
 yapf
