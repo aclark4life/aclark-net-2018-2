@@ -3,3 +3,4 @@ update:
 	git commit -a -m "Update"
 push:
 	git push
+	git push heroku
