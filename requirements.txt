@@ -1,3 +1,5 @@
 Django
 django-admin-bootstrapped
+flake8
 gunicorn
+yapf
