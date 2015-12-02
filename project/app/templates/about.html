@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
+            {% block nav %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="active"><a href="{% url 'about' %}">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            {% endblock %}
+
+
 {% block content %}
 
-<h1>About</h1>
+                <h1>About</h1>
 
-<p class="lead">Database application for use by ACLARK.NET, LLC staff to manage ACLARK.NET, LLC clients.</p>
+                <p class="lead">Database application for use by ACLARK.NET, LLC staff to manage ACLARK.NET, LLC clients.</p>
 
 {% endblock %}
