@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Client
 
 # Create your views here.
 
@@ -8,4 +9,7 @@ def about(request):
 
 
 def home(request):
-    return render(request, 'home.html', {})
+    context = {}
+    clients = Client.objects.all()
+    context['clients'] = clients
+    return render(request, 'home.html', context)
