@@ -11,6 +11,11 @@
                       <th>Address</th>
                     </tr>
                   </thead>
+                  <tbody>
+                  {% for client in clients %}
+                    <tr><td>{{ client.name }}</td><td>{{ client.address }}</td></tr>
+                  {% endfor %}
+                  </tbody>
                 </table>
 
 {% endblock %}
