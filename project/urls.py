@@ -23,5 +23,7 @@ urlpatterns = [
                                                    name='home'),
     url(r'^about$',
         views.about,
-        name='about')
+        name='about'), url(r'^client/(?P<pk>\d+)/$',
+                           views.client,
+                           name='client')
 ]

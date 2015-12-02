@@ -2,7 +2,7 @@
 
 {% block content %}
 
-                <h1>Clients</h1>
+                <h1>Client</h1>
 
                 <table data-toggle="table"> 
                   <thead>
@@ -12,9 +12,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for client in clients %}
-                    <tr><td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td><td>{{ client.address }}</td></tr>
-                  {% endfor %}
+                    <tr><td>{{ client.name }}</td><td>{{ client.address }}</td></tr>
                   </tbody>
                 </table>
 
