@@ -9,16 +9,21 @@
 
                 </h1>
 
-                <table data-toggle="table" data-sort-name="name"> 
+                <table data-toggle="table">
                   <thead>
                     <tr>
-                      <th data-field="name" data-sortable="true">Name</th>
+                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                       <th>Address</th>
+                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for client in clients %}
-                    <tr><td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td><td>{{ client.address }}</td></tr>
+                    <tr>
+                      <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
+                      <td>{{ client.address }}</td>
+                      <td>{{ client.name }}</td>
+                    </tr>
                   {% endfor %}
                   </tbody>
                 </table>
