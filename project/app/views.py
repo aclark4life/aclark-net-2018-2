@@ -16,6 +16,10 @@ def client(request, pk):
     return render(request, 'client.html', context)
 
 
+def contact(request):
+    return render(request, 'contact.html', {})
+
+
 def home(request):
     context = {}
     clients = Client.objects.all()

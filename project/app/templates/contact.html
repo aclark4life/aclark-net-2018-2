@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+            {% block nav %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li class="active"><a href="#contact">Contact</a></li>
+            {% endblock %}
+
+
+{% block content %}
+
+                <h1>Contact</h1>
+
+                <p class="lead">Please contact <a href="mailto:info@aclark.net">ACLARK.NET, LLC</a> with questions.</p>
+
+{% endblock %}

@@ -18,12 +18,17 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)), url(r'^$',
-                                                   views.home,
-                                                   name='home'),
+    url(r'^$',
+        views.home,
+        name='home'),
     url(r'^about$',
         views.about,
-        name='about'), url(r'^client/(?P<pk>\d+)/$',
-                           views.client,
-                           name='client')
+        name='about'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^client/(?P<pk>\d+)/$',
+        views.client,
+        name='client'),
+    url(r'^contact$',
+        views.contact,
+        name='contact'),
 ]
