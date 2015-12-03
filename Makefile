@@ -13,7 +13,7 @@ yapf:
 	yapf -i project/*.py
 	yapf -i project/app/*.py
 migrate:
-	python manage.py makemigrations
+	python manage.py makemigrations app
 	python manage.py migrate
 su:
 	python manage.py createsuperuser
