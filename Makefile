@@ -13,6 +13,8 @@ yapf:
 	yapf -i project/*.py
 	yapf -i project/app/*.py
 migrate:
+	rm -f db.sqlite3
+	rm -rf project/app/migrations
 	python manage.py makemigrations app
 	python manage.py migrate
 su:
