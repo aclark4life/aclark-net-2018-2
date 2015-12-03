@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from .forms import ClientForm
@@ -25,6 +27,18 @@ def client_edit(request, pk=None):
     else:
         client = get_object_or_404(Client, pk=pk)
         form = ClientForm(instance=client)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = ClientForm(request.POST)
+        else:
+            form = ClientForm(request.POST, instance=client)
+
+        if form.is_valid():
+            client = form.save()
+            return HttpResponseRedirect(reverse('client',
+                                                kwargs={'pk': client.pk}))
 
     context['form'] = form
     return render(request, 'client_edit.html', context)
