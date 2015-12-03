@@ -37,8 +37,7 @@ def client_edit(request, pk=None):
 
         if form.is_valid():
             client = form.save()
-            return HttpResponseRedirect(reverse('client',
-                                                kwargs={'pk': client.pk}))
+            return HttpResponseRedirect(reverse('home'))
 
     context['form'] = form
     return render(request, 'client_edit.html', context)

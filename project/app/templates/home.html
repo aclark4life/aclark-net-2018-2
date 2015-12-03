@@ -22,7 +22,7 @@
                     <tr>
                       <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
                       <td>{{ client.address }}</td>
-                      <td>{{ client.name }}</td>
+                      <td>{{ client.name }}</td>  <!-- Sort on this field -->
                     </tr>
                   {% endfor %}
                   </tbody>
