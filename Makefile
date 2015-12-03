@@ -17,5 +17,6 @@ migrate:
 	rm -rf project/app/migrations
 	python manage.py makemigrations app
 	python manage.py migrate
+	git add db.sqlite3
 su:
 	python manage.py createsuperuser
