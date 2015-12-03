@@ -81,7 +81,14 @@ def project_edit(request, pk=None):
 
         if form.is_valid():
             client = form.save()
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('project_index'))
 
     context['form'] = form
     return render(request, 'project_edit.html', context)
+
+
+def project_index(request, pk=None):
+    context = {}
+    projects = Project.objects.all()
+    context['projects'] = projects
+    return render(request, 'project_index.html', context)
