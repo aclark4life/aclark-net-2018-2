@@ -14,6 +14,7 @@
                     <tr>
                       <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                       <th>Address</th>
+                      <th>Projects</th>
                       <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                     </tr>
                   </thead>
@@ -22,6 +23,7 @@
                     <tr>
                       <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
                       <td>{{ client.address }}</td>
+                      <td>{{ client.projects }}</td>
                       <td>{{ client.name }}</td>  <!-- Sort on this field -->
                     </tr>
                   {% endfor %}
