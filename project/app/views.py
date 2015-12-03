@@ -12,7 +12,7 @@ def about(request):
     return render(request, 'about.html', {})
 
 
-def client(request, pk):
+def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
     context['client'] = client
