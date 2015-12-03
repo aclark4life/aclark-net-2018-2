@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from .forms import ClientForm
 from .models import Client
 
 # Create your views here.
@@ -14,6 +15,13 @@ def client(request, pk):
     client = get_object_or_404(Client, pk=pk)
     context['client'] = client
     return render(request, 'client.html', context)
+
+
+def client_edit(request, pk=None):
+    context = {}
+    form = ClientForm()
+    context['form'] = form
+    return render(request, 'client_edit.html', context)
 
 
 def contact(request):
