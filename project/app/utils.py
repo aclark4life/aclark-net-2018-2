@@ -7,5 +7,4 @@ def class_name(self):
     client-2
     client-3
     """
-
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
