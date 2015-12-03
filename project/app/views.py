@@ -69,18 +69,19 @@ def project_edit(request, pk=None):
     if pk is None:
         form = ProjectForm()
     else:
-        client = get_object_or_404(Project, pk=pk)
-        form = ProjectForm(instance=client)
+        project = get_object_or_404(Project, pk=pk)
+        form = ProjectForm(instance=project)
 
     if request.method == 'POST':
 
         if pk is None:
             form = ProjectForm(request.POST)
         else:
-            form = ProjectForm(request.POST, instance=client)
+            project = get_object_or_404(Project, pk=pk)
+            form = ProjectForm(request.POST, instance=project)
 
         if form.is_valid():
-            client = form.save()
+            project = form.save()
             return HttpResponseRedirect(reverse('project_index'))
 
     context['form'] = form
