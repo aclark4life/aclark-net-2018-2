@@ -8,7 +8,7 @@ class Client(models.Model):
     """
     """
 
-    name = models.CharField()
+    name = models.CharField(max_length=300)
     address = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
