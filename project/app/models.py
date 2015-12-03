@@ -8,7 +8,7 @@ class Client(models.Model):
     """
 
     name = models.CharField(max_length=30)
-    address = models.TextField()
+    address = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return '-'.join([self.__class__.__name__, str(self.pk)])
