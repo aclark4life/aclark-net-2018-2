@@ -12,11 +12,19 @@
                     <table data-toggle="table"> 
                       <thead>
                         <tr>
+                          <th>Id</th>
                           <th>Name</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td>{{ project.name }}</td></tr>
+                        <tr>
+                            <td>{{ project.pk }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.start_date|default:'' }}</td>
+                            <td>{{ project.end_date|default:'' }}</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
