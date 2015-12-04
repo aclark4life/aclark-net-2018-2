@@ -1,5 +1,5 @@
 from django.db import models
-from .utils import class_name
+from .utils import class_name_pk
 
 # Create your models here.
 
@@ -12,18 +12,28 @@ class Client(models.Model):
     address = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
-        return class_name(self)
+        return class_name_pk(self)
 
 
 class Invoice(models.Model):
     """
     """
 
+    client = models.ForeignKey(Client, blank=True, null=True)
+    project = models.ForeignKey('Project', blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
 
 class Task(models.Model):
     """
     """
     entry = models.DurationField()
+    project = models.ForeignKey('Project', blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
 
 
 class Project(models.Model):
@@ -38,4 +48,4 @@ class Project(models.Model):
     client = models.ForeignKey(Client, blank=True, null=True)
 
     def __unicode__(self):
-        return class_name(self)
+        return class_name_pk(self)

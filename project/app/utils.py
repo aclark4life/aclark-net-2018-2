@@ -1,4 +1,4 @@
-def class_name(self):
+def class_name_pk(self):
     """
 
     Django Admin object names based on class and pk, e.g.:
