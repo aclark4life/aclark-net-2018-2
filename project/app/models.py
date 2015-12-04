@@ -45,7 +45,7 @@ class Project(models.Model):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
-    client = models.ForeignKey(Client, blank=True, null=True)
+    client = models.ForeignKey(Client)
 
     def __unicode__(self):
         return class_name_pk(self)
