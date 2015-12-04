@@ -71,7 +71,12 @@ def project_edit(request, client=None, pk=None):
     context = {}
 
     if pk is None:
-        form = ProjectForm()
+        if client is None:
+            form = ProjectForm()
+        else:
+            client = get_object_or_404(Client, pk=client)
+            project = Project(client=client)
+            form = ProjectForm(instance=project)
     else:
         project = get_object_or_404(Project, pk=pk)
         form = ProjectForm(instance=project)
