@@ -31,6 +31,8 @@
                         <tr>
                           <th>Id</th>
                           <th>Name</th>
+                          <th>Start</th>
+                          <th>Stop</th>
                         </tr>
                       </thead>
                       <tbody> 
@@ -38,6 +40,8 @@
                       <tr>
                         <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
                         <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                        <td><a href="{% url 'project' project.pk %}">{{ project.start }}</a></td>
+                        <td><a href="{% url 'project' project.pk %}">{{ project.stop }}</a></td>
                       </tr>
                     {% endfor %} 
                       </tbody>
