@@ -15,6 +15,17 @@ class Client(models.Model):
         return class_name(self)
 
 
+class Invoice(models.Model):
+    """
+    """
+
+
+class Task(models.Model):
+    """
+    """
+    entry = models.DurationField()
+
+
 class Project(models.Model):
     """
     """
