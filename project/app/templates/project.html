@@ -5,26 +5,25 @@
                 <div class="row">
                   <div class="col-md-6">
                     <h1>
-                        Client
-                        <a class="btn btn-default btn-lg pull-right" href="{% url 'client_edit' client.pk %}">Edit</a>
+                        Project
+                        <a class="btn btn-default btn-lg pull-right" href="{% url 'project_edit' project.pk %}">Edit</a>
                     </h1>
 
                     <table data-toggle="table"> 
                       <thead>
                         <tr>
                           <th>Name</th>
-                          <th>Address</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td>{{ client.name }}</td><td>{{ client.address }}</td></tr>
+                        <tr><td>{{ project.name }}</td></tr>
                       </tbody>
                     </table>
                   </div>
                   <div class="col-md-6">
                     <h1>
-                        Projects
-                        <a class="btn btn-default btn-lg pull-right" href="{% url 'project_edit' %}">Add</a>
+                        Tasks
+                        <a class="btn btn-default btn-lg pull-right" href="{% url 'task_edit' %}">Add</a>
                     </h1>
                   </div>
 

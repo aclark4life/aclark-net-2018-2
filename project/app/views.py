@@ -4,8 +4,10 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from .forms import ClientForm
 from .forms import ProjectForm
+from .forms import TaskForm
 from .models import Client
 from .models import Project
+from .models import Task
 
 # Create your views here.
 
@@ -93,3 +95,42 @@ def project_index(request, pk=None):
     projects = Project.objects.all()
     context['projects'] = projects
     return render(request, 'project_index.html', context)
+
+
+def task(request, pk=None):
+    context = {}
+    task = get_object_or_404(Task, pk=pk)
+    context['task'] = task
+    return render(request, 'task.html', context)
+
+
+def task_edit(request, pk=None):
+    context = {}
+
+    if pk is None:
+        form = TaskForm()
+    else:
+        task = get_object_or_404(Task, pk=pk)
+        form = TaskForm(instance=task)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = TaskForm(request.POST)
+        else:
+            task = get_object_or_404(Task, pk=pk)
+            form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            task = form.save()
+            return HttpResponseRedirect(reverse('task_index'))
+
+    context['form'] = form
+    return render(request, 'task_edit.html', context)
+
+
+def task_index(request, pk=None):
+    context = {}
+    tasks = Task.objects.all()
+    context['tasks'] = tasks
+    return render(request, 'task_index.html', context)

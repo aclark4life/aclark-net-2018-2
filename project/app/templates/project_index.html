@@ -18,8 +18,8 @@
                   <tbody>
                   {% for project in projects %}
                     <tr>
-                      <td><a href="{% url 'project_edit' project.pk %}">{{ project.pk }}</a></td>
-                      <td><a href="{% url 'project_edit' project.pk %}">{{ project.name }}</a></td>
+                      <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
+                      <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
                       <td>{{ project.name }}</td>
                     </tr>
                   {% endfor %}
