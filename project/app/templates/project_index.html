@@ -11,7 +11,8 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="name" data-sortable="true">Name</th>
+                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
+                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -19,6 +20,7 @@
                     <tr>
                       <td><a href="{% url 'project_edit' project.pk %}">{{ project.pk }}</a></td>
                       <td><a href="{% url 'project_edit' project.pk %}">{{ project.name }}</a></td>
+                      <td>{{ project.name }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

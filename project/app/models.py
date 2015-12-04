@@ -21,8 +21,8 @@ class Project(models.Model):
 
     name = models.CharField(max_length=300, blank=True, null=True)
 
-    end_date = models.DateField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     client = models.ForeignKey(Client, blank=True, null=True)
 
