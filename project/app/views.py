@@ -19,7 +19,9 @@ def about(request):
 def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
+    projects = Project.objects.filter(client=client)
     context['client'] = client
+    context['projects'] = projects
     return render(request, 'client.html', context)
 
 
