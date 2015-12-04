@@ -67,7 +67,7 @@ def project(request, pk=None):
     return render(request, 'project.html', context)
 
 
-def project_edit(request, pk=None):
+def project_edit(request, client=None, pk=None):
     context = {}
 
     if pk is None:
