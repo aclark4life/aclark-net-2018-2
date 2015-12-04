@@ -29,12 +29,16 @@
                     <table data-toggle="table"> 
                       <thead>
                         <tr>
+                          <th>Id</th>
                           <th>Name</th>
                         </tr>
                       </thead>
                       <tbody> 
                     {% for project in projects %}
-                      <tr><td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td></tr>
+                      <tr>
+                        <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
+                        <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                      </tr>
                     {% endfor %} 
                       </tbody>
                   </div>
