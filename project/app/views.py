@@ -143,7 +143,7 @@ def task_edit(request, pk=None, project=None):
     return render(request, 'task_edit.html', context)
 
 
-def task_index(request, pk=None):
+def task_index(request):
     context = {}
     tasks = Task.objects.all()
     context['tasks'] = tasks

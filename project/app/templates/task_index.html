@@ -10,6 +10,7 @@
                   <thead>
                     <tr>
                       <th data-field="entry" data-sortable="true">Id</th>
+                      <th data-field="entry" data-sortable="true">Description</th>
                       <th data-field="entry" data-sortable="true">Start Time</th>
                       <th data-field="entry" data-sortable="true">End Time</th>
                     </tr>
@@ -18,6 +19,7 @@
                   {% for task in tasks %}
                     <tr>
                       <td><a href="{% url 'task' task.pk %}">{{ task.pk }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.description }}</a></td>
                       <td><a href="{% url 'task' task.pk %}">{{ task.start_time }}</a></td>
                       <td><a href="{% url 'task' task.pk %}">{{ task.end_time }}</a></td>
                     </tr>
