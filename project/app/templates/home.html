@@ -20,7 +20,7 @@
                   <tbody>
                   {% for client in clients %}
                     <tr>
-                      <td>{{ client.pk }}</td>
+                      <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
                       <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
                       <td>{{ client.name }}</td>  <!-- Sort on this field -->
                     </tr>
