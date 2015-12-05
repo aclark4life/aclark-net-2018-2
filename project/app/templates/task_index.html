@@ -18,10 +18,10 @@
                   <tbody>
                   {% for task in tasks %}
                     <tr>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.pk }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.description }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.start_time }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.end_time }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.pk|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.description|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.start_time|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.end_time|default:'' }}</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
