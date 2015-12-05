@@ -63,7 +63,9 @@ def home(request):
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
+    tasks = Task.objects.filter(project=project)
     context['project'] = project
+    context['tasks'] = tasks
     return render(request, 'project.html', context)
 
 

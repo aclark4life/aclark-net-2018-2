@@ -33,6 +33,22 @@
                         Tasks
                         <a class="btn btn-default btn-lg pull-right" href="{% url 'task_edit' project.pk %}">Add</a>
                     </h1>
+                    <table data-toggle="table"> 
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Entry</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for task in tasks %}
+                        <tr>
+                            <td><a href="{% url 'task' task.pk %}">{{ task.pk }}</a></td>
+                            <td><a href="{% url 'task' task.pk %}">{{ task.entry|default:'' }}</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
                   </div>
 
 
