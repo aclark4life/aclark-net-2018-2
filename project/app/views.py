@@ -3,9 +3,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from .forms import ClientForm
+from .forms import InvoiceForm
 from .forms import ProjectForm
 from .forms import TaskForm
 from .models import Client
+from .models import Invoice
 from .models import Project
 from .models import Task
 
@@ -58,6 +60,50 @@ def home(request):
     clients = Client.objects.all()
     context['clients'] = clients
     return render(request, 'home.html', context)
+
+
+def invoice(request, pk=None):
+    context = {}
+    invoice = get_object_or_404(Invoice, pk=pk)
+    context['invoice'] = invoice
+    return render(request, 'invoice.html', context)
+
+
+def invoice_edit(request, client=None, pk=None):
+    context = {}
+
+    if pk is None:
+        if client is None:
+            form = InvoiceForm()
+        else:
+            client = get_object_or_404(Client, pk=client)
+            invoice = Invoice(client=client)
+            form = InvoiceForm(instance=invoice)
+    else:
+        invoice = get_object_or_404(Invoice, pk=pk)
+        form = InvoiceForm(instance=invoice)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = InvoiceForm(request.POST)
+        else:
+            invoice = get_object_or_404(Invoice, pk=pk)
+            form = InvoiceForm(request.POST, instance=invoice)
+
+        if form.is_valid():
+            invoice = form.save()
+            return HttpResponseRedirect(reverse('invoice_index'))
+
+    context['form'] = form
+    return render(request, 'invoice_edit.html', context)
+
+
+def invoice_index(request):
+    context = {}
+    invoices = Invoice.objects.all()
+    context['invoices'] = invoices
+    return render(request, 'invoice_index.html', context)
 
 
 def project(request, pk=None):
