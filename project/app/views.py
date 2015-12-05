@@ -111,11 +111,16 @@ def task(request, pk=None):
     return render(request, 'task.html', context)
 
 
-def task_edit(request, pk=None):
+def task_edit(request, pk=None, project=None):
     context = {}
 
     if pk is None:
-        form = TaskForm()
+        if project is None:
+            form = TaskForm()
+        else:
+            project = get_object_or_404(Project, pk=project)
+            task = Task(project=project)
+            form = TaskForm(instance=task)
     else:
         task = get_object_or_404(Task, pk=pk)
         form = TaskForm(instance=task)

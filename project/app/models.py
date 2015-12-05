@@ -29,7 +29,7 @@ class Invoice(models.Model):
 class Task(models.Model):
     """
     """
-    entry = models.DurationField()
+    entry = models.DurationField(default='1:00')
     project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):
