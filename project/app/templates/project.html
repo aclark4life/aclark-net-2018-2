@@ -36,6 +36,7 @@
                       <thead>
                         <tr>
                           <th>Id</th>
+                          <th>Description</th>
                           <th>Start Time</th>
                           <th>End Time</th>
                         </tr>
@@ -44,6 +45,7 @@
                         {% for task in tasks %}
                         <tr>
                             <td><a href="{% url 'task' task.pk %}">{{ task.pk }}</a></td>
+                            <td><a href="{% url 'task' task.pk %}">{{ task.description|default:'' }}</a></td>
                             <td><a href="{% url 'task' task.pk %}">{{ task.start_time|default:'' }}</a></td>
                             <td><a href="{% url 'task' task.pk %}">{{ task.end_time|default:'' }}</a></td>
                         </tr>
