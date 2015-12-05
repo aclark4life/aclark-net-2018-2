@@ -8,20 +8,27 @@
                         Task
                         <a class="btn btn-default btn-lg pull-right" href="{% url 'task_edit' task.pk %}">Edit</a>
                     </h1>
-
                     <table data-toggle="table"> 
                       <thead>
                         <tr>
-                          <th>Name</th>
+                          <th>Id</th>
+                          <th>Description</th>
+                          <th>Start Time</th>
+                          <th>End Time</th>
+                          <th>Project</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td>{{ task.entry }}</td></tr>
+                        <tr>
+                          <td>{{ task.id }}</td>
+                          <td>{{ task.description }}</td>
+                          <td>{{ task.start_time }}</td>
+                          <td>{{ task.end_time }}</td>
+                          <td>{{ task.project }}</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
-
-
                 </div>
 
 {% endblock %}
