@@ -29,7 +29,8 @@ class Invoice(models.Model):
 class Task(models.Model):
     """
     """
-    entry = models.DurationField(default='1:00')
+    start_date = models.DateTimeField(blank=True, null=True)
+    end_date = models.DateTimeField(blank=True, null=True)
     project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):
