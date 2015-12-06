@@ -40,7 +40,8 @@
                       </tr>
                       {% for task in tasks %}
                       <tr> 
-                        <td colspan="2">{{ task }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.entry }}</td>
                       </tr>
                       {% endfor %}
                     <table>
