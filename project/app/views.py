@@ -3,10 +3,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from .forms import ClientForm
+from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import ProjectForm
 from .forms import TaskForm
 from .models import Client
+from .models import Estimate
 from .models import Invoice
 from .models import Project
 from .models import Task
@@ -53,6 +55,50 @@ def client_edit(request, pk=None):
 
 def contact(request):
     return render(request, 'contact.html', {})
+
+
+def estimate(request, pk=None):
+    context = {}
+    estimate = get_object_or_404(Estimate, pk=pk)
+    context['estimate'] = estimate
+    return render(request, 'estimate.html', context)
+
+
+def estimate_edit(request, client=None, pk=None):
+    context = {}
+
+    if pk is None:
+        if client is None:
+            form = EstimateForm()
+        else:
+            client = get_object_or_404(Client, pk=client)
+            estimate = Estimate(client=client)
+            form = EstimateForm(instance=estimate)
+    else:
+        estimate = get_object_or_404(Estimate, pk=pk)
+        form = EstimateForm(instance=estimate)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = EstimateForm(request.POST)
+        else:
+            estimate = get_object_or_404(Estimate, pk=pk)
+            form = EstimateForm(request.POST, instance=estimate)
+
+        if form.is_valid():
+            estimate = form.save()
+            return HttpResponseRedirect(reverse('estimate_index'))
+
+    context['form'] = form
+    return render(request, 'estimate_edit.html', context)
+
+
+def estimate_index(request):
+    context = {}
+    estimates = Estimate.objects.all()
+    context['estimates'] = estimates
+    return render(request, 'estimate_index.html', context)
 
 
 def home(request):

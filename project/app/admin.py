@@ -1,5 +1,6 @@
 from .models import Client
-from .models import Estimate, Invoice
+from .models import Estimate
+from .models import Invoice
 from .models import Project
 from .models import Task
 from django.contrib import admin

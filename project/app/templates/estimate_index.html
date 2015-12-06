@@ -13,23 +13,21 @@
 {% block content %}
 
                 <h1>
-                    Invoices
-                    <a class="btn btn-default btn-lg pull-right" href="{% url 'invoice_edit' %}">Add</a>
+                    Estimates
+                    <a class="btn btn-default btn-lg pull-right" href="{% url 'estimate_edit' %}">Add</a>
                 </h1>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="project" data-sortable="true">Project</th>
                       <th data-field="client" data-sortable="true">Client</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for invoice in invoices %}
+                  {% for estimate in estimates %}
                     <tr>
-                      <td><a href="{% url 'invoice' invoice.0.pk %}">{{ invoice.0.pk|default:'' }}</a></td>
-                      <td><a href="{% url 'project' invoice.0.project.pk %}">{{ invoice.0.project|default:'' }}</a></td>
-                      <td><a href="{% url 'client' invoice.1.pk %}">{{ invoice.1.name|default:'' }}</a></td>
+                      <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.pk|default:'' }}</a></td>
+                      <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.client|default:'' }}</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>

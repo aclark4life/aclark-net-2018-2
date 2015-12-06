@@ -1,4 +1,5 @@
 from .models import Client
+from .models import Estimate
 from .models import Invoice
 from .models import Project
 from .models import Task
@@ -8,6 +9,12 @@ from django.forms import ModelForm
 class ClientForm(ModelForm):
     class Meta:
         model = Client
+        fields = '__all__'
+
+
+class EstimateForm(ModelForm):
+    class Meta:
+        model = Estimate
         fields = '__all__'
 
 
