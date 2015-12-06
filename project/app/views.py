@@ -66,7 +66,7 @@ def invoice(request, pk=None):
     context = {}
     invoice = get_object_or_404(Invoice, pk=pk)
     project = Project.objects.filter(invoice=invoice)
-    client = Client.objects.filter(project=project)
+    client = Client.objects.filter(project=project)[0]
     context['client'] = client
     context['invoice'] = invoice
     context['project'] = project

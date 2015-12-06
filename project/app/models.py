@@ -18,7 +18,7 @@ class Client(models.Model):
 class Invoice(models.Model):
     """
     """
-    project = models.ForeignKey('Project', blank=True, null=True)
+    project = models.ForeignKey('Project')
 
     def __unicode__(self):
         return class_name_pk(self)
