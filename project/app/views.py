@@ -217,8 +217,10 @@ def task(request, pk=None):
     return render(request, 'task.html', context)
 
 
-def task_edit(request, pk=None, project=None):
+def task_edit(request, pk=None):
     context = {}
+
+    project = request.GET.get('project', None)
 
     if pk is None:
         if project is None:
