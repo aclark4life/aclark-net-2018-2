@@ -18,8 +18,6 @@ class Client(models.Model):
 class Invoice(models.Model):
     """
     """
-
-    client = models.ForeignKey(Client, blank=True, null=True)
     project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):

@@ -65,7 +65,11 @@ def home(request):
 def invoice(request, pk=None):
     context = {}
     invoice = get_object_or_404(Invoice, pk=pk)
+    project = Project.objects.filter(invoice=invoice)
+    client = Client.objects.filter(project=project)
+    context['client'] = client
     context['invoice'] = invoice
+    context['project'] = project
     return render(request, 'invoice.html', context)
 
 
@@ -101,8 +105,12 @@ def invoice_edit(request, client=None, pk=None):
 
 def invoice_index(request):
     context = {}
-    invoices = Invoice.objects.all()
+    invoices = []
+    for invoice in Invoice.objects.all():
+        client = Client.objects.filter(project=invoice.project)
+        invoices.append([invoice, client])
     context['invoices'] = invoices
+
     return render(request, 'invoice_index.html', context)
 
 
