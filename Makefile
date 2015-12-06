@@ -18,5 +18,7 @@ migrate:
 	python manage.py makemigrations app
 	python manage.py migrate
 	git add db.sqlite3
+review:
+	open -a "Sublime Text 2" `find project -name \*.py`
 su:
 	python manage.py createsuperuser
