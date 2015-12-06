@@ -15,6 +15,15 @@ class Client(models.Model):
         return class_name_pk(self)
 
 
+class Estimate(models.Model):
+    """
+    """
+    client = models.ForeignKey(Client)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
+
 class Invoice(models.Model):
     """
     """
