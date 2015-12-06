@@ -38,6 +38,11 @@
                           <h4>Estimate For:</h4>
                         </td>
                       </tr>
+                      {% for task in tasks %}
+                      <tr> 
+                        <td colspan="2">{{ task }}</td>
+                      </tr>
+                      {% endfor %}
                     <table>
                   </div>
                 </div>

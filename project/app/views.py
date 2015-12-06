@@ -60,7 +60,9 @@ def contact(request):
 def estimate(request, pk=None):
     context = {}
     estimate = get_object_or_404(Estimate, pk=pk)
+    tasks = Task.objects.filter(client=estimate.client)
     context['estimate'] = estimate
+    context['tasks'] = tasks
     return render(request, 'estimate.html', context)
 
 
