@@ -171,8 +171,10 @@ def project(request, pk=None):
     return render(request, 'project.html', context)
 
 
-def project_edit(request, client=None, pk=None):
+def project_edit(request, pk=None):
     context = {}
+
+    client = request.GET.get('client', None)
 
     if pk is None:
         if client is None:
