@@ -107,7 +107,7 @@ def invoice_index(request):
     context = {}
     invoices = []
     for invoice in Invoice.objects.all():
-        client = Client.objects.filter(project=invoice.project)
+        client = Client.objects.filter(project=invoice.project)[0]
         invoices.append([invoice, client])
     context['invoices'] = invoices
 

@@ -28,7 +28,7 @@
                     <tr>
                       <td><a href="{% url 'invoice' invoice.0.pk %}">{{ invoice.0.pk|default:'' }}</a></td>
                       <td><a href="{% url 'project' invoice.0.project.pk %}">{{ invoice.0.project|default:'' }}</a></td>
-                      <td><a href="{% url 'client' invoice.1.0.pk %}">{{ invoice.1.0.name|default:'' }}</a></td>
+                      <td><a href="{% url 'client' invoice.1.pk %}">{{ invoice.1.name|default:'' }}</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
