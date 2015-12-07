@@ -49,6 +49,13 @@ def client_edit(request, pk=None):
     return render(request, 'client_edit.html', context)
 
 
+def client_index(request):
+    context = {}
+    clients = Client.objects.all()
+    context['clients'] = clients
+    return render(request, 'home.html', context)
+
+
 def estimate(request, pk=None):
     context = {}
     estimate = get_object_or_404(Estimate, pk=pk)

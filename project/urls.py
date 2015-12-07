@@ -32,6 +32,9 @@ urlpatterns = [
     url(r'^client/add$',
         views.client_edit,
         name='client_edit'),
+    url(r'^client$',
+        views.client_index,
+        name='client_index'),
     # Estimate
     url(r'^estimate/(?P<pk>\d+)$',
         views.estimate,
