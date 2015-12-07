@@ -2,7 +2,9 @@
 
 {% block content %}
 
-                <h3>Clients<a class="btn btn-primary btn-lg pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <h3>Clients<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
@@ -10,7 +12,6 @@
                       <th data-field="id" data-sortable="true">Id</th>
                       <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                       <th data-field="address" data-sortable="true">Address</th>
-
                       <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                     </tr>
                   </thead>
@@ -20,11 +21,12 @@
                       <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
                       <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
                       <td><a href="{% url 'client' client.pk %}">{{ client.address }}</a></td>
-
-                      <td>{{ client.name }}</td>  <!-- Sort on this field -->
+                      <td>{{ client.name }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
+              </div>
+            </div>
 
 {% endblock %}
