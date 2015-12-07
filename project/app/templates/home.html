@@ -2,27 +2,6 @@
 
 {% block content %}
 
-                <h3>Clients<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
-                <hr>
-                <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
-                  <thead>
-                    <tr>
-                      <th data-field="id" data-sortable="true">Id</th>
-                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
-                      <th data-field="address" data-sortable="true">Address</th>
-                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for client in clients %}
-                    <tr>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.address }}</a></td>
-                      <td>{{ client.name }}</td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
+                <h3>Dashboard<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
 
 {% endblock %}

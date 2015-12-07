@@ -53,7 +53,7 @@ def client_index(request):
     context = {}
     clients = Client.objects.all()
     context['clients'] = clients
-    return render(request, 'home.html', context)
+    return render(request, 'client_index.html', context)
 
 
 def estimate(request, pk=None):
