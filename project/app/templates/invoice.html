@@ -41,6 +41,12 @@
                           <h4>Invoice For:</h4>
                         </td>
                       </tr>
+                      {% for task in tasks %}
+                      <tr>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.entry }}</td>
+                      </tr>
+                      {% endfor %}
                     <table>
                   </div>
                 </div>

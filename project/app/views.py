@@ -115,9 +115,11 @@ def invoice(request, pk=None):
     invoice = get_object_or_404(Invoice, pk=pk)
     project = Project.objects.filter(invoice=invoice)
     client = Client.objects.filter(project=project)[0]
+    tasks = Task.objects.filter(client=client)
     context['client'] = client
     context['invoice'] = invoice
     context['project'] = project
+    context['tasks'] = tasks
     return render(request, 'invoice.html', context)
 
 

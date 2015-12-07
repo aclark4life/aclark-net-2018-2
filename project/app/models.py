@@ -12,7 +12,7 @@ class Client(models.Model):
     address = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
-        return class_name_pk(self)
+        return self.name
 
 
 class Estimate(models.Model):
@@ -50,7 +50,7 @@ class Project(models.Model):
     """
     """
 
-    name = models.CharField(max_length=300, blank=True, null=True)
+    name = models.CharField(max_length=300)
 
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
@@ -58,4 +58,4 @@ class Project(models.Model):
     client = models.ForeignKey(Client)
 
     def __unicode__(self):
-        return class_name_pk(self)
+        return self.name
