@@ -10,8 +10,6 @@
 
 {% block content %}
 
-            <div class="row">
-              <div class="col-md-10 col-md-offset-1">
                 <h3>Estimates<a class="btn btn-default pull-right" href="{% url 'estimate_edit' %}">Add Estimate</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
@@ -30,7 +28,5 @@
                   {% endfor %}
                   </tbody>
                 </table>
-              </div>
-            </div>
 
 {% endblock %}

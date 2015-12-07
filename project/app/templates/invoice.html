@@ -2,8 +2,6 @@
 
 {% block content %}
 
-            <div class="row">
-              <div class="col-md-10 col-md-offset-1">
                 <h3>Invoice {{ invoice.pk }}<a class="btn btn-default btn-lg pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit</a></h3>
                 <hr>
                 <table data-toggle="table">
@@ -46,7 +44,5 @@
                   </tr>
                   {% endfor %}
                 <table>
-              </div>
-            </div>
 
 {% endblock %}

@@ -2,8 +2,6 @@
 
 {% block content %}
 
-            <div class="row">
-              <div class="col-md-10 col-md-offset-1">
                 <h3>Task<a class="btn btn-default btn-lg pull-right" href="{% url 'task_edit' pk=task.pk %}">Edit</a></h3>
                 <hr>
                 <table data-toggle="table"> 
@@ -26,7 +24,5 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
-            </div>
 
 {% endblock %}
