@@ -23,8 +23,8 @@
                           <td>{{ task.id }}</td>
                           <td>{{ task.description }}</td>
                           <td>{{ task.entry }}</td>
-                          <td>{{ task.client }}</td>
-                          <td>{{ task.project }}</td>
+                          <td>{{ task.client|default:'' }}</td>
+                          <td>{{ task.project|default:'' }}</td>
                         </tr>
                       </tbody>
                     </table>
