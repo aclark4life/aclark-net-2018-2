@@ -17,9 +17,9 @@ class Client(models.Model):
 class Contact(models.Model):
     """
     """
-    first_name = models.CharField(max_length=300)
-    last_name = models.CharField(max_length=300)
-    client = models.ForeignKey(Client)
+    first_name = models.CharField(max_length=300, blank=True, null=True)
+    last_name = models.CharField(max_length=300, blank=True, null=True)
+    client = models.ForeignKey(Client, blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)

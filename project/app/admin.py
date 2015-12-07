@@ -6,18 +6,14 @@ from .models import Invoice
 from .models import Project
 from .models import Task
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    """
-    """
-
-
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
     """
     """
 
@@ -50,3 +46,17 @@ class ProjectAdmin(admin.ModelAdmin):
 class TaskAdmin(admin.ModelAdmin):
     """
     """
+
+
+# Django Import/Export
+class ContactResource(resources.ModelResource):
+    class Meta:
+        model = Contact
+
+
+@admin.register(Contact)
+class ContactAdmin(ImportExportModelAdmin):
+    """
+    """
+    resource_class = ContactResource
+    pass

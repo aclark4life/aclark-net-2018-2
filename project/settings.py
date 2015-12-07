@@ -36,6 +36,7 @@ INSTALLED_APPS = (  # 'django_admin_bootstrapped',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'import_export',
     'project.app', )
 
 MIDDLEWARE_CLASSES = (

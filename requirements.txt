@@ -1,6 +1,8 @@
 Django==1.9.0
 django-crispy-forms
+django-import-export
 flake8
 gunicorn
+tablib
 whitenoise
 yapf
