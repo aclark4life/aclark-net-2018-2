@@ -18,8 +18,7 @@
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
                       <th data-field="description" data-sortable="true">Description</th>
-                      <th data-field="start_time" data-sortable="true">Start Time</th>
-                      <th data-field="end_time" data-sortable="true">End Time</th>
+                      <th data-field="entry" data-sortable="true">Entry</th>
                       <th data-field="client" data-sortable="true">Client</th>
                       <th data-field="project" data-sortable="true">Project</th>
                     </tr>
@@ -29,8 +28,7 @@
                     <tr>
                       <td><a href="{% url 'task' task.pk %}">{{ task.pk|default:'' }}</a></td>
                       <td><a href="{% url 'task' task.pk %}">{{ task.description|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.start_time|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.end_time|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.entry|default:'' }}</a></td>
                       <td>{{ task.client|default:'' }}</a></td>
                       <td>{{ task.project|default:'' }}</a></td>
                     </tr>
