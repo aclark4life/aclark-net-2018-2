@@ -21,9 +21,6 @@ urlpatterns = [
     url(r'^$',
         views.home,
         name='home'),
-    url(r'^about$',
-        views.about,
-        name='about'),
     url(r'^admin/', include(admin.site.urls)),
     # Client
     url(r'^client/(?P<pk>\d+)$',
@@ -93,7 +90,4 @@ urlpatterns = [
     url(r'^task$',
         views.task_index,
         name='task_index'),
-    url(r'^contact$',
-        views.contact,
-        name='contact'),
 ]

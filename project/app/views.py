@@ -16,10 +16,6 @@ from .models import Task
 # Create your views here.
 
 
-def about(request):
-    return render(request, 'about.html', {})
-
-
 def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
@@ -51,10 +47,6 @@ def client_edit(request, pk=None):
 
     context['form'] = form
     return render(request, 'client_edit.html', context)
-
-
-def contact(request):
-    return render(request, 'contact.html', {})
 
 
 def estimate(request, pk=None):

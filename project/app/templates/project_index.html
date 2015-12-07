@@ -10,7 +10,9 @@
 
 {% block content %}
 
-                <h1>Projects<a class="btn btn-primary btn-lg pull-right" href="{% url 'project_edit' %}">Add Project</a></h1>
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}">Add Project</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
@@ -34,5 +36,7 @@
                   {% endfor %}
                   </tbody>
                 </table>
+              </div>
+            </div>
 
 {% endblock %}
