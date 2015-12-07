@@ -11,17 +11,11 @@
 
 {% block content %}
 
-                <h1>Project &rarr; Edit</h1>
-
+                <h3>Project &rarr; Edit</h3>
                 <hr>
-
-                <form action="" method="post">
-
-                {% csrf_token %}
-
+                <form action="" method="post">{% csrf_token %}
                 {{ form|crispy }}
-
                 <input class="btn btn-primary btn-lg" type="submit" value="Save">
-
                 </form>
+
 {% endblock %}

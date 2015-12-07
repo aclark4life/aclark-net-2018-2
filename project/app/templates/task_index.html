@@ -10,10 +10,7 @@
 
 {% block content %}
 
-                <h1>
-                    Tasks
-                    <a class="btn btn-primary btn-lg pull-right" href="{% url 'task_edit' %}">Add Task</a>
-                </h1>
+                <h3>Tasks<a class="btn btn-default pull-right" href="{% url 'task_edit' %}">Add Task</a></h3>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
