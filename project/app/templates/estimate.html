@@ -2,48 +2,48 @@
 
 {% block content %}
 
-                <div class="row">
-                  <div class="col-md-12">
-                    <h3>Estimate {{ estimate.pk }}<a class="btn btn-default btn-lg pull-right" href="{% url 'estimate_edit' pk=estimate.pk %}">Edit</a></h3>
-                    <hr>
-                    <table data-toggle="table">
-                      <thead>
-                        <tr>
-                          <th>Id</th>
-                          <th>Client</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{{ estimate.pk }}</td>
-                          <td>{{ client }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <hr>
-                    <table data-toggle="table">
-                      <tr>
-                        <td class="col-md-9"><h1>ESTIMATE</h1></td>
-                        <td class="col-md-3"><h4>From:</h4></td>
-                      </tr>
-                      <tr>
-                        <td class="col-md-9">
-                          <h4>Estimate Id:</h4>
-                          <h4>Issue Date:</h4>
-                          <h4>Subject:</h4>
-                        </td>
-                        <td class="col-md-3">
-                          <h4>Estimate For:</h4>
-                        </td>
-                      </tr>
-                      {% for task in tasks %}
-                      <tr> 
-                        <td>{{ task.description }}</td>
-                        <td>{{ task.entry }}</td>
-                      </tr>
-                      {% endfor %}
-                    <table>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <h3>Estimate {{ estimate.pk }}<a class="btn btn-default btn-lg pull-right" href="{% url 'estimate_edit' pk=estimate.pk %}">Edit</a></h3>
+                <hr>
+                <table data-toggle="table">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Client</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ estimate.pk }}</td>
+                      <td>{{ client }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+                <table data-toggle="table">
+                  <tr>
+                    <td class="col-md-9"><h1>ESTIMATE</h1></td>
+                    <td class="col-md-3"><h4>From:</h4></td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-9">
+                      <h4>Estimate Id:</h4>
+                      <h4>Issue Date:</h4>
+                      <h4>Subject:</h4>
+                    </td>
+                    <td class="col-md-3">
+                      <h4>Estimate For:</h4>
+                    </td>
+                  </tr>
+                  {% for task in tasks %}
+                  <tr> 
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.entry }}</td>
+                  </tr>
+                  {% endfor %}
+                <table>
+              </div>
+            </div>
 
 {% endblock %}

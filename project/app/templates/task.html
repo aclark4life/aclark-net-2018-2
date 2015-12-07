@@ -2,31 +2,31 @@
 
 {% block content %}
 
-                <div class="row">
-                  <div class="col-md-12">
-                    <h3>Task<a class="btn btn-default btn-lg pull-right" href="{% url 'task_edit' pk=task.pk %}">Edit</a></h3>
-                    <hr>
-                    <table data-toggle="table"> 
-                      <thead>
-                        <tr>
-                          <th>Id</th>
-                          <th>Description</th>
-                          <th>Entry</th>
-                          <th>Client</th>
-                          <th>Project</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{{ task.id }}</td>
-                          <td>{{ task.description }}</td>
-                          <td>{{ task.entry }}</td>
-                          <td>{{ task.client|default:'' }}</td>
-                          <td>{{ task.project|default:'' }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <h3>Task<a class="btn btn-default btn-lg pull-right" href="{% url 'task_edit' pk=task.pk %}">Edit</a></h3>
+                <hr>
+                <table data-toggle="table"> 
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Description</th>
+                      <th>Entry</th>
+                      <th>Client</th>
+                      <th>Project</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ task.id }}</td>
+                      <td>{{ task.description }}</td>
+                      <td>{{ task.entry }}</td>
+                      <td>{{ task.client|default:'' }}</td>
+                      <td>{{ task.project|default:'' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
 {% endblock %}

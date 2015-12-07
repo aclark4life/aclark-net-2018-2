@@ -11,10 +11,15 @@
 
 {% block content %}
 
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
                 <h3>Invoice &rarr; Edit</h3>
                 <hr>
                 <form action="" method="post">{% csrf_token %}
                 {{ form|crispy }}
                 <input class="btn btn-primary btn-lg" type="submit" value="Save">
                 </form>
+              </div>
+            </div>
+
 {% endblock %}

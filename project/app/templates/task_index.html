@@ -10,6 +10,8 @@
 
 {% block content %}
 
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1">
                 <h3>Tasks<a class="btn btn-default pull-right" href="{% url 'task_edit' %}">Add Task</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
@@ -36,5 +38,7 @@
                   {% endfor %}
                   </tbody>
                 </table>
+              </div>
+            </div>
 
 {% endblock %}
