@@ -10,7 +10,6 @@
                       <th>Id</th>
                       <th>Description</th>
                       <th>Entry</th>
-                      <th>Client</th>
                       <th>Project</th>
                     </tr>
                   </thead>
@@ -19,7 +18,6 @@
                       <td>{{ task.id }}</td>
                       <td>{{ task.description }}</td>
                       <td>{{ task.entry }}</td>
-                      <td>{{ task.client|default:'' }}</td>
                       <td>{{ task.project|default:'' }}</td>
                     </tr>
                   </tbody>

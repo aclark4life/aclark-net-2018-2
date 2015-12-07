@@ -1,4 +1,5 @@
 from .models import Client
+from .models import Contact
 from .models import Contract
 from .models import Estimate
 from .models import Invoice
@@ -11,6 +12,12 @@ from django.contrib import admin
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
+    """
+    """
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
     """
     """
 

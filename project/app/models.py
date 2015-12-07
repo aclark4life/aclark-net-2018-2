@@ -14,6 +14,17 @@ class Client(models.Model):
         return self.name
 
 
+class Contact(models.Model):
+    """
+    """
+    first_name = models.CharField(max_length=300)
+    last_name = models.CharField(max_length=300)
+    client = models.ForeignKey(Client)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
+
 class Contract(models.Model):
     """
     """
@@ -25,7 +36,7 @@ class Contract(models.Model):
 class Estimate(models.Model):
     """
     """
-    client = models.ForeignKey(Client)
+    project = models.ForeignKey('Project')
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -46,7 +57,6 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     entry = models.DurationField(default='01:00', blank=True, null=True)
 
-    client = models.ForeignKey(Client, blank=True, null=True)
     project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):
