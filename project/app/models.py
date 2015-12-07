@@ -7,12 +7,19 @@ from .utils import class_name_pk
 class Client(models.Model):
     """
     """
-
     name = models.CharField(max_length=300)
     address = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return self.name
+
+
+class Contract(models.Model):
+    """
+    """
+
+    def __unicode__(self):
+        return class_name_pk(self)
 
 
 class Estimate(models.Model):
@@ -49,7 +56,6 @@ class Task(models.Model):
 class Project(models.Model):
     """
     """
-
     name = models.CharField(max_length=300)
 
     start_date = models.DateField(blank=True, null=True)
