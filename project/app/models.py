@@ -62,8 +62,11 @@ class Invoice(models.Model):
 class Task(models.Model):
     """
     """
+    time_entry = models.DurationField('Time Entry',
+                                      default='01:00',
+                                      blank=True,
+                                      null=True)
     description = models.TextField(blank=True, null=True)
-    entry = models.DurationField(default='01:00', blank=True, null=True)
 
     project = models.ForeignKey('Project', blank=True, null=True)
 
