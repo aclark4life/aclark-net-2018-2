@@ -3,7 +3,7 @@
 {% block content %}
 
                   <div class="col-md-6">
-                    <h3>Client<a class="btn btn-default btn-lg pull-right" href="{% url 'client_edit' client.pk %}">Edit</a></h3>
+                    <h3>Client<a class="btn btn-default pull-right" href="{% url 'client_edit' client.pk %}">Edit Client</a></h3>
                     <hr>
                     <table data-toggle="table"> 
                       <thead>
@@ -18,10 +18,8 @@
                     </table>
                   </div>
                   <div class="col-md-6">
-                    <h1>
-                        Projects
-                        <a class="btn btn-default btn-lg pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add</a>
-                    </h1>
+                    <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h3>
+                    <hr>
                     <table data-toggle="table"> 
                       <thead>
                         <tr>
