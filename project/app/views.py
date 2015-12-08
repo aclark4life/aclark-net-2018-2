@@ -56,6 +56,46 @@ def client_index(request):
     return render(request, 'client_index.html', context)
 
 
+def contact(request, pk=None):
+    context = {}
+    contact = get_object_or_404(Client, pk=pk)
+    projects = Project.objects.filter(contact=contact)
+    context['contact'] = contact
+    context['projects'] = projects
+    return render(request, 'contact.html', context)
+
+
+def contact_edit(request, pk=None):
+    context = {}
+
+    if pk is None:
+        form = ClientForm()
+    else:
+        contact = get_object_or_404(Client, pk=pk)
+        form = ClientForm(instance=contact)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = ClientForm(request.POST)
+        else:
+            form = ClientForm(request.POST, instance=contact)
+
+        if form.is_valid():
+            contact = form.save()
+            return HttpResponseRedirect(reverse('home'))
+
+    context['form'] = form
+    return render(request, 'contact_edit.html', context)
+
+
+def contact_index(request):
+    context = {}
+    contacts = Client.objects.all()
+    context['contacts'] = contacts
+    return render(request, 'contact_index.html', context)
+
+
 def estimate(request, pk=None):
     context = {}
     estimate = get_object_or_404(Estimate, pk=pk)
