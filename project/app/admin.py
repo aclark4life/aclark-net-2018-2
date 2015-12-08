@@ -31,6 +31,9 @@ class ContactResource(ImportExportModelResource):
     class Meta:
         model = Contact
 
+    def get_instance(self, instance_loaders, row):
+        return False
+
 
 @admin.register(Contact)
 class ContactAdmin(ImportExportModelAdmin):
