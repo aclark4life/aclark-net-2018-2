@@ -1,4 +1,5 @@
 from .models import Client
+from .models import Contact
 from .models import Estimate
 from .models import Invoice
 from .models import Project
@@ -9,6 +10,12 @@ from django.forms import ModelForm
 class ClientForm(ModelForm):
     class Meta:
         model = Client
+        fields = '__all__'
+
+
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
         fields = '__all__'
 
 

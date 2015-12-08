@@ -3,11 +3,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from .forms import ClientForm
+from .forms import ContactForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import ProjectForm
 from .forms import TaskForm
 from .models import Client
+from .models import Contact
 from .models import Estimate
 from .models import Invoice
 from .models import Project
@@ -43,7 +45,7 @@ def client_edit(request, pk=None):
 
         if form.is_valid():
             client = form.save()
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('client_index'))
 
     context['form'] = form
     return render(request, 'client_edit.html', context)
@@ -69,21 +71,21 @@ def contact_edit(request, pk=None):
     context = {}
 
     if pk is None:
-        form = ClientForm()
+        form = ContactForm()
     else:
-        contact = get_object_or_404(Client, pk=pk)
-        form = ClientForm(instance=contact)
+        contact = get_object_or_404(Contact, pk=pk)
+        form = ContactForm(instance=contact)
 
     if request.method == 'POST':
 
         if pk is None:
-            form = ClientForm(request.POST)
+            form = ContactForm(request.POST)
         else:
-            form = ClientForm(request.POST, instance=contact)
+            form = ContactForm(request.POST, instance=contact)
 
         if form.is_valid():
             contact = form.save()
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('contact_index'))
 
     context['form'] = form
     return render(request, 'contact_edit.html', context)

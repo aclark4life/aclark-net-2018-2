@@ -11,24 +11,21 @@
 
 {% block content %}
 
-                <h3>Clients<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
+                <h3>Contacts<a class="btn btn-default pull-right" href="{% url 'contact_edit' %}">Add Contact</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
-                      <th data-field="address" data-sortable="true">Address</th>
-                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                      <th data-field="name" data-sortable="true">Name</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for client in clients %}
+                  {% for contact in contacts %}
                     <tr>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.name }}</a></td>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.address }}</a></td>
-                      <td>{{ client.name }}</td>
+                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
+                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.name }}</a></td>
+                      <td>{{ contact.name }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
