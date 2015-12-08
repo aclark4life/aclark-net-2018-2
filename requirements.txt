@@ -1,9 +1,11 @@
 Django==1.9.0
+dj-database-url
 django-crispy-forms
 django-import-export
 django-phonenumber-field
 flake8
 gunicorn
+psycopg2
 tablib
 whitenoise
 yapf
