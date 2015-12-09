@@ -28,9 +28,14 @@
                   <tbody>
                   {% for project in projects %}
                     <tr>
-                      <td>{{ project.pk }}</td>
+                      <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
                       <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+
+                    {% if project.client.pk %}
                       <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
+                    {% else %}
+                      <td></td>
+                    {% endif %}
 
                       <td>{{ project.name }}</td>
                     </tr>
