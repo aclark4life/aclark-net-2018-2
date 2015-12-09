@@ -195,10 +195,13 @@ def invoice_edit(request, client=None, pk=None):
 
 
 def invoice_index(request):
+    client = None
     context = {}
     invoices = []
     for invoice in Invoice.objects.all():
-        client = Client.objects.filter(project=invoice.project)[0]
+        clients = Client.objects.filter(project=invoice.project)
+        if len(clients) > 0:
+            client = clients[0]
         invoices.append([invoice, client])
     context['invoices'] = invoices
 

@@ -44,7 +44,7 @@ class Contract(models.Model):
 class Estimate(models.Model):
     """
     """
-    project = models.ForeignKey('Project')
+    project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -53,7 +53,7 @@ class Estimate(models.Model):
 class Invoice(models.Model):
     """
     """
-    project = models.ForeignKey('Project')
+    project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -97,7 +97,7 @@ class Project(models.Model):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(Client, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
