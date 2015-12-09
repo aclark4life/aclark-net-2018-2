@@ -8,7 +8,7 @@ from .utils import class_name_pk
 class Client(models.Model):
     """
     """
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
@@ -92,7 +92,7 @@ class Time(models.Model):
 class Project(models.Model):
     """
     """
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, blank=True, null=True)
 
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
