@@ -18,20 +18,18 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="description" data-sortable="true">Description</th>
-                      <th data-field="time_entry" data-sortable="true">Time Entry</th>
-                      <th data-field="client" data-sortable="true">Client</th>
-                      <th data-field="project" data-sortable="true">Project</th>
+                      <th data-field="name" data-sortable="true">Name</th>
+                      <th data-field="rate" data-sortable="true">Rate</th>
+                      <th data-field="unit" data-sortable="true">Unit</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for task in tasks %}
                     <tr>
                       <td><a href="{% url 'task' task.pk %}">{{ task.pk|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.description|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.time_entry|default:'' }}</a></td>
-                      <td>{{ task.client|default:'' }}</a></td>
-                      <td>{{ task.project|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.name|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.rate|default:'' }}</a></td>
+                      <td><a href="{% url 'task' task.pk %}">{{ task.unit|default:'' }}</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>

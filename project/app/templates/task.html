@@ -8,17 +8,17 @@
                   <thead>
                     <tr>
                       <th>Id</th>
-                      <th>Description</th>
-                      <th>Time Entry</th>
-                      <th>Project</th>
+                      <th>Name</th>
+                      <th>Rate</th>
+                      <th>Unit</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>{{ task.id }}</td>
-                      <td>{{ task.description }}</td>
-                      <td>{{ task.time_entry }}</td>
-                      <td>{{ task.project|default:'' }}</td>
+                      <td>{{ task.name }}</td>
+                      <td>{{ task.rate }}</td>
+                      <td>{{ task.unit|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>
