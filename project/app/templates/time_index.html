@@ -26,7 +26,7 @@
                   {% for entry in entries %}
                     <tr>
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
-                      <td><a href="{% url 'entry' entry.pk %}">{{ entry.entry|default:'' }}</a></td>
+                      <td>{{ entry.entry|default:'' }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
