@@ -4,6 +4,7 @@ from .models import Estimate
 from .models import Invoice
 from .models import Project
 from .models import Task
+from .models import Time
 from django.forms import ModelForm
 
 
@@ -40,4 +41,10 @@ class ProjectForm(ModelForm):
 class TaskForm(ModelForm):
     class Meta:
         model = Task
+        fields = '__all__'
+
+
+class TimeForm(ModelForm):
+    class Meta:
+        model = Time
         fields = '__all__'

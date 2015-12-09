@@ -4,34 +4,28 @@
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>
-            <li class="active"><a href="{% url 'project_index' %}">Projects</a></li>
-            <li><a href="{% url 'task_index' %}">Tasks</a></li>
+            <li><a href="{% url 'project_index' %}">Projects</a></li>
+            <li class="active"><a href="{% url 'task_index' %}">Tasks</a></li>
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endblock %}
 
 {% block content %}
 
-                <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}">Add Project</a></h3>
+                <h3>Time Entries<a class="btn btn-default pull-right" href="{% url 'entry_edit' %}">Add Time Entry</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
-                      <th data-field="client" data-sortable="true">Client</th>
-
-                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                      <th data-field="entry" data-sortable="true">Entry</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for project in projects %}
+                  {% for entry in entries %}
                     <tr>
-                      <td>{{ project.pk }}</td>
-                      <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
-                      <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
-
-                      <td>{{ project.name }}</td>
+                      <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
+                      <td><a href="{% url 'entry' entry.pk %}">{{ entry.entry|default:'' }}</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>

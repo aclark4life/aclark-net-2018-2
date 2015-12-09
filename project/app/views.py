@@ -8,12 +8,14 @@ from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import ProjectForm
 from .forms import TaskForm
+from .forms import TimeForm
 from .models import Client
 from .models import Contact
 from .models import Estimate
 from .models import Invoice
 from .models import Project
 from .models import Task
+from .models import Time
 
 # Create your views here.
 
@@ -206,9 +208,9 @@ def invoice_index(request):
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
-    tasks = Task.objects.filter(project=project)
+    times = Time.objects.filter(project=project)
     context['project'] = project
-    context['tasks'] = tasks
+    context['times'] = times
     return render(request, 'project.html', context)
 
 
@@ -295,3 +297,49 @@ def task_index(request):
     tasks = Task.objects.all()
     context['tasks'] = tasks
     return render(request, 'task_index.html', context)
+
+
+def time(request, pk=None):
+    context = {}
+    entry = get_object_or_404(Time, pk=pk)
+    context['entry'] = entry
+    return render(request, 'time.html', context)
+
+
+def time_edit(request, pk=None):
+    context = {}
+
+    project = request.GET.get('project', None)
+
+    if pk is None:
+        if project is None:
+            form = TimeForm()
+        else:
+            project = get_object_or_404(Project, pk=project)
+            time = Time(project=project)
+            form = TimeForm(instance=time)
+    else:
+        time = get_object_or_404(Time, pk=pk)
+        form = TimeForm(instance=time)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = TimeForm(request.POST)
+        else:
+            time = get_object_or_404(Time, pk=pk)
+            form = TimeForm(request.POST, instance=time)
+
+        if form.is_valid():
+            time = form.save()
+            return HttpResponseRedirect(reverse('entry_index'))
+
+    context['form'] = form
+    return render(request, 'time_edit.html', context)
+
+
+def time_index(request):
+    context = {}
+    entries = Time.objects.all()
+    context['entries'] = entries
+    return render(request, 'time_index.html', context)

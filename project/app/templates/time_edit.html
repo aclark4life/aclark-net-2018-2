@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+            {% block nav %}
+            <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
+            <li><a href="{% url 'client_index' %}">Clients</a></li>
+            <li><a href="{% url 'contact_index' %}">Contacts</a></li>
+            <li><a href="{% url 'project_index' %}">Projects</a></li>
+            <li class="active"><a href="{% url 'task_index' %}">Tasks</a></li>
+            <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
+            <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
+            {% endblock %}
+
+{% block content %}
+
+                <h3>Time Entry &rarr; Edit</h3>
+                <hr>
+                <form action="" method="post">{% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-primary btn-lg" type="submit" value="Save">
+                </form>
+
+{% endblock %}

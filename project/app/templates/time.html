@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+                <h3>Time Entry<a class="btn btn-default pull-right" href="{% url 'entry_edit' pk=entry.pk %}">Edit Time Entry</a></h3>
+                <hr>
+                <table data-toggle="table"> 
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Entry</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ entry.id }}</td>
+                      <td>{{ entry.entry }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+{% endblock %}

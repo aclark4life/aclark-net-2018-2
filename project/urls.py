@@ -100,4 +100,17 @@ urlpatterns = [
     url(r'^task$',
         views.task_index,
         name='task_index'),
+    # Time
+    url(r'^time/(?P<pk>\d+)$',
+        views.time,
+        name='entry'),
+    url(r'^time/(?P<pk>\d+)/edit$',
+        views.time_edit,
+        name='entry_edit'),
+    url(r'^time/add$',
+        views.time_edit,
+        name='entry_edit'),
+    url(r'^time$',
+        views.time_index,
+        name='entry_index'),
 ]
