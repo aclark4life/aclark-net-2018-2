@@ -28,9 +28,9 @@
                   {% for task in tasks %}
                     <tr>
                       <td><a href="{% url 'task' task.pk %}">{{ task.pk|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.name|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.rate|default:'' }}</a></td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.unit|default:'' }}</a></td>
+                      <td>{{ task.name|default:'' }}</td>
+                      <td>{{ task.rate|default:'' }}</td>
+                      <td>{{ task.unit|default:'' }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
