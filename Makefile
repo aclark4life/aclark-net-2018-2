@@ -1,6 +1,11 @@
 all: lint update push
-db: migrate su
+db: clean migrate su
 lint: yapf flake
+clean:
+	-rm -f db.sqlite3
+	-git add db.sqlite3
+	-dropdb aclarknet
+	-createdb aclarknet
 flake:
 	flake8 project/*.py
 	flake8 project/app/*.py

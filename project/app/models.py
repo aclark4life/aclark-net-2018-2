@@ -62,13 +62,28 @@ class Invoice(models.Model):
 class Task(models.Model):
     """
     """
-    time_entry = models.DurationField('Time Entry',
-                                      default='01:00',
-                                      blank=True,
-                                      null=True)
+    name = models.CharField(max_length=300, blank=True, null=True)
+    rate = models.DecimalField(blank=True,
+                               null=True,
+                               max_digits=6,
+                               decimal_places=2)
+    unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
+
+class Time(models.Model):
+    """
+    """
+    entry = models.DurationField('Time Entry',
+                                 default='01:00',
+                                 blank=True,
+                                 null=True)
     description = models.TextField(blank=True, null=True)
 
     project = models.ForeignKey('Project', blank=True, null=True)
+    task = models.ForeignKey('Task', blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
