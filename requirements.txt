@@ -6,6 +6,7 @@ django-phonenumber-field
 flake8
 gunicorn
 psycopg2
+reportlab
 tablib
 whitenoise
 yapf
