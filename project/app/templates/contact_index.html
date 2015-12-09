@@ -18,15 +18,16 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="name" data-sortable="true">Name</th>
+                      <th data-field="first_name" data-sortable="true">First Name</th>
+                      <th data-field="last_name" data-sortable="true">Last Name</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for contact in contacts %}
                     <tr>
                       <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
-                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.name }}</a></td>
-                      <td>{{ contact.name }}</td>
+                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.first_name }}</a></td>
+                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.last_name }}</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
