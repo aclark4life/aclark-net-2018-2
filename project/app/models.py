@@ -91,6 +91,9 @@ class Time(models.Model):
 
 class Project(models.Model):
     """
+    Client, Project, Project Code, Start Date, End Date, Project Notes,
+    Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
+    Budget Remaining, Total Costs, Team Costs, Expenses
     """
     name = models.CharField(max_length=300, blank=True, null=True)
 
