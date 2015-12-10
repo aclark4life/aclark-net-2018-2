@@ -162,10 +162,13 @@ def home(request):
 
 
 def invoice(request, pk=None):
+    client = None
     context = {}
     invoice = get_object_or_404(Invoice, pk=pk)
     project = Project.objects.filter(invoice=invoice)
-    client = Client.objects.filter(project=project)[0]
+    clients = Client.objects.filter(project=project)
+    if len(clients) > 0:
+        client = clients[0]
     tasks = Task.objects.all()
     context['client'] = client
     context['invoice'] = invoice
@@ -216,6 +219,14 @@ def invoice_index(request):
     context['invoices'] = invoices
 
     return render(request, 'invoice_index.html', context)
+
+
+def invoice_pdf(request, pk=None):
+    invoice = get_object_or_404(Invoice, pk=pk)
+    context = {}
+    context['invoice'] = invoice
+    response = HttpResponse(content_type='application/pdf')
+    return generate_pdf('invoice.html', context=context, file_object=response)
 
 
 def project(request, pk=None):

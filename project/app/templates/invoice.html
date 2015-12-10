@@ -2,7 +2,8 @@
 
 {% block content %}
 
-                <h3>Invoice {{ invoice.pk }}<a class="btn btn-default btn-lg pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit</a></h3>
+                <h3>Invoice {{ invoice.pk }}<a class="btn btn-default pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit Invoice</a></h3>
+                <a href="{% url 'invoice_pdf' pk=invoice.pk %}"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
                 <hr>
                 <table data-toggle="table">
                   <thead>
