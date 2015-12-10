@@ -9,4 +9,5 @@ gunicorn
 psycopg2
 tablib
 whitenoise
+xhtml2pdf
 yapf
