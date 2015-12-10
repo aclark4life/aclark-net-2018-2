@@ -3,6 +3,7 @@
 {% block content %}
 
                 <h3>Estimate {{ estimate.pk }}<a class="btn btn-default pull-right" href="{% url 'estimate_edit' pk=estimate.pk %}">Edit Estimate</a></h3>
+                <a href="{% url 'estimate_pdf' pk=estimate.pk %}"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
                 <hr>
                 <table data-toggle="table">
                   <thead>
