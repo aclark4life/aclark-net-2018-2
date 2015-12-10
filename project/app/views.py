@@ -57,7 +57,7 @@ def client_edit(request, pk=None):
 
 def client_index(request):
     context = {}
-    show_all = request.GET.get('show-all-clients', False)
+    show_all = request.GET.get('show-all', False)
     if show_all:
         clients = Client.objects.all()
     else:

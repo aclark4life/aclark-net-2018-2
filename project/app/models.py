@@ -96,12 +96,42 @@ class Project(models.Model):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
+    client = models.ForeignKey(Client, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
-
+    code = models.IntegerField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
-
-    client = models.ForeignKey(Client, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+    total_hours = models.FloatField(blank=True, null=True)
+    billable_hours = models.FloatField(blank=True, null=True)
+    billable_amount = models.DecimalField(blank=True,
+                                          null=True,
+                                          max_digits=6,
+                                          decimal_places=2)
+    budget = models.DecimalField(blank=True,
+                                 null=True,
+                                 max_digits=6,
+                                 decimal_places=2)
+    budget_spent = models.DecimalField(blank=True,
+                                       null=True,
+                                       max_digits=6,
+                                       decimal_places=2)
+    budget_remaining = models.DecimalField(blank=True,
+                                           null=True,
+                                           max_digits=6,
+                                           decimal_places=2)
+    total_costs = models.DecimalField(blank=True,
+                                      null=True,
+                                      max_digits=6,
+                                      decimal_places=2)
+    team_costs = models.DecimalField(blank=True,
+                                     null=True,
+                                     max_digits=6,
+                                     decimal_places=2)
+    expenses = models.DecimalField(blank=True,
+                                   null=True,
+                                   max_digits=6,
+                                   decimal_places=2)
 
     def __unicode__(self):
         return self.name

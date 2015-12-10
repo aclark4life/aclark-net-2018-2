@@ -86,10 +86,31 @@ class InvoiceAdmin(admin.ModelAdmin):
     """
 
 
+class ProjectResource(ImportExportModelResource):
+    """
+    """
+
+    class Meta:
+        model = Project
+
+    def get_instance(self, instance_loaders, row):
+        return False
+
+    def before_import(self, dataset, dry_run, file_name=None, user=None):
+
+        if dataset.headers:
+            dataset.headers = [str(header).lower().strip()
+                               for header in dataset.headers]
+
+        if 'id' not in dataset.headers:
+            dataset.headers.append('id')
+
+
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectAdmin(ImportExportModelAdmin):
     """
     """
+    resource_class = ProjectResource
 
 
 @admin.register(Task)
