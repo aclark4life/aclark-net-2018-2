@@ -1,7 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django_xhtml2pdf.utils import generate_pdf
 from .forms import ClientForm
 from .forms import ContactForm
 from .forms import EstimateForm
@@ -142,6 +144,14 @@ def estimate_index(request):
     estimates = Estimate.objects.all()
     context['estimates'] = estimates
     return render(request, 'estimate_index.html', context)
+
+
+def estimate_pdf(request, pk=None):
+    estimate = get_object_or_404(Estimate, pk=pk)
+    context = {}
+    context['estimate'] = estimate
+    response = HttpResponse(content_type='application/pdf')
+    return generate_pdf('estimate.html', context=context, file_object=response)
 
 
 def home(request):
@@ -346,25 +356,3 @@ def time_index(request):
     entries = Time.objects.all()
     context['entries'] = entries
     return render(request, 'time_index.html', context)
-
-
-from reportlab.pdfgen import canvas
-from django.http import HttpResponse
-
-
-def some_view(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
-
-    # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
-
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
-    return response

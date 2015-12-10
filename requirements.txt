@@ -3,10 +3,10 @@ dj-database-url
 django-crispy-forms
 django-import-export
 django-phonenumber-field
+django-xhtml2pdf
 flake8
 gunicorn
 psycopg2
-reportlab
 tablib
 whitenoise
 yapf
