@@ -57,7 +57,11 @@ def client_edit(request, pk=None):
 
 def client_index(request):
     context = {}
-    clients = Client.objects.all()
+    show_all = request.GET.get('show-all-clients', False)
+    if show_all:
+        clients = Client.objects.all()
+    else:
+        clients = Client.objects.filter(active=True)
     context['clients'] = clients
     return render(request, 'client_index.html', context)
 
