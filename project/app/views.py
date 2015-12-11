@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -377,3 +378,10 @@ def time_index(request):
     entries = Time.objects.all()
     context['entries'] = entries
     return render(request, 'time_index.html', context)
+
+
+def user(request, pk=None):
+    context = {}
+    user = get_object_or_404(User, pk=pk)
+    context['user'] = user
+    return render(request, 'user.html', context)
