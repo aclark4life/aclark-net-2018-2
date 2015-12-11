@@ -93,6 +93,13 @@ urlpatterns = [
     url(r'^project$',
         views.project_index,
         name='project_index'),
+    # Social
+    url('',
+        include('django.contrib.auth.urls',
+                namespace='auth')),
+    url('',
+        include('social.apps.django_app.urls',
+                namespace='social')),
     # Task
     url(r'^task/(?P<pk>\d+)$',
         views.task,

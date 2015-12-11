@@ -64,6 +64,7 @@
           </ul>
           <ul class="nav navbar-nav pull-right">
             <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
