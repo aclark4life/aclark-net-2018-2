@@ -13,8 +13,8 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{ user.id }}</td>
-                      <td>{{ user.name }}</td>
+                      <td>{{ user.pk }}</td>
+                      <td>{{ user.get_full_name|default:user.username }}</td>
                     </tr>
                   </tbody>
                 </table>
