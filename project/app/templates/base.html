@@ -64,10 +64,10 @@
           </ul>
           <ul class="nav navbar-nav pull-right">
             <li><a href="{% url 'admin:index' %}">Admin</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
+            {% if user and not user.is_anonymous %}
+            Hello {{ user.get_full_name|default:user.username }}
             {% else %}
-            {{ request.user }}
+            <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
             {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
