@@ -165,6 +165,8 @@ def estimate_pdf(request, pk=None):
 def home(request):
     context = {}
     clients = Client.objects.all()
+    context['request'] = request
+    context['user'] = request.user
     context['clients'] = clients
     return render(request, 'home.html', context)
 

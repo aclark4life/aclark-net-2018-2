@@ -108,3 +108,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 AUTHENTICATION_BACKENDS = ('social.backends.google.GoogleOAuth2',
                            'django.contrib.auth.backends.ModelBackend', )
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+LOGIN_REDIRECT_URL = '/'
