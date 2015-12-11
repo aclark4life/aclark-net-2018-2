@@ -101,7 +101,11 @@ def contact_edit(request, pk=None):
 
 def contact_index(request):
     context = {}
-    contacts = Contact.objects.all()
+    show_all = request.GET.get('show-all', False)
+    if show_all:
+        contacts = Contact.objects.all()
+    else:
+        contacts = Contact.objects.filter(active=True)
     context['contacts'] = contacts
     return render(request, 'contact_index.html', context)
 

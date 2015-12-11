@@ -21,6 +21,7 @@ class Contact(models.Model):
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
     """
+    active = models.BooleanField(default=False)
     client = models.ForeignKey(Client, blank=True, null=True)
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
@@ -71,7 +72,7 @@ class Task(models.Model):
     unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
 
     def __unicode__(self):
-        return class_name_pk(self)
+        return self.name
 
 
 class Time(models.Model):
@@ -96,7 +97,10 @@ class Project(models.Model):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
-    client = models.ForeignKey(Client, blank=True, null=True)
+    client = models.ForeignKey(Client,
+                               blank=True,
+                               null=True,
+                               limit_choices_to={'active': True}, )
     name = models.CharField(max_length=300, blank=True, null=True)
     code = models.IntegerField(blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
