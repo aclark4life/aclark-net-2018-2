@@ -126,4 +126,8 @@ urlpatterns = [
     url(r'^time$',
         views.time_index,
         name='entry_index'),
+    # User
+    url(r'^user/(?P<pk>\d+)$',
+        views.user,
+        name='user'),
 ]
