@@ -114,3 +114,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
     'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/google-oauth2/?next=/'
