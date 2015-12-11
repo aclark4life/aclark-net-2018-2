@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -23,6 +24,7 @@ from .models import Time
 # Create your views here.
 
 
+@login_required
 def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
@@ -32,6 +34,7 @@ def client(request, pk=None):
     return render(request, 'client.html', context)
 
 
+@login_required
 def client_edit(request, pk=None):
     context = {}
 
@@ -56,6 +59,7 @@ def client_edit(request, pk=None):
     return render(request, 'client_edit.html', context)
 
 
+@login_required
 def client_index(request):
     context = {}
     show_all = request.GET.get('show-all', False)
@@ -67,6 +71,7 @@ def client_index(request):
     return render(request, 'client_index.html', context)
 
 
+@login_required
 def contact(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
@@ -74,6 +79,7 @@ def contact(request, pk=None):
     return render(request, 'contact.html', context)
 
 
+@login_required
 def contact_edit(request, pk=None):
     context = {}
     contact = None
@@ -100,6 +106,7 @@ def contact_edit(request, pk=None):
     return render(request, 'contact_edit.html', context)
 
 
+@login_required
 def contact_index(request):
     context = {}
     show_all = request.GET.get('show-all', False)
@@ -111,6 +118,7 @@ def contact_index(request):
     return render(request, 'contact_index.html', context)
 
 
+@login_required
 def estimate(request, pk=None):
     context = {}
     estimate = get_object_or_404(Estimate, pk=pk)
@@ -118,6 +126,7 @@ def estimate(request, pk=None):
     return render(request, 'estimate.html', context)
 
 
+@login_required
 def estimate_edit(request, client=None, pk=None):
     context = {}
 
@@ -148,6 +157,7 @@ def estimate_edit(request, client=None, pk=None):
     return render(request, 'estimate_edit.html', context)
 
 
+@login_required
 def estimate_index(request):
     context = {}
     estimates = Estimate.objects.all()
@@ -155,6 +165,7 @@ def estimate_index(request):
     return render(request, 'estimate_index.html', context)
 
 
+@login_required
 def estimate_pdf(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     context = {}
@@ -172,6 +183,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+@login_required
 def invoice(request, pk=None):
     client = None
     context = {}
@@ -188,6 +200,7 @@ def invoice(request, pk=None):
     return render(request, 'invoice.html', context)
 
 
+@login_required
 def invoice_edit(request, client=None, pk=None):
     context = {}
 
@@ -218,6 +231,7 @@ def invoice_edit(request, client=None, pk=None):
     return render(request, 'invoice_edit.html', context)
 
 
+@login_required
 def invoice_index(request):
     client = None
     context = {}
@@ -232,6 +246,7 @@ def invoice_index(request):
     return render(request, 'invoice_index.html', context)
 
 
+@login_required
 def invoice_pdf(request, pk=None):
     invoice = get_object_or_404(Invoice, pk=pk)
     context = {}
@@ -240,6 +255,7 @@ def invoice_pdf(request, pk=None):
     return generate_pdf('invoice.html', context=context, file_object=response)
 
 
+@login_required
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
@@ -249,6 +265,7 @@ def project(request, pk=None):
     return render(request, 'project.html', context)
 
 
+@login_required
 def project_edit(request, pk=None):
     context = {}
 
@@ -281,6 +298,7 @@ def project_edit(request, pk=None):
     return render(request, 'project_edit.html', context)
 
 
+@login_required
 def project_index(request, pk=None):
     context = {}
     projects = Project.objects.all()
@@ -288,6 +306,7 @@ def project_index(request, pk=None):
     return render(request, 'project_index.html', context)
 
 
+@login_required
 def task(request, pk=None):
     context = {}
     task = get_object_or_404(Task, pk=pk)
@@ -295,6 +314,7 @@ def task(request, pk=None):
     return render(request, 'task.html', context)
 
 
+@login_required
 def task_edit(request, pk=None):
     context = {}
 
@@ -327,6 +347,7 @@ def task_edit(request, pk=None):
     return render(request, 'task_edit.html', context)
 
 
+@login_required
 def task_index(request):
     context = {}
     tasks = Task.objects.all()
@@ -334,6 +355,7 @@ def task_index(request):
     return render(request, 'task_index.html', context)
 
 
+@login_required
 def time(request, pk=None):
     context = {}
     entry = get_object_or_404(Time, pk=pk)
@@ -341,6 +363,7 @@ def time(request, pk=None):
     return render(request, 'time.html', context)
 
 
+@login_required
 def time_edit(request, pk=None):
     context = {}
 
@@ -373,6 +396,7 @@ def time_edit(request, pk=None):
     return render(request, 'time_edit.html', context)
 
 
+@login_required
 def time_index(request):
     context = {}
     entries = Time.objects.all()
@@ -380,6 +404,7 @@ def time_index(request):
     return render(request, 'time_index.html', context)
 
 
+@login_required
 def user(request, pk=None):
     context = {}
     user = get_object_or_404(User, pk=pk)
