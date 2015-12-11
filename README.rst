@@ -14,4 +14,5 @@ Heroku
 Social
 ~~~~~~
 
-http://artandlogic.com/2014/04/tutorial-adding-facebooktwittergoogle-authentication-to-a-django-application/
+- http://artandlogic.com/2014/04/tutorial-adding-facebooktwittergoogle-authentication-to-a-django-application/
+- https://console.developers.google.com/
