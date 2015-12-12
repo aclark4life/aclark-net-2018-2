@@ -405,7 +405,7 @@ def time_index(request):
     return render(request, 'time_index.html', context)
 
 
-@staff_member_required
+@login_required
 def user(request, pk=None):
     context = {}
     user = get_object_or_404(User, pk=pk)
