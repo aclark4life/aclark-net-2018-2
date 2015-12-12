@@ -1,3 +1,4 @@
+# from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
@@ -81,6 +82,7 @@ class Project(models.Model):
     billable_hours = models.FloatField(blank=True, null=True)
     billable_amount = models.DecimalField(blank=True,
                                           null=True,
+                                          unique=True,
                                           max_digits=6,
                                           decimal_places=2)
     budget = models.DecimalField(blank=True,
@@ -135,14 +137,34 @@ class Time(models.Model):
     """
     date = models.DateField(default=timezone.now)
     client = models.ForeignKey(Client, blank=True, null=True)
+    project = models.ForeignKey(Project, blank=True, null=True)
+    project_code = models.IntegerField(blank=True, null=True)
+    task = models.ForeignKey(Task, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
     hours = models.DurationField('Hours',
                                  default='01:00',
                                  blank=True,
                                  null=True)
-
-    project = models.ForeignKey(Project, blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
-    task = models.ForeignKey(Task, blank=True, null=True)
+    billable = models.BooleanField()
+    invoiced = models.BooleanField()
+    # first_name = models.ForeignKey(User, to_field='first_name',
+    # related_name='user_first_name')
+    # last_name = models.ForeignKey(User, to_field='last_name')
+    department = models.CharField(max_length=300, blank=True, null=True)
+    employee = models.BooleanField()
+    billable_amount = models.ForeignKey(Project,
+                                        to_field='billable_amount',
+                                        related_name='project_billable_amount')
+    cost_rate = models.DecimalField(blank=True,
+                                    null=True,
+                                    max_digits=6,
+                                    decimal_places=2)
+    cost_amount = models.DecimalField(blank=True,
+                                      null=True,
+                                      max_digits=6,
+                                      decimal_places=2)
+    currency = models.CharField(max_length=300, blank=True, null=True)
+    external_reference_url = models.URLField()
 
     def __unicode__(self):
         return class_name_pk(self)
