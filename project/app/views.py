@@ -364,7 +364,7 @@ def time(request, pk=None):
     return render(request, 'time.html', context)
 
 
-@staff_member_required
+@login_required
 def time_edit(request, pk=None):
     context = {}
 
@@ -397,7 +397,7 @@ def time_edit(request, pk=None):
     return render(request, 'time_edit.html', context)
 
 
-@staff_member_required
+@login_required
 def time_index(request):
     context = {}
     entries = Time.objects.all()
