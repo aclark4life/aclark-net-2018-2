@@ -1,5 +1,5 @@
-from datetime import datetime
 from django.db import models
+from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from .utils import class_name_pk
 
@@ -133,7 +133,7 @@ class Time(models.Model):
     Rate, Billable Amount, Cost Rate, Cost Amount, Currency,
     External Reference URL
     """
-    date = models.DateField(default=datetime.now())
+    date = models.DateField(default=timezone.now)
     client = models.ForeignKey(Client, blank=True, null=True)
     hours = models.DurationField('Hours',
                                  default='01:00',
