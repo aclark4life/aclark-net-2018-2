@@ -130,4 +130,7 @@ urlpatterns = [
     url(r'^user/(?P<pk>\d+)$',
         views.user,
         name='user'),
+    url(r'^user$',
+        views.user_index,
+        name='user_index'),
 ]

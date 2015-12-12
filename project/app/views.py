@@ -411,3 +411,11 @@ def user(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     context['user'] = user
     return render(request, 'user.html', context)
+
+
+@staff_member_required
+def user_index(request):
+    context = {}
+    users = User.objects.all()
+    context['users'] = users
+    return render(request, 'user_index.html', context)
