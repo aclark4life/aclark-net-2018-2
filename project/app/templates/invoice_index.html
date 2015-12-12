@@ -3,7 +3,7 @@
             {% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             <li><a href="{% url 'entry_index' %}">Time</a></li>
-            {% if user.is_staff %}
+            {% if request.user.is_staff %}
             <li><a>|</a></li> <!-- https://github.com/twbs/bootstrap/issues/9501 -->
             <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>

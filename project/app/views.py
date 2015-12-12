@@ -179,7 +179,6 @@ def home(request):
     context = {}
     clients = Client.objects.all()
     context['request'] = request
-    context['user'] = request.user
     context['clients'] = clients
     return render(request, 'home.html', context)
 
@@ -409,6 +408,7 @@ def time_index(request):
 def user(request, pk=None):
     context = {}
     user = get_object_or_404(User, pk=pk)
+    context['request'] = request
     context['user'] = user
     return render(request, 'user.html', context)
 
