@@ -153,6 +153,8 @@ class Time(models.Model):
     department = models.CharField(max_length=300, blank=True, null=True)
     employee = models.BooleanField()
     billable_amount = models.ForeignKey(Project,
+                                        blank=True,
+                                        null=True,
                                         to_field='billable_amount',
                                         related_name='project_billable_amount')
     cost_rate = models.DecimalField(blank=True,
@@ -164,7 +166,7 @@ class Time(models.Model):
                                       max_digits=6,
                                       decimal_places=2)
     currency = models.CharField(max_length=300, blank=True, null=True)
-    external_reference_url = models.URLField()
+    external_reference_url = models.URLField(blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
