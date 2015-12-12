@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from .utils import class_name_pk
@@ -61,36 +62,6 @@ class Invoice(models.Model):
         return class_name_pk(self)
 
 
-class Task(models.Model):
-    """
-    """
-    name = models.CharField(max_length=300, blank=True, null=True)
-    rate = models.DecimalField(blank=True,
-                               null=True,
-                               max_digits=6,
-                               decimal_places=2)
-    unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
-
-    def __unicode__(self):
-        return self.name
-
-
-class Time(models.Model):
-    """
-    """
-    entry = models.DurationField('Time Entry',
-                                 default='01:00',
-                                 blank=True,
-                                 null=True)
-    description = models.TextField(blank=True, null=True)
-
-    project = models.ForeignKey('Project', blank=True, null=True)
-    task = models.ForeignKey('Task', blank=True, null=True)
-
-    def __unicode__(self):
-        return class_name_pk(self)
-
-
 class Project(models.Model):
     """
     Client, Project, Project Code, Start Date, End Date, Project Notes,
@@ -139,3 +110,39 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Task(models.Model):
+    """
+    """
+    name = models.CharField(max_length=300, blank=True, null=True)
+    rate = models.DecimalField(blank=True,
+                               null=True,
+                               max_digits=6,
+                               decimal_places=2)
+    unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Time(models.Model):
+    """
+    Date, Client, Project, Project Code, Task, Notes, Hours, Billable?,
+    Invoiced?, First Name, Last Name, Department, Employee?, Billable
+    Rate, Billable Amount, Cost Rate, Cost Amount, Currency,
+    External Reference URL
+    """
+    date = models.DateField(default=datetime.now())
+    client = models.ForeignKey(Client, blank=True, null=True)
+    hours = models.DurationField('Hours',
+                                 default='01:00',
+                                 blank=True,
+                                 null=True)
+
+    project = models.ForeignKey(Project, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+    task = models.ForeignKey(Task, blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
