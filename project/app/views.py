@@ -410,7 +410,11 @@ def user(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     context['request'] = request
     context['user'] = user
-    return render(request, 'user.html', context)
+
+    if request.user.pk == int(pk):
+        return render(request, 'user.html', context)
+    else:
+        return HttpResponseRedirect(reverse('home'))
 
 
 @staff_member_required
