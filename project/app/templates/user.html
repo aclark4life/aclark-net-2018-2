@@ -28,8 +28,8 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{ request.user.pk }}</td>
-                      <td>{{ request.user.get_full_name|default:request.user.username }}</td>
+                      <td>{{ user.pk }}</td>
+                      <td>{{ user.get_full_name|default:user.username }}</td>
                     </tr>
                   </tbody>
                 </table>
