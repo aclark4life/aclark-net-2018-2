@@ -33,6 +33,7 @@ class InvoiceForm(forms.ModelForm):
 
 
 class MailForm(forms.Form):
+    subject = forms.CharField()
     message = forms.CharField(widget=forms.Textarea())
 
 

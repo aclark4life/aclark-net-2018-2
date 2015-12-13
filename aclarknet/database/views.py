@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -435,11 +436,15 @@ def user_mail(request, pk=None):
     if request.method == 'POST':
         form = MailForm(request.POST)
         if form.is_valid():
+            sender = settings.DEFAULT_FROM_EMAIL
+            subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
-            sender = 'aclark@aclark.net'
             recipients.append(user.email)
-            subject = 'ACLARK.NET Message'
-            send_mail(subject, message, sender, recipients)
+            send_mail(subject,
+                      message,
+                      sender,
+                      recipients,
+                      fail_silently=False)
     else:
         form = MailForm()
     context['form'] = form
