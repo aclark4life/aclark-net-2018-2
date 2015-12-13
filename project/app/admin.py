@@ -119,7 +119,29 @@ class TaskAdmin(admin.ModelAdmin):
     """
 
 
+class TimeResource(ImportExportModelResource):
+    """
+    """
+
+    class Meta:
+        model = Time
+        exclude = ('client', 'project', 'task')
+
+    def get_instance(self, instance_loaders, row):
+        return False
+
+    def before_import(self, dataset, dry_run, file_name=None, user=None):
+
+        if dataset.headers:
+            dataset.headers = [str(header).lower().strip()
+                               for header in dataset.headers]
+
+        if 'id' not in dataset.headers:
+            dataset.headers.append('id')
+
+
 @admin.register(Time)
-class TimeAdmin(admin.ModelAdmin):
+class TimeAdmin(ImportExportModelAdmin):
     """
     """
+    resource_class = TimeResource

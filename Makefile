@@ -1,6 +1,6 @@
 all: lint update push
 db: clean migrate su
-lint: yapf flake
+lint: yapf flake wc
 clean:
 	-rm -f db.sqlite3
 	-git add db.sqlite3
@@ -25,3 +25,6 @@ review:
 	open -a "Sublime Text 2" `find project -name \*.py`
 su:
 	python manage.py createsuperuser
+wc:
+	wc -l project/*.py
+	wc -l project/app/*.py

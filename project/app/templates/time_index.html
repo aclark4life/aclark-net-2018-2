@@ -23,14 +23,14 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="entry" data-sortable="true">Entry</th>
+                      <th data-field="entry" data-sortable="true">Hours</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for entry in entries %}
                     <tr>
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
-                      <td>{{ entry.entry|default:'' }}</td>
+                      <td>{{ entry.hours|default:'' }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

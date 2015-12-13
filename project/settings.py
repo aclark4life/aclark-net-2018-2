@@ -115,3 +115,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
+
+# Send mail with sendgrid
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Alex Clark <aclark@aclark.net>'
+MANAGERS = ('aclark@aclark.net', )

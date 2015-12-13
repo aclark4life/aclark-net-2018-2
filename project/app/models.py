@@ -152,11 +152,11 @@ class Time(models.Model):
     # last_name = models.ForeignKey(User, to_field='last_name')
     department = models.CharField(max_length=300, blank=True, null=True)
     employee = models.BooleanField()
-    billable_amount = models.ForeignKey(Project,
-                                        blank=True,
-                                        null=True,
-                                        to_field='billable_amount',
-                                        related_name='project_billable_amount')
+    # billable_amount = models.ForeignKey(Project,
+    #                                    blank=True,
+    #                                    null=True,
+    #                                    to_field='billable_amount',
+    #                                    related_name='project_billable_amount')
     cost_rate = models.DecimalField(blank=True,
                                     null=True,
                                     max_digits=6,
