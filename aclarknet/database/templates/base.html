@@ -53,9 +53,7 @@
           <ul class="nav navbar-nav">
             {% block nav %}
             <li class="active"><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
-            <li><a href="{% url 'entry_index' %}">Time</a></li>
             {% if request.user.is_staff %} 
-            <li><a>|</a></li> <!-- https://github.com/twbs/bootstrap/issues/9501 -->
             <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>
             <li><a href="{% url 'project_index' %}">Projects</a></li>
@@ -67,6 +65,7 @@
             {% endblock %}
           </ul>
           <ul class="nav navbar-nav pull-right">
+            <li><a href="{% url 'entry_index' %}">Time</a></li>
             <li><a href="{% url 'admin:index' %}">Admin</a></li>
             {% if not request.user.is_anonymous %}
             <li><a href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }}</a></li>
