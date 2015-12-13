@@ -25,6 +25,7 @@
                       <th>Id</th>
                       <th>Name</th>
                       <th>Email</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -32,6 +33,7 @@
                       <td>{{ user.pk }}</td>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>
+                      <td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-2x"></i></a></td>
                     </tr>
                   </tbody>
                 </table>

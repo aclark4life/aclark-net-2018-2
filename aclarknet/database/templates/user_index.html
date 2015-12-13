@@ -25,6 +25,7 @@
                       <th data-field="id" data-sortable="true">Id</th>
                       <th data-field="name" data-sortable="true">Name</th>
                       <th data-field="email" data-sortable="true">Email</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -33,6 +34,7 @@
                       <td><a href="{% url 'user' user.pk %}">{{ user.pk|default:'' }}</a></td>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>
+                      <td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-2x"></i></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
