@@ -430,12 +430,14 @@ def user_index(request):
 @staff_member_required
 def user_mail(request, pk=None):
     context = {}
+    recipients = []
+    user = get_object_or_404(User, pk=pk)
     if request.method == 'POST':
         form = MailForm(request.POST)
         if form.is_valid():
             message = form.cleaned_data['message']
             sender = 'aclark@aclark.net'
-            recipients = [request.user.email, ]
+            recipients.append(user.email)
             subject = 'ACLARK.NET Message'
             send_mail(subject, message, sender, recipients)
     else:
