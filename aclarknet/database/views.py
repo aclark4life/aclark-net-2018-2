@@ -447,6 +447,7 @@ def user_mail(request, pk=None):
                       recipients,
                       fail_silently=False)
             messages.add_message(request, messages.SUCCESS, 'Success!')
+            return HttpResponseRedirect(reverse('user_index'))
     else:
         form = MailForm()
     context['form'] = form
