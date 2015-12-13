@@ -443,4 +443,5 @@ def user_mail(request, pk=None):
     else:
         form = MailForm()
     context['form'] = form
+    context['user'] = user
     return render(request, 'user_mail.html', context)
