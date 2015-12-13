@@ -5,46 +5,52 @@ from .models import Invoice
 from .models import Project
 from .models import Task
 from .models import Time
-from django.forms import ModelForm
+from django import forms
 
 
-class ClientForm(ModelForm):
+class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = '__all__'
 
 
-class ContactForm(ModelForm):
+class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = '__all__'
 
 
-class EstimateForm(ModelForm):
+class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
         fields = '__all__'
 
 
-class InvoiceForm(ModelForm):
+class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = '__all__'
 
 
-class ProjectForm(ModelForm):
+class MailForm(forms.Form):
+    message = forms.CharField(
+        label='MailForm',
+        widget=forms.Textarea(attrs={'class': 'message'}))
+
+
+class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = '__all__'
 
 
-class TaskForm(ModelForm):
+class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = '__all__'
 
 
-class TimeForm(ModelForm):
+class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
         fields = '__all__'

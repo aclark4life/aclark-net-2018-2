@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -11,6 +12,7 @@ from .forms import ClientForm
 from .forms import ContactForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
+from .forms import MailForm
 from .forms import ProjectForm
 from .forms import TaskForm
 from .forms import TimeForm
@@ -423,3 +425,20 @@ def user_index(request):
     users = User.objects.all()
     context['users'] = users
     return render(request, 'user_index.html', context)
+
+
+@staff_member_required
+def user_mail(request, pk=None):
+    context = {}
+    if request.method == 'POST':
+        form = MailForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            sender = 'aclark@aclark.net'
+            recipients = ['aclark@aclark.net']
+            subject = 'Message from ACLARK.NET'
+            send_mail(subject, message, sender, recipients)
+    else:
+        form = MailForm()
+    context['form'] = form
+    return render(request, 'user_mail.html', context)
