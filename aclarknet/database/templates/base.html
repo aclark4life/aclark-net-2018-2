@@ -65,6 +65,7 @@
             {% endblock %}
           </ul>
           <ul class="nav navbar-nav pull-right">
+            {% block nav_pull_right %}
             <li><a href="{% url 'entry_index' %}">Time</a></li>
             <li><a href="{% url 'admin:index' %}">Admin</a></li>
             {% if not request.user.is_anonymous %}
@@ -73,6 +74,7 @@
             {% else %}
             <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
             {% endif %}
+            {% endblock %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
