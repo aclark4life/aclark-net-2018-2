@@ -446,7 +446,7 @@ def user_mail(request, pk=None):
                       sender,
                       recipients,
                       fail_silently=False)
-            messages.add_message(request, messages.INFO, 'Success!')
+            messages.add_message(request, messages.SUCCESS, 'Success!')
     else:
         form = MailForm()
     context['form'] = form
