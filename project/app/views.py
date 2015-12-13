@@ -411,7 +411,7 @@ def user(request, pk=None):
     context['request'] = request
     context['user'] = user
 
-    if request.user.pk == int(pk):
+    if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
     else:
         return HttpResponseRedirect(reverse('home'))
