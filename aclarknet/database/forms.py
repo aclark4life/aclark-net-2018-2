@@ -33,9 +33,7 @@ class InvoiceForm(forms.ModelForm):
 
 
 class MailForm(forms.Form):
-    message = forms.CharField(
-        label='MailForm',
-        widget=forms.Textarea(attrs={'class': 'message'}))
+    message = forms.CharField(widget=forms.Textarea())
 
 
 class ProjectForm(forms.ModelForm):
