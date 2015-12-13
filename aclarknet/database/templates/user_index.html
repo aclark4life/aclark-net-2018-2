@@ -23,7 +23,8 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="entry" data-sortable="true">Name</th>
+                      <th data-field="name" data-sortable="true">Name</th>
+                      <th data-field="email" data-sortable="true">Email</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -31,6 +32,7 @@
                     <tr>
                       <td><a href="{% url 'user' user.pk %}">{{ user.pk|default:'' }}</a></td>
                       <td>{{ user.get_full_name|default:user.username }}</td>
+                      <td>{{ user.email }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
