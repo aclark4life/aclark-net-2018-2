@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
@@ -445,6 +446,7 @@ def user_mail(request, pk=None):
                       sender,
                       recipients,
                       fail_silently=False)
+            messages.add_message(request, messages.INFO, 'Success!')
     else:
         form = MailForm()
     context['form'] = form
