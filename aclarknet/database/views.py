@@ -435,8 +435,8 @@ def user_mail(request, pk=None):
         if form.is_valid():
             message = form.cleaned_data['message']
             sender = 'aclark@aclark.net'
-            recipients = ['aclark@aclark.net']
-            subject = 'Message from ACLARK.NET'
+            recipients = [request.user.email, ]
+            subject = 'ACLARK.NET Message'
             send_mail(subject, message, sender, recipients)
     else:
         form = MailForm()
