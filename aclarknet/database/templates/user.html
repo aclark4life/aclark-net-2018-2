@@ -7,9 +7,20 @@
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>
             <li><a href="{% url 'project_index' %}">Projects</a></li>
             <li><a href="{% url 'task_index' %}">Tasks</a></li>
-            <li class="active"><a href="{% url 'user_index' %}">Users</a></li>
+            <li><a href="{% url 'user_index' %}">Users</a></li>
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
+            {% endif %}
+            {% endblock %}
+
+            {% block nav_pull_right %}
+            <li><a href="{% url 'entry_index' %}">Time</a></li>
+            <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            {% if not request.user.is_anonymous %}
+            <li class="active"><a href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }}</a></li>
+            <li><a href="{% url 'auth:logout' %}?next={% url 'home' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
             {% endif %}
             {% endblock %}
 
