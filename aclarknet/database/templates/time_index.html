@@ -32,7 +32,9 @@
                   <thead>
                     <tr>
                       <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="entry" data-sortable="true">Hours</th>
+                      <th data-field="hours" data-sortable="true">Hours</th>
+                      <th data-field="client" data-sortable="true">Client</th>
+                      <th data-field="project" data-sortable="true">Project</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -40,6 +42,8 @@
                     <tr>
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
                       <td>{{ entry.hours|default:'' }}</td>
+                      <td>{{ entry.client }}</td>
+                      <td>{{ entry.project }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

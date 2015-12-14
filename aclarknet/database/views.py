@@ -128,6 +128,7 @@ def estimate(request, pk=None):
     context = {}
     estimate = get_object_or_404(Estimate, pk=pk)
     context['estimate'] = estimate
+    context['entries'] = Time.objects.filter(client=estimate.client)
     return render(request, 'estimate.html', context)
 
 

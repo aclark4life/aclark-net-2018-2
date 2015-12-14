@@ -33,12 +33,16 @@
                     <tr>
                       <th>Id</th>
                       <th>Hours</th>
+                      <th>Client</th>
+                      <th>Project</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{ entry.id }}</td>
-                      <td>{{ entry.entry }}</td>
+                      <td>{{ entry.pk }}</td>
+                      <td>{{ entry.hours }}</td>
+                      <td>{{ entry.client }}</td>
+                      <td>{{ entry.project }}</td>
                     </tr>
                   </tbody>
                 </table>

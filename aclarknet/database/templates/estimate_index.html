@@ -28,7 +28,7 @@
                   {% for estimate in estimates %}
                     <tr>
                       <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.pk|default:'' }}</a></td>
-                      <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.client|default:'' }}</a></td>
+                      <td>{{ estimate.client|default:'' }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

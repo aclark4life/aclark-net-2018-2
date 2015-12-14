@@ -10,7 +10,7 @@ from .utils import class_name_pk
 class Client(models.Model):
     """
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
 
@@ -23,7 +23,7 @@ class Contact(models.Model):
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     client = models.ForeignKey(Client, blank=True, null=True)
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
@@ -48,6 +48,7 @@ class Contract(models.Model):
 class Estimate(models.Model):
     """
     """
+    client = models.ForeignKey(Client, blank=True, null=True)
     project = models.ForeignKey('Project', blank=True, null=True)
 
     def __unicode__(self):

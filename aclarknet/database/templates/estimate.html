@@ -6,41 +6,28 @@
                 <a href="{% url 'estimate_pdf' pk=estimate.pk %}"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
                 <hr>
                 <table data-toggle="table">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Client</th>
-                    </tr>
-                  </thead>
                   <tbody>
                     <tr>
-                      <td>{{ estimate.pk }}</td>
-                      <td>{{ client }}</td>
+                      <td class="col-md-9"><h1>ESTIMATE</h1></td>
+                      <td class="col-md-3"><h4>From:</h4></td>
                     </tr>
+                    <tr>
+                      <td class="col-md-9">
+                        <h4>Estimate Id:</h4>
+                        <h4>Issue Date:</h4>
+                        <h4>Subject:</h4>
+                      </td>
+                      <td class="col-md-3">
+                        <h4>Estimate For:</h4>
+                      </td>
+                    </tr>
+                    {% for entry in entries %}
+                    <tr> 
+                      <td>{{ entry.pk }}</td>
+                      <td>{{ entry.hours }}</td>
+                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
-                <hr>
-                <table data-toggle="table">
-                  <tr>
-                    <td class="col-md-9"><h1>ESTIMATE</h1></td>
-                    <td class="col-md-3"><h4>From:</h4></td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-9">
-                      <h4>Estimate Id:</h4>
-                      <h4>Issue Date:</h4>
-                      <h4>Subject:</h4>
-                    </td>
-                    <td class="col-md-3">
-                      <h4>Estimate For:</h4>
-                    </td>
-                  </tr>
-                  {% for task in tasks %}
-                  <tr> 
-                    <td>{{ task.description }}</td>
-                    <td>{{ task.time_entry }}</td>
-                  </tr>
-                  {% endfor %}
-                <table>
 
 {% endblock %}
