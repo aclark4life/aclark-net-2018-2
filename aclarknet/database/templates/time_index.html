@@ -43,7 +43,7 @@
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
                       <td>{{ entry.hours|default:'' }}</td>
                       <td>{{ entry.client }}</td>
-                      <td>{{ entry.project }}</td>
+                      <td>{{ entry.project|default:'' }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

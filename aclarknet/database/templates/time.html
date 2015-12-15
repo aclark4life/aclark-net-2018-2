@@ -42,7 +42,7 @@
                       <td>{{ entry.pk }}</td>
                       <td>{{ entry.hours }}</td>
                       <td>{{ entry.client }}</td>
-                      <td>{{ entry.project }}</td>
+                      <td>{{ entry.project|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>
