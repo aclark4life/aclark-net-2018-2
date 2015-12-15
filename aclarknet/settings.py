@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (  # 'django_admin_bootstrapped',
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +38,9 @@ INSTALLED_APPS = (  # 'django_admin_bootstrapped',
     'crispy_forms',
     'import_export',
     'social.apps.django_app.default',
-    'aclarknet.database', )
+    'solo',
+    'aclarknet.database',
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

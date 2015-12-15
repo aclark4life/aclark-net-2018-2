@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+from solo.models import SingletonModel
 from .utils import class_name_pk
 
 # Create your models here.
@@ -113,6 +114,17 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class SiteConfiguration(SingletonModel):
+    site_name = models.CharField(max_length=255, default='Site Name')
+    maintenance_mode = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return u"Site Configuration"
+
+    class Meta:
+        verbose_name = "Site Configuration"
 
 
 class Task(models.Model):

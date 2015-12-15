@@ -4,11 +4,13 @@ from .models import Contract
 from .models import Estimate
 from .models import Invoice
 from .models import Project
+from .models import SiteConfiguration
 from .models import Task
 from .models import Time
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from import_export.resources import ModelResource as ImportExportModelResource
+from solo.admin import SingletonModelAdmin
 
 # Register your models here.
 
@@ -145,3 +147,6 @@ class TimeAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = TimeResource
+
+
+admin.site.register(SiteConfiguration, SingletonModelAdmin)
