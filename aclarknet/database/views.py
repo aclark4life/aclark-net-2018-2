@@ -20,6 +20,7 @@ from .forms import ProjectForm
 from .forms import TaskForm
 from .forms import TimeForm
 from .models import Client
+from .models import Company
 from .models import Contact
 from .models import Estimate
 from .models import Invoice
@@ -127,9 +128,13 @@ def contact_index(request):
 @staff_member_required
 def estimate(request, pk=None):
     context = {}
+    company = Company.objects.get()
     estimate = get_object_or_404(Estimate, pk=pk)
+    context['company'] = company
     context['entries'] = Time.objects.filter(client=estimate.client)
     context['estimate'] = estimate
+    if company:
+        context['company'] = company
     return render(request, 'estimate.html', context)
 
 
@@ -175,10 +180,13 @@ def estimate_index(request):
 @staff_member_required
 def estimate_pdf(request, pk=None):
     context = {}
+    company = Company.objects.get()
     estimate = get_object_or_404(Estimate, pk=pk)
     context['entries'] = Time.objects.filter(client=estimate.client)
     context['estimate'] = estimate
     response = HttpResponse(content_type='application/pdf')
+    if company:
+        context['company'] = company
     return generate_pdf('estimate_table.html',
                         context=context,
                         file_object=response)

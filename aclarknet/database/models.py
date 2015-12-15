@@ -19,6 +19,17 @@ class Client(models.Model):
         return self.name
 
 
+class Company(SingletonModel):
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = u'Company'
+
+
 class Contact(models.Model):
     """
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
@@ -116,17 +127,6 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class SiteConfiguration(SingletonModel):
-    site_name = models.CharField(max_length=255, default='Site Name')
-    maintenance_mode = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        return u"Site Configuration"
-
-    class Meta:
-        verbose_name = "Site Configuration"
 
 
 class Task(models.Model):
