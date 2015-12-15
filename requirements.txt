@@ -1,4 +1,4 @@
-Django==1.9.0
+Django
 dj-database-url
 django-crispy-forms
 django-import-export
