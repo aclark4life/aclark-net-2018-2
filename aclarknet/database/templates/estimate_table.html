@@ -17,7 +17,7 @@
                     </tr>
                     {% for entry in entries %}
                     <tr> 
-                      <td>{{ entry.pk }}</td>
+                      <td>{{ forloop.counter }}</td>
                       <td>{{ entry.hours }}</td>
                     </tr>
                     {% endfor %}
