@@ -10,25 +10,24 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td> 
-                        <h4>Estimate Id: {{ estimate.pk }}</h4>
-                        <h4>Issue Date: {{ estimate.issue_date }}</h4>
-                        <h4>Subject: {{ estimate.subject }}</h4>
-                      </td>
+                      <td><h4>Estimate Id: {{ estimate.pk }}</h4></td>
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>
-                        <h4>Estimate For:</h4>
-                        <h5>{{ estimate.client|default:'' }}</h5>
-                      </td>
+                      <td><strong>Estimate For:</strong> {{ estimate.client|default:'' }}</td>
                     </tr>
                     <tr>
-                      <td>Item</td>
-                      <td>Description</td>
-                      <td>Quantity</td>
-                      <td>Unit Price</td>
-                      <td>Amount</td>
+                      <td><strong>Issue Date:</strong> {{ estimate.issue_date }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Subject:</strong> {{ estimate.subject }}</td>
+                    </tr>
+                    <tr>
+                      <td><h5>Item</h5></td>
+                      <td><h5>Description</h5></td>
+                      <td><h5>Quantity</h5></td>
+                      <td><h5>Unit Price</h5></td>
+                      <td><h5>Amount</h5></td>
                     </tr>
                     {% for entry in entries %}
                     <tr> 
