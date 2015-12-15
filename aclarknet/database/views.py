@@ -174,8 +174,9 @@ def estimate_index(request):
 
 @staff_member_required
 def estimate_pdf(request, pk=None):
-    estimate = get_object_or_404(Estimate, pk=pk)
     context = {}
+    estimate = get_object_or_404(Estimate, pk=pk)
+    context['entries'] = Time.objects.filter(client=estimate.client)
     context['estimate'] = estimate
     response = HttpResponse(content_type='application/pdf')
     return generate_pdf('estimate_table.html',
