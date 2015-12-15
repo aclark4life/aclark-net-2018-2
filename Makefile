@@ -8,8 +8,8 @@ app = database
 clean:
 	-rm -f db.sqlite3
 	-git add db.sqlite3
-	-dropdb $$PROJECT
-	-createdb $$PROJECT
+	-dropdb $(project)
+	-createdb $(project)
 flake:
 	-flake8 $(project)/*.py
 	-flake8 $(project)/$(app)/*.py
@@ -36,3 +36,4 @@ su:
 wc:
 	wc -l $(project)/*.py
 	wc -l $(project)/$(app)/*.py
+
