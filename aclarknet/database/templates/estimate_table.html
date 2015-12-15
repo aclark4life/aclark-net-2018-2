@@ -1,25 +1,46 @@
                 <table data-toggle="table">
+                  <thead>
+                    <tr>
+                      <th><h1>ESTIMATE</h1></th>
+                      <th class="col-md-9"></th>
+                      <th></th>
+                      <th></th>
+                      <th><h4>From:</h4></th>
+                    </tr>
+                  </thead>
                   <tbody>
                     <tr>
-                      <td class="col-md-9"><h1>ESTIMATE</h1></td>
-                      <td class="col-md-3"><h4>From:</h4></td>
-                    </tr>
-                    <tr>
-                      <td class="col-md-9">
+                      <td> 
                         <h4>Estimate Id: {{ estimate.pk }}</h4>
                         <h4>Issue Date: {{ estimate.issue_date }}</h4>
                         <h4>Subject: {{ estimate.subject }}</h4>
                       </td>
-                      <td class="col-md-3">
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
                         <h4>Estimate For:</h4>
                         <h5>{{ estimate.client|default:'' }}</h5>
                       </td>
                     </tr>
+                    <tr>
+                      <td>Item</td>
+                      <td>Description</td>
+                      <td>Quantity</td>
+                      <td>Unit Price</td>
+                      <td>Amount</td>
+                    </tr>
                     {% for entry in entries %}
                     <tr> 
                       <td>{{ forloop.counter }}</td>
+                      <td>{{ entry.notes }}</td>
                       <td>{{ entry.hours }}</td>
                     </tr>
                     {% endfor %}
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td><h4>Estimate Total:</h4></td>
+                    </tr>
                   </tbody>
                 </table>
