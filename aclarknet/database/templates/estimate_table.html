@@ -1,0 +1,25 @@
+                <table data-toggle="table">
+                  <tbody>
+                    <tr>
+                      <td class="col-md-9"><h1>ESTIMATE</h1></td>
+                      <td class="col-md-3"><h4>From:</h4></td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-9">
+                        <h4>Estimate Id:</h4>
+                        <h4>Issue Date:</h4>
+                        <h4>Subject:</h4>
+                      </td>
+                      <td class="col-md-3">
+                        <h4>Estimate For:</h4>
+                        <h5>{{ estimate.client|default:'' }}</h5>
+                      </td>
+                    </tr>
+                    {% for entry in entries %}
+                    <tr> 
+                      <td>{{ entry.pk }}</td>
+                      <td>{{ entry.hours }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>

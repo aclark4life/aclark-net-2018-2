@@ -127,8 +127,8 @@ def contact_index(request):
 def estimate(request, pk=None):
     context = {}
     estimate = get_object_or_404(Estimate, pk=pk)
-    context['estimate'] = estimate
     context['entries'] = Time.objects.filter(client=estimate.client)
+    context['estimate'] = estimate
     return render(request, 'estimate.html', context)
 
 
@@ -177,7 +177,9 @@ def estimate_pdf(request, pk=None):
     context = {}
     context['estimate'] = estimate
     response = HttpResponse(content_type='application/pdf')
-    return generate_pdf('estimate.html', context=context, file_object=response)
+    return generate_pdf('estimate_table.html',
+                        context=context,
+                        file_object=response)
 
 
 def home(request):
