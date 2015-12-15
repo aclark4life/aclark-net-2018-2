@@ -1,3 +1,4 @@
+{% load database_filters %}
                 <table data-toggle="table">
                   <thead>
                     <tr>
@@ -38,9 +39,11 @@
                     </tr>
                     {% for entry in entries %}
                     <tr> 
-                      <td>{{ forloop.counter }}</td>
+                      <td><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></td>
                       <td>{{ entry.notes }}</td>
                       <td>{{ entry.hours }}</td>
+                      <td>{{ entry.task.rate }}</td>
+                      <td>{{ entry.task.rate|multiply:entry.hours }}</td>
                     </tr>
                     {% endfor %}
                     <tr>

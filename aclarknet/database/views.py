@@ -126,18 +126,6 @@ def contact_index(request):
 
 
 @staff_member_required
-def estimate(request, pk=None):
-    context = {}
-    company = Company.objects.get()
-    estimate = get_object_or_404(Estimate, pk=pk)
-    context['company'] = company
-    context['entries'] = Time.objects.filter(client=estimate.client)
-    context['estimate'] = estimate
-    if company:
-        context['company'] = company
-    return render(request, 'estimate.html', context)
-
-
 @staff_member_required
 def estimate_edit(request, client=None, pk=None):
     context = {}
@@ -169,12 +157,16 @@ def estimate_edit(request, client=None, pk=None):
     return render(request, 'estimate_edit.html', context)
 
 
-@staff_member_required
-def estimate_index(request):
+def estimate(request, pk=None):
     context = {}
-    estimates = Estimate.objects.all()
-    context['estimates'] = estimates
-    return render(request, 'estimate_index.html', context)
+    company = Company.objects.get()
+    estimate = get_object_or_404(Estimate, pk=pk)
+    context['company'] = company
+    context['entries'] = Time.objects.filter(client=estimate.client)
+    context['estimate'] = estimate
+    if company:
+        context['company'] = company
+    return render(request, 'estimate.html', context)
 
 
 @staff_member_required
@@ -190,6 +182,14 @@ def estimate_pdf(request, pk=None):
     return generate_pdf('estimate_table.html',
                         context=context,
                         file_object=response)
+
+
+@staff_member_required
+def estimate_index(request):
+    context = {}
+    estimates = Estimate.objects.all()
+    context['estimates'] = estimates
+    return render(request, 'estimate_index.html', context)
 
 
 def home(request):
