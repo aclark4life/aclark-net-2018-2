@@ -46,7 +46,7 @@
                     </tr>
                     {% for entry in entries %}
                     <tr> 
-                      <td><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></td>
+                      <td>{{ forloop.counter }}</td>
                       <td>{{ entry.notes }}</td>
                       <td>{{ entry.hours }}</td>
                       <td>{{ entry.task.rate }}</td>
