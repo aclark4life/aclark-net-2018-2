@@ -126,6 +126,49 @@ def contact_index(request):
 
 
 @staff_member_required
+def estimate(request, pk=None):
+    context = {}
+    entries = {}
+
+    company = Company.objects.get()
+    estimate = get_object_or_404(Estimate, pk=pk)
+
+    context['company'] = company
+    context['estimate'] = estimate
+
+    for entry in Time.objects.filter(client=estimate.client):
+        entries[entry] = {}
+        hours = entry.hours
+        entries[entry]['hours'] = hours
+        if entry.task:
+            rate = entry.task.rate
+            entries[entry]['rate'] = rate
+            entries[entry]['total'] = float(rate) * float(hours.total_seconds()
+                                                          / 60)
+
+    context['entries'] = entries
+
+    if company:
+        context['company'] = company
+
+    return render(request, 'estimate.html', context)
+
+
+@staff_member_required
+def estimate_pdf(request, pk=None):
+    context = {}
+    company = Company.objects.get()
+    estimate = get_object_or_404(Estimate, pk=pk)
+    context['entries'] = Time.objects.filter(client=estimate.client)
+    context['estimate'] = estimate
+    response = HttpResponse(content_type='application/pdf')
+    if company:
+        context['company'] = company
+    return generate_pdf('estimate_table.html',
+                        context=context,
+                        file_object=response)
+
+
 @staff_member_required
 def estimate_edit(request, client=None, pk=None):
     context = {}
@@ -155,33 +198,6 @@ def estimate_edit(request, client=None, pk=None):
 
     context['form'] = form
     return render(request, 'estimate_edit.html', context)
-
-
-def estimate(request, pk=None):
-    context = {}
-    company = Company.objects.get()
-    estimate = get_object_or_404(Estimate, pk=pk)
-    context['company'] = company
-    context['entries'] = Time.objects.filter(client=estimate.client)
-    context['estimate'] = estimate
-    if company:
-        context['company'] = company
-    return render(request, 'estimate.html', context)
-
-
-@staff_member_required
-def estimate_pdf(request, pk=None):
-    context = {}
-    company = Company.objects.get()
-    estimate = get_object_or_404(Estimate, pk=pk)
-    context['entries'] = Time.objects.filter(client=estimate.client)
-    context['estimate'] = estimate
-    response = HttpResponse(content_type='application/pdf')
-    if company:
-        context['company'] = company
-    return generate_pdf('estimate_table.html',
-                        context=context,
-                        file_object=response)
 
 
 @staff_member_required
