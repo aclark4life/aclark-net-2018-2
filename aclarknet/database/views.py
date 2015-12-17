@@ -143,8 +143,8 @@ def estimate(request, pk=None):
         if entry.task:
             rate = entry.task.rate
             entries[entry]['rate'] = rate
-            entries[entry]['total'] = float(rate) * float(hours.total_seconds()
-                                                          / 60)
+            entries[entry]['total'] = float(rate) * float(
+                hours.total_seconds() / 60)
 
     context['entries'] = entries
 
