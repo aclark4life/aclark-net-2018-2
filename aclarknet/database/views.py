@@ -131,25 +131,27 @@ def estimate(request, pk=None):
     entries = {}
 
     company = Company.objects.get()
-    estimate = get_object_or_404(Estimate, pk=pk)
+    if company:
+        context['company'] = company
 
-    context['company'] = company
+    estimate = get_object_or_404(Estimate, pk=pk)
     context['estimate'] = estimate
 
+    running_total = 0
     for entry in Time.objects.filter(client=estimate.client):
         entries[entry] = {}
+        entries[entry]['notes'] = entry.notes
         hours = entry.hours
         entries[entry]['hours'] = hours
         if entry.task:
             rate = entry.task.rate
             entries[entry]['rate'] = rate
-            entries[entry]['total'] = float(rate) * float(
-                hours.total_seconds() / 60)
+            total = float(rate) * float(hours.total_seconds() / 60)
+            entries[entry]['total'] = total
+            running_total += total
 
     context['entries'] = entries
-
-    if company:
-        context['company'] = company
+    context['total'] = running_total
 
     return render(request, 'estimate.html', context)
 

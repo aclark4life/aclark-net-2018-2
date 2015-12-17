@@ -44,13 +44,13 @@
                       <td><h5>Unit Price</h5></td>
                       <td><h5>Amount</h5></td>
                     </tr>
-                    {% for entry in entries %}
+                    {% for entry in entries.values %}
                     <tr> 
                       <td>{{ forloop.counter }}</td>
                       <td>{{ entry.notes }}</td>
                       <td>{{ entry.hours }}</td>
-                      <td>{{ entry.task.rate }}</td>
-                      <td>{{ entry.task.rate|multiply:entry.hours }}</td>
+                      <td>{{ entry.rate }}</td>
+                      <td>{{ entry.total }}</td>
                     </tr>
                     {% endfor %}
                     <tr></tr>
@@ -59,7 +59,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><h4>Estimate Total:</h4></td>
+                      <td><strong>Estimate Total:</strong> {{ total }}</td>
                     </tr>
                   </tbody>
                 </table>
