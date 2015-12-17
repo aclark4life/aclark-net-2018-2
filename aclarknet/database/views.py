@@ -7,7 +7,6 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
@@ -27,6 +26,7 @@ from .models import Invoice
 from .models import Project
 from .models import Task
 from .models import Time
+from .utils import estimate_totals
 
 # Create your views here.
 
@@ -128,7 +128,6 @@ def contact_index(request):
 @staff_member_required
 def estimate(request, pk=None):
     context = {}
-    entries = {}
 
     company = Company.objects.get()
     if company:
@@ -137,21 +136,11 @@ def estimate(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     context['estimate'] = estimate
 
-    running_total = 0
-    for entry in Time.objects.filter(client=estimate.client):
-        entries[entry] = {}
-        entries[entry]['notes'] = entry.notes
-        hours = entry.hours
-        entries[entry]['hours'] = hours
-        if entry.task:
-            rate = entry.task.rate
-            entries[entry]['rate'] = rate
-            total = float(rate) * float(hours.total_seconds() / 60)
-            entries[entry]['total'] = total
-            running_total += total
+    entries, total = estimate_totals(Time.objects.filter(client=
+                                                         estimate.client))
 
     context['entries'] = entries
-    context['total'] = running_total
+    context['total'] = total
 
     return render(request, 'estimate.html', context)
 
@@ -159,13 +148,22 @@ def estimate(request, pk=None):
 @staff_member_required
 def estimate_pdf(request, pk=None):
     context = {}
+
     company = Company.objects.get()
-    estimate = get_object_or_404(Estimate, pk=pk)
-    context['entries'] = Time.objects.filter(client=estimate.client)
-    context['estimate'] = estimate
-    response = HttpResponse(content_type='application/pdf')
     if company:
         context['company'] = company
+
+    estimate = get_object_or_404(Estimate, pk=pk)
+    context['estimate'] = estimate
+
+    entries, total = estimate_totals(Time.objects.filter(client=
+                                                         estimate.client))
+
+    context['entries'] = entries
+    context['total'] = total
+
+    response = HttpResponse(content_type='application/pdf')
+
     return generate_pdf('estimate_table.html',
                         context=context,
                         file_object=response)
