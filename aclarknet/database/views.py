@@ -26,7 +26,7 @@ from .models import Invoice
 from .models import Project
 from .models import Task
 from .models import Time
-from .utils import estimate_totals
+from .utils import entries_total
 
 # Create your views here.
 
@@ -136,8 +136,8 @@ def estimate(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     context['estimate'] = estimate
 
-    entries, total = estimate_totals(Time.objects.filter(client=
-                                                         estimate.client))
+    times = Time.objects.filter(client=estimate.client)
+    entries, total = entries_total(times)
 
     context['entries'] = entries
     context['total'] = total
@@ -156,8 +156,8 @@ def estimate_pdf(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     context['estimate'] = estimate
 
-    entries, total = estimate_totals(Time.objects.filter(client=
-                                                         estimate.client))
+    times = Time.objects.filter(client=estimate.client)
+    entries, total = entries_total(times)
 
     context['entries'] = entries
     context['total'] = total
@@ -227,8 +227,8 @@ def invoice(request, pk=None):
     invoice = get_object_or_404(Estimate, pk=pk)
     context['invoice'] = invoice
 
-    entries, total = estimate_totals(Time.objects.filter(client=
-                                                         invoice.client))
+    times = Time.objects.filter(client=invoice.client)
+    entries, total = entries_total(times)
 
     context['entries'] = entries
     context['total'] = total
@@ -247,8 +247,8 @@ def invoice_pdf(request, pk=None):
     invoice = get_object_or_404(Estimate, pk=pk)
     context['invoice'] = invoice
 
-    entries, total = estimate_totals(Time.objects.filter(client=
-                                                         invoice.client))
+    times = Time.objects.filter(client=invoice.client)
+    entries, total = entries_total(times)
 
     context['entries'] = entries
     context['total'] = total

@@ -10,7 +10,7 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def estimate_totals(queryset):
+def entries_total(queryset):
     entries = {}
     running_total = 0
     for entry in queryset:
