@@ -55,9 +55,11 @@ class ContractAdmin(admin.ModelAdmin):
 class ContactResource(ImportExportModelResource):
     """
     """
+    client = fields.Field(column_name='client',
+                          attribute='client',
+                          widget=widgets.ForeignKeyWidget(Client, 'name'))
 
     class Meta:
-        exclude = ('client', )
         model = Contact
 
     def get_instance(self, instance_loaders, row):
