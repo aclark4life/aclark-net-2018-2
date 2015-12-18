@@ -2,16 +2,37 @@
 
 {% block content %}
 
-                  <div class="col-md-6">
                     <h3>Contact &rarr; {{ contact.first_name }} {{ contact.last_name }}<a class="btn btn-default pull-right" href="{% url 'contact_edit' contact.pk %}">Edit Contact</a></h3>
                     <hr>
-                    <table data-toggle="table"> 
-                      <tbody>
+                    <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
+                      <thead>
                         <tr>
-                          <td><strong>First Name</strong></td><td>{{ contact.first_name }}</td>
+                          <th>Id</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Title</th>
+                          <th>Hidden Id</th>
+                          <th>Client</th>
+                          <th>Email</th>
+                          <th>Mobile Phone</th>
+                          <th>Office Phone</th>
+                          <th>Fax</th>
                         </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>{{ contact.pk }}</td>
+                        <td>{{ contact.first_name }}</td>
+                        <td>{{ contact.last_name }}</td>
+                        <td>{{ contact.title }}</td>
+                        <td>{{ contact.pk }}</td>
+                        <td>{{ contact.client }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.mobile_phone }}</td>
+                        <td>{{ contact.office_phone }}</td>
+                        <td>{{ contact.fax }}</td>
+                      </tr>
                       </tbody>
                     </table>
-                  </div>
 
 {% endblock %}
