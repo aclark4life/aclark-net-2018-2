@@ -20,6 +20,8 @@ class Client(models.Model):
 
 
 class Company(SingletonModel):
+    """
+    """
     name = models.CharField(max_length=255)
     address = models.TextField()
 
@@ -59,9 +61,11 @@ class Contract(models.Model):
 
 class Estimate(models.Model):
     """
+    Issue Date, ID, Client, Subject, Estimate Amount, Subtotal, Discount, Tax,
+    Tax2, Currency, Accepted Date, Declined Date
     """
-    client = models.ForeignKey(Client, blank=True, null=True)
     issue_date = models.DateField(blank=True, null=True)
+    client = models.ForeignKey(Client, blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
@@ -70,6 +74,9 @@ class Estimate(models.Model):
 
 class Invoice(models.Model):
     """
+    Issue Date, Last Payment Date, ID, PO Number, Client, Subject, Invoice
+    Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2, Currency,
+    Currency Symbol, Document Type
     """
     project = models.ForeignKey('Project', blank=True, null=True)
     issue_date = models.DateField(blank=True, null=True)
