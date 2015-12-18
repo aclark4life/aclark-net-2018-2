@@ -96,6 +96,7 @@ class ProjectResource(ImportExportModelResource):
 
     class Meta:
         model = Project
+        exclude = ('client', )
 
     def get_instance(self, instance_loaders, row):
         return False
