@@ -3,47 +3,11 @@
 {% block content %}
 
                 <h3>Invoice {{ invoice.pk }}<a class="btn btn-default pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit Invoice</a></h3>
+
                 <a href="{% url 'invoice_pdf' pk=invoice.pk %}"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
+
                 <hr>
-                <table data-toggle="table">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Project</th>
-                      <th>Client</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ invoice.pk }}</td>
-                      <td>{{ invoice.project }}</td>
-                      <td>{{ client }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr>
-                <table data-toggle="table">
-                  <tr>
-                    <td class="col-md-9"><h1>INVOICE</h1></td>
-                    <td class="col-md-3"><h4>From:</h4></td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-9">
-                      <h4>Invoice Id:</h4>
-                      <h4>Issue Date:</h4>
-                      <h4>Due Date:</h4>
-                      <h4>Subject:</h4>
-                    </td>
-                    <td class="col-md-3">
-                      <h4>Invoice For:</h4>
-                    </td>
-                  </tr>
-                  {% for task in tasks %}
-                  <tr>
-                    <td>{{ task.description }}</td>
-                    <td>{{ task.time_entry }}</td>
-                  </tr>
-                  {% endfor %}
-                <table>
+
+                {% include 'invoice_table.html' %}
 
 {% endblock %}

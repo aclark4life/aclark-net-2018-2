@@ -1,0 +1,65 @@
+{% load database_filters %}
+                <table data-toggle="table">
+                  <thead>
+                    <tr>
+                      <th><h1>INVOICE</h1></th>
+                      <th class="col-md-9"></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <strong>From:</strong>
+                        <div>{{ company.name }}</div>
+                        <div>{{ company.address }}</div>
+                      </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td><strong>Invoice Id:</strong> {{ estimate.pk }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><strong>Invoice For:</strong> {{ estimate.client|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Issue Date:</strong> {{ estimate.issue_date }}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td><strong>Subject:</strong> {{ estimate.subject }}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td><h5>Item</h5></td>
+                      <td><h5>Description</h5></td>
+                      <td><h5>Quantity</h5></td>
+                      <td><h5>Unit Price</h5></td>
+                      <td><h5>Amount</h5></td>
+                    </tr>
+                    {% for entry in entries.values %}
+                    <tr> 
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ entry.notes }}</td>
+                      <td>{{ entry.hours }}</td>
+                      <td>{{ entry.rate }}</td>
+                      <td>{{ entry.total }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr></tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><strong>Estimate Total:</strong> {{ total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
