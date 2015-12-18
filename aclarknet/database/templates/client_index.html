@@ -22,9 +22,8 @@
                     <tr>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
-                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
+                      <th data-sortable="true">Name</th>
                       <th data-sortable="true">Address</th>
-                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -34,7 +33,6 @@
                       <td>{{ client.pk }}</td>
                       <td>{{ client.name }}</td>
                       <td>{{ client.address|linebreaks }}</td>
-                      <td>{{ client.name }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

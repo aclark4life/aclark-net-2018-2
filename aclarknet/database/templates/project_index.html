@@ -20,26 +20,30 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-field="id" data-sortable="true">Id</th>
-                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
-                      <th data-field="client" data-sortable="true">Client</th>
+                      <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
 
-                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                      <th data-sort-name="hidden-name" data-sortable="true">Name</th>
+
+                      <th data-field="client" data-sort-name="hidden-client" data-sortable="true">Client</th>
+                      <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for project in projects %}
                     <tr>
                       <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
-                      <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                      <td>{{ project.pk }}</td>
+
+                      <td>{{ project.name }}</td>
 
                     {% if project.client.pk %}
                       <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
+                      <td>{{ project.client }}</td>
                     {% else %}
                       <td></td>
+                      <td></td>
                     {% endif %}
-
-                      <td>{{ project.name }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
