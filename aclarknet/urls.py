@@ -62,9 +62,6 @@ urlpatterns = [
     url(r'^estimate$',
         views.estimate_index,
         name='estimate_index'),
-    url(r'^estimate/(?P<pk>\d+)/pdf$',
-        views.estimate_pdf,
-        name='estimate_pdf'),
     # Invoice
     url(r'^invoice/(?P<pk>\d+)$',
         views.invoice,
@@ -78,9 +75,6 @@ urlpatterns = [
     url(r'^invoice$',
         views.invoice_index,
         name='invoice_index'),
-    url(r'^invoice/(?P<pk>\d+)/pdf$',
-        views.invoice_pdf,
-        name='invoice_pdf'),
     # Project
     url(r'^project/(?P<pk>\d+)$',
         views.project,

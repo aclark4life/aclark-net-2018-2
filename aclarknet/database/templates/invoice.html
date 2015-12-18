@@ -4,7 +4,7 @@
 
                 <h3>Invoice {{ invoice.pk }}<a class="btn btn-default pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit Invoice</a></h3>
 
-                <a href="{% url 'invoice_pdf' pk=invoice.pk %}"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
+                <a href="{% url 'invoice' pk=invoice.pk %}?pdf=true"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
 
                 <hr>
 

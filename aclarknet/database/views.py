@@ -142,31 +142,14 @@ def estimate(request, pk=None):
     context['entries'] = entries
     context['total'] = total
 
-    return render(request, 'estimate.html', context)
-
-
-@staff_member_required
-def estimate_pdf(request, pk=None):
-    context = {}
-
-    company = Company.objects.get()
-    if company:
-        context['company'] = company
-
-    estimate = get_object_or_404(Estimate, pk=pk)
-    context['estimate'] = estimate
-
-    times = Time.objects.filter(client=estimate.client)
-    entries, total = entries_total(times)
-
-    context['entries'] = entries
-    context['total'] = total
-
-    response = HttpResponse(content_type='application/pdf')
-
-    return generate_pdf('estimate_table.html',
-                        context=context,
-                        file_object=response)
+    pdf = request.GET.get('pdf')
+    if pdf:
+        response = HttpResponse(content_type='application/pdf')
+        return generate_pdf('estimate_table.html',
+                            context=context,
+                            file_object=response)
+    else:
+        return render(request, 'estimate.html', context)
 
 
 @staff_member_required
@@ -233,31 +216,14 @@ def invoice(request, pk=None):
     context['entries'] = entries
     context['total'] = total
 
-    return render(request, 'invoice.html', context)
-
-
-@staff_member_required
-def invoice_pdf(request, pk=None):
-    context = {}
-
-    company = Company.objects.get()
-    if company:
-        context['company'] = company
-
-    invoice = get_object_or_404(Estimate, pk=pk)
-    context['invoice'] = invoice
-
-    times = Time.objects.filter(client=invoice.client)
-    entries, total = entries_total(times)
-
-    context['entries'] = entries
-    context['total'] = total
-
-    response = HttpResponse(content_type='application/pdf')
-
-    return generate_pdf('invoice_table.html',
-                        context=context,
-                        file_object=response)
+    pdf = request.GET.get('pdf')
+    if pdf:
+        response = HttpResponse(content_type='application/pdf')
+        return generate_pdf('invoice_table.html',
+                            context=context,
+                            file_object=response)
+    else:
+        return render(request, 'invoice.html', context)
 
 
 @staff_member_required
