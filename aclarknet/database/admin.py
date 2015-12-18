@@ -128,10 +128,32 @@ class ProjectAdmin(ImportExportModelAdmin):
     resource_class = ProjectResource
 
 
+class TaskResource(ImportExportModelResource):
+    """
+    """
+
+    class Meta:
+        model = Task
+        exclude = ('unit', 'billable', 'active')
+
+    def get_instance(self, instance_loaders, row):
+        return False
+
+    def before_import(self, dataset, dry_run, file_name=None, user=None):
+
+        if dataset.headers:
+            dataset.headers = [str(header).lower().strip()
+                               for header in dataset.headers]
+
+        if 'id' not in dataset.headers:
+            dataset.headers.append('id')
+
+
 @admin.register(Task)
-class TaskAdmin(admin.ModelAdmin):
+class TaskAdmin(ImportExportModelAdmin):
     """
     """
+    resource_class = TaskResource
 
 
 class TimeResource(ImportExportModelResource):

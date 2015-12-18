@@ -139,6 +139,8 @@ class Task(models.Model):
                                max_digits=6,
                                decimal_places=2)
     unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
+    billable = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.name
