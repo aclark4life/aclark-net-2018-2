@@ -62,7 +62,6 @@ class Estimate(models.Model):
     """
     client = models.ForeignKey(Client, blank=True, null=True)
     issue_date = models.DateField(blank=True, null=True)
-    project = models.ForeignKey('Project', blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
@@ -73,6 +72,8 @@ class Invoice(models.Model):
     """
     """
     project = models.ForeignKey('Project', blank=True, null=True)
+    issue_date = models.DateField(blank=True, null=True)
+    subject = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
