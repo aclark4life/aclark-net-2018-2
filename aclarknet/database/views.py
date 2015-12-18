@@ -218,19 +218,46 @@ def home(request):
 
 @staff_member_required
 def invoice(request, pk=None):
-    client = None
     context = {}
-    invoice = get_object_or_404(Invoice, pk=pk)
-    project = Project.objects.filter(invoice=invoice)
-    clients = Client.objects.filter(project=project)
-    if len(clients) > 0:
-        client = clients[0]
-    tasks = Task.objects.all()
-    context['client'] = client
+
+    company = Company.objects.get()
+    if company:
+        context['company'] = company
+
+    invoice = get_object_or_404(Estimate, pk=pk)
     context['invoice'] = invoice
-    context['project'] = project
-    context['tasks'] = tasks
+
+    entries, total = estimate_totals(Time.objects.filter(client=
+                                                         invoice.client))
+
+    context['entries'] = entries
+    context['total'] = total
+
     return render(request, 'invoice.html', context)
+
+
+@staff_member_required
+def invoice_pdf(request, pk=None):
+    context = {}
+
+    company = Company.objects.get()
+    if company:
+        context['company'] = company
+
+    invoice = get_object_or_404(Estimate, pk=pk)
+    context['invoice'] = invoice
+
+    entries, total = estimate_totals(Time.objects.filter(client=
+                                                         invoice.client))
+
+    context['entries'] = entries
+    context['total'] = total
+
+    response = HttpResponse(content_type='application/pdf')
+
+    return generate_pdf('invoice_table.html',
+                        context=context,
+                        file_object=response)
 
 
 @staff_member_required
@@ -277,15 +304,6 @@ def invoice_index(request):
     context['invoices'] = invoices
 
     return render(request, 'invoice_index.html', context)
-
-
-@staff_member_required
-def invoice_pdf(request, pk=None):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    context = {}
-    context['invoice'] = invoice
-    response = HttpResponse(content_type='application/pdf')
-    return generate_pdf('invoice.html', context=context, file_object=response)
 
 
 @staff_member_required
