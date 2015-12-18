@@ -20,7 +20,8 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-field="id" data-sortable="true">Id</th>
+                      <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Id</th>
                       <th data-field="name" data-sortable="true">Name</th>
                       <th data-field="rate" data-sortable="true">Rate</th>
                       <th data-field="unit" data-sortable="true">Unit</th>
@@ -30,6 +31,7 @@
                   {% for task in tasks %}
                     <tr>
                       <td><a href="{% url 'task' task.pk %}">{{ task.pk|default:'' }}</a></td>
+                      <td>{{ task.pk }}</td>
                       <td>{{ task.name|default:'' }}</td>
                       <td>{{ task.rate|default:'' }}</td>
                       <td>{{ task.unit|default:'' }}</td>
