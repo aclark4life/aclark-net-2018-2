@@ -8,6 +8,8 @@ from .models import Project
 from .models import Task
 from .models import Time
 from django.contrib import admin
+from import_export import fields
+from import_export import widgets
 from import_export.admin import ImportExportModelAdmin
 from import_export.resources import ModelResource as ImportExportModelResource
 from solo.admin import SingletonModelAdmin
@@ -94,9 +96,17 @@ class ProjectResource(ImportExportModelResource):
     """
     """
 
+    client = fields.Field(column_name='client',
+                          attribute='client',
+                          widget=widgets.ForeignKeyWidget(Client, 'name'))
+    billable_amount = fields.Field(widget=widgets.DecimalWidget())
+    budget = fields.Field(widget=widgets.DecimalWidget())
+    budget_spent = fields.Field(widget=widgets.DecimalWidget())
+    team_costs = fields.Field(widget=widgets.DecimalWidget())
+    total_costs = fields.Field(widget=widgets.DecimalWidget())
+
     class Meta:
         model = Project
-        exclude = ('client', )
 
     def get_instance(self, instance_loaders, row):
         return False
