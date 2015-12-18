@@ -20,7 +20,8 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-field="id" data-sortable="true">Id</th>
+                      <th data-field="id" data-sort-name="hidden-id">Id</th>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                       <th data-sortable="true">Address</th>
                       <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
@@ -30,6 +31,7 @@
                   {% for client in clients %}
                     <tr>
                       <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
+                      <td>{{ client.pk }}</td>
                       <td>{{ client.name }}</td>
                       <td>{{ client.address }}</td>
                       <td>{{ client.name }}</td>
