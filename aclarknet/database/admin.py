@@ -80,10 +80,31 @@ class ContactAdmin(ImportExportModelAdmin):
     resource_class = ContactResource
 
 
+class EstimateResource(ImportExportModelResource):
+    """
+    """
+
+    class Meta:
+        model = Estimate
+
+    def get_instance(self, instance_loaders, row):
+        return False
+
+    def before_import(self, dataset, dry_run, file_name=None, user=None):
+
+        if dataset.headers:
+            dataset.headers = [str(header).lower().strip()
+                               for header in dataset.headers]
+
+        if 'id' not in dataset.headers:
+            dataset.headers.append('id')
+
+
 @admin.register(Estimate)
-class EstimateAdmin(admin.ModelAdmin):
+class EstimateAdmin(ImportExportModelAdmin):
     """
     """
+    resource_class = EstimateResource
 
 
 @admin.register(Invoice)
