@@ -33,7 +33,7 @@
                       <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
                       <td>{{ client.pk }}</td>
                       <td>{{ client.name }}</td>
-                      <td>{{ client.address }}</td>
+                      <td>{{ client.address|linebreaks }}</td>
                       <td>{{ client.name }}</td>
                     </tr>
                   {% endfor %}
