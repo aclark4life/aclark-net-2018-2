@@ -1,3 +1,8 @@
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
+
+
 def class_name_pk(self):
     """
 
@@ -11,6 +16,9 @@ def class_name_pk(self):
 
 
 def entries_total(queryset):
+    """
+    Add entries for estimates & invoices
+    """
     entries = {}
     running_total = 0
     for entry in queryset:
@@ -25,3 +33,23 @@ def entries_total(queryset):
             entries[entry]['total'] = total
             running_total += total
     return entries, running_total
+
+
+def paginate(items, page):
+    """
+    Django Paginator, based on:
+
+        https://docs.djangoproject.com/en/1.9/topics/pagination/
+
+    but reversed.
+    """
+    paginator = Paginator(items, 10)  # Show 10 per page
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver last page.
+        items = paginator.page(paginator.num_pages)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver first page of results.
+        items = paginator.page(1)
+    return items

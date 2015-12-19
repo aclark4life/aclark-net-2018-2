@@ -4,9 +4,6 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
-from django.core.paginator import Paginator
-from django.core.paginator import EmptyPage
-from django.core.paginator import PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -30,6 +27,7 @@ from .models import Project
 from .models import Task
 from .models import Time
 from .utils import entries_total
+from .utils import paginate
 
 # Create your views here.
 
@@ -73,21 +71,8 @@ def client_edit(request, pk=None):
 def client_index(request):
     context = {}
     clients = Client.objects.filter(active=True)
-
-    # https://docs.djangoproject.com/en/1.9/topics/pagination/
-    paginator = Paginator(clients, 10)  # Show 10 per page
     page = request.GET.get('page')
-    try:
-        clients = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver last page.
-        clients = paginator.page(paginator.num_pages)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver first page of results.
-        clients = paginator.page(1)
-
-    context['items'] = clients
-
+    context['items'] = paginate(clients, page)
     return render(request, 'client_index.html', context)
 
 
@@ -130,18 +115,8 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     context = {}
     contacts = Contact.objects.filter(active=True)
-
-    paginator = Paginator(contacts, 10)
     page = request.GET.get('page')
-    try:
-        contacts = paginator.page(page)
-    except PageNotAnInteger:
-        contacts = paginator.page(paginator.num_pages)
-    except EmptyPage:
-        contacts = paginator.page(1)
-
-    context['items'] = contacts
-
+    context['items'] = paginate(contacts, page)
     return render(request, 'contact_index.html', context)
 
 
