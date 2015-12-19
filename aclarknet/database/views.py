@@ -124,7 +124,7 @@ def contact_index(request):
 def estimate(request, pk=None):
     context = {}
 
-    company = Company.objects.get()
+    company = Company.get_solo()
     if company:
         context['company'] = company
 
@@ -198,7 +198,7 @@ def home(request):
 def invoice(request, pk=None):
     context = {}
 
-    company = Company.objects.get()
+    company = Company.get_solo()
     if company:
         context['company'] = company
 
