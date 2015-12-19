@@ -17,6 +17,9 @@
 
                 <h3>Clients<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
                 <hr>
+
+                {% include "pagination.html" %}
+
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -38,20 +41,6 @@
                   </tbody>
                 </table>
 
-                <div class="pagination">
-                    <span class="step-links">
-                        {% if clients.has_previous %}
-                            <a href="?page={{ clients.previous_page_number }}">previous</a>
-                        {% endif %}
-
-                        <span class="current">
-                            Page {{ clients.number }} of {{ clients.paginator.num_pages }}.
-                        </span>
-
-                        {% if clients.has_next %}
-                            <a href="?page={{ clients.next_page_number }}">next</a>
-                        {% endif %}
-                    </span>
-                </div>
+                {% include "pagination.html" %}
 
 {% endblock %}
