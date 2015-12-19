@@ -113,9 +113,13 @@ class InvoiceResource(ImportExportModelResource):
     """
     """
 
-    project = fields.Field(column_name='project',
-                           attribute='project',
-                           widget=widgets.ForeignKeyWidget(Project, 'name'))
+    client = fields.Field(column_name='client',
+                          attribute='client',
+                          widget=widgets.ForeignKeyWidget(Client, 'name'))
+    invoice_amount = fields.Field(widget=widgets.DecimalWidget())
+    paid_amount = fields.Field(widget=widgets.DecimalWidget())
+    subtotal = fields.Field(widget=widgets.DecimalWidget())
+    balance = fields.Field(widget=widgets.DecimalWidget())
 
     class Meta:
         model = Invoice
