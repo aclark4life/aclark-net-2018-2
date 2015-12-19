@@ -27,6 +27,7 @@
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-sortable="true">Name</th>
                       <th data-sortable="true">Address</th>
+                      <th>Edit</th> 
                     </tr>
                   </thead>
                   <tbody>
@@ -36,6 +37,7 @@
                       <td>{{ client.pk }}</td>
                       <td>{{ client.name }}</td>
                       <td>{{ client.address|linebreaks }}</td>
+                      <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
