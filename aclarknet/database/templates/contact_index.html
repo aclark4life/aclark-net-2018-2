@@ -27,9 +27,9 @@
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-sortable="true">Client</th>
                       <th data-sortable="true">Email</th>
-                      <th data-sortable="true">Mobile Phone</th>
                       <th data-sortable="true">Office Phone</th>
                       <th data-sortable="true">Fax</th>
+                      <th>Edit</th> 
                     </tr>
                   </thead>
                   <tbody>
@@ -42,9 +42,9 @@
                       <td>{{ contact.pk }}</td>
                       <td>{{ contact.client }}</td>
                       <td>{{ contact.email }}</td>
-                      <td>{{ contact.mobile_phone }}</td>
                       <td>{{ contact.office_phone }}</td>
                       <td>{{ contact.fax }}</td>
+                      <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
