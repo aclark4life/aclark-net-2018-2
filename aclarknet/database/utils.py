@@ -46,13 +46,15 @@ def paginate(items, page):
         <div class="pagination">
             <span class="step-links">
                 {% if items.has_next %}
-                    <a href="?page={{ items.next_page_number }}"><i class="fa fa-arrow-left"></i></a>
+                    <a href="?page={{ items.next_page_number }}">
+                        <i class="fa fa-arrow-left"></i></a>
                 {% endif %}
                 <span class="current">
                     {{ items.number }} of {{ items.paginator.num_pages }}
                 </span>
                 {% if items.has_previous %}
-                    <a href="?page={{ items.previous_page_number }}"><i class="fa fa-arrow-right"></i></a>
+                    <a href="?page={{ items.previous_page_number }}">
+                        <i class="fa fa-arrow-right"></i></a>
                 {% endif %}
             </span>
         </div>
