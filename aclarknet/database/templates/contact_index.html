@@ -34,7 +34,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for contact in contacts %}
+                  {% for contact in items %}
                     <tr>
                       <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
                       <td>{{ contact.first_name }}</td>

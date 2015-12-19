@@ -29,7 +29,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for client in clients %}
+                  {% for client in items %}
                     <tr>
                       <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
                       <td>{{ client.pk }}</td>

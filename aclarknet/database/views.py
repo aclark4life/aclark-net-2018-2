@@ -93,7 +93,7 @@ def client_index(request):
         # If page is out of range (e.g. 9999), deliver first page of results.
         clients = paginator.page(1)
 
-    context['clients'] = clients
+    context['items'] = clients
 
     return render(request, 'client_index.html', context)
 
@@ -153,7 +153,7 @@ def contact_index(request):
     except EmptyPage:
         contacts = paginator.page(1)
 
-    context['contacts'] = contacts
+    context['items'] = contacts
 
     return render(request, 'contact_index.html', context)
 
