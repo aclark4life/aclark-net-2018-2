@@ -113,6 +113,10 @@ class InvoiceResource(ImportExportModelResource):
     """
     """
 
+    project = fields.Field(column_name='project',
+                           attribute='project',
+                           widget=widgets.ForeignKeyWidget(Project, 'name'))
+
     class Meta:
         model = Invoice
 

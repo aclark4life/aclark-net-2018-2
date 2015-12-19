@@ -4,6 +4,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -69,12 +72,29 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = {}
+
+    page = request.GET.get('page')
     show_all = request.GET.get('show-all', False)
+
     if show_all:
         clients = Client.objects.all()
     else:
         clients = Client.objects.filter(active=True)
+
+    # https://docs.djangoproject.com/en/1.9/topics/pagination/
+    paginator = Paginator(clients, 10)  # Show 10 per page
+
+    try:
+        clients = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        clients = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        clients = paginator.page(paginator.num_pages)
+
     context['clients'] = clients
+
     return render(request, 'client_index.html', context)
 
 
