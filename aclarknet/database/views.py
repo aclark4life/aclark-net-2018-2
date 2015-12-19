@@ -202,7 +202,7 @@ def invoice(request, pk=None):
     if company:
         context['company'] = company
 
-    invoice = get_object_or_404(Estimate, pk=pk)
+    invoice = get_object_or_404(Invoice, pk=pk)
     context['invoice'] = invoice
 
     times = Time.objects.filter(client=invoice.client)

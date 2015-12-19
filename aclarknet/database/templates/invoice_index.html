@@ -20,7 +20,8 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-field="id" data-sortable="true">Id</th>
+                      <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="project" data-sortable="true">Project</th>
                       <th data-field="client" data-sortable="true">Client</th>
                     </tr>
@@ -29,6 +30,7 @@
                   {% for invoice in invoices %}
                     <tr>
                       <td><a href="{% url 'invoice' invoice.0.pk %}">{{ invoice.0.pk|default:'' }}</a></td>
+                      <td>{{ invoice.0.pk }}</td>
 
                       {% if invoice.0.project.pk %}
                         <td><a href="{% url 'project' invoice.0.project.pk %}">{{ invoice.0.project|default:'' }}</a></td>
