@@ -255,18 +255,9 @@ def invoice_edit(request, client=None, pk=None):
 @staff_member_required
 def invoice_index(request):
     context = {}
-
-    #client = None
-    #invoices = []
-    #for invoice in Invoice.objects.all():
-    #    clients = Client.objects.filter(project=invoice.project)
-    #    if len(clients) > 0:
-    #        client = clients[0]
-    #    invoices.append([invoice, client])
-
     invoices = Invoice.objects.all()
-    context['invoices'] = invoices
-
+    page = request.GET.get('page')
+    context['items'] = paginate(invoices, page)
     return render(request, 'invoice_index.html', context)
 
 

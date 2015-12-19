@@ -17,6 +17,7 @@
 
                 <h3>Invoices<a class="btn btn-default pull-right" href="{% url 'invoice_edit' %}">Add Invoice</a></h3>
                 <hr>
+                {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -31,7 +32,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for invoice in invoices %}
+                  {% for invoice in items %}
                     <tr>
                       <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.pk|default:'' }}</a></td>
                       <td>{{ invoice.pk }}</td>
@@ -45,5 +46,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
+                {% include 'pagination.html' %}
 
 {% endblock %}
