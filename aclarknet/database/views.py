@@ -72,18 +72,11 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = {}
-
-    page = request.GET.get('page')
-    show_all = request.GET.get('show-all', False)
-
-    if show_all:
-        clients = Client.objects.all()
-    else:
-        clients = Client.objects.filter(active=True)
+    clients = Client.objects.filter(active=True)
 
     # https://docs.djangoproject.com/en/1.9/topics/pagination/
     paginator = Paginator(clients, 10)  # Show 10 per page
-
+    page = request.GET.get('page')
     try:
         clients = paginator.page(page)
     except PageNotAnInteger:
@@ -136,16 +129,10 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
-
-    page = request.GET.get('page')
-    show_all = request.GET.get('show-all', False)
-
-    if show_all:
-        contacts = Contact.objects.all()
-    else:
-        contacts = Contact.objects.filter(active=True)
+    contacts = Contact.objects.filter(active=True)
 
     paginator = Paginator(contacts, 10)
+    page = request.GET.get('page')
     try:
         contacts = paginator.page(page)
     except PageNotAnInteger:
