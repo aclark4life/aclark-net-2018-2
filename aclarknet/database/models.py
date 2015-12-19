@@ -78,9 +78,42 @@ class Invoice(models.Model):
     Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2, Currency,
     Currency Symbol, Document Type
     """
-    project = models.ForeignKey('Project', blank=True, null=True)
     issue_date = models.DateField(blank=True, null=True)
+    last_payment_date = models.DateField(blank=True, null=True)
+    invoice_id = models.IntegerField(blank=True, null=True)
+    po_number = models.IntegerField(blank=True, null=True)
+    client = models.ForeignKey(Client,
+                               blank=True,
+                               null=True,
+                               limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
+    invoice_amount = models.DecimalField(blank=True,
+                                         null=True,
+                                         unique=True,
+                                         max_digits=6,
+                                         decimal_places=2)
+    paid_amount = models.DecimalField(blank=True,
+                                      null=True,
+                                      unique=True,
+                                      max_digits=6,
+                                      decimal_places=2)
+    balance = models.DecimalField(blank=True,
+                                  null=True,
+                                  unique=True,
+                                  max_digits=6,
+                                  decimal_places=2)
+    subtotal = models.DecimalField(blank=True,
+                                   null=True,
+                                   unique=True,
+                                   max_digits=6,
+                                   decimal_places=2)
+    discount = models.IntegerField(blank=True, null=True)
+    tax = models.IntegerField(blank=True, null=True)
+    tax2 = models.IntegerField(blank=True, null=True)
+    project = models.ForeignKey('Project', blank=True, null=True)
+    currency = models.CharField(max_length=300, blank=True, null=True)
+    currency_symbol = models.CharField(max_length=300, blank=True, null=True)
+    document_type = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
