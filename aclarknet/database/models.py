@@ -61,12 +61,25 @@ class Contract(models.Model):
 
 class Estimate(models.Model):
     """
-    Issue Date, ID, Client, Subject, Estimate Amount, Subtotal, Discount, Tax,
+    Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal, Discount, Tax,
     Tax2, Currency, Accepted Date, Declined Date
     """
     issue_date = models.DateField(blank=True, null=True)
+    estimate_id = models.IntegerField(blank=True, null=True)
     client = models.ForeignKey(Client, blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
+    estimate_amount = models.DecimalField(blank=True,
+                                          null=True,
+                                          unique=True,
+                                          max_digits=6,
+                                          decimal_places=2)
+    subject = models.CharField(max_length=300, blank=True, null=True)
+    discount = models.IntegerField(blank=True, null=True)
+    tax = models.IntegerField(blank=True, null=True)
+    tax2 = models.IntegerField(blank=True, null=True)
+    currency = models.CharField(max_length=300, blank=True, null=True)
+    accepted_date = models.DateField(blank=True, null=True)
+    declined_date = models.DateField(blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -74,7 +87,7 @@ class Estimate(models.Model):
 
 class Invoice(models.Model):
     """
-    Issue Date, Last Payment Date, ID, PO Number, Client, Subject, Invoice
+    Issue Date, Last Payment Date, Invoice ID, PO Number, Client, Subject, Invoice
     Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2, Currency,
     Currency Symbol, Document Type
     """

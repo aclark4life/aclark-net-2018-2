@@ -85,6 +85,11 @@ class ContactAdmin(ImportExportModelAdmin):
 class EstimateResource(ImportExportModelResource):
     """
     """
+    client = fields.Field(column_name='client',
+                          attribute='client',
+                          widget=widgets.ForeignKeyWidget(Client, 'name'))
+    estimate_amount = fields.Field(widget=widgets.DecimalWidget())
+    subtotal = fields.Field(widget=widgets.DecimalWidget())
 
     class Meta:
         model = Estimate
