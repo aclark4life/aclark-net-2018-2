@@ -254,14 +254,17 @@ def invoice_edit(request, client=None, pk=None):
 
 @staff_member_required
 def invoice_index(request):
-    client = None
     context = {}
-    invoices = []
-    for invoice in Invoice.objects.all():
-        clients = Client.objects.filter(project=invoice.project)
-        if len(clients) > 0:
-            client = clients[0]
-        invoices.append([invoice, client])
+
+    #client = None
+    #invoices = []
+    #for invoice in Invoice.objects.all():
+    #    clients = Client.objects.filter(project=invoice.project)
+    #    if len(clients) > 0:
+    #        client = clients[0]
+    #    invoices.append([invoice, client])
+
+    invoices = Invoice.objects.all()
     context['invoices'] = invoices
 
     return render(request, 'invoice_index.html', context)

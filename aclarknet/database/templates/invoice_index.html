@@ -22,28 +22,25 @@
                     <tr>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
-                      <th data-field="project" data-sortable="true">Project</th>
+                      <th data-field="issue_date" data-sortable="true">Issue Date</th>
+                      <th data-field="invoice_id" data-sortable="true">Invoice Id</th>
                       <th data-field="client" data-sortable="true">Client</th>
+                      <th data-field="subject" data-sortable="true">Subject</th>
+                      <th data-field="project" data-sortable="true">Project</th>
+                      <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for invoice in invoices %}
                     <tr>
-                      <td><a href="{% url 'invoice' invoice.0.pk %}">{{ invoice.0.pk|default:'' }}</a></td>
-                      <td>{{ invoice.0.pk }}</td>
-
-                      {% if invoice.0.project.pk %}
-                        <td><a href="{% url 'project' invoice.0.project.pk %}">{{ invoice.0.project|default:'' }}</a></td>
-                      {% else %}
-                        <td></td>
-                      {% endif %}
-
-                      {% if invoice.1.pk %}
-                        <td><a href="{% url 'client' invoice.1.pk %}">{{ invoice.1.name|default:'' }}</a></td>
-                      {% else %}
-                        <td></td>
-                      {% endif %}
-
+                      <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.pk|default:'' }}</a></td>
+                      <td>{{ invoice.pk }}</td>
+                      <td>{{ invoice.issue_date|default:'' }}</td>
+                      <td>{{ invoice.invoice_id|default:'' }}</td>
+                      <td><a href="{% url 'client' invoice.client.pk %}">{{ invoice.client.name|default:'' }}</a></td>
+                      <td>{{ invoice.subject|default:'' }}</td>
+                      <td>{{ invoice.project|default:'' }}</td>
+                      <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-2x"></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
