@@ -17,6 +17,7 @@
 
                 <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}">Add Project</a></h3>
                 <hr>
+                {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -30,7 +31,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for project in projects %}
+                  {% for project in items %}
                     <tr>
                       <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
                       <td>{{ project.pk }}</td>
@@ -48,5 +49,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
+                {% include 'pagination.html' %}
 
 {% endblock %}

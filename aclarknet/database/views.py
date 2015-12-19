@@ -314,7 +314,8 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     context = {}
     projects = Project.objects.all()
-    context['projects'] = projects
+    page = request.GET.get('page')
+    context['items'] = paginate(projects, page)
     return render(request, 'project_index.html', context)
 
 
