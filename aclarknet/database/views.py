@@ -87,10 +87,10 @@ def client_index(request):
     try:
         clients = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
+        # If page is not an integer, deliver last page.
         clients = paginator.page(paginator.num_pages)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
+        # If page is out of range (e.g. 9999), deliver first page of results.
         clients = paginator.page(1)
 
     context['clients'] = clients
@@ -136,12 +136,25 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
+
+    page = request.GET.get('page')
     show_all = request.GET.get('show-all', False)
+
     if show_all:
         contacts = Contact.objects.all()
     else:
         contacts = Contact.objects.filter(active=True)
+
+    paginator = Paginator(contacts, 10)
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page(paginator.num_pages)
+    except EmptyPage:
+        contacts = paginator.page(1)
+
     context['contacts'] = contacts
+
     return render(request, 'contact_index.html', context)
 
 

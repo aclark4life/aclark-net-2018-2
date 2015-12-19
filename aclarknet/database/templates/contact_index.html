@@ -17,6 +17,7 @@
 
                 <h3>Contacts<a class="btn btn-default pull-right" href="{% url 'contact_edit' %}">Add Contact</a></h3>
                 <hr>
+                {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -49,5 +50,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
+                {% include 'pagination.html' %}
 
 {% endblock %}

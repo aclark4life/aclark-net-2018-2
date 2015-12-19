@@ -17,9 +17,7 @@
 
                 <h3>Clients<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
                 <hr>
-
-                {% include "pagination.html" %}
-
+                {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -42,7 +40,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
-
-                {% include "pagination.html" %}
+                {% include 'pagination.html' %}
 
 {% endblock %}
