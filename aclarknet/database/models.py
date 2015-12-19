@@ -81,7 +81,6 @@ class Invoice(models.Model):
     issue_date = models.DateField(blank=True, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
     invoice_id = models.IntegerField(blank=True, null=True)
-    project_code = models.IntegerField(blank=True, null=True)
     po_number = models.CharField(max_length=300, blank=True, null=True)
     client = models.ForeignKey(Client,
                                blank=True,
