@@ -1,4 +1,4 @@
-# from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
@@ -212,16 +212,8 @@ class Time(models.Model):
                                  null=True)
     billable = models.BooleanField()
     invoiced = models.BooleanField()
-    # first_name = models.ForeignKey(User, to_field='first_name',
-    # related_name='user_first_name')
-    # last_name = models.ForeignKey(User, to_field='last_name')
     department = models.CharField(max_length=300, blank=True, null=True)
     employee = models.BooleanField()
-    # billable_amount = models.ForeignKey(Project,
-    #                                    blank=True,
-    #                                    null=True,
-    #                                    to_field='billable_amount',
-    #                                    related_name='project_billable_amount')
     cost_rate = models.DecimalField(blank=True,
                                     null=True,
                                     max_digits=12,
@@ -232,6 +224,7 @@ class Time(models.Model):
                                       decimal_places=2)
     currency = models.CharField(max_length=300, blank=True, null=True)
     external_reference_url = models.URLField(blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     def __unicode__(self):
         return class_name_pk(self)

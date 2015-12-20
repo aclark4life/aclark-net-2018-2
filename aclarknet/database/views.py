@@ -406,7 +406,7 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
-    entries = Time.objects.all()
+    entries = Time.objects.filter(user=request.user)
     page = request.GET.get('page')
     context['items'] = paginate(entries, page)
     return render(request, 'time_index.html', context)
