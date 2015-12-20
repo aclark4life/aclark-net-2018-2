@@ -70,8 +70,7 @@ class Estimate(models.Model):
     subject = models.CharField(max_length=300, blank=True, null=True)
     estimate_amount = models.DecimalField(blank=True,
                                           null=True,
-                                          unique=True,
-                                          max_digits=6,
+                                          max_digits=12,
                                           decimal_places=2)
     subject = models.CharField(max_length=300, blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
@@ -102,23 +101,19 @@ class Invoice(models.Model):
     subject = models.CharField(max_length=300, blank=True, null=True)
     invoice_amount = models.DecimalField(blank=True,
                                          null=True,
-                                         unique=True,
-                                         max_digits=6,
+                                         max_digits=12,
                                          decimal_places=2)
     paid_amount = models.DecimalField(blank=True,
                                       null=True,
-                                      unique=True,
-                                      max_digits=6,
+                                      max_digits=12,
                                       decimal_places=2)
     balance = models.DecimalField(blank=True,
                                   null=True,
-                                  unique=True,
-                                  max_digits=6,
+                                  max_digits=12,
                                   decimal_places=2)
     subtotal = models.DecimalField(blank=True,
                                    null=True,
-                                   unique=True,
-                                   max_digits=6,
+                                   max_digits=12,
                                    decimal_places=2)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
@@ -151,32 +146,31 @@ class Project(models.Model):
     billable_hours = models.FloatField(blank=True, null=True)
     billable_amount = models.DecimalField(blank=True,
                                           null=True,
-                                          unique=True,
-                                          max_digits=6,
+                                          max_digits=12,
                                           decimal_places=2)
     budget = models.DecimalField(blank=True,
                                  null=True,
-                                 max_digits=6,
+                                 max_digits=12,
                                  decimal_places=2)
     budget_spent = models.DecimalField(blank=True,
                                        null=True,
-                                       max_digits=6,
+                                       max_digits=12,
                                        decimal_places=2)
     budget_remaining = models.DecimalField(blank=True,
                                            null=True,
-                                           max_digits=6,
+                                           max_digits=12,
                                            decimal_places=2)
     total_costs = models.DecimalField(blank=True,
                                       null=True,
-                                      max_digits=6,
+                                      max_digits=12,
                                       decimal_places=2)
     team_costs = models.DecimalField(blank=True,
                                      null=True,
-                                     max_digits=6,
+                                     max_digits=12,
                                      decimal_places=2)
     expenses = models.DecimalField(blank=True,
                                    null=True,
-                                   max_digits=6,
+                                   max_digits=12,
                                    decimal_places=2)
 
     def __unicode__(self):
@@ -189,7 +183,7 @@ class Task(models.Model):
     name = models.CharField(max_length=300, blank=True, null=True)
     rate = models.DecimalField(blank=True,
                                null=True,
-                               max_digits=6,
+                               max_digits=12,
                                decimal_places=2)
     unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
     billable = models.BooleanField(default=True)
@@ -230,11 +224,11 @@ class Time(models.Model):
     #                                    related_name='project_billable_amount')
     cost_rate = models.DecimalField(blank=True,
                                     null=True,
-                                    max_digits=6,
+                                    max_digits=12,
                                     decimal_places=2)
     cost_amount = models.DecimalField(blank=True,
                                       null=True,
-                                      max_digits=6,
+                                      max_digits=12,
                                       decimal_places=2)
     currency = models.CharField(max_length=300, blank=True, null=True)
     external_reference_url = models.URLField(blank=True, null=True)

@@ -1,16 +1,27 @@
+from decimal import Decimal
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from import_export import widgets
+
+
+class DecimalWidget(widgets.Widget):
+    """
+    Custom Django Import/Export Widget to import decimal values from strings.
+    (Django Import/Export's DecimalWidget does not convert strings.)
+    """
+
+    def clean(self, value):
+        return Decimal(value.replace(',', ''))
 
 
 def class_name_pk(self):
     """
-
     Django Admin object names based on class and pk, e.g.:
 
-    client-1
-    client-2
-    client-3
+        client-1
+        client-2
+        client-3
     """
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
