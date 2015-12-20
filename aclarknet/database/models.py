@@ -61,8 +61,8 @@ class Contract(models.Model):
 
 class Estimate(models.Model):
     """
-    Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal, Discount, Tax,
-    Tax2, Currency, Accepted Date, Declined Date
+    Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
+    Discount, Tax, Tax2, Currency, Accepted Date, Declined Date
     """
     issue_date = models.DateField(blank=True, null=True)
     estimate_id = models.IntegerField(blank=True, null=True)
@@ -86,9 +86,9 @@ class Estimate(models.Model):
 
 class Invoice(models.Model):
     """
-    Issue Date, Last Payment Date, Invoice ID, PO Number, Client, Subject, Invoice
-    Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2, Currency,
-    Currency Symbol, Document Type
+    Issue Date, Last Payment Date, Invoice ID, PO Number, Client, Subject,
+    Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
+    Currency, Currency Symbol, Document Type
     """
     issue_date = models.DateField(blank=True, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
