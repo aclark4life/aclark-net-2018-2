@@ -224,7 +224,7 @@ class Time(models.Model):
                                       decimal_places=2)
     currency = models.CharField(max_length=300, blank=True, null=True)
     external_reference_url = models.URLField(blank=True, null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
