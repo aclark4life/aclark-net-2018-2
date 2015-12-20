@@ -12,7 +12,10 @@ class DecimalWidget(widgets.Widget):
     """
 
     def clean(self, value):
-        return Decimal(value.replace(',', ''))
+        if value:
+            return Decimal(value.replace(',', ''))
+        else:
+            return Decimal(0)
 
 
 def class_name_pk(self):
