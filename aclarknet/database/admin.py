@@ -239,10 +239,18 @@ class TaskAdmin(ImportExportModelAdmin):
 class TimeResource(ImportExportModelResource):
     """
     """
+    client = fields.Field(column_name='client',
+                          attribute='client',
+                          widget=widgets.ForeignKeyWidget(Client, 'name'))
+    project = fields.Field(column_name='project',
+                           attribute='project',
+                           widget=widgets.ForeignKeyWidget(Project, 'name'))
+    task = fields.Field(column_name='task',
+                        attribute='task',
+                        widget=widgets.ForeignKeyWidget(Task, 'name'))
 
     class Meta:
         model = Time
-        exclude = ('client', 'project', 'task')
 
     def get_instance(self, instance_loaders, row):
         return False
