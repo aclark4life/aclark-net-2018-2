@@ -126,10 +126,18 @@ class InvoiceResource(ImportExportModelResource):
     client = fields.Field(column_name='client',
                           attribute='client',
                           widget=widgets.ForeignKeyWidget(Client, 'name'))
-    invoice_amount = fields.Field(widget=DecimalWidget())
-    paid_amount = fields.Field(widget=DecimalWidget())
-    subtotal = fields.Field(widget=DecimalWidget())
-    balance = fields.Field(widget=DecimalWidget())
+    invoice_amount = fields.Field(column_name='invoice_amount',
+                                  attribute='invoice_amount',
+                                  widget=DecimalWidget())
+    paid_amount = fields.Field(column_name='paid_amount',
+                               attribute='paid_amount',
+                               widget=DecimalWidget())
+    subtotal = fields.Field(column_name='subtotal',
+                            attribute='subtotal',
+                            widget=DecimalWidget())
+    balance = fields.Field(column_name='balance',
+                           attribute='balance',
+                           widget=DecimalWidget())
 
     class Meta:
         model = Invoice
@@ -161,11 +169,21 @@ class ProjectResource(ImportExportModelResource):
     client = fields.Field(column_name='client',
                           attribute='client',
                           widget=widgets.ForeignKeyWidget(Client, 'name'))
-    billable_amount = fields.Field(widget=DecimalWidget())
-    budget = fields.Field(widget=DecimalWidget())
-    budget_spent = fields.Field(widget=DecimalWidget())
-    team_costs = fields.Field(widget=DecimalWidget())
-    total_costs = fields.Field(widget=DecimalWidget())
+    billable_amount = fields.Field(column_name='billable_amount',
+                                   attribute='billable_amount',
+                                   widget=DecimalWidget())
+    budget = fields.Field(column_name='budget',
+                          attribute='budget',
+                          widget=DecimalWidget())
+    budget_spent = fields.Field(column_name='budget_spent',
+                                attribute='budget_spent',
+                                widget=DecimalWidget())
+    team_costs = fields.Field(column_name='team_costs',
+                              attribute='team_costs',
+                              widget=DecimalWidget())
+    total_costs = fields.Field(column_name='total_costs',
+                               attribute='total_costs',
+                               widget=DecimalWidget())
 
     class Meta:
         model = Project
