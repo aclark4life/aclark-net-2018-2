@@ -407,7 +407,8 @@ def time_edit(request, pk=None):
 def time_index(request):
     context = {}
     entries = Time.objects.all()
-    context['entries'] = entries
+    page = request.GET.get('page')
+    context['items'] = paginate(entries, page)
     return render(request, 'time_index.html', context)
 
 
