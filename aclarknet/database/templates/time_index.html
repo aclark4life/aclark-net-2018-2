@@ -37,7 +37,6 @@
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Id</th>
                       {% endif %}
                       <th data-field="hours" data-sortable="true">Hours</th>
-                      <th data-field="client" data-sortable="true">Client</th>
                       <th data-field="project" data-sortable="true">Project</th>
                       <th data-field="notes" data-sortable="true">Notes</th>
                     </tr>
@@ -50,7 +49,6 @@
                       <td>{{ entry.pk }}</td>
                       {% endif %}
                       <td>{{ entry.hours|default:'' }}</td>
-                      <td>{{ entry.client|default:'' }}</td>
                       <td>{{ entry.project|default:'' }}</td>
                       <td>{{ entry.notes|linebreaks }}</td>
                     </tr>
