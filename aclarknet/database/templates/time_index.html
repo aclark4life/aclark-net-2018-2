@@ -51,7 +51,7 @@
                       {% if request.user.is_staff %}
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
                       <td>{{ entry.pk }}</td>
-                      <td>{{ entry.user }}</td>
+                      <td>{{ entry.user|default:'' }}</td>
                       {% endif %}
                       <td>{{ entry.date|default:'' }}</td>
                       <td>{{ entry.hours|default:'' }}</td>
