@@ -43,7 +43,7 @@
                       <td>{{ contact.last_name }}</td>
                       <td>{{ contact.title }}</td>
                       <td>{{ contact.pk }}</td>
-                      <td>{{ contact.client }}</td>
+                      <td>{{ contact.client|default:'' }}</td>
                       <td>{{ contact.email }}</td>
                       <td>{{ contact.office_phone }}</td>
                       <td>{{ contact.fax }}</td>
