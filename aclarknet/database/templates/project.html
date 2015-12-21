@@ -31,16 +31,18 @@
                       <thead>
                         <tr>
                           <th>Id</th>
-                          <th>Description</th>
-                          <th>Start Time</th>
-                          <th>End Time</th>
+                          <th>Date</th>
+                          <th>Hours</th>
+                          <th>Notes</th>
                         </tr>
                       </thead>
                       <tbody>
                         {% for entry in times %}
                         <tr>
                             <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk }}</a></td>
-                            <td><a href="{% url 'entry' entry.pk %}">{{ entry.entry|default:'' }}</a></td>
+                            <td>{{ entry.date }}</td>
+                            <td>{{ entry.hours }}</td>
+                            <td>{{ entry.notes }}</td>
                         </tr>
                         {% endfor %}
                       </tbody>
