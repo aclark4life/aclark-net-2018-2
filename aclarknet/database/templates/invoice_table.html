@@ -24,14 +24,14 @@
                     </tr>
                     <tr></tr>
                     <tr>
-                      <td><strong>Invoice Id:</strong> {{ estimate.pk }}</td>
+                      <td><strong>Id:</strong> {{ estimate.pk }}</td>
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>Invoice For:</strong> {{ estimate.client|default:'' }}</td>
+                      <td><strong>For:</strong> {{ estimate.client|default:'' }}</td>
                     </tr>
                     <tr>
-                      <td><strong>Issue Date:</strong> {{ estimate.issue_date }}</td>
+                      <td><strong>Date:</strong> {{ estimate.issue_date }}</td>
                     </tr>
                     <tr></tr>
                     <tr>
@@ -64,7 +64,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>Estimate Total:</strong> {{ total }}</td>
+                      <td><strong>Total:</strong> {{ total }}</td>
                     </tr>
                   </tbody>
                 </table>
