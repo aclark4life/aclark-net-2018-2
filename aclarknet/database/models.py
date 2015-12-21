@@ -210,10 +210,10 @@ class Time(models.Model):
                                  default='01:00',
                                  blank=True,
                                  null=True)
-    billable = models.BooleanField()
-    invoiced = models.BooleanField()
+    billable = models.BooleanField(default=True)
+    invoiced = models.BooleanField(default=True)
     department = models.CharField(max_length=300, blank=True, null=True)
-    employee = models.BooleanField()
+    employee = models.BooleanField(default=True)
     cost_rate = models.DecimalField(blank=True,
                                     null=True,
                                     max_digits=12,

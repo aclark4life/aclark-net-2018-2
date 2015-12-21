@@ -52,5 +52,4 @@ class TaskForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = '__all__'
-        exclude = ('user', )
+        fields = ('date', 'notes', 'project')

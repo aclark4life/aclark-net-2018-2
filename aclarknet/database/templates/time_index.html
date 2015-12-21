@@ -39,6 +39,7 @@
                       <th data-field="hours" data-sortable="true">Hours</th>
                       <th data-field="client" data-sortable="true">Client</th>
                       <th data-field="project" data-sortable="true">Project</th>
+                      <th>Notes</th> 
                     </tr>
                   </thead>
                   <tbody>
@@ -51,6 +52,7 @@
                       <td>{{ entry.hours|default:'' }}</td>
                       <td>{{ entry.client|default:'' }}</td>
                       <td>{{ entry.project|default:'' }}</td>
+                      <td>{{ entry.notes|linebreaks }}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
