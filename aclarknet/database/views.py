@@ -371,6 +371,14 @@ def time(request, pk=None):
 
 
 @login_required
+def time_delete(request, pk=None):
+    context = {}
+    time = get_object_or_404(Time, pk=pk)
+    time.delete()
+    return HttpResponseRedirect(reverse('entry_index'))
+
+
+@login_required
 def time_edit(request, pk=None):
     context = {}
 
