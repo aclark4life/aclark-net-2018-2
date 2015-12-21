@@ -23,6 +23,7 @@
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="client" data-sortable="true">Client</th>
+                      <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -31,6 +32,7 @@
                       <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.pk|default:'' }}</a></td>
                       <td>{{ estimate.pk }}</td>
                       <td>{{ estimate.client|default:'' }}</td>
+                      <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-2x"></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
