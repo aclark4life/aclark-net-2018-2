@@ -202,7 +202,10 @@ class Time(models.Model):
     External Reference URL
     """
     date = models.DateField(default=timezone.now)
-    client = models.ForeignKey(Client, blank=True, null=True)
+    client = models.ForeignKey(Client,
+                               blank=True,
+                               null=True,
+                               limit_choices_to={'active': True}, )
     project = models.ForeignKey(Project,
                                 blank=True,
                                 null=True,
