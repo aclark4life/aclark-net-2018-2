@@ -11,7 +11,7 @@ from .utils import class_name_pk
 class Client(models.Model):
     """
     """
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
     name = models.CharField(max_length=300, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
 
@@ -37,7 +37,7 @@ class Contact(models.Model):
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
     """
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
     client = models.ForeignKey(Client, blank=True, null=True)
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
@@ -133,6 +133,7 @@ class Project(models.Model):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
+    active = models.BooleanField(default=False)
     client = models.ForeignKey(Client,
                                blank=True,
                                null=True,
@@ -187,7 +188,7 @@ class Task(models.Model):
                                decimal_places=2)
     unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
     billable = models.BooleanField(default=True)
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
@@ -202,7 +203,10 @@ class Time(models.Model):
     """
     date = models.DateField(default=timezone.now)
     client = models.ForeignKey(Client, blank=True, null=True)
-    project = models.ForeignKey(Project, blank=True, null=True)
+    project = models.ForeignKey(Project,
+                                blank=True,
+                                null=True,
+                                limit_choices_to={'active': True}, )
     project_code = models.IntegerField(blank=True, null=True)
     task = models.ForeignKey(Task, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
