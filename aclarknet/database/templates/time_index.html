@@ -35,6 +35,7 @@
                       {% if request.user.is_staff %}
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Id</th>
+                      <th data-field="user" data-sortable="true">User</th>
                       {% endif %}
                       <th data-field="date" data-sortable="true">Date</th>
                       <th data-field="hours" data-sortable="true">Hours</th>
@@ -50,6 +51,7 @@
                       {% if request.user.is_staff %}
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
                       <td>{{ entry.pk }}</td>
+                      <td>{{ entry.user }}</td>
                       {% endif %}
                       <td>{{ entry.date|default:'' }}</td>
                       <td>{{ entry.hours|default:'' }}</td>
