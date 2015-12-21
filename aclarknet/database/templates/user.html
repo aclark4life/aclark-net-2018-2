@@ -16,7 +16,7 @@
             {% block nav_pull_right %}
             <li><a href="{% url 'entry_index' %}">Enter Time</a></li>
             {% if not request.user.is_anonymous %}
-            <li class="active"><a href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }}</a></li>
+            <li><a href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>
             <li><a href="{% url 'auth:logout' %}?next={% url 'home' %}">Logout</a></li>
             {% else %}
             <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
