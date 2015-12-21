@@ -70,7 +70,7 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = {}
-    clients = Client.objects.filter(active=True)
+    clients = Client.objects.all()
     page = request.GET.get('page')
     context['items'] = paginate(clients, page)
     return render(request, 'client_index.html', context)
@@ -114,7 +114,7 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
-    contacts = Contact.objects.filter(active=True)
+    contacts = Contact.objects.all()
     page = request.GET.get('page')
     context['items'] = paginate(contacts, page)
     return render(request, 'contact_index.html', context)
@@ -188,9 +188,7 @@ def estimate_index(request):
 
 def home(request):
     context = {}
-    clients = Client.objects.all()
     context['request'] = request
-    context['clients'] = clients
     return render(request, 'home.html', context)
 
 
