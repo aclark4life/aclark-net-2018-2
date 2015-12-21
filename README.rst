@@ -1,8 +1,8 @@
 ACLARK.NET, LLC
 ===============
 
-Client Database Application
----------------------------
+Client & Contractor Database Application
+----------------------------------------
 
 Heroku
 ~~~~~~
