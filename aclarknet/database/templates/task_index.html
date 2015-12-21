@@ -26,6 +26,7 @@
                       <th data-field="name" data-sortable="true">Name</th>
                       <th data-field="rate" data-sortable="true">Rate</th>
                       <th data-field="unit" data-sortable="true">Unit</th>
+                      <th>Edit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -37,6 +38,7 @@
                       <td>{{ task.name|default:'' }}</td>
                       <td>{{ task.rate|default:'' }}</td>
                       <td>{{ task.unit|default:'' }}</td>
+                      <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
