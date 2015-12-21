@@ -397,6 +397,8 @@ def time_edit(request, pk=None):
 
         if form.is_valid():
             time = form.save()
+            time.user = User.objects.get(username=request.user)
+            time.save()
             return HttpResponseRedirect(reverse('entry_index'))
 
     context['form'] = form
