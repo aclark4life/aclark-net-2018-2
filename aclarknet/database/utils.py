@@ -73,7 +73,7 @@ def paginate(items, page):
             </span>
         </div>
     """
-    paginator = Paginator(items, 10)  # Show 10 per page
+    paginator = Paginator(items, 10, orphans=5)  # Show 10 per page
     try:
         items = paginator.page(page)
     except PageNotAnInteger:
