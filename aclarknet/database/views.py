@@ -131,7 +131,7 @@ def estimate(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     context['estimate'] = estimate
 
-    times = Time.objects.filter(client=estimate.client)
+    times = Time.objects.filter(client=estimate.client, project=None)
     entries, total = entries_total(times)
 
     context['entries'] = entries
