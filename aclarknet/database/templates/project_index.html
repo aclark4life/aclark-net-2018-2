@@ -21,6 +21,7 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th>Active</th>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-sortable="true">Name</th>
@@ -31,11 +32,10 @@
                   <tbody>
                   {% for project in items %}
                     <tr>
+                      <td>{% if project.active %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
                       <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
                       <td>{{ project.pk }}</td>
-
                       <td>{{ project.name }}</td>
-
                     {% if project.client.pk %}
                       <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
                       <td>{{ project.client }}</td>
