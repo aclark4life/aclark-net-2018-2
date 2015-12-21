@@ -23,6 +23,7 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-sortable="true">#</th>
                       <th data-field="id" data-sortable="true">Id</th>
                       <th data-field="name" data-sortable="true">Name</th>
                       <th data-field="email" data-sortable="true">Email</th>
@@ -32,6 +33,7 @@
                   <tbody>
                   {% for user in users %}
                     <tr>
+                      <td>{{ forloop.counter }}</td>
                       <td><a href="{% url 'user' user.pk %}">{{ user.pk|default:'' }}</a></td>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>

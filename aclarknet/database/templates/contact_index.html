@@ -21,6 +21,7 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-sortable="true">#</th>
                       <th data-sortable="true">Active</th>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-sortable="true">First Name</th>
@@ -37,6 +38,7 @@
                   <tbody>
                   {% for contact in items %}
                     <tr>
+                      <td>{{ forloop.counter }}</td>
                       <td>{% if contact.active %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
                       <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
                       <td>{{ contact.first_name }}</td>
