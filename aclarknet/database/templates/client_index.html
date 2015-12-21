@@ -32,7 +32,7 @@
                   <tbody>
                   {% for client in items %}
                     <tr>
-                      <td>{% if client.active %}<i class="check-square-o"></i>{% else %}<i class="square-o"></i></td>
+                      <td>{% if client.active %}<i class="check-square-o"></i>{% else %}<i class="square-o"></i>{% endif %}</td>
                       <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
                       <td>{{ client.pk }}</td>
                       <td>{{ client.name }}</td>
