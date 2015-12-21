@@ -52,4 +52,4 @@ class TaskForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = ('date', 'notes', 'project')
+        fields = ('date', 'hours', 'notes', 'project')
