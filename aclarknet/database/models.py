@@ -181,14 +181,14 @@ class Project(models.Model):
 class Task(models.Model):
     """
     """
+    active = models.BooleanField(default=False)
+    billable = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     rate = models.DecimalField(blank=True,
                                null=True,
                                max_digits=12,
                                decimal_places=2)
     unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
-    billable = models.BooleanField(default=True)
-    active = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
@@ -211,7 +211,10 @@ class Time(models.Model):
                                 null=True,
                                 limit_choices_to={'active': True}, )
     project_code = models.IntegerField(blank=True, null=True)
-    task = models.ForeignKey(Task, blank=True, null=True)
+    task = models.ForeignKey(Task,
+                             blank=True,
+                             null=True,
+                             limit_choices_to={'active': True}, )
     notes = models.TextField(blank=True, null=True)
     hours = models.DurationField('Hours',
                                  default='01:00',
