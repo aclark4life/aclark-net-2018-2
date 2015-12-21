@@ -109,12 +109,14 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+# Django social auth
 AUTHENTICATION_BACKENDS = ('social.backends.google.GoogleOAuth2',
                            'django.contrib.auth.backends.ModelBackend', )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
     'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
