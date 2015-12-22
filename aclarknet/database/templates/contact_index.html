@@ -22,7 +22,8 @@
                   <thead>
                     <tr>
                       <th data-sortable="true">#</th>
-                      <th data-field="active" data-sortable="true">Active</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-sortable="true">First Name</th>
                       <th data-sortable="true">Last Name</th>
@@ -41,12 +42,14 @@
                       <td>{{ forloop.counter }}</td>
                       <td>
                         <form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %}
+                          <!-- http://stackoverflow.com/a/1992745/185820 -->
                           <input type="hidden" value="off" name="checkbox">
                           <input type="checkbox" value="on" name="checkbox"
                             {% if contact.active %} checked {% endif %}
                             onChange="this.form.submit()">
                         </form>
                       </td>
+                      <td>{{ contact.active }}</td>
                       <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
                       <td>{{ contact.first_name }}</td>
                       <td>{{ contact.last_name }}</td>

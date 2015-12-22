@@ -37,6 +37,7 @@
                       <td>{{ forloop.counter }}</td>
                       <td>
                         <form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}
+                          <!-- http://stackoverflow.com/a/1992745/185820 -->
                           <input type="hidden" value="off" name="checkbox">
                           <input type="checkbox" value="on" name="checkbox"
                             {% if client.active %} checked {% endif %}
