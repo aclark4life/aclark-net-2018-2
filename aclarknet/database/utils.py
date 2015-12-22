@@ -48,12 +48,11 @@ def edit(request, form_model, model, url_name, template, pk=None):
             form = form_model(request.POST)
         else:
             status = request.POST.get('status')
-            if status == 'Activate' or status == 'Deactivate':
 
-                if status == 'Activate':
+            if status == 'on' or status == 'off':
+                if status == 'on':
                     obj.active = True
-
-                elif status == 'Deactivate':
+                elif status == 'off':
                     obj.active = False
 
                 obj.save()

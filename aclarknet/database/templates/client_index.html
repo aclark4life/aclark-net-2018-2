@@ -34,7 +34,7 @@
                   {% for client in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
-                      <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}{% if client.active %}<input name="status" type="submit" value="Deactivate"></input>{% else %}<input name="status" type="submit" value="Activate"></input>{% endif %}</td>
+                      <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input name="status" type="checkbox" onChange="this.form.submit()" {% if client.active %}checked{% endif %}></form></td>
                       <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
                       <td>{{ client.pk }}</td>
                       <td>{{ client.name }}</td>
