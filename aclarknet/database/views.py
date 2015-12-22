@@ -45,14 +45,12 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    context = {}
-    response = edit(request,
-                    ClientForm,
-                    Client,
-                    'client_index',
-                    'client_edit.html',
-                    pk=pk)
-    return response
+    return edit(request,
+                ClientForm,
+                Client,
+                'client_index',
+                'client_edit.html',
+                pk=pk)
 
 
 @staff_member_required
