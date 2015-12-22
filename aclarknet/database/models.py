@@ -65,12 +65,12 @@ class Estimate(models.Model):
     Discount, Tax, Tax2, Currency, Accepted Date, Declined Date
     """
     issue_date = models.DateField(blank=True, null=True)
-    estimate_id = models.IntegerField(blank=True, null=True)
     client = models.ForeignKey(Client,
                                blank=True,
                                null=True,
                                limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
+    estimate_id = models.IntegerField(blank=True, null=True)
     estimate_amount = models.DecimalField(blank=True,
                                           null=True,
                                           max_digits=12,
@@ -79,7 +79,10 @@ class Estimate(models.Model):
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
-    currency = models.CharField(max_length=300, blank=True, null=True)
+    currency = models.CharField(max_length=300,
+                                blank=True,
+                                default='United States Dollar - USD',
+                                null=True, )
     accepted_date = models.DateField(blank=True, null=True)
     declined_date = models.DateField(blank=True, null=True)
 
