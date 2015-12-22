@@ -66,7 +66,10 @@ class Estimate(models.Model):
     """
     issue_date = models.DateField(blank=True, null=True)
     estimate_id = models.IntegerField(blank=True, null=True)
-    client = models.ForeignKey(Client, blank=True, null=True)
+    client = models.ForeignKey(Client,
+                               blank=True,
+                               null=True,
+                               limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
     estimate_amount = models.DecimalField(blank=True,
                                           null=True,
