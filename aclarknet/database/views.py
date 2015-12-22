@@ -72,29 +72,12 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    context = {}
-    contact = None
-
-    if pk is None:
-        form = ContactForm()
-    else:
-        contact = get_object_or_404(Contact, pk=pk)
-        form = ContactForm(instance=contact)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = ContactForm(request.POST)
-        else:
-            form = ContactForm(request.POST, instance=contact)
-
-        if form.is_valid():
-            contact = form.save()
-            return HttpResponseRedirect(reverse('contact_index'))
-
-    context['contact'] = contact
-    context['form'] = form
-    return render(request, 'contact_edit.html', context)
+    return edit(request,
+                ContactForm,
+                Contact,
+                'contact_index',
+                'contact_edit.html',
+                pk=pk)
 
 
 @staff_member_required
