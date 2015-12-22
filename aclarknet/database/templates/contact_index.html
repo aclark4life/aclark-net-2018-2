@@ -39,7 +39,14 @@
                   {% for contact in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
-                      <td>{% if contact.active %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
+                      <td>
+                        <form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %}
+                          <input type="hidden" value="off" name="checkbox">
+                          <input type="checkbox" value="on" name="checkbox"
+                            {% if contact.active %} checked {% endif %}
+                            onChange="this.form.submit()">
+                        </form>
+                      </td>
                       <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
                       <td>{{ contact.first_name }}</td>
                       <td>{{ contact.last_name }}</td>
