@@ -26,6 +26,7 @@ from .models import Invoice
 from .models import Project
 from .models import Task
 from .models import Time
+from .utils import edit
 from .utils import entries_total
 from .utils import paginate
 
@@ -45,26 +46,13 @@ def client(request, pk=None):
 @staff_member_required
 def client_edit(request, pk=None):
     context = {}
-
-    if pk is None:
-        form = ClientForm()
-    else:
-        client = get_object_or_404(Client, pk=pk)
-        form = ClientForm(instance=client)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = ClientForm(request.POST)
-        else:
-            form = ClientForm(request.POST, instance=client)
-
-        if form.is_valid():
-            client = form.save()
-            return HttpResponseRedirect(reverse('client_index'))
-
-    context['form'] = form
-    return render(request, 'client_edit.html', context)
+    response = edit(request,
+                    ClientForm,
+                    Client,
+                    'client_index',
+                    'client_edit.html',
+                    pk=pk)
+    return response
 
 
 @staff_member_required

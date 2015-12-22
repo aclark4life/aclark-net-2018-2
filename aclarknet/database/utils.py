@@ -2,6 +2,10 @@ from decimal import Decimal
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 from import_export import widgets
 
 
@@ -27,6 +31,30 @@ def class_name_pk(self):
         client-3
     """
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
+
+
+def edit(request, form_model, model, url_name, template, pk=None):
+    context = {}
+
+    if pk is None:
+        form = form_model()
+    else:
+        obj = get_object_or_404(model, pk=pk)
+        form = form_model(instance=obj)
+
+    if request.method == 'POST':
+
+        if pk is None:
+            form = form_model(request.POST)
+        else:
+            form = form_model(request.POST, instance=obj)
+
+        if form.is_valid():
+            obj = form.save()
+            return HttpResponseRedirect(reverse(url_name))
+
+    context['form'] = form
+    return render(request, template, context)
 
 
 def entries_total(queryset):
