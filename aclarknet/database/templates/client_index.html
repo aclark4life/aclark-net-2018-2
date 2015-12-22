@@ -36,8 +36,8 @@
                       <td>{{ forloop.counter }}</td>
                       <td>
                         <form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}
-                          <input type="hidden" value="off" name="active">
-                          <input type="checkbox" value="on" name="active"
+                          <input type="hidden" value="off" name="checkbox">
+                          <input type="checkbox" value="on" name="checkbox"
                             {% if client.active %} checked {% endif %}
                             onChange="this.form.submit()">
                         </form>

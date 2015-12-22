@@ -47,9 +47,9 @@ def edit(request, form_model, model, url_name, template, pk=None):
         if pk is None:
             form = form_model(request.POST)
         else:
-            active = request.POST.get('active')
-            if active == 'on' or active == 'off':
-                if active == 'on':
+            checkbox = request.POST.get('checkbox')
+            if checkbox == 'on' or checkbox == 'off':
+                if checkbox == 'on':
                     obj.active = True
                 else:
                     obj.active = False
