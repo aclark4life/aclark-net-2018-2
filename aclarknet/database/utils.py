@@ -47,6 +47,15 @@ def edit(request, form_model, model, url_name, template, pk=None):
         if pk is None:
             form = form_model(request.POST)
         else:
+            active = request.POST.get('active')
+            if active == 'on' or active == 'off':
+                if active == 'on':
+                    obj.active = True
+                else:
+                    obj.active = False
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+
             form = form_model(request.POST, instance=obj)
 
         if form.is_valid():
