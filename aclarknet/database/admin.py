@@ -2,6 +2,7 @@ from .models import Client
 from .models import Contact
 from .models import Company
 from .models import Contract
+from .models import Contractor
 from .models import Estimate
 from .models import Invoice
 from .models import Project
@@ -49,6 +50,12 @@ class ClientAdmin(ImportExportModelAdmin):
 
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
+    """
+    """
+
+
+@admin.register(Contractor)
+class ContractorAdmin(admin.ModelAdmin):
     """
     """
 

@@ -59,6 +59,23 @@ class Contract(models.Model):
         return class_name_pk(self)
 
 
+class Contractor(models.Model):
+    """
+    """
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE)
+
+    rate = models.DecimalField(blank=True,
+                               null=True,
+                               max_digits=12,
+                               decimal_places=2)
+    unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
+
 class Estimate(models.Model):
     """
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
