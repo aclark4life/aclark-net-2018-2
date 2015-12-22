@@ -117,34 +117,13 @@ def estimate(request, pk=None):
 
 
 @staff_member_required
-def estimate_edit(request, client=None, pk=None):
-    context = {}
-
-    if pk is None:
-        if client is None:
-            form = EstimateForm()
-        else:
-            client = get_object_or_404(Client, pk=client)
-            estimate = Estimate(client=client)
-            form = EstimateForm(instance=estimate)
-    else:
-        estimate = get_object_or_404(Estimate, pk=pk)
-        form = EstimateForm(instance=estimate)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = EstimateForm(request.POST)
-        else:
-            estimate = get_object_or_404(Estimate, pk=pk)
-            form = EstimateForm(request.POST, instance=estimate)
-
-        if form.is_valid():
-            estimate = form.save()
-            return HttpResponseRedirect(reverse('estimate_index'))
-
-    context['form'] = form
-    return render(request, 'estimate_edit.html', context)
+def estimate_edit(request, pk=None):
+    return edit(request,
+                EstimateForm,
+                Estimate,
+                'estimate_index',
+                'estimate_edit.html',
+                pk=pk)
 
 
 @staff_member_required
@@ -189,34 +168,13 @@ def invoice(request, pk=None):
 
 
 @staff_member_required
-def invoice_edit(request, client=None, pk=None):
-    context = {}
-
-    if pk is None:
-        if client is None:
-            form = InvoiceForm()
-        else:
-            client = get_object_or_404(Client, pk=client)
-            invoice = Invoice(client=client)
-            form = InvoiceForm(instance=invoice)
-    else:
-        invoice = get_object_or_404(Invoice, pk=pk)
-        form = InvoiceForm(instance=invoice)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = InvoiceForm(request.POST)
-        else:
-            invoice = get_object_or_404(Invoice, pk=pk)
-            form = InvoiceForm(request.POST, instance=invoice)
-
-        if form.is_valid():
-            invoice = form.save()
-            return HttpResponseRedirect(reverse('invoice_index'))
-
-    context['form'] = form
-    return render(request, 'invoice_edit.html', context)
+def invoice_edit(request, pk=None):
+    return edit(request,
+                InvoiceForm,
+                Invoice,
+                'invoice_index',
+                'invoice_edit.html',
+                pk=pk)
 
 
 @staff_member_required
@@ -240,35 +198,12 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    context = {}
-
-    client = request.GET.get('client', None)
-
-    if pk is None:
-        if client is None:
-            form = ProjectForm()
-        else:
-            client = get_object_or_404(Client, pk=client)
-            project = Project(client=client)
-            form = ProjectForm(instance=project)
-    else:
-        project = get_object_or_404(Project, pk=pk)
-        form = ProjectForm(instance=project)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = ProjectForm(request.POST)
-        else:
-            project = get_object_or_404(Project, pk=pk)
-            form = ProjectForm(request.POST, instance=project)
-
-        if form.is_valid():
-            project = form.save()
-            return HttpResponseRedirect(reverse('project_index'))
-
-    context['form'] = form
-    return render(request, 'project_edit.html', context)
+    return edit(request,
+                ProjectForm,
+                Project,
+                'project_index',
+                'project_edit.html',
+                pk=pk)
 
 
 @staff_member_required
@@ -290,35 +225,7 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    context = {}
-
-    project = request.GET.get('project', None)
-
-    if pk is None:
-        if project is None:
-            form = TaskForm()
-        else:
-            project = get_object_or_404(Project, pk=project)
-            task = Task(project=project)
-            form = TaskForm(instance=task)
-    else:
-        task = get_object_or_404(Task, pk=pk)
-        form = TaskForm(instance=task)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = TaskForm(request.POST)
-        else:
-            task = get_object_or_404(Task, pk=pk)
-            form = TaskForm(request.POST, instance=task)
-
-        if form.is_valid():
-            task = form.save()
-            return HttpResponseRedirect(reverse('task_index'))
-
-    context['form'] = form
-    return render(request, 'task_edit.html', context)
+    return edit(request, TaskForm, Task, 'task_index', 'task_edit.html', pk=pk)
 
 
 @staff_member_required
@@ -345,39 +252,9 @@ def time_delete(request, pk=None):
     return HttpResponseRedirect(reverse('entry_index'))
 
 
-@login_required
+@staff_member_required
 def time_edit(request, pk=None):
-    context = {}
-
-    project = request.GET.get('project', None)
-
-    if pk is None:
-        if project is None:
-            form = TimeForm()
-        else:
-            project = get_object_or_404(Project, pk=project)
-            time = Time(project=project)
-            form = TimeForm(instance=time)
-    else:
-        time = get_object_or_404(Time, pk=pk)
-        form = TimeForm(instance=time)
-
-    if request.method == 'POST':
-
-        if pk is None:
-            form = TimeForm(request.POST)
-        else:
-            time = get_object_or_404(Time, pk=pk)
-            form = TimeForm(request.POST, instance=time)
-
-        if form.is_valid():
-            time = form.save()
-            time.user = User.objects.get(username=request.user)
-            time.save()
-            return HttpResponseRedirect(reverse('entry_index'))
-
-    context['form'] = form
-    return render(request, 'time_edit.html', context)
+    return edit(request, TimeForm, Time, 'time_index', 'time_edit.html', pk=pk)
 
 
 @login_required
