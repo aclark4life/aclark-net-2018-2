@@ -260,7 +260,7 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_staff:
         entries = Time.objects.all()
     else:
         entries = Time.objects.filter(user=request.user)
