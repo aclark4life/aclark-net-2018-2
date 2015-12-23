@@ -41,7 +41,11 @@
                       <td>{{ invoice.pk }}</td>
                       <td>{{ invoice.issue_date|default:'' }}</td>
                       <td>{{ invoice.invoice_id|default:'' }}</td>
-                      <td><a href="{% url 'client' invoice.client.pk %}">{{ invoice.client.name|default:'' }}</a></td>
+                      {% if invoice.client %}
+                        <td><a href="{% url 'client' invoice.client.pk %}">{{ invoice.client.name|default:'' }}</a></td>
+                      {% else %}
+                        <td></td>
+                      {% endif %}
                       <td>{{ invoice.subject|default:'' }}</td>
                       <td>{{ invoice.project|default:'' }}</td>
                       <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-2x"></a></td>

@@ -141,7 +141,10 @@ class Invoice(models.Model):
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
-    project = models.ForeignKey('Project', blank=True, null=True)
+    project = models.ForeignKey('Project',
+                                blank=True,
+                                null=True,
+                                limit_choices_to={'active': True}, )
     currency = models.CharField(max_length=300, blank=True, null=True)
     currency_symbol = models.CharField(max_length=300, blank=True, null=True)
     document_type = models.CharField(max_length=300, blank=True, null=True)
