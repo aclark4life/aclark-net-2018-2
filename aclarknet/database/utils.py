@@ -43,10 +43,14 @@ def edit(request, form_model, model, url_name, template, pk=None):
         form = form_model(instance=obj)
 
     if request.method == 'POST':
-
         if pk is None:
             form = form_model(request.POST)
         else:
+            delete = request.POST.get('delete')
+            if delete:
+                obj.delete()
+                return HttpResponseRedirect(reverse(url_name))
+
             checkbox = request.POST.get('checkbox')
             if checkbox == 'on' or checkbox == 'off':
                 if checkbox == 'on':

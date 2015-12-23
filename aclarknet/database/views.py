@@ -244,16 +244,14 @@ def time(request, pk=None):
     return render(request, 'time.html', context)
 
 
-@login_required
-def time_delete(request, pk=None):
-    time = get_object_or_404(Time, pk=pk)
-    time.delete()
-    return HttpResponseRedirect(reverse('entry_index'))
-
-
 @staff_member_required
 def time_edit(request, pk=None):
-    return edit(request, TimeForm, Time, 'time_index', 'time_edit.html', pk=pk)
+    return edit(request,
+                TimeForm,
+                Time,
+                'entry_index',
+                'time_edit.html',
+                pk=pk)
 
 
 @login_required

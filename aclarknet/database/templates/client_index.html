@@ -29,6 +29,7 @@
                       <th data-sortable="true">Name</th>
                       <th data-sortable="true">Address</th>
                       <th>Edit</th> 
+                      <th>Delete</th> 
                     </tr>
                   </thead>
                   <tbody>
@@ -50,6 +51,13 @@
                       <td>{{ client.name }}</td>
                       <td>{{ client.address|linebreaks }}</td>
                       <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
+                      <td>
+                        <form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}
+                          <!-- http://stackoverflow.com/a/1992745/185820 -->
+                          <input type="submit" value="Delete" name="delete"
+                            onChange="this.form.submit()">
+                        </form>
+                      </td>
                     </tr>
                   {% endfor %}
                   </tbody>
