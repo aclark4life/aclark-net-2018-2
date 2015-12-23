@@ -25,6 +25,7 @@
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="client" data-sortable="true">Client</th>
                       <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -35,6 +36,11 @@
                       <td>{{ estimate.pk }}</td>
                       <td>{{ estimate.client|default:'' }}</td>
                       <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-2x"></a></td>
+                      <td>
+                        <form action="{% url 'estimate_edit' estimate.pk %}" method="post"> {% csrf_token %}
+                          <input type="submit" value="Delete" name="delete" onChange="this.form.submit()">
+                        </form>
+                      </td>
                     </tr>
                   {% endfor %}
                   </tbody>
