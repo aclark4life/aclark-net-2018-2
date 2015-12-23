@@ -270,7 +270,7 @@ def time_index(request):
 
 
 @login_required
-def user(request, pk=None):
+def user(request, pk=None, profile=None):
     context = {}
 
     contractor = Contractor.objects.get(user=pk)
@@ -287,13 +287,14 @@ def user(request, pk=None):
 
 
 @login_required
-def user_edit(request, pk=None):
+def user_edit(request, pk=None, profile=None):
     return edit(request,
                 ContractorForm,
                 Contractor,
                 'user_index',
                 'user_edit.html',
-                pk=pk)
+                pk=pk,
+                profile=profile)
 
 
 @staff_member_required

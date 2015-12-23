@@ -35,13 +35,23 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def edit(request, form_model, model, url_name, template, pk=None):
+def edit(request,
+         form_model,
+         model,
+         url_name,
+         template,
+         pk=None,
+         profile=None):
     context = {}
 
     if pk is None:
         form = form_model()
     else:
-        obj = get_object_or_404(model, pk=pk)
+        if profile is None:
+            obj = get_object_or_404(model, pk=pk)
+        else:
+            obj = get_object_or_404(model, pk=profile)
+
         form = form_model(instance=obj)
 
     if request.method == 'POST':

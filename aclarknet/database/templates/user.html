@@ -28,7 +28,7 @@
 
                 <h3>User
                   {% if contractor %}
-                    <a class="btn btn-default pull-right" href="{% url 'user_edit' contractor.pk %}">Edit User</a>
+                    <a class="btn btn-default pull-right" href="{% url 'user_edit' user.pk contractor.pk %}">Edit User</a>
                   {% endif %}
                 </h3>
                 <hr>

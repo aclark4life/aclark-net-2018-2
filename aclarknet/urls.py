@@ -125,7 +125,7 @@ urlpatterns = [
     url(r'^user/(?P<pk>\d+)$',
         views.user,
         name='user'),
-    url(r'^user/(?P<pk>\d+)/edit$',
+    url(r'^user/(?P<pk>\d+)/edit/(?P<profile>\d+)$',
         views.user_edit,
         name='user_edit'),
     url(r'^user/(?P<pk>\d+)/mail$',
