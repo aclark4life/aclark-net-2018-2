@@ -152,7 +152,7 @@ def invoice(request, pk=None):
     invoice = get_object_or_404(Invoice, pk=pk)
     context['invoice'] = invoice
 
-    times = Time.objects.filter(client=invoice.client)
+    times = Time.objects.filter(client=invoice.client, project=invoice.project)
     entries, total = entries_total(times)
 
     context['entries'] = entries
