@@ -1,5 +1,6 @@
 from .models import Client
 from .models import Contact
+from .models import Contractor
 from .models import Estimate
 from .models import Invoice
 from .models import Project
@@ -17,6 +18,12 @@ class ClientForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
+        fields = '__all__'
+
+
+class ContractorForm(forms.ModelForm):
+    class Meta:
+        model = Contractor
         fields = '__all__'
 
 

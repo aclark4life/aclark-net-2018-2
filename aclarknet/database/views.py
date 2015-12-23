@@ -12,6 +12,7 @@ from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from .forms import ClientForm
 from .forms import ContactForm
+from .forms import ContractorForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import MailForm
@@ -21,6 +22,7 @@ from .forms import TimeForm
 from .models import Client
 from .models import Company
 from .models import Contact
+from .models import Contractor
 from .models import Estimate
 from .models import Invoice
 from .models import Project
@@ -278,6 +280,16 @@ def user(request, pk=None):
         return render(request, 'user.html', context)
     else:
         return HttpResponseRedirect(reverse('home'))
+
+
+@staff_member_required
+def user_edit(request, pk=None):
+    return edit(request,
+                ContractorForm,
+                Contractor,
+                'user_index',
+                'user_edit.html',
+                pk=pk)
 
 
 @staff_member_required
