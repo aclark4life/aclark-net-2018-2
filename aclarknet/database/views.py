@@ -12,19 +12,19 @@ from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from .forms import ClientForm
 from .forms import ContactForm
-from .forms import ContractorForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import MailForm
+from .forms import ProfileForm
 from .forms import ProjectForm
 from .forms import TaskForm
 from .forms import TimeForm
 from .models import Client
 from .models import Company
 from .models import Contact
-from .models import Contractor
 from .models import Estimate
 from .models import Invoice
+from .models import Profile
 from .models import Project
 from .models import Task
 from .models import Time
@@ -270,13 +270,13 @@ def time_index(request):
 
 
 @login_required
-def user(request, pk=None, profile=None):
+def user(request, pk=None):
     context = {}
 
-    contractor = Contractor.objects.get(user=pk)
     user = get_object_or_404(User, pk=pk)
+    profile = Profile.objects.get_or_create(user=user)
 
-    context['contractor'] = contractor
+    context['profile'] = profile
     context['request'] = request
     context['user'] = user
 
@@ -287,14 +287,13 @@ def user(request, pk=None, profile=None):
 
 
 @login_required
-def user_edit(request, pk=None, profile=None):
+def user_edit(request, pk=None):
     return edit(request,
-                ContractorForm,
-                Contractor,
+                ProfileForm,
+                Profile,
                 'user_index',
                 'user_edit.html',
-                pk=pk,
-                profile=profile)
+                pk=pk)
 
 
 @staff_member_required

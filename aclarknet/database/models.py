@@ -59,7 +59,7 @@ class Contract(models.Model):
         return class_name_pk(self)
 
 
-class Contractor(models.Model):
+class Profile(models.Model):
     """
     """
 
