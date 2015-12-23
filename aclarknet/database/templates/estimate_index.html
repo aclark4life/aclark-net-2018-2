@@ -30,7 +30,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for estimate in estimates %}
+                  {% for estimate in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
                       <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.pk|default:'' }}</a></td>
