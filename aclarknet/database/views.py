@@ -245,7 +245,7 @@ def time(request, pk=None):
     return render(request, 'time.html', context)
 
 
-@staff_member_required
+@login_required
 def time_edit(request, pk=None):
     return edit(request,
                 TimeForm,
