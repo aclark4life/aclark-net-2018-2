@@ -282,7 +282,7 @@ def user(request, pk=None):
         return HttpResponseRedirect(reverse('home'))
 
 
-@staff_member_required
+@login_required
 def user_edit(request, pk=None):
     return edit(request,
                 ContractorForm,
