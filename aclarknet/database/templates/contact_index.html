@@ -22,8 +22,6 @@
                   <thead>
                     <tr>
                       <th data-sortable="true">#</th>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-sortable="true">First Name</th>
                       <th data-sortable="true">Last Name</th>
@@ -33,6 +31,8 @@
                       <th data-sortable="true">Email</th>
                       <th data-sortable="true">Office Phone</th>
                       <th data-sortable="true">Fax</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th>Edit</th> 
                       <th>Delete</th> 
                     </tr>
@@ -41,6 +41,15 @@
                   {% for contact in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
+                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
+                      <td>{{ contact.first_name }}</td>
+                      <td>{{ contact.last_name }}</td>
+                      <td>{{ contact.title }}</td>
+                      <td>{{ contact.pk }}</td>
+                      <td>{{ contact.client|default:'' }}</td>
+                      <td>{{ contact.email }}</td>
+                      <td>{{ contact.office_phone }}</td>
+                      <td>{{ contact.fax }}</td>
                       <td>
                         <form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %}
                           <!-- http://stackoverflow.com/a/1992745/185820 -->
@@ -51,15 +60,6 @@
                         </form>
                       </td>
                       <td>{{ contact.active }}</td>
-                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
-                      <td>{{ contact.first_name }}</td>
-                      <td>{{ contact.last_name }}</td>
-                      <td>{{ contact.title }}</td>
-                      <td>{{ contact.pk }}</td>
-                      <td>{{ contact.client|default:'' }}</td>
-                      <td>{{ contact.email }}</td>
-                      <td>{{ contact.office_phone }}</td>
-                      <td>{{ contact.fax }}</td>
                       <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
                       <td>
                         <form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %}

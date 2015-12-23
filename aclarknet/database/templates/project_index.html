@@ -22,13 +22,13 @@
                   <thead>
                     <tr>
                       <th data-sortable="true">#</th>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-sortable="true">Name</th>
                       <th data-field="client" data-sort-name="hidden-client" data-sortable="true">Client</th>
                       <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -37,16 +37,6 @@
                   {% for project in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
-                      <td>
-                        <form action="{% url 'project_edit' project.pk %}" method="post"> {% csrf_token %}
-                          <!-- http://stackoverflow.com/a/1992745/185820 -->
-                          <input type="hidden" value="off" name="checkbox">
-                          <input type="checkbox" value="on" name="checkbox"
-                            {% if project.active %} checked {% endif %}
-                            onChange="this.form.submit()">
-                        </form>
-                      </td>
-                      <td>{{ project.active }}</td>
                       <td><a href="{% url 'project' project.pk %}">{{ project.pk }}</a></td>
                       <td>{{ project.pk }}</td>
                       <td>{{ project.name }}</td>
@@ -57,6 +47,16 @@
                       <td></td>
                       <td></td>
                     {% endif %}
+                      <td>
+                        <form action="{% url 'project_edit' project.pk %}" method="post"> {% csrf_token %}
+                          <!-- http://stackoverflow.com/a/1992745/185820 -->
+                          <input type="hidden" value="off" name="checkbox">
+                          <input type="checkbox" value="on" name="checkbox"
+                            {% if project.active %} checked {% endif %}
+                            onChange="this.form.submit()">
+                        </form>
+                      </td>
+                      <td>{{ project.active }}</td>
                       <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
                       <td>
                         <form action="{% url 'project_edit' project.pk %}" method="post"> {% csrf_token %}

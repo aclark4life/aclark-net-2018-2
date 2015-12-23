@@ -22,12 +22,12 @@
                   <thead>
                     <tr>
                       <th data-sortable="true">#</th> 
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th> 
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-sortable="true">Name</th>
                       <th data-sortable="true">Address</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th> 
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th>Edit</th> 
                       <th>Delete</th> 
                     </tr>
@@ -36,6 +36,10 @@
                   {% for client in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
+                      <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
+                      <td>{{ client.pk }}</td>
+                      <td>{{ client.name }}</td>
+                      <td>{{ client.address|linebreaks }}</td>
                       <td>
                         <form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}
                           <!-- http://stackoverflow.com/a/1992745/185820 -->
@@ -46,10 +50,6 @@
                         </form>
                       </td>
                       <td>{{ client.active }}</td>
-                      <td><a href="{% url 'client' client.pk %}">{{ client.pk }}</a></td>
-                      <td>{{ client.pk }}</td>
-                      <td>{{ client.name }}</td>
-                      <td>{{ client.address|linebreaks }}</td>
                       <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
                       <td>
                         <form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}
