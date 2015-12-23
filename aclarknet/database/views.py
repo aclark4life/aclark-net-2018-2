@@ -272,7 +272,11 @@ def time_index(request):
 @login_required
 def user(request, pk=None):
     context = {}
+
+    contractor = Contractor.objects.get(user=pk)
     user = get_object_or_404(User, pk=pk)
+
+    context['contractor'] = contractor
     context['request'] = request
     context['user'] = user
 
