@@ -2,7 +2,7 @@
 
             {% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
-            {% if request.user.is_staff or request.user.is_superuser %}
+            {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>
             <li><a href="{% url 'project_index' %}">Projects</a></li>
@@ -33,7 +33,7 @@
                   <thead>
                     <tr>
                       <th data-sortable="true">#</th>
-                      {% if request.user.is_staff or request.user.is_superuser %}
+                      {% if request.user.is_staff %}
                       <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
                       <th data-field="hidden-id" data-sortable="true" data-visible="false">Id</th>
                       <th data-field="user" data-sortable="true">User</th>
@@ -51,7 +51,7 @@
                   {% for entry in items %}
                     <tr>
                       <td>{{ forloop.counter }}</td>
-                      {% if request.user.is_staff or request.user.is_superuser %}
+                      {% if request.user.is_staff %}
                       <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk|default:'' }}</a></td>
                       <td>{{ entry.pk }}</td>
                       <td>{{ entry.user|default:'' }}</td>
