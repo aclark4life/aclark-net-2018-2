@@ -1,4 +1,6 @@
 from decimal import Decimal
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -64,6 +66,13 @@ def edit(request, form_model, model, url_name, template, pk=None):
 
         if form.is_valid():
             obj = form.save()
+
+            # XXX Probably not a great idea to check class
+            # name here, but I only want to assign user for
+            # time entries.
+            if obj.__class__.__name__ == 'Time':
+                obj.user = User.objects.get(username=request.user)
+
             return HttpResponseRedirect(reverse(url_name))
 
     context['form'] = form
