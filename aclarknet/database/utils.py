@@ -72,6 +72,7 @@ def edit(request, form_model, model, url_name, template, pk=None):
             # time entries.
             if obj.__class__.__name__ == 'Time':
                 obj.user = User.objects.get(username=request.user)
+                obj.save()
 
             return HttpResponseRedirect(reverse(url_name))
 
