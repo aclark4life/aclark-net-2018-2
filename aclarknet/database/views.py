@@ -130,7 +130,7 @@ def estimate_edit(request, pk=None):
 def estimate_index(request):
     context = {}
     estimates = Estimate.objects.all()
-    context['estimates'] = estimates
+    context['items'] = paginate(estimates, page)
     return render(request, 'estimate_index.html', context)
 
 
