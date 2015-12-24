@@ -39,8 +39,8 @@
                       <td>{{ task.rate|default:'' }}</td>
                       <td>{{ task.unit|default:'' }}</td>
                       <td><a href="{% url 'task' task.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
-                      <td><form action="{% url 'task_edit' task.pk %}" method="post"> {% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
+                      <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                      <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
                   </tbody>
