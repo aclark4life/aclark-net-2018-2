@@ -32,7 +32,7 @@
                       <th data-sortable="true">Office Phone</th>
                       <th data-sortable="true">Fax</th>
                       <th>Edit</th> 
-                      <th>X</th> 
+                      <th>Delete</th> 
                     </tr>
                   </thead>
                   <tbody>
@@ -49,7 +49,7 @@
                       <td>{{ contact.office_phone }}</td>
                       <td>{{ contact.fax }}</td>
                       <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
-                      <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="Delete" name="delete" onChange="this.form.submit()"></form></td>
+                      <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
                   </tbody>
