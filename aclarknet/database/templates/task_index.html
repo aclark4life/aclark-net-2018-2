@@ -20,14 +20,12 @@
                 <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-sortable="true">#</th>
-                      <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
-                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Id</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="name" data-sortable="true">Name</th>
                       <th data-field="rate" data-sortable="true">Rate</th>
                       <th data-field="unit" data-sortable="true">Unit</th>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                      <th>View</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -35,28 +33,14 @@
                   <tbody>
                   {% for task in tasks %}
                     <tr>
-                      <td>{{ forloop.counter }}</td>
-                      <td><a href="{% url 'task' task.pk %}">{{ task.pk|default:'' }}</a></td>
-                      <td>{{ task.pk }}</td>
+                      <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                      <td>{{ task.active }}</td>
                       <td>{{ task.name|default:'' }}</td>
                       <td>{{ task.rate|default:'' }}</td>
                       <td>{{ task.unit|default:'' }}</td>
-                      <td>
-                        <form action="{% url 'task_edit' task.pk %}" method="post"> {% csrf_token %}
-                          <!-- http://stackoverflow.com/a/1992745/185820 -->
-                          <input type="hidden" value="off" name="checkbox">
-                          <input type="checkbox" value="on" name="checkbox"
-                            {% if task.active %} checked {% endif %}
-                            onChange="this.form.submit()">
-                        </form>
-                      </td>
-                      <td>{{ task.active }}</td>
+                      <td><a href="{% url 'task' task.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
-                      <td>
-                        <form action="{% url 'task_edit' task.pk %}" method="post"> {% csrf_token %}
-                          <input type="submit" value="Delete" name="delete" onChange="this.form.submit()">
-                        </form>
-                      </td>
+                      <td><form action="{% url 'task_edit' task.pk %}" method="post"> {% csrf_token %}<input type="submit" value="Delete" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
                   </tbody>
