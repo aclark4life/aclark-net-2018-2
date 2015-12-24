@@ -21,12 +21,6 @@ class ContactForm(forms.ModelForm):
         fields = '__all__'
 
 
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
-
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
@@ -42,6 +36,12 @@ class InvoiceForm(forms.ModelForm):
 class MailForm(forms.Form):
     subject = forms.CharField()
     message = forms.CharField(widget=forms.Textarea())
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('rate', 'unit')
 
 
 class ProjectForm(forms.ModelForm):

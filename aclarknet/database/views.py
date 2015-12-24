@@ -274,7 +274,8 @@ def user(request, pk=None):
     context = {}
 
     user = get_object_or_404(User, pk=pk)
-    profile = Profile.objects.get_or_create(user=user)
+
+    profile = Profile.objects.get_or_create(user=user)[0]
 
     context['profile'] = profile
     context['request'] = request
