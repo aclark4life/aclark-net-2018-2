@@ -25,12 +25,8 @@
                       <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-sortable="true">First Name</th>
                       <th data-sortable="true">Last Name</th>
-                      <th data-sortable="true">Title</th>
-                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
-                      <th data-sortable="true">Client</th>
                       <th data-sortable="true">Email</th>
-                      <th data-sortable="true">Office Phone</th>
-                      <th data-sortable="true">Fax</th>
+                      <th>View</th> 
                       <th>Edit</th> 
                       <th>Delete</th> 
                     </tr>
@@ -42,13 +38,9 @@
                       <td>{{ contact.active }}</td>
                       <td>{{ contact.first_name }}</td>
                       <td>{{ contact.last_name }}</td>
-                      <td>{{ contact.title }}</td>
-                      <td>{{ contact.pk }}</td>
-                      <td>{{ contact.client|default:'' }}</td>
                       <td>{{ contact.email }}</td>
-                      <td>{{ contact.office_phone }}</td>
-                      <td>{{ contact.fax }}</td>
-                      <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
+                      <td><a href="{% url 'client' client.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                      <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                       <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
