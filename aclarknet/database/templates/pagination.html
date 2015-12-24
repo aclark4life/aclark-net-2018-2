@@ -1,10 +1,11 @@
-                <div class="pagination">
-                    <span class="step-links">
+                <div class="row">
+                    <span class="col-md-10 pull-left">Items {{ items.end_index }} to {{ items.start_index }} of {{ items.paginator.count }}</span>
+                    <span class="col-md-2 pull-right"> 
                         {% if items.has_next %}
                             <a href="?page={{ items.next_page_number }}"><i class="fa fa-arrow-left"></i></a>
                         {% endif %}
                         <span class="current">
-                            {{ items.number }} of {{ items.paginator.num_pages }}
+                            Page {{ items.number }} of {{ items.paginator.num_pages }}
                         </span>
                         {% if items.has_previous %}
                             <a href="?page={{ items.previous_page_number }}"><i class="fa fa-arrow-right"></i></a>
