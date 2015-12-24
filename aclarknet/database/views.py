@@ -289,12 +289,7 @@ def user(request, pk=None):
 
 @login_required
 def user_edit(request, pk=None):
-    return edit(request,
-                ProfileForm,
-                Profile,
-                'user_index',
-                'user_edit.html',
-                pk=pk)
+    return edit(request, ProfileForm, Profile, 'home', 'user_edit.html', pk=pk)
 
 
 @staff_member_required
