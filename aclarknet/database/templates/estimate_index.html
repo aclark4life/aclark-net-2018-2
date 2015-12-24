@@ -21,10 +21,8 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-sortable="true">#</th>
-                      <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
-                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="client" data-sortable="true">Client</th>
+                      <th>View</th>
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -32,16 +30,10 @@
                   <tbody>
                   {% for estimate in items %}
                     <tr>
-                      <td>{{ forloop.counter }}</td>
-                      <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.pk|default:'' }}</a></td>
-                      <td>{{ estimate.pk }}</td>
                       <td>{{ estimate.client|default:'' }}</td>
-                      <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-2x"></a></td>
-                      <td>
-                        <form action="{% url 'estimate_edit' estimate.pk %}" method="post"> {% csrf_token %}
-                          <input type="submit" value="Delete" name="delete" onChange="this.form.submit()">
-                        </form>
-                      </td>
+                      <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                      <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
+                      <td><form action="{% url 'estimate_edit' estimate.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
                   </tbody>
