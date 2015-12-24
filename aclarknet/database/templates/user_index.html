@@ -17,15 +17,11 @@
 
                 <h3>Users</h3>
                 <hr>
-
                 {% include 'messages.html' %}    
-
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-sortable="true">#</th>
-                      <th data-field="id" data-sortable="true">Id</th>
-                      <th data-field="name" data-sortable="true">Name</th>
+                      <th data-field="username" data-sortable="true">User Name</th>
                       <th data-field="email" data-sortable="true">Email</th>
                       <th>Actions</th>
                     </tr>
@@ -33,8 +29,6 @@
                   <tbody>
                   {% for user in users %}
                     <tr>
-                      <td>{{ forloop.counter }}</td>
-                      <td><a href="{% url 'user' user.pk %}">{{ user.pk|default:'' }}</a></td>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>
                       <td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-2x"></i></a></td>

@@ -21,8 +21,8 @@
                 <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-sortable="true">#</th>
-                      <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-sortable="true">First Name</th>
                       <th data-sortable="true">Last Name</th>
                       <th data-sortable="true">Title</th>
@@ -31,8 +31,6 @@
                       <th data-sortable="true">Email</th>
                       <th data-sortable="true">Office Phone</th>
                       <th data-sortable="true">Fax</th>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th>Edit</th> 
                       <th>Delete</th> 
                     </tr>
@@ -40,8 +38,8 @@
                   <tbody>
                   {% for contact in items %}
                     <tr>
-                      <td>{{ forloop.counter }}</td>
-                      <td><a href="{% url 'contact' contact.pk %}">{{ contact.pk }}</a></td>
+                      <td><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if contact.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                      <td>{{ contact.active }}</td>
                       <td>{{ contact.first_name }}</td>
                       <td>{{ contact.last_name }}</td>
                       <td>{{ contact.title }}</td>
@@ -50,22 +48,8 @@
                       <td>{{ contact.email }}</td>
                       <td>{{ contact.office_phone }}</td>
                       <td>{{ contact.fax }}</td>
-                      <td>
-                        <form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %}
-                          <!-- http://stackoverflow.com/a/1992745/185820 -->
-                          <input type="hidden" value="off" name="checkbox">
-                          <input type="checkbox" value="on" name="checkbox"
-                            {% if contact.active %} checked {% endif %}
-                            onChange="this.form.submit()">
-                        </form>
-                      </td>
-                      <td>{{ contact.active }}</td>
                       <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
-                      <td>
-                        <form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %}
-                          <input type="submit" value="Delete" name="delete" onChange="this.form.submit()">
-                        </form>
-                      </td>
+                      <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="Delete" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
                   </tbody>
