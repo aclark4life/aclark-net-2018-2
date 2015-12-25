@@ -42,11 +42,13 @@ def edit(request,
          template,
          pk=None,
          project=None):
+
     context = {}
 
     if pk is None:
         if project:
-            form = form_model(project=project)
+            entry = model(project=project)
+            form = form_model(instance=entry)
         else:
             form = form_model()
     else:
