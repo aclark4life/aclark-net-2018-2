@@ -26,9 +26,9 @@
 
 {% block content %}
 
-            {% include 'pagination.html' %}
                 <h3>Time Entries<a class="btn btn-default pull-right" href="{% url 'entry_edit' %}">Add Time Entry</a></h3>
                 <hr>
+                {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -71,6 +71,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
-            {% include 'pagination.html' %}
+                {% include 'pagination.html' %}
 
 {% endblock %}
