@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from import_export import widgets
+from .models import Project
 
 
 class DecimalWidget(widgets.Widget):
@@ -38,8 +39,14 @@ def class_name_pk(self):
 def edit(request, form_model, model, url_name, template, pk=None):
     context = {}
 
+    project_id = request.GET.get('project')
+
     if pk is None:
-        form = form_model()
+        if project_id:
+            project = get_object_or_404(Project, pk=project_id)
+            form = form_model(project=project)
+        else:
+            form = form_model()
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
