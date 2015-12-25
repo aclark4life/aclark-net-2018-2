@@ -249,12 +249,17 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
+
+    project = request.GET.get('project')
+    project = get_object_or_404(Project, pk=project)
+
     return edit(request,
                 TimeForm,
                 Time,
                 'entry_index',
                 'time_edit.html',
-                pk=pk)
+                pk=pk,
+                project=project)
 
 
 @login_required
