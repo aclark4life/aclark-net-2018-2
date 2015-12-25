@@ -250,14 +250,16 @@ def time(request, pk=None):
 @login_required
 def time_edit(request, pk=None):
 
+    url_name = 'entry_index'
     project = request.GET.get('project')
     if project:
         project = get_object_or_404(Project, pk=project)
+        url_name = 'project'
 
     return edit(request,
                 TimeForm,
                 Time,
-                'entry_index',
+                url_name,
                 'time_edit.html',
                 pk=pk,
                 project=project)

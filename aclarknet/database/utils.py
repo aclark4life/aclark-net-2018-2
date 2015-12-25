@@ -46,8 +46,8 @@ def edit(request,
     context = {}
 
     if pk is None:
-        # XXX One-off to populate time entry form values with project, client
-        # & task.
+        # XXX One-off to populate time entry form fields with project, client
+        # & task values.
         if project:
             entry = model(project=project,
                           client=project.client,
@@ -80,6 +80,7 @@ def edit(request,
             form = form_model(request.POST, instance=obj)
 
         if form.is_valid():
+            kwargs = {}
             obj = form.save()
 
             # XXX Probably not a great idea to check class
@@ -88,8 +89,9 @@ def edit(request,
             if obj.__class__.__name__ == 'Time':
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
+                kwargs['pk'] = project.pk
 
-            return HttpResponseRedirect(reverse(url_name))
+            return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
     context['form'] = form
     return render(request, template, context)
