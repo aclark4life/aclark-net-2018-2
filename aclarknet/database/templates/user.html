@@ -42,7 +42,7 @@
                     <tr>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>
-                      {% if user.is_staff %}<td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-2x"></i></a></td>{% endif %}
+                      {% if user.is_staff %}<td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-3x"></i></a></td>{% endif %}
                     </tr>
                   </tbody>
                 </table>
