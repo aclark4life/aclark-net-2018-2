@@ -28,7 +28,7 @@ migrate:
 	python manage.py makemigrations $(app)
 	python manage.py migrate
 review:
-	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py`
+	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py` `find $(project) -name \*.html`
 start:
 	-mkdir -p $(project)/$(app)
 	-django-admin startproject $(project) .
