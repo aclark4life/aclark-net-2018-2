@@ -164,8 +164,12 @@ class Project(models.Model):
                                blank=True,
                                null=True,
                                limit_choices_to={'active': True}, )
-    name = models.CharField(max_length=300, blank=True, null=True, unique=True)
-    code = models.IntegerField(blank=True, null=True)
+    name = models.CharField("Project Name",
+                            max_length=300,
+                            blank=True,
+                            null=True,
+                            unique=True)
+    code = models.IntegerField("Project Code", blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
@@ -199,6 +203,11 @@ class Project(models.Model):
                                    null=True,
                                    max_digits=12,
                                    decimal_places=2)
+    task = models.ForeignKey('Task',
+                             blank=True,
+                             null=True,
+                             limit_choices_to={'active': True}, )
+    team = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
 
     def __unicode__(self):
         return self.name
