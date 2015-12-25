@@ -251,7 +251,8 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
 
     project = request.GET.get('project')
-    project = get_object_or_404(Project, pk=project)
+    if project:
+        project = get_object_or_404(Project, pk=project)
 
     return edit(request,
                 TimeForm,
