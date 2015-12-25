@@ -46,10 +46,12 @@ def edit(request,
     context = {}
 
     if pk is None:
-        # XXX One-off to populate time entry 
-        # form values with project & client.
+        # XXX One-off to populate time entry form values with project, client
+        # & task.
         if project:
-            entry = model(project=project, client=project.client)
+            entry = model(project=project,
+                          client=project.client,
+                          task=project.task)
             form = form_model(instance=entry)
         else:
             form = form_model()
