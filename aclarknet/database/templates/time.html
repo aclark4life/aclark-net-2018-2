@@ -26,23 +26,33 @@
 
 {% block content %}
 
-                <h3>Time Entry<a class="btn btn-default pull-right" href="{% url 'entry_edit' pk=entry.pk %}">Edit Time Entry</a></h3>
+                <h3>Time Entry</h3>
                 <hr>
                 <table data-toggle="table"> 
                   <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>Hours</th>
-                      <th>Client</th>
-                      <th>Project</th>
+                      <th data-field="id" data-sortable="true" data-visible="false">Id</th>
+                      <th data-field="date" data-sortable="true">Date</th>
+                      <th data-field="hours" data-sortable="true">Hours</th>
+                      <th data-field="client" data-sortable="true">Client</th>
+                      <th data-field="project" data-sortable="true">Project</th>
+                      <th data-field="notes" data-sortable="true">Notes</th>
+                      <th data-field="user" data-sortable="true">User</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>{{ entry.pk }}</td>
-                      <td>{{ entry.hours }}</td>
-                      <td>{{ entry.client }}</td>
+                      <td>{{ entry.date|default:'' }}</td>
+                      <td>{{ entry.hours|default:'' }}</td>
+                      <td>{{ entry.client|default:'' }}</td>
                       <td>{{ entry.project|default:'' }}</td>
+                      <td>{{ entry.notes|linebreaks }}</td>
+                      <td>{{ entry.user|default:'' }}</td>
+                      <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                      <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
                     </tr>
                   </tbody>
                 </table>
