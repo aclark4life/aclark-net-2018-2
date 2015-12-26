@@ -89,13 +89,10 @@ def edit(request,
             if obj.__class__.__name__ == 'Time':
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
-                if 'pk' in kwargs:
+                if project:
                     kwargs['pk'] = project.pk
 
-            if len(kwargs) > 0:
-                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-            else:
-                return HttpResponseRedirect(reverse(url_name))
+            return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
     context['form'] = form
     return render(request, template, context)
