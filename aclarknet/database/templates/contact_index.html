@@ -20,7 +20,7 @@
                     <h3>Contacts</h3>
                   </div>
                   <div class="col-md-4">
-                    <form action="" method="post">{% csrf_token %}<input type="text"></form> 
+                    <form action="" method="post">{% csrf_token %}<input name="name" type="text"></form> 
                   </div>
                   <div class="col-md-4">
                     <a class="btn btn-default pull-right" href="{% url 'contact_edit' %}">Add Contact</a>
