@@ -86,8 +86,8 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     context = {}
     if request.POST:
-        name = request.POST.get('name', '')
-        contacts = Contact.objects.filter(last_name__contains=name)
+        search = request.POST.get('search', '')
+        contacts = Contact.objects.filter(last_name__contains=search)
     else:
         contacts = Contact.objects.all()
     page = request.GET.get('page')
