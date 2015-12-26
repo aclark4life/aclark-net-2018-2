@@ -89,7 +89,8 @@ def edit(request,
             if obj.__class__.__name__ == 'Time':
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
-                kwargs['pk'] = project.pk
+                if 'pk' in kwargs:
+                    kwargs['pk'] = project.pk
 
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
