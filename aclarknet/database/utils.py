@@ -92,7 +92,10 @@ def edit(request,
                 if 'pk' in kwargs:
                     kwargs['pk'] = project.pk
 
-            return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+            if len(kwargs) > 0:
+                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+            else:
+                return HttpResponseRedirect(reverse(url_name))
 
     context['form'] = form
     return render(request, template, context)
