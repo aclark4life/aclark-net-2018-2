@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -87,7 +88,8 @@ def contact_index(request):
     context = {}
     if request.POST:
         search = request.POST.get('search', '')
-        contacts = Contact.objects.filter(last_name__icontains=search)
+        contacts = Contact.objects.filter(Q(first_name__icontains=search) | Q(
+            last_name__icontains=search))
     else:
         contacts = Contact.objects.all()
     page = request.GET.get('page')
