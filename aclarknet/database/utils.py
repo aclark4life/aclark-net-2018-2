@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -152,3 +153,14 @@ def paginate(items, page):
         # If page is out of range (e.g. 9999), deliver first page of results.
         items = paginator.page(1)
     return items
+
+
+def search(request, model):
+    results = []
+    if request.POST:
+        search = request.POST.get('search', '')
+        results = model.objects.filter(Q(first_name__icontains=search) | Q(
+            last_name__icontains=search))
+    else:
+        results = model.objects.all()
+    return results

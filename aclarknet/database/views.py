@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -32,6 +31,7 @@ from .models import Time
 from .utils import edit
 from .utils import entries_total
 from .utils import paginate
+from .utils import search
 
 # Create your views here.
 
@@ -86,12 +86,7 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
-    if request.POST:
-        search = request.POST.get('search', '')
-        contacts = Contact.objects.filter(Q(first_name__icontains=search) | Q(
-            last_name__icontains=search))
-    else:
-        contacts = Contact.objects.all()
+    contacts = search(request, Contact)
     page = request.GET.get('page')
     context['items'] = paginate(contacts, page)
     return render(request, 'contact_index.html', context)
