@@ -32,6 +32,7 @@
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-field="id" data-sortable="true" data-visible="false">Id</th>
                       <th data-field="date" data-sortable="true">Date</th>
                       <th data-field="hours" data-sortable="true">Hours</th>
                       <th data-field="client" data-sortable="true">Client</th>
@@ -46,6 +47,7 @@
                   <tbody>
                   {% for entry in items %}
                     <tr>
+                      <td>{{ entry.pk }}</td>
                       <td>{{ entry.date|default:'' }}</td>
                       <td>{{ entry.hours|default:'' }}</td>
                       <td>{{ entry.client|default:'' }}</td>
