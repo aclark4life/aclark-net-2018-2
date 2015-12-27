@@ -18,9 +18,10 @@
                 <h3>Invoices<a class="btn btn-default pull-right" href="{% url 'invoice_edit' %}">Add Invoice</a></h3>
                 <hr>
                 {% include 'pagination.html' %}
-                <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
+                <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="issue_date" data-sortable="true">Issue Date</th>
                       <th data-field="invoice_id" data-sortable="true">Invoice Id</th>
                       <th data-field="client" data-sortable="true">Client</th>
@@ -34,6 +35,7 @@
                   <tbody>
                   {% for invoice in items %}
                     <tr>
+                      <td>{{ invoice.pk }}</td>
                       <td>{{ invoice.issue_date|default:'' }}</td>
                       <td>{{ invoice.invoice_id|default:'' }}</td>
                       {% if invoice.client %}
