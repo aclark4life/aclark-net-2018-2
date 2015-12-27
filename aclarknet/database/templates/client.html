@@ -37,7 +37,7 @@
                         <td>{{ project.name }}</td>
                         <td>{{ project.start_date|default:'' }}</td>
                         <td>{{ project.end_date|default:'' }}</td>
-                        <td><a href="{% url 'client' client.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                        <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       </tr>
                     {% endfor %} 
                       </tbody>
