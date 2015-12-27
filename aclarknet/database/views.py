@@ -314,7 +314,8 @@ def user_edit(request, pk=None):
 def user_index(request):
     context = {}
     users = User.objects.all()
-    context['users'] = users
+    page = request.GET.get('page')
+    context['items'] = paginate(users, page)
     return render(request, 'user_index.html', context)
 
 
