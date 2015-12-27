@@ -86,7 +86,8 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
-    contacts = search(request, Contact)
+    fields = ('first_name', 'last_name')
+    contacts = search(request, Contact, fields)
     page = request.GET.get('page')
     context['items'] = paginate(contacts, page)
     return render(request, 'contact_index.html', context)

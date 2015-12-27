@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from import_export import widgets
+import operator
 
 
 class DecimalWidget(widgets.Widget):
@@ -155,12 +156,14 @@ def paginate(items, page):
     return items
 
 
-def search(request, model):
+def search(request, model, fields):
     results = []
+    query = []
     if request.POST:
         search = request.POST.get('search', '')
-        results = model.objects.filter(Q(first_name__icontains=search) | Q(
-            last_name__icontains=search))
+        for field in fields:
+            query.append(Q(**{field + '__icontains': search}))
+        results = model.objects.filter(reduce(operator.or_, query))
     else:
         results = model.objects.all()
     return results
