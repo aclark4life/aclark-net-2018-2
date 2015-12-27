@@ -204,11 +204,17 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
+    url_name = 'project_index'
+    client = request.GET.get('client')
+    if client:
+        client = get_object_or_404(Client, pk=client)
+        url_name = 'client'
     return edit(request,
                 ProjectForm,
                 Project,
                 'project_index',
                 'project_edit.html',
+                client=client,
                 pk=pk)
 
 

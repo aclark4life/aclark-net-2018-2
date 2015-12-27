@@ -43,12 +43,14 @@ def edit(request,
          url_name,
          template,
          pk=None,
+         client=None,
          project=None):
 
     context = {}
     obj = None
 
     if pk is None:
+        form = form_model()
         # XXX One-off to populate time entry form fields with project, client
         # & task values.
         if project:
@@ -56,8 +58,10 @@ def edit(request,
                           client=project.client,
                           task=project.task)
             form = form_model(instance=entry)
-        else:
-            form = form_model()
+        # XXX One-off to populate project entry form fields with client value.
+        if client:
+            entry = model(client=client)
+            form = form_model(instance=entry)
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
