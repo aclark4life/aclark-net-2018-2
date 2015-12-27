@@ -26,23 +26,23 @@
 
 {% block content %}
 
-                <h3>User
-                 <a class="btn btn-default pull-right" href="{% url 'user_edit' profile.pk %}">Edit User</a>
-                </h3>
+                <h3>User</h3>
                 <hr>
                 <table data-toggle="table"> 
                   <thead>
                     <tr>
                       <th>Name</th>
                       <th>Email</th>
-                      {% if user.is_staff %}<th>Actions</th>{% endif %}
+                      <th>Edit</th>
+                      {% if request.user.is_staff %}<th>Mail</th>{% endif %}
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>
-                      {% if user.is_staff %}<td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-3x"></i></a></td>{% endif %}
+                      <td><a class="btn btn-default pull-right" href="{% url 'user_edit' profile.pk %}">Edit User</a></td>
+                      {% if request.user.is_staff %}<td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-3x"></i></a></td>{% endif %}
                     </tr>
                   </tbody>
                 </table>
