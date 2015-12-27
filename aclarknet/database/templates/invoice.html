@@ -2,12 +2,19 @@
 
 {% block content %}
 
-                <h3>Invoice {{ invoice.pk }}<a class="btn btn-default pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit Invoice</a></h3>
-
-                <a href="{% url 'invoice' pk=invoice.pk %}?pdf=true"><i class="fa fa-file-pdf-o fa-2x pull-right"></i></a>
+                <div class="row">
+                  <div class="col-md-8">
+                    <h3>Invoice {{ invoice.pk }}</h3>
+                  </div>
+                  <div class="col-md-4">
+                    <h3>
+                      <a class="btn btn-default pull-right" href="{% url 'invoice' pk=invoice.pk %}?pdf=true">PDF</a>
+                      <a class="btn btn-default pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit Invoice</a>
+                    </h3>
+                  </div>
+                </div>
 
                 <hr>
-
                 {% include 'invoice_table.html' %}
 
 {% endblock %}
