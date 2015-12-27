@@ -43,8 +43,6 @@
                     <table data-toggle="table">
                       <thead>
                         <tr>
-                          <th data-field="id" data-sort-name="hidden-id" data-sortable="true">Id</th>
-                          <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                           <th data-sortable="true">Date</th>
                           <th data-sortable="true">Hours</th>
                           <th data-sortable="true">Notes</th>
@@ -53,8 +51,6 @@
                       <tbody>
                         {% for entry in times %}
                         <tr>
-                            <td><a href="{% url 'entry' entry.pk %}">{{ entry.pk }}</a></td>
-                            <td>{{ entry.pk }}</td>
                             <td>{{ entry.date }}</td>
                             <td>{{ entry.hours }}</td>
                             <td>{{ entry.notes }}</td>

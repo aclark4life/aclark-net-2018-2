@@ -196,7 +196,7 @@ def invoice_index(request):
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
-    times = Time.objects.filter(project=project)
+    times = Time.objects.filter(project=project).order_by('date')
     context['project'] = project
     context['times'] = times
     return render(request, 'project.html', context)
