@@ -1,14 +1,18 @@
                 <div class="row">
-                    <span class="col-md-9 pull-left"><h5>Items {{ items.end_index }} to {{ items.start_index }} of {{ items.paginator.count }}</h5></span>
-                    <span class="col-md-3 pull-right"> 
+                    <span class="col-md-9"><h5>Items {{ items.end_index }} to {{ items.start_index }} of {{ items.paginator.count }}</h5></span>
+                    <span class="col-md-3"> 
                         {% if items.has_next %}
+                        <span class="pull-right">
                             <a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-left fa-3x"></i></a>
+                        </span>
                         {% endif %}
                         <span class="current pull-right">
                             <h5>Page {{ items.number }} of {{ items.paginator.num_pages }}</h5>
                         </span>
                         {% if items.has_previous %}
+                        <span class="pull-right">
                             <a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-right fa-3x"></i></a>
+                        </span>
                         {% endif %}
                     </span>
                 </div>
