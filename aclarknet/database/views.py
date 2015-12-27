@@ -215,7 +215,8 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = {}
-    projects = Project.objects.all()
+    fields = ('name', )
+    projects = search(request, Project, fields)
     page = request.GET.get('page')
     context['items'] = paginate(projects, page)
     return render(request, 'project_index.html', context)
