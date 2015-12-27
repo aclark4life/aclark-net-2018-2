@@ -31,7 +31,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for task in tasks %}
+                  {% for task in items %}
                     <tr>
                       <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                       <td>{{ task.active }}</td>

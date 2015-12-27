@@ -245,7 +245,8 @@ def task_edit(request, pk=None):
 def task_index(request):
     context = {}
     tasks = Task.objects.all()
-    context['tasks'] = tasks
+    page = request.GET.get('page')
+    context['items'] = paginate(tasks, page)
     return render(request, 'task_index.html', context)
 
 
