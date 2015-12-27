@@ -18,9 +18,10 @@
                 <h3>Users</h3>
                 <hr>
                 {% include 'messages.html' %}    
-                <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
+                <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="username" data-sortable="true">User Name</th>
                       <th data-field="email" data-sortable="true">Email</th>
                       <th>View</th>
@@ -30,6 +31,7 @@
                   <tbody>
                   {% for user in users %}
                     <tr>
+                      <td>{{ user.pk }}</td>
                       <td>{{ user.get_full_name|default:user.username }}</td>
                       <td>{{ user.email }}</td>
                       <td><a href="{% url 'user' user.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
