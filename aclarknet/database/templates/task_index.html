@@ -17,6 +17,7 @@
 
                 <h3>Tasks<a class="btn btn-default pull-right" href="{% url 'task_edit' %}">Add Task</a></h3>
                 <hr>
+                {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
                   <thead>
                     <tr>
@@ -45,5 +46,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
+                {% include 'pagination.html' %}
 
 {% endblock %}
