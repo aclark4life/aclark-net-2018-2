@@ -46,6 +46,7 @@ def edit(request,
          project=None):
 
     context = {}
+    obj = None
 
     if pk is None:
         # XXX One-off to populate time entry form fields with project, client
