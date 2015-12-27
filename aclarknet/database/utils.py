@@ -96,6 +96,7 @@ def edit(request,
 
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
+    context['item'] = obj
     context['form'] = form
     return render(request, template, context)
 

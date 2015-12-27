@@ -17,7 +17,7 @@
 
 {% block content %}
 
-                <h3>Contact &rarr; {{ contact.first_name }} {{ contact.last_name }} &rarr; Edit</h3>
+                <h3>Contact &rarr; {{ item.first_name }} {{ item.last_name }} &rarr; Edit</h3>
                 <hr>
                 <form action="" method="post">{% csrf_token %}
                 {{ form|crispy }}
