@@ -2,13 +2,13 @@
                     <span class="col-md-10 pull-left">Items {{ items.end_index }} to {{ items.start_index }} of {{ items.paginator.count }}</span>
                     <span class="col-md-2 pull-right"> 
                         {% if items.has_next %}
-                            <a href="?page={{ items.next_page_number }}"><i class="fa fa-arrow-left"></i></a>
+                            <a href="?page={{ items.next_page_number }}"><i class="fa fa-arrow-left fa-3x"></i></a>
                         {% endif %}
                         <span class="current">
                             Page {{ items.number }} of {{ items.paginator.num_pages }}
                         </span>
                         {% if items.has_previous %}
-                            <a href="?page={{ items.previous_page_number }}"><i class="fa fa-arrow-right"></i></a>
+                            <a href="?page={{ items.previous_page_number }}"><i class="fa fa-arrow-right fa-3x"></i></a>
                         {% endif %}
                     </span>
                 </div>
