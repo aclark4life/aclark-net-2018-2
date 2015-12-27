@@ -28,9 +28,16 @@ class EstimateForm(forms.ModelForm):
 
 
 class InvoiceForm(forms.ModelForm):
+    """
+    Issue Date, Last Payment Date, Invoice ID, PO Number, Client, Subject,
+    Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
+    Currency, Currency Symbol, Document Type
+    """
+
     class Meta:
         model = Invoice
-        fields = '__all__'
+        fields = ('issue_date', 'invoice_id', 'po_number', 'subject',
+                  'project', 'invoice_amount')
 
 
 class MailForm(forms.Form):

@@ -70,7 +70,7 @@ class Profile(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
-    unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
+    unit = models.DurationField("Unit", default='01:00', blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -81,18 +81,18 @@ class Estimate(models.Model):
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
     Discount, Tax, Tax2, Currency, Accepted Date, Declined Date
     """
-    issue_date = models.DateField(blank=True, null=True)
+    issue_date = models.DateField("Issue Date", blank=True, null=True)
     client = models.ForeignKey(Client,
                                blank=True,
                                null=True,
                                limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
-    estimate_amount = models.DecimalField('Estimate Amount',
+    estimate_amount = models.DecimalField("Estimate Amount",
                                           blank=True,
                                           null=True,
                                           max_digits=12,
                                           decimal_places=2)
-    estimate_id = models.IntegerField('Estimate Id', blank=True, null=True)
+    estimate_id = models.IntegerField("Estimate ID", blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
@@ -113,16 +113,20 @@ class Invoice(models.Model):
     Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
     Currency, Currency Symbol, Document Type
     """
-    issue_date = models.DateField(blank=True, null=True)
+    issue_date = models.DateField("Issue Date", blank=True, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
-    invoice_id = models.IntegerField(blank=True, null=True)
-    po_number = models.CharField(max_length=300, blank=True, null=True)
+    invoice_id = models.IntegerField("Invoice ID", blank=True, null=True)
+    po_number = models.CharField("PO Number",
+                                 max_length=300,
+                                 blank=True,
+                                 null=True)
     client = models.ForeignKey(Client,
                                blank=True,
                                null=True,
                                limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
-    invoice_amount = models.DecimalField(blank=True,
+    invoice_amount = models.DecimalField("Invoice Amount",
+                                         blank=True,
                                          null=True,
                                          max_digits=12,
                                          decimal_places=2)
@@ -141,12 +145,18 @@ class Invoice(models.Model):
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
-    project = models.ForeignKey('Project',
+    project = models.ForeignKey("Project",
                                 blank=True,
                                 null=True,
                                 limit_choices_to={'active': True}, )
-    currency = models.CharField(max_length=300, blank=True, null=True)
-    currency_symbol = models.CharField(max_length=300, blank=True, null=True)
+    currency = models.CharField(default="United States Dollar - USD",
+                                max_length=300,
+                                blank=True,
+                                null=True)
+    currency_symbol = models.CharField(default="$",
+                                       max_length=300,
+                                       blank=True,
+                                       null=True)
     document_type = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
@@ -203,7 +213,7 @@ class Project(models.Model):
                                    null=True,
                                    max_digits=12,
                                    decimal_places=2)
-    task = models.ForeignKey('Task',
+    task = models.ForeignKey("Task",
                              blank=True,
                              null=True,
                              limit_choices_to={'active': True}, )
@@ -223,7 +233,7 @@ class Task(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
-    unit = models.DurationField('Unit', default='01:00', blank=True, null=True)
+    unit = models.DurationField("Unit", default="01:00", blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -251,7 +261,7 @@ class Time(models.Model):
                              null=True,
                              limit_choices_to={'active': True}, )
     notes = models.TextField(blank=True, null=True)
-    hours = models.DurationField('Hours',
+    hours = models.DurationField("Hours",
                                  default='01:00',
                                  blank=True,
                                  null=True)

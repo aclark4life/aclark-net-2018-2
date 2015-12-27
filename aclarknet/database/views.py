@@ -157,7 +157,11 @@ def invoice(request, pk=None):
     invoice = get_object_or_404(Invoice, pk=pk)
     context['invoice'] = invoice
 
-    times = Time.objects.filter(project=invoice.project)
+    if invoice.project:
+        times = Time.objects.filter(project=invoice.project)
+    else:
+        times = []
+
     entries, total = entries_total(times)
 
     context['entries'] = entries
