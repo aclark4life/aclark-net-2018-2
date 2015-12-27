@@ -15,8 +15,7 @@ import operator
 
 class DecimalWidget(widgets.Widget):
     """
-    Custom Django Import/Export Widget to import decimal values from strings.
-    (Django Import/Export's DecimalWidget does not convert strings.)
+    Convert strings to decimal values
     """
 
     def clean(self, value):
@@ -28,11 +27,7 @@ class DecimalWidget(widgets.Widget):
 
 def class_name_pk(self):
     """
-    Django Admin object names based on class and pk, e.g.:
-
-        client-1
-        client-2
-        client-3
+    Concatenate class name and id
     """
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
@@ -51,14 +46,14 @@ def edit(request,
 
     if pk is None:
         form = form_model()
-        # XXX One-off to populate time entry form fields with project, client
-        # & task values.
+        # Populate time entry form fields with project, client
+        # & task values
         if project:
             entry = model(project=project,
                           client=project.client,
                           task=project.task)
             form = form_model(instance=entry)
-        # XXX One-off to populate project entry form fields with client value.
+        # Populate project entry form fields with client value
         if client:
             entry = model(client=client)
             form = form_model(instance=entry)
@@ -89,10 +84,7 @@ def edit(request,
         if form.is_valid():
             kwargs = {}
             obj = form.save()
-
-            # XXX Probably not a great idea to check class
-            # name here, but I only want to assign user for
-            # time entries.
+            # Assign user to time entry
             if obj.__class__.__name__ == 'Time':
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
@@ -108,7 +100,7 @@ def edit(request,
 
 def entries_total(queryset):
     """
-    Add entries for estimates & invoices
+    Add estimate and invoice time entries
     """
     entries = {}
     running_total = 0
@@ -128,41 +120,21 @@ def entries_total(queryset):
 
 def paginate(items, page):
     """
-    Django Paginator, based on:
-
-        https://docs.djangoproject.com/en/1.9/topics/pagination/
-
-    but show last page first, along with template:
-
-        <div class="pagination">
-            <span class="step-links">
-                {% if items.has_next %}
-                    <a href="?page={{ items.next_page_number }}">
-                        <i class="fa fa-arrow-left"></i></a>
-                {% endif %}
-                <span class="current">
-                    {{ items.number }} of {{ items.paginator.num_pages }}
-                </span>
-                {% if items.has_previous %}
-                    <a href="?page={{ items.previous_page_number }}">
-                        <i class="fa fa-arrow-right"></i></a>
-                {% endif %}
-            </span>
-        </div>
+    Show last page first
     """
-    paginator = Paginator(items, 10, orphans=5)  # Show 10 per page
+    paginator = Paginator(items, 10, orphans=5)
     try:
         items = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver last page.
         items = paginator.page(paginator.num_pages)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver first page of results.
         items = paginator.page(1)
     return items
 
 
 def search(request, model, fields):
+    """
+    """
     results = []
     query = []
     if request.POST:
