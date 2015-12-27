@@ -18,9 +18,10 @@
                 <h3>Estimates<a class="btn btn-default pull-right" href="{% url 'estimate_edit' %}">Add Estimate</a></h3>
                 <hr>
                 {% include 'pagination.html' %}
-                <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
+                <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                       <th data-field="client" data-sortable="true">Client</th>
                       <th>View</th>
                       <th>Edit</th>
@@ -30,6 +31,7 @@
                   <tbody>
                   {% for estimate in items %}
                     <tr>
+                      <td>{{ estimate.pk }}</td>
                       <td>{{ estimate.client|default:'' }}</td>
                       <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
