@@ -84,8 +84,8 @@ def edit(request,
         if form.is_valid():
             kwargs = {}
             obj = form.save()
-            # Assign user to time entry
-            if obj.__class__.__name__ == 'Time':
+            # Assign user to time entry on creation
+            if obj.__class__.__name__ == 'Time' and pk is None:
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
                 if project:
