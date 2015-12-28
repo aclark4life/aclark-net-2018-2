@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from django.contrib.auth.models import User
-# from django.core.paginator import Paginator
+from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -10,9 +10,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from import_export import widgets
-from .paginator import EmptyPage
-from .paginator import PageNotAnInteger
-from .paginator import Paginator
 import operator
 
 
@@ -150,15 +147,14 @@ def entries_total(queryset):
 
 def paginate(items, page):
     """
-    Show last page first
     """
     paginator = Paginator(items, 10, orphans=5)
     try:
         items = paginator.page(page)
     except PageNotAnInteger:
-        items = paginator.page(paginator.num_pages)
-    except EmptyPage:
         items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
     return items
 
 
