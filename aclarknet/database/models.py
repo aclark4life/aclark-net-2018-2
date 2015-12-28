@@ -113,7 +113,10 @@ class Invoice(models.Model):
     Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
     Currency, Currency Symbol, Document Type
     """
-    issue_date = models.DateField("Issue Date", blank=True, null=True)
+    issue_date = models.DateField("Issue Date",
+                                  blank=True,
+                                  default=timezone.now,
+                                  null=True)
     last_payment_date = models.DateField(blank=True, null=True)
     invoice_id = models.IntegerField("Invoice ID", blank=True, null=True)
     po_number = models.CharField("PO Number",
@@ -266,7 +269,7 @@ class Time(models.Model):
                                  blank=True,
                                  null=True)
     billable = models.BooleanField(default=True)
-    invoiced = models.BooleanField(default=True)
+    invoiced = models.BooleanField(default=False)
     department = models.CharField(max_length=300, blank=True, null=True)
     employee = models.BooleanField(default=True)
     cost_rate = models.DecimalField(blank=True,

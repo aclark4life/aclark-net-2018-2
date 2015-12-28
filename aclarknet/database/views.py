@@ -179,12 +179,14 @@ def invoice(request, pk=None):
 
 @staff_member_required
 def invoice_edit(request, pk=None):
+    total = request.GET.get('total')
     return edit(request,
                 InvoiceForm,
                 Invoice,
                 'invoice_index',
                 'invoice_edit.html',
-                pk=pk)
+                pk=pk,
+                invoice_amount=total)
 
 
 @staff_member_required

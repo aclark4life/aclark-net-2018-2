@@ -39,7 +39,8 @@ def edit(request,
          template,
          pk=None,
          client=None,
-         project=None):
+         project=None,
+         invoice_amount=None):
 
     context = {}
     obj = None
@@ -79,6 +80,11 @@ def edit(request,
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
 
+            if invoice_amount:
+                obj.invoice_amount = invoice_amount
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+
             form = form_model(request.POST, instance=obj)
 
         if form.is_valid():
@@ -106,9 +112,10 @@ def entries_total(queryset):
     running_total = 0
     for entry in queryset:
         entries[entry] = {}
-        entries[entry]['notes'] = entry.notes
         hours = entry.hours
         entries[entry]['hours'] = hours
+        entries[entry]['notes'] = entry.notes
+        entries[entry]['pk'] = entry.pk
         if entry.task:
             rate = entry.task.rate
             entries[entry]['rate'] = rate

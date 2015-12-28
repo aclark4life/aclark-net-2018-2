@@ -48,7 +48,7 @@
                     </tr>
                     {% for entry in entries.values %}
                     <tr> 
-                      <td>{{ forloop.counter }}</td>
+                      <td><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></td>
                       <td>{{ entry.notes }}</td>
                       <td></td>
                       <td>{{ entry.hours }}</td>
@@ -64,7 +64,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>Total:</strong>{{ invoice.currency_symbol }}{{ invoice.invoice_amount }}</td>
+                      <td><strong>Total:</strong>{{ invoice.currency_symbol }}{{ total }}</td>
                     </tr>
                   </tbody>
                 </table>
