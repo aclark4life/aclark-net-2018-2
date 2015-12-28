@@ -270,6 +270,8 @@ class Time(models.Model):
                                  null=True)
     billable = models.BooleanField(default=True)
     invoiced = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=300, blank=True, null=True)
+    last_name = models.CharField(max_length=300, blank=True, null=True)
     department = models.CharField(max_length=300, blank=True, null=True)
     employee = models.BooleanField(default=True)
     cost_rate = models.DecimalField(blank=True,

@@ -10,6 +10,7 @@ from .models import Task
 from .models import Time
 from .utils import BooleanWidget
 from .utils import DecimalWidget
+from .utils import UserWidget
 from django.contrib import admin
 from import_export import fields
 from import_export import widgets
@@ -263,6 +264,9 @@ class TimeResource(ImportExportModelResource):
     task = fields.Field(column_name='task',
                         attribute='task',
                         widget=widgets.ForeignKeyWidget(Task, 'name'))
+    user = fields.Field(column_name='user',
+                        attribute='user',
+                        widget=UserWidget())
 
     class Meta:
         model = Time

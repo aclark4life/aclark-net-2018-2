@@ -37,6 +37,14 @@ class DecimalWidget(widgets.Widget):
             return Decimal(0)
 
 
+class UserWidget(widgets.Widget):
+    """
+    """
+
+    def clean(self, value):
+        return value
+
+
 def class_name_pk(self):
     """
     Concatenate class name and id
