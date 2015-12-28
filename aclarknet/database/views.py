@@ -294,7 +294,7 @@ def time_index(request):
         entries = Time.objects.all()
     else:
         entries = Time.objects.filter(user=request.user)
-    entries = entries.order_by('date')
+    entries = entries.order_by('-date')
     page = request.GET.get('page')
     context['items'] = paginate(entries, page)
     return render(request, 'time_index.html', context)
