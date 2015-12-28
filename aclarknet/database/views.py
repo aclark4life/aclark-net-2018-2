@@ -30,6 +30,7 @@ from .models import Task
 from .models import Time
 from .utils import edit
 from .utils import entries_total
+from .utils import paginate
 from .utils import search
 
 # Create your views here.
@@ -287,12 +288,13 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
+    page = request.GET.get('page')
     if request.user.is_staff:
         entries = Time.objects.all()
     else:
         entries = Time.objects.filter(user=request.user)
     items = entries.order_by('-date')
-    context['items'] = items
+    context['items'] = paginate(items, page)
     return render(request, 'time_index.html', context)
 
 
