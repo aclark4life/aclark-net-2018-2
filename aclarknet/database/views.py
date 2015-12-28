@@ -158,7 +158,7 @@ def invoice(request, pk=None):
     context['invoice'] = invoice
 
     if invoice.project:
-        times = Time.objects.filter(project=invoice.project)
+        times = Time.objects.filter(invoiced=False, project=invoice.project)
     else:
         times = []
 
