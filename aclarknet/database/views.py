@@ -60,7 +60,8 @@ def client_edit(request, pk=None):
 def client_index(request):
     context = {}
     fields = ('address', 'name')
-    clients = search(request, Client, fields)
+    order_by = 'active'
+    clients = search(request, Client, fields, order_by=order_by)
     page = request.GET.get('page')
     context['items'] = paginate(clients, page)
     return render(request, 'client_index.html', context)

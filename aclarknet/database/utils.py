@@ -159,11 +159,12 @@ def paginate(items, page):
     return items
 
 
-def search(request, model, fields):
+def search(request, model, fields, order_by=None):
     """
     """
     results = []
     query = []
+
     if request.POST:
         search = request.POST.get('search', '')
         for field in fields:
@@ -171,4 +172,8 @@ def search(request, model, fields):
         results = model.objects.filter(reduce(operator.or_, query))
     else:
         results = model.objects.all()
+
+    if order_by:
+        results = results.order_by(order_by)
+
     return results
