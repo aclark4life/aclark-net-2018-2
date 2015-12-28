@@ -136,8 +136,10 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     context = {}
+    fields = ('subject', )
+    order_by = '-pk'
+    estimates = search(request, Estimate, fields, order_by=order_by)
     page = request.GET.get('page')
-    estimates = Estimate.objects.all()
     context['items'] = paginate(estimates, page)
     return render(request, 'estimate_index.html', context)
 

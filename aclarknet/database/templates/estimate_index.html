@@ -16,7 +16,17 @@
 
 {% block content %}
 
-                <h3>Estimates<a class="btn btn-default pull-right" href="{% url 'estimate_edit' %}">Add Estimate</a></h3>
+                <div class="row">
+                  <div class="col-md-4">
+                    <h3>Estimates</h3>
+                  </div>
+                  <div class="col-md-4">
+                    {% include 'search.html' %}
+                  </div>
+                  <div class="col-md-4">
+                    <h3><a class="btn btn-default pull-right" href="{% url 'estimate_edit' %}">Add Estimate</a></h3>
+                  </div>
+                </div>
                 <hr>
                 {% include 'pagination.html' %}
                 <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
