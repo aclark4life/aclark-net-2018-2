@@ -46,6 +46,7 @@
                           <th data-sortable="true">Date</th>
                           <th data-sortable="true">Hours</th>
                           <th data-sortable="true">Notes</th>
+                          <th>View</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -54,6 +55,7 @@
                             <td>{{ entry.date }}</td>
                             <td>{{ entry.hours }}</td>
                             <td>{{ entry.notes }}</td>
+                            <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                         </tr>
                         {% endfor %}
                       </tbody>
