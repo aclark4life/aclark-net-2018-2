@@ -30,7 +30,6 @@ from .models import Task
 from .models import Time
 from .utils import edit
 from .utils import entries_total
-from .utils import paginate
 from .utils import search
 
 # Create your views here.
@@ -61,9 +60,8 @@ def client_index(request):
     context = {}
     fields = ('address', 'name')
     order_by = '-pk'
-    clients = search(request, Client, fields, order_by=order_by)
-    page = request.GET.get('page')
-    context['items'] = paginate(clients, page)
+    items = search(request, Client, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'client_index.html', context)
 
 
@@ -90,9 +88,8 @@ def contact_index(request):
     context = {}
     fields = ('first_name', 'last_name')
     order_by = '-pk'
-    contacts = search(request, Contact, fields, order_by=order_by)
-    page = request.GET.get('page')
-    context['items'] = paginate(contacts, page)
+    items = search(request, Contact, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'contact_index.html', context)
 
 
@@ -138,9 +135,8 @@ def estimate_index(request):
     context = {}
     fields = ('subject', )
     order_by = '-pk'
-    estimates = search(request, Estimate, fields, order_by=order_by)
-    page = request.GET.get('page')
-    context['items'] = paginate(estimates, page)
+    items = search(request, Estimate, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'estimate_index.html', context)
 
 
@@ -198,9 +194,8 @@ def invoice_index(request):
     context = {}
     fields = ('subject', )
     order_by = '-pk'
-    invoices = search(request, Invoice, fields, order_by=order_by)
-    page = request.GET.get('page')
-    context['items'] = paginate(invoices, page)
+    items = search(request, Invoice, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'invoice_index.html', context)
 
 
@@ -235,9 +230,8 @@ def project_index(request, pk=None):
     context = {}
     fields = ('name', )
     order_by = '-pk'
-    projects = search(request, Project, fields, order_by=order_by)
-    page = request.GET.get('page')
-    context['items'] = paginate(projects, page)
+    items = search(request, Project, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'project_index.html', context)
 
 
@@ -259,9 +253,8 @@ def task_index(request):
     context = {}
     order_by = '-pk'
     fields = ('name', )
-    tasks = search(request, Task, fields, order_by=order_by)
-    page = request.GET.get('page')
-    context['items'] = paginate(tasks, page)
+    items = search(request, Task, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'task_index.html', context)
 
 
@@ -299,8 +292,7 @@ def time_index(request):
     else:
         entries = Time.objects.filter(user=request.user)
     entries = entries.order_by('-date')
-    page = request.GET.get('page')
-    context['items'] = paginate(entries, page)
+    context['items'] = items
     return render(request, 'time_index.html', context)
 
 
@@ -329,9 +321,8 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = {}
-    users = User.objects.all()
-    page = request.GET.get('page')
-    context['items'] = paginate(users, page)
+    items = User.objects.all()
+    context['items'] = items
     return render(request, 'user_index.html', context)
 
 

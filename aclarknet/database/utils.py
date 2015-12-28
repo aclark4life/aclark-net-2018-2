@@ -163,6 +163,8 @@ def search(request, model, fields, order_by=None):
     """
     results = []
     query = []
+    page = request.GET.get('page')
+    search = None
 
     if request.POST:
         search = request.POST.get('search', '')
@@ -174,5 +176,8 @@ def search(request, model, fields, order_by=None):
 
     if order_by:
         results = results.order_by(order_by)
+
+    if not search:
+        results = paginate(results, page)
 
     return results
