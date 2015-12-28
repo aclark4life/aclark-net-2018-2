@@ -1,6 +1,6 @@
                 {% if items.paginator %}
                 <div class="row">
-                    <span class="col-md-9"><h5>Items {{ items.end_index }} to {{ items.start_index }} of {{ items.paginator.count }}</h5></span>
+                    <span class="col-md-9"><h5>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</h5></span>
                     <span class="table-bordered col-md-3">
                         {% if items.has_next %}
                         <span class="pull-right">
