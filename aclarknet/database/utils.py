@@ -13,6 +13,18 @@ from import_export import widgets
 import operator
 
 
+class BooleanWidget(widgets.Widget):
+    """
+    Convert strings to boolean values
+    """
+
+    def clean(self, value):
+        if value == 'Yes':
+            return True
+        else:
+            return False
+
+
 class DecimalWidget(widgets.Widget):
     """
     Convert strings to decimal values

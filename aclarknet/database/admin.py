@@ -8,6 +8,7 @@ from .models import Profile
 from .models import Project
 from .models import Task
 from .models import Time
+from .utils import BooleanWidget
 from .utils import DecimalWidget
 from django.contrib import admin
 from import_export import fields
@@ -247,9 +248,15 @@ class TaskAdmin(ImportExportModelAdmin):
 class TimeResource(ImportExportModelResource):
     """
     """
+    billable = fields.Field(column_name='billable',
+                            attribute='billable',
+                            widget=BooleanWidget())
     client = fields.Field(column_name='client',
                           attribute='client',
                           widget=widgets.ForeignKeyWidget(Client, 'name'))
+    invoiced = fields.Field(column_name='invoiced',
+                            attribute='invoiced',
+                            widget=BooleanWidget())
     project = fields.Field(column_name='project',
                            attribute='project',
                            widget=widgets.ForeignKeyWidget(Project, 'name'))
