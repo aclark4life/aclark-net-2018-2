@@ -168,7 +168,9 @@ class InvoiceAdmin(ImportExportModelAdmin):
 class ProjectResource(ImportExportModelResource):
     """
     """
-
+    active = fields.Field(column_name='active',
+                          attribute='active',
+                          widget=BooleanWidget())
     client = fields.Field(column_name='client',
                           attribute='client',
                           widget=widgets.ForeignKeyWidget(Client, 'name'))
