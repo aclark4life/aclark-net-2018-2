@@ -89,7 +89,8 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     context = {}
     fields = ('first_name', 'last_name')
-    contacts = search(request, Contact, fields)
+    order_by = '-pk'
+    contacts = search(request, Contact, fields, order_by=order_by)
     page = request.GET.get('page')
     context['items'] = paginate(contacts, page)
     return render(request, 'contact_index.html', context)
@@ -229,7 +230,8 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     context = {}
     fields = ('name', )
-    projects = search(request, Project, fields)
+    order_by = '-pk'
+    projects = search(request, Project, fields, order_by=order_by)
     page = request.GET.get('page')
     context['items'] = paginate(projects, page)
     return render(request, 'project_index.html', context)
@@ -251,7 +253,9 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     context = {}
-    tasks = Task.objects.all()
+    order_by = '-pk'
+    fields = ('name', )
+    tasks = search(request, Task, fields, order_by=order_by)
     page = request.GET.get('page')
     context['items'] = paginate(tasks, page)
     return render(request, 'task_index.html', context)
