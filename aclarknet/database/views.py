@@ -63,8 +63,7 @@ def client_index(request):
     order_by = '-pk'
     clients = search(request, Client, fields, order_by=order_by)
     page = request.GET.get('page')
-    # context['items'] = paginate(clients, page)
-    context['items'] = clients
+    context['items'] = paginate(clients, page)
     return render(request, 'client_index.html', context)
 
 
