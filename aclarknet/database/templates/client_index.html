@@ -29,10 +29,11 @@
                 </div>
                 <hr>
                 {% include 'pagination.html' %}
-                <table data-toggle="table"> 
+                <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc"> 
                   <thead>
                     <tr>
-                      <th data-sortable="true">Active</th> 
+                      <th data-sort-name="hidden-active" data-sortable="true">Active</th> 
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
                       <th data-sortable="true">Name</th>
                       <th data-sortable="true">Address</th>
                       <th>View</th> 
@@ -44,6 +45,7 @@
                   {% for client in items %}
                     <tr>
                       <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                      <td>{{ client.active }}</td>
                       <td>{{ client.name }}</td>
                       <td>{{ client.address|linebreaks }}</td>
                       <td><a href="{% url 'client' client.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
