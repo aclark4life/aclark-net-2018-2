@@ -196,7 +196,9 @@ def invoice_edit(request, pk=None):
 @staff_member_required
 def invoice_index(request):
     context = {}
-    invoices = Invoice.objects.all()
+    fields = ('subject', )
+    order_by = '-pk'
+    invoices = search(request, Invoice, fields, order_by=order_by)
     page = request.GET.get('page')
     context['items'] = paginate(invoices, page)
     return render(request, 'invoice_index.html', context)
