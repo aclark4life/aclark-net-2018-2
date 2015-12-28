@@ -28,6 +28,7 @@
                       <th data-field="email" data-sortable="true">Email</th>
                       <th>View</th>
                       <th>Mail</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -38,6 +39,7 @@
                       <td>{{ user.email }}</td>
                       <td><a href="{% url 'user' user.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       <td><a href="{% url 'user_mail' user.pk %}"><i class="fa fa-send-o fa-3x"></i></a></td>
+                      <td><form action="{% url 'user_edit' user.pk %}" method="post"> {% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}
                   </tbody>
