@@ -24,7 +24,7 @@
                     <h3>
                       <a class="btn btn-default pull-right" href="{% url 'invoice' pk=invoice.pk %}?pdf=true">PDF</a>
                       <a class="btn btn-default pull-right" href="{% url 'invoice_edit' pk=invoice.pk %}">Edit Invoice</a>
-                      <form action="{% url 'invoice_edit' pk=invoice.pk %}?total={{ total }}" method="post">{% csrf_token %}<input type="submit"></form>
+                      <form action="{% url 'invoice_edit' pk=invoice.pk %}?total={{ total }}" method="post">{% csrf_token %}<input class="btn btn-success pull-right" type="submit" value="Save Invoice"></form>
                     </h3>
                   </div>
                 </div>
