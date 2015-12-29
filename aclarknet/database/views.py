@@ -230,7 +230,7 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     context = {}
     fields = ('name', )
-    order_by = '-pk'
+    order_by = '-start_date'
     items = search(request, Project, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'project_index.html', context)
