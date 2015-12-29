@@ -172,7 +172,7 @@ def search(request, model, fields, order_by=None):
             query.append(Q(**{field + '__icontains': search}))
         results = model.objects.filter(reduce(operator.or_, query))
     else:
-        if model.__class__.__name__ == 'Time':
+        if model._meta.verbose_name == 'time':
             if request.user.is_staff:
                 results = model.objects.all()
             else:
