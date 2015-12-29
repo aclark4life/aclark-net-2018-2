@@ -2,7 +2,7 @@
                   <thead>
                     <tr>
                       <th><h1>ESTIMATE</h1></th>
-                      <th class="col-md-9"></th>
+                      <th class="col-md-7"></th>
                       <th></th>
                       <th></th>
                       <th></th>
@@ -18,7 +18,7 @@
                       <td>
                         <strong>From:</strong>
                         <div>{{ company.name }}</div>
-                        <div>{{ company.address }}</div>
+                        <div>{{ company.address|linebreaks }}</div>
                       </td>
                     </tr>
                     <tr></tr>
@@ -38,12 +38,12 @@
                     </tr>
                     <tr></tr>
                     <tr>
-                      <td><h5>Item</h5></td>
-                      <td><h5>Description</h5></td>
+                      <td><strong>Item</strong></td>
+                      <td><strong>Description</strong></td>
                       <td></td>
-                      <td><h5>Quantity</h5></td>
-                      <td><h5>Unit Price</h5></td>
-                      <td><h5>Amount</h5></td>
+                      <td class="col-md-1"><strong>Quantity</strong></td>
+                      <td><strong>Unit Price</strong></td>
+                      <td><strong>Amount</strong></td>
                     </tr>
 
                     {% for entry in entries.values %}
@@ -65,7 +65,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>Total:</strong> {{ estimate.amount|default:'' }}</td>
+                      <td><strong>Total:</strong> {{ company.currency_symbol }} {{ estimate.amount|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>

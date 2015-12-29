@@ -22,10 +22,14 @@ class Client(models.Model):
 class Company(SingletonModel):
     """
     """
-    name = models.CharField(max_length=255)
-    address = models.TextField()
+    name = models.CharField(max_length=255, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
     estimate_counter = models.IntegerField(blank=True, null=True)
     invoice_counter = models.IntegerField(blank=True, null=True)
+    currency_symbol = models.CharField(default="$",
+                                       max_length=300,
+                                       blank=True,
+                                       null=True)
 
     def __unicode__(self):
         return self.name
