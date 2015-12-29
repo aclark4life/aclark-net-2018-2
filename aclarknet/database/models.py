@@ -24,8 +24,8 @@ class Company(SingletonModel):
     """
     name = models.CharField(max_length=255)
     address = models.TextField()
-    estimate_counter = models.IntegerField()
-    invoice_counter = models.IntegerField()
+    estimate_counter = models.IntegerField(blank=True, null=True)
+    invoice_counter = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
         return self.name
