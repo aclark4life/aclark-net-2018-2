@@ -85,9 +85,9 @@ class EstimateResource(ImportExportModelResource):
     client = fields.Field(column_name='client',
                           attribute='client',
                           widget=widgets.ForeignKeyWidget(Client, 'name'))
-    estimate_amount = fields.Field(column_name='estimate_amount',
-                                   attribute='estimate_amount',
-                                   widget=DecimalWidget())
+    amount = fields.Field(column_name='estimate_amount',
+                          attribute='amount',
+                          widget=DecimalWidget())
     subtotal = fields.Field(column_name='subtotal',
                             attribute='subtotal',
                             widget=DecimalWidget())
