@@ -36,8 +36,8 @@
                       <th data-field="issue_date" data-sortable="true">Issue Date</th>
                       <th data-field="invoice_id" data-sortable="true">ID</th>
                       <th data-field="client" data-sortable="true">Client</th>
-                      <th data-field="subject" data-sortable="true">Subject</th>
                       <th data-field="project" data-sortable="true">Project</th>
+                      <th data-field="subject" data-sortable="true">Subject</th>
                       <th data-field="amount" data-sortable="true">Amount</th>
                       <th>Edit</th>
                       <th>View</th>
@@ -55,8 +55,8 @@
                       {% else %}
                         <td></td>
                       {% endif %}
-                      <td>{{ invoice.subject|default:'' }}</td>
                       <td>{{ invoice.project|default:'' }}</td>
+                      <td>{{ invoice.subject|default:'' }}</td>
                       <td>{{ invoice.amount|default:'' }}</td>
                       <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                       <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
