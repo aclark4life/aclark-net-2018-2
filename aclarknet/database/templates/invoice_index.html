@@ -39,8 +39,8 @@
                       <th data-field="project" data-sortable="true">Project</th>
                       <th data-field="subject" data-sortable="true">Subject</th>
                       <th data-field="amount" data-sortable="true">Amount</th>
-                      <th>Edit</th>
                       <th>View</th>
+                      <th>Edit</th>
                       <th>Delete</th>
                     </tr>
                   </thead>
@@ -58,8 +58,8 @@
                       <td>{{ invoice.project|default:'' }}</td>
                       <td>{{ invoice.subject|default:'' }}</td>
                       <td>{{ invoice.amount|default:'' }}</td>
-                      <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                       <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                      <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                       <td><form action="{% url 'invoice_edit' invoice.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                     </tr>
                   {% endfor %}

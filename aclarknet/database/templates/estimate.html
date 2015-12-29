@@ -9,8 +9,8 @@
             <li><a href="{% url 'task_index' %}">Tasks</a></li>
             <li><a href="{% url 'entry_index' %}">Time</a></li>
             <li><a href="{% url 'user_index' %}">Users</a></li>
-            <li class="active"><a href="{% url 'invoice_index' %}">Invoices</a></li>
-            <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
+            <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
+            <li class="active"><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
             {% endblock %}
 
@@ -18,7 +18,7 @@
 
                 <div class="row">
                   <div class="col-md-10">
-                    <h3>Estimate {{ estimate.pk }}</h3>
+                    <h3>Estimate {{ estimate.estimate_id }}</h3>
                   </div>
                   <div class="col-md-2">
                     <h3>
