@@ -24,7 +24,8 @@ class ContactForm(forms.ModelForm):
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
-        fields = '__all__'
+        fields = ('issue_date', 'client', 'subject', 'discount',
+                  'accepted_date', 'declined_date')
 
 
 class InvoiceForm(forms.ModelForm):
