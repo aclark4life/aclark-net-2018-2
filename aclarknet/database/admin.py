@@ -122,7 +122,7 @@ class InvoiceResource(ImportExportModelResource):
     client = fields.Field(column_name='client',
                           attribute='client',
                           widget=widgets.ForeignKeyWidget(Client, 'name'))
-    amount = fields.Field(column_name='invoice_amount',
+    amount = fields.Field(column_name='amount',
                           attribute='amount',
                           widget=DecimalWidget())
     paid_amount = fields.Field(column_name='paid_amount',
