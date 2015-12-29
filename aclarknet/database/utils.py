@@ -176,7 +176,7 @@ def search(request, model, fields, order_by=None):
             if request.user.is_staff:
                 results = model.objects.all()
             else:
-                entries = model.objects.filter(user=request.user)
+                results = model.objects.filter(user=request.user)
         else:
             results = model.objects.all()
 
