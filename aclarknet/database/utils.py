@@ -172,7 +172,13 @@ def search(request, model, fields, order_by=None):
             query.append(Q(**{field + '__icontains': search}))
         results = model.objects.filter(reduce(operator.or_, query))
     else:
-        results = model.objects.all()
+        if model.__class__.__name__ == 'Time':
+            if request.user.is_staff:
+                results = model.objects.all()
+            else:
+                entries = model.objects.filter(user=request.user)
+        else:
+            results = model.objects.all()
 
     if order_by:
         results = results.order_by(order_by)

@@ -288,13 +288,10 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
-    page = request.GET.get('page')
-    if request.user.is_staff:
-        entries = Time.objects.all()
-    else:
-        entries = Time.objects.filter(user=request.user)
-    items = entries.order_by('-date')
-    context['items'] = paginate(items, page)
+    fields = ('notes', )
+    order_by = '-pk'
+    items = search(request, Time, fields, order_by=order_by)
+    context['items'] = items
     return render(request, 'time_index.html', context)
 
 
