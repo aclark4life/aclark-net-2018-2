@@ -53,14 +53,6 @@ class Contact(models.Model):
         return class_name_pk(self)
 
 
-class Contract(models.Model):
-    """
-    """
-
-    def __unicode__(self):
-        return class_name_pk(self)
-
-
 class Profile(models.Model):
     """
     """
