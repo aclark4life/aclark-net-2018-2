@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from import_export import widgets
+from md5 import md5
 import operator
 
 
@@ -143,6 +144,12 @@ def entries_total(queryset):
             entries[entry]['total'] = total
             running_total += total
     return entries, running_total
+
+
+def gravatar_url(email):
+    """MD5 hash of email address for use with Gravatar
+    """
+    return settings.GRAVATAR % md5(email.lower()).hexdigest()
 
 
 def paginate(items, page):
