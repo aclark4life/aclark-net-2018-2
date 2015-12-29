@@ -24,7 +24,7 @@
                     </tr>
                     <tr></tr>
                     <tr>
-                      <td><strong>Id:</strong> {{ invoice.invoice_id }}</td>
+                      <td><strong>ID:</strong> {{ invoice.invoice_id|default:'' }}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -64,7 +64,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>Total:</strong>{{ invoice.currency_symbol }}{{ invoice.amount }}</td>
+                      <td><strong>Total:</strong>{{ invoice.currency_symbol }}{{ invoice.amount|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>

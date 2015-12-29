@@ -23,7 +23,7 @@
                     </tr>
                     <tr></tr>
                     <tr>
-                      <td><strong>ID:</strong> {{ estimate.estimate_id }}</td>
+                      <td><strong>ID:</strong> {{ estimate.estimate_id|default:'' }}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -65,7 +65,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>Total:</strong> {{ estimate.amount }}</td>
+                      <td><strong>Total:</strong> {{ estimate.amount|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>
