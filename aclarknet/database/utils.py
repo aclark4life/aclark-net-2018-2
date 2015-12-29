@@ -61,7 +61,7 @@ def edit(request,
          pk=None,
          client=None,
          project=None,
-         invoice_amount=None):
+         amount=None):
 
     context = {}
     obj = None
@@ -101,8 +101,8 @@ def edit(request,
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
 
-            if invoice_amount:
-                obj.invoice_amount = invoice_amount
+            if amount:
+                obj.amount = amount
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
 

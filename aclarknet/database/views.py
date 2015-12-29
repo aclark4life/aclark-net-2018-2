@@ -123,12 +123,14 @@ def estimate(request, pk=None):
 
 @staff_member_required
 def estimate_edit(request, pk=None):
+    total = request.GET.get('total')
     return edit(request,
                 EstimateForm,
                 Estimate,
                 'estimate_index',
                 'estimate_edit.html',
-                pk=pk)
+                pk=pk,
+                amount=total)
 
 
 @staff_member_required
@@ -187,7 +189,7 @@ def invoice_edit(request, pk=None):
                 'invoice_index',
                 'invoice_edit.html',
                 pk=pk,
-                invoice_amount=total)
+                amount=total)
 
 
 @staff_member_required

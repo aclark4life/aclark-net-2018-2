@@ -92,11 +92,11 @@ class Estimate(models.Model):
                                null=True,
                                limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
-    estimate_amount = models.DecimalField("Estimate Amount",
-                                          blank=True,
-                                          null=True,
-                                          max_digits=12,
-                                          decimal_places=2)
+    amount = models.DecimalField("Estimate Amount",
+                                 blank=True,
+                                 null=True,
+                                 max_digits=12,
+                                 decimal_places=2)
     estimate_id = models.IntegerField("Estimate ID", blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
@@ -133,11 +133,11 @@ class Invoice(models.Model):
                                null=True,
                                limit_choices_to={'active': True}, )
     subject = models.CharField(max_length=300, blank=True, null=True)
-    invoice_amount = models.DecimalField("Invoice Amount",
-                                         blank=True,
-                                         null=True,
-                                         max_digits=12,
-                                         decimal_places=2)
+    amount = models.DecimalField("Invoice Amount",
+                                 blank=True,
+                                 null=True,
+                                 max_digits=12,
+                                 decimal_places=2)
     paid_amount = models.DecimalField(blank=True,
                                       null=True,
                                       max_digits=12,
