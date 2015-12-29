@@ -61,7 +61,7 @@ class ProjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ('active', 'name', 'rate', 'unit')
 
 
 class TimeForm(forms.ModelForm):
