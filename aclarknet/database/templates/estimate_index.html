@@ -32,9 +32,10 @@
                 <table data-toggle="table"> 
                   <thead>
                     <tr>
+                      <th data-field="issue_date" data-sortable="true">Issue Date</th>
+                      <th data-field="estimate_id" data-sortable="true">Estimate ID</th>
                       <th data-field="client" data-sortable="true">Client</th>
                       <th data-field="subject" data-sortable="true">Subject</th>
-                      <th data-field="issue_date" data-sortable="true">Issue Date</th>
                       <th data-field="amount" data-sortable="true">Amount</th>
                       <th>Edit</th>
                       <th>View</th>
@@ -44,9 +45,10 @@
                   <tbody>
                   {% for estimate in items %}
                     <tr>
+                      <td>{{ estimate.issue_date|default:'' }}</td>
+                      <td>{{ estimate.estimate_id|default:'' }}</td>
                       <td>{{ estimate.client|default:'' }}</td>
                       <td>{{ estimate.subject|default:'' }}</td>
-                      <td>{{ estimate.issue_date|default:'' }}</td>
                       <td>{{ estimate.amount|default:'' }}</td>
                       <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                       <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
