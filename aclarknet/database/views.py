@@ -30,7 +30,6 @@ from .models import Task
 from .models import Time
 from .utils import edit
 from .utils import entries_total
-from .utils import paginate
 from .utils import search
 
 # Create your views here.
@@ -222,7 +221,7 @@ def project_edit(request, pk=None):
     return edit(request,
                 ProjectForm,
                 Project,
-                'project_index',
+                url_name,
                 'project_edit.html',
                 client=client,
                 pk=pk)
