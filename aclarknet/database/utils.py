@@ -61,7 +61,8 @@ def edit(request,
          pk=None,
          client=None,
          project=None,
-         amount=None):
+         amount=None,
+         company=None):
 
     context = {}
     obj = None
@@ -117,6 +118,20 @@ def edit(request,
                 obj.save()
                 if project:
                     kwargs['pk'] = project.pk
+
+            # Assign and increment invoice id
+            if obj._meta.verbose_name == 'invoice':
+                company.invoice_counter += 1
+                company.save()
+                obj.document_id = company.invoice_counter
+                obj.save()
+
+            # Assign and increment estimate id
+            if obj._meta.verbose_name == 'estimate':
+                company.estimate_counter += 1
+                company.save()
+                obj.document_id = company.estimate_counter
+                obj.save()
 
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
