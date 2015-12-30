@@ -62,7 +62,8 @@ def edit(request,
          client=None,
          project=None,
          amount=None,
-         company=None):
+         company=None,
+         task=None):
 
     context = {}
     obj = None
@@ -70,14 +71,19 @@ def edit(request,
     if pk is None:
         form = form_model()
         # Populate time entry form fields with project, client
-        # & task values
+        # and task values
         if project:
             entry = model(project=project,
                           client=project.client,
                           task=project.task)
             form = form_model(instance=entry)
+        # Populate project entry form fields with client and
+        # task values
+        if client and task:
+            entry = model(client=client, task=task)
+            form = form_model(instance=entry)
         # Populate project entry form fields with client value
-        if client:
+        elif client:
             entry = model(client=client)
             form = form_model(instance=entry)
     else:

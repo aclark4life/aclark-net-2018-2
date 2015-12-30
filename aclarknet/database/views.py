@@ -287,6 +287,8 @@ def time_edit(request, pk=None):
         url_name = 'estimate_index'
         client = get_object_or_404(Client, pk=client)
 
+    task = Task.objects.filter(active=True).latest('pk')
+
     return edit(request,
                 TimeForm,
                 Time,
@@ -294,7 +296,8 @@ def time_edit(request, pk=None):
                 'time_edit.html',
                 pk=pk,
                 client=client,
-                project=project)
+                project=project,
+                task=task)
 
 
 @login_required
