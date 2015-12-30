@@ -91,6 +91,9 @@ class EstimateResource(ImportExportModelResource):
     subtotal = fields.Field(column_name='subtotal',
                             attribute='subtotal',
                             widget=DecimalWidget())
+    document_id = fields.Field(column_name='estimate_id',
+                               attribute='document_id',
+                               widget=DecimalWidget())
 
     class Meta:
         model = Estimate

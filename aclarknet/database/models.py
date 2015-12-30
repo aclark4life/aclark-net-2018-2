@@ -93,7 +93,7 @@ class Estimate(models.Model):
                                  null=True,
                                  max_digits=12,
                                  decimal_places=2)
-    estimate_id = models.IntegerField("Estimate ID", blank=True, null=True)
+    document_id = models.IntegerField("Estimate ID", blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
@@ -119,7 +119,7 @@ class Invoice(models.Model):
                                   default=timezone.now,
                                   null=True)
     last_payment_date = models.DateField(blank=True, null=True)
-    invoice_id = models.IntegerField("Invoice ID", blank=True, null=True)
+    document_id = models.IntegerField("Invoice ID", blank=True, null=True)
     po_number = models.CharField("PO Number",
                                  max_length=300,
                                  blank=True,

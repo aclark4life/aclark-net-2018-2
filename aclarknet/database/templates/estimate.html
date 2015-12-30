@@ -18,23 +18,23 @@
 
                 <div class="row">
                   <div class="col-md-10">
-                    <h3>Estimate {{ estimate.estimate_id|default:'' }}</h3>
+                    <h3>Estimate {{ document.document_id|default:'' }}</h3>
                   </div>
                   <div class="col-md-2">
                     <h3>
                       <div class="dropdown pull-right">
                         <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                          <li><a href="{% url 'estimate_edit' pk=estimate.pk %}"><i class="fa fa-edit fa-2x"></i>&nbsp;Edit Estimate</a></li>
-                          <li><a href="{% url 'estimate' pk=estimate.pk %}?pdf=true"><i class="fa fa-file-pdf-o fa-2x"></i>&nbsp;&nbsp;View PDF</a></li>
+                          <li><a href="{% url 'estimate_edit' pk=document.pk %}"><i class="fa fa-edit fa-2x"></i>&nbsp;Edit Estimate</a></li>
+                          <li><a href="{% url 'estimate' pk=document.pk %}?pdf=true"><i class="fa fa-file-pdf-o fa-2x"></i>&nbsp;&nbsp;View PDF</a></li>
                         </ul>
                       </div>
                     </h3>
                   </div>
                 </div>
                 <hr>
-                {% include 'estimate_table.html' %}
+                {% include 'entry_table.html' %}
                 <hr>
-                <h3><form action="{% url 'estimate_edit' pk=estimate.pk %}?total={{ total }}" method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Save Estimate"></form></h3>
+                <h3><form action="{% url 'estimate_edit' pk=document.pk %}?total={{ total }}" method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Save Estimate"></form></h3>
 
 {% endblock %}

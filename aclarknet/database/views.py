@@ -102,7 +102,8 @@ def estimate(request, pk=None):
         context['company'] = company
 
     estimate = get_object_or_404(Estimate, pk=pk)
-    context['estimate'] = estimate
+    context['document'] = estimate
+    context['title'] = estimate._meta.verbose_name.upper()
 
     times = Time.objects.filter(client=estimate.client, project=None)
     entries, total = entries_total(times)
@@ -157,7 +158,8 @@ def invoice(request, pk=None):
         context['company'] = company
 
     invoice = get_object_or_404(Invoice, pk=pk)
-    context['invoice'] = invoice
+    context['document'] = invoice
+    context['title'] = invoice._meta.verbose_name.upper()
 
     if invoice.project:
         times = Time.objects.filter(invoiced=False, project=invoice.project)
@@ -172,7 +174,7 @@ def invoice(request, pk=None):
     pdf = request.GET.get('pdf')
     if pdf:
         response = HttpResponse(content_type='application/pdf')
-        return generate_pdf('invoice_table.html',
+        return generate_pdf('entry_table.html',
                             context=context,
                             file_object=response)
     else:

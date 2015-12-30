@@ -1,0 +1,70 @@
+                <table data-toggle="table table-no-bordered">
+                  <thead>
+                    <tr>
+                      <th><h1>{{ title }}</h1></th>
+                      <th class="col-md-7"></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <strong>From:</strong>
+                        <div>{{ company.name|default:'' }}</div>
+                        <div>{{ company.address|default:''|linebreaks }}</div>
+                      </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td><strong>Id:</strong> {{ document.document_id|default:'' }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><strong>For:</strong> {{ document.client|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Date:</strong> {{ document.issue_date }}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td><strong>Subject:</strong> {{ document.subject }}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                      <td><strong>Item</strong></td>
+                      <td><strong>Description</strong></td>
+                      <td></td>
+                      <td class="col-md-1"><strong>Quantity</strong></td>
+                      <td><strong>Unit Price</strong></td>
+                      <td><strong>Amount</strong></td>
+                    </tr>
+                    {% for entry in entries.values %}
+                    <tr> 
+                      <td><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></td>
+                      <td>{{ entry.notes }}</td>
+                      <td></td>
+                      <td>{{ entry.hours }}</td>
+                      <td>{{ entry.rate }}</td>
+                      <td>{{ entry.total }}</td>
+                    </tr>
+                    <tr></tr>
+                    {% endfor %}
+                    <tr></tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><strong>Total:</strong> {{ company.currency_symbol }} {{ document.amount|default:'' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
