@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from decimal import Decimal
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -162,7 +163,7 @@ def entries_total(queryset):
     """
     Add estimate and invoice time entries
     """
-    entries = {}
+    entries = OrderedDict()
     running_total = 0
     for entry in queryset:
         entries[entry] = {}
