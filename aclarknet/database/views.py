@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
+from itertools import chain
 from .forms import ClientForm
 from .forms import CompanyForm
 from .forms import ContactForm
@@ -125,9 +126,10 @@ def estimate(request, pk=None):
     context['document'] = estimate
     context['title'] = estimate._meta.verbose_name.upper()
 
-    times = Time.objects.filter(client=estimate.client,
-                                project=None,
-                                estimate=None)
+    times_client = Time.objects.filter(client=estimate.client)
+    times_estimate = Time.objects.filter(estimate=estimate)
+    times = chain(times_client, times_estimate)
+
     entries, total = entries_total(times)
 
     context['entries'] = entries
@@ -146,7 +148,16 @@ def estimate(request, pk=None):
 @staff_member_required
 def estimate_edit(request, pk=None):
     total = request.GET.get('total')
+    times = request.GET.get('times')
     company = Company.get_solo()
+
+    if times:
+        estimate = get_object_or_404(Estimate, pk=pk)
+        times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
+        for entry in times:
+            entry.estimate = estimate
+            entry.save()
+
     return edit(request,
                 EstimateForm,
                 Estimate,
