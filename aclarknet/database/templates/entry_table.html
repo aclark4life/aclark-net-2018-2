@@ -52,8 +52,8 @@
                       <td>{{ entry.notes }}</td>
                       <td></td>
                       <td>{{ entry.hours }}</td>
-                      <td>{{ entry.rate }}</td>
-                      <td>{{ entry.total }}</td>
+                      <td>{{ entry.rate|default:'' }}</td>
+                      <td>{{ entry.total|default:'' }}</td>
                     </tr>
                     <tr></tr>
                     {% endfor %}

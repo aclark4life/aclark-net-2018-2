@@ -287,7 +287,10 @@ def time_edit(request, pk=None):
         url_name = 'estimate_index'
         client = get_object_or_404(Client, pk=client)
 
-    task = Task.objects.filter(active=True).latest('pk')
+    try:
+        task = Task.objects.filter(active=True).latest('pk')
+    except Task.DoesNotExist:
+        task = None
 
     return edit(request,
                 TimeForm,

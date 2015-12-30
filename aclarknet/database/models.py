@@ -286,6 +286,7 @@ class Time(models.Model):
     currency = models.CharField(max_length=300, blank=True, null=True)
     external_reference_url = models.URLField(blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    estimate = models.ForeignKey(Estimate, blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)

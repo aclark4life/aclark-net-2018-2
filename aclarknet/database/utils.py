@@ -77,7 +77,7 @@ def edit(request,
                           client=project.client,
                           task=project.task)
             form = form_model(instance=entry)
-        # Populate project entry form fields with client and
+        # Populate time entry form fields with client and
         # task values
         if client and task:
             entry = model(client=client, task=task)
@@ -85,6 +85,10 @@ def edit(request,
         # Populate project entry form fields with client value
         elif client:
             entry = model(client=client)
+            form = form_model(instance=entry)
+        # Populate time entry form fields with task value
+        elif task:
+            entry = model(task=task)
             form = form_model(instance=entry)
     else:
         obj = get_object_or_404(model, pk=pk)
@@ -97,11 +101,11 @@ def edit(request,
             delete = request.POST.get('delete')
             if delete:
                 # Decrement invoice id
-                if obj._meta.verbose_name == 'invoice':
+                if obj._meta.verbose_name == 'invoice' and company.invoice_counter:
                     company.invoice_counter -= 1
                     company.save()
                 # Decrement estimate id
-                if obj._meta.verbose_name == 'estimate':
+                if obj._meta.verbose_name == 'estimate' and company.estimate_counter:
                     company.estimate_counter -= 1
                     company.save()
                 obj.delete()
@@ -134,14 +138,14 @@ def edit(request,
                     kwargs['pk'] = project.pk
 
             # Assign and increment invoice id
-            if obj._meta.verbose_name == 'invoice':
+            if obj._meta.verbose_name == 'invoice' and company.invoice_counter:
                 company.invoice_counter += 1
                 company.save()
                 obj.document_id = company.invoice_counter
                 obj.save()
 
             # Assign and increment estimate id
-            if obj._meta.verbose_name == 'estimate':
+            if obj._meta.verbose_name == 'estimate' and company.estimate_counter:
                 company.estimate_counter += 1
                 company.save()
                 obj.document_id = company.estimate_counter
@@ -169,7 +173,10 @@ def entries_total(queryset):
         if entry.task:
             rate = entry.task.rate
             entries[entry]['rate'] = rate
-            total = float(rate) * float(hours.total_seconds() / 60)
+            if rate:
+                total = float(rate) * float(hours.total_seconds() / 60)
+            else:
+                total = 0
             entries[entry]['total'] = total
             running_total += total
     return entries, running_total
