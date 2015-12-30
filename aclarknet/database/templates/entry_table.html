@@ -41,7 +41,7 @@
                     <tr>
                       <td><strong>Item</strong></td>
                       <td><strong>Description</strong></td>
-                      <td></td>
+                      <td>{% if title == 'INVOICE' %}<strong>Date</strong>{% endif %}</td>
                       <td class="col-md-1"><strong>Quantity</strong></td>
                       <td><strong>Unit Price</strong></td>
                       <td><strong>Amount</strong></td>
@@ -50,7 +50,7 @@
                     <tr> 
                       <td><h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1></td>
                       <td>{{ entry.notes }}</td>
-                      <td></td>
+                      <td>{% if title == 'INVOICE' %}{{ entry.date }}{% endif %}</td>
                       <td>{{ entry.hours }}</td>
                       <td>{{ entry.rate|default:'' }}</td>
                       <td>{{ entry.total|default:'' }}</td>
