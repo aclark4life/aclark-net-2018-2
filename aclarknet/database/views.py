@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from .forms import ClientForm
+from .forms import CompanyForm
 from .forms import ContactForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
@@ -63,6 +64,25 @@ def client_index(request):
     items = search(request, Client, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'client_index.html', context)
+
+
+@staff_member_required
+def company_edit(request, pk=None):
+    company = Company.get_solo()
+    return edit(request,
+                CompanyForm,
+                Company,
+                'company',
+                'company_edit.html',
+                pk=pk)
+
+
+@staff_member_required
+def company(request):
+    context = {}
+    company = Company.get_solo()
+    context['company'] = company
+    return render(request, 'company.html', context)
 
 
 @staff_member_required

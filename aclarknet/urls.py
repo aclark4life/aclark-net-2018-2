@@ -36,6 +36,13 @@ urlpatterns = [
     url(r'^client$',
         views.client_index,
         name='client_index'),
+    # Company
+    url(r'^company/edit$',
+        views.company_edit,
+        name='company_edit'),
+    url(r'^company$',
+        views.company,
+        name='company'),
     # Contact
     url(r'^contact/(?P<pk>\d+)$',
         views.contact,
