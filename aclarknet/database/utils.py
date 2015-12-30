@@ -90,6 +90,14 @@ def edit(request,
         else:
             delete = request.POST.get('delete')
             if delete:
+                # Decrement invoice id
+                if obj._meta.verbose_name == 'invoice':
+                    company.invoice_counter -= 1
+                    company.save()
+                # Decrement estimate id
+                if obj._meta.verbose_name == 'estimate':
+                    company.estimate_counter -= 1
+                    company.save()
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
 
