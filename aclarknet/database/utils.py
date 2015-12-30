@@ -167,6 +167,7 @@ def entries_total(queryset):
     for entry in queryset:
         entries[entry] = {}
         hours = entry.hours
+        entries[entry]['date'] = entry.date
         entries[entry]['hours'] = hours
         entries[entry]['notes'] = entry.notes
         entries[entry]['pk'] = entry.pk
