@@ -46,7 +46,7 @@
                   {% for estimate in items %}
                     <tr>
                       <td>{{ estimate.issue_date|default:'' }}</td>
-                      <td>{{ estimate.estimate_id|default:'' }}</td>
+                      <td>{{ estimate.document_id|default:'' }}</td>
                       <td>{{ estimate.client|default:'' }}</td>
                       <td>{{ estimate.subject|default:'' }}</td>
                       <td>{{ estimate.amount|default:'' }}</td>
