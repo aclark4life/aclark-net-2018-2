@@ -68,7 +68,12 @@ class Profile(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
-    unit = models.DurationField("Unit", default='01:00', blank=True, null=True)
+    unit = models.DecimalField("Unit",
+                               default=1.0,
+                               blank=True,
+                               null=True,
+                               max_digits=12,
+                               decimal_places=2)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -237,7 +242,12 @@ class Task(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
-    unit = models.DurationField("Unit", default="01:00", blank=True, null=True)
+    unit = models.DecimalField("Unit",
+                               default=1.0,
+                               blank=True,
+                               null=True,
+                               max_digits=12,
+                               decimal_places=2)
 
     def __unicode__(self):
         return self.name
@@ -265,10 +275,12 @@ class Time(models.Model):
                              null=True,
                              limit_choices_to={'active': True}, )
     notes = models.TextField(blank=True, null=True)
-    hours = models.DurationField("Hours",
-                                 default='01:00',
-                                 blank=True,
-                                 null=True)
+    hours = models.DecimalField("Hours",
+                                default=1.0,
+                                blank=True,
+                                null=True,
+                                max_digits=12,
+                                decimal_places=2)
     billable = models.BooleanField(default=True)
     invoiced = models.BooleanField(default=False)
     first_name = models.CharField(max_length=300, blank=True, null=True)
