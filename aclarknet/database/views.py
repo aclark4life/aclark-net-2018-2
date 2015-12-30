@@ -74,7 +74,7 @@ def company_edit(request, pk=None):
                 Company,
                 'company',
                 'company_edit.html',
-                pk=pk)
+                pk=1)
 
 
 @staff_member_required
