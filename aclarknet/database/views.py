@@ -187,6 +187,7 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = {}
+    order_by = '-date'
 
     company = Company.get_solo()
     if company:
@@ -197,7 +198,8 @@ def invoice(request, pk=None):
     context['title'] = invoice._meta.verbose_name.upper()
 
     if invoice.project:
-        times = Time.objects.filter(invoiced=False, project=invoice.project)
+        times = Time.objects.filter(invoiced=False,
+                                    project=invoice.project).order_by(order_by)
     else:
         times = []
 
