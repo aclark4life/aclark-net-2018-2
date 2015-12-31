@@ -13,8 +13,8 @@
                       </thead>
                       <tbody>
                       <tr>
-                        <td>{{ company.name }}</td>
-                        <td>{{ company.address }}</td>
+                        <td>{{ company.name|default:'' }}</td>
+                        <td>{{ company.address|default:'' }}</td>
                       </tr>
                       </tbody>
                     </table>
