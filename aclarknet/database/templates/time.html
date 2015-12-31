@@ -32,6 +32,9 @@
                 <table data-toggle="table"> 
                   <thead>
                     <tr>
+                      {% if request.user.is_staff %}
+                      <th data-field="invoiced" data-sortable="true">Invoiced</th>
+                      {% endif %}
                       <th data-field="id" data-sortable="true" data-visible="false">Id</th>
                       <th data-field="date" data-sortable="true">Date</th>
                       <th data-field="hours" data-sortable="true">Hours</th>
@@ -46,6 +49,9 @@
                   </thead>
                   <tbody>
                     <tr>
+                      {% if request.user.is_staff %}
+                      <td>{{ entry.invoiced }}</td>
+                      {% endif %}
                       <td>{{ entry.pk }}</td>
                       <td>{{ entry.date|default:'' }}</td>
                       <td>{{ entry.hours|default:'' }}</td>
