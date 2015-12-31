@@ -192,6 +192,7 @@ def home(request):
 
     context['clients'] = clients
     context['company'] = company
+    context['contacts'] = contacts
     context['projects'] = projects
     context['tasks'] = tasks
     context['times'] = times
