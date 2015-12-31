@@ -222,6 +222,13 @@ def invoice(request, pk=None):
 def invoice_edit(request, pk=None):
     total = request.GET.get('total')
     company = Company.get_solo()
+
+    if pk:
+        invoice = get_object_or_404(Invoice, pk=pk)
+        if invoice.project.client and not invoice.client:
+            invoice.client = invoice.project.client
+            invoice.save()
+
     return edit(request,
                 InvoiceForm,
                 Invoice,
