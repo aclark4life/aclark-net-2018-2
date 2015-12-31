@@ -30,7 +30,10 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>For:</strong> {{ document.client|default:'' }}</td>
+                      <td><strong>For:</strong>
+                        {{ document.client|default:'' }}
+                        {{ document.client.address|default:'' }}
+                      </td>
                     </tr>
                     <tr>
                       <td><strong>Date:</strong> {{ document.issue_date }}</td>
