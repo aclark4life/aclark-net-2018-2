@@ -320,11 +320,14 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
 
     url_name = 'entry_index'
+
     client = request.GET.get('client')
     project = request.GET.get('project')
+
     if project:
         project = get_object_or_404(Project, pk=project)
         url_name = 'project'
+
     if client:
         url_name = 'estimate_index'
         client = get_object_or_404(Client, pk=client)
