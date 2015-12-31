@@ -216,11 +216,11 @@ def invoice(request, pk=None):
     context['document'] = invoice
     context['title'] = invoice._meta.verbose_name.upper()
 
-    if invoice.project:
-        times = Time.objects.filter(invoiced=False,
-                                    project=invoice.project).order_by(order_by)
-    else:
-        times = []
+    times_project = Time.objects.filter(invoiced=False,
+                                        project=invoice.project,
+                                        invoice=None).order_by(order_by)
+    times_invoice = Time.objects.filter(invoice=invoice)
+    times = chain(times_project, times_invoice)
 
     entries, total = entries_total(times)
 
@@ -240,6 +240,7 @@ def invoice(request, pk=None):
 @staff_member_required
 def invoice_edit(request, pk=None):
     total = request.GET.get('total')
+    times = request.GET.get('times')
     company = Company.get_solo()
 
     if pk:
