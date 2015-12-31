@@ -54,7 +54,11 @@
                       {% if request.user.is_staff %}
                       <td>{{ entry.invoiced }}</td>
                       <td>{{ entry.invoice }}</td>
-                      <td>{{ entry.estimate }}</td>
+                      {% if entry.estimate %}
+                      <td><a href="{% url 'estimate' entry.estimate.pk %}">{{ entry.estimate }}</a></td>
+                      {% else %}
+                      <td></td>
+                      {% endif %}
                       {% endif %}
                       <td>{{ entry.pk }}</td>
                       <td>{{ entry.date|default:'' }}</td>
