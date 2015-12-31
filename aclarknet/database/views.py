@@ -248,6 +248,13 @@ def invoice_edit(request, pk=None):
             invoice.client = invoice.project.client
             invoice.save()
 
+    if times:
+        invoice = get_object_or_404(Invoice, pk=pk)
+        times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
+        for entry in times:
+            entry.invoice = invoice
+            entry.save()
+
     return edit(request,
                 InvoiceForm,
                 Invoice,
@@ -343,13 +350,13 @@ def time_edit(request, pk=None):
     client = request.GET.get('client')
     project = request.GET.get('project')
 
+    if client:
+        client = get_object_or_404(Client, pk=client)
+        url_name = 'estimate_index'
+
     if project:
         project = get_object_or_404(Project, pk=project)
         url_name = 'project'
-
-    if client:
-        url_name = 'estimate_index'
-        client = get_object_or_404(Client, pk=client)
 
     try:
         task = Task.objects.filter(active=True).latest('pk')
