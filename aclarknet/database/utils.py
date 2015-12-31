@@ -101,11 +101,11 @@ def edit(request,
         else:
             delete = request.POST.get('delete')
             if delete:
-                # Decrement invoice id
+                # Decrement invoice counter
                 if obj._meta.verbose_name == 'invoice' and company.invoice_counter:
                     company.invoice_counter -= 1
                     company.save()
-                # Decrement estimate id
+                # Decrement estimate counter
                 if obj._meta.verbose_name == 'estimate' and company.estimate_counter:
                     company.estimate_counter -= 1
                     company.save()
@@ -138,14 +138,14 @@ def edit(request,
                 if project:
                     kwargs['pk'] = project.pk
 
-            # Assign and increment invoice id
+            # Assign and increment invoice counter
             if obj._meta.verbose_name == 'invoice' and company.invoice_counter:
                 company.invoice_counter += 1
                 company.save()
                 obj.document_id = company.invoice_counter
                 obj.save()
 
-            # Assign and increment estimate id
+            # Assign and increment estimate counter
             if obj._meta.verbose_name == 'estimate' and company.estimate_counter:
                 company.estimate_counter += 1
                 company.save()
