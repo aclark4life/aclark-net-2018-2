@@ -5,7 +5,7 @@
                 <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
                 <hr>
                 <p class="lead">
-                {{ company.name|default:'Company' }} has
+                <strong>{{ company.name|default:'Company' }}</strong> has
                 <strong>{{ clients.count|default:0 }}</strong> clients,
                 <strong>{{ contacts.count|default:0 }}</strong> contacts,
                 <strong>{{ projects.count|default:0 }}</strong> projects,
