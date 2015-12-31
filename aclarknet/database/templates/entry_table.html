@@ -18,8 +18,10 @@
                       <td></td>
                       <td>
                         <strong>From:</strong>
-                        <div>{{ company.name|default:'' }}</div>
-                        <div>{{ company.address|default:''|linebreaks }}</div>
+                        <div>
+                          {{ company.name|default:'' }}
+                          {{ company.address|default:''|linebreaks }}
+                        </div>
                       </td>
                     </tr>
                     <tr></tr>
