@@ -5,14 +5,14 @@
                 <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
                 <hr>
                 <p class="lead">
-                <strong>{{ company.name|default:'Company' }}</strong> has
-                <strong>{{ clients.count|default:0 }}</strong> clients,
-                <strong>{{ contacts.count|default:0 }}</strong> contacts,
-                <strong>{{ projects.count|default:0 }}</strong> projects,
-                <strong>{{ tasks.count|default:0 }}</strong> tasks,
-                <strong>{{ times.count|default:0 }}</strong> time entries,
-                <strong>{{ invoices.count|default:0 }}</strong> invoices, and
-                <strong>{{ estimates.count|default:0 }}</strong> estimates.
+                {{ company.name|default:'Company' }} has
+                {{ clients.count|default:0 }} clients,
+                {{ contacts.count|default:0 }} contacts,
+                {{ projects.count|default:0 }} projects,
+                {{ tasks.count|default:0 }} tasks,
+                {{ times.count|default:0 }} time entries,
+                {{ invoices.count|default:0 }} invoices, and
+                {{ estimates.count|default:0 }} estimates.
                 </p>
 
 {% endblock %}
