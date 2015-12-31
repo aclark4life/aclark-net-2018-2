@@ -62,28 +62,6 @@ class Contact(models.Model):
         return class_name_pk(self)
 
 
-class Profile(models.Model):
-    """
-    """
-
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
-
-    rate = models.DecimalField(blank=True,
-                               null=True,
-                               max_digits=12,
-                               decimal_places=2)
-    unit = models.DecimalField("Unit",
-                               default=1.0,
-                               blank=True,
-                               null=True,
-                               max_digits=12,
-                               decimal_places=2)
-
-    def __unicode__(self):
-        return class_name_pk(self)
-
-
 class Estimate(models.Model):
     """
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
@@ -172,6 +150,28 @@ class Invoice(models.Model):
                                        blank=True,
                                        null=True)
     document_type = models.CharField(max_length=300, blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
+
+class Profile(models.Model):
+    """
+    """
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE)
+
+    rate = models.DecimalField(blank=True,
+                               null=True,
+                               max_digits=12,
+                               decimal_places=2)
+    unit = models.DecimalField("Unit",
+                               default=1.0,
+                               blank=True,
+                               null=True,
+                               max_digits=12,
+                               decimal_places=2)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -304,6 +304,7 @@ class Time(models.Model):
     external_reference_url = models.URLField(blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     estimate = models.ForeignKey(Estimate, blank=True, null=True)
+    invoice = models.ForeignKey(Invoice, blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)

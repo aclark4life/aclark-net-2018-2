@@ -80,7 +80,7 @@ def edit(request,
             form = form_model(instance=entry)
         # Populate time entry form fields with client and
         # task values
-        if client and task:
+        elif client and task:
             entry = model(client=client, task=task)
             form = form_model(instance=entry)
         # Populate project entry form fields with client value
