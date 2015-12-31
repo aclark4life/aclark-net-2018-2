@@ -165,6 +165,7 @@ def entries_total(queryset):
     """
     entries = OrderedDict()
     running_total = 0
+    total = 0
     for entry in queryset:
         entries[entry] = {}
         hours = entry.hours
@@ -176,9 +177,7 @@ def entries_total(queryset):
             rate = entry.task.rate
             entries[entry]['rate'] = rate
             if rate:
-                total = float(rate) * float(hours / 60)
-            else:
-                total = 0
+                total = rate * hours
             entries[entry]['total'] = total
             running_total += total
     return entries, running_total
