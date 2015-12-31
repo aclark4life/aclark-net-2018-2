@@ -17,11 +17,9 @@
                       <td></td>
                       <td></td>
                       <td>
-                        <strong>From:</strong>
-                        <div>
-                          {{ company.name|default:'' }}
-                          {{ company.address|default:''|linebreaks }}
-                        </div>
+                        <div><strong>From:</strong></div>
+                        <div>{{ company.name|default:'' }}</div>
+                        <div>{{ company.address|default:''|linebreaks }}</div>
                       </td>
                     </tr>
                     <tr></tr>
@@ -30,9 +28,10 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>For:</strong>
-                        {{ document.client|default:'' }}
-                        {{ document.client.address|default:'' }}
+                      <td>
+                        <div><strong>For:</strong></div>
+                        <div>{{ document.client|default:'' }}</div>
+                        <div>{{ document.client.address|default:''|linebreaks }}</div>
                       </td>
                     </tr>
                     <tr>
