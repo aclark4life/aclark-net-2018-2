@@ -4,5 +4,14 @@
 
                 <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
                 <hr>
+                <p class="lead">
+                {{ company.name|default:'Company' }} has
+                {{ clients.count|default:0 }} clients,
+                {{ contacts.count|default:0 }} contacts,
+                {{ projects.count|default:0 }} projects,
+                {{ tasks.count|default:0 }} tasks,
+                {{ invoices.count|default:0 }} invoices, and
+                {{ estimates.count|default:0 }} estimates.
+                </p>
 
 {% endblock %}

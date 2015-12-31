@@ -180,7 +180,25 @@ def estimate_index(request):
 
 def home(request):
     context = {}
+
+    clients = Client.objects.all()
+    company = Company.get_solo()
+    contacts = Contact.objects.all()
+    projects = Project.objects.all()
+    tasks = Task.objects.all()
+    times = Time.objects.all()
+    invoices = Invoice.objects.all()
+    estimates = Estimate.objects.all()
+
+    context['clients'] = clients
+    context['company'] = company
+    context['projects'] = projects
+    context['tasks'] = tasks
+    context['times'] = times
+    context['invoices'] = invoices
+    context['estimates'] = estimates
     context['request'] = request
+
     return render(request, 'home.html', context)
 
 
