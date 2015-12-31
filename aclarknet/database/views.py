@@ -278,7 +278,7 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = {}
-    fields = ('name', )
+    fields = ('id', 'name')
     order_by = '-start_date'
     items = search(request, Project, fields, order_by=order_by)
     context['items'] = items
