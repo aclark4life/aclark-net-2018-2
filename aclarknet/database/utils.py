@@ -176,7 +176,7 @@ def entries_total(queryset):
             rate = entry.task.rate
             entries[entry]['rate'] = rate
             if rate:
-                total = float(rate) * float(hours.total_seconds() / 60)
+                total = float(rate) * float(hours / 60)
             else:
                 total = 0
             entries[entry]['total'] = total
