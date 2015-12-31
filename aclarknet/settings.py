@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_extensions',
     'import_export',
+    'ordered_model',
     'social.apps.django_app.default',
     'solo',
     'aclarknet.database',

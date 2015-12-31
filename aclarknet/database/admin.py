@@ -15,9 +15,8 @@ from import_export import fields
 from import_export import widgets
 from import_export.admin import ImportExportModelAdmin
 from import_export.resources import ModelResource as ImportExportModelResource
+from ordered_model.admin import OrderedModelAdmin
 from solo.admin import SingletonModelAdmin
-
-admin.site.register(Company, SingletonModelAdmin)
 
 # Register your models here.
 
@@ -47,6 +46,12 @@ class ClientAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = ClientResource
+
+
+@admin.register(Company)
+class CompanyAdmin(SingletonModelAdmin):
+    """
+    """
 
 
 class ContactResource(ImportExportModelResource):
@@ -283,7 +288,8 @@ class TimeResource(ImportExportModelResource):
 
 
 @admin.register(Time)
-class TimeAdmin(ImportExportModelAdmin):
+class TimeAdmin(OrderedModelAdmin):
     """
     """
+    list_display = ('pk', 'move_up_down_links')
     resource_class = TimeResource
