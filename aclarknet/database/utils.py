@@ -152,6 +152,11 @@ def edit(request,
                 obj.document_id = company.estimate_counter
                 obj.save()
 
+            # Assign client to invoice
+            if obj._meta.verbose_name == 'invoice' and obj.project.client and not obj.client:
+                obj.client = obj.project.client
+                obj.save()
+
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
     context['item'] = obj
