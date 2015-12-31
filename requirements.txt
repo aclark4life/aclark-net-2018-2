@@ -1,6 +1,7 @@
 Django
 dj-database-url
 django-crispy-forms
+django-extensions
 django-import-export
 django-phonenumber-field
 django-solo
@@ -8,6 +9,7 @@ django-xhtml2pdf
 flake8
 gunicorn
 psycopg2
+pygraphviz
 python-social-auth
 tablib
 whitenoise
