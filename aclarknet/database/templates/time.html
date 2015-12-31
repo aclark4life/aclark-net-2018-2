@@ -34,6 +34,8 @@
                     <tr>
                       {% if request.user.is_staff %}
                       <th data-field="invoiced" data-sortable="true">Invoiced</th>
+                      <th data-field="invoice" data-sortable="true">Invoice</th>
+                      <th data-field="estimate" data-sortable="true">Estimate</th>
                       {% endif %}
                       <th data-field="id" data-sortable="true" data-visible="false">Id</th>
                       <th data-field="date" data-sortable="true">Date</th>
@@ -51,6 +53,8 @@
                     <tr>
                       {% if request.user.is_staff %}
                       <td>{{ entry.invoiced }}</td>
+                      <td>{{ entry.invoice }}</td>
+                      <td>{{ entry.estimate }}</td>
                       {% endif %}
                       <td>{{ entry.pk }}</td>
                       <td>{{ entry.date|default:'' }}</td>
