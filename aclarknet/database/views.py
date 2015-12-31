@@ -136,6 +136,8 @@ def estimate(request, pk=None):
     context['total'] = total
 
     pdf = request.GET.get('pdf')
+    context['pdf'] = pdf
+
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         return generate_pdf('estimate_table.html',

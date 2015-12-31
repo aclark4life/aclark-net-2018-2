@@ -48,7 +48,11 @@
                     </tr>
                     {% for entry in entries.values %}
                     <tr> 
+                      {% if pdf %}
                       <td>{{ forloop.counter }}</td>
+                      {% else %}
+                      <td><h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1></td>
+                      {% endif %}
                       <td>{{ entry.notes }}</td>
                       <td>{% if title == 'INVOICE' %}{{ entry.date }}{% endif %}</td>
                       <td>{{ entry.hours }}</td>
