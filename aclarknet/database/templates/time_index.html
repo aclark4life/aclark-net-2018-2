@@ -43,6 +43,9 @@
                 <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc">
                   <thead>
                     <tr>
+                      {% if request.user.is_staff %}
+                      <th data-field="invoiced" data-sortable="true">Invoiced</th>
+                      {% endif %}
                       <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                       <th data-field="date" data-sortable="true">Date</th>
                       <th data-field="hours" data-sortable="true">Hours</th>
@@ -63,6 +66,9 @@
                   <tbody>
                   {% for entry in items %}
                     <tr>
+                      {% if request.user.is_staff %}
+                      <td>{{ entry.invoiced|default:'' }}</td>
+                      {% endif %}
                       <td>{{ entry.date|date:'U' }}</td>
                       <td>{{ entry.date|default:'' }}</td>
                       <td>{{ entry.hours|default:'' }}</td>
