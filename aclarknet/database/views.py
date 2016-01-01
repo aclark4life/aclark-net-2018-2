@@ -186,6 +186,7 @@ def home(request):
     clients_active = Client.objects.filter(active=True)
     company = Company.get_solo()
     contacts = Contact.objects.all()
+    contacts_active = Contact.objects.filter(active=True)
     projects = Project.objects.all()
     tasks = Task.objects.all()
     times = Time.objects.all()
@@ -196,6 +197,7 @@ def home(request):
     context['clients_active'] = clients_active
     context['company'] = company
     context['contacts'] = contacts
+    context['contacts_active'] = contacts_active
     context['projects'] = projects
     context['tasks'] = tasks
     context['times'] = times

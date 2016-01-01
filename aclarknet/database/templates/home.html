@@ -8,7 +8,7 @@
                 <p class="lead">
                 {{ company.name|default:'Company' }} has
                 {{ clients.count|default:0 }} clients ({{ clients_active.count|default:0 }} active),
-                {{ contacts.count|default:0 }} contacts,
+                {{ contacts.count|default:0 }} contacts ({{ contacts_active.count|default:0 }} active),
                 {{ projects.count|default:0 }} projects,
                 {{ tasks.count|default:0 }} tasks,
                 {{ times.count|default:0 }} time entries,
