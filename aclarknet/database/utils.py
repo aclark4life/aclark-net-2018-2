@@ -220,13 +220,15 @@ def search(request, model, fields, order_by=None):
     page = request.GET.get('page')
     search = None
 
+    if active:
+        results = model.objects.filter(active=True)
+        return results
+
     if request.POST:
         search = request.POST.get('search', '')
         for field in fields:
             query.append(Q(**{field + '__icontains': search}))
-        results = model.objects.filter(
-            reduce(operator.or_, query),
-            active=active)
+        results = model.objects.filter(reduce(operator.or_, query))
     else:
         if model._meta.verbose_name == 'time':
             if request.user.is_staff:
