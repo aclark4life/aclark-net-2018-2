@@ -290,5 +290,4 @@ class TimeResource(ImportExportModelResource):
 class TimeAdmin(ImportExportModelAdmin):
     """
     """
-    list_display = ('pk', 'move_up_down_links')
     resource_class = TimeResource
