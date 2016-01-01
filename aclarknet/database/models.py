@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from ordered_model.models import OrderedModel
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
 from .utils import class_name_pk
@@ -259,17 +258,13 @@ class Task(models.Model):
         return self.name
 
 
-class Time(OrderedModel):
+class Time(models.Model):
     """
     Date, Client, Project, Project Code, Task, Notes, Hours, Billable?,
     Invoiced?, First Name, Last Name, Department, Employee?, Billable
     Rate, Billable Amount, Cost Rate, Cost Amount, Currency,
     External Reference URL
     """
-
-    class Meta(OrderedModel.Meta):
-        """
-        """
 
     date = models.DateField(default=timezone.now)
     client = models.ForeignKey(Client,
@@ -317,8 +312,6 @@ class Time(OrderedModel):
                                 blank=True,
                                 null=True,
                                 on_delete=models.SET_NULL)
-
-    order_with_respect_to = 'estimate'
 
     def __unicode__(self):
         return class_name_pk(self)
