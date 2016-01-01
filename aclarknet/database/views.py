@@ -247,9 +247,10 @@ def invoice_edit(request, pk=None):
 
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
-        if invoice.project.client and not invoice.client:
-            invoice.client = invoice.project.client
-            invoice.save()
+        if invoice.project:
+            if invoice.project.client and not invoice.client:
+                invoice.client = invoice.project.client
+                invoice.save()
 
     if times:
         invoice = get_object_or_404(Invoice, pk=pk)

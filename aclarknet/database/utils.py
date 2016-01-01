@@ -153,9 +153,10 @@ def edit(request,
                 obj.save()
 
             # Assign client to invoice
-            if obj._meta.verbose_name == 'invoice' and obj.project.client and not obj.client:
-                obj.client = obj.project.client
-                obj.save()
+            if obj._meta.verbose_name == 'invoice' and obj.project:
+                if obj.project.client and not obj.client:
+                    obj.client = obj.project.client
+                    obj.save()
 
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
@@ -185,6 +186,7 @@ def entries_total(queryset):
                 total = rate * hours
             entries[entry]['total'] = total
             running_total += total
+            entries[entry]['developer_rate'] = entry.user
     return entries, running_total
 
 
