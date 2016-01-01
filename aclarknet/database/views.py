@@ -201,9 +201,9 @@ def home(request):
     context['contacts'] = contacts
     context['contacts_active'] = contacts_active
     context['projects'] = projects
-    context['projects_active'] = projects
+    context['projects_active'] = projects_active
     context['tasks'] = tasks
-    context['tasks_active'] = tasks
+    context['tasks_active'] = tasks_active
     context['times'] = times
     context['invoices'] = invoices
     context['estimates'] = estimates
