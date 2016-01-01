@@ -186,7 +186,9 @@ def entries_total(queryset):
                 total = rate * hours
             entries[entry]['total'] = total
             running_total += total
-            entries[entry]['developer_rate'] = entry.user
+            if entry.user:
+                if entry.user.profile:
+                    entries[entry]['sub_rate'] = entry.user.profile.rate
     return entries, running_total
 
 
