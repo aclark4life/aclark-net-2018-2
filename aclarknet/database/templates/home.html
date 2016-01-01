@@ -7,7 +7,7 @@
                 {% if request.user.is_staff %}
                 <p class="lead">
                 {{ company.name|default:'Company' }} has
-                {{ clients.count|default:0 }} clients,
+                {{ clients.count|default:0 }} clients ({{ clients_active.count|default:0 }} active),
                 {{ contacts.count|default:0 }} contacts,
                 {{ projects.count|default:0 }} projects,
                 {{ tasks.count|default:0 }} tasks,

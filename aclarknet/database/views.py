@@ -183,6 +183,7 @@ def home(request):
     context = {}
 
     clients = Client.objects.all()
+    clients_active = Client.objects.filter(active=True)
     company = Company.get_solo()
     contacts = Contact.objects.all()
     projects = Project.objects.all()
@@ -192,6 +193,7 @@ def home(request):
     estimates = Estimate.objects.all()
 
     context['clients'] = clients
+    context['clients_active'] = clients_active
     context['company'] = company
     context['contacts'] = contacts
     context['projects'] = projects
