@@ -288,7 +288,7 @@ class TimeResource(ImportExportModelResource):
 
 
 @admin.register(Time)
-class TimeAdmin(OrderedModelAdmin):
+class TimeAdmin(OrderedModelAdmin, ImportExportModelAdmin):
     """
     """
     list_display = ('pk', 'move_up_down_links')
