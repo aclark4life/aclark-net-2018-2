@@ -188,7 +188,9 @@ def home(request):
     contacts = Contact.objects.all()
     contacts_active = Contact.objects.filter(active=True)
     projects = Project.objects.all()
+    projects_active = Project.objects.filter(active=True)
     tasks = Task.objects.all()
+    tasks_active = Task.objects.filter(active=True)
     times = Time.objects.all()
     invoices = Invoice.objects.all()
     estimates = Estimate.objects.all()
@@ -199,7 +201,9 @@ def home(request):
     context['contacts'] = contacts
     context['contacts_active'] = contacts_active
     context['projects'] = projects
+    context['projects_active'] = projects
     context['tasks'] = tasks
+    context['tasks_active'] = tasks
     context['times'] = times
     context['invoices'] = invoices
     context['estimates'] = estimates
