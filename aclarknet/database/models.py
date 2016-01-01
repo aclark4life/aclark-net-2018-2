@@ -309,8 +309,15 @@ class Time(OrderedModel):
     currency = models.CharField(max_length=300, blank=True, null=True)
     external_reference_url = models.URLField(blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
-    estimate = models.ForeignKey(Estimate, blank=True, null=True)
-    invoice = models.ForeignKey(Invoice, blank=True, null=True)
+    estimate = models.ForeignKey(Estimate,
+                                 blank=True,
+                                 null=True,
+                                 on_delete=models.SET_NULL)
+    invoice = models.ForeignKey(Invoice,
+                                blank=True,
+                                null=True,
+                                on_delete=models.SET_NULL)
+
     order_with_respect_to = 'estimate'
 
     def __unicode__(self):
