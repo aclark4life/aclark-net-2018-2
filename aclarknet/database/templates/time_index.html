@@ -76,7 +76,7 @@
                       <td>{{ entry.project|default:'' }}</td>
                       <td>{{ entry.notes|linebreaks }}</td>
                       {% if entry.user %}
-                      <td><a href="{% url 'user' entry.pk %}">{{ entry.user|default:'' }}</a></td>
+                      <td><a href="{% url 'user' entry.user.pk %}">{{ entry.user|default:'' }}</a></td>
                       {% else %}
                       <td>{{ entry.user|default:'' }}</td>
                       {% endif %}
