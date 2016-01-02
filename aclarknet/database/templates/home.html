@@ -20,7 +20,7 @@
                 <h4>Invoices</h4>
                 <ul>
                 {% for invoice in invoices_active %}
-                <li>{{ invoice }}</li>
+                <li><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></li>
                 {% endfor %}
                 </ul>
 
