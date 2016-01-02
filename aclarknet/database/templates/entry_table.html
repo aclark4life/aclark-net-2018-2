@@ -48,9 +48,10 @@
                       <td>{% if title == 'INVOICE' %}<strong>Date</strong>{% endif %}</td>
                       <td class="col-md-1"><strong>Hours</strong></td>
                       <td><strong>Rate</strong></td>
-                      <td><strong>Total</strong></td>
+                      <td><strong>SubTotal</strong></td>
                       {% if not pdf %}
-                      <td><strong>Dev</strong></td>
+                      <td><strong>DevTotal</strong></td>
+                      <td><strong>Total</strong></td>
                       {% endif %}
                     </tr>
                     {% for entry in entries.values %}
@@ -64,9 +65,9 @@
                       <td>{% if title == 'INVOICE' %}{{ entry.date }}{% endif %}</td>
                       <td>{{ entry.hours }}</td>
                       <td>{{ entry.rate|default:'' }}</td>
-                      <td>{{ entry.total|default:'' }}</td>
+                      <td>{{ entry.line_total|default:'' }}</td>
                       {% if not pdf %}
-                      <td>{{ entry.dev|default:'' }}</td>
+                      <td>{{ entry.line_total_dev|default:'' }}</td>
                       {% endif %}
                     </tr>
                     <tr></tr>
@@ -78,8 +79,9 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td><strong>LineTotal:</strong> {{ company.currency_symbol }} {{ document.subtotal|default:'' }}</td>
+                      <td><strong>LineTotalDev:</strong> {{ company.currency_symbol }} {{ document.paid_amount|default:'' }}</td>
                       <td><strong>Total:</strong> {{ company.currency_symbol }} {{ document.amount|default:'' }}</td>
-                      <td><strong>Dev:</strong> {{ company.currency_symbol }} {{ document.paid_amount|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>

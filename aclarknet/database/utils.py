@@ -59,12 +59,13 @@ def edit(request,
          model,
          url_name,
          template,
-         pk=None,
-         client=None,
-         project=None,
          amount=None,
-         dev=None,
+         client=None,
          company=None,
+         pk=None,
+         paid_amount=None,
+         project=None,
+         subtotal=None,
          task=None):
 
     context = {}
@@ -122,9 +123,15 @@ def edit(request,
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
 
-            if amount and dev:
+            if amount and subtotal and paid_amount:
                 obj.amount = amount
-                obj.paid_amount = dev
+                obj.subtotal = subtotal
+                obj.paid_amount = paid_amount
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+            elif amount and subtotal:
+                obj.amount = amount
+                obj.subtotal = subtotal
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
             elif amount:
@@ -176,6 +183,7 @@ def entries_total(queryset):
     Add estimate and invoice time entries
     """
     entries = OrderedDict()
+    total = 0
     running_total = 0
     running_total_dev = 0
     for entry in queryset:
@@ -199,7 +207,9 @@ def entries_total(queryset):
                     line_total_dev = entry.user.profile.rate * hours
                     entries[entry]['dev'] = line_total_dev
                     running_total_dev += line_total_dev
-    return entries, running_total, running_total_dev
+
+    total = running_total - running_total_dev
+    return entries, running_total, running_total_dev, total
 
 
 def gravatar_url(email):
