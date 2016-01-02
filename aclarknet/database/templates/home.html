@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load l10n %}
 
 {% block content %}
 
@@ -32,8 +33,8 @@
                       {% for invoice in invoices_active %}
                         <tr>
                           <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
-                          <td>{{ company.currency_symbol }} {{ invoice.subtotal }}</td>
-                          <td>{{ company.currency_symbol }} {{ invoice.amount }}</td>
+                          <td>{{ company.currency_symbol }} {{ invoice.subtotal|localize }}</td>
+                          <td>{{ company.currency_symbol }} {{ invoice.amount|localize }}</td>
                         </tr>
                       {% endfor %}
                       </tbody>
