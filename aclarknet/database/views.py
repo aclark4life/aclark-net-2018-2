@@ -107,7 +107,7 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
-    fields = ('first_name', 'last_name')
+    fields = ('first_name', 'last_name', 'email')
     order_by = '-pk'
     items = search(request, Contact, fields, order_by=order_by)
     context['items'] = items
