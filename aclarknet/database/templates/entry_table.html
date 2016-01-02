@@ -48,11 +48,8 @@
                       <td>{% if title == 'INVOICE' %}<strong>Date</strong>{% endif %}</td>
                       <td class="col-md-1"><strong>Hours</strong></td>
                       <td><strong>Rate</strong></td>
-                      {% if not pdf %}
-                      <td><strong>LineTotal</strong></td>
-                      {% else %}
-                      <td><strong>Total</strong></td>
-                      {% endif %}
+                      {% if not pdf %}<td><strong>Developer</strong></td>{% endif %}
+                      {% if not pdf %}<td><strong>LineTotal</strong></td>{% else %}<td><strong>Total</strong></td>{% endif %}
                       {% if not pdf %}
                       <td><strong>LineTotalDev</strong></td>
                       <td><strong>Total</strong></td>
@@ -69,6 +66,7 @@
                       <td>{% if title == 'INVOICE' %}{{ entry.date }}{% endif %}</td>
                       <td>{{ entry.hours }}</td>
                       <td>{{ entry.rate|default:'' }}</td>
+                      {% if not pdf %}<td>{{ entry.user }}</td>{% endif %}
                       <td>{{ entry.line_total|default:'' }}</td>
                       {% if not pdf %}
                       <td>{{ entry.line_total_dev|default:'' }}</td>
