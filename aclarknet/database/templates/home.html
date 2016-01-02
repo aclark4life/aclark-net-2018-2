@@ -24,13 +24,15 @@
                       <thead>
                         <tr>
                           <th>Invoice</th>
-                          <th>Amount</th>
+                          <th>Gross</th>
+                          <th>Net</th>
                         <tr> 
                       </thead>
                       <tbody>
                       {% for invoice in invoices_active %}
                         <tr>
                           <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
+                          <td>{{ invoice.subtotal }}</td>
                           <td>{{ invoice.amount }}</td>
                         </tr>
                       {% endfor %}

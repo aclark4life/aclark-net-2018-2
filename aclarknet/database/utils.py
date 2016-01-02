@@ -181,7 +181,8 @@ def edit(request,
 
 def entries_total(queryset):
     """
-    Add estimate and invoice time entries
+    Add estimate and invoice time entries, probably should be an aggregate
+    (https://docs.djangoproject.com/en/1.9/topics/db/aggregation/)
     """
     entries = OrderedDict()
     total = 0
