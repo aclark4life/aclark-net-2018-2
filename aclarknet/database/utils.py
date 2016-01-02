@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.utils import timezone
 from import_export import widgets
 from md5 import md5
 import operator
@@ -216,6 +217,13 @@ def gravatar_url(email):
     """MD5 hash of email address for use with Gravatar
     """
     return settings.GRAVATAR % md5(email.lower()).hexdigest()
+
+
+def last_month():
+    # http://stackoverflow.com/a/9725093
+    today = timezone.datetime.today()
+    first = today.replace(day=1)
+    return first - timezone.timedelta(days=1)
 
 
 def paginate(items, page):

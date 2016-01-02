@@ -1,4 +1,3 @@
-from dateutil import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -10,7 +9,6 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.utils import timezone
 from django_xhtml2pdf.utils import generate_pdf
 from itertools import chain
 from .forms import ClientForm
@@ -34,6 +32,7 @@ from .models import Task
 from .models import Time
 from .utils import edit
 from .utils import entries_total
+from .utils import last_month
 from .utils import search
 
 # Create your views here.
@@ -188,9 +187,6 @@ def estimate_index(request):
 
 def home(request):
     context = {}
-
-    last_month = timezone.now() - relativedelta.relativedelta(months=1)
-
     clients = Client.objects.all()
     clients_active = Client.objects.filter(active=True)
     company = Company.get_solo()
@@ -202,7 +198,7 @@ def home(request):
     tasks_active = Task.objects.filter(active=True)
     times = Time.objects.all()
     invoices = Invoice.objects.all()
-    invoices_active = Invoice.objects.filter(issue_date__gt=last_month)
+    invoices_active = Invoice.objects.filter(issue_date__gt=last_month())
     estimates = Estimate.objects.all()
 
     context['clients'] = clients
