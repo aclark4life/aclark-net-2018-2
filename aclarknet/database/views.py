@@ -149,7 +149,9 @@ def estimate(request, pk=None):
 
 @staff_member_required
 def estimate_edit(request, pk=None):
-    total = request.GET.get('total')
+    amount = request.GET.get('amount')
+    paid_amount = request.GET.get('paid_amount')
+    subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
 
@@ -165,8 +167,10 @@ def estimate_edit(request, pk=None):
                 Estimate,
                 'estimate_index',
                 'estimate_edit.html',
+                amount=amount,
+                paid_amount=paid_amount,
                 pk=pk,
-                amount=total,
+                subtotal=subtotal,
                 company=company)
 
 
@@ -252,8 +256,9 @@ def invoice(request, pk=None):
 
 @staff_member_required
 def invoice_edit(request, pk=None):
-    total = request.GET.get('total')
-    dev = request.GET.get('dev')
+    amount = request.GET.get('amount')
+    paid_amount = request.GET.get('paid_amount')
+    subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
 
@@ -276,9 +281,10 @@ def invoice_edit(request, pk=None):
                 Invoice,
                 'invoice_index',
                 'invoice_edit.html',
+                amount=amount,
+                paid_amount=paid_amount,
                 pk=pk,
-                amount=total,
-                dev=dev,
+                subtotal=subtotal,
                 company=company)
 
 
