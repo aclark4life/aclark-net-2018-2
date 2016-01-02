@@ -214,16 +214,18 @@ def entries_total(queryset):
 
 
 def gravatar_url(email):
-    """MD5 hash of email address for use with Gravatar
+    """ 
+    MD5 hash of email address for use with Gravatar
     """
     return settings.GRAVATAR % md5(email.lower()).hexdigest()
 
 
 def last_month():
-    # http://stackoverflow.com/a/9725093
-    today = timezone.datetime.today()
-    first = today.replace(day=1)
-    return first - timezone.timedelta(days=1)
+    """
+    Returns last day of last month
+    """
+    first = timezone.now().replace(day=1)
+    return timezone.timedelta(days=1)
 
 
 def paginate(items, page):
