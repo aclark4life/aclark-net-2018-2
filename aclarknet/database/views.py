@@ -69,7 +69,6 @@ def client_index(request):
 
 @staff_member_required
 def company_edit(request, pk=None):
-    company = Company.get_solo()
     return edit(request,
                 CompanyForm,
                 Company,
@@ -132,9 +131,10 @@ def estimate(request, pk=None):
 
     entries, running_total, running_total_dev, total = entries_total(times)
 
-    context['amount'] = entries
-    context['paid_amount'] = total
-    context['subtotal'] = total_dev
+    context['entries'] = entries
+    context['amount'] = total
+    context['paid_amount'] = running_total_dev
+    context['subtotal'] = running_total
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
@@ -234,9 +234,10 @@ def invoice(request, pk=None):
 
     entries, running_total, running_total_dev, total = entries_total(times)
 
-    context['amount'] = entries
-    context['paid_amount'] = total
-    context['subtotal'] = total_dev
+    context['entries'] = entries
+    context['amount'] = total
+    context['paid_amount'] = running_total_dev
+    context['subtotal'] = running_total
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
