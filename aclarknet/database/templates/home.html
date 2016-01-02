@@ -18,10 +18,25 @@
                 {% endif %}
 
                 <h4>Invoices</h4>
-                <ul>
-                {% for invoice in invoices_active %}
-                <li><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></li>
-                {% endfor %}
-                </ul>
+                <div class="row">
+                  <div class="col-md-6">
+                    <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
+                      <thead>
+                        <tr>
+                          <th>Invoice</th>
+                          <th>Amount</th>
+                        <tr> 
+                      </thead>
+                      <tbody>
+                      {% for invoice in invoices_active %}
+                        <tr>
+                          <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></td>
+                          <td></td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
 {% endblock %}
