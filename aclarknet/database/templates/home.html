@@ -17,4 +17,11 @@
                 </p>
                 {% endif %}
 
+                <h4>Invoices</h4>
+                <ul>
+                {% for invoice in invoices_active %}
+                <li>{{ invoice }}</li>
+                {% endfor %}
+                </ul>
+
 {% endblock %}
