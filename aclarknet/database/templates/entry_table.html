@@ -84,7 +84,7 @@
                       <td></td>
                       <td></td>
                       <td>{{ company.currency_symbol }} {{ document.subtotal|default:'' }}</td>
-                      {% if pdf %}
+                      {% if not pdf %}
                       <td>{{ company.currency_symbol }} {{ document.paid_amount|default:'' }}</td>
                       <td>{{ company.currency_symbol }} {{ document.amount|default:'' }}</td>
                       {% endif %}
