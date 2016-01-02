@@ -48,9 +48,9 @@
                       <td>{% if title == 'INVOICE' %}<strong>Date</strong>{% endif %}</td>
                       <td class="col-md-1"><strong>Hours</strong></td>
                       <td><strong>Rate</strong></td>
-                      <td><strong>SubTotal</strong></td>
+                      <td><strong>LineTotal</strong></td>
                       {% if not pdf %}
-                      <td><strong>DevTotal</strong></td>
+                      <td><strong>LineTotalDev</strong></td>
                       <td><strong>Total</strong></td>
                       {% endif %}
                     </tr>
@@ -79,9 +79,9 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td><strong>LineTotal:</strong> {{ company.currency_symbol }} {{ document.subtotal|default:'' }}</td>
-                      <td><strong>LineTotalDev:</strong> {{ company.currency_symbol }} {{ document.paid_amount|default:'' }}</td>
-                      <td><strong>Total:</strong> {{ company.currency_symbol }} {{ document.amount|default:'' }}</td>
+                      <td>{{ company.currency_symbol }} {{ document.subtotal|default:'' }}</td>
+                      <td>{{ company.currency_symbol }} {{ document.paid_amount|default:'' }}</td>
+                      <td>{{ company.currency_symbol }} {{ document.amount|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>

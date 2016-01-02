@@ -200,12 +200,12 @@ def entries_total(queryset):
             entries[entry]['rate'] = rate
             if rate:
                 line_total = rate * hours
-            entries[entry]['total'] = line_total
+            entries[entry]['line_total'] = line_total
             running_total += line_total
             if entry.user:
                 if entry.user.profile:
                     line_total_dev = entry.user.profile.rate * hours
-                    entries[entry]['dev'] = line_total_dev
+                    entries[entry]['line_total_dev'] = line_total_dev
                     running_total_dev += line_total_dev
 
     total = running_total - running_total_dev
