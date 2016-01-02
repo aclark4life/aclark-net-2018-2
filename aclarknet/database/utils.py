@@ -63,7 +63,7 @@ def edit(request,
          client=None,
          project=None,
          amount=None,
-         paid=None,
+         dev=None,
          company=None,
          task=None):
 
@@ -122,9 +122,9 @@ def edit(request,
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
 
-            if amount and paid:
+            if amount and dev:
                 obj.amount = amount
-                obj.paid_amount = paid
+                obj.paid_amount = dev
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
             elif amount:

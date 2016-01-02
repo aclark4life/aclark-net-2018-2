@@ -277,7 +277,7 @@ def invoice_edit(request, pk=None):
                 'invoice_edit.html',
                 pk=pk,
                 amount=total,
-                paid=dev,
+                dev=dev,
                 company=company)
 
 
