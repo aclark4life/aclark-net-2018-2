@@ -252,7 +252,7 @@ def invoice(request, pk=None):
 @staff_member_required
 def invoice_edit(request, pk=None):
     total = request.GET.get('total')
-    paid = request.GET.get('dev')
+    dev = request.GET.get('dev')
     times = request.GET.get('times')
     company = Company.get_solo()
 
