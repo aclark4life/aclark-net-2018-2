@@ -177,6 +177,7 @@ def entries_total(queryset):
     """
     entries = OrderedDict()
     running_total = 0
+    running_total_dev = 0
     for entry in queryset:
         line_total = 0
         line_total_dev = 0
