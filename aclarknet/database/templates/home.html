@@ -30,8 +30,8 @@
                       <tbody>
                       {% for invoice in invoices_active %}
                         <tr>
-                          <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></td>
-                          <td></td>
+                          <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.invoice_id }}</a></td>
+                          <td>{{ invoice.amount }}</td>
                         </tr>
                       {% endfor %}
                       </tbody>
