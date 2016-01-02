@@ -63,6 +63,7 @@ def edit(request,
          client=None,
          project=None,
          amount=None,
+         paid=None,
          company=None,
          task=None):
 
@@ -121,7 +122,12 @@ def edit(request,
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
 
-            if amount:
+            if amount and paid:
+                obj.amount = amount
+                obj.paid_amount = paid
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+            elif amount:
                 obj.amount = amount
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
@@ -171,8 +177,9 @@ def entries_total(queryset):
     """
     entries = OrderedDict()
     running_total = 0
-    total = 0
     for entry in queryset:
+        line_total = 0
+        line_total_dev = 0
         entries[entry] = {}
         hours = entry.hours
         entries[entry]['date'] = entry.date
@@ -183,13 +190,15 @@ def entries_total(queryset):
             rate = entry.task.rate
             entries[entry]['rate'] = rate
             if rate:
-                total = rate * hours
-            entries[entry]['total'] = total
-            running_total += total
+                line_total = rate * hours
+            entries[entry]['total'] = line_total
+            running_total += line_total
             if entry.user:
                 if entry.user.profile:
-                    entries[entry]['dev'] = entry.user.profile.rate * hours
-    return entries, running_total
+                    line_total_dev = entry.user.profile.rate * hours
+                    entries[entry]['dev'] = line_total_dev
+                    running_total_dev += line_total_dev
+    return entries, running_total, running_total_dev
 
 
 def gravatar_url(email):

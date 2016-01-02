@@ -130,10 +130,11 @@ def estimate(request, pk=None):
     times_estimate = Time.objects.filter(estimate=estimate)
     times = chain(times_client, times_estimate)
 
-    entries, total = entries_total(times)
+    entries, total, total_dev = entries_total(times)
 
     context['entries'] = entries
     context['total'] = total
+    context['dev'] = total_dev
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
@@ -231,10 +232,11 @@ def invoice(request, pk=None):
     times_invoice = Time.objects.filter(invoice=invoice)
     times = chain(times_project, times_invoice)
 
-    entries, total = entries_total(times)
+    entries, total, total_dev = entries_total(times)
 
     context['entries'] = entries
     context['total'] = total
+    context['dev'] = total_dev
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
@@ -250,6 +252,7 @@ def invoice(request, pk=None):
 @staff_member_required
 def invoice_edit(request, pk=None):
     total = request.GET.get('total')
+    paid = request.GET.get('dev')
     times = request.GET.get('times')
     company = Company.get_solo()
 
@@ -274,6 +277,7 @@ def invoice_edit(request, pk=None):
                 'invoice_edit.html',
                 pk=pk,
                 amount=total,
+                paid=dev,
                 company=company)
 
 
