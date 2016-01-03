@@ -55,6 +55,19 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
+def dashboard_total(invoices):
+    results = OrderedDict()
+    gross = 0
+    net = 0
+    for invoice in invoices:
+        results[invoice] = {}
+        results[invoice]['subtotal'] = invoice.subtotal
+        results[invoice]['amount'] = invoice.amount
+        gross += invoice.subtotal
+        net += invoice.amount
+    return gross, net
+
+
 def edit(request,
          form_model,
          model,

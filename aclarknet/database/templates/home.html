@@ -36,6 +36,9 @@
                           <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                         </tr>
                       {% endfor %}
+                        <tr>
+                          <td>{{ gross }}{{ net }}</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

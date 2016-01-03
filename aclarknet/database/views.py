@@ -31,6 +31,7 @@ from .models import Project
 from .models import Task
 from .models import Time
 from .utils import edit
+from .utils import dashboard_total
 from .utils import entries_total
 from .utils import last_month
 from .utils import search
@@ -200,8 +201,8 @@ def home(request):
     invoices = Invoice.objects.all()
     invoices_active = Invoice.objects.filter(
         issue_date__gt=last_month()).order_by('issue_date')
+    gross, net = dashboard_total(invoices_active)
     estimates = Estimate.objects.all()
-
     context['clients'] = clients
     context['clients_active'] = clients_active
     context['company'] = company
@@ -214,6 +215,8 @@ def home(request):
     context['times'] = times
     context['invoices'] = invoices
     context['invoices_active'] = invoices_active
+    context['gross'] = gross
+    context['net'] = net
     context['estimates'] = estimates
     context['request'] = request
 
