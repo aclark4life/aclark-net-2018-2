@@ -38,7 +38,7 @@
                 <hr>
                 <h3>
                   <form 
-                    action="{% url 'estimate_edit' pk=document.pk %}?total={{ total }}&times={% for entry in entries.values %}{{ entry.pk }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                    action="{% url 'estimate_edit' pk=document.pk %}?times={% for entry in entries.values %}{{ entry.pk }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"
                     method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Save Estimate">
                   </form>
                 </h3>
