@@ -131,3 +131,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
 EMAIL_USE_TLS = True
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
+
+# Commas please
+USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
