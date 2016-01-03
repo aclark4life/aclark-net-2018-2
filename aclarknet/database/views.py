@@ -169,7 +169,7 @@ def estimate_edit(request, pk=None):
                 Estimate,
                 'estimate_index',
                 'estimate_edit.html',
-                amount=amount,
+                amount=subtotal,
                 paid_amount=paid_amount,
                 pk=pk,
                 subtotal=subtotal,
