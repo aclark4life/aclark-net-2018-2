@@ -86,6 +86,7 @@
                         <strong>Paid Amount</strong>
                       </td>
                       {% endif %}
+                      <td></td>
                       <td>
                         <strong>Total</strong>
                       </td>
@@ -123,6 +124,8 @@
                         {{ entry.line_total_dev|default:'' }}
                       </td>
                       {% endif %}
+                      <td></td>
+                      <td></td>
                     </tr>
                     <tr></tr>
                     {% endfor %}
@@ -140,9 +143,11 @@
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
                       </td>
                       {% endif %}
+                      <td></td>
                       <td>
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
