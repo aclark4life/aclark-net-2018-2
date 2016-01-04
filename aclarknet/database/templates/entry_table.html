@@ -24,6 +24,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td>
                         <strong>From: {{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</strong>
                       </td>
@@ -35,6 +36,7 @@
                       <td>
                         <strong>Date: {{ document.issue_date }}</strong>
                       </td>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -64,6 +66,8 @@
                       <td>
                         <strong>Date</strong>
                       </td>
+                      {% else %}
+                      <td></td>
                       {% endif %}
                       <td>
                         <strong>Hours</strong>
@@ -99,6 +103,8 @@
                       <td>
                         {{ entry.date }}
                       </td>
+                      {% else %}
+                      <td></td>
                       {% endif %}
                       <td>
                         {{ entry.hours }}
