@@ -16,49 +16,49 @@
 
 {% block content %}
 
-                <div class="row">
-                  <div class="col-md-1">
-                    <h3>Clients</h3>
-                  </div>
-                  <div class="col-md-3">
-                    <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-heart-o"></i></a></span></h3>
-                  </div>
-                  <div class="col-md-4">
-                    {% include 'search.html' %}
-                  </div>
-                  <div class="col-md-4">
-                    <h3><a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
-                  </div>
-                </div>
-                <hr>
-                {% include 'pagination.html' %}
-                <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc"> 
-                  <thead>
-                    <tr>
-                      <th data-sort-name="hidden-active" data-sortable="true">Active</th> 
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
-                      <th data-sortable="true">Name</th>
-                      <th data-sortable="true">Address</th>
-                      <th>View</th> 
-                      <th>Edit</th> 
-                      <th>Delete</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for client in items %}
-                    <tr>
-                      <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                      <td>{{ client.active }}</td>
-                      <td>{{ client.name }}</td>
-                      <td>{{ client.address|linebreaks }}</td>
-                      <td><a href="{% url 'client' client.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
-                      <td><form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-                <hr>
-                {% include 'pagination.html' %}
+          <div class="row">
+            <div class="col-md-1">
+              <h3>Clients</h3>
+            </div>
+            <div class="col-md-3">
+              <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-heart-o"></i></a></span></h3>
+            </div>
+            <div class="col-md-4">
+              {% include 'search.html' %}
+            </div>
+            <div class="col-md-4">
+              <h3><a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
+            </div>
+          </div>
+          <hr>
+          {% include 'pagination.html' %}
+          <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc"> 
+            <thead>
+              <tr>
+                <th data-sort-name="hidden-active" data-sortable="true">Active</th> 
+                <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
+                <th data-sortable="true">Name</th>
+                <th data-sortable="true">Address</th>
+                <th>View</th> 
+                <th>Edit</th> 
+                <th>Delete</th> 
+              </tr>
+            </thead>
+            <tbody>
+            {% for client in items %}
+              <tr>
+                <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                <td>{{ client.active }}</td>
+                <td>{{ client.name }}</td>
+                <td>{{ client.address|linebreaks }}</td>
+                <td><a href="{% url 'client' client.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                <td><form action="{% url 'client_edit' client.pk %}" method="post"> {% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <hr>
+          {% include 'pagination.html' %}
 
 {% endblock %}
