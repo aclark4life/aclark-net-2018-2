@@ -1,100 +1,98 @@
                 <table data-toggle="table table-no-bordered">
                   <thead>
                     <tr>
-                      <th>
+                      <th class="col-md-9">
                         <h1>{{ title }}</h1>
+                      </th>
+                      <th class="col-md-3">
+                        <strong>From: {{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</strong>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                        <strong>From: {{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</strong>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
+                      <td class="col-md-9">
                         <strong>Id: {{ document.document_id|default:'' }}</strong>
                       </td>
-                      <td>
+                      <td class="col-md-3">
                         <strong>For: {{ document.client|default:'' }}{{ document.client.address|default:''|linebreaks }}</strong>
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td class="col-md-12">
                         <strong>Date: {{ document.issue_date }}</strong>
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td class="col-md-12">
                         <strong>Subject: {{ document.subject }}</strong>
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td class="col-md-1">
                         <strong>Item</strong>
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         <strong>Description</strong>
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if title == 'INVOICE' %}<strong>Date</strong>{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         <strong>Hours</strong>
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         <strong>Rate</strong>
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}<strong>User</strong>{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}<strong>Subtotal</strong>{% else %}<strong>Total</strong>{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}<strong>Paid Amount</strong>{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}<strong>Total</strong>{% endif %}
                       </td>
                     </tr>
                     {% for entry in entries.values %}
                     <tr> 
-                      <td>
+                      <td class="col-md-1">
                         {% if pdf %}{{ forloop.counter }}{% else %}<h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1>{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {{ entry.notes }}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if title == 'INVOICE' %}{{ entry.date }}{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {{ entry.hours }}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {{ entry.rate|default:'' }}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}{{ entry.user }}{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {{ entry.line_total|default:'' }}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}{{ entry.line_total_dev|default:'' }}{% endif %}
                       </td>
                     </tr>
                     {% endfor %}
                     <tr>
-                      <td>
+                      <td class="col-md-1">
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}{% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}{% endif %}
                       </td>
-                      <td>
+                      <td class="col-md-1">
                         {% if not pdf %}{% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}{% endif %}
                       </td>
                     </tr>
