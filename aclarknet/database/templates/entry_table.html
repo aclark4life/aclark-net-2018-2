@@ -11,6 +11,8 @@
                       <th></th>
                       <th></th>
                       <th></th>
+                      <th></th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -86,10 +88,10 @@
                         <strong>Paid Amount</strong>
                       </td>
                       {% endif %}
-                      <td></td>
                       <td>
                         <strong>Total</strong>
                       </td>
+                      <td></td>
                     </tr>
                     <tr></tr>
                     {% for entry in entries.values %}
@@ -130,8 +132,8 @@
                     <tr></tr>
                     {% endfor %}
                     <tr>
+                      <td><strong>Total</strong></td>
                       <td></td>
-                      <td><strong>Total:</strong></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -144,10 +146,10 @@
                       </td>
                       {% endif %}
                       <td></td>
+                      <td></td>
                       <td>
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
-                      <td></td>
                     </tr>
                   </tbody>
                 </table>
