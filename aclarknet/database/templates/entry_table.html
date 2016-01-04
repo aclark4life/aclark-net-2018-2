@@ -98,9 +98,11 @@
                       <td>
                         {{ entry.rate|default:'' }}
                       </td>
+                      {% if not pdf %}
                       <td>
-                        {% if not pdf %}{{ entry.user }}{% endif %}
+                        {{ entry.user }}
                       </td>
+                      {% endif %}
                       <td>
                         {{ entry.line_total|default:'' }}
                       </td>

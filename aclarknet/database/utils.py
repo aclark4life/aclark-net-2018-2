@@ -210,6 +210,7 @@ def entries_total(queryset):
         entries[entry]['hours'] = hours
         entries[entry]['notes'] = entry.notes
         entries[entry]['pk'] = entry.pk
+        entries[entry]['user'] = entry.user
         if entry.task:
             rate = entry.task.rate
             entries[entry]['rate'] = rate
