@@ -166,14 +166,14 @@ def edit(request,
                     kwargs['pk'] = project.pk
 
             # Assign and increment invoice counter
-            if obj._meta.verbose_name == 'invoice' and company.invoice_counter:
+            if obj._meta.verbose_name == 'invoice' and company.invoice_counter and pk is None:
                 company.invoice_counter += 1
                 company.save()
                 obj.document_id = company.invoice_counter
                 obj.save()
 
             # Assign and increment estimate counter
-            if obj._meta.verbose_name == 'estimate' and company.estimate_counter:
+            if obj._meta.verbose_name == 'estimate' and company.estimate_counter and pk is None:
                 company.estimate_counter += 1
                 company.save()
                 obj.document_id = company.estimate_counter
