@@ -28,6 +28,7 @@
                       </td>
                       <td></td>
                     </tr>
+                    <tr></tr>
                     <tr>
                       <td></td>
                       <td>
@@ -42,12 +43,14 @@
                       </td>
                       <td></td>
                     </tr>
+                    <tr></tr>
                     <tr>
                       <td></td>
                       <td>
                         <strong>Subject: {{ document.subject }}</strong>
                       </td>
                     </tr>
+                    <tr></tr>
                     <tr>
                       <td>
                         <strong>Item</strong>
@@ -110,10 +113,11 @@
                         {% if not pdf %}{{ entry.line_total_dev|default:'' }}{% endif %}
                       </td>
                     </tr>
+                    <tr></tr>
                     {% endfor %}
                     <tr>
                       <td></td>
-                      <td></td>
+                      <td><strong>Total:</strong></td>
                       <td></td>
                       <td></td>
                       <td></td>
