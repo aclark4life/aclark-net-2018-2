@@ -79,13 +79,13 @@
                       </td>
                       {% if not pdf %}
                       <td>
-                        <strong>User</strong>
-                      </td>
-                      <td>
                         <strong>Subtotal</strong>
                       </td>
                       <td>
                         <strong>Paid Amount</strong>
+                      </td>
+                      <td>
+                        <strong>User</strong>
                       </td>
                       {% endif %}
                       <td>
@@ -117,13 +117,13 @@
                       </td>
                       {% if not pdf %}
                       <td>
-                        {{ entry.user }}
-                      </td>
-                      <td>
                         {{ entry.line_total|default:'' }}
                       </td>
                       <td>
                         {{ entry.line_total_dev|default:'' }}
+                      </td>
+                      <td>
+                        {{ entry.user }}
                       </td>
                       {% endif %}
                       <td></td>
@@ -133,22 +133,21 @@
                     {% endfor %}
                     <tr>
                       <td><strong>Total</strong></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td></td> 
+                      <td></td> 
+                      <td></td> 
+                      <td></td> 
                       {% if not pdf %}
+                      <td>
+                        {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
+                      </td>
                       <td>
                         {% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}
                       </td>
+                      <td></td> 
+                      {% endif %}
                       <td>
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
-                      </td>
-                      {% endif %}
-                      <td></td>
-                      <td></td>
-                      <td>
-                        {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
                     </tr>
                   </tbody>
