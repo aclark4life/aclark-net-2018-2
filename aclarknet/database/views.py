@@ -137,6 +137,8 @@ def estimate(request, pk=None):
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
 
+    context['amount'] = subtotal
+
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
     if pdf:
