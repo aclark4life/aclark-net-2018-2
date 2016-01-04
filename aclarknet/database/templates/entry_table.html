@@ -2,7 +2,7 @@
                   <thead>
                     <tr>
                       <th><h1>{{ title }}</h1></th>
-                      <th class="col-md-7"></th>
+                      <th></th>
                       <th></th>
                       <th></th>
                       <th></th>
@@ -46,7 +46,7 @@
                       <td><strong>Item</strong></td>
                       <td><strong>Description</strong></td>
                       <td>{% if title == 'INVOICE' %}<strong>Date</strong>{% endif %}</td>
-                      <td class="col-md-1"><strong>Hours</strong></td>
+                      <td><strong>Hours</strong></td>
                       <td><strong>Rate</strong></td>
                       {% if not pdf %}<td><strong>Developer</strong></td>{% endif %}
                       {% if not pdf %}<td><strong>LineTotal</strong></td>{% else %}<td><strong>Total</strong></td>{% endif %}
