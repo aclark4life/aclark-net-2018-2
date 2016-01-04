@@ -23,6 +23,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
                       <td>
                         <strong>From: {{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</strong>
                       </td>
@@ -34,6 +35,7 @@
                       <td>
                         <strong>Date: {{ document.issue_date }}</strong>
                       </td>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -69,17 +71,19 @@
                       <td>
                         <strong>Rate</strong>
                       </td>
+                      {% if not pdf %}
                       <td>
-                        {% if not pdf %}<strong>User</strong>{% endif %}
+                        <strong>User</strong>
                       </td>
                       <td>
-                        {% if not pdf %}<strong>Subtotal</strong>{% else %}<strong>Total</strong>{% endif %}
+                        <strong>Subtotal</strong>
                       </td>
                       <td>
-                        {% if not pdf %}<strong>Paid Amount</strong>{% endif %}
+                        <strong>Paid Amount</strong>
                       </td>
+                      {% endif %}
                       <td>
-                        {% if not pdf %}<strong>Total</strong>{% endif %}
+                        <strong>Total</strong>
                       </td>
                     </tr>
                     <tr></tr>
@@ -106,13 +110,13 @@
                       <td>
                         {{ entry.user }}
                       </td>
-                      {% endif %}
                       <td>
                         {{ entry.line_total|default:'' }}
                       </td>
                       <td>
-                        {% if not pdf %}{{ entry.line_total_dev|default:'' }}{% endif %}
+                        {{ entry.line_total_dev|default:'' }}
                       </td>
+                      {% endif %}
                     </tr>
                     <tr></tr>
                     {% endfor %}
@@ -122,14 +126,16 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      {% if not pdf %}
+                      <td>
+                        {% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}
+                      </td>
+                      <td>
+                        {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
+                      </td>
+                      {% endif %}
                       <td>
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
-                      </td>
-                      <td>
-                        {% if not pdf %}{% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}{% endif %}
-                      </td>
-                      <td>
-                        {% if not pdf %}{% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}{% endif %}
                       </td>
                     </tr>
                   </tbody>
