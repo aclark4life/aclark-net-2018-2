@@ -23,10 +23,10 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td></td>
                       <td>
                         <strong>From: {{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</strong>
                       </td>
+                      <td></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -37,10 +37,10 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td></td>
                       <td>
                         <strong>For: {{ document.client|default:'' }}{{ document.client.address|default:''|linebreaks }}</strong>
                       </td>
+                      <td></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -87,9 +87,11 @@
                       <td>
                         {{ entry.notes }}
                       </td>
+                      {% if title == 'INVOICE' %}
                       <td>
-                        {% if title == 'INVOICE' %}{{ entry.date }}{% endif %}
+                        {{ entry.date }}
                       </td>
+                      {% endif %}
                       <td>
                         {{ entry.hours }}
                       </td>
