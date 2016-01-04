@@ -71,9 +71,9 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>{{ company.currency_symbol }}{{ document.subtotal|default:'' }}</td>
-                      {% if not pdf %}<td>{{ company.currency_symbol }}{{ document.paid_amount|default:'' }}</td>{% endif %}
-                      {% if not pdf %}<td>{{ company.currency_symbol }}{{ document.amount|default:'' }}</td>{% endif %}
+                      <td>{% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}</td>
+                      {% if not pdf %}<td>{% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}</td>{% endif %}
+                      {% if not pdf %}<td>{% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}</td>{% endif %}
                     </tr>
                   </tbody>
                 </table>
