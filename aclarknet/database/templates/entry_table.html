@@ -2,8 +2,8 @@
                   <thead>
                     <tr>
                       <th></th>
-                      <th> 
-                        <h1>{{ title }}</h1>
+                      <th align="left"> 
+                        <h1 style="font-size: 300%">{{ title }}</h1>
                       </th>
                       <th></th>
                       <th></th>
@@ -19,7 +19,7 @@
                     <tr>
                       <td></td>
                       <td>
-                        <strong>Id: {{ document.document_id|default:'' }}</strong>
+                        <strong>Id:</strong> {{ document.document_id|default:'' }}
                       </td>
                       <td></td>
                       <td></td>
@@ -27,16 +27,27 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>
-                        <strong>From: {{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</strong>
+                      <td width="300px">
+                        <strong>From:</strong>
                       </td>
                       <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</td>
                     </tr>
                     <tr></tr>
                     <tr>
                       <td></td>
                       <td>
-                        <strong>Date: {{ document.issue_date }}</strong>
+                        <strong>Date:</strong> {{ document.issue_date }}
                       </td>
                       <td></td>
                       <td></td>
@@ -45,9 +56,22 @@
                       <td></td>
                       <td></td>
                       <td>
-                        <strong>For: {{ document.client|default:'' }}{{ document.client.address|default:''|linebreaks }}</strong>
+                        <strong>For:</strong>
                       </td>
                       <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        {{ document.client|default:'' }}{{ document.client.address|default:''|linebreaks }}
+                      </td>
                     </tr>
                     <tr></tr>
                     <tr>
@@ -61,7 +85,7 @@
                       <td>
                         <strong>Item</strong>
                       </td>
-                      <td>
+                      <td style="width: 500px">
                         <strong>Description</strong>
                       </td>
                       {% if title == 'INVOICE' %}
