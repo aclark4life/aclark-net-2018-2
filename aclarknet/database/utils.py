@@ -202,37 +202,50 @@ def edit(request,
 
 def entries_total(queryset):
     """
-    Add estimate and invoice time entries, probably should be an aggregate
+    Add estimate and invoice time entries, maybe should be an aggregate
     (https://docs.djangoproject.com/en/1.9/topics/db/aggregation/)
     """
+
     entries = OrderedDict()
+
     total = 0
     running_total = 0
     running_total_dev = 0
+
     for entry in queryset:
-        line_total = 0
-        line_total_dev = 0
         entries[entry] = {}
+
         hours = entry.hours
+
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = hours
         entries[entry]['notes'] = entry.notes
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
+
+        line_total = 0
+        line_total_dev = 0
+
         if entry.task:
+
             rate = entry.task.rate
             entries[entry]['rate'] = rate
             if rate:
                 line_total = rate * hours
+
             entries[entry]['line_total'] = line_total
+
             running_total += line_total
-            if entry.user:
-                if hasattr(entry.user, 'profile'):
-                    line_total_dev = entry.user.profile.rate * hours
-                    entries[entry]['line_total_dev'] = line_total_dev
-                    running_total_dev += line_total_dev
+
+        if entry.user:
+
+            if hasattr(entry.user, 'profile'):
+                line_total_dev = entry.user.profile.rate * hours
+                entries[entry]['line_total_dev'] = line_total_dev
+                running_total_dev += line_total_dev
 
     total = running_total - running_total_dev
+
     return entries, running_total, running_total_dev, total
 
 
