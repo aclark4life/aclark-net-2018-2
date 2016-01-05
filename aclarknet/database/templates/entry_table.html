@@ -1,11 +1,10 @@
-                <table data-toggle="table" border=1>
+                <table data-toggle="table"> 
                   <thead>
                     <tr>
                       <th></th>
                       <th align="left"> 
                         <h1 style="font-size: 300%">{{ title }}</h1>
                       </th>
-                      <th></th>
                       <th></th>
                       <th></th>
                       <th></th>
@@ -30,7 +29,6 @@
                       <td width="300px">
                         <strong>From:</strong>
                       </td>
-                      <td></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -58,7 +56,6 @@
                       <td>
                         <strong>For:</strong>
                       </td>
-                      <td></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -129,13 +126,14 @@
                       <td>
                         <strong>User</strong>
                       </td>
+                      {% else %}
+                      <td></td>
+                      <td></td>
+                      <td></td>
                       {% endif %}
                       <td>
                         <strong>Total</strong>
                       </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
                     </tr>
                     <tr></tr>
                     {% for entry in entries.values %}
@@ -169,10 +167,11 @@
                       <td>
                         {{ entry.user }}
                       </td>
+                      {% else %}
+                      <td></td>
+                      <td></td>
+                      <td></td>
                       {% endif %}
-                      <td></td>
-                      <td></td>
-                      <td></td>
                       <td></td>
                     </tr>
                     <tr></tr>
@@ -190,8 +189,11 @@
                       <td>
                         {% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}
                       </td>
+                      {% else %}
+                      <td></td> 
                       <td></td> 
                       {% endif %}
+                      <td></td> 
                       {% if not pdf %}
                       <td>
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
@@ -201,9 +203,6 @@
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
                       {% endif %}
-                      <td></td>
-                      <td></td>
-                      <td></td>
                     </tr>
                   </tbody>
                 </table>
