@@ -1,4 +1,4 @@
-                <table data-toggle="table"> 
+                <table data-toggle="table" border=1>
                   <thead>
                     <tr>
                       <th></th>
@@ -79,6 +79,13 @@
                       <td>
                         <strong>Subject:</strong>
                       </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -89,12 +96,13 @@
                       <td></td>
                       <td></td>
                       <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                     <tr></tr>
                     <tr>
-                      <td>
-                        <strong>Item</strong>
-                      </td>
+                      <td></td>
                       <td style="width: 500px">
                         <strong>Description</strong>
                       </td>
@@ -126,12 +134,14 @@
                         <strong>Total</strong>
                       </td>
                       <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                     <tr></tr>
                     {% for entry in entries.values %}
                     <tr> 
-                      <td>
-                        {% if pdf %}{{ forloop.counter }}{% else %}<h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1>{% endif %}
+                      <td align="center">
+                        <h1>{% if pdf %}{{ forloop.counter }}{% else %}<a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a>{% endif %}</h1>
                       </td>
                       <td>
                         {{ entry.notes }}
@@ -162,6 +172,8 @@
                       {% endif %}
                       <td></td>
                       <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                     <tr></tr>
                     {% endfor %}
@@ -189,6 +201,9 @@
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
                       {% endif %}
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
