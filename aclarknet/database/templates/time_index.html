@@ -67,7 +67,7 @@
                       {% if request.user.is_staff %}
                       <td>{{ entry.invoiced|default:'' }}</td>
                       {% if entry.invoice %}
-                      <td><a href="{% url 'invoice' entry.invoice.pk %}">{{ entry.invoice.document_id|default:'' }}</a></td>
+                      <td><a href="{% url 'invoice' entry.invoice.pk %}">#{{ entry.invoice.document_id|default:'' }}</a></td>
                       {% else %}
                       <td></td>
                       {% endif %}
