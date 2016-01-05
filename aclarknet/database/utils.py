@@ -152,6 +152,14 @@ def edit(request,
                 obj.amount = amount
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
+            elif subtotal:
+                obj.subtotal = subtotal
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+            elif paid_amount:
+                obj.paid_amount = paid_amount
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
 
             form = form_model(request.POST, instance=obj)
 
