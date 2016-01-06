@@ -146,10 +146,10 @@
                       </td>
                       {% if not pdf %}
                       <td>
-                        {{ entry.line_total_co|default:'' }}
+                        {% if entry.line_total_co %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total_co|default:'' }}
                       </td>
                       <td>
-                        {{ entry.line_total_dev|default:'' }}
+                        {% if entry.line_total_dev %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total_dev|default:'' }}
                       </td>
                       <td>
                         {{ entry.user }}
