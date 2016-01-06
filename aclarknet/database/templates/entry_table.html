@@ -146,7 +146,7 @@
                       </td>
                       {% if not pdf %}
                       <td>
-                        {{ entry.line_total|default:'' }}
+                        {{ entry.line_total_co|default:'' }}
                       </td>
                       <td>
                         {{ entry.line_total_dev|default:'' }}
@@ -159,7 +159,7 @@
                       <td></td>
                       <td></td>
                       {% endif %}
-                      <td>{{ amount }}</td>
+                      <td>{{ entry.line_total }}</td>
                     </tr>
                     <tr></tr>
                     {% endfor %}

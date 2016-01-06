@@ -220,6 +220,7 @@ def entries_total(queryset):
         entries[entry]['user'] = entry.user
 
         line_total = 0
+        line_total_co = 0
         line_total_dev = 0
 
         if entry.task:
@@ -227,11 +228,11 @@ def entries_total(queryset):
             rate = entry.task.rate
             entries[entry]['rate'] = rate
             if rate:
-                line_total = rate * hours
+                line_total_co = rate * hours
 
-            entries[entry]['line_total'] = line_total
+            entries[entry]['line_total_co'] = line_total_co
 
-            running_total += line_total
+            running_total += line_total_co
 
         if entry.user:
 
@@ -239,6 +240,9 @@ def entries_total(queryset):
                 line_total_dev = entry.user.profile.rate * hours
                 entries[entry]['line_total_dev'] = line_total_dev
                 running_total_dev += line_total_dev
+
+        line_total = line_total_co - line_total_dev
+        entries[entry]['line_total'] = line_total
 
     total = running_total - running_total_dev
 
