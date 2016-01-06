@@ -2,50 +2,50 @@
 
 {% block content %}
 
-                <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
-                <hr>
-                {% if request.user.is_staff %}
-                <p class="lead">
-                {{ company.name|default:'Company' }} has
-                {{ clients.count|default:0 }} clients ({{ clients_active.count|default:0 }} active),
-                {{ contacts.count|default:0 }} contacts ({{ contacts_active.count|default:0 }} active),
-                {{ projects.count|default:0 }} projects ({{ projects_active.count|default:0 }} active),
-                {{ tasks.count|default:0 }} tasks ({{ tasks_active.count|default:0 }} active),
-                {{ times.count|default:0 }} time entries,
-                {{ invoices.count|default:0 }} invoices, and
-                {{ estimates.count|default:0 }} estimates.
-                </p>
-                {% endif %}
+          <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
+          <hr>
+          {% if request.user.is_staff %}
+          <p class="lead">
+          {{ company.name|default:'Company' }} has
+          {{ clients.count|default:0 }} clients ({{ clients_active.count|default:0 }} active),
+          {{ contacts.count|default:0 }} contacts ({{ contacts_active.count|default:0 }} active),
+          {{ projects.count|default:0 }} projects ({{ projects_active.count|default:0 }} active),
+          {{ tasks.count|default:0 }} tasks ({{ tasks_active.count|default:0 }} active),
+          {{ times.count|default:0 }} time entries,
+          {{ invoices.count|default:0 }} invoices, and
+          {{ estimates.count|default:0 }} estimates.
+          </p>
+          {% endif %}
 
-                {% if request.user.is_staff %}
-                <h4>Invoices</h4>
-                <div class="row">
-                  <div class="col-md-6">
-                    <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
-                      <thead>
-                        <tr>
-                          <th>Invoice</th>
-                          <th>Gross</th>
-                          <th>Net</th>
-                        <tr> 
-                      </thead>
-                      <tbody>
-                      {% for invoice in invoices_active %}
-                        <tr>
-                          <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
-                          <td>{{ company.currency_symbol }}{{ invoice.subtotal }}</td>
-                          <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
-                        </tr>
-                      {% endfor %}
-                        <tr>
-                          <td><strong>Total:</strong></td>
-                          <td>{{ company.currency_symbol }}{{ gross }}</td>
-                          <td>{{ company.currency_symbol }}{{ net }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                {% endif %}
+          {% if request.user.is_staff %}
+          <h4>Invoices</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
+                <thead>
+                  <tr>
+                    <th>Invoice</th>
+                    <th>Gross</th>
+                    <th>Net</th>
+                  <tr> 
+                </thead>
+                <tbody>
+                {% for invoice in invoices_active %}
+                  <tr>
+                    <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
+                    <td>{{ company.currency_symbol }}{{ invoice.subtotal }}</td>
+                    <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
+                  </tr>
+                {% endfor %}
+                  <tr>
+                    <td><strong>Total:</strong></td>
+                    <td>{{ company.currency_symbol }}{{ gross }}</td>
+                    <td>{{ company.currency_symbol }}{{ net }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% endif %}
 
 {% endblock %}
