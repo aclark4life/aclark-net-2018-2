@@ -127,7 +127,9 @@ def estimate(request, pk=None):
     context['document'] = estimate
     context['title'] = estimate._meta.verbose_name.upper()
 
-    times_client = Time.objects.filter(client=estimate.client, invoiced=False)
+    times_client = Time.objects.filter(client=estimate.client,
+                                       estimate=None,
+                                       project=None)
     times_estimate = Time.objects.filter(estimate=estimate)
     times = chain(times_client, times_estimate)
 
