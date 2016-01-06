@@ -12,6 +12,7 @@ flake8==2.5.1
 gunicorn==19.4.3
 html5lib==0.9999999
 mccabe==0.3.1
+nose==1.3.7
 oauthlib==1.0.3
 pep8==1.5.7
 phonenumbers==7.2.2
