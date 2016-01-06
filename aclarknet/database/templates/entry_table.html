@@ -40,7 +40,9 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>{{ company.name|default:'' }}{{ company.address|default:''|linebreaks }}</td>
+                      <td>
+                        <strong>{{ company.name|default:'' }}</strong>{{ company.address|default:''|linebreaks }}
+                      </td>
                     </tr>
                     <tr></tr>
                     <tr>
@@ -68,7 +70,7 @@
                       <td></td>
                       <td></td>
                       <td>
-                        {{ document.client|default:'' }}{{ document.client.address|default:''|linebreaks }}
+                        <strong>{{ document.client|default:'' }}</strong>{{ document.client.address|default:''|linebreaks }}
                       </td>
                     </tr>
                     <tr></tr>
