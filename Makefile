@@ -13,7 +13,6 @@ clean:
 flake:
 	-flake8 $(project)/*.py
 	-flake8 $(project)/$(app)/*.py
-	-flake8 $(project)/$(app)/migrations/*.py
 update:
 	git commit -a -m "Update"
 push:
@@ -22,7 +21,6 @@ push:
 yapf:
 	-yapf -i $(project)/*.py
 	-yapf -i $(project)/$(app)/*.py
-	-yapf -i $(project)/$(app)/migrations/*.py
 migrate:
 	rm -rf $(project)/$(app)/migrations
 	python manage.py makemigrations $(app)

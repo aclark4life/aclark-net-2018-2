@@ -118,11 +118,13 @@ def edit(request,
             delete = request.POST.get('delete')
             if delete:
                 # Decrement invoice counter
-                if obj._meta.verbose_name == 'invoice' and company.invoice_counter:
+                if (obj._meta.verbose_name == 'invoice' and
+                        company.invoice_counter):
                     company.invoice_counter -= 1
                     company.save()
                 # Decrement estimate counter
-                if obj._meta.verbose_name == 'estimate' and company.estimate_counter:
+                if (obj._meta.verbose_name == 'estimate' and
+                        company.estimate_counter):
                     company.estimate_counter -= 1
                     company.save()
                 obj.delete()
@@ -166,14 +168,16 @@ def edit(request,
                     kwargs['pk'] = project.pk
 
             # Assign and increment invoice counter
-            if obj._meta.verbose_name == 'invoice' and company.invoice_counter and pk is None:
+            if (obj._meta.verbose_name == 'invoice' and
+                    company.invoice_counter and pk is None):
                 company.invoice_counter += 1
                 company.save()
                 obj.document_id = company.invoice_counter
                 obj.save()
 
             # Assign and increment estimate counter
-            if obj._meta.verbose_name == 'estimate' and company.estimate_counter and pk is None:
+            if (obj._meta.verbose_name == 'estimate' and
+                    company.estimate_counter and pk is None):
                 company.estimate_counter += 1
                 company.save()
                 obj.document_id = company.estimate_counter
@@ -242,7 +246,7 @@ def entries_total(queryset):
 
 
 def gravatar_url(email):
-    """ 
+    """
     MD5 hash of email address for use with Gravatar
     """
     return settings.GRAVATAR % md5(email.lower()).hexdigest()
