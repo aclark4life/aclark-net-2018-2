@@ -15,10 +15,11 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr></tr>
                     <tr>
                       <td></td>
-                      <td>
-                        <strong>Id:</strong> {{ document.document_id|default:'' }}
+                      <td style="font-size: 200%">
+                        <strong>ID:</strong> {{ document.document_id|default:'' }}
                       </td>
                       <td></td>
                       <td></td>
@@ -26,7 +27,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td width="300px">
+                      <td style="font-size: 150%" width="300px">
                         <strong>From:</strong>
                       </td>
                     </tr>
@@ -44,7 +45,7 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td>
+                      <td style="font-size: 150%">
                         <strong>Date:</strong> {{ document.issue_date }}
                       </td>
                       <td></td>
@@ -53,7 +54,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>
+                      <td style="font-size: 150%">
                         <strong>For:</strong>
                       </td>
                     </tr>
@@ -122,10 +123,10 @@
                         <strong>Total</strong>
                       </td>
                     </tr>
-                    <tr></tr>
+                    <tr></tr> 
                     {% for entry in entries.values %}
-                    <tr> 
-                      <td align="center">
+                    <tr style="border-top: 1px solid black; padding-top: 5px">
+                      <td align="center"> 
                         {% if pdf %}{{ forloop.counter }}{% else %}<h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1>{% endif %}
                       </td>
                       <td>
@@ -163,7 +164,7 @@
                     </tr>
                     <tr></tr>
                     {% endfor %}
-                    <tr>
+                    <tr style="border-top: 1px solid black; padding-top: 5px">
                       <td></td> 
                       <td><strong>Total</strong></td>
                       <td></td> 
