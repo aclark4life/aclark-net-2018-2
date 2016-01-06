@@ -126,7 +126,7 @@
                     {% for entry in entries.values %}
                     <tr> 
                       <td align="center">
-                        <h1>{% if pdf %}{{ forloop.counter }}{% else %}<a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a>{% endif %}</h1>
+                        {% if pdf %}{{ forloop.counter }}{% else %}<h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1>{% endif %}
                       </td>
                       <td>
                         {{ entry.notes }}
@@ -142,7 +142,7 @@
                         {{ entry.hours }}
                       </td>
                       <td>
-                        {{ entry.rate|default:'' }}
+                        {% if entry.rate %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}
                       </td>
                       {% if not pdf %}
                       <td>
@@ -159,7 +159,7 @@
                       <td></td>
                       <td></td>
                       {% endif %}
-                      <td>{{ entry.line_total }}</td>
+                      <td>{% if entry.line_total %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total }}</td>
                     </tr>
                     <tr></tr>
                     {% endfor %}

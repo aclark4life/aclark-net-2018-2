@@ -242,7 +242,7 @@ def entries_total(queryset):
                 running_total_dev += line_total_dev
 
         line_total = line_total_co - line_total_dev
-        entries[entry]['line_total'] = line_total
+        entries[entry]['line_total'] = '%.2f' % line_total
 
     total = running_total - running_total_dev
 
