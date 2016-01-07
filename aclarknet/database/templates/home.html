@@ -39,10 +39,9 @@
           <h4>Invoices</h4>
           <div class="row">
             <div class="col-md-6">
-              <table data-toggle="table" data-sort-order="desc">
+              <table data-toggle="table"> 
                 <thead>
                   <tr>
-                    <th></th>
                     <th data-sortable="true">Invoice</th>
                     <th data-sortable="true">Project</th>
                     <th data-sortable="true">Gross</th>
@@ -52,7 +51,6 @@
                 <tbody>
                 {% for invoice in invoices_active %}
                   <tr>
-                    <td></td>
                     <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
                     <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a></td>
                     <td>{{ company.currency_symbol }}{{ invoice.subtotal }}</td>
@@ -61,7 +59,6 @@
                 {% endfor %}
                   <tr>
                     <td><strong>Total:</strong></td>
-                    <td></td>
                     <td></td>
                     <td>{{ company.currency_symbol }}{{ gross }}</td>
                     <td>{{ company.currency_symbol }}{{ net }}</td>
