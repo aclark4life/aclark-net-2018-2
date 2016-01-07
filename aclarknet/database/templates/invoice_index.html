@@ -55,7 +55,11 @@
                       {% else %}
                         <td></td>
                       {% endif %}
-                      <td>{{ invoice.project|default:'' }}</td>
+                      {% if invoice.client %}
+                        <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name|default:'' }}</a></td>
+                      {% else %}
+                        <td></td>
+                      {% endif %}
                       <td>{{ invoice.subject|default:'' }}</td>
                       <td>{{ invoice.amount|default:'' }}</td>
                       <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
