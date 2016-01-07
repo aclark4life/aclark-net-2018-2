@@ -1,3 +1,4 @@
+                    {% if request.user.is_staff %}
                     <form class="form-inline" action="" method="post">{% csrf_token %}
                       <div class="form-group">
                         <h3>
@@ -6,3 +7,4 @@
                         </h3>
                       </div>
                     </form>
+                    {% endif %}
