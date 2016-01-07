@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test import Client as HttpClient
 
 # Create your tests here.
 
@@ -24,3 +25,5 @@ class EditTestCase(TestCase):
         request, form_model, model, url_name, template
         """
         client = Client.objects.get(name="client-1")
+        httpclient = HttpClient()
+        response = httpclient.post('/client/1/edit')
