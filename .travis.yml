@@ -9,4 +9,5 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database aclarknet;' -U postgres
+  - python manage.py migrate auth
   - python manage.py migrate
