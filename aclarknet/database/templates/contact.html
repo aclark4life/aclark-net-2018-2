@@ -22,7 +22,7 @@
                         <td>{{ contact.first_name }}</td>
                         <td>{{ contact.last_name }}</td>
                         <td>{{ contact.title }}</td>
-                        <td>{{ contact.client }}</td>
+                        {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client }}</td> {% endif %}
                         <td>{{ contact.email }}</td>
                         <td>{{ contact.mobile_phone }}</td>
                         <td>{{ contact.office_phone }}</td>
