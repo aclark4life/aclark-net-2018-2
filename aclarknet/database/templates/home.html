@@ -64,13 +64,13 @@
             </div>
             <div class="col-md-6">
               <h4>Invoices</h4>
-              <table data-toggle="table"> 
+              <table data-toggle="table">
                 <thead>
                   <tr>
-                    <th>Invoice</th>
-                    <th>Project</th>
-                    <th>Gross</th>
-                    <th>Net</th>
+                    <th data-sortable="true">Invoice</th>
+                    <th data-sortable="true">Project</th>
+                    <th data-sortable="true">Gross</th>
+                    <th data-sortable="true">Net</th>
                   <tr> 
                 </thead>
                 <tbody>
@@ -82,6 +82,8 @@
                     <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                   </tr>
                 {% endfor %}
+              </table>
+              <table data-toggle="table"> 
                   <tr>
                     <td><strong>Total:</strong></td>
                     <td></td>
