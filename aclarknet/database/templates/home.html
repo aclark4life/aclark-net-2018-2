@@ -21,7 +21,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{ company.name|default:'Company' }}</td>
+                    <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
                     <td>{{ clients.count|default:0 }} ({{ clients_active.count|default:0 }} active)</td>
                     <td>{{ contacts.count|default:0 }} ({{ contacts_active.count|default:0 }} active)</td>
                     <td>{{ projects.count|default:0 }} ({{ projects_active.count|default:0 }} active)</td>
