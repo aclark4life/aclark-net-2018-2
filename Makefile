@@ -42,3 +42,5 @@ backup:
 	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2`
 	heroku ps:scale web=1
 	heroku maintenance:off
+test:
+	python manage.py test
