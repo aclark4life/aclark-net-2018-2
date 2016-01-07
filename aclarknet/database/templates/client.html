@@ -20,10 +20,11 @@
                   <div class="col-md-6">
                     <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h3>
                     <hr>
-                    <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
+                    <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc">
                       <thead>
                         <tr>
-                          <th data-field="active" data-sortable="true">Active</th>
+                          <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                          <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                           <th>Name</th>
                           <th>Start Date</th>
                           <th>End Date</th>
@@ -34,6 +35,7 @@
                     {% for project in projects %}
                       <tr>
                         <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if project.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                        <td>{{ project.active }}</td>
                         <td>{{ project.name }}</td>
                         <td>{{ project.start_date|default:'' }}</td>
                         <td>{{ project.end_date|default:'' }}</td>
