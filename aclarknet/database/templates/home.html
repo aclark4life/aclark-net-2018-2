@@ -42,10 +42,10 @@
               <table data-toggle="table" data-sort-name="hidden-start-date">
                 <thead>
                   <tr>
-                    <th data-sortable="true">Name</th>
-                    <th data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
+                    <th data-field="name" data-sortable="true">Name</th>
+                    <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
                     <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
-                    <th data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
+                    <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
                     <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
                   <tr> 
                 </thead>
@@ -54,9 +54,9 @@
                   <tr>
                     <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
                     <td>{{ project.start_date }}</td>
-                    <td>{{ project.start_date|date:'s' }}</td>
+                    <td>{{ project.start_date|date:'U' }}</td>
                     <td>{{ project.end_date }}</td>
-                    <td>{{ project.end_date|date:'s' }}</td>
+                    <td>{{ project.end_date|date:'U' }}</td>
                   </tr>
                 {% endfor %}
                 </tbody>
