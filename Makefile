@@ -46,3 +46,5 @@ copy:
 	heroku maintenance:off
 test:
 	python manage.py test
+reset:
+	heroku pg:reset DATABASE_URL
