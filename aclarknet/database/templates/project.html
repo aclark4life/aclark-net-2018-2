@@ -31,7 +31,11 @@
                       <tbody>
                         <tr>
                             <td>{{ project.name }}</td>
-                            <td>{{ project.client|default:'' }}</td>
+                            {% if project.client %}
+                              <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
+                            {% else %}
+                              <td>{{ project.client|default:'' }}</td>
+                            {% endif %}
                             <td>{{ project.start_date|default:'' }}</td>
                             <td>{{ project.end_date|default:'' }}</td>
                         </tr>
