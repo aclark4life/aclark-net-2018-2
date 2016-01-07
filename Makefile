@@ -37,6 +37,8 @@ wc:
 	wc -l $(project)/*.py
 	wc -l $(project)/$(app)/*.py
 backup:
+	heroku pg:backups capture
+copy:
 	heroku maintenance:on
 	heroku ps:scale web=0
 	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2`

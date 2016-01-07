@@ -22,6 +22,7 @@
                 <thead>
                   <tr>
                     <th>Invoice</th>
+                    <th>Project</th>
                     <th>Gross</th>
                     <th>Net</th>
                   <tr> 
@@ -30,6 +31,7 @@
                 {% for invoice in invoices_active %}
                   <tr>
                     <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
+                    <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a></td>
                     <td>{{ company.currency_symbol }}{{ invoice.subtotal }}</td>
                     <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                   </tr>
