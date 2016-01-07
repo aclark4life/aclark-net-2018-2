@@ -53,9 +53,9 @@
                 {% for project in projects_active %}
                   <tr>
                     <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
-                    <td>{{ project.start_date }}</td>
+                    <td>{{ project.start_date|default:'' }}</td>
                     <td>{{ project.start_date|date:'U' }}</td>
-                    <td>{{ project.end_date }}</td>
+                    <td>{{ project.end_date|default:'' }}</td>
                     <td>{{ project.end_date|date:'U' }}</td>
                   </tr>
                 {% endfor %}
