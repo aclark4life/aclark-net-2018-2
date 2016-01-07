@@ -24,13 +24,18 @@
     <!-- Custom styles for this template -->
     <style>
         body {
-            padding: 50px 0 50px 0;
+            background: url({% static 'aclark-doe.jpg' %});
+            padding: 75px 0 50px 0;
         }
         ul.nav.navbar-nav li a {
             color: white;
         }
         ul.dropdown-menu li a {
             color: black !important;
+        }
+        #content {
+            background: white;
+            padding-bottom: 15px;
         }
         #company {
             margin-bottom: 15px;
@@ -96,7 +101,7 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div id="content" class="container">
       <div class="row">
         <div class="col-md-12"> 
 
