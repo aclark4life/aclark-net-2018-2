@@ -133,11 +133,12 @@ def estimate(request, pk=None):
     times_estimate = Time.objects.filter(estimate=estimate)
     times = chain(times_client, times_estimate)
 
-    entries, subtotal, paid_amount, amount = entries_total(times)
+    entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
+    context['hours'] = hours
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
@@ -243,11 +244,12 @@ def invoice(request, pk=None):
     times_invoice = Time.objects.filter(invoice=invoice)
     times = chain(times_project, times_invoice)
 
-    entries, subtotal, paid_amount, amount = entries_total(times)
+    entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
+    context['hours'] = hours
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf

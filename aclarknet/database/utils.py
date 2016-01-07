@@ -205,13 +205,16 @@ def entries_total(queryset):
     entries = OrderedDict()
 
     total = 0
-    running_total = 0
+    running_total_co = 0
     running_total_dev = 0
+    running_total_hours = 0
 
     for entry in queryset:
         entries[entry] = {}
 
         hours = entry.hours
+        if hours:
+            running_total_hours += hours
 
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = hours
@@ -232,7 +235,7 @@ def entries_total(queryset):
 
             entries[entry]['line_total_co'] = line_total_co
 
-            running_total += line_total_co
+            running_total_co += line_total_co
 
         if entry.user:
 
@@ -244,9 +247,9 @@ def entries_total(queryset):
         line_total = line_total_co - line_total_dev
         entries[entry]['line_total'] = '%.2f' % line_total
 
-    total = running_total - running_total_dev
+    total = running_total_co - running_total_dev
 
-    return entries, running_total, running_total_dev, total
+    return entries, running_total_co, running_total_dev, running_total_hours, total
 
 
 def gravatar_url(email):
