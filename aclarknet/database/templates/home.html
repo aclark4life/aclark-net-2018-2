@@ -68,4 +68,25 @@
             </div>
           </div>
           {% endif %}
+          {% if request.user.is_staff %}
+          <h4>Active Projects</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <table data-toggle="table"> 
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                  <tr> 
+                </thead>
+                <tbody>
+                {% for project in projects_active %}
+                  <tr>
+                    <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% endif %}
 {% endblock %}
