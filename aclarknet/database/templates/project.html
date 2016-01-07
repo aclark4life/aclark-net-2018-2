@@ -22,16 +22,16 @@
                     <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                       <thead>
                         <tr>
-                          <th data-field="id" data-sortable="true">Id</th>
                           <th>Name</th>
+                          <th>Client</th>
                           <th>Start Date</th>
                           <th>End Date</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                            <td>{{ project.pk }}</td>
                             <td>{{ project.name }}</td>
+                            <td>{{ project.client|default:'' }}</td>
                             <td>{{ project.start_date|default:'' }}</td>
                             <td>{{ project.end_date|default:'' }}</td>
                         </tr>
