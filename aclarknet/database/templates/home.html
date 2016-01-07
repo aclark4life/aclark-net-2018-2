@@ -54,9 +54,9 @@
                   <tr>
                     <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
                     <td>{{ project.start_date }}</td>
-                    <td>{% format_time project.start_date '%s' %}</td>
+                    <td>{% project.start_date|date:'s' %}</td>
                     <td>{{ project.end_date }}</td>
-                    <td>{% format_time project.end_date '%s' %}</td>
+                    <td>{% project.end_date|date:'s' %}</td>
                   </tr>
                 {% endfor %}
                 </tbody>
