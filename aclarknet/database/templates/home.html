@@ -82,9 +82,18 @@
                     <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                   </tr>
                 {% endfor %}
+                </tbody>
               </table>
               <hr>
               <table data-toggle="table"> 
+                <thead>
+                  <tr>
+                    <th></th> 
+                    <th>Gross</th> 
+                    <th>Net</th> 
+                  </tr>
+                </thead> 
+                <tbody>
                   <tr>
                     <td><strong>Total:</strong></td>
                     <td>{{ company.currency_symbol }}{{ gross }}</td>
