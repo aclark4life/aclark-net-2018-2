@@ -55,7 +55,7 @@
                       {% else %}
                         <td></td>
                       {% endif %}
-                      {% if invoice.client %}
+                      {% if invoice.project %}
                         <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name|default:'' }}</a></td>
                       {% else %}
                         <td></td>
