@@ -15,9 +15,11 @@ flake:
 	-flake8 $(project)/$(app)/*.py
 update:
 	git commit -a -m "Update"
-push:
+push-github:
 	git push
+push-heroku:
 	git push heroku
+push: push-github
 yapf:
 	-yapf -i $(project)/*.py
 	-yapf -i $(project)/$(app)/*.py
