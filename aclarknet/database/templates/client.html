@@ -23,7 +23,7 @@
                     <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
                       <thead>
                         <tr>
-                          <th data-field="active">Active</th>
+                          <th data-field="active" data-sortable="true">Active</th>
                           <th>Name</th>
                           <th>Start Date</th>
                           <th>End Date</th>
@@ -33,7 +33,7 @@
                       <tbody> 
                     {% for project in projects %}
                       <tr>
-                        <td>{{ project.active }}</td>
+                        <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if project.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                         <td>{{ project.name }}</td>
                         <td>{{ project.start_date|default:'' }}</td>
                         <td>{{ project.end_date|default:'' }}</td>
