@@ -38,6 +38,23 @@
           {% if request.user.is_staff %}
           <div class="row">
             <div class="col-md-6">
+              <h4>Active Projects</h4>
+              <table data-toggle="table"> 
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                  <tr> 
+                </thead>
+                <tbody>
+                {% for project in projects_active %}
+                  <tr>
+                    <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6">
               <h4>Invoices</h4>
               <table data-toggle="table"> 
                 <thead>
@@ -63,23 +80,6 @@
                     <td>{{ company.currency_symbol }}{{ gross }}</td>
                     <td>{{ company.currency_symbol }}{{ net }}</td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="col-md-6">
-              <h4>Active Projects</h4>
-              <table data-toggle="table"> 
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                  <tr> 
-                </thead>
-                <tbody>
-                {% for project in projects_active %}
-                  <tr>
-                    <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
-                  </tr>
-                {% endfor %}
                 </tbody>
               </table>
             </div>
