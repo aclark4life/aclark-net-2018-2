@@ -2,13 +2,16 @@
                     .entry {
                         border-top: 1px solid black; padding: 5px;
                     }
+                    .document-type-upper {
+                        font-size: 300%;
+                    }
                 </style>
                 <table data-toggle="table" border=0>
                   <thead>
                     <tr>
                       <th></th>
                       <th align="left"> 
-                        <h1 style="font-size: 300%">{{ document_type_upper }}</h1>
+                        <h1 class="document-type-upper">{{ document_type_upper }}</h1>
                       </th>
                       <th></th>
                       <th></th>
@@ -25,7 +28,7 @@
                     <tr>
                       <td></td>
                       <td>
-                        <span style="font-size: 125%">{{ document_type_title }} ID:</span> {{ document.document_id|default:'' }}
+                        <span>{{ document_type_title }} ID:</span> <strong>{{ document.document_id|default:'' }}</strong>
                       </td>
                       <td></td>
                       <td></td>
@@ -45,14 +48,14 @@
                       <td></td>
                       <td></td>
                       <td>
-                        <strong>{{ company.name|default:'' }}</strong>{{ company.address|default:''|linebreaks }}
+                        <h2>{{ company.name|default:'' }}</h2>{{ company.address|default:''|linebreaks }}
                       </td>
                     </tr>
                     <tr></tr>
                     <tr>
                       <td></td>
                       <td>
-                        <span style="font-size: 125%">Issue Date:</span> {{ document.issue_date }}
+                        <span>Issue Date:</span> {{ document.issue_date }}
                       </td>
                       <td></td>
                       <td></td>
@@ -65,7 +68,7 @@
                     <tr>
                       <td></td>
                       <td>
-                        <span style="font-size: 125%">Due Date:</span> {{ document.issue_date }} (Upon Receipt)
+                        <span>Due Date:</span> {{ document.issue_date }} (Upon Receipt)
                       </td>
                       <td></td>
                       <td></td>
@@ -87,14 +90,14 @@
                       <td></td>
                       <td></td>
                       <td>
-                        <strong>{{ document.client|default:'' }}</strong>{{ document.client.address|default:''|linebreaks }}
+                        <h2>{{ document.client|default:'' }}</h2>{{ document.client.address|default:''|linebreaks }}
                       </td>
                     </tr>
                     <tr></tr>
                     <tr>
                       <td></td>
                       <td>
-                        <span style="font-size: 125%">Subject:</span> {{ document.subject }}
+                        <span>Subject:</span> {{ document.subject }}
                       </td>
                       <td></td>
                       <td></td>
@@ -108,30 +111,30 @@
                     <tr>
                       <td></td>
                       <td style="width: 500px">
-                        <span>Description</span>
+                        <strong>Description</strong>
                       </td>
                       {% if document_type == 'INVOICE' %}
                       <td>
-                        <span>Date</span>
+                        <strong>Date</strong>
                       </td>
                       {% else %}
                       <td></td>
                       {% endif %}
-                      <td>
-                        <span>Hours</span>
+                      <td style="width: 200px">
+                        <strong>Quantity</strong>
                       </td>
-                      <td>
-                        <span>Rate</span>
+                      <td style="width: 200px">
+                        <strong>Unit Price</strong>
                       </td>
                       {% if not pdf %}
                       <td>
-                        <span>Subtotal</span>
+                        <strong>Subtotal</strong>
                       </td>
                       <td>
-                        <span>Paid Amount</span>
+                        <strong>Paid Amount</strong>
                       </td>
                       <td>
-                        <span>User</span>
+                        <strong>User</strong>
                       </td>
                       {% else %}
                       <td></td>
@@ -139,7 +142,7 @@
                       <td></td>
                       {% endif %}
                       <td>
-                        <span>Total</span>
+                        <strong>Total</strong>
                       </td>
                     </tr>
                     <tr></tr> 
@@ -184,7 +187,7 @@
                     {% endfor %}
                     <tr>
                       <td></td> 
-                      <td class="entry"><span>Amount Due:</span></td>
+                      <td class="entry"><h2>Amount Due:</h2></td>
                       <td class="entry"></td> 
                       {% if not pdf %}
                       <td class="entry">{{ hours|default:'' }}</td> 
