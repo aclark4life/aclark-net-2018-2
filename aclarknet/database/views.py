@@ -125,7 +125,8 @@ def estimate(request, pk=None):
 
     estimate = get_object_or_404(Estimate, pk=pk)
     context['document'] = estimate
-    context['title'] = estimate._meta.verbose_name.upper()
+    context['title_upper'] = estimate._meta.verbose_name.upper()
+    context['title'] = estimate._meta.verbose_name
 
     times_client = Time.objects.filter(client=estimate.client,
                                        estimate=None,
@@ -238,7 +239,8 @@ def invoice(request, pk=None):
 
     invoice = get_object_or_404(Invoice, pk=pk)
     context['document'] = invoice
-    context['title'] = invoice._meta.verbose_name.upper()
+    context['document_type_upper'] = invoice._meta.verbose_name.upper()
+    context['document_type_title'] = invoice._meta.verbose_name.title()
 
     times_project = Time.objects.filter(invoiced=False,
                                         project=invoice.project,
