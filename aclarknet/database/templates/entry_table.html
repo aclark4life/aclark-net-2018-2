@@ -85,7 +85,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>
+                      <td class="width-40">
                         <span>{{ document_type_title }} For:</span>
                       </td>
                     </tr>
@@ -218,11 +218,11 @@
                       <td class="entry width-40"><h2>Amount Due:</h2></td>
                       {% if not pdf %}
                       <td class="entry">
-                        <strong>{{ company.currency_symbol }}{{ document.amount|default:'0.00' }}</strong>
+                        <h2>{{ company.currency_symbol }}{{ document.amount|default:'0.00' }}</h2>
                       </td>
                       {% else %}
                       <td class="entry">
-                        <strong>{{ company.currency_symbol }}{{ document.subtotal|default:'0.00' }}</strong>
+                        <h2>{{ company.currency_symbol }}{{ document.subtotal|default:'0.00' }}</h2>
                       </td>
                       {% endif %}
                       <td></td> 
