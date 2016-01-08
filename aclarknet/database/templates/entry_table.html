@@ -64,7 +64,7 @@
                     <tr>
                       <td></td>
                       <td style="font-size: 150%">
-                        <strong>Due Date:</strong> {{ document.issue_date }} (upon receipt)
+                        <strong>Due Date:</strong> {{ document.issue_date }} (Upon Receipt)
                       </td>
                       <td></td>
                       <td></td>
@@ -182,9 +182,9 @@
                     {% endfor %}
                     <tr style="border-top: 1px solid black; padding-top: 5px">
                       <td></td> 
-                      <td><strong>Total</strong></td>
+                      <td><strong>Amount Due</strong></td>
                       <td></td> 
-                      <td>{{ hours }}</td> 
+                      <td>{{ hours|default:'' }}</td> 
                       <td></td> 
                       {% if not pdf %}
                       <td>
