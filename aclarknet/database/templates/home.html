@@ -43,6 +43,7 @@
                 <thead>
                   <tr>
                     <th data-field="name" data-sortable="true">Name</th>
+                    <th data-field="hidden-name" data-sortable="true">Hidden Name</th>
                     <th data-field="task" data-sort-name="hidden-task" data-sortable="true">Task</th>
                     <th data-field="hidden-task" data-sortable="true" data-visible="false">Hidden Task</th>
                     <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
@@ -55,6 +56,7 @@
                 {% for project in projects_active %}
                   <tr>
                     <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                    <td>{{ project.name }}</td>
                     {% if project.task %}
                       <td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>
                     {% else %}
