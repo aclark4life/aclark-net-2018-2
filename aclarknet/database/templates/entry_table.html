@@ -182,7 +182,7 @@
                     {% endfor %}
                     <tr style="border-top: 1px solid black; padding-top: 5px">
                       <td></td> 
-                      <td><strong>Amount Due</strong></td>
+                      <td></td> 
                       <td></td> 
                       {% if not pdf %}
                       <td>{{ hours|default:'' }}</td> 
@@ -200,7 +200,7 @@
                       <td></td> 
                       <td></td> 
                       {% endif %}
-                      <td></td> 
+                      <td><strong>Amount Due:</strong></td>
                       {% if not pdf %}
                       <td>
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
