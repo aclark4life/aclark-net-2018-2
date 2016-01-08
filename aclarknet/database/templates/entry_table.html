@@ -184,8 +184,11 @@
                       <td></td> 
                       <td><strong>Amount Due</strong></td>
                       <td></td> 
+                      {% if not pdf %}
                       <td>{{ hours|default:'' }}</td> 
+                      {% else %}
                       <td></td> 
+                      {% endif %}
                       {% if not pdf %}
                       <td>
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
