@@ -4,6 +4,8 @@ ACLARK.NET, LLC
 Client & Contractor Database Application
 ----------------------------------------
 
+Based on data exported from Harvest
+
 Heroku
 ~~~~~~
 
