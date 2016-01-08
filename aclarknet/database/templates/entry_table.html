@@ -18,8 +18,8 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td style="font-size: 200%">
-                        <strong>ID:</strong> {{ document.document_id|default:'' }}
+                      <td>
+                        <strong style="font-size: 125%">Document ID:</strong> {{ document.document_id|default:'' }}
                       </td>
                       <td></td>
                       <td></td>
@@ -27,8 +27,8 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td style="font-size: 150%" width="300px">
-                        <strong>From:</strong>
+                      <td width="300px">
+                        <strong style="font-size: 125%">From:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -47,8 +47,8 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td style="font-size: 150%">
-                        <strong>Issue Date:</strong> {{ document.issue_date }}
+                      <td>
+                        <strong style="font-size: 125%">Issue Date:</strong> {{ document.issue_date }}
                       </td>
                       <td></td>
                       <td></td>
@@ -56,15 +56,15 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td style="font-size: 150%">
+                      <td style="font-size: 125%">
                         <strong>For:</strong>
                       </td>
                     </tr>
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td style="font-size: 150%">
-                        <strong>Due Date:</strong> {{ document.issue_date }} (Upon Receipt)
+                      <td>
+                        <strong style="font-size: 125%">Due Date:</strong> {{ document.issue_date }} (Upon Receipt)
                       </td>
                       <td></td>
                       <td></td>
@@ -90,7 +90,7 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td style="font-size: 150%">
+                      <td style="font-size: 125%">
                         <strong>Subject:</strong> {{ document.subject }}
                       </td>
                       <td></td>
@@ -200,7 +200,7 @@
                       <td></td> 
                       <td></td> 
                       {% endif %}
-                      <td><strong>Amount Due:</strong></td>
+                      <td style="width: 150px"><strong>Amount Due:</strong></td>
                       {% if not pdf %}
                       <td>
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
