@@ -249,7 +249,8 @@ def entries_total(queryset):
 
     total = running_total_co - running_total_dev
 
-    return entries, running_total_co, running_total_dev, running_total_hours, total
+    return (entries, running_total_co, running_total_dev, running_total_hours,
+            total)
 
 
 def gravatar_url(email):

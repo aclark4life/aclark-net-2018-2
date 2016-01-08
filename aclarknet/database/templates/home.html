@@ -58,6 +58,7 @@
                       <td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>
                     {% else %}
                       <td>{{ task.name }}</td>
+                    {% endif %}
                     <td>{{ project.start_date|default:'' }}</td>
                     <td>{{ project.start_date|date:'U' }}</td>
                     <td>{{ project.end_date|default:'' }}</td>

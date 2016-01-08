@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -78,8 +79,6 @@ WSGI_APPLICATION = 'aclarknet.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-import dj_database_url
 
 DATABASES = {'default': dj_database_url.config(default=os.environ.get(
     'HEROKU_POSTGRESQL_BRONZE_URL', 'postgres://%s:@localhost:5432/aclarknet' %
