@@ -1,3 +1,8 @@
+                <style>
+                    .entry {
+                        border-top: 1px solid black; padding: 5px;
+                    }
+                </style>
                 <table data-toggle="table" border=0>
                   <thead>
                     <tr>
@@ -140,75 +145,75 @@
                     </tr>
                     <tr></tr> 
                     {% for entry in entries.values %}
-                    <tr style="border-top: 1px solid black; padding-top: 5px">
+                    <tr> 
                       <td align="center"> 
                         {% if pdf %}{{ forloop.counter }}{% else %}<h1><a href="{% url 'entry' entry.pk %}">{{ forloop.counter }}</a></h1>{% endif %}
                       </td>
-                      <td>
+                      <td class="entry">
                         {{ entry.notes }}
                       </td>
                       {% if document_type == 'INVOICE' %}
-                      <td>
+                      <td class="entry">
                         {{ entry.date }}
                       </td>
                       {% else %}
-                      <td></td>
+                      <td class="entry"></td>
                       {% endif %}
-                      <td>
+                      <td class="entry">
                         {{ entry.hours }}
                       </td>
-                      <td>
+                      <td class="entry">
                         {% if entry.rate %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}
                       </td>
                       {% if not pdf %}
-                      <td>
+                      <td class="entry">
                         {% if entry.line_total_co %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total_co|default:'' }}
                       </td>
-                      <td>
+                      <td class="entry">
                         {% if entry.line_total_dev %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total_dev|default:'' }}
                       </td>
-                      <td>
+                      <td class="entry">
                         {{ entry.user }}
                       </td>
                       {% else %}
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td class="entry"></td>
+                      <td class="entry"></td>
+                      <td class="entry"></td>
                       {% endif %}
-                      <td>{% if entry.line_total %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total }}</td>
+                      <td class="entry">{% if entry.line_total %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total }}</td>
                     </tr>
-                    <tr></tr>
                     {% endfor %}
-                    <tr style="border-top: 1px solid black; padding-top: 5px">
+                    <tr>
                       <td></td> 
-                      <td><h2>Amount Due:</h2></td>
-                      <td></td> 
+                      <td class="entry"><h2>Amount Due:</h2></td>
+                      <td class="entry"></td> 
                       {% if not pdf %}
-                      <td>{{ hours|default:'' }}</td> 
+                      <td class="entry">{{ hours|default:'' }}</td> 
                       {% else %}
-                      <td></td> 
+                      <td class="entry"></td> 
                       {% endif %}
                       {% if not pdf %}
-                      <td>
+                      <td class="entry">
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
-                      <td>
+                      <td class="entry">
                         {% if document.paid_amount %}{{ company.currency_symbol }}{% endif %}{{ document.paid_amount|default:'' }}
                       </td>
                       {% else %}
-                      <td></td> 
-                      <td></td> 
+                      <td class="entry"></td> 
+                      <td class="entry"></td> 
                       {% endif %}
-                      <td></td> 
+                      <td class="entry"></td> 
                       {% if not pdf %}
-                      <td>
+                      <td class="entry">
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
                       </td>
                       {% else %}
-                      <td>
+                      <td class="entry">
                         {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
                       </td>
                       {% endif %}
+                      <td class="entry"></td> 
                     </tr>
                   </tbody>
                 </table>
