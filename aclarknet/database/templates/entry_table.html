@@ -69,8 +69,8 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td style="font-size: 125%">
-                        <strong>For:</strong>
+                      <td>
+                        <strong style="font-size: 125%">For:</strong>
                       </td>
                     </tr>
                     <tr>
@@ -89,8 +89,8 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td style="font-size: 125%">
-                        <strong>Subject:</strong> {{ document.subject }}
+                      <td>
+                        <strong style="font-size: 125%">Subject:</strong> {{ document.subject }}
                       </td>
                       <td></td>
                       <td></td>
@@ -181,7 +181,7 @@
                     {% endfor %}
                     <tr style="border-top: 1px solid black; padding-top: 5px">
                       <td></td> 
-                      <td><strong>Amount Due:</strong></td>
+                      <td><strong style="font-size: 125%">Amount Due:</strong></td>
                       <td></td> 
                       {% if not pdf %}
                       <td>{{ hours|default:'' }}</td> 
