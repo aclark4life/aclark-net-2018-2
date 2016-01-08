@@ -60,7 +60,7 @@
                     {% else %}
                       <td></td>
                     {% endif %}
-                    <td>{{ task.name }}</td>
+                    <td>{{ project.task.name }}</td>
                     <td>{{ project.start_date|default:'' }}</td>
                     <td>{{ project.start_date|date:'U' }}</td>
                     <td>{{ project.end_date|default:'' }}</td>
