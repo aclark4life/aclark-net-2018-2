@@ -8,8 +8,14 @@
                     .width-100 {
                         width: 100%;
                     }
+                    .width-40 {
+                        width: 40%;
+                    }
+                    .width-0 {
+                        width: 0;
+                    }
                 </style>
-                <table data-toggle="table" border=1>
+                <table data-toggle="table" border=0>
                   <thead>
                     <tr>
                       <th></th>
@@ -140,9 +146,9 @@
                         <strong>User</strong>
                       </td>
                       {% else %}
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td class="width-0"></td>
+                      <td class="width-0"></td>
+                      <td class="width-0"></td>
                       {% endif %}
                       <td>
                         <strong>Total</strong>
@@ -185,7 +191,7 @@
                       <td class="entry"></td>
                       <td class="entry"></td>
                       {% endif %}
-                      <td class="entry">{% if entry.line_total %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total }}</td>
+                      <td class="entry"><strong>{% if entry.line_total %}{{ company.currency_symbol }}{% endif %}{{ entry.line_total }}</strong></td>
                     </tr>
                     {% endfor %}
                     <tr>
@@ -209,14 +215,14 @@
                       <td class="entry"></td> 
                       {% endif %}
                       <td class="entry"></td> 
-                      <td class="entry"><h2>Amount Due:</h2></td>
+                      <td class="entry width-40"><h2>Amount Due:</h2></td>
                       {% if not pdf %}
                       <td class="entry">
-                        {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
+                        <strong>{{ company.currency_symbol }}{{ document.amount|default:'0.00' }}</strong>
                       </td>
                       {% else %}
                       <td class="entry">
-                        {% if document.subtotal %}{{ company.currency_symbol }}{% endif %}{{ document.subtotal|default:'' }}
+                        <strong>{{ company.currency_symbol }}{{ document.subtotal|default:'0.00' }}</strong>
                       </td>
                       {% endif %}
                       <td></td> 
