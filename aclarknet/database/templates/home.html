@@ -43,7 +43,8 @@
                 <thead>
                   <tr>
                     <th data-field="name" data-sortable="true">Name</th>
-                    <th data-field="task" data-sortable="true">Task</th>
+                    <th data-field="task" data-sort-name="hidden-task" data-sortable="true">Task</th>
+                    <th data-field="hidden-task" data-sortable="true" data-visible="false">Hidden Task</th>
                     <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
                     <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
                     <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
@@ -57,8 +58,9 @@
                     {% if project.task %}
                       <td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>
                     {% else %}
-                      <td>{{ task.name }}</td>
+                      <td></td>
                     {% endif %}
+                    <td>{{ task.name }}</td>
                     <td>{{ project.start_date|default:'' }}</td>
                     <td>{{ project.start_date|date:'U' }}</td>
                     <td>{{ project.end_date|default:'' }}</td>
