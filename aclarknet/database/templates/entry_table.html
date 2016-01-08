@@ -5,8 +5,11 @@
                     .document-type-upper {
                         font-size: 300%;
                     }
+                    .width-100 {
+                        width: 100%;
+                    }
                 </style>
-                <table data-toggle="table" border=0>
+                <table data-toggle="table" border=1>
                   <thead>
                     <tr>
                       <th></th>
@@ -36,7 +39,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td width="300px">From:</td>
+                      <td>From:</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -55,7 +58,7 @@
                     <tr>
                       <td></td>
                       <td>
-                        <span>Issue Date:</span> {{ document.issue_date }}
+                        <span>Issue Date:</span> {{ document.issue_date|date:'m/d/Y' }}
                       </td>
                       <td></td>
                       <td></td>
@@ -68,7 +71,7 @@
                     <tr>
                       <td></td>
                       <td>
-                        <span>Due Date:</span> {{ document.issue_date }} (Upon Receipt)
+                        <span>Due Date:</span> {{ document.issue_date|date:'m/d/Y' }} (upon receipt)
                       </td>
                       <td></td>
                       <td></td>
@@ -110,7 +113,7 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td style="width: 500px">
+                      <td class="width-100">
                         <strong>Description</strong>
                       </td>
                       {% if document_type == 'INVOICE' %}
@@ -120,10 +123,10 @@
                       {% else %}
                       <td></td>
                       {% endif %}
-                      <td style="width: 200px">
+                      <td>
                         <strong>Quantity</strong>
                       </td>
-                      <td style="width: 200px">
+                      <td>
                         <strong>Unit Price</strong>
                       </td>
                       {% if not pdf %}
@@ -206,7 +209,7 @@
                       <td class="entry"></td> 
                       {% endif %}
                       <td class="entry"></td> 
-                      <td style="width: 400px" class="entry"><h2>Amount Due:</h2></td>
+                      <td class="entry"><h2>Amount Due:</h2></td>
                       {% if not pdf %}
                       <td class="entry">
                         {% if document.amount %}{{ company.currency_symbol }}{% endif %}{{ document.amount|default:'' }}
