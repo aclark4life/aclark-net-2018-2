@@ -369,6 +369,8 @@ def task_index(request):
 def time(request, pk=None):
     context = {}
     entry = get_object_or_404(Time, pk=pk)
+    if not entry.user:
+        return HttpResponseRedirect(reverse('admin:index'))
     if not entry.user.username == request.user.username:
         return HttpResponseRedirect(reverse('admin:index'))
     context['entry'] = entry
