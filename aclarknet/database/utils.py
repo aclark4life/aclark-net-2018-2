@@ -63,8 +63,10 @@ def dashboard_total(invoices):
         results[invoice] = {}
         results[invoice]['subtotal'] = invoice.subtotal
         results[invoice]['amount'] = invoice.amount
-        gross += invoice.subtotal
-        net += invoice.amount
+        if invoice.subtotal:
+            gross += invoice.subtotal
+        if invoice.amount:
+            net += invoice.amount
     return gross, net
 
 

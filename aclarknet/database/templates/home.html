@@ -86,10 +86,18 @@
                 <tbody>
                 {% for invoice in invoices_active %}
                   <tr>
-                    <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
-                    <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a></td>
-                    <td>{{ company.currency_symbol }}{{ invoice.subtotal }}</td>
-                    <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
+                    {% if invoice.document_id %}
+                        <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if invoice.project %}
+                        <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
+                    <td>{{ company.currency_symbol }}{{ invoice.amount|default:0 }}</td>
                   </tr>
                 {% endfor %}
                 </tbody>

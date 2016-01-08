@@ -144,6 +144,8 @@ def estimate(request, pk=None):
     context['pdf'] = pdf
     if pdf:
         response = HttpResponse(content_type='application/pdf')
+        response[
+            'Content-Disposition'] = 'attachment; filename=%s.pdf' % 'INVOICE'
         return generate_pdf('entry_table.html',
                             context=context,
                             file_object=response)
