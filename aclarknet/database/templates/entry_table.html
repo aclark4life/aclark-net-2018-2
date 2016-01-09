@@ -29,8 +29,8 @@
       <div style="color: gray;padding: 5px">{{ document_type_title }} For:</div>
     </td>
     <td> 
-      <div style="padding: 5px"><strong>{{ client.name|default:'Client' }}</strong><br>
-      {{ client.address|default:'1234 Main Street City, State USA' }}</div>
+      <div style="padding: 5px"><strong>{{ document.client.name|default:'Client' }}</strong><br>
+      {{ document.client.address|default:'1234 Main Street City, State USA' }}</div>
     </td>
   </tr>
 </table>
