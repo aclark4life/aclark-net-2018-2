@@ -223,6 +223,7 @@ def entries_total(queryset):
         entries[entry]['notes'] = entry.notes
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
+        entries[entry]['task'] = entry.task
 
         line_total = 0
         line_total_co = 0
