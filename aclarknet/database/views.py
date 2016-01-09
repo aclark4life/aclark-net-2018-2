@@ -124,9 +124,15 @@ def estimate(request, pk=None):
         context['company'] = company
 
     estimate = get_object_or_404(Estimate, pk=pk)
+
+    document_id = str(estimate.document_id)
+    document_type = estimate._meta.verbose_name
+    document_type_upper = document_type.upper()
+    document_type_title = document_type.title()
+
     context['document'] = estimate
-    context['title_upper'] = estimate._meta.verbose_name.upper()
-    context['title'] = estimate._meta.verbose_name
+    context['document_type_upper'] = document_type_upper
+    context['document_type_title'] = document_type_title
 
     times_client = Time.objects.filter(client=estimate.client,
                                        estimate=None,
@@ -145,8 +151,6 @@ def estimate(request, pk=None):
     context['pdf'] = pdf
     if pdf:
         response = HttpResponse(content_type='application/pdf')
-        response[
-            'Content-Disposition'] = 'attachment; filename=%s.pdf' % 'INVOICE'
         return generate_pdf('entry_table.html',
                             context=context,
                             file_object=response)
@@ -242,10 +246,11 @@ def invoice(request, pk=None):
     document_id = str(invoice.document_id)
     document_type = invoice._meta.verbose_name
     document_type_upper = document_type.upper()
+    document_type_title = document_type.title()
 
     context['document'] = invoice
     context['document_type_upper'] = document_type_upper
-    context['document_type_title'] = invoice._meta.verbose_name.title()
+    context['document_type_title'] = document_type_title
 
     times_project = Time.objects.filter(invoiced=False,
                                         project=invoice.project,
@@ -259,6 +264,8 @@ def invoice(request, pk=None):
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
     context['hours'] = hours
+
+    context['invoice'] = True
 
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
