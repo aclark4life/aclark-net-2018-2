@@ -49,7 +49,10 @@ class Contact(models.Model):
     Fax
     """
     active = models.BooleanField(default=False)
-    client = models.ForeignKey(Client, blank=True, null=True)
+    client = models.ForeignKey(Client,
+                               blank=True,
+                               null=True,
+                               limit_choices_to={'active': True}, )
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)
