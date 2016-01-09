@@ -42,6 +42,7 @@
                     <th data-sortable="true">Client</th>
                     <th>View</th> 
                     <th>Edit</th> 
+                    <th>Mail</th> 
                     <th>Delete</th> 
                   </tr>
                 </thead>
@@ -56,6 +57,7 @@
                     {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
                     <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><a href="{% url 'contact_mail' contact.pk %}"><i class="fa fa-send-o fa-3x"></i></a></td>
                     <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
                   </tr>
                 {% endfor %}

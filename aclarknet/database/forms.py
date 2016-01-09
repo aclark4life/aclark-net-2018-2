@@ -54,7 +54,7 @@ class MailForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('rate', 'unit')
+        fields = ('rate', )
 
 
 class ProjectForm(forms.ModelForm):

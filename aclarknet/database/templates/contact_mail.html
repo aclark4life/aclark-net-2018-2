@@ -6,18 +6,18 @@
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
-            <li><a href="{% url 'contact_index' %}">Contacts</a></li>
+            <li class="active"><a href="{% url 'contact_index' %}">Contacts</a></li>
             <li><a href="{% url 'project_index' %}">Projects</a></li>
             <li><a href="{% url 'task_index' %}">Tasks</a></li>
             <li><a href="{% url 'entry_index' %}">Times</a></li>
-            <li class="active"><a href="{% url 'user_index' %}">Users</a></li>
+            <li><a href="{% url 'user_index' %}">Users</a></li>
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
 {% endblock %}
 
 {% block content %}
-              <h3>User &rarr; {{ user.get_full_name|default:user.username }} &rarr; Mail</h3>
+              <h3>Contact &rarr; {{ user.get_full_name|default:user.username }} &rarr; Mail</h3>
               <hr>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}

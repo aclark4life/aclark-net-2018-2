@@ -116,6 +116,32 @@ def contact_index(request):
 
 
 @staff_member_required
+def contact_mail(request, pk=None):
+    context = {}
+    recipients = []
+    contact = get_object_or_404(Contact, pk=pk)
+    if request.method == 'POST':
+        form = MailForm(request.POST)
+        if form.is_valid():
+            sender = settings.DEFAULT_FROM_EMAIL
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            recipients.append(contact.email)
+            send_mail(subject,
+                      message,
+                      sender,
+                      recipients,
+                      fail_silently=False)
+            messages.add_message(request, messages.SUCCESS, 'Success!')
+            return HttpResponseRedirect(reverse('contact_index'))
+    else:
+        form = MailForm()
+    context['form'] = form
+    context['contact'] = contact
+    return render(request, 'contact_mail.html', context)
+
+
+@staff_member_required
 def estimate(request, pk=None):
     context = {}
 
@@ -462,7 +488,16 @@ def user(request, pk=None):
 
 @login_required
 def user_edit(request, pk=None):
-    return edit(request, ProfileForm, Profile, 'home', 'user_edit.html', pk=pk)
+    context = {}
+    user = get_object_or_404(User, pk=pk)
+    context['user'] = user
+    return edit(request,
+                ProfileForm,
+                Profile,
+                'home',
+                'user_edit.html',
+                pk=pk,
+                context=context)
 
 
 @staff_member_required
@@ -471,29 +506,3 @@ def user_index(request):
     items = User.objects.all()
     context['items'] = items
     return render(request, 'user_index.html', context)
-
-
-@staff_member_required
-def user_mail(request, pk=None):
-    context = {}
-    recipients = []
-    user = get_object_or_404(User, pk=pk)
-    if request.method == 'POST':
-        form = MailForm(request.POST)
-        if form.is_valid():
-            sender = settings.DEFAULT_FROM_EMAIL
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-            recipients.append(user.email)
-            send_mail(subject,
-                      message,
-                      sender,
-                      recipients,
-                      fail_silently=False)
-            messages.add_message(request, messages.SUCCESS, 'Success!')
-            return HttpResponseRedirect(reverse('user_index'))
-    else:
-        form = MailForm()
-    context['form'] = form
-    context['user'] = user
-    return render(request, 'user_mail.html', context)

@@ -82,9 +82,9 @@ def edit(request,
          paid_amount=None,
          project=None,
          subtotal=None,
-         task=None):
+         task=None,
+         context={}):
 
-    context = {}
     obj = None
 
     if pk is None:
