@@ -20,15 +20,21 @@
   <tr></tr>
   <tr>
     <td valign="top" align="right" style="border-right: 1px solid lightgray; width: 10%">
-      <div style="color: gray;padding: 5px">{{ document_type_title }} ID:</div>
+      <div style="color: gray;padding: 5px">{{ document_type_title }} ID:<br>
+        Issue Date:<br>
+        Due Date:<br>
+      </div>
     </td>
     <td valign="top"> 
       <div style="padding: 5px"><strong>{{ document.document_id|default:'123' }}</strong><br>
+        {{ document.issue_date|date:'m/d/Y' }}<br>
+        {{ document.issue_date|date:'m/d/Y' }} (upon receipt)
+      </div>
     </td>
     <td valign="top" align="right" style="border-right: 1px solid lightgray">
       <div style="color: gray;padding: 5px">{{ document_type_title }} For:</div>
     </td>
-    <td> 
+    <td valign="top"> 
       <div style="padding: 5px"><strong>{{ document.client.name|default:'Client' }}</strong><br>
       {{ document.client.address|default:'1234 Main Street City, State USA' }}</div>
     </td>
