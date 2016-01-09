@@ -75,10 +75,11 @@
                       <td></td>
                       <td></td>
                     </tr>
-                    <tr></tr>
                     <tr>
                       <td></td>
-                      <td></td>
+                      <td>
+                        <span>Subject:</span> {{ document.subject }}
+                      </td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -102,21 +103,6 @@
                         <h2>{{ document.client|default:'' }}</h2>{{ document.client.address|default:''|linebreaks }}
                       </td>
                     </tr>
-                    <tr></tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <span>Subject:</span> {{ document.subject }}
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr></tr>
                     <tr>
                       <td></td>
                       <td class="width-100">
