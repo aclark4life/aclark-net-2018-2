@@ -1,8 +1,10 @@
 <style>
     .amount-due {
+        font-weight: bold;
         font-size: 175%;
     }
     .document-type-upper {
+        font-weight: bold;
         font-size: 300%;
     }
     .border-right {
@@ -79,13 +81,13 @@
     </tr>
   </thead>
   <tbody>
-  {% for entry in entries %}
+  {% for entry in entries.values %}
   <tr class="border-bottom">
     <td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Development' }}</td>
     <td valign="top" align="left" class="border-right padding-5" style="width: 100%">{{ entry.notes|default:'' }}</td>
     <td valign="top" align="right" class="border-right padding-5" style="width: 20%">{{ entry.hours|default:'' }}</td>
-    <td valign="top" align="right" class="border-right padding-5" style="width: 20%">{{ entry.rate|default:'' }}</td>
-    <td valign="top" align="right" class="padding-5" style="width: 20%">{{ entry.line_total|default:'' }}</td>
+    <td valign="top" align="right" class="border-right padding-5" style="width: 20%">{{ document.currency_symbol }}{{ entry.rate|default:'' }}</td>
+    <td valign="top" align="right" class="padding-5" style="width: 20%"><strong>{{ document.currency_symbol }}{{ entry.line_total|default:'0.00' }}</strong></td>
   </tr>
   {% endfor %}
   <tr></tr>
