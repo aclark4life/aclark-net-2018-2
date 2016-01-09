@@ -12,6 +12,7 @@ Heroku
 ::
 
     git remote add heroku git@heroku.com:aclarknet-database.git
+    git remote add heroku git@heroku.com:aclarknet-database2.git
 
 Social
 ~~~~~~
