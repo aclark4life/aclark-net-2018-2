@@ -133,7 +133,8 @@ def contact_mail(request, pk=None):
                       sender,
                       recipients,
                       fail_silently=False)
-            messages.add_message(request, messages.SUCCESS, 'Success!')
+            messages.add_message(request, messages.SUCCESS,
+                                 'Message sent to user!')
             return HttpResponseRedirect(reverse('contact_index'))
     else:
         form = MailForm()
@@ -177,7 +178,13 @@ def estimate(request, pk=None):
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
     if pdf:
+        if company.name:
+            company_name = company.name.replace('.', '_')
+            company_name = company_name.replace(', ', '_')
+            company_name = company_name.upper()
         response = HttpResponse(content_type='application/pdf')
+        filename = '_'.join([document_type_upper, document_id, company_name])
+        response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf('entry_table.html',
                             context=context,
                             file_object=response)
@@ -299,10 +306,10 @@ def invoice(request, pk=None):
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         if company.name:
-            company = company.name.replace('.', '_')
-            company = company.replace(', ', '_')
-            company = company.upper()
-        filename = '_'.join([document_type_upper, document_id, company])
+            company_name = company.name.replace('.', '_')
+            company_name = company_name.replace(', ', '_')
+            company_name = company_name.upper()
+        filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf('entry_table.html',
                             context=context,
