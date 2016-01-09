@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li class="active"><a href="{% url 'client_index' %}">Clients</a></li>
@@ -14,16 +14,14 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
-            {% endblock %}
+{% endblock %}
 
 
 {% block content %}
-
-                <h3>Client &rarr; Edit</h3>
-                <hr>
-                <form action="" method="post">{% csrf_token %}
-                {{ form|crispy }}
-                <input class="btn btn-lg btn-success" type="submit" value="Save Client">
-                </form>
-
+          <h3>Client &rarr; Edit</h3>
+          <hr>
+          <form action="" method="post">{% csrf_token %}
+          {{ form|crispy }}
+          <input class="btn btn-lg btn-success" type="submit" value="Save Client">
+          </form>
 {% endblock %}

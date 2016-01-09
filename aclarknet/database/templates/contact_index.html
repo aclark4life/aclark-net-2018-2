@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
@@ -12,57 +12,55 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
-            {% endblock %}
+{% endblock %}
 
 {% block content %}
-
-                <div class="row">
-                  <div class="col-md-1">
-                    <h3>Contacts</h3>
-                  </div>
-                  <div class="col-md-3">
-                    <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-heart-o"></i></a></span></h3>
-                  </div>
-                  <div class="col-md-4">
-                    {% include 'search.html' %}
-                  </div>
-                  <div class="col-md-4">
-                    <h3><a class="btn btn-default pull-right" href="{% url 'contact_edit' %}">Add Contact</a></h3>
-                  </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <h3>Contacts</h3>
                 </div>
-                <hr>
-                {% include 'pagination.html' %}
-                <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
-                  <thead>
-                    <tr>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
-                      <th data-sortable="true">First Name</th>
-                      <th data-sortable="true">Last Name</th>
-                      <th data-sortable="true">Email</th>
-                      <th data-sortable="true">Client</th>
-                      <th>View</th> 
-                      <th>Edit</th> 
-                      <th>Delete</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for contact in items %}
-                    <tr>
-                      <td><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if contact.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                      <td>{{ contact.active }}</td>
-                      <td>{{ contact.first_name }}</td>
-                      <td>{{ contact.last_name }}</td>
-                      <td>{{ contact.email }}</td>
-                      {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
-                      <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
-                      <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-                <hr>
-                {% include 'pagination.html' %}
-
+                <div class="col-md-3">
+                  <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-heart-o"></i></a></span></h3>
+                </div>
+                <div class="col-md-4">
+                  {% include 'search.html' %}
+                </div>
+                <div class="col-md-4">
+                  <h3><a class="btn btn-default pull-right" href="{% url 'contact_edit' %}">Add Contact</a></h3>
+                </div>
+              </div>
+              <hr>
+              {% include 'pagination.html' %}
+              <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
+                <thead>
+                  <tr>
+                    <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                    <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                    <th data-sortable="true">First Name</th>
+                    <th data-sortable="true">Last Name</th>
+                    <th data-sortable="true">Email</th>
+                    <th data-sortable="true">Client</th>
+                    <th>View</th> 
+                    <th>Edit</th> 
+                    <th>Delete</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                {% for contact in items %}
+                  <tr>
+                    <td><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if contact.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td>{{ contact.active }}</td>
+                    <td>{{ contact.first_name }}</td>
+                    <td>{{ contact.last_name }}</td>
+                    <td>{{ contact.email }}</td>
+                    {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
+                    <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><form action="{% url 'contact_edit' contact.pk %}" method="post"> {% csrf_token %} <input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <hr>
+              {% include 'pagination.html' %}
 {% endblock %}

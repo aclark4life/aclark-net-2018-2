@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
@@ -12,55 +12,53 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
-            {% endblock %}
+{% endblock %}
 
 {% block content %}
-
-                <div class="row">
-                  <div class="col-md-1">
-                    <h3>Tasks</h3>
-                  </div>
-                  <div class="col-md-3">
-                    <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-heart-o"></i></a></span></h3>
-                  </div>
-                  <div class="col-md-4">
-                    {% include 'search.html' %}
-                  </div>
-                  <div class="col-md-4">
-                    <h3><a class="btn btn-default pull-right" href="{% url 'task_edit' %}">Add Task</a></h3>
-                  </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <h3>Tasks</h3>
                 </div>
-                <hr>
-                {% include 'pagination.html' %}
-                <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
-                  <thead>
-                    <tr>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
-                      <th data-field="name" data-sortable="true">Name</th>
-                      <th data-field="rate" data-sortable="true">Rate</th>
-                      <th data-field="unit" data-sortable="true">Unit</th>
-                      <th>View</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for task in items %}
-                    <tr>
-                      <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                      <td>{{ task.active }}</td>
-                      <td>{{ task.name|default:'' }}</td>
-                      <td>{{ task.rate|default:'' }}</td>
-                      <td>{{ task.unit|default:'' }}</td>
-                      <td><a href="{% url 'task' task.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
-                      <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-                <hr>
-                {% include 'pagination.html' %}
-
+                <div class="col-md-3">
+                  <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-heart-o"></i></a></span></h3>
+                </div>
+                <div class="col-md-4">
+                  {% include 'search.html' %}
+                </div>
+                <div class="col-md-4">
+                  <h3><a class="btn btn-default pull-right" href="{% url 'task_edit' %}">Add Task</a></h3>
+                </div>
+              </div>
+              <hr>
+              {% include 'pagination.html' %}
+              <table data-toggle="table" data-sort-name="active" data-sort-order="desc">
+                <thead>
+                  <tr>
+                    <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                    <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                    <th data-field="name" data-sortable="true">Name</th>
+                    <th data-field="rate" data-sortable="true">Rate</th>
+                    <th data-field="unit" data-sortable="true">Unit</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for task in items %}
+                  <tr>
+                    <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td>{{ task.active }}</td>
+                    <td>{{ task.name|default:'' }}</td>
+                    <td>{{ task.rate|default:'' }}</td>
+                    <td>{{ task.unit|default:'' }}</td>
+                    <td><a href="{% url 'task' task.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <hr>
+              {% include 'pagination.html' %}
 {% endblock %}

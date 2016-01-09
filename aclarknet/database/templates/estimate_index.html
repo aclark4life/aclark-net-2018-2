@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
@@ -12,56 +12,54 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             {% endif %}
             <li class="active"><a href="{% url 'estimate_index' %}">Estimates</a></li>
-            {% endblock %}
+{% endblock %}
 
 {% block content %}
-
-                <div class="row">
-                  <div class="col-md-4">
-                    <h3>Estimates</h3>
-                  </div>
-                  <div class="col-md-4">
-                    {% include 'search.html' %}
-                  </div>
-                  <div class="col-md-4">
-                    <h3><a class="btn btn-default pull-right" href="{% url 'estimate_edit' %}">Add Estimate</a></h3>
-                  </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <h3>Estimates</h3>
                 </div>
-                <hr>
-                {% include 'pagination.html' %}
-                <table data-toggle="table"> 
-                  <thead>
-                    <tr>
-                      <th data-field="issue_date" data-sortable="true">Issue Date</th>
-                      <th data-field="estimate_id" data-sortable="true">Id</th>
-                      <th data-field="client" data-sortable="true">Client</th>
-                      <th data-field="subject" data-sortable="true">Subject</th>
-                      <th data-field="amount" data-sortable="true">Amount</th>
-                      <th>View</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for estimate in items %}
-                    <tr>
-                      <td>{{ estimate.issue_date|default:'' }}</td>
-                      <td>{{ estimate.document_id|default:'' }}</td>
-                      {% if estimate.client %}
-                        <td><a href="{% url 'client' estimate.client.pk %}">{{ estimate.client|default:'' }}</a></td>
-                      {% else %}
-                        <td></td>
-                      {% endif %}
-                      <td>{{ estimate.subject|default:'' }}</td>
-                      <td>{{ estimate.amount|default:'' }}</td>
-                      <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
-                      <td><form action="{% url 'estimate_edit' estimate.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-                <hr>
-                {% include 'pagination.html' %}
-
+                <div class="col-md-4">
+                  {% include 'search.html' %}
+                </div>
+                <div class="col-md-4">
+                  <h3><a class="btn btn-default pull-right" href="{% url 'estimate_edit' %}">Add Estimate</a></h3>
+                </div>
+              </div>
+              <hr>
+              {% include 'pagination.html' %}
+              <table data-toggle="table"> 
+                <thead>
+                  <tr>
+                    <th data-field="issue_date" data-sortable="true">Issue Date</th>
+                    <th data-field="estimate_id" data-sortable="true">Id</th>
+                    <th data-field="client" data-sortable="true">Client</th>
+                    <th data-field="subject" data-sortable="true">Subject</th>
+                    <th data-field="amount" data-sortable="true">Amount</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for estimate in items %}
+                  <tr>
+                    <td>{{ estimate.issue_date|default:'' }}</td>
+                    <td>{{ estimate.document_id|default:'' }}</td>
+                    {% if estimate.client %}
+                      <td><a href="{% url 'client' estimate.client.pk %}">{{ estimate.client|default:'' }}</a></td>
+                    {% else %}
+                      <td></td>
+                    {% endif %}
+                    <td>{{ estimate.subject|default:'' }}</td>
+                    <td>{{ estimate.amount|default:'' }}</td>
+                    <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
+                    <td><form action="{% url 'estimate_edit' estimate.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <hr>
+              {% include 'pagination.html' %}
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li class="active"><a href="{% url 'client_index' %}">Clients</a></li>
@@ -12,10 +12,9 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
-            {% endblock %}
+{% endblock %}
 
 {% block content %}
-
           <div class="row">
             <div class="col-md-1">
               <h3>Clients</h3>
@@ -60,5 +59,4 @@
           </table>
           <hr>
           {% include 'pagination.html' %}
-
 {% endblock %}

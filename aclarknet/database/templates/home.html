@@ -1,124 +1,125 @@
 {% extends 'base.html' %}
+
 {% block content %}
-          <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
-          <hr>
-          {% if request.user.is_staff %}
-          <h4>Company</h4>
-          <div id="company" class="row">
-            <div class="col-md-12">
-              <table data-toggle="table">
-                <thead>
-                  <tr>
-                    <th>Name</th> 
-                    <th>Clients</th> 
-                    <th>Contacts</th> 
-                    <th>Projects</th> 
-                    <th>Tasks</th> 
-                    <th>Times</th> 
-                    <th>Invoices</th> 
-                    <th>Estimates</th> 
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
-                    <td>{{ clients.count|default:0 }} ({{ clients_active.count|default:0 }} active)</td>
-                    <td>{{ contacts.count|default:0 }} ({{ contacts_active.count|default:0 }} active)</td>
-                    <td>{{ projects.count|default:0 }} ({{ projects_active.count|default:0 }} active)</td>
-                    <td>{{ tasks.count|default:0 }} ({{ tasks_active.count|default:0 }} active)</td>
-                    <td>{{ times.count|default:0 }}</td>
-                    <td>{{ invoices.count|default:0 }}</td>
-                    <td>{{ estimates.count|default:0 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          {% endif %}
-          {% if request.user.is_staff %}
-          <div class="row">
-            <div class="col-md-6">
-              <h4>Active Projects</h4>
-              <table data-toggle="table" data-sort-name="hidden-start-date" data-sort-order="desc">
-                <thead>
-                  <tr>
-                    <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
-                    <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                    <th data-field="task" data-sort-name="hidden-task" data-sortable="true">Task</th>
-                    <th data-field="hidden-task" data-sortable="true" data-visible="false">Hidden Task</th>
-                    <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
-                    <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
-                    <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
-                    <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
-                  <tr> 
-                </thead>
-                <tbody>
-                {% for project in projects_active %}
-                  <tr>
-                    <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
-                    <td>{{ project.name }}</td>
-                    {% if project.task %}
-                      <td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>
-                    {% else %}
-                      <td></td>
-                    {% endif %}
-                    <td>{{ project.task.name }}</td>
-                    <td>{{ project.start_date|default:'' }}</td>
-                    <td>{{ project.start_date|date:'U' }}</td>
-                    <td>{{ project.end_date|default:'' }}</td>
-                    <td>{{ project.end_date|date:'U' }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <div class="col-md-6">
-              <h4>Invoices</h4>
-              <table data-toggle="table">
-                <thead>
-                  <tr>
-                    <th data-sortable="true">Invoice</th>
-                    <th data-sortable="true">Project</th>
-                    <th data-sortable="true">Gross</th>
-                    <th data-sortable="true">Net</th>
-                  <tr> 
-                </thead>
-                <tbody>
-                {% for invoice in invoices_active %}
-                  <tr>
-                    {% if invoice.document_id %}
-                        <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                    {% if invoice.project %}
-                        <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a></td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                    <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
-                    <td>{{ company.currency_symbol }}{{ invoice.amount|default:0 }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+              <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
               <hr>
-              <h4>Totals</h4>
-              <table data-toggle="table"> 
-                <thead>
-                  <tr>
-                    <th>Gross</th> 
-                    <th>Net</th> 
-                  </tr>
-                </thead> 
-                <tbody>
-                  <tr>
-                    <td class="currency">{{ company.currency_symbol }}{{ gross }}</td>
-                    <td class="currency">{{ company.currency_symbol }}{{ net }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          {% endif %}
+              {% if request.user.is_staff %}
+              <h4>Company</h4>
+              <div id="company" class="row">
+                <div class="col-md-12">
+                  <table data-toggle="table">
+                    <thead>
+                      <tr>
+                        <th>Name</th> 
+                        <th>Clients</th> 
+                        <th>Contacts</th> 
+                        <th>Projects</th> 
+                        <th>Tasks</th> 
+                        <th>Times</th> 
+                        <th>Invoices</th> 
+                        <th>Estimates</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
+                        <td>{{ clients.count|default:0 }} ({{ clients_active.count|default:0 }} active)</td>
+                        <td>{{ contacts.count|default:0 }} ({{ contacts_active.count|default:0 }} active)</td>
+                        <td>{{ projects.count|default:0 }} ({{ projects_active.count|default:0 }} active)</td>
+                        <td>{{ tasks.count|default:0 }} ({{ tasks_active.count|default:0 }} active)</td>
+                        <td>{{ times.count|default:0 }}</td>
+                        <td>{{ invoices.count|default:0 }}</td>
+                        <td>{{ estimates.count|default:0 }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {% endif %}
+              {% if request.user.is_staff %}
+              <div class="row">
+                <div class="col-md-6">
+                  <h4>Active Projects</h4>
+                  <table data-toggle="table" data-sort-name="hidden-start-date" data-sort-order="desc">
+                    <thead>
+                      <tr>
+                        <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
+                        <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                        <th data-field="task" data-sort-name="hidden-task" data-sortable="true">Task</th>
+                        <th data-field="hidden-task" data-sortable="true" data-visible="false">Hidden Task</th>
+                        <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
+                        <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
+                        <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
+                        <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
+                      <tr> 
+                    </thead>
+                    <tbody>
+                    {% for project in projects_active %}
+                      <tr>
+                        <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                        <td>{{ project.name }}</td>
+                        {% if project.task %}
+                          <td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>
+                        {% else %}
+                          <td></td>
+                        {% endif %}
+                        <td>{{ project.task.name }}</td>
+                        <td>{{ project.start_date|default:'' }}</td>
+                        <td>{{ project.start_date|date:'U' }}</td>
+                        <td>{{ project.end_date|default:'' }}</td>
+                        <td>{{ project.end_date|date:'U' }}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-6">
+                  <h4>Invoices</h4>
+                  <table data-toggle="table">
+                    <thead>
+                      <tr>
+                        <th data-sortable="true">Invoice</th>
+                        <th data-sortable="true">Project</th>
+                        <th data-sortable="true">Gross</th>
+                        <th data-sortable="true">Net</th>
+                      <tr> 
+                    </thead>
+                    <tbody>
+                    {% for invoice in invoices_active %}
+                      <tr>
+                        {% if invoice.document_id %}
+                            <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if invoice.project %}
+                            <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
+                        <td>{{ company.currency_symbol }}{{ invoice.amount|default:0 }}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                  <hr>
+                  <h4>Totals</h4>
+                  <table data-toggle="table"> 
+                    <thead>
+                      <tr>
+                        <th>Gross</th> 
+                        <th>Net</th> 
+                      </tr>
+                    </thead> 
+                    <tbody>
+                      <tr>
+                        <td class="currency">{{ company.currency_symbol }}{{ gross }}</td>
+                        <td class="currency">{{ company.currency_symbol }}{{ net }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {% endif %}
 {% endblock %}

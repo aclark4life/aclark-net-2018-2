@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
@@ -14,7 +14,7 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
-            {% endblock %}
+{% endblock %}
 
             {% block nav_pull_right %}
             <li><a href="{% url 'entry_index' %}">Add Time</a></li>
@@ -25,15 +25,13 @@
             <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
             {% endif %}
             <li><a href="{% url 'admin:index' %}">Manage Site</a></li>
-            {% endblock %}
+{% endblock %}
 
 {% block content %}
-
-                <h3>Time &rarr; Edit</h3>
-                <hr>
-                <form action="" method="post">{% csrf_token %}
-                {{ form|crispy }}
-                <input class="btn btn-lg btn-success" type="submit" value="Save Time Entry">
-                </form>
-
+              <h3>Time &rarr; Edit</h3>
+              <hr>
+              <form action="" method="post">{% csrf_token %}
+              {{ form|crispy }}
+              <input class="btn btn-lg btn-success" type="submit" value="Save Time Entry">
+              </form>
 {% endblock %}

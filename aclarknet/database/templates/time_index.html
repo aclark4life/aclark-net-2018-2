@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-            {% block nav %}
+{% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
@@ -12,9 +12,9 @@
             <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
             <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
             {% endif %}
-            {% endblock %}
+{% endblock %}
 
-            {% block nav_pull_right %}
+{% block nav_pull_right %}
             <li><a href="{% url 'entry_index' %}">Add Time</a></li>
             {% if not request.user.is_anonymous %}
             <li><a href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>
@@ -23,80 +23,78 @@
             <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
             {% endif %}
             <li><a href="{% url 'admin:index' %}">Manage Site</a></li>
-            {% endblock %}
+{% endblock %}
 
 {% block content %}
-
-                <div class="row">
-                  <div class="col-md-4">
-                    <h3>Times</h3>
-                  </div>
-                  <div class="col-md-4">
-                    {% include 'search.html' %}
-                  </div>
-                  <div class="col-md-4">
-                    <h3><a class="btn btn-default pull-right" href="{% url 'entry_edit' %}">Add Time</a></h3>
-                  </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <h3>Times</h3>
                 </div>
-                <hr>
-                {% include 'pagination.html' %}
-                <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc">
-                  <thead>
-                    <tr>
-                      {% if request.user.is_staff %}
-                      <th data-field="invoiced" data-sortable="true">Invoiced</th>
-                      <th data-field="invoice" data-sortable="true">Invoice</th>
-                      <th data-field="estimate" data-sortable="true">Estimate</th>
-                      {% endif %}
-                      <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                      <th data-field="date" data-sortable="true">Date</th>
-                      <th data-field="hours" data-sortable="true">Hours</th>
-                      <th data-field="client" data-sortable="true">Client</th>
-                      <th data-field="project" data-sortable="true">Project</th>
-                      <th data-field="notes" data-sortable="true">Notes</th>
-                      <th data-field="user" data-sortable="true">User</th>
-                      <th data-field="task" data-sortable="true">Task</th>
-                      <th>View</th> 
-                      <th>Edit</th> 
-                      <th>Delete</th> 
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {% for entry in items %}
-                    <tr>
-                      {% if request.user.is_staff %}
-                          <td>{{ entry.invoiced|default:'' }}</td>
-                              {% if entry.invoice %}
-                                  <td><a href="{% url 'invoice' entry.invoice.pk %}">#{{ entry.invoice.document_id|default:'' }}</a></td>
-                              {% else %}
-                                  <td></td>
-                              {% endif %}
-                              {% if entry.estimate %}
-                                  <td><a href="{% url 'estimate' entry.estimate.pk %}">#{{ entry.estimate.document_id|default:'' }}</a></td>
-                              {% else %}
-                                  <td>{{ entry.estimate|default:'' }}</td>
-                              {% endif %}
-                      {% endif %}
-                      <td>{{ entry.date|date:'U' }}</td>
-                      <td>{{ entry.date|default:'' }}</td>
-                      <td>{{ entry.hours|default:'' }}</td>
-                      <td>{{ entry.client|default:'' }}</td>
-                      <td>{{ entry.project|default:'' }}</td>
-                      <td>{{ entry.notes|linebreaks }}</td>
-                      {% if entry.user %}
-                      <td><a href="{% url 'user' entry.user.pk %}">{{ entry.user|default:'' }}</a></td>
-                      {% else %}
-                      <td>{{ entry.user|default:'' }}</td>
-                      {% endif %}
-                      <td>{{ entry.task|default:'' }}</td>
-                      <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
-                      <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
-                    </tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-                <hr>
-                {% include 'pagination.html' %}
-
+                <div class="col-md-4">
+                  {% include 'search.html' %}
+                </div>
+                <div class="col-md-4">
+                  <h3><a class="btn btn-default pull-right" href="{% url 'entry_edit' %}">Add Time</a></h3>
+                </div>
+              </div>
+              <hr>
+              {% include 'pagination.html' %}
+              <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc">
+                <thead>
+                  <tr>
+                    {% if request.user.is_staff %}
+                    <th data-field="invoiced" data-sortable="true">Invoiced</th>
+                    <th data-field="invoice" data-sortable="true">Invoice</th>
+                    <th data-field="estimate" data-sortable="true">Estimate</th>
+                    {% endif %}
+                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                    <th data-field="date" data-sortable="true">Date</th>
+                    <th data-field="hours" data-sortable="true">Hours</th>
+                    <th data-field="client" data-sortable="true">Client</th>
+                    <th data-field="project" data-sortable="true">Project</th>
+                    <th data-field="notes" data-sortable="true">Notes</th>
+                    <th data-field="user" data-sortable="true">User</th>
+                    <th data-field="task" data-sortable="true">Task</th>
+                    <th>View</th> 
+                    <th>Edit</th> 
+                    <th>Delete</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                {% for entry in items %}
+                  <tr>
+                    {% if request.user.is_staff %}
+                        <td>{{ entry.invoiced|default:'' }}</td>
+                            {% if entry.invoice %}
+                                <td><a href="{% url 'invoice' entry.invoice.pk %}">#{{ entry.invoice.document_id|default:'' }}</a></td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                            {% if entry.estimate %}
+                                <td><a href="{% url 'estimate' entry.estimate.pk %}">#{{ entry.estimate.document_id|default:'' }}</a></td>
+                            {% else %}
+                                <td>{{ entry.estimate|default:'' }}</td>
+                            {% endif %}
+                    {% endif %}
+                    <td>{{ entry.date|date:'U' }}</td>
+                    <td>{{ entry.date|default:'' }}</td>
+                    <td>{{ entry.hours|default:'' }}</td>
+                    <td>{{ entry.client|default:'' }}</td>
+                    <td>{{ entry.project|default:'' }}</td>
+                    <td>{{ entry.notes|linebreaks }}</td>
+                    {% if entry.user %}
+                    <td><a href="{% url 'user' entry.user.pk %}">{{ entry.user|default:'' }}</a></td>
+                    {% else %}
+                    <td>{{ entry.user|default:'' }}</td>
+                    {% endif %}
+                    <td>{{ entry.task|default:'' }}</td>
+                    <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <hr>
+              {% include 'pagination.html' %}
 {% endblock %}
