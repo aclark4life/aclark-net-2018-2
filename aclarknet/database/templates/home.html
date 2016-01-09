@@ -23,10 +23,10 @@
                     <tbody>
                       <tr>
                         <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
-                        <td>{{ clients.count|default:0 }} ({{ clients_active.count|default:0 }} active)</td>
-                        <td>{{ contacts.count|default:0 }} ({{ contacts_active.count|default:0 }} active)</td>
-                        <td>{{ projects.count|default:0 }} ({{ projects_active.count|default:0 }} active)</td>
-                        <td>{{ tasks.count|default:0 }} ({{ tasks_active.count|default:0 }} active)</td>
+                        <td>{{ clients.count|default:0 }} <span class="currency">({{ clients_active.count|default:0 }} active)</span></td>
+                        <td>{{ contacts.count|default:0 }} <span class="currency">({{ contacts_active.count|default:0 }} active)</span></td>
+                        <td>{{ projects.count|default:0 }} <span class="currency">({{ projects_active.count|default:0 }} active)</span></td>
+                        <td>{{ tasks.count|default:0 }} <span class="currency">({{ tasks_active.count|default:0 }} active)</span></td>
                         <td>{{ times.count|default:0 }}</td>
                         <td>{{ invoices.count|default:0 }}</td>
                         <td>{{ estimates.count|default:0 }}</td>
