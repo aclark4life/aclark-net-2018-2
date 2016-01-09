@@ -58,19 +58,19 @@
 <table> 
   <thead>
     <tr class="border-bottom">
-      <th class="border-right">
+      <th align="left" class="border-right padding-5">
         Item Type
       </th>
-      <th class="border-right">
+      <th align="left" class="border-right padding-5">
         Description
       </th>
-      <th class="border-right">
+      <th align="right" class="border-right padding-5">
         Quantity
       </th>
-      <th class="border-right">
+      <th align="right" class="border-right padding-5">
         Unit Price
       </th>
-      <th>
+      <th align="right">
         Amount
       </th>
     </tr>
@@ -78,11 +78,11 @@
   <tbody>
   {% for entry in entries %}
   <tr class="border-bottom">
-    <td valign="center" align="center" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Development' }}</td>
-    <td valign="center" align="center" class="border-right padding-5" style="width: 100%">{{ entry.notes|default:'' }}</td>
-    <td valign="center" align="center" class="border-right padding-5" style="width: 20%">{{ entry.hours|default:'' }}</td>
-    <td valign="center" align="center" class="border-right padding-5" style="width: 20%">{{ entry.rate|default:'' }}</td>
-    <td valign="center" align="center" class="padding-5" style="width: 20%">{{ entry.line_total|default:'' }}</td>
+    <td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Development' }}</td>
+    <td valign="top" align="left" class="border-right padding-5" style="width: 100%">{{ entry.notes|default:'' }}</td>
+    <td valign="top" align="right" class="border-right padding-5" style="width: 20%">{{ entry.hours|default:'' }}</td>
+    <td valign="top" align="right" class="border-right padding-5" style="width: 20%">{{ entry.rate|default:'' }}</td>
+    <td valign="top" align="right" class="padding-5" style="width: 20%">{{ entry.line_total|default:'' }}</td>
   </tr>
   {% endfor %}
   </tbody>
