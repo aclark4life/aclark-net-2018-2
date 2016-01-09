@@ -14,7 +14,7 @@
     </td>
     <td> 
       <div style="padding: 5px"><strong>{{ company.name|default:'Company' }}</strong><br>
-      {{ company.address|default:'1234 Main Street City, State USA'|linebreaks }}</div>
+      {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div>
     </td>
   </tr>
   <tr></tr>
@@ -23,12 +23,14 @@
       <div style="color: gray;padding: 5px">{{ document_type_title }} ID:<br>
         Issue Date:<br>
         Due Date:<br>
+        Subject:<br>
       </div>
     </td>
     <td valign="top"> 
       <div style="padding: 5px"><strong>{{ document.document_id|default:'123' }}</strong><br>
         {{ document.issue_date|date:'m/d/Y' }}<br>
-        {{ document.issue_date|date:'m/d/Y' }} (upon receipt)
+        {{ document.issue_date|date:'m/d/Y' }} (upon receipt)<br>
+        {{ document.subject }}
       </div>
     </td>
     <td valign="top" align="right" style="border-right: 1px solid lightgray">
@@ -36,7 +38,7 @@
     </td>
     <td valign="top"> 
       <div style="padding: 5px"><strong>{{ document.client.name|default:'Client' }}</strong><br>
-      {{ document.client.address|default:'1234 Main Street City, State USA' }}</div>
+      {{ document.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div>
     </td>
   </tr>
 </table>
