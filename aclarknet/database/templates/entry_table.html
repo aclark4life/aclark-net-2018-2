@@ -77,11 +77,11 @@
   </thead>
   <tbody>
   {% for entry in entries %}
-  <tr>
-    <td valign="center" align="center" class="padding-5" style="width: 20%">{{ entry.task|default:'Development' }}</td>
-    <td valign="center" align="center" class="padding-5" style="width: 100%">{{ entry.notes|default:'' }}</td>
-    <td valign="center" align="center" class="padding-5" style="width: 20%">{{ entry.hours|default:'' }}</td>
-    <td valign="center" align="center" class="padding-5" style="width: 20%">{{ entry.rate|default:'' }}</td>
+  <tr class="border-bottom">
+    <td valign="center" align="center" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Development' }}</td>
+    <td valign="center" align="center" class="border-right padding-5" style="width: 100%">{{ entry.notes|default:'' }}</td>
+    <td valign="center" align="center" class="border-right padding-5" style="width: 20%">{{ entry.hours|default:'' }}</td>
+    <td valign="center" align="center" class="border-right padding-5" style="width: 20%">{{ entry.rate|default:'' }}</td>
     <td valign="center" align="center" class="padding-5" style="width: 20%">{{ entry.line_total|default:'' }}</td>
   </tr>
   {% endfor %}
