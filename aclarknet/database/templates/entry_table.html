@@ -22,20 +22,20 @@
       <h1 class="document-type-upper">{{ document_type_upper }}</h1>
     </td>
     <td valign="top" align="right" class="border-right">
-      <div style="color: gray" class="padding-5">From:</div>
+      <div style="color: gray" class="padding-5">From</div>
     </td>
-    <td> 
+    <td valign="top"> 
       <div class="padding-5"><strong>{{ company.name|default:'Company' }}</strong><br>
       {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div>
     </td>
   </tr>
   <tr></tr>
   <tr>
-    <td valign="top" align="right" class="border-right" style="width: 10%">
-      <div style="color: gray" class="padding-5">{{ document_type_title }} ID:<br>
-        Issue Date:<br>
-        Due Date:<br>
-        Subject:<br>
+    <td valign="top" align="left" class="border-right" style="width: 10%">
+      <div style="color: gray" class="padding-5">{{ document_type_title }} ID<br>
+        Issue Date<br>
+        Due Date<br>
+        Subject<br>
       </div>
     </td>
     <td valign="top"> 
@@ -46,7 +46,7 @@
       </div>
     </td>
     <td valign="top" align="right" class="border-right">
-      <div style="color: gray" class="padding-5">{{ document_type_title }} For:</div>
+      <div style="color: gray" class="padding-5">{{ document_type_title }} For</div>
     </td>
     <td valign="top"> 
       <div class="padding-5"><strong>{{ document.client.name|default:'Client' }}</strong><br>
