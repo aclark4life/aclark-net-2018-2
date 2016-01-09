@@ -238,8 +238,13 @@ def invoice(request, pk=None):
         context['company'] = company
 
     invoice = get_object_or_404(Invoice, pk=pk)
+
+    document_id = str(invoice.document_id)
+    document_type = invoice._meta.verbose_name
+    document_type_upper = document_type.upper()
+
     context['document'] = invoice
-    context['document_type_upper'] = invoice._meta.verbose_name.upper()
+    context['document_type_upper'] = document_type_upper
     context['document_type_title'] = invoice._meta.verbose_name.title()
 
     times_project = Time.objects.filter(invoiced=False,
@@ -259,6 +264,12 @@ def invoice(request, pk=None):
     context['pdf'] = pdf
     if pdf:
         response = HttpResponse(content_type='application/pdf')
+        if company.name:
+            company = company.name.replace('.', '_')
+            company = company.replace(', ', '_')
+            company = company.upper()
+        filename = '_'.join([document_type_upper, document_id, company])
+        response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf('entry_table.html',
                             context=context,
                             file_object=response)
