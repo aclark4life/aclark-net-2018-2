@@ -3,7 +3,7 @@
 {% load l10n %}
 
 {% block nav %}
-            <li class="active"><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
+            <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>
