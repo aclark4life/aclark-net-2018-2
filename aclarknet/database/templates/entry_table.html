@@ -1,12 +1,12 @@
 <style>
     .document-type-upper {
-        font-size: 300%
+        font-size: 300%;
     }
 </style>
 
 <table border=0>
   <tr>
-    <td>
+    <td colspan=2>
       <h1 class="document-type-upper">{{ document_type_upper }}</h1>
     </td>
     <td valign="top" align="right" style="border-right: 1px solid lightgray">
@@ -15,6 +15,22 @@
     <td> 
       <div style="padding: 5px"><strong>{{ company.name|default:'Company' }}</strong><br>
       {{ company.address|default:'1234 Main Street City, State USA' }}</div>
+    </td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td valign="top" align="right" style="border-right: 1px solid lightgray; width: 10%">
+      <div style="color: gray;padding: 5px">{{ document_type_title }} ID:</div>
+    </td>
+    <td valign="top"> 
+      <div style="padding: 5px"><strong>{{ document.document_id|default:'123' }}</strong><br>
+    </td>
+    <td valign="top" align="right" style="border-right: 1px solid lightgray">
+      <div style="color: gray;padding: 5px">{{ document_type_title }} For:</div>
+    </td>
+    <td> 
+      <div style="padding: 5px"><strong>{{ client.name|default:'Client' }}</strong><br>
+      {{ client.address|default:'1234 Main Street City, State USA' }}</div>
     </td>
   </tr>
 </table>
