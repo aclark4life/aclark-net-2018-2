@@ -30,8 +30,9 @@ from .models import Profile
 from .models import Project
 from .models import Task
 from .models import Time
-from .utils import edit
+from .utils import add_user_to_contacts
 from .utils import dashboard_total
+from .utils import edit
 from .utils import entries_total
 from .utils import last_month
 from .utils import search
@@ -484,6 +485,11 @@ def user(request, pk=None):
         return render(request, 'user.html', context)
     else:
         return HttpResponseRedirect(reverse('home'))
+
+
+@staff_member_required
+def user_contact(request, pk=None):
+    return add_user_to_contacts(request, Contact, pk=pk)
 
 
 @login_required

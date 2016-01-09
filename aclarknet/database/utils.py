@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from decimal import Decimal
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -46,6 +47,29 @@ class UserWidget(widgets.Widget):
 
     def clean(self, value):
         return value
+
+
+def add_user_to_contacts(request, model, pk=None):
+    """
+    """
+    if request.method == 'POST':
+        if pk is None:
+            return HttpResponseRedirect(reverse('user_index'))
+        else:
+            contact = request.POST.get('contact')
+            user = get_object_or_404(User, pk=pk)
+            if not user.email or not user.first_name or not user.last_name:
+                messages.add_message(request, messages.INFO,
+                                     'No email no contact!')
+                return HttpResponseRedirect(reverse('user_index'))
+            contact = model(email=user.email,
+                            active=True,
+                            first_name=user.first_name,
+                            last_name=user.last_name)
+            contact.save()
+            messages.add_message(request, messages.INFO,
+                                 'User added to contacts!')
+            return HttpResponseRedirect(reverse('contact_index'))
 
 
 def class_name_pk(self):
