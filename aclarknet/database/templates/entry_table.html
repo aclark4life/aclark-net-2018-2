@@ -1,3 +1,4 @@
+                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
                 <style>
                     .entry {
                         border-top: 1px solid black; padding: 5px;
@@ -49,7 +50,9 @@
                     </tr>
                     <tr>
                       <td></td>
-                      <td></td>
+                      <td>
+                        <span>Issue Date:</span> {{ document.issue_date|date:'m/d/Y' }}
+                      </td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -60,11 +63,10 @@
                         <h2>{{ company.name|default:'' }}</h2>{{ company.address|default:''|linebreaks }}
                       </td>
                     </tr>
-                    <tr></tr>
                     <tr>
                       <td></td>
                       <td>
-                        <span>Issue Date:</span> {{ document.issue_date|date:'m/d/Y' }}
+                        <span>Due Date:</span> {{ document.issue_date|date:'m/d/Y' }} (upon receipt)
                       </td>
                       <td></td>
                       <td></td>
@@ -76,9 +78,7 @@
                     <tr></tr>
                     <tr>
                       <td></td>
-                      <td>
-                        <span>Due Date:</span> {{ document.issue_date|date:'m/d/Y' }} (upon receipt)
-                      </td>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
