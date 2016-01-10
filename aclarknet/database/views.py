@@ -246,7 +246,7 @@ def home(request):
     contacts_active = Contact.objects.filter(active=True)
     projects = Project.objects.all()
     projects_active = Project.objects.filter(active=True)
-    projects_active = projects_active.order_by('-pk')
+    projects_active = projects_active.order_by('-start_date')
     tasks = Task.objects.all()
     tasks_active = Task.objects.filter(active=True)
     times = Time.objects.all()
