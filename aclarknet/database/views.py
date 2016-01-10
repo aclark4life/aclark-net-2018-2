@@ -252,7 +252,7 @@ def home(request):
     times = Time.objects.all()
     invoices = Invoice.objects.all()
     invoices_active = Invoice.objects.filter(
-        issue_date__gt=last_month()).order_by('issue_date')
+        issue_date__gt=last_month()).order_by('-document_id')
     gross, net = dashboard_total(invoices_active)
     estimates = Estimate.objects.all()
     context['clients'] = clients
