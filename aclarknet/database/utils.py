@@ -326,6 +326,7 @@ def search(request, model, fields, order_by=None):
 
     if active:
         results = model.objects.filter(active=True)
+        results.order_by(order_by)
         return results
 
     if request.POST:
