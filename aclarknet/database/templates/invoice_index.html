@@ -60,7 +60,7 @@
                       <td></td>
                     {% endif %}
                     <td>{{ invoice.subject|default:'' }}</td>
-                    <td>{{ invoice.amount|default:'' }}</td>
+                    <td>{{ invoice.subtotal|default:'' }}</td>
                     <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                     <td><form action="{% url 'invoice_edit' invoice.pk %}" method="post">{% csrf_token %}<input type="submit" value="X" name="delete" onChange="this.form.submit()"></form></td>
