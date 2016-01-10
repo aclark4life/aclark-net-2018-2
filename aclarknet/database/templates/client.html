@@ -29,6 +29,21 @@
                   <tr><td>{{ client.name }}</td><td>{{ client.address|linebreaks }}</td></tr>
                 </tbody>
               </table>
+              <h3>Contacts<a class="btn btn-default pull-right" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add Contact</a></h3>
+              <hr>
+              <table data-toggle="table"> 
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for contact in contacts %}
+                  <tr><td>{{ contact.first_name }}</td><td>{{ contact.last_name }}</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
             <div class="col-md-6">
               <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h3>

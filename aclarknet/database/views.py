@@ -44,8 +44,10 @@ from .utils import search
 def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
+    contacts = Contact.objects.filter(client=client)
     projects = Project.objects.filter(client=client)
     context['client'] = client
+    context['contacts'] = contacts
     context['projects'] = projects
     return render(request, 'client.html', context)
 
@@ -98,11 +100,17 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
+    url_name = 'contact_index'
+    client = request.GET.get('client')
+    if client:
+        client = get_object_or_404(Client, pk=client)
+        url_name = 'client_index'
     return edit(request,
                 ContactForm,
                 Contact,
-                'contact_index',
+                url_name,
                 'contact_edit.html',
+                client=client,
                 pk=pk)
 
 
