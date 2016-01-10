@@ -277,7 +277,7 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = {}
-    order_by = '-date'
+    order_by = 'date'
 
     company = Company.get_solo()
     if company:
@@ -296,7 +296,7 @@ def invoice(request, pk=None):
 
     times_project = Time.objects.filter(invoiced=False,
                                         project=invoice.project,
-                                        invoice=None).order_by(order_by)
+                                        invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
     times = chain(times_project, times_invoice)
 
