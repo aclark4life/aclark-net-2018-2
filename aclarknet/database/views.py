@@ -378,7 +378,7 @@ def project_edit(request, pk=None):
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
-        url_name = 'client'
+        url_name = 'client_index'
     return edit(request,
                 ProjectForm,
                 Project,
