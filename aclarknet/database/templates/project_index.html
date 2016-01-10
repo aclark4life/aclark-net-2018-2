@@ -37,6 +37,10 @@
                     <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                     <th data-sortable="true">Name</th>
+                    <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
+                    <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
+                    <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">Start Date</th>
+                    <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
                     <th data-field="client" data-sort-name="hidden-client" data-sortable="true">Client</th>
                     <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                     <th data-sortable="true">Task</th>
@@ -51,6 +55,10 @@
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ project.active }}</td>
                     <td>{{ project.name }}</td>
+                    <td>{{ project.start_date|date:'m/d/Y'|default:'' }}</td>
+                    <td>{{ project.start_date|date:'U'|default:'' }}</td>
+                    <td>{{ project.end_date|date:'m/d/Y'|default:'' }}</td>
+                    <td>{{ project.end_date|date:'U'|default:'' }}</td>
                     {% if project.client.pk %}
                       <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
                       <td>{{ project.client }}</td>

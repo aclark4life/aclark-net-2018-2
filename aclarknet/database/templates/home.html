@@ -64,9 +64,9 @@
                           <td></td>
                         {% endif %}
                         <td>{{ project.task.name }}</td>
-                        <td>{{ project.start_date|default:'' }}</td>
+                        <td>{{ project.start_date|date:'m/d/Y'|default:'' }}</td>
                         <td>{{ project.start_date|date:'U' }}</td>
-                        <td>{{ project.end_date|default:'' }}</td>
+                        <td>{{ project.end_date|date:'m/d/Y'|default:'' }}</td>
                         <td>{{ project.end_date|date:'U' }}</td>
                       </tr>
                     {% endfor %}
