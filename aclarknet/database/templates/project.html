@@ -22,21 +22,23 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Client</th>
+                      <th>Budget</th>
                       <th>Start Date</th>
                       <th>End Date</th>
+                      <th>Client</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                         <td>{{ project.name }}</td>
+                        <td>{{ project.budget|default:'' }}</td>
+                        <td>{{ project.start_date|default:'' }}</td>
+                        <td>{{ project.end_date|default:'' }}</td>
                         {% if project.client %}
                           <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
                         {% else %}
                           <td>{{ project.client|default:'' }}</td>
                         {% endif %}
-                        <td>{{ project.start_date|default:'' }}</td>
-                        <td>{{ project.end_date|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>
