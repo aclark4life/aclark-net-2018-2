@@ -39,7 +39,7 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.get_full_name }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.profile.rate}}</td>
+                    <td>{{ user.profile.rate|default:''}}</td>
                     <td><a href="{% url 'user' user.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'user_edit' user.pk %}"><i class="fa fa-edit fa-3x"></i></a>
                     <td><form action="{% url 'user_contact' user.pk %}" method="post"> {% csrf_token %}<input type="submit" value="+" name="contact" onChange="this.form.submit()"></form></td>
