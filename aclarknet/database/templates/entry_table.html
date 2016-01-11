@@ -95,14 +95,14 @@
   {% endfor %}
   <tr></tr>
   <tr>
-    <td align="right" class="padding-5" colspan=4>
+    <td align="right" class="padding-5" colspan=3> 
         {% if invoice %}
         <h1 class="amount-due">Amount Due</h1>
         {% else %}
         <h1 class="amount-due">Estimate Total</h1>
         {% endif %} 
     </td>
-    <td align="right" class="padding-5">
+    <td align="right" class="padding-5" colspan=2>
         {% if invoice %}
         <h1 class="amount-due">{{ document.currency_symbol }}{{ document.subtotal|default:'0.00' }}</h1>
         {% else %}

@@ -186,6 +186,7 @@ def estimate(request, pk=None):
     pdf = request.GET.get('pdf')
     context['pdf'] = pdf
     if pdf:
+        company_name = ''
         if company.name:
             company_name = company.name.replace('.', '_')
             company_name = company_name.replace(', ', '_')
