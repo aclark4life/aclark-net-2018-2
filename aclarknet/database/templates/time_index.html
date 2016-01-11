@@ -77,7 +77,7 @@
                             {% endif %}
                     {% endif %}
                     <td>{{ entry.date|date:'U' }}</td>
-                    <td>{{ entry.date|default:'' }}</td>
+                    <td>{{ entry.date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ entry.hours|default:'' }}</td>
                     <td>{{ entry.client|default:'' }}</td>
                     <td>{{ entry.project|default:'' }}</td>
