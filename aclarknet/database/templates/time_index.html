@@ -53,9 +53,9 @@
                     <th>View</th> 
                     <th>Edit</th> 
                     {% if request.user.is_staff %}
-                    <th data-field="invoiced" data-sortable="true">Invoiced</th>
                     <th data-field="invoice" data-sortable="true">Invoice</th>
                     <th data-field="estimate" data-sortable="true">Estimate</th>
+                    <th data-field="invoiced" data-sortable="true">Invoiced</th>
                     {% endif %}
                     <th>Delete</th> 
                   </tr>
@@ -78,17 +78,17 @@
                     <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                     {% if request.user.is_staff %}
-                        <td>{{ entry.invoiced|default:'' }}</td>
-                            {% if entry.invoice %}
-                                <td><a href="{% url 'invoice' entry.invoice.pk %}">#{{ entry.invoice.document_id|default:'' }}</a></td>
-                            {% else %}
-                                <td></td>
-                            {% endif %}
-                            {% if entry.estimate %}
-                                <td><a href="{% url 'estimate' entry.estimate.pk %}">#{{ entry.estimate.document_id|default:'' }}</a></td>
-                            {% else %}
-                                <td>{{ entry.estimate|default:'' }}</td>
-                            {% endif %}
+                      {% if entry.invoice %}
+                        <td><a href="{% url 'invoice' entry.invoice.pk %}">#{{ entry.invoice.document_id|default:'' }}</a></td>
+                      {% else %}
+                        <td></td>
+                      {% endif %}
+                      {% if entry.estimate %}
+                        <td><a href="{% url 'estimate' entry.estimate.pk %}">#{{ entry.estimate.document_id|default:'' }}</a></td>
+                      {% else %}
+                        <td>{{ entry.estimate|default:'' }}</td>
+                      {% endif %}
+                      <td>{{ entry.invoiced|default:'' }}</td>
                     {% endif %}
                     <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
                   </tr>
