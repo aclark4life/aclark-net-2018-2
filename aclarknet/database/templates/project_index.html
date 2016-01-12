@@ -60,8 +60,8 @@
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ project.active }}</td>
                     <td>{{ project.name }}</td>
-                    <td>{{ project.budget|default:'0' }}</td>
-                    <td>{{ project.budget|unlocalize|default:'0' }}</td>
+                    <td>{{ project.budget|default:0 }}</td>
+                    <td>{{ project.budget|unlocalize|default:0 }}</td>
                     <td>{{ project.start_date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ project.start_date|date:'U'|default:'' }}</td>
                     <td>{{ project.end_date|date:'m/d/Y'|default:'' }}</td>
