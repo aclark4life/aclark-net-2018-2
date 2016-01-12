@@ -268,7 +268,8 @@ def entries_total(queryset):
         if entry.user and entry.project:
 
             if hasattr(entry.user, 'profile'):
-                line_total_dev = entry.user.profile.rate * hours
+                if entry.user.profile.rate:
+                    line_total_dev = entry.user.profile.rate * hours
                 entries[entry]['line_total_dev'] = line_total_dev
                 running_total_dev += line_total_dev
 
