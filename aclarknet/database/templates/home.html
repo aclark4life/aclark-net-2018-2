@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+              <h3><i class="fa fa-database"></i> ACLARK.NET, LLC &mdash; DB</h3>
+              {% if request.user.is_authenticated %}
               <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
               <hr>
+              {% endif %}
               {% if request.user.is_staff %}
               <h4>Company</h4>
               <div id="company" class="row">
