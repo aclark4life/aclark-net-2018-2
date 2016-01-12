@@ -141,7 +141,13 @@ def edit(request,
         if pk is None:
             form = form_model(request.POST)
         else:
+            copy = request.POST.get('copy')
             delete = request.POST.get('delete')
+            if copy:
+                dup = obj
+                dup.pk = None
+                dup.save()
+                return HttpResponseRedirect(reverse(url_name))
             if delete:
                 # Decrement invoice counter
                 if (obj._meta.verbose_name == 'invoice' and

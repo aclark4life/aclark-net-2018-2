@@ -57,6 +57,7 @@
                     <th data-field="estimate" data-sortable="true">Estimate</th>
                     <th data-field="invoiced" data-sortable="true">Invoiced</th>
                     {% endif %}
+                    <th>Copy</th> 
                     <th>Delete</th> 
                   </tr>
                 </thead>
@@ -90,7 +91,9 @@
                       {% endif %}
                       <td>{{ entry.invoiced|default:'' }}</td>
                     {% endif %}
+                    <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="copy" type="submit" value="+" onChange="this.form.submit()"></form></td>
                     <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
+                  </tr>
                   </tr>
                 {% endfor %}
                 </tbody>
