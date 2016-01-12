@@ -279,7 +279,6 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = {}
-    order_by = 'date'
 
     company = Company.get_solo()
     if company:

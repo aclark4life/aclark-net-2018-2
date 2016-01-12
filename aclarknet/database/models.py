@@ -207,7 +207,8 @@ class Project(models.Model):
                                           null=True,
                                           max_digits=12,
                                           decimal_places=2)
-    budget = models.DecimalField(blank=True,
+    budget = models.DecimalField("Budget Hours",
+                                 blank=True,
                                  null=True,
                                  max_digits=12,
                                  decimal_places=2)
