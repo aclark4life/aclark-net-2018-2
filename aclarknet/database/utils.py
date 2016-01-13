@@ -110,7 +110,8 @@ def edit(request,
          subtotal=None,
          task=None,
          tasks=[],
-         context={}):
+         context={},
+         kwargs={}):
 
     obj = None
 
@@ -196,7 +197,6 @@ def edit(request,
             form = form_model(request.POST, instance=obj)
 
         if form.is_valid():
-            kwargs = {}
             obj = form.save()
             # Assign user to time entry on creation
             if obj.__class__.__name__ == 'Time' and pk is None:

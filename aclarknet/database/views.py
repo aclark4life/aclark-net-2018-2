@@ -396,7 +396,9 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    url_name = 'project_index'
+    url_name = 'project'
+    kwargs = {}
+    kwargs['pk'] = pk
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
@@ -407,6 +409,7 @@ def project_edit(request, pk=None):
                 url_name,
                 'project_edit.html',
                 client=client,
+                kwargs=kwargs,
                 pk=pk)
 
 
