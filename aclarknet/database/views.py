@@ -65,9 +65,16 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = {}
+    active = request.GET.get('active')
+    if active:
+        context['active'] = True
     fields = ('address', 'name')
     order_by = '-pk'
-    context, items = search(request, Client, fields, order_by=order_by)
+    context, items = search(request,
+                            Client,
+                            fields,
+                            order_by=order_by,
+                            context=context)
     context['items'] = items
     return render(request, 'client_index.html', context)
 
