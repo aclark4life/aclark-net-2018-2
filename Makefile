@@ -18,7 +18,6 @@ update:
 push-github:
 	git push
 push-heroku:
-	git remote add heroku git@heroku.com:aclarknet-database.git
 	git push heroku
 push: push-github
 yapf:
