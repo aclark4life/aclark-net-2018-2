@@ -407,9 +407,16 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = {}
+    active = request.GET.get('active')
+    if active:
+        context['active'] = True
     fields = ('id', 'name')
     order_by = '-start_date'
-    context, items = search(request, Project, fields, order_by=order_by)
+    context, items = search(request,
+                            Project,
+                            fields,
+                            order_by=order_by,
+                            context=context)
     context['items'] = items
     return render(request, 'project_index.html', context)
 
