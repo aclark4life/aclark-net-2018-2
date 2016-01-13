@@ -155,8 +155,7 @@ def contact_mail(request, pk=None):
                       sender,
                       recipients,
                       fail_silently=False)
-            messages.add_message(request, messages.SUCCESS,
-                                 'Message sent to user!')
+            messages.add_message(request, messages.SUCCESS, 'Message sent!')
             return HttpResponseRedirect(reverse('contact_index'))
     else:
         form = MailForm()
