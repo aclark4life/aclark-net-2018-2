@@ -60,6 +60,7 @@ class Contact(models.Model):
     mobile_phone = PhoneNumberField(blank=True, null=True)
     office_phone = PhoneNumberField(blank=True, null=True)
     fax = PhoneNumberField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return class_name_pk(self)
@@ -207,8 +208,7 @@ class Project(models.Model):
                                           null=True,
                                           max_digits=12,
                                           decimal_places=2)
-    budget = models.DecimalField("Budget Hours",
-                                 blank=True,
+    budget = models.DecimalField(blank=True,
                                  null=True,
                                  max_digits=12,
                                  decimal_places=2)
