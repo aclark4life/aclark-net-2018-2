@@ -46,5 +46,7 @@
               </table>
               <hr>
               <h5>Notes</h5>
+              {% if contact.notes %}
               <div class="notes">{{ contact.notes|linebreaks|default:'' }}</div>
+              {% endif %}
 {% endblock %}
