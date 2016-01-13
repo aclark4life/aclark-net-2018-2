@@ -120,7 +120,7 @@ def contact_index(request):
     active = request.GET.get('active')
     if active:
         context['active'] = True
-    fields = ('first_name', 'last_name', 'email')
+    fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = search(request,
                             Contact,
