@@ -108,6 +108,7 @@ def edit(request,
          projects=[],
          subtotal=None,
          task=None,
+         tasks=[],
          context={}):
 
     obj = None
@@ -115,6 +116,7 @@ def edit(request,
     if pk is None:
         form = form_model()
         form.fields['project'].queryset = projects
+        form.fields['tasks'].queryset = tasks
         # Populate time entry form fields with project, client
         # and task values
         if project:
