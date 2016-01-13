@@ -322,7 +322,7 @@ def paginate(items, page):
     return items
 
 
-def search(request, model, fields, order_by=None):
+def search(request, model, fields, order_by=None, context={}):
     """
     """
     results = []
@@ -334,7 +334,7 @@ def search(request, model, fields, order_by=None):
     if active:
         results = model.objects.filter(active=True)
         results = results.order_by(order_by)
-        return results
+        return context, results
 
     if request.POST:
         search = request.POST.get('search', '')
@@ -356,4 +356,4 @@ def search(request, model, fields, order_by=None):
     if not search:
         results = paginate(results, page)
 
-    return results
+    return context, results

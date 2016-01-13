@@ -67,7 +67,7 @@ def client_index(request):
     context = {}
     fields = ('address', 'name')
     order_by = '-pk'
-    items = search(request, Client, fields, order_by=order_by)
+    context, items = search(request, Client, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'client_index.html', context)
 
@@ -117,9 +117,16 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
+    active = request.GET.get('active')
+    if active:
+        context['active'] = True
     fields = ('first_name', 'last_name', 'email')
     order_by = '-pk'
-    items = search(request, Contact, fields, order_by=order_by)
+    context, items = search(request,
+                            Contact,
+                            fields,
+                            order_by=order_by,
+                            context=context)
     context['items'] = items
     return render(request, 'contact_index.html', context)
 
@@ -233,7 +240,7 @@ def estimate_index(request):
     context = {}
     fields = ('subject', )
     order_by = '-pk'
-    items = search(request, Estimate, fields, order_by=order_by)
+    context, items = search(request, Estimate, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'estimate_index.html', context)
 
@@ -366,7 +373,7 @@ def invoice_index(request):
     context = {}
     fields = ('subject', )
     order_by = '-pk'
-    items = search(request, Invoice, fields, order_by=order_by)
+    context, items = search(request, Invoice, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'invoice_index.html', context)
 
@@ -402,7 +409,7 @@ def project_index(request, pk=None):
     context = {}
     fields = ('id', 'name')
     order_by = '-start_date'
-    items = search(request, Project, fields, order_by=order_by)
+    context, items = search(request, Project, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'project_index.html', context)
 
@@ -425,7 +432,7 @@ def task_index(request):
     context = {}
     order_by = '-pk'
     fields = ('name', )
-    items = search(request, Task, fields, order_by=order_by)
+    context, items = search(request, Task, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'task_index.html', context)
 
@@ -481,7 +488,7 @@ def time_index(request):
     context = {}
     fields = ('notes', )
     order_by = '-pk'
-    items = search(request, Time, fields, order_by=order_by)
+    context, items = search(request, Time, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'time_index.html', context)
 
