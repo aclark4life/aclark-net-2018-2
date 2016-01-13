@@ -472,6 +472,7 @@ def time_edit(request, pk=None):
 
     client = request.GET.get('client')
     project = request.GET.get('project')
+    task = None
 
     if client:
         client = get_object_or_404(Client, pk=client)
@@ -481,10 +482,8 @@ def time_edit(request, pk=None):
         project = get_object_or_404(Project, pk=project)
         url_name = 'project'
 
-    try:
-        task = Task.objects.filter(active=True).latest('pk')
-    except Task.DoesNotExist:
-        task = None
+        if project.task:
+            task = get_object_or_404(Task, pk=project.task.pk)
 
     return edit(request,
                 TimeForm,
