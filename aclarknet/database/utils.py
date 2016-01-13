@@ -114,6 +114,7 @@ def edit(request,
 
     if pk is None:
         form = form_model()
+        form.fields['project'].queryset = projects
         # Populate time entry form fields with project, client
         # and task values
         if project:
@@ -134,8 +135,6 @@ def edit(request,
         elif task:
             entry = model(task=task)
             form = form_model(instance=entry)
-        elif projects:
-            form.fields['project'].queryset = projects
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
