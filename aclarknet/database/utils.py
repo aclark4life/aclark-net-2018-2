@@ -116,7 +116,7 @@ def edit(request,
     if pk is None:
         form = form_model()
         form.fields['project'].queryset = projects
-        form.fields['tasks'].queryset = tasks
+        form.fields['task'].queryset = tasks
         # Populate time entry form fields with project, client
         # and task values
         if project:
