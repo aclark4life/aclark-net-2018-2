@@ -101,6 +101,7 @@ def edit(request,
          template,
          amount=None,
          client=None,
+         clients=[],
          company=None,
          pk=None,
          paid_amount=None,
@@ -116,6 +117,7 @@ def edit(request,
     if pk is None:
         form = form_model()
         form.fields['project'].queryset = projects
+        form.fields['client'].queryset = clients
         form.fields['task'].queryset = tasks
         # Populate time entry form fields with project, client
         # and task values
