@@ -18,6 +18,7 @@ update:
 push-github:
 	git push
 push-heroku:
+	git remote add heroku git@heroku.com:aclarknet-database.git
 	git push heroku
 push: push-github
 yapf:
@@ -50,3 +51,7 @@ test:
 	python manage.py test
 reset:
 	heroku pg:reset DATABASE_URL
+heroku-remote:
+	git remote add heroku git@heroku.com:aclarknet-database.git
+heroku-remote2:
+	git remote add heroku git@heroku.com:aclarknet-database2.git
