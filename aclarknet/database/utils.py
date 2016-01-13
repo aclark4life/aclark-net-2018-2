@@ -105,6 +105,7 @@ def edit(request,
          pk=None,
          paid_amount=None,
          project=None,
+         projects=[],
          subtotal=None,
          task=None,
          context={}):
@@ -133,6 +134,8 @@ def edit(request,
         elif task:
             entry = model(task=task)
             form = form_model(instance=entry)
+        elif projects:
+            form.fields['project'].queryset = projects
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)

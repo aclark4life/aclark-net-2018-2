@@ -484,6 +484,8 @@ def time_edit(request, pk=None):
         if project.task:
             task = get_object_or_404(Task, pk=project.task.pk)
 
+    projects = Project.objects.filter(team=request.user.pk)
+
     return edit(request,
                 TimeForm,
                 Time,
@@ -492,6 +494,7 @@ def time_edit(request, pk=None):
                 pk=pk,
                 client=client,
                 project=project,
+                projects=projects,
                 task=task)
 
 
