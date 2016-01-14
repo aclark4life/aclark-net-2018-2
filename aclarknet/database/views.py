@@ -54,11 +54,14 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
+    kwargs = {}
+    kwargs['pk'] = pk
     return edit(request,
                 ClientForm,
                 Client,
-                'client_index',
+                'client',
                 'client_edit.html',
+                kwargs=kwargs,
                 pk=pk)
 
 
