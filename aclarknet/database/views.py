@@ -326,6 +326,7 @@ def invoice(request, pk=None):
     times = chain(times_project, times_invoice)
 
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
+
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
