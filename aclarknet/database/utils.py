@@ -202,6 +202,8 @@ def edit(request,
                     url_name = 'contact_index'
                 if obj._meta.verbose_name == 'project':
                     url_name = 'project_index'
+                if obj._meta.verbose_name == 'task':
+                    url_name = 'task_index'
 
                 if checkbox == 'on':
                     obj.active = True
