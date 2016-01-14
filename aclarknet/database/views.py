@@ -407,9 +407,11 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    url_name = 'project'
+    url_name = 'project_index'
     kwargs = {}
-    kwargs['pk'] = pk
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'project'
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
