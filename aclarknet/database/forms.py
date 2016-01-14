@@ -44,7 +44,7 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = ('document_id', 'po_number', 'project', 'issue_date',
-                  'subject')
+                  'subject', 'invoice')
 
 
 class MailForm(forms.Form):
