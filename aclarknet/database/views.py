@@ -454,7 +454,10 @@ def task(request, pk=None):
 @staff_member_required
 def task_edit(request, pk=None):
     kwargs = {}
-    kwargs['pk'] = pk
+    url_name = 'task_index'
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'task'
     return edit(request,
                 TaskForm,
                 Task,
