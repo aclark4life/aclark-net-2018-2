@@ -43,8 +43,11 @@ class InvoiceForm(forms.ModelForm):
 
     class Meta:
         model = Invoice
-        fields = ('document_id', 'po_number', 'project', 'issue_date',
-                  'subject', 'invoice')
+        fields = ('document_id',
+                  'po_number',
+                  'project',
+                  'issue_date',
+                  'subject', )
 
 
 class MailForm(forms.Form):
@@ -74,4 +77,5 @@ class TaskForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = ('date', 'hours', 'notes', 'client', 'project', 'task')
+        fields = ('date', 'hours', 'notes', 'client', 'project', 'task',
+                  'invoice')
