@@ -173,10 +173,15 @@ def edit(request,
                         company.estimate_counter):
                     company.estimate_counter -= 1
                     company.save()
+
+                # Redir to appropriate index
                 if obj._meta.verbose_name == 'client':
                     url_name = 'client_index'
                 if obj._meta.verbose_name == 'task':
                     url_name = 'task_index'
+                if obj._meta.verbose_name == 'time':
+                    url_name = 'time_index'
+
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
 
