@@ -119,10 +119,12 @@ def edit(request,
         form = form_model()
         # Limit time entry project, client
         # and task choices
-        if form._meta.model._meta.verbose_name == 'time' and not request.user.is_staff:
-            form.fields['project'].queryset = projects
-            form.fields['client'].queryset = clients
-            form.fields['task'].queryset = tasks
+
+        # if form._meta.model._meta.verbose_name == 'time':
+        #    form.fields['project'].queryset = projects
+        #    form.fields['client'].queryset = clients
+        #    form.fields['task'].queryset = tasks
+
         # Populate time entry form fields with project, client
         # and task values
         if project:
