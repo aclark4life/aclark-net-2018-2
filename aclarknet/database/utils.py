@@ -174,6 +174,8 @@ def edit(request,
                 # Redir to appropriate index
                 if obj._meta.verbose_name == 'client':
                     url_name = 'client_index'
+                if obj._meta.verbose_name == 'contact':
+                    url_name = 'contact_index'
                 if obj._meta.verbose_name == 'task':
                     url_name = 'task_index'
                 if obj._meta.verbose_name == 'time':
