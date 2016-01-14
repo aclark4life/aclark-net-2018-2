@@ -184,6 +184,8 @@ def edit(request,
                     url_name = 'task_index'
                 if obj._meta.verbose_name == 'time':
                     url_name = 'entry_index'
+                if obj._meta.verbose_name == 'project':
+                    url_name = 'project_index'
 
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
