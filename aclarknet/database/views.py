@@ -110,7 +110,9 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    url_name = 'contact_index'
+    url_name = 'contact'
+    kwargs = {}
+    kwargs['pk'] = pk
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
@@ -121,6 +123,7 @@ def contact_edit(request, pk=None):
                 url_name,
                 'contact_edit.html',
                 client=client,
+                kwargs=kwargs,
                 pk=pk)
 
 
