@@ -157,7 +157,11 @@ def edit(request,
                 dup = obj
                 dup.pk = None
                 dup.save()
-                return HttpResponseRedirect(reverse(url_name))
+                kwargs = {}
+                kwargs['pk'] = dup.pk
+                if obj._meta.verbose_name == 'time':
+                    url_name = 'entry_edit'
+                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if delete:
                 url_name = 'home'
                 # Decrement invoice counter
