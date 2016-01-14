@@ -162,6 +162,7 @@ def edit(request,
                 dup.save()
                 return HttpResponseRedirect(reverse(url_name))
             if delete:
+                url_name = 'home'
                 # Decrement invoice counter
                 if (obj._meta.verbose_name == 'invoice' and
                         company.invoice_counter):
@@ -172,6 +173,8 @@ def edit(request,
                         company.estimate_counter):
                     company.estimate_counter -= 1
                     company.save()
+                if obj._meta.verbose_name == 'client':
+                    url_name = 'client_index'
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
 
