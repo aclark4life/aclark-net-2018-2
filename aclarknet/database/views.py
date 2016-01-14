@@ -113,9 +113,11 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    url_name = 'contact'
+    url_name = 'contact_index'
     kwargs = {}
-    kwargs['pk'] = pk
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'contact'
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
