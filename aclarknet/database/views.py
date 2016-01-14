@@ -461,7 +461,7 @@ def task_edit(request, pk=None):
     return edit(request,
                 TaskForm,
                 Task,
-                'task',
+                url_name,
                 'task_edit.html',
                 pk=pk,
                 kwargs=kwargs)
