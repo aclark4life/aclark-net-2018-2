@@ -117,14 +117,11 @@ def edit(request,
 
     if pk is None:
         form = form_model()
-
         # Limit time entry project, client
         # and task choices
-        if 'project' in form.fields:
+        if form._meta.model._meta.verbose_name == 'time':
             form.fields['project'].queryset = projects
-        if 'client' in form.fields:
             form.fields['client'].queryset = clients
-        if 'task' in form.fields:
             form.fields['task'].queryset = tasks
         # Populate time entry form fields with project, client
         # and task values
@@ -180,7 +177,7 @@ def edit(request,
                 if obj._meta.verbose_name == 'task':
                     url_name = 'task_index'
                 if obj._meta.verbose_name == 'time':
-                    url_name = 'time_index'
+                    url_name = 'entry_index'
 
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
