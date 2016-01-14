@@ -175,6 +175,8 @@ def edit(request,
                     company.save()
                 if obj._meta.verbose_name == 'client':
                     url_name = 'client_index'
+                if obj._meta.verbose_name == 'task':
+                    url_name = 'task_index'
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
 
