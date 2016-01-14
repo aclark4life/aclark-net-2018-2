@@ -190,6 +190,15 @@ def edit(request,
 
             checkbox = request.POST.get('checkbox')
             if checkbox == 'on' or checkbox == 'off':
+
+                # Redir to appropriate index
+                if obj._meta.verbose_name == 'client':
+                    url_name = 'client_index'
+                if obj._meta.verbose_name == 'contact':
+                    url_name = 'contact_index'
+                if obj._meta.verbose_name == 'project':
+                    url_name = 'project_index'
+
                 if checkbox == 'on':
                     obj.active = True
                 else:
