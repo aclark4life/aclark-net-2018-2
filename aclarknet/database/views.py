@@ -446,7 +446,15 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    return edit(request, TaskForm, Task, 'task_index', 'task_edit.html', pk=pk)
+    kwargs = {}
+    kwargs['pk'] = pk
+    return edit(request,
+                TaskForm,
+                Task,
+                'task',
+                'task_edit.html',
+                pk=pk,
+                kwargs=kwargs)
 
 
 @staff_member_required
