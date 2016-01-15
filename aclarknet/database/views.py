@@ -494,11 +494,11 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
-    url_name = 'time_index'
+    url_name = 'entry_index'
     kwargs = {}
     if pk:
         kwargs['pk'] = pk
-        url_name = 'time'
+        url_name = 'entry'
 
     client = request.GET.get('client')
     project = request.GET.get('project')
