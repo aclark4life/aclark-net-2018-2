@@ -10,7 +10,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
-from itertools import chain
 from .forms import ClientForm
 from .forms import CompanyForm
 from .forms import ContactForm
@@ -198,7 +197,8 @@ def estimate(request, pk=None):
                                        estimate=None,
                                        project=None)
     times_estimate = Time.objects.filter(estimate=estimate)
-    times = chain(times_client, times_estimate)
+    times = times_client | times_estimate
+    times = times.order_by('-pk')
 
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['entries'] = entries
@@ -323,7 +323,8 @@ def invoice(request, pk=None):
                                         project=invoice.project,
                                         invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
-    times = chain(times_project, times_invoice)
+    times = times_project | times_invoice
+    times = times.order_by('-pk')
 
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
 

@@ -14,7 +14,7 @@ flake:
 	-flake8 $(project)/*.py
 	-flake8 $(project)/$(app)/*.py
 update:
-	git commit -a -m "Update"
+	git commit -a
 push-github:
 	git push
 push-heroku:
