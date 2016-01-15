@@ -117,9 +117,9 @@ def edit(request,
 
     if pk is None:
         form = form_model()
+
         # Limit time entry project, client
         # and task choices
-
         if form._meta.model._meta.verbose_name == 'time':
             form.fields['project'].queryset = projects
             form.fields['client'].queryset = clients

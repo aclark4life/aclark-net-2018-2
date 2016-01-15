@@ -494,8 +494,11 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
-
-    url_name = 'entry_index'
+    url_name = 'time_index'
+    kwargs = {}
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'entry'
 
     client = request.GET.get('client')
     project = request.GET.get('project')
@@ -503,11 +506,9 @@ def time_edit(request, pk=None):
 
     if client:
         client = get_object_or_404(Client, pk=client)
-        url_name = 'estimate_index'
 
     if project:
         project = get_object_or_404(Project, pk=project)
-        url_name = 'project'
 
         if project.task:
             task = get_object_or_404(Task, pk=project.task.pk)
@@ -528,7 +529,8 @@ def time_edit(request, pk=None):
                 project=project,
                 projects=projects,
                 task=task,
-                tasks=tasks)
+                tasks=tasks,
+                kwargs=kwargs)
 
 
 @login_required
