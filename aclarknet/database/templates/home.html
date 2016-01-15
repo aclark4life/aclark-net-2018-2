@@ -22,7 +22,7 @@
               </div> 
               {% endif %}
               {% if request.user.is_authenticated %}
-              <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
+              <h3>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3>
               <hr>
               {% endif %}
               {% if request.user.is_staff %}
