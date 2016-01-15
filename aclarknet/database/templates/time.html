@@ -31,6 +31,7 @@
                     <th data-field="user" data-sortable="true">User</th>
                     <th data-field="task" data-sortable="true">Task</th>
                     <th>Edit</th>
+                    <th>Copy</th>
                     <th>Delete</th>
                     {% if request.user.is_staff %}
                     <th data-field="invoice" data-sortable="true">Invoice</th>
@@ -51,6 +52,7 @@
                     <td>{{ entry.user|default:'' }}</td>
                     <td>{{ entry.task|default:'' }}</td>
                     <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="copy" type="submit" value="+" onChange="this.form.submit()"></form></td>
                     <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
                     {% if request.user.is_staff %}
                     <td>{{ entry.invoice|default:'' }}</td>
