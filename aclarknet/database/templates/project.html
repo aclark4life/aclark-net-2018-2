@@ -60,6 +60,7 @@
                       <th>View</th>
                       <th>Edit</th>
                       <th>Copy</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -71,6 +72,7 @@
                         <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                         <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                         <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="copy" type="submit" value="+" onChange="this.form.submit()"></form></td>
+                        <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<input name="delete" type="submit" value="X" onChange="this.form.submit()"></form></td>
                     </tr>
                     {% endfor %}
                   </tbody>

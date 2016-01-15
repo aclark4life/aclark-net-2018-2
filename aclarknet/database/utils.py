@@ -236,8 +236,6 @@ def edit(request,
             if obj.__class__.__name__ == 'Time' and pk is None:
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
-                if project:
-                    kwargs['pk'] = project.pk
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and

@@ -496,12 +496,14 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
     url_name = 'entry_index'
     kwargs = {}
+
     if pk:
         kwargs['pk'] = pk
         url_name = 'entry'
 
     client = request.GET.get('client')
     project = request.GET.get('project')
+
     task = None
 
     if client:
