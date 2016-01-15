@@ -498,7 +498,7 @@ def time_edit(request, pk=None):
     kwargs = {}
     if pk:
         kwargs['pk'] = pk
-        url_name = 'entry'
+        url_name = 'time'
 
     client = request.GET.get('client')
     project = request.GET.get('project')
