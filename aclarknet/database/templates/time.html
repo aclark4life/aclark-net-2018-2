@@ -48,7 +48,6 @@
                     <td>{{ entry.hours|default:'' }}</td>
                     <td>{{ entry.client|default:'' }}</td>
                     <td>{{ entry.project|default:'' }}</td>
-                    <td>{{ entry.notes|linebreaks }}</td>
                     <td>{{ entry.user|default:'' }}</td>
                     <td>{{ entry.task|default:'' }}</td>
                     <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
@@ -64,4 +63,8 @@
                   </tr>
                 </tbody>
               </table>
+              <h5>Notes</h5>
+              {% if entry.notes %}
+              <div class="notes">{{ entry.notes|linebreaks|default:'' }}</div>
+              {% endif %}
 {% endblock %}
