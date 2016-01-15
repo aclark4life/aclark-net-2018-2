@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+              {% if request.user.is_anonymous %}
               <h3><i class="fa fa-database"></i> ACLARK.NET, LLC &mdash; DB</h3>
+              {% endif %}
               {% if request.user.is_authenticated %}
               <h3>Dashboard{% if request.user.is_staff %}<a class="btn btn-default pull-right" href="{% url 'client_edit' %}">Add Client</a>{% endif %}</h3>
               <hr>
