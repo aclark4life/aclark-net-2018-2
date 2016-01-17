@@ -44,6 +44,7 @@ def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
     contacts = Contact.objects.filter(client=client)
+    contacts = contacts.order_by('-pk')
     projects = Project.objects.filter(client=client)
     context['client'] = client
     context['contacts'] = contacts
