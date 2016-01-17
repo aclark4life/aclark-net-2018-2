@@ -55,14 +55,16 @@
             <div class="col-md-6">
               <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h3>
               <hr>
-              <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc">
+              <table data-toggle="table"> 
                 <thead>
                   <tr>
                     <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
-                    <th>Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+                    <th data-sortable="true">Name</th>
+                    <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
+                    <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
+                    <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
+                    <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
                     <th>View</th>
                     <th>Edit</th>
                   </tr>
@@ -73,8 +75,10 @@
                   <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if project.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   <td>{{ project.active }}</td>
                   <td>{{ project.name }}</td>
-                  <td>{{ project.start_date|default:'' }}</td>
-                  <td>{{ project.end_date|default:'' }}</td>
+                  <td>{{ project.start_date|date:'m/d/Y'|default:'' }}</td>
+                  <td>{{ project.start_date|date:'U' }}</td>
+                  <td>{{ project.end_date|date:'m/d/Y'|default:'' }}</td>
+                  <td>{{ project.end_date|date:'U' }}</td>
                   <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                   <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                 </tr>
