@@ -43,12 +43,17 @@ from .utils import search
 def client(request, pk=None):
     context = {}
     client = get_object_or_404(Client, pk=pk)
+
     contacts = Contact.objects.filter(client=client)
     contacts = contacts.order_by('-pk')
+
     projects = Project.objects.filter(client=client)
+    projects = projects.order_by('-start_date')
+
     context['client'] = client
     context['contacts'] = contacts
     context['projects'] = projects
+
     return render(request, 'client.html', context)
 
 
