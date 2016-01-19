@@ -29,6 +29,7 @@
                         <li><a href="{% url 'entry_edit' %}?project={{ document.project.pk }}"><i class="fa fa-plus-square fa-2x"></i>&nbsp;&nbsp;Add Entry</a></li>
                         <li><a href="{% url 'invoice_edit' pk=document.pk %}"><i class="fa fa-edit fa-2x"></i>&nbsp;Edit Invoice</a></li>
                         <li><a href="{% url 'invoice' pk=document.pk %}?pdf=true"><i class="fa fa-file-pdf-o fa-2x"></i>&nbsp;&nbsp;View PDF</a></li>
+                        <li><a href="{% url 'project' pk=document.project.pk %}"><i class="fa fa-chevron-circle-right fa-2x"></i>&nbsp;View Project</a></li>
                       </ul>
                     </div>
                   </h3>
