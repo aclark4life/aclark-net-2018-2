@@ -60,6 +60,7 @@ class Contact(models.Model):
     mobile_phone = PhoneNumberField(blank=True, null=True)
     office_phone = PhoneNumberField(blank=True, null=True)
     fax = PhoneNumberField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
