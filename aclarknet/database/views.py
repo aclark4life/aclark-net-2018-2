@@ -545,7 +545,7 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
-    fields = ('client__name', 'notes', 'project__name', 'user__username')
+    fields = ('client__name', 'notes', 'pk', 'project__name', 'user__username')
     order_by = '-pk'
     context, items = search(request, Time, fields, order_by=order_by)
     context['items'] = items
