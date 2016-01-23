@@ -19,8 +19,6 @@ from .forms import MailForm
 from .forms import ProfileForm
 from .forms import ProjectForm
 from .forms import TaskForm
-from .forms import TimeAdminForm
-from .forms import TimeForm
 from .models import Client
 from .models import Company
 from .models import Contact
@@ -528,9 +526,10 @@ def time_edit(request, pk=None):
         pk__in=[i.client.pk for i in projects if i.client])
     tasks = Task.objects.filter(pk__in=[i.task.pk for i in projects if i.task])
 
-    admin_form = None
     if request.user.is_staff:
-        TimeForm = TimeAdminForm
+        from .forms import TimeAdminForm as TimeForm
+    else:
+        from .forms import TimeForm
 
     return edit(request,
                 TimeForm,
