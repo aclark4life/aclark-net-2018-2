@@ -381,9 +381,23 @@ def search(request, model, fields, order_by=None, context={}):
 
     if request.POST:
         search = request.POST.get('search', '')
-        for field in fields:
-            query.append(Q(**{field + '__icontains': search}))
-        results = model.objects.filter(reduce(operator.or_, query))
+        if 'date' in fields:
+            import re
+            expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+            if expr.match(search):
+                match = list(expr.match(search).groups())
+                match.reverse()
+                import datetime
+                dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+                results = model.objects.filter(date__day=dt.day,
+                                               date__month=dt.month,
+                                               date__year=dt.year)
+            else:
+                results = model.objects.all()
+        else:
+            for field in fields:
+                query.append(Q(**{field + '__icontains': search}))
+            results = model.objects.filter(reduce(operator.or_, query))
     else:
         if model._meta.verbose_name == 'time':
             if request.user.is_staff:
