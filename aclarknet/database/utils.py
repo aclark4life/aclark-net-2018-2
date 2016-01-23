@@ -194,23 +194,28 @@ def edit(request,
 
             checkbox = request.POST.get('checkbox')
             if checkbox == 'on' or checkbox == 'off':
-
-                # Redir to appropriate index
-                if obj._meta.verbose_name == 'client':
-                    url_name = 'client_index'
-                if obj._meta.verbose_name == 'contact':
-                    url_name = 'contact_index'
-                if obj._meta.verbose_name == 'project':
-                    url_name = 'project_index'
-                if obj._meta.verbose_name == 'task':
-                    url_name = 'task_index'
+                kwargs = {}
 
                 if checkbox == 'on':
                     obj.active = True
                 else:
                     obj.active = False
                 obj.save()
-                return HttpResponseRedirect(reverse(url_name))
+
+                # Redir to appropriate index
+                if obj._meta.verbose_name == 'client':
+                    url_name = 'client_index'
+                if obj._meta.verbose_name == 'contact':
+                    url_name = 'contact_index'
+                    if client:
+                        url_name = 'client'
+                        kwargs['pk'] = client.pk
+                if obj._meta.verbose_name == 'project':
+                    url_name = 'project_index'
+                if obj._meta.verbose_name == 'task':
+                    url_name = 'task_index'
+
+                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
             if amount and subtotal and paid_amount:
                 obj.amount = amount
