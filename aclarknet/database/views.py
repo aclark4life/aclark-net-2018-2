@@ -395,7 +395,11 @@ def invoice_edit(request, pk=None):
 @staff_member_required
 def invoice_index(request):
     context = {}
-    fields = ('client__name', 'issue_date', 'project__name', 'subject', )
+    fields = ('client__name',
+              'invoice_id',
+              'issue_date',
+              'project__name',
+              'subject', )
     order_by = '-pk'
     context, items = search(request, Invoice, fields, order_by=order_by)
     context['items'] = items
