@@ -5,8 +5,8 @@
 {% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if user.is_staff %}
-            <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'contact_index' %}">Contacts</a></li>
+            <li><a href="{% url 'client_index' %}">Clients</a></li>
             <li><a href="{% url 'project_index' %}">Projects</a></li>
             <li class="active"><a href="{% url 'task_index' %}">Tasks</a></li>
             <li><a href="{% url 'entry_index' %}">Times</a></li>
