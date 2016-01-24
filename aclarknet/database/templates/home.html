@@ -50,14 +50,14 @@
               </div>
               <div id="company" class="row">
                 <div class="col-md-12">
-                  <table data-toggle="table">
+                  <table class="table table-bordered"> 
                     <thead>
                       <tr>
                         <th>Name</th> 
-                        <th>Clients</th> 
-                        <th>Contacts</th> 
-                        <th>Projects</th> 
-                        <th>Tasks</th> 
+                        <th colspan=2>Clients</th> 
+                        <th colspan=2>Contacts</th> 
+                        <th colspan=2>Projects</th> 
+                        <th colspan=2>Tasks</th> 
                         <th>Times</th> 
                         <th>Invoices</th> 
                         <th>Estimates</th> 
@@ -66,10 +66,14 @@
                     <tbody>
                       <tr>
                         <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
-                        <td>{{ clients.count|default:0 }} <span class="currency">({{ clients_active.count|default:0 }} active)</span></td>
-                        <td>{{ contacts.count|default:0 }} <span class="currency">({{ contacts_active.count|default:0 }} active)</span></td>
-                        <td>{{ projects.count|default:0 }} <span class="currency">({{ projects_active.count|default:0 }} active)</span></td>
-                        <td>{{ tasks.count|default:0 }} <span class="currency">({{ tasks_active.count|default:0 }} active)</span></td>
+                        <td><h6>Total</h6>{{ clients.count|default:0 }}</td>
+                        <td><span class="currency"><h6>Active</h6>{{ clients_active.count|default:0 }}</span></td>
+                        <td><h6>Total</h6>{{ contacts.count|default:0 }}</td>
+                        <td><span class="currency"><h6>Active</h6>{{ contacts_active.count|default:0 }}</span></td>
+                        <td><h6>Total</h6>{{ projects.count|default:0 }}</td>
+                        <td><span class="currency"><h6>Active</h6>{{ projects_active.count|default:0 }}</span></td>
+                        <td><h6>Total</h6>{{ tasks.count|default:0 }}</td>
+                        <td><span class="currency"><h6>Active</h6>{{ tasks_active.count|default:0 }}</span></td>
                         <td>{{ times.count|default:0 }}</td>
                         <td>{{ invoices.count|default:0 }}</td>
                         <td>{{ estimates.count|default:0 }}</td>
@@ -119,7 +123,7 @@
                   </table>
                 </div>
                 <div class="col-md-6">
-                  <h4>Invoices</h4>
+                  <h4>Current Invoices</h4>
                   <table data-toggle="table">
                     <thead>
                       <tr>
