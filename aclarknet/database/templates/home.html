@@ -66,14 +66,14 @@
                     <tbody>
                       <tr>
                         <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
-                        <td><h5>Total</h5>{{ clients.count|default:0 }}</td>
-                        <td><span class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</span></td>
-                        <td><h5>Total</h5>{{ contacts.count|default:0 }}</td>
-                        <td><span class="currency"><h5>Active</h5>{{ contacts_active.count|default:0 }}</span></td>
-                        <td><h5>Total</h5>{{ projects.count|default:0 }}</td>
-                        <td><span class="currency"><h5>Active</h5>{{ projects_active.count|default:0 }}</span></td>
-                        <td><h5>Total</h5>{{ tasks.count|default:0 }}</td>
-                        <td><span class="currency"><h5>Active</h5>{{ tasks_active.count|default:0 }}</span></td>
+                        <td class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
+                        <td class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</td>
+                        <td class="light"><h5>Total</h5>{{ contacts.count|default:0 }}</td>
+                        <td class="currency"><h5>Active</h5>{{ contacts_active.count|default:0 }}</td>
+                        <td class="light"><h5>Total</h5>{{ projects.count|default:0 }}</td>
+                        <td class="currency"><h5>Active</h5>{{ projects_active.count|default:0 }}</td>
+                        <td class="light"><h5>Total</h5>{{ tasks.count|default:0 }}</td>
+                        <td class="currency"><h5>Active</h5>{{ tasks_active.count|default:0 }}</td>
                         <td>{{ times.count|default:0 }}</td>
                         <td>{{ invoices.count|default:0 }}</td>
                         <td>{{ estimates.count|default:0 }}</td>
