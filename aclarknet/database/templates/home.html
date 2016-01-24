@@ -54,8 +54,8 @@
                     <thead>
                       <tr>
                         <th>Name</th> 
-                        <th colspan=2>Clients</th> 
                         <th colspan=2>Contacts</th> 
+                        <th colspan=2>Clients</th> 
                         <th colspan=2>Projects</th> 
                         <th colspan=2>Tasks</th> 
                         <th>Times</th> 
@@ -66,10 +66,10 @@
                     <tbody>
                       <tr>
                         <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
-                        <td class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
-                        <td class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</td>
                         <td class="light"><h5>Total</h5>{{ contacts.count|default:0 }}</td>
                         <td class="currency"><h5>Active</h5>{{ contacts_active.count|default:0 }}</td>
+                        <td class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
+                        <td class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</td>
                         <td class="light"><h5>Total</h5>{{ projects.count|default:0 }}</td>
                         <td class="currency"><h5>Active</h5>{{ projects_active.count|default:0 }}</td>
                         <td class="light"><h5>Total</h5>{{ tasks.count|default:0 }}</td>
