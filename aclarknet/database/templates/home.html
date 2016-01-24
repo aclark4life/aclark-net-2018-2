@@ -64,17 +64,17 @@
                     <tbody>
                       <tr>
                         <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
-                        <td class="light"><h5>Total</h5>{{ contacts.count|default:0 }}</td>
-                        <td class="currency"><h5>Active</h5><a href="{% url 'contact_index' %}?active=true">{{ contacts_active.count|default:0 }}</a></td>
-                        <td class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
-                        <td class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</td>
-                        <td class="light"><h5>Total</h5>{{ projects.count|default:0 }}</td>
-                        <td class="currency"><h5>Active</h5>{{ projects_active.count|default:0 }}</td>
-                        <td class="light"><h5>Total</h5>{{ tasks.count|default:0 }}</td>
-                        <td class="currency"><h5>Active</h5>{{ tasks_active.count|default:0 }}</td>
-                        <td>{{ times.count|default:0 }}</td>
-                        <td>{{ invoices.count|default:0 }}</td>
-                        <td>{{ estimates.count|default:0 }}</td>
+                        <td align="center" class="light"><h5>Total</h5>{{ contacts.count|default:0 }}</td>
+                        <td align="center" class="currency"><h5>Active</h5><a href="{% url 'contact_index' %}?active=true">{{ contacts_active.count|default:0 }}</a></td>
+                        <td align="center" class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
+                        <td align="center" class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</td>
+                        <td align="center" class="light"><h5>Total</h5>{{ projects.count|default:0 }}</td>
+                        <td align="center" class="currency"><h5>Active</h5>{{ projects_active.count|default:0 }}</td>
+                        <td align="center" class="light"><h5>Total</h5>{{ tasks.count|default:0 }}</td>
+                        <td align="center" class="currency"><h5>Active</h5>{{ tasks_active.count|default:0 }}</td>
+                        <td align="center"><h5>{{ times.count|default:0 }}</h5></td>
+                        <td align="center"><h5>{{ invoices.count|default:0 }}</h5></td>
+                        <td align="center"><h5>{{ estimates.count|default:0 }}</h5></td>
                       </tr>
                     </tbody>
                   </table>
