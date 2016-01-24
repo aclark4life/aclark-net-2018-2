@@ -393,7 +393,9 @@ def search(request, model, fields, order_by=None, context={}):
                                                date__month=dt.month,
                                                date__year=dt.year)
             else:
-                results = model.objects.all()
+                for field in fields:
+                    query.append(Q(**{field + '__icontains': search}))
+                results = model.objects.filter(reduce(operator.or_, query))
         else:
             for field in fields:
                 query.append(Q(**{field + '__icontains': search}))
