@@ -65,7 +65,7 @@
                       <tr>
                         <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
                         <td class="light"><h5>Total</h5>{{ contacts.count|default:0 }}</td>
-                        <td class="currency"><h5>Active</h5>{{ contacts_active.count|default:0 }}</td>
+                        <td class="currency"><h5>Active</h5><a href="{% url 'contact_index' %}?active=true">{{ contacts_active.count|default:0 }}</a></td>
                         <td class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
                         <td class="currency"><h5>Active</h5>{{ clients_active.count|default:0 }}</td>
                         <td class="light"><h5>Total</h5>{{ projects.count|default:0 }}</td>
