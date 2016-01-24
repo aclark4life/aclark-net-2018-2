@@ -396,7 +396,7 @@ def invoice_edit(request, pk=None):
 def invoice_index(request):
     context = {}
     fields = ('client__name',
-              'invoice_id',
+              'document_id',
               'issue_date',
               'project__name',
               'subject', )
