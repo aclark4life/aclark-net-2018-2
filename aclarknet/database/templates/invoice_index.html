@@ -28,13 +28,12 @@
               </div>
               <hr>
               {% include 'pagination.html' %}
-              <table data-toggle="table" data-sort-name="hidden-issue-date" data-sort-order="desc">
+              <table data-toggle="table" data-sort-name="document-id" data-sort-order="desc">
                 <thead>
                   <tr>
-                    <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                     <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
                     <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
-                    <th data-field="invoice_id" data-sortable="true">Id</th>
+                    <th data-field="document-id" data-sortable="true">Id</th>
                     <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                     <th data-sort-name="hidden-client" data-sortable="true">Client</th>
                     <th data-field="project" data-sortable="true">Project</th>
@@ -48,7 +47,6 @@
                 <tbody>
                 {% for invoice in items %}
                   <tr>
-                    <td>{{ invoice.pk }}</td>
                     <td>{{ invoice.issue_date|date:'U'|default:'' }}</td>
                     <td>{{ invoice.issue_date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ invoice.document_id|default:'' }}</td>
