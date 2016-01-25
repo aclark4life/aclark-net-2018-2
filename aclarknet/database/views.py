@@ -400,7 +400,7 @@ def invoice_index(request):
               'issue_date',
               'project__name',
               'subject', )
-    order_by = '-pk'
+    order_by = '-issue_date'
     context, items = search(request, Invoice, fields, order_by=order_by)
     context['items'] = items
     return render(request, 'invoice_index.html', context)
