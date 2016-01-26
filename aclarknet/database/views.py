@@ -482,12 +482,12 @@ def task_edit(request, pk=None):
 def task_index(request):
     context = {}
     active = request.GET.get('active')
-    if active:
-        context['active'] = True
     order_by = '-pk'
     fields = ('name', )
     context, items = search(request, Task, fields, order_by=order_by)
     context['items'] = items
+    if active:
+        context['active'] = True
     return render(request, 'task_index.html', context)
 
 
