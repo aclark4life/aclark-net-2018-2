@@ -482,6 +482,8 @@ def task_edit(request, pk=None):
 def task_index(request):
     context = {}
     active = request.GET.get('active')
+    if active:
+        context['active'] = True
     order_by = '-pk'
     fields = ('name', )
     context, items = search(request, Task, fields, order_by=order_by)
@@ -555,6 +557,8 @@ def time_edit(request, pk=None):
 def time_index(request):
     context = {}
     active = request.GET.get('active')
+    if active:
+        context['active'] = True
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'user__username')
     order_by = '-pk'
