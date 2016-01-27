@@ -556,11 +556,14 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
+    active = request.GET.get('active')
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'user__username')
     order_by = '-pk'
     context, items = search(request, Time, fields, order_by=order_by)
     context['items'] = items
+    if active:
+        context['active'] = True
     return render(request, 'time_index.html', context)
 
 
