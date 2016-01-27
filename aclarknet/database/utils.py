@@ -380,7 +380,10 @@ def search(request, model, fields, order_by=None, context={}):
         else:
             results = model.objects.filter(active=True)
         results = results.order_by(order_by)
-        return context, results
+        if request.user.is_staff:
+            return context, results
+        else:
+            return HttpResponseRedirect(reverse('admin:index'))
 
     if request.POST:
         search = request.POST.get('search', '')
