@@ -59,7 +59,7 @@
                 {% for entry in items %}
                   <tr>
                     {% if request.user.is_staff %}
-                      <td>{% if entry.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="currency fa fa-check"></i>{% else %}<i data-toggle="tooltip" data-placement="right" title="Time uninvoiced" class="currency fa fa-square-o"></i>{% endif %}</td>
+                      <td>{% if entry.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="currency fa fa-check"></i>{% endif %}</td>
                     {% endif %}
                     <td>{{ entry.date|date:'U' }}</td>
                     <td>{{ entry.date|date:'m/d/Y'|default:'' }}</td>
