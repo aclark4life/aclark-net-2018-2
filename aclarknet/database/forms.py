@@ -78,7 +78,7 @@ class TimeAdminForm(forms.ModelForm):
     class Meta:
         model = Time
         fields = ('date', 'hours', 'notes', 'client', 'project', 'task',
-                  'user', 'invoice')
+                  'user', 'invoice', 'invoiced')
 
 
 class TimeForm(forms.ModelForm):
