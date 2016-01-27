@@ -375,7 +375,7 @@ def search(request, model, fields, order_by=None, context={}):
     search = None
 
     if active:
-        if obj._meta.verbose_name == 'time':
+        if model._meta.verbose_name == 'time':
             results = model.objects.filter(invoiced=False)
         else:
             results = model.objects.filter(active=True)
