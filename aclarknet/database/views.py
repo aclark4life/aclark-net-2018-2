@@ -486,7 +486,11 @@ def task_index(request):
         context['active'] = True
     order_by = '-pk'
     fields = ('name', )
-    context, items = search(request, Task, fields, order_by=order_by)
+    context, items = search(request,
+                            Task,
+                            fields,
+                            order_by=order_by,
+                            context=context)
     context['items'] = items
     return render(request, 'task_index.html', context)
 
@@ -562,7 +566,11 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'user__username')
     order_by = '-pk'
-    context, items = search(request, Time, fields, order_by=order_by)
+    context, items = search(request,
+                            Time,
+                            fields,
+                            order_by=order_by,
+                            context=context)
     context['items'] = items
     return render(request, 'time_index.html', context)
 
