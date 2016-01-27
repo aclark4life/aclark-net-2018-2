@@ -383,7 +383,7 @@ def search(request, model, fields, order_by=None, context={}):
         if request.user.is_staff:
             return context, results
         else:
-            return HttpResponseRedirect(reverse('admin:index'))
+            return context, []
 
     if request.POST:
         search = request.POST.get('search', '')
