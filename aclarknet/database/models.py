@@ -167,8 +167,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
 
-    rate = models.DecimalField("Hourly Rate",
-                               blank=True,
+    rate = models.DecimalField(blank=True,
                                null=True,
                                max_digits=12,
                                decimal_places=2)
