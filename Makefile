@@ -42,7 +42,7 @@ push-origin:
 review:
 	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py` `find $(project) -name \*.html`
 reset:
-	heroku ps:reset DATABASE_URL2
+	heroku pg:reset DATABASE_URL2
 serve:
 	python manage.py runserver
 start:
