@@ -14,7 +14,9 @@ from django.shortcuts import render
 from django.utils import timezone
 from import_export import widgets
 from md5 import md5
+import datetime
 import operator
+import re
 
 
 class BooleanWidget(widgets.Widget):
@@ -373,10 +375,9 @@ def search(request, model, fields, order_by=None, context={}):
     active = request.GET.get('active')
     page = request.GET.get('page')
     search = None
-
     if active:
         if model._meta.verbose_name == 'time':
-            results = model.objects.filter(invoiced=False)
+            results = model.objects.filter(invoiced=False, estimate=None)
         else:
             results = model.objects.filter(active=True)
         results = results.order_by(order_by)
@@ -384,16 +385,13 @@ def search(request, model, fields, order_by=None, context={}):
             return context, results
         else:
             return context, []
-
     if request.POST:
         search = request.POST.get('search', '')
         if 'date' in fields:
-            import re
             expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
             if expr.match(search):
                 match = list(expr.match(search).groups())
                 match.reverse()
-                import datetime
                 dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
                 results = model.objects.filter(date__day=dt.day,
                                                date__month=dt.month,
