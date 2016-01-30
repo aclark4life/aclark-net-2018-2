@@ -18,9 +18,9 @@ install:
 	virtualenv .
 	bin/pip install -r requirements.txt
 migrate:
-	rm -rf $(project)/$(app)/migrations
-	python manage.py makemigrations $(app)
 	python manage.py migrate
+migrations:
+	python manage.py makemigrations $(app)
 push-heroku:
 	git push heroku
 push-origin:
@@ -36,7 +36,7 @@ start:
 su:
 	python manage.py createsuperuser
 update:
-	git commit -a -m "Update"
+	git commit -a
 wc:
 	wc -l $(project)/*.py
 	wc -l $(project)/$(app)/*.py
