@@ -135,7 +135,7 @@
                     {% for invoice in invoices_active %}
                       <tr>
                         {% if invoice.document_id %}
-                            <td><a href="{% url 'invoice' invoice.pk %}">#{{ invoice.document_id }}</a></td>
+                            <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.document_id }}</a></td>
                         {% else %}
                             <td></td>
                         {% endif %}
