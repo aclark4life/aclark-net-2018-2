@@ -35,6 +35,8 @@ start:
 	-django-admin startapp $(app) $(project)/$(app)
 su:
 	python manage.py createsuperuser
+test:
+	python manage.py test
 update:
 	git commit -a
 wc:
