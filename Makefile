@@ -38,7 +38,7 @@ su:
 test:
 	python manage.py test
 update:
-	git commit -a
+	git commit -a -m "Update"
 wc:
 	wc -l $(project)/*.py
 	wc -l $(project)/$(app)/*.py
