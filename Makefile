@@ -1,16 +1,24 @@
-all: lint update push
-db: clean migrate su
+all: lint commit-update push
+db: migrate
 lint: yapf flake wc
 push: push-origin
 
 project = aclarknet
 app = database
 
-clean:
-	-rm -f db.sqlite3
-	-git add db.sqlite3
+clean: clean-postgres
+clean-migrations:
+	rm -rf $(project)/$(app)/migrations
+clean-postgres:
 	-dropdb $(project)
 	-createdb $(project)
+clean-sqlite:
+	-rm -f db.sqlite3
+	-git add db.sqlite3
+commit:
+	git commit -a
+commit-update:
+	git commit -a -m "Update"
 flake:
 	-flake8 $(project)/*.py
 	-flake8 $(project)/$(app)/*.py
@@ -37,8 +45,6 @@ su:
 	python manage.py createsuperuser
 test:
 	python manage.py test
-update:
-	git commit -a -m "Update"
 wc:
 	wc -l $(project)/*.py
 	wc -l $(project)/$(app)/*.py
