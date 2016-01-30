@@ -19,6 +19,12 @@ commit:
 	git commit -a
 commit-update:
 	git commit -a -m "Update"
+copy:
+	heroku maintenance:on
+	heroku ps:scale web=0
+	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2`
+	heroku ps:scale web=1
+	heroku maintenance:off
 flake:
 	-flake8 $(project)/*.py
 	-flake8 $(project)/$(app)/*.py
@@ -35,6 +41,8 @@ push-origin:
 	git push
 review:
 	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py` `find $(project) -name \*.html`
+reset:
+	heroku ps:reset DATABASE_URL2
 serve:
 	python manage.py runserver
 start:
