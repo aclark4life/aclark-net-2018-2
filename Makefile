@@ -1,4 +1,4 @@
-all: lint commit-update push
+all: commit-update push
 db: migrate
 lint: yapf flake wc
 push: push-origin
@@ -41,8 +41,8 @@ push-origin:
 	git push
 review:
 	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py` `find $(project) -name \*.html`
-reset:
-	heroku pg:reset DATABASE_URL2
+reset-db2:
+	heroku pg:reset DATABASE_URL
 serve:
 	python manage.py runserver
 start:
