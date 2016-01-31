@@ -65,7 +65,7 @@
                       <td></td>
                     {% endif %}
                     <td>{{ invoice.subject|default:'' }}</td>
-                    <td>{{ company.currency_symbol }} {{ invoice.subtotal|default:'' }}</td>
+                    <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:'' }}</td>
                     <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x"></a></td>
