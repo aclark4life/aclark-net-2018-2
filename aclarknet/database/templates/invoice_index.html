@@ -38,7 +38,8 @@
                     <th data-sort-name="hidden-client" data-sortable="true">Client</th>
                     <th data-field="project" data-sortable="true">Project</th>
                     <th data-field="subject" data-sortable="true">Subject</th>
-                    <th data-field="amount" data-sortable="true">Amount</th>
+                    <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
+                    <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -62,7 +63,8 @@
                       <td></td>
                     {% endif %}
                     <td>{{ invoice.subject|default:'' }}</td>
-                    <td>{{ invoice.subtotal|default:'' }}</td>
+                    <td>{{ company.currency_symbol }} {{ invoice.subtotal|default:'' }}</td>
+                    <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                     <td><form action="{% url 'invoice_edit' invoice.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>

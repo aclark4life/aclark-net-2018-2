@@ -395,6 +395,7 @@ def invoice_edit(request, pk=None):
 @staff_member_required
 def invoice_index(request):
     context = {}
+    company = Company.get_solo()
     fields = ('client__name',
               'document_id',
               'issue_date',
@@ -403,6 +404,7 @@ def invoice_index(request):
     order_by = '-issue_date'
     context, items = search(request, Invoice, fields, order_by=order_by)
     context['items'] = items
+    context['company'] = company
     return render(request, 'invoice_index.html', context)
 
 
