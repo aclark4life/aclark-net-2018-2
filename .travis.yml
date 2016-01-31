@@ -8,6 +8,5 @@ script: "python manage.py test"
 services:
   - postgresql
 before_script:
-  - psql -c 'drop database aclarknet;' -U postgres
   - psql -c 'create database aclarknet;' -U postgres
   - python manage.py migrate
