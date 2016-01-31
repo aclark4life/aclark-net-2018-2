@@ -84,8 +84,8 @@
   <tbody>
   {% for entry in entries.values %}
   <tr class="border-bottom">
-    <td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Development' }}</td>
-    <td valign="top" align="left" class="border-right padding-5" style="width: 100%">{{ entry.notes|default:'' }}</td>
+    <td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
+    <td valign="top" align="left" class="border-right padding-5" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
     <td valign="top" align="right" class="border-right padding-5" style="width: 20%">
         {% if not pdf %}<a href="{% url 'entry_edit' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}
         {{ entry.hours|default:'0' }}
