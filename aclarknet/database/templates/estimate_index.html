@@ -48,7 +48,7 @@
                 <tbody>
                 {% for estimate in items %}
                   <tr>
-                    <td>{{ estimate.issue_date|default:'' }}</td>
+                    <td>{{ estimate.issue_date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ estimate.document_id|default:'' }}</td>
                     {% if estimate.client %}<td><a href="{% url 'client' estimate.client.pk %}">{{ estimate.client|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                     <td>{{ estimate.client }}</td>
