@@ -54,16 +54,8 @@
                     <td>{{ invoice.issue_date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ invoice.document_id|default:'' }}</td>
                     <td>{{ invoice.client }}</td>
-                    {% if invoice.client %}
-                      <td><a href="{% url 'client' invoice.client.pk %}">{{ invoice.client.name|default:'' }}</a></td>
-                    {% else %}
-                      <td></td>
-                    {% endif %}
-                    {% if invoice.project %}
-                      <td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name|default:'' }}</a></td>
-                    {% else %}
-                      <td></td>
-                    {% endif %}
+                    {% if invoice.client %}<td><a href="{% url 'client' invoice.client.pk %}">{{ invoice.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
+                    {% if invoice.project %}<td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                     <td>{{ invoice.subject|default:'' }}</td>
                     <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:'' }}</td>
                     <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>

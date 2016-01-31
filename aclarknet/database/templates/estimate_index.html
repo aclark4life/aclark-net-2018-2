@@ -35,7 +35,8 @@
                   <tr>
                     <th data-field="issue_date" data-sortable="true">Issue Date</th>
                     <th data-field="estimate_id" data-sortable="true">Id</th>
-                    <th data-field="client" data-sortable="true">Client</th>
+                    <th data-field="client" data-sort-name="hidden-client" data-sortable="true">Client</th>
+                    <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                     <th data-field="subject" data-sortable="true">Subject</th>
                     <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
                     <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
@@ -49,11 +50,8 @@
                   <tr>
                     <td>{{ estimate.issue_date|default:'' }}</td>
                     <td>{{ estimate.document_id|default:'' }}</td>
-                    {% if estimate.client %}
-                      <td><a href="{% url 'client' estimate.client.pk %}">{{ estimate.client|default:'' }}</a></td>
-                    {% else %}
-                      <td></td>
-                    {% endif %}
+                    {% if estimate.client %}<td><a href="{% url 'client' estimate.client.pk %}">{{ estimate.client|default:'' }}</a></td>{% else %}<td></td>{% endif %}
+                    <td>{{ estimate.client }}</td>
                     <td>{{ estimate.subject|default:'' }}</td>
                     <td>{{ company.currency_symbol }}{{ estimate.amount|default:'' }}</td>
                     <td>{{ estimate.amount|unlocalize|default:'' }}</td>
