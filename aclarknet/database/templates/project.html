@@ -32,8 +32,8 @@
                     <tr>
                         <td>{{ project.name }}</td>
                         <td>{{ project.budget|default:'' }}</td>
-                        <td>{{ project.start_date|default:'' }}</td>
-                        <td>{{ project.end_date|default:'' }}</td>
+                        <td>{{ project.start_date|date:'m/d/Y'|default:'' }}</td>
+                        <td>{{ project.end_date|date:'m/d/Y'|default:'' }}</td>
                         {% if project.client %}
                           <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
                         {% else %}
@@ -66,7 +66,7 @@
                   <tbody>
                     {% for entry in times %}
                     <tr>
-                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.date|date:'m/d/Y' }}</td>
                         <td>{{ entry.hours }}</td>
                         <td>{{ entry.notes }}</td>
                         <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
