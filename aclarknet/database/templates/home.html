@@ -146,7 +146,7 @@
                             <td></td>
                         {% endif %}
                         <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
-                        <td>{{ invoice.subtotal|default:0 }}</td>
+                        <td>{{ invoice.subtotal|unlocalize|default:0 }}</td>
                         <td>{{ company.currency_symbol }}{{ invoice.amount|default:0 }}</td>
                       </tr>
                     {% endfor %}
