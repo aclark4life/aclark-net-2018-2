@@ -351,6 +351,8 @@ def invoice(request, pk=None):
             company_name = company.name.replace('.', '_')
             company_name = company_name.replace(', ', '_')
             company_name = company_name.upper()
+        else:
+            company_name = 'COMPANY'
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf('entry_table.html',
@@ -366,6 +368,7 @@ def invoice_edit(request, pk=None):
     paid_amount = request.GET.get('paid_amount')
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
+    paid = request.GET.get('paid')
     company = Company.get_solo()
 
     if pk:
@@ -375,7 +378,12 @@ def invoice_edit(request, pk=None):
                 invoice.client = invoice.project.client
                 invoice.save()
 
-    if times:
+    if paid and times:
+        times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
+        for entry in times:
+            entry.invoiced = True 
+            entry.save()
+    elif times:
         invoice = get_object_or_404(Invoice, pk=pk)
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
         for entry in times:
