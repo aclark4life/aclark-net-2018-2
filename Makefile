@@ -39,6 +39,9 @@ push-heroku:
 	git push heroku
 push-origin:
 	git push
+remote: remote-add
+remote-add:
+	git remote add heroku git@heroku.com:aclarknet-database.git
 review:
 	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py` `find $(project) -name \*.html`
 reset-db2:
