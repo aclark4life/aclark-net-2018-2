@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load l10n %}
+
 {% block nav %}
             <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
@@ -35,7 +37,8 @@
                     <th data-field="estimate_id" data-sortable="true">Id</th>
                     <th data-field="client" data-sortable="true">Client</th>
                     <th data-field="subject" data-sortable="true">Subject</th>
-                    <th data-field="amount" data-sortable="true">Amount</th>
+                    <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
+                    <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -52,11 +55,11 @@
                       <td></td>
                     {% endif %}
                     <td>{{ estimate.subject|default:'' }}</td>
-                    <td>{{ estimate.amount|default:'' }}</td>
+                    <td>{{ company.currency_symbol }}{{ estimate.amount|default:'' }}</td>
+                    <td>{{ estimate.amount|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
                     <td><form action="{% url 'estimate_edit' estimate.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
-
                   </tr>
                 {% endfor %}
                 </tbody>
