@@ -127,7 +127,8 @@
                       <tr>
                         <th data-sortable="true">Invoice</th>
                         <th data-sortable="true">Project</th>
-                        <th data-sortable="true">Gross</th>
+                        <th data-sort-field="hidden-gross" data-sortable="true">Gross</th>
+                        <th data-field="hidden-gross" data-sortable="true" data-visible="false">Hidden Gross</th>
                         <th data-sortable="true">Net</th>
                       <tr> 
                     </thead>
@@ -145,6 +146,7 @@
                             <td></td>
                         {% endif %}
                         <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
+                        <td>{{ invoice.subtotal|default:0 }}</td>
                         <td>{{ company.currency_symbol }}{{ invoice.amount|default:0 }}</td>
                       </tr>
                     {% endfor %}
