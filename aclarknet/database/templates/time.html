@@ -56,7 +56,7 @@
                     <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                     {% if request.user.is_staff %}
                       {% if entry.invoice %}
-                      <td><a href="{% url 'invoice' entry.invoice.pk %}">{{ entry.invoice }}</a></td>
+                      <td><a href="{% url 'invoice' entry.invoice.pk %}">{{ entry.invoice.document_id|default:'' }}</a></td>
                       {% else %}
                       <td></td>
                       {% endif %}
