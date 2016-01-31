@@ -625,6 +625,8 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = {}
+    company = Company.get_solo()
     items = User.objects.all()
     context['items'] = items
+    context['company'] = company
     return render(request, 'user_index.html', context)

@@ -39,7 +39,7 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.get_full_name }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.profile.rate|default:''}}</td>
+                    <td>{% if user.profile.rate %}{{ company.currency_symbol }}{% endif %}{{ user.profile.rate|default:''}}</td>
                     <td><a href="{% url 'user' user.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'user_edit' user.pk %}"><i class="fa fa-edit fa-3x"></i></a>
                     <td><form action="{% url 'user_contact' user.pk %}" method="post">{% csrf_token %}<button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()"><i class="fa fa-plus"></i></button></form></td>
