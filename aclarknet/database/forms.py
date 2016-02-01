@@ -47,6 +47,7 @@ class InvoiceForm(forms.ModelForm):
                   'po_number',
                   'project',
                   'issue_date',
+                  'last_payment_date',
                   'subject', )
 
 
