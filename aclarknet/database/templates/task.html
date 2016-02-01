@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{ task.active }}</td>
+                    <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ task.name }}</td>
                     <td>{{ task.rate|default:'' }}</td>
                     <td>{{ task.unit|default:'' }}</td>
