@@ -20,7 +20,7 @@
               <table data-toggle="table"> 
                 <thead>
                   <tr>
-                    <th>Id</th>
+                    <th>Active</th>
                     <th>Name</th>
                     <th>Rate</th>
                     <th>Unit</th>
@@ -28,9 +28,9 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{ task.id }}</td>
+                    <td>{{ task.active }}</td>
                     <td>{{ task.name }}</td>
-                    <td>{{ task.rate }}</td>
+                    <td>{{ task.rate|default:'' }}</td>
                     <td>{{ task.unit|default:'' }}</td>
                   </tr>
                 </tbody>
