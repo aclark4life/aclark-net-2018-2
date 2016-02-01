@@ -33,6 +33,7 @@
               <table data-toggle="table" data-sort-name="document-id" data-sort-order="desc">
                 <thead>
                   <tr>
+                    <th data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true"><span class="currency"><i class="fa fa-dollar"></i></span></th>
                     <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
                     <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
                     <th data-field="document-id" data-sortable="true">Id</th>
@@ -50,6 +51,7 @@
                 <tbody>
                 {% for invoice in items %}
                   <tr>
+                    <td>{% if invoice.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
                     <td>{{ invoice.issue_date|date:'U'|default:'' }}</td>
                     <td>{{ invoice.issue_date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ invoice.document_id|default:'' }}</td>
