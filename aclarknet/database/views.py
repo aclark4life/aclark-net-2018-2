@@ -284,8 +284,8 @@ def home(request):
     times = Time.objects.all()
     invoices = Invoice.objects.all()
 
-#    invoices_active = Invoice.objects.filter(
-#        issue_date__gt=last_month()).order_by('-document_id')
+    # invoices_active = Invoice.objects.filter(
+    #     issue_date__gt=last_month()).order_by('-document_id')
 
     invoices_active = Invoice.objects.filter(last_payment_date=None)
 
@@ -385,7 +385,7 @@ def invoice_edit(request, pk=None):
     if paid and times:
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
         for entry in times:
-            entry.invoiced = True 
+            entry.invoiced = True
             entry.save()
     elif times:
         invoice = get_object_or_404(Invoice, pk=pk)
