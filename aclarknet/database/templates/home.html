@@ -57,7 +57,6 @@
                         <th colspan=2>Contacts</th> 
                         <th colspan=2>Clients</th> 
                         <th colspan=2>Projects</th> 
-                        <th colspan=2>Tasks</th> 
                       </tr>
                     </thead>
                     <tbody>
@@ -68,8 +67,6 @@
                         <td align="center" class="currency"><h5>Active</h5><a href="{% url 'client_index' %}?active=true">{{ clients_active.count|default:0 }}</a></td>
                         <td align="center" class="light"><h5>Total</h5>{{ projects.count|default:0 }}</td>
                         <td align="center" class="currency"><h5>Active</h5><a href="{% url 'project_index' %}?active=true">{{ projects_active.count|default:0 }}</a></td>
-                        <td align="center" class="light"><h5>Total</h5>{{ tasks.count|default:0 }}</td>
-                        <td align="center" class="currency"><h5>Active</h5><a href="{% url 'task_index' %}?active=true">{{ tasks_active.count|default:0 }}</a></td>
                       </tr>
                     </tbody>
                   </table>
