@@ -50,10 +50,10 @@
               <div id="company" class="row">
                 <div class="col-md-12">
                   <h4>Company</h4>
+                  <h5><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></h5>
                   <table class="table table-bordered"> 
                     <thead>
                       <tr>
-                        <th>Name</th> 
                         <th colspan=2>Contacts</th> 
                         <th colspan=2>Clients</th> 
                         <th colspan=2>Projects</th> 
@@ -65,7 +65,6 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td><a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a></td>
                         <td align="center" class="light"><h5>Total</h5>{{ contacts.count|default:0 }}</td>
                         <td align="center" class="currency"><h5>Active</h5><a href="{% url 'contact_index' %}?active=true">{{ contacts_active.count|default:0 }}</a></td>
                         <td align="center" class="light"><h5>Total</h5>{{ clients.count|default:0 }}</td>
