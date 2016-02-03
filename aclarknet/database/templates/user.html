@@ -20,16 +20,18 @@
               <table data-toggle="table"> 
                 <thead>
                   <tr>
-                    <th>Name</th>
                     <th>Email</th>
+                    <th>Name</th>
                     <th>Rate</th>
+                    <th>Username</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{ user.get_full_name|default:user.username }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.get_full_name|default:'' }}</td>
                     <td>{{ user.profile.rate|default:'' }}</td>
+                    <td>{{ user.username|default:'' }}</td>
                   </tr>
                 </tbody>
               </table>
