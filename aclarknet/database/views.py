@@ -271,6 +271,7 @@ def estimate_index(request):
 
 def home(request):
     context = {}
+
     clients = Client.objects.all()
     clients_active = Client.objects.filter(active=True)
     company = Company.get_solo()
@@ -285,9 +286,11 @@ def home(request):
     times_active = Time.objects.filter(invoiced=False)
     invoices = Invoice.objects.all()
     invoices_active = Invoice.objects.filter(last_payment_date=None)
+    estimates = Estimate.objects.all()
+    estimates_active = Estimate.objects.filter(accepted_date=None)
 
     gross, net = dashboard_total(invoices_active)
-    estimates = Estimate.objects.all()
+
     context['clients'] = clients
     context['clients_active'] = clients_active
     context['company'] = company

@@ -67,17 +67,19 @@
                   <table class="table table-bordered"> 
                     <thead>
                       <tr>
-                        <th>Times</th> 
+                        <th colspan=2>Times</th> 
                         <th colspan=2>Invoices</th> 
-                        <th>Estimates</th> 
+                        <th colspan=2>Estimates</th> 
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td align="center"><h5>{{ times.count|default:0 }}</h5></td>
+                        <td align="center" class="light"><strong>Total</strong><br>{{ times.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'entry_index' %}?active=true">{{ times_active.count|default:0 }}</a></td>
                         <td align="center" class="light"><strong>Total</strong><br>{{ invoices.count|default:0 }}</td>
                         <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'invoice_index' %}?active=true">{{ invoices_active.count|default:0 }}</a></td>
-                        <td align="center"><h5>{{ estimates.count|default:0 }}</h5></td>
+                        <td align="center" class="light"><strong>Total</strong><br>{{ estimates.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'estimate_index' %}?active=true">{{ estimates_active.count|default:0 }}</a></td>
                       </tr>
                     </tbody>
                   </table>
