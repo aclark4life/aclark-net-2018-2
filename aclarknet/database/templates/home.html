@@ -55,12 +55,9 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td align="center" class="light"><strong>Total</strong><br>{{ contacts.count|default:0 }}</td>
-                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'contact_index' %}?active=true">{{ contacts_active.count|default:0 }}</a></td>
-                        <td align="center" class="light"><strong>Total</strong><br>{{ clients.count|default:0 }}</td>
-                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'client_index' %}?active=true">{{ clients_active.count|default:0 }}</a></td>
-                        <td align="center" class="light"><strong>Total</strong><br>{{ projects.count|default:0 }}</td>
-                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'project_index' %}?active=true">{{ projects_active.count|default:0 }}</a></td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'contact_index' %}?active=true">{{ contacts_active.count|default:0 }}</a></td><td align="center" class="light"><strong>Total</strong><br>{{ contacts.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'client_index' %}?active=true">{{ clients_active.count|default:0 }}</a></td><td align="center" class="light"><strong>Total</strong><br>{{ clients.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'project_index' %}?active=true">{{ projects_active.count|default:0 }}</a></td><td align="center" class="light"><strong>Total</strong><br>{{ projects.count|default:0 }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -74,12 +71,9 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td align="center" class="light"><strong>Total</strong><br>{{ times.count|default:0 }}</td>
-                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'entry_index' %}?active=true">{{ times_active.count|default:0 }}</a></td>
-                        <td align="center" class="light"><strong>Total</strong><br>{{ invoices.count|default:0 }}</td>
-                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'invoice_index' %}?active=true">{{ invoices_active.count|default:0 }}</a></td>
-                        <td align="center" class="light"><strong>Total</strong><br>{{ estimates.count|default:0 }}</td>
-                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'estimate_index' %}?active=true">{{ estimates_active.count|default:0 }}</a></td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'entry_index' %}?active=true">{{ times_active.count|default:0 }}</a></td><td align="center" class="light"><strong>Total</strong><br>{{ times.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'invoice_index' %}?active=true">{{ invoices_active.count|default:0 }}</a></td><td align="center" class="light"><strong>Total</strong><br>{{ invoices.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'estimate_index' %}?active=true">{{ estimates_active.count|default:0 }}</a></td><td align="center" class="light"><strong>Total</strong><br>{{ estimates.count|default:0 }}</td>
                       </tr>
                     </tbody>
                   </table>
