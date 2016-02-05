@@ -283,7 +283,7 @@ def home(request):
     tasks = Task.objects.all()
     tasks_active = Task.objects.filter(active=True)
     times = Time.objects.all()
-    times_active = Time.objects.filter(invoiced=False)
+    times_active = Time.objects.filter(invoiced=None)
     invoices = Invoice.objects.all()
     invoices_active = Invoice.objects.filter(last_payment_date=None)
     estimates = Estimate.objects.all()
