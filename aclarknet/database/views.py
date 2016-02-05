@@ -260,6 +260,9 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     context = {}
+    active = request.GET.get('active')
+    if active:
+        context['active'] = True
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-pk'

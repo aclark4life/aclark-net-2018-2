@@ -380,6 +380,8 @@ def search(request, model, fields, order_by=None, context={}):
             results = model.objects.filter(invoiced=False, estimate=None)
         elif model._meta.verbose_name == 'invoice':
             results = model.objects.filter(last_payment_date=None)
+        elif model._meta.verbose_name == 'estimate':
+            results = model.objects.filter(accepted_date=None)
         else:
             results = model.objects.filter(active=True)
         results = results.order_by(order_by)
