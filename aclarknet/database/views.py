@@ -283,7 +283,7 @@ def home(request):
     tasks = Task.objects.all()
     tasks_active = Task.objects.filter(active=True)
     times = Time.objects.all()
-    times_active = Time.objects.filter(invoiced=None)
+    times_active = Time.objects.filter(invoiced=False, invoice=None)
     invoices = Invoice.objects.all()
     invoices_active = Invoice.objects.filter(last_payment_date=None)
     estimates = Estimate.objects.all()
@@ -301,11 +301,13 @@ def home(request):
     context['tasks'] = tasks
     context['tasks_active'] = tasks_active
     context['times'] = times
+    context['times_active'] = times_active
     context['invoices'] = invoices
     context['invoices_active'] = invoices_active
     context['gross'] = gross
     context['net'] = net
     context['estimates'] = estimates
+    context['estimates_active'] = estimates_active
     context['request'] = request
 
     return render(request, 'home.html', context)
