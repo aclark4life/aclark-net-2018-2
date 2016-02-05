@@ -68,14 +68,15 @@
                     <thead>
                       <tr>
                         <th>Times</th> 
-                        <th>Invoices</th> 
+                        <th colspan=2>Invoices</th> 
                         <th>Estimates</th> 
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td align="center"><h5>{{ times.count|default:0 }}</h5></td>
-                        <td align="center"><h5>{{ invoices.count|default:0 }}</h5></td>
+                        <td align="center" class="light"><strong>Total</strong><br>{{ invoices.count|default:0 }}</td>
+                        <td align="center" class="currency"><strong>Active</strong><br><a href="{% url 'invoice_index' %}?active=true">{{ invoices_active.count|default:0 }}</a></td>
                         <td align="center"><h5>{{ estimates.count|default:0 }}</h5></td>
                       </tr>
                     </tbody>
