@@ -412,6 +412,9 @@ def invoice_edit(request, pk=None):
 def invoice_index(request):
     context = {}
     company = Company.get_solo()
+    active = request.GET.get('active')
+    if active:
+        context['active'] = True
     fields = ('client__name',
               'document_id',
               'issue_date',
