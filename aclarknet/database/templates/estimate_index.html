@@ -18,8 +18,11 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-1">
                   <h3>Estimates</h3>
+                </div>
+                <div class="col-md-3">
+                  {% if request.user.is_staff %}<h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-{% if not active %}square-o{% else %}check-square{% endif %}"></i></a></span></h3>{% endif %}
                 </div>
                 <div class="col-md-4">
                   {% include 'search.html' %}
