@@ -101,7 +101,7 @@
                     <tbody>
                     {% for project in projects_active %}
                       <tr>
-                        <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-2x"></i></a></td>
+                        <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                         <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
                         <td>{{ project.name }}</td>
                         {% if project.task %}
