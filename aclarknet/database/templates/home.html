@@ -87,7 +87,7 @@
                   <table data-toggle="table"> 
                     <thead>
                       <tr>
-                        <th>Edit</th>
+<!--                        <th>Edit</th> -->
                         <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
                         <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                         <th data-field="task" data-sort-name="hidden-task" data-sortable="true">Task</th>
@@ -101,7 +101,7 @@
                     <tbody>
                     {% for project in projects_active %}
                       <tr>
-                        <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+<!--                        <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td> -->
                         <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
                         <td>{{ project.name }}</td>
                         {% if project.task %}
