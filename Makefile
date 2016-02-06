@@ -32,8 +32,7 @@ install:
 	virtualenv .
 	bin/pip install -r requirements.txt
 migrate:
-	python manage.py migrate auth
-	python manage.py migrate $(app)
+	python manage.py migrate
 migrations:
 	python manage.py makemigrations $(app)
 push-heroku:
