@@ -127,10 +127,10 @@
                         <th data-field="invoice" data-sortable="true">Invoice</th>
                         <th data-field="project" data-sort-name="hidden-project" data-sortable="true">Project</th>
                         <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
-                        <th data-field="gross" data-sort-name="hidden-gross" data-sortable="true">Gross</th>
-                        <th data-field="hidden-gross" data-sortable="true" data-visible="false">Hidden Gross</th>
                         <th data-field="net" data-sort-name="hidden-net" data-sortable="true">Net</th>
                         <th data-field="hidden-net" data-sortable="true" data-visible="false">Hidden Net</th>
+                        <th data-field="gross" data-sort-name="hidden-gross" data-sortable="true">Gross</th>
+                        <th data-field="hidden-gross" data-sortable="true" data-visible="false">Hidden Gross</th>
                       <tr> 
                     </thead>
                     <tbody>
@@ -147,10 +147,10 @@
                             <td></td>
                         {% endif %}
                         <td>{{ invoice.project }}</td>
-                        <td>{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
-                        <td>{{ invoice.subtotal|unlocalize|default:0 }}</td>
                         <td>{{ company.currency_symbol }}{{ invoice.amount|default:0 }}</td>
                         <td>{{ invoice.amount|unlocalize|default:0 }}</td>
+                        <td class="light">{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</td>
+                        <td>{{ invoice.subtotal|unlocalize|default:0 }}</td>
                       </tr>
                     {% endfor %}
                     </tbody>
