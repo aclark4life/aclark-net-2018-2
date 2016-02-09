@@ -133,14 +133,22 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-
     <script>
         $(document).ready(function() {
             $('.dateinput').datepicker({ format: "mm/dd/yyyy", todayHighlight: "true"});
             $('.datetimeinput').datepicker({ format: "mm/dd/yyyy", todayHighlight: "true"});
+            $('.totals').hide().before('<a href="#" id="toggle-totals" class="btn btn-default"><h4>Totals <i class="fa fa-caret-down"></i></h4></a>');
+            $('a#toggle-totals').click(function() {
+                $('.totals').slideToggle(250);
+                return false;
+            });
         }); 
+</script>
+
+
+
+
+
     </script>
 
   </body>
