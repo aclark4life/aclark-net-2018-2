@@ -289,6 +289,7 @@ def home(request):
     times_active = Time.objects.filter(invoiced=False, estimate=None)
     invoices = Invoice.objects.all()
     invoices_active = Invoice.objects.filter(last_payment_date=None)
+    invoices_active = invoices_active.order_by('-pk')
     estimates = Estimate.objects.all()
     estimates_active = Estimate.objects.filter(accepted_date=None)
 
