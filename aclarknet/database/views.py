@@ -14,6 +14,7 @@ from .models import Estimate
 from .models import Invoice
 from .models import Profile
 from .models import Project
+from .models import Service
 from .models import Task
 from .models import Time
 from .serializers import ClientSerializer
