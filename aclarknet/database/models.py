@@ -243,6 +243,22 @@ class Project(models.Model):
         return self.name
 
 
+class Service(models.Model):
+    """
+    """
+    active = models.BooleanField(default=False)
+    company = models.ForeignKey(Company,
+                                blank=True,
+                                null=True)
+    name = models.CharField(max_length=300,
+                            blank=True,
+                            null=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return class_name_pk(self)
+
+
 class Task(models.Model):
     """
     """

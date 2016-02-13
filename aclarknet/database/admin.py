@@ -5,6 +5,7 @@ from .models import Estimate
 from .models import Invoice
 from .models import Profile
 from .models import Project
+from .models import Service
 from .models import Task
 from .models import Time
 from .utils import BooleanWidget
@@ -218,6 +219,12 @@ class ProjectAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = ProjectResource
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    """
+    """
 
 
 class TaskResource(ImportExportModelResource):

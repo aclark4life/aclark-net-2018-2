@@ -6,6 +6,8 @@ push: push-origin
 project = aclarknet
 app = database
 
+backup:
+	heroku pg:backups capture
 clean: clean-postgres
 clean-migrations:
 	rm -rf $(project)/$(app)/migrations
