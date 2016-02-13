@@ -48,6 +48,10 @@ reset-db2:
 	heroku pg:reset DATABASE_URL
 serve:
 	python manage.py runserver
+shell:
+	python manage.py shell
+shell-heroku:
+	heroku run bash
 start:
 	-mkdir -p $(project)/$(app)
 	-django-admin startproject $(project) .

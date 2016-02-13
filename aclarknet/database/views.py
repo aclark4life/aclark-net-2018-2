@@ -1,15 +1,3 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.models import User
-from django.conf import settings
-from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django_xhtml2pdf.utils import generate_pdf
 from .forms import ClientForm
 from .forms import CompanyForm
 from .forms import ContactForm
@@ -28,14 +16,35 @@ from .models import Profile
 from .models import Project
 from .models import Task
 from .models import Time
+from .serializers import ClientSerializer
 from .utils import add_user_to_contacts
 from .utils import dashboard_total
 from .utils import edit
 from .utils import entries_total
 from .utils import last_month
 from .utils import search
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django_xhtml2pdf.utils import generate_pdf
+from rest_framework import viewsets
 
 # Create your views here.
+
+
+class ClientViewSet(viewsets.ModelViewSet):
+    """
+    """
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
 
 
 @staff_member_required

@@ -13,16 +13,23 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from .database import views
 from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
-from .database import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'clients', views.ClientViewSet)
+
 
 urlpatterns = [
     url(r'^$',
         views.home,
         name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    # API
+    url(r'^api/', include(router.urls)),
     # Client
     url(r'^client/(?P<pk>\d+)$',
         views.client,

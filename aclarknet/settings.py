@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'social.apps.django_app.default',
     'solo',
     'aclarknet.database',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = (
@@ -153,4 +154,9 @@ LOGGING = {
             'propagate': True,
         },
     },
+}
+
+# API
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',),
 }
