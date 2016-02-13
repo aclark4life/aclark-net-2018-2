@@ -259,6 +259,22 @@ class Service(models.Model):
         return self.name
 
 
+class Testimonial(models.Model):
+    """
+    """
+    active = models.BooleanField(default=False)
+    company = models.ForeignKey(Company,
+                                blank=True,
+                                null=True)
+    name = models.CharField(max_length=300,
+                            blank=True,
+                            null=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Task(models.Model):
     """
     """

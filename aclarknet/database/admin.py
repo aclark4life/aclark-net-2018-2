@@ -7,6 +7,7 @@ from .models import Profile
 from .models import Project
 from .models import Service
 from .models import Task
+from .models import Testimonial
 from .models import Time
 from .utils import BooleanWidget
 from .utils import DecimalWidget
@@ -223,6 +224,12 @@ class ProjectAdmin(ImportExportModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
+    """
+    """
+
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
     """
     """
 
