@@ -29,7 +29,7 @@ urlpatterns = [
         name='home'),
     url(r'^admin/', include(admin.site.urls)),
     # API
-    url(r'^api/', include(router.urls), name='api'),
+    url(r'^api/', include(router.urls)),
     # Client
     url(r'^client/(?P<pk>\d+)$',
         views.client,
