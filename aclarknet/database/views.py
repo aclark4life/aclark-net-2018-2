@@ -15,10 +15,12 @@ from .models import Invoice
 from .models import Profile
 from .models import Project
 from .models import Service
+from .models import Testimonial
 from .models import Task
 from .models import Time
 from .serializers import ClientSerializer
 from .serializers import ServiceSerializer
+from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
 from .utils import dashboard_total
 from .utils import edit
@@ -54,6 +56,13 @@ class ServiceViewSet(viewsets.ModelViewSet):
     """
     queryset = Service.objects.filter(active=True).order_by('name')
     serializer_class = ServiceSerializer
+
+
+class TestimonialViewSet(viewsets.ModelViewSet):
+    """
+    """
+    queryset = Testimonial.objects.filter(active=True).order_by('-issue_date')
+    serializer_class = TestimonialSerializer
 
 
 @staff_member_required
