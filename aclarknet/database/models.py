@@ -270,6 +270,10 @@ class Testimonial(models.Model):
                             blank=True,
                             null=True)
     description = models.TextField(blank=True, null=True)
+    issue_date = models.DateField("Issue Date",
+                                  blank=True,
+                                  null=True,
+                                  default=timezone.now)
 
     def __unicode__(self):
         return self.name
