@@ -17,6 +17,7 @@ from .models import Project
 from .models import Task
 from .models import Time
 from .serializers import ClientSerializer
+from .serializers import ServiceSerializer
 from .utils import add_user_to_contacts
 from .utils import dashboard_total
 from .utils import edit
@@ -45,6 +46,13 @@ class ClientViewSet(viewsets.ModelViewSet):
     """
     queryset = Client.objects.filter(active=True).order_by('name')
     serializer_class = ClientSerializer
+
+
+class ServiceViewSet(viewsets.ModelViewSet):
+    """
+    """
+    queryset = Service.objects.filter(active=True).order_by('name')
+    serializer_class = ServiceSerializer
 
 
 @staff_member_required
