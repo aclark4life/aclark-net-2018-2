@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
         ('database', '0002_contact_notes'),
     ]
 
-#    operations = [
+    operations = [
 #        migrations.AddField(
 #            model_name='contact',
 #            name='address',
