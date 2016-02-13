@@ -256,7 +256,7 @@ class Service(models.Model):
     description = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
-        return class_name_pk(self)
+        return self.name
 
 
 class Task(models.Model):
