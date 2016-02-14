@@ -178,7 +178,7 @@ class Profile(models.Model):
                                max_digits=12,
                                decimal_places=2)
     def __unicode__(self):
-        return class_name_pk(self)
+        return self.user.username
 
 
 class Project(models.Model):
