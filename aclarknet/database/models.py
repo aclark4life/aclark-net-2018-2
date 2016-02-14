@@ -4,6 +4,7 @@ from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
 from .utils import class_name_pk
+from .utils import gravatar_url
 
 # Create your models here.
 
@@ -180,6 +181,10 @@ class Profile(models.Model):
                                decimal_places=2)
     def __unicode__(self):
         return self.user.username
+
+
+    def avatar_url(self):
+        return gravatar_url(self.user.email)
 
 
 class Project(models.Model):
