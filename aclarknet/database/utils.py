@@ -343,7 +343,7 @@ def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
     """
-    return settings.GRAVATAR % md5(email.lower()).hexdigest()
+    return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
 def last_month():
