@@ -165,6 +165,7 @@ class Profile(models.Model):
     """
     """
     active = models.BooleanField(default=False)
+    bio = models.TextField(blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     rate = models.DecimalField(blank=True,
