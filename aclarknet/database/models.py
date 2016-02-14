@@ -164,10 +164,9 @@ class Invoice(models.Model):
 class Profile(models.Model):
     """
     """
-
+    active = models.BooleanField(default=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
-
     rate = models.DecimalField(blank=True,
                                null=True,
                                max_digits=12,
@@ -178,7 +177,6 @@ class Profile(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
-
     def __unicode__(self):
         return class_name_pk(self)
 

@@ -1,4 +1,5 @@
 from .models import Client
+from .models import Profile
 from .models import Service
 from .models import Testimonial
 from rest_framework import serializers
@@ -8,6 +9,12 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Client
         fields = ('name', 'description')
+
+
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('user')
 
 
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):

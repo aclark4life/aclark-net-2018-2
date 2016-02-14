@@ -19,6 +19,7 @@ from .models import Testimonial
 from .models import Task
 from .models import Time
 from .serializers import ClientSerializer
+from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
@@ -63,6 +64,13 @@ class TestimonialViewSet(viewsets.ModelViewSet):
     """
     queryset = Testimonial.objects.filter(active=True).order_by('-issue_date')
     serializer_class = TestimonialSerializer
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    """
+    queryset = Profile.objects.filter(active=True).order_by('user')
+    serializer_class = ProfileSerializer
 
 
 @staff_member_required
