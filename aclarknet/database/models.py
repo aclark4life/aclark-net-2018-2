@@ -159,7 +159,7 @@ class Invoice(models.Model):
     document_type = models.CharField(max_length=300, blank=True, null=True)
 
     def __unicode__(self):
-        return class_name_pk(self)
+        return 'invoice-%s' % self.document_id
 
 
 class Profile(models.Model):
