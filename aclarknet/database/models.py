@@ -179,9 +179,9 @@ class Profile(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
+
     def __unicode__(self):
         return self.user.username
-
 
     def avatar_url(self):
         return gravatar_url(self.user.email)
@@ -251,12 +251,8 @@ class Service(models.Model):
     """
     """
     active = models.BooleanField(default=False)
-    company = models.ForeignKey(Company,
-                                blank=True,
-                                null=True)
-    name = models.CharField(max_length=300,
-                            blank=True,
-                            null=True)
+    company = models.ForeignKey(Company, blank=True, null=True)
+    name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
@@ -267,12 +263,8 @@ class Testimonial(models.Model):
     """
     """
     active = models.BooleanField(default=False)
-    company = models.ForeignKey(Company,
-                                blank=True,
-                                null=True)
-    name = models.CharField(max_length=300,
-                            blank=True,
-                            null=True)
+    company = models.ForeignKey(Company, blank=True, null=True)
+    name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     issue_date = models.DateField("Issue Date",
                                   blank=True,

@@ -21,6 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     # https://github.com/tomchristie/django-rest-framework/issues/1984#issuecomment-60267220
     user = UserSerializer()
+
     class Meta:
         model = Profile
         depth = 1
