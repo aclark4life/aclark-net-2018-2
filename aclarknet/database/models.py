@@ -179,12 +179,16 @@ class Profile(models.Model):
                                null=True,
                                max_digits=12,
                                decimal_places=2)
+    avatar_url = models.URLField(blank=True, null=True)
 
     def __unicode__(self):
         return self.user.username
 
-    def avatar_url(self):
-        return gravatar_url(self.user.email)
+    def get_avatar_url(self):
+        if self.avatar_url:
+            return self.avatar_url
+        else:
+            return gravatar_url(self.user.email)
 
 
 class Project(models.Model):
