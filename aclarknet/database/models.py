@@ -185,7 +185,7 @@ class Profile(models.Model):
         return self.user.username
 
     def get_avatar_url(self):
-        if self.avatar_url:
+        if self.avatar_url != '':
             return self.avatar_url
         else:
             return gravatar_url(self.user.email)
