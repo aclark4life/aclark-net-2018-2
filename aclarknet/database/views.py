@@ -26,7 +26,6 @@ from .utils import add_user_to_contacts
 from .utils import dashboard_total
 from .utils import edit
 from .utils import entries_total
-from .utils import last_month
 from .utils import search
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
