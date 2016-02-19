@@ -572,8 +572,11 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
 
     entry = get_object_or_404(Time, pk=pk)
-    if (entry.user.username != request.user.username and not
-        request.user.is_staff):
+    if entry.user:
+        if (entry.user.username != request.user.username and not
+            request.user.is_staff):
+            return HttpResponseRedirect(reverse('admin:index'))
+    else:
         return HttpResponseRedirect(reverse('admin:index'))
 
     #    entry = get_object_or_404(Time, pk=pk)
