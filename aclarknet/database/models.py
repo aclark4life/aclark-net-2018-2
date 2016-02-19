@@ -169,6 +169,9 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
+    username = models.CharField(max_length=300,
+                                blank=True,
+                                null=True)
     rate = models.DecimalField(blank=True,
                                null=True,
                                max_digits=12,
@@ -181,6 +184,7 @@ class Profile(models.Model):
                                decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
 
+
     def __unicode__(self):
         return self.user.username
 
@@ -189,6 +193,12 @@ class Profile(models.Model):
             return self.avatar_url
         else:
             return gravatar_url(self.user.email)
+
+    def get_username(self):
+        if self.username is not None:
+            return self.username
+        else:
+            return self.user.username
 
 
 class Project(models.Model):
