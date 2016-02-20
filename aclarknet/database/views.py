@@ -6,6 +6,7 @@ from .forms import InvoiceForm
 from .forms import MailForm
 from .forms import ProfileForm
 from .forms import ProjectForm
+from .forms import ServiceForm
 from .forms import TaskForm
 from .models import Client
 from .models import Company
