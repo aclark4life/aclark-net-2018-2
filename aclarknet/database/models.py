@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
@@ -364,3 +365,7 @@ class Time(models.Model):
 
     def __unicode__(self):
         return class_name_pk(self)
+
+    # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
+    def get_absolute_url(self):
+        return reverse('time', args=[str(self.id)])
