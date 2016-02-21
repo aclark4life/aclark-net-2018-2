@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -239,10 +240,21 @@ def edit(request,
 
         if form.is_valid():
             obj = form.save()
-            # Assign user to time entry on creation
+            # Time entry
             if obj.__class__.__name__ == 'Time' and pk is None:
+                # Assign user to time entry on creation
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
+                # Send mail when time entry created
+                sender = settings.DEFAULT_FROM_EMAIL
+                subject = 'Time entry'
+                message = '%s entered time!' % obj.user.username
+                recipients = [settings.DEFAULT_FROM_EMAIL, ]
+                send_mail(subject,
+                          message,
+                          sender,
+                          recipients,
+                          fail_silently=False)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
