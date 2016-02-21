@@ -571,14 +571,15 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
-    entry = get_object_or_404(Time, pk=pk)
-    if entry.user:
-        if (entry.user.username != request.user.username and
-                not request.user.is_staff):
-            return HttpResponseRedirect(reverse('admin:index'))
-    else:
-        if not request.user.is_staff:
-            return HttpResponseRedirect(reverse('admin:index'))
+    if pk is not None:
+        entry = get_object_or_404(Time, pk=pk)
+        if entry.user:
+            if (entry.user.username != request.user.username and
+                    not request.user.is_staff):
+                return HttpResponseRedirect(reverse('admin:index'))
+        else:
+            if not request.user.is_staff:
+                return HttpResponseRedirect(reverse('admin:index'))
 
     url_name = 'entry_index'
     kwargs = {}
