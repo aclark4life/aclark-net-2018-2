@@ -248,8 +248,9 @@ def edit(request,
                 # Send mail when time entry created
                 sender = settings.DEFAULT_FROM_EMAIL
                 subject = 'Time entry'
-                message = '%s entered time! %s' % (obj.user.username,
-                                                   obj.get_absolute_url())
+                message = '%s entered time! %s' % (
+                    obj.user.username,
+                    obj.get_absolute_url(request.get_host()))
                 recipients = [settings.DEFAULT_FROM_EMAIL, ]
                 send_mail(subject,
                           message,

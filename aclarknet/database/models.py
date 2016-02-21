@@ -367,5 +367,5 @@ class Time(models.Model):
         return class_name_pk(self)
 
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
-    def get_absolute_url(self):
-        return reverse('entry', args=[str(self.id)])
+    def get_absolute_url(self, hostname):
+        return '%s/%s' % (hostname, reverse('entry', args=[str(self.id)]))
