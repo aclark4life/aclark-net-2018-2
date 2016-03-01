@@ -480,9 +480,12 @@ def project(request, pk=None):
 def project_edit(request, pk=None):
     url_name = 'project_index'
     kwargs = {}
+    clients = []
     if pk:
         kwargs['pk'] = pk
         url_name = 'project'
+    else:
+        clients = Client.objects.filter(active=True)
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
@@ -493,6 +496,7 @@ def project_edit(request, pk=None):
                 url_name,
                 'project_edit.html',
                 client=client,
+                clients=clients,
                 kwargs=kwargs,
                 pk=pk)
 
