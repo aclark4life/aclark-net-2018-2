@@ -238,7 +238,7 @@ def estimate(request, pk=None):
                                        project=None)
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
-    times = times.order_by('-pk')
+    times = times.order_by('-date')
 
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['entries'] = entries
@@ -376,7 +376,7 @@ def invoice(request, pk=None):
                                         invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
     times = times_project | times_invoice
-    times = times.order_by('-pk')
+    times = times.order_by('-date')
 
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
 
