@@ -136,8 +136,8 @@
 
     <script>
         $(document).ready(function() {
-            $('.dateinput').datepicker({ format: "mm/dd/yyyy", todayHighlight: "true"});
-            $('.datetimeinput').datepicker({ format: "mm/dd/yyyy", todayHighlight: "true"});
+            $('.dateinput').datepicker({ format: "yyyy-mm-dd", todayHighlight: "true"});
+            $('.datetimeinput').datepicker({ format: "yyyy-mm-dd", todayHighlight: "true"});
             $('.totals').hide().before('<a href="#" id="toggle-totals" class="btn btn-default"><h4>Totals <i class="fa fa-caret-down"></i></h4></a>');
             $('a#toggle-totals').click(function() {
                 $('.totals').slideToggle(250);
