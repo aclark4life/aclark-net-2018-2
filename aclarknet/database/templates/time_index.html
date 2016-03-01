@@ -65,13 +65,9 @@
                     <td>{{ entry.date|date:'m/d/Y'|default:'' }}</td>
                     <td>{{ entry.hours|default:'' }}</td>
                     <td>{{ entry.client|default:'' }}</td>
-                    <td>{{ entry.project|default:'' }}</td>
+                    {% if request.user.is_staff %}{% if entry.project %}<td><a href="{% url 'project' entry.project.pk %}">{{ entry.project|default:'' }}</a></td>{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}
                     <td>{{ entry.notes|linebreaks }}</td>
-                    {% if entry.user %}
-                    <td><a href="{% url 'user' entry.user.pk %}">{{ entry.user|default:'' }}</a></td>
-                    {% else %}
-                    <td>{{ entry.user|default:'' }}</td>
-                    {% endif %}
+                    {% if entry.user %}<td><a href="{% url 'user' entry.user.pk %}">{{ entry.user|default:'' }}</a></td>{% else %}<td>{{ entry.user|default:'' }}</td>{% endif %}
                     <td>{{ entry.task|default:'' }}</td>
                     <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
