@@ -456,7 +456,6 @@ def invoice_index(request):
         context['active'] = True
     fields = ('client__name',
               'document_id',
-              'invoice__document_id',
               'issue_date',
               'project__name',
               'subject', )
@@ -639,6 +638,7 @@ def time_index(request):
     if active:
         context['active'] = True
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
+              'invoice__document_id',
               'user__username')
     order_by = '-pk'
     context, items = search(request,
