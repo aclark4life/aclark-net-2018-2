@@ -456,6 +456,7 @@ def invoice_index(request):
         context['active'] = True
     fields = ('client__name',
               'document_id',
+              'invoice__document_id',
               'issue_date',
               'project__name',
               'subject', )
