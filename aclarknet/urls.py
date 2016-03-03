@@ -108,6 +108,10 @@ urlpatterns = [
     url(r'^project$',
         views.project_index,
         name='project_index'),
+    # Report
+    url(r'^report$',
+        views.report_index,
+        name='report_index'),
     # Social
     url('',
         include('django.contrib.auth.urls',
