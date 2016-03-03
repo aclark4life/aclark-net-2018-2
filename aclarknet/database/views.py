@@ -526,6 +526,12 @@ def report_index(request):
 
 
 @staff_member_required
+def report_edit(request):
+    context = {}
+    return render(request, 'report_index.html', context)
+
+
+@staff_member_required
 def task(request, pk=None):
     context = {}
     task = get_object_or_404(Task, pk=pk)
