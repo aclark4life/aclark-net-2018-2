@@ -5,6 +5,7 @@ from .models import Estimate
 from .models import Invoice
 from .models import Profile
 from .models import Project
+from .models import Report
 from .models import Service
 from .models import Task
 from .models import Testimonial
@@ -221,6 +222,11 @@ class ProjectAdmin(ImportExportModelAdmin):
     """
     resource_class = ProjectResource
 
+
+@admin.register(Report)
+class ReportAdmin(admin.ModelAdmin):
+    """
+    """
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):

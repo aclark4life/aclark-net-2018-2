@@ -259,6 +259,22 @@ class Project(models.Model):
         return self.name
 
 
+class Report(models.Model):
+    """
+    """
+    date = models.DateField(default=timezone.now)
+    name = models.CharField(max_length=300, blank=True, null=True)
+    gross = models.DecimalField(blank=True,
+                                null=True,
+                                max_digits=12,
+                                decimal_places=2)
+    net = models.DecimalField(blank=True,
+                              null=True,
+                              max_digits=12,
+                              decimal_places=2)
+    notes = models.TextField(blank=True, null=True)
+
+
 class Service(models.Model):
     """
     """
