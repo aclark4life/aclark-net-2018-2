@@ -373,6 +373,7 @@ def invoice(request, pk=None):
 
     times_project = Time.objects.filter(invoiced=False,
                                         project=invoice.project,
+                                        estimate=None,
                                         invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
     times = times_project | times_invoice
