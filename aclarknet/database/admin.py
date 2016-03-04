@@ -228,6 +228,7 @@ class ReportAdmin(admin.ModelAdmin):
     """
     """
 
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     """

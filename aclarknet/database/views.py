@@ -6,7 +6,6 @@ from .forms import InvoiceForm
 from .forms import MailForm
 from .forms import ProfileForm
 from .forms import ProjectForm
-from .forms import ServiceForm
 from .forms import TaskForm
 from .models import Client
 from .models import Company
@@ -656,8 +655,7 @@ def time_index(request):
     if active:
         context['active'] = True
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
-              'invoice__document_id',
-              'user__username')
+              'invoice__document_id', 'user__username')
     order_by = '-pk'
     context, items = search(request,
                             Time,

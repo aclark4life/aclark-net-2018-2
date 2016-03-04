@@ -274,6 +274,9 @@ class Report(models.Model):
                               decimal_places=2)
     notes = models.TextField(blank=True, null=True)
 
+    def __unicode__(self):
+        return 'report-%s' % self.date
+
 
 class Service(models.Model):
     """
