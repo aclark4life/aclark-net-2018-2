@@ -15,6 +15,7 @@ from .models import Estimate
 from .models import Invoice
 from .models import Profile
 from .models import Project
+from .models import Report
 from .models import Service
 from .models import Testimonial
 from .models import Task
@@ -528,6 +529,10 @@ def report_index(request):
 @staff_member_required
 def report_edit(request):
     context = {}
+    invoices_active = Invoice.objects.filter(last_payment_date=None)
+    gross, net = dashboard_total(invoices_active)
+    report = Report(gross=gross, net=net)
+    report.save()
     return render(request, 'report_index.html', context)
 
 
