@@ -522,6 +522,8 @@ def project_index(request, pk=None):
 @staff_member_required
 def report_index(request):
     context = {}
+    items = Report.objects.all()
+    context['items'] = items
     return render(request, 'report_index.html', context)
 
 
