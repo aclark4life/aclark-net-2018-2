@@ -530,16 +530,17 @@ def report_index(request):
 @staff_member_required
 def report_edit(request, pk=None):
     context = {}
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
-    gross, net = dashboard_total(invoices_active)
-    report = Report(gross=gross, net=net)
-    report.save()
     if request.method == 'POST':
         delete = request.POST.get('delete')
         if delete:
             obj = get_object_or_404(Report, pk=pk)
             obj.delete()
             return HttpResponseRedirect(reverse('report_index'))
+    else:
+        invoices_active = Invoice.objects.filter(last_payment_date=None)
+        gross, net = dashboard_total(invoices_active)
+        report = Report(gross=gross, net=net)
+        report.save()
     items = Report.objects.all()
     context['items'] = items
     return render(request, 'report_index.html', context)
