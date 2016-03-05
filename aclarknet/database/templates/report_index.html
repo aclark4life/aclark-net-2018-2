@@ -17,14 +17,11 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <h3>Reports</h3>
                 </div>
-                <div class="col-md-4">
-                  {% include 'search.html' %}
-                </div>
-                <div class="col-md-4">
-                  <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'report_edit' %}">Add Report<i class="fa fa-plus"></i></a></h3>
+                <div class="col-md-6">
+                  <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'report_edit' %}">Add Report&nbsp;<i class="fa fa-plus"></i></a></h3>
                 </div>
               </div>
               <hr>
