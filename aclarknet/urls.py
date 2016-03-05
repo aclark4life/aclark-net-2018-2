@@ -115,6 +115,9 @@ urlpatterns = [
     url(r'^report/add$',
         views.report_edit,
         name='report_edit'),
+    url(r'^report/(?P<pk>\d+)/edit$',
+        views.report_edit,
+        name='report_edit'),
     # Social
     url('',
         include('django.contrib.auth.urls',
