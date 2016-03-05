@@ -43,7 +43,7 @@
                     <td>{{ report.date }}</td>
                     <td>{{ report.gross }}</td>
                     <td>{{ report.net }}</td>
-                    <td><form action="{% url 'report_edit' pk=entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                    <td><form action="{% url 'report_edit' report.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}
                 </tbody>
