@@ -520,7 +520,7 @@ def project_index(request, pk=None):
 
 
 @staff_member_required
-def report_index(request, pk=None):
+def report_index(request):
     context = {}
     items = Report.objects.all()
     context['items'] = items
@@ -528,7 +528,7 @@ def report_index(request, pk=None):
 
 
 @staff_member_required
-def report_edit(request):
+def report_edit(request, pk=None):
     context = {}
     invoices_active = Invoice.objects.filter(last_payment_date=None)
     gross, net = dashboard_total(invoices_active)
