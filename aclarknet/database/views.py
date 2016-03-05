@@ -522,11 +522,6 @@ def project_index(request, pk=None):
 @staff_member_required
 def report_index(request, pk=None):
     context = {}
-    if request.method == 'POST':
-        delete = request.POST.get('delete')
-        if delete:
-            obj = get_object_or_404(Report, pk=pk)
-            obj.delete()
     items = Report.objects.all()
     context['items'] = items
     return render(request, 'report_index.html', context)
@@ -539,6 +534,11 @@ def report_edit(request):
     gross, net = dashboard_total(invoices_active)
     report = Report(gross=gross, net=net)
     report.save()
+    if request.method == 'POST':
+        delete = request.POST.get('delete')
+        if delete:
+            obj = get_object_or_404(Report, pk=pk)
+            obj.delete()
     items = Report.objects.all()
     context['items'] = items
     return render(request, 'report_index.html', context)
