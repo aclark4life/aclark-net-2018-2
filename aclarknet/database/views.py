@@ -534,6 +534,8 @@ def report_edit(request):
     gross, net = dashboard_total(invoices_active)
     report = Report(gross=gross, net=net)
     report.save()
+    items = Report.objects.all()
+    context['items'] = items
     return render(request, 'report_index.html', context)
 
 
