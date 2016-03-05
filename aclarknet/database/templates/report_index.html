@@ -34,6 +34,7 @@
                     <th data-field="fullname" data-sortable="true">Date</th>
                     <th data-field="email" data-sortable="true">Gross</th>
                     <th data-field="rate" data-sortable="true">Net</th>
+                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,7 @@
                     <td>{{ report.date }}</td>
                     <td>{{ report.gross }}</td>
                     <td>{{ report.net }}</td>
+                    <td><form action="{% url 'report_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}
                 </tbody>
