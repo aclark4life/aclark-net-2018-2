@@ -539,6 +539,7 @@ def report_edit(request, pk=None):
         if delete:
             obj = get_object_or_404(Report, pk=pk)
             obj.delete()
+            return HttpResponseRedirect(reverse('report_index'))
     items = Report.objects.all()
     context['items'] = items
     return render(request, 'report_index.html', context)
