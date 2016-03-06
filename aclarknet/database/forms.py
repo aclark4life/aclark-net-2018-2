@@ -5,6 +5,7 @@ from .models import Estimate
 from .models import Invoice
 from .models import Profile
 from .models import Project
+from .models import Report
 from .models import Service
 from .models import Task
 from .models import Time
@@ -69,6 +70,12 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ('active', 'budget', 'client', 'name', 'notes', 'start_date',
                   'end_date', 'task', 'team')
+
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = '__all__'
 
 
 class ServiceForm(forms.ModelForm):
