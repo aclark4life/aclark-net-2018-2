@@ -65,4 +65,4 @@ class ClientTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
         edit(response.wsgi_request, ClientForm, Client, 'client_index',
-             'client.html', pk=client.id)
+             'client_edit.html', pk=client.id)
