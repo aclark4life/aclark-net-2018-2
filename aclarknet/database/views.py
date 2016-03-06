@@ -546,7 +546,8 @@ def report_edit(request, pk=None):
                 'report_index',
                 'report_edit.html',
                 gross=gross,
-                net=net)
+                net=net,
+                pk=pk)
 
 
 @staff_member_required

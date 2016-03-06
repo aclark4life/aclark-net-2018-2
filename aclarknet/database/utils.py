@@ -203,6 +203,8 @@ def edit(request,
                     url_name = 'entry_index'
                 if obj._meta.verbose_name == 'project':
                     url_name = 'project_index'
+                if obj._meta.verbose_name == 'report':
+                    url_name = 'report_index'
 
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
