@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test import Client as HttpClient
-from .models import Contact
-from .forms import ContactForm
-from .models import Client
-from .forms import ClientForm
-from .utils import edit
+from ..models import Contact
+from ..forms import ContactForm
+from ..models import Client
+from ..forms import ClientForm
+from ..utils import edit
 
 # Create your tests here.
 
