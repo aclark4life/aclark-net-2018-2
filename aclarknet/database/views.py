@@ -6,6 +6,7 @@ from .forms import InvoiceForm
 from .forms import MailForm
 from .forms import ProfileForm
 from .forms import ProjectForm
+from .forms import ReportForm
 from .forms import TaskForm
 from .models import Client
 from .models import Company
@@ -520,6 +521,14 @@ def project_index(request, pk=None):
 
 
 @staff_member_required
+def report(request, pk=None):
+    context = {}
+    report = get_object_or_404(Report, pk=pk)
+    report['report'] = report
+    return render(request, 'report.html', context)
+
+
+@staff_member_required
 def report_index(request):
     context = {}
     items = Report.objects.all()
@@ -529,21 +538,15 @@ def report_index(request):
 
 @staff_member_required
 def report_edit(request, pk=None):
-    context = {}
-    if request.method == 'POST':
-        delete = request.POST.get('delete')
-        if delete:
-            obj = get_object_or_404(Report, pk=pk)
-            obj.delete()
-            return HttpResponseRedirect(reverse('report_index'))
-    else:
-        invoices_active = Invoice.objects.filter(last_payment_date=None)
-        gross, net = dashboard_total(invoices_active)
-        report = Report(gross=gross, net=net)
-        report.save()
-    items = Report.objects.all()
-    context['items'] = items
-    return render(request, 'report_index.html', context)
+    invoices_active = Invoice.objects.filter(last_payment_date=None)
+    gross, net = dashboard_total(invoices_active)
+    return edit(request,
+                ReportForm,
+                Report,
+                'report_index',
+                'report_edit.html',
+                gross=gross,
+                net=net)
 
 
 @staff_member_required

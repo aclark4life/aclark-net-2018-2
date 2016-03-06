@@ -109,6 +109,9 @@ urlpatterns = [
         views.project_index,
         name='project_index'),
     # Report
+    url(r'^report/(?P<pk>\d+)$',
+        views.report,
+        name='report'),
     url(r'^report$',
         views.report_index,
         name='report_index'),

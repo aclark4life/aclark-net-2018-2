@@ -106,20 +106,28 @@ def edit(request,
          client=None,
          clients=[],
          company=None,
+         context={},
+         gross=None,
+         kwargs={},
+         net=None,
          pk=None,
          paid_amount=None,
          project=None,
          projects=[],
          subtotal=None,
          task=None,
-         tasks=[],
-         context={},
-         kwargs={}):
+         tasks=[]):
 
     obj = None
 
     if pk is None:
         form = form_model()
+
+        # Populate new report with gross and net calculated
+        # from active invoices
+        if form._meta.model._meta.verbose_name == 'report':
+            obj = model(gross=gross, net=net)
+            form = form_model(instance=obj)
 
         # Limit time entry project, client
         # and task choices
