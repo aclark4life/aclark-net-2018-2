@@ -22,15 +22,17 @@ class ContactTestCase(TestCase):
         """
         :params: request, form_model, model, url_name, template
         """
-        # user = User(is_staff=True)
-        # user.save()
-        # httpclient = HttpClient()
-        # httpclient.force_login(user)
-        # response = httpclient.post('/contact/%s/edit' % contact.pk)
-        # self.assertEqual(response.status_code, 302)
-        # request = response.wsgi_request
+        user = User(is_staff=True)
+        user.save()
+
+        httpclient = HttpClient()
+        httpclient.force_login(user)
 
         contact = Contact.objects.get(id=1)
+        response = httpclient.post('/contact/%s/edit' % contact.pk)
+        self.assertEqual(response.status_code, 302)
+        request = response.wsgi_request
+
         edit(request,
              ContactForm,
              Contact,
@@ -57,8 +59,17 @@ class ClientTestCase(TestCase):
         """
         :params: request, form_model, model, url_name, template
         """
+        user = User(is_staff=True)
+        user.save()
+
+        httpclient = HttpClient()
+        httpclient.force_login(user)
 
         client = Client.objects.get(name="Client 1")
+        response = httpclient.post('/client/%s/edit' % client.pk)
+        self.assertEqual(response.status_code, 302)
+        request = response.wsgi_request
+
         edit(request,
              ClientForm,
              Client,
