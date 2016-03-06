@@ -12,9 +12,7 @@ from .utils import edit
 
 class ContactTestCase(TestCase):
     def setUp(self):
-        Contact.objects.create(active=True,
-                               id=1,
-                              )
+        Contact.objects.create(active=True, id=1, )
 
     def test_create(self):
         contact = Contact.objects.get(id=1)
@@ -34,7 +32,8 @@ class ContactTestCase(TestCase):
         response = httpclient.post('/contact/%s/edit' % contact.pk)
         self.assertEqual(response.status_code, 302)
 
-        edit(response.wsgi_request, ClientForm, Client, 'client_index', 'client_edit.html')
+        edit(response.wsgi_request, ContactForm, Contact, 'contact_index',
+             'contact_edit.html', pk=contact.id)
 
 
 class ClientTestCase(TestCase):
@@ -42,8 +41,7 @@ class ClientTestCase(TestCase):
         Client.objects.create(active=True,
                               address="1234 Street",
                               description="The First Client",
-                              name="Client 1",
-                              )
+                              name="Client 1", )
 
     def test_create(self):
         client = Client.objects.get(name="Client 1")
@@ -66,4 +64,5 @@ class ClientTestCase(TestCase):
         response = httpclient.post('/client/%s/edit' % client.pk)
         self.assertEqual(response.status_code, 302)
 
-        edit(response.wsgi_request, ClientForm, Client, 'client_index', 'client_edit.html')
+        edit(response.wsgi_request, ClientForm, Client, 'client_index',
+             'client_edit.html', pk=client.id)
