@@ -20,6 +20,7 @@ class ContactTestCase(TestCase):
 
 
 class ClientTestCase(TestCase):
+
     def setUp(self):
         Client.objects.create(active=True,
                               address="1234 Street",
