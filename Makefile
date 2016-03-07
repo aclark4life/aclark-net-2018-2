@@ -36,8 +36,8 @@ clean:
 clean-migrations:
 	rm -rf $(project)/$(app)/migrations
 clean-postgres:
-	-dropdb $(project)-$(app)
-	-createdb $(project)-$(app)
+	-dropdb $(project)
+	-createdb $(project)
 clean-sqlite:
 	-rm -f db.sqlite3
 	-git add db.sqlite3
