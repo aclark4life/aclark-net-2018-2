@@ -23,6 +23,6 @@
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save Report">
-              <a class="btn btn-lg btn-default" href="{% url 'contact_index' %}">Cancel</a>
+              <a class="btn btn-lg btn-default" href="{% url 'report_index' %}">Cancel</a>
               </form>
 {% endblock %}
