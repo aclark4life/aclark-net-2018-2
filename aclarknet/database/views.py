@@ -524,7 +524,7 @@ def project_index(request, pk=None):
 def report(request, pk=None):
     context = {}
     report = get_object_or_404(Report, pk=pk)
-    report['report'] = report
+    context['report'] = report
     return render(request, 'report.html', context)
 
 
