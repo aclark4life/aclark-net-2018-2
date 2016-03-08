@@ -236,7 +236,9 @@ def estimate(request, pk=None):
 
     times_client = Time.objects.filter(client=estimate.client,
                                        estimate=None,
-                                       project=None)
+                                       project=None,
+                                       invoiced=False,
+                                       invoice=None)
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-date')
