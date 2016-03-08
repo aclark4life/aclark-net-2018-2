@@ -301,7 +301,7 @@ def estimate_index(request):
         context['active'] = True
     company = Company.get_solo()
     fields = ('subject', )
-    order_by = '-date'
+    order_by = '-issue_date'
     context, items = search(request, Estimate, fields, order_by=order_by)
     context['items'] = items
     context['company'] = company
