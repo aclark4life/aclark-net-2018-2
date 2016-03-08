@@ -62,7 +62,7 @@
                       <td></td>
                       {% endif %}
                     {% if entry.estimate %}
-                    <td><a href="{% url 'estimate' entry.estimate.pk %}">{{ entry.estimate }}</a></td>
+                    <td><a href="{% url 'estimate' entry.estimate.pk %}">{{ entry.estimate.document_id|default:'' }}</a></td>
                     {% else %}
                     <td></td>
                     {% endif %}
