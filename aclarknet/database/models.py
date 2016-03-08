@@ -101,7 +101,7 @@ class Estimate(models.Model):
     declined_date = models.DateField(blank=True, null=True)
 
     def __unicode__(self):
-        return 'invoice-%s' % self.document_id
+        return 'estimate-%s' % self.document_id
 
 
 class Invoice(models.Model):
