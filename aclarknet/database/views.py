@@ -49,7 +49,7 @@ from rest_framework import viewsets
 class ClientViewSet(viewsets.ModelViewSet):
     """
     """
-    queryset = Client.objects.filter(active=True).order_by('name')
+    queryset = Client.objects.filter(published=True).order_by('name')
     serializer_class = ClientSerializer
 
 

@@ -210,13 +210,20 @@ def edit(request,
                 return HttpResponseRedirect(reverse(url_name))
 
             checkbox = request.POST.get('checkbox')
-            if checkbox == 'on' or checkbox == 'off':
+            checkbox_publish = request.POST.get('checkbox-publish')
+            if checkbox == 'on' or checkbox == 'off' or checkbox_publish == 'on' or checkbox_publish == 'off':
                 kwargs = {}
 
                 if checkbox == 'on':
                     obj.active = True
                 else:
                     obj.active = False
+
+                if checkbox_publish == 'on':
+                    obj.published = True
+                else:
+                    obj.published = False
+
                 obj.save()
 
                 # Redir to appropriate index

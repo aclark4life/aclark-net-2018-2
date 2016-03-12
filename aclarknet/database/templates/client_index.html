@@ -52,7 +52,7 @@
               <tr>
                 <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ client.active }}</td>
-                <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.published %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-publish"><input type="checkbox-publish" value="on" name="checkbox-publish"{% if client.published %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ client.published }}</td>
                 <td><a href="{% url 'client' client.pk %}">{{ client.name }}</i></a></td>
                 <td>{{ client.name }}</td>
