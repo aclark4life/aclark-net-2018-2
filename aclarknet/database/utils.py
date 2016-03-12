@@ -290,7 +290,7 @@ def edit(request,
                           message,
                           sender,
                           recipients,
-                          fail_silently=False)
+                          fail_silently=True)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and

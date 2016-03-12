@@ -51,9 +51,12 @@ commit:
 commit-update:
 	git commit -a -m "Update"
 db: migrate su
-debug-heroku-on:
+debug-on: export DEBUG = 1
+debug-off:
+	unset DEBUG
+debug-on-heroku:
 	heroku config:set DEBUG=1
-debug-heroku-off:
+debug-off-heroku:
 	heroku config:unset DEBUG
 flake:
 	-flake8 *.py
