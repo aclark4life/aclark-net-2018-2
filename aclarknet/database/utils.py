@@ -237,9 +237,9 @@ def edit(request,
             if checkbox_publish == 'on' or checkbox_publish == 'off': 
                 kwargs = {}
                 if checkbox_publish == 'on':
-                    obj.active = True
+                    obj.published = True
                 else:
-                    obj.active = False
+                    obj.published = False
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
