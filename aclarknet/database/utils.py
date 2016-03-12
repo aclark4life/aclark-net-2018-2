@@ -212,19 +212,6 @@ def edit(request,
             checkbox = request.POST.get('checkbox')
             checkbox_publish = request.POST.get('checkbox-publish')
 
-            # Redir to appropriate index for checkbox & checkbox_publish
-            if obj._meta.verbose_name == 'client':
-                url_name = 'client_index'
-            if obj._meta.verbose_name == 'contact':
-                url_name = 'contact_index'
-                if client:
-                    url_name = 'client'
-                    kwargs['pk'] = client.pk
-            if obj._meta.verbose_name == 'project':
-                url_name = 'project_index'
-            if obj._meta.verbose_name == 'task':
-                url_name = 'task_index'
-
             if checkbox == 'on' or checkbox == 'off': 
                 kwargs = {}
                 if checkbox == 'on':
@@ -232,6 +219,18 @@ def edit(request,
                 else:
                     obj.active = False
                 obj.save()
+                # Redir to appropriate index for checkbox
+                if obj._meta.verbose_name == 'client':
+                    url_name = 'client_index'
+                if obj._meta.verbose_name == 'contact':
+                    url_name = 'contact_index'
+                    if client:
+                        url_name = 'client'
+                        kwargs['pk'] = client.pk
+                if obj._meta.verbose_name == 'project':
+                    url_name = 'project_index'
+                if obj._meta.verbose_name == 'task':
+                    url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
             if checkbox_publish == 'on' or checkbox_publish == 'off': 
@@ -241,6 +240,18 @@ def edit(request,
                 else:
                     obj.published = False
                 obj.save()
+                # Redir to appropriate index for checkbox_publish
+                if obj._meta.verbose_name == 'client':
+                    url_name = 'client_index'
+                if obj._meta.verbose_name == 'contact':
+                    url_name = 'contact_index'
+                    if client:
+                        url_name = 'client'
+                        kwargs['pk'] = client.pk
+                if obj._meta.verbose_name == 'project':
+                    url_name = 'project_index'
+                if obj._meta.verbose_name == 'task':
+                    url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
             if amount and subtotal and paid_amount:
