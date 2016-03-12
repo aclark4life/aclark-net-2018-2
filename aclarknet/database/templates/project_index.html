@@ -61,9 +61,9 @@
                     <td>{{ project.active }}</td>
                     <td>{{ project.name }}</td>
                     <td>{{ project.budget|floatformat }}</td>
-                    <td>{{ project.start_date|date:'m/d/Y'|default:'' }}</td>
+                    <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.start_date|date:'U'|default:'' }}</td>
-                    <td>{{ project.end_date|date:'m/d/Y'|default:'' }}</td>
+                    <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.end_date|date:'U'|default:'' }}</td>
                     {% if project.client.pk %}
                       <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
