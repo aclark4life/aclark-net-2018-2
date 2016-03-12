@@ -14,10 +14,10 @@ class Client(models.Model):
     """
     """
     active = models.BooleanField(default=False)
+    published = models.BooleanField(default=False)
     name = models.CharField(max_length=300, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    published = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
