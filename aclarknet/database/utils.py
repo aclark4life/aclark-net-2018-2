@@ -211,34 +211,36 @@ def edit(request,
 
             checkbox = request.POST.get('checkbox')
             checkbox_publish = request.POST.get('checkbox-publish')
-            if checkbox == 'on' or checkbox == 'off' or checkbox_publish == 'on' or checkbox_publish == 'off':
-                kwargs = {}
 
+            # Redir to appropriate index for checkbox & checkbox_publish
+            if obj._meta.verbose_name == 'client':
+                url_name = 'client_index'
+            if obj._meta.verbose_name == 'contact':
+                url_name = 'contact_index'
+                if client:
+                    url_name = 'client'
+                    kwargs['pk'] = client.pk
+            if obj._meta.verbose_name == 'project':
+                url_name = 'project_index'
+            if obj._meta.verbose_name == 'task':
+                url_name = 'task_index'
+
+            if checkbox == 'on' or checkbox == 'off': 
+                kwargs = {}
                 if checkbox == 'on':
                     obj.active = True
                 else:
                     obj.active = False
-
-                if checkbox_publish == 'on':
-                    obj.published = True
-                else:
-                    obj.published = False
-
                 obj.save()
+                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
-                # Redir to appropriate index
-                if obj._meta.verbose_name == 'client':
-                    url_name = 'client_index'
-                if obj._meta.verbose_name == 'contact':
-                    url_name = 'contact_index'
-                    if client:
-                        url_name = 'client'
-                        kwargs['pk'] = client.pk
-                if obj._meta.verbose_name == 'project':
-                    url_name = 'project_index'
-                if obj._meta.verbose_name == 'task':
-                    url_name = 'task_index'
-
+            if checkbox_publish == 'on' or checkbox_publish == 'off': 
+                kwargs = {}
+                if checkbox_publish == 'on':
+                    obj.active = True
+                else:
+                    obj.active = False
+                obj.save()
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
             if amount and subtotal and paid_amount:
