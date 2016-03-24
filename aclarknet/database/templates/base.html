@@ -144,6 +144,10 @@
                 $('.totals').slideToggle(250);
                 return false;
             });
+            $('.active').hide().before('<a href="#" id="toggle-active" class="btn btn-default"><h4>Active <i class="fa fa-caret-down"></i></h4></a>');
+            $('a#toggle-active').click(function() {
+                $('.active').slideToggle(250);
+                return false;
         }); 
 </script>
 
