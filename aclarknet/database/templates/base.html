@@ -105,8 +105,11 @@
                 <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
                 {% endif %}
                 <li role="separator" class="divider"></li>
+                {% if request.user.is_staff %} 
                 <li><a href="{% url 'company' %}">Company Settings</a></li>
                 <li><a href="{% url 'admin:index' %}">Manage Site</a></li>
+                <li><a href="{% url 'report_edit' %}">Add Report</a></li>
+                {% endif %}
                 <li><a href="/api">View API</a></li>
               </ul>
             </li>
