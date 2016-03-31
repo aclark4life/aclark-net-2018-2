@@ -283,7 +283,7 @@ def edit(request,
         if form.is_valid():
             obj = form.save()
             # Time entry
-            if obj.__class__.__name__ == 'Time' and pk is None:
+            if obj._meta.verbose_name == 'time' and pk is None:
                 # Assign user to time entry on creation
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
