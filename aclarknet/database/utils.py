@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.mail import send_mail as _send_mail
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -95,14 +95,6 @@ def dashboard_total(invoices):
         if invoice.amount:
             net += invoice.amount
     return gross, net
-
-
-def send_mail(message, subject=None, to=None):
-    sender = settings.DEFAULT_FROM_EMAIL
-    subject = subject
-    message = message
-    recipients = list(to)
-    _send_mail(subject, message, sender, recipients, fail_silently=False)
 
 
 def edit(request,
@@ -220,7 +212,7 @@ def edit(request,
             checkbox = request.POST.get('checkbox')
             checkbox_publish = request.POST.get('checkbox-publish')
 
-            if checkbox == 'on' or checkbox == 'off':
+            if checkbox == 'on' or checkbox == 'off': 
                 kwargs = {}
                 if checkbox == 'on':
                     obj.active = True
@@ -241,7 +233,7 @@ def edit(request,
                     url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
-            if checkbox_publish == 'on' or checkbox_publish == 'off':
+            if checkbox_publish == 'on' or checkbox_publish == 'off': 
                 kwargs = {}
                 if checkbox_publish == 'on':
                     obj.published = True
@@ -283,32 +275,24 @@ def edit(request,
         if form.is_valid():
             obj = form.save()
             # Time entry
-            if obj._meta.verbose_name == 'time' and pk is None:
+            if obj.__class__.__name__ == 'Time' and pk is None:
                 # Assign user to time entry on creation
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
-
                 # Send mail when time entry created
+                sender = settings.DEFAULT_FROM_EMAIL
+                subject = 'Time entry'
                 message = '%s entered time! %s' % (
                     obj.user.username,
                     obj.get_absolute_url(request.get_host()))
-                send_mail(message,
-                          subject='Time Entry',
-                          to=settings.DEFAULT_FROM_EMAIL)
+                recipients = [settings.DEFAULT_FROM_EMAIL, ]
+                send_mail(subject,
+                          message,
+                          sender,
+                          recipients,
+                          fail_silently=True)
 
-                # sender = settings.DEFAULT_FROM_EMAIL
-                # subject = 'Time entry'
-                # message = '%s entered time! %s' % (
-                #     obj.user.username,
-                #     obj.get_absolute_url(request.get_host()))
-                # recipients = [settings.DEFAULT_FROM_EMAIL, ]
-                # send_mail(subject,
-                #           message,
-                #           sender,
-                #           recipients,
-                #           fail_silently=True)
-
-                # Assign and increment invoice counter
+            # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
                     company.invoice_counter and pk is None):
                 company.invoice_counter += 1
