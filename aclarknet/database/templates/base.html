@@ -96,6 +96,7 @@
               <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
               <ul class="dropdown-menu"> 
                 <li><a href="{% url 'entry_index' %}">View Time</a></li>
+                {% if request.user.is_staff %}<li><a href="{% url 'report_edit' %}">Add Report</a></li>{% endif %}
                 <li><a href="{% url 'entry_edit' %}">Add Time</a></li>
                 <li role="separator" class="divider"></li>
                 {% if not request.user.is_anonymous %}
@@ -108,7 +109,6 @@
                 {% if request.user.is_staff %} 
                 <li><a href="{% url 'company' %}">Company Settings</a></li>
                 <li><a href="{% url 'admin:index' %}">Manage Site</a></li>
-                <li><a href="{% url 'report_edit' %}">Add Report</a></li>
                 {% endif %}
                 <li><a href="/api">View API</a></li>
               </ul>
