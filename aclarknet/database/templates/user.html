@@ -18,7 +18,7 @@
 {% block content %}
               <h3>User<a class="btn btn-default pull-right" href="{% url 'user_edit' profile.pk %}">Edit Profile</a></h3>
               <hr>
-              <table data-toggle="table"> 
+              <table> 
                 <thead>
                   <tr>
                     <th>Email</th>
@@ -36,7 +36,6 @@
                   </tr>
                 </tbody>
               </table>
-              <table data-toggle="table"> 
-
-              </table>
+              <h4>Times</h4>
+              {% include 'time_table.html' %}
 {% endblock %}

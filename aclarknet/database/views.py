@@ -254,7 +254,7 @@ def estimate(request, pk=None):
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf('entry_table.html',
+        return generate_pdf('invoice_table.html',
                             context=context,
                             file_object=response)
     else:
@@ -397,7 +397,7 @@ def invoice(request, pk=None):
             company_name = 'COMPANY'
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf('entry_table.html',
+        return generate_pdf('invoice_table.html',
                             context=context,
                             file_object=response)
     else:
@@ -693,7 +693,7 @@ def user(request, pk=None):
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
-    context['times'] = times
+    context['items'] = times
 
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
