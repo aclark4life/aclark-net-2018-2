@@ -192,20 +192,15 @@ def contact_index(request):
 @staff_member_required
 def contact_mail(request, pk=None):
     context = {}
-    recipients = []
     contact = get_object_or_404(Contact, pk=pk)
     if request.method == 'POST':
         form = MailForm(request.POST)
         if form.is_valid():
-            sender = settings.DEFAULT_FROM_EMAIL
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
-            recipients.append(contact.email)
             send_mail(subject,
                       message,
-                      sender,
-                      recipients,
-                      fail_silently=False)
+                      contact.email)
             messages.add_message(request, messages.SUCCESS, 'Message sent!')
             return HttpResponseRedirect(reverse('contact_index'))
     else:

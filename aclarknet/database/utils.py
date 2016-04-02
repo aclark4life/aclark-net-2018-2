@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+from django.core.mail import send_mail as _send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -95,6 +95,19 @@ def dashboard_total(invoices):
         if invoice.amount:
             net += invoice.amount
     return gross, net
+
+
+def send_mail(subject, message, to):
+    recipients = []
+    sender = settings.DEFAULT_FROM_EMAIL
+    subject = subject
+    message = message
+    recipients.append(to)
+    _send_mail(subject,
+               message,
+               sender,
+               recipients,
+               fail_silently=False)
 
 
 def edit(request,

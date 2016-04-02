@@ -109,7 +109,7 @@ test:
 test-readme:
 	rst2html.py README.rst > readme.html; open readme.html
 update: commit-update
-up: commit-update push push-heroku
+up: commit push push-heroku
 upload-test:
 	python setup.py sdist --format=gztar,zip upload -r test
 upload:
