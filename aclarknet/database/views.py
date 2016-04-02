@@ -35,7 +35,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models import F
+from django.db.models import F, Sum
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -529,7 +529,9 @@ def report(request, pk=None):
 def report_index(request):
     context = {}
     items = Report.objects.all().annotate(diff=F('gross')-F('net'))
+    agg = Report.objects.aggregate(gross=Sum(F('gross'), net=Sum(F('net'))))
     context['items'] = items
+    context['agg'] = agg
     return render(request, 'report_index.html', context)
 
 
