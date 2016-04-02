@@ -526,7 +526,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_index(request):
     context = {}
-    items = Report.objects.all()
+    items = Report.objects.all().aggregate(diff=gross-net)
     context['items'] = items
     return render(request, 'report_index.html', context)
 
