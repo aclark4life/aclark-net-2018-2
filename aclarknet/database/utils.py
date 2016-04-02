@@ -121,6 +121,7 @@ def edit(request,
          net=None,
          pk=None,
          paid_amount=None,
+         paid=None,
          project=None,
          projects=[],
          subtotal=None,
@@ -263,7 +264,14 @@ def edit(request,
                     url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
-            if amount and subtotal and paid_amount:
+            if amount and subtotal and paid_amount and paid:
+                obj.amount = amount
+                obj.last_payment_date = timezone.now()
+                obj.subtotal = subtotal
+                obj.paid_amount = paid_amount
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+            elif amount and subtotal and paid_amount:
                 obj.amount = amount
                 obj.subtotal = subtotal
                 obj.paid_amount = paid_amount

@@ -438,6 +438,7 @@ def invoice_edit(request, pk=None):
                 'invoice_edit.html',
                 amount=amount,
                 paid_amount=paid_amount,
+                paid=paid,
                 pk=pk,
                 subtotal=subtotal,
                 company=company)
