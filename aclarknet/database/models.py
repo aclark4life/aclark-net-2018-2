@@ -183,6 +183,7 @@ class Profile(models.Model):
                                max_digits=12,
                                decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
+    notify = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.user.username
