@@ -28,9 +28,10 @@
               <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
                 <thead>
                   <tr>
-                    <th data-field="fullname" data-sortable="true">Date</th>
-                    <th data-field="email" data-sortable="true">Gross</th>
-                    <th data-field="rate" data-sortable="true">Net</th>
+                    <th data-field="name" data-sortable="true">Name</th>
+                    <th data-field="date" data-sortable="true">Date</th>
+                    <th data-field="gross" data-sortable="true">Gross</th>
+                    <th data-field="net" data-sortable="true">Net</th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -39,6 +40,7 @@
                 <tbody>
                 {% for report in items %}
                   <tr>
+                    <td>{{ report.name }}</td>
                     <td>{{ report.date }}</td>
                     <td>{{ report.gross }}</td>
                     <td>{{ report.net }}</td>

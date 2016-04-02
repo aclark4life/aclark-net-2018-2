@@ -35,6 +35,7 @@
               <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                 <thead>
                   <tr>
+                    <th>Name</th>
                     <th>Date</th>
                     <th>Gross</th>
                     <th>Net</th>
@@ -42,10 +43,15 @@
                 </thead>
                 <tbody>
                 <tr>
+                  <td>{{ report.name }}</td>
                   <td>{{ report.date }}</td>
                   <td>{{ report.gross }}</td>
                   <td>{{ report.net }}</td>
                 </tr>
                 </tbody>
               </table>
+              <h5>Notes</h5>
+              {% if entry.notes %}
+              <div class="notes">{{ report.notes|linebreaks|default:'' }}</div>
+              {% endif %}
 {% endblock %}
