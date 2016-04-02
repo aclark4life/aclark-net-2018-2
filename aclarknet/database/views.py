@@ -34,7 +34,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
@@ -198,9 +197,7 @@ def contact_mail(request, pk=None):
         if form.is_valid():
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
-            send_mail(subject,
-                      message,
-                      contact.email)
+            send_mail(subject, message, contact.email)
             messages.add_message(request, messages.SUCCESS, 'Message sent!')
             return HttpResponseRedirect(reverse('contact_index'))
     else:

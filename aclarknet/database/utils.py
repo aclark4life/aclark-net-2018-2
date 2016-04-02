@@ -103,11 +103,7 @@ def send_mail(subject, message, to):
     subject = subject
     message = message
     recipients.append(to)
-    _send_mail(subject,
-               message,
-               sender,
-               recipients,
-               fail_silently=False)
+    _send_mail(subject, message, sender, recipients, fail_silently=False)
 
 
 def edit(request,
@@ -225,7 +221,7 @@ def edit(request,
             checkbox = request.POST.get('checkbox')
             checkbox_publish = request.POST.get('checkbox-publish')
 
-            if checkbox == 'on' or checkbox == 'off': 
+            if checkbox == 'on' or checkbox == 'off':
                 kwargs = {}
                 if checkbox == 'on':
                     obj.active = True
@@ -246,7 +242,7 @@ def edit(request,
                     url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
-            if checkbox_publish == 'on' or checkbox_publish == 'off': 
+            if checkbox_publish == 'on' or checkbox_publish == 'off':
                 kwargs = {}
                 if checkbox_publish == 'on':
                     obj.published = True
@@ -297,9 +293,7 @@ def edit(request,
                 message = '%s entered time! %s' % (
                     obj.user.username,
                     obj.get_absolute_url(request.get_host()))
-                send_mail(subject,
-                          message,
-                          settings.DEFAULT_FROM_EMAIL)
+                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
