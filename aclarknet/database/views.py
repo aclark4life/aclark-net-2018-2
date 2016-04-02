@@ -29,12 +29,12 @@ from .utils import dashboard_total
 from .utils import edit
 from .utils import entries_total
 from .utils import search
+from .utils import send_mail
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.conf import settings
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
