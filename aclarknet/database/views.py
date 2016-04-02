@@ -527,7 +527,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_index(request):
     context = {}
-    items = Report.objects.all().aggregate(diff=F('gross')-F('net'))
+    items = Report.objects.all().annotate(diff=F('gross')-F('net'))
     context['items'] = items
     return render(request, 'report_index.html', context)
 
