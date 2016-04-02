@@ -35,6 +35,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -526,7 +527,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_index(request):
     context = {}
-    items = Report.objects.all().aggregate(diff=gross-net)
+    items = Report.objects.all().aggregate(diff=F(gross)-F(net))
     context['items'] = items
     return render(request, 'report_index.html', context)
 
