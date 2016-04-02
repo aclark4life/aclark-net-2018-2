@@ -297,11 +297,13 @@ def edit(request,
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
                 # Send mail when time entry created
-                subject = 'Time entry'
-                message = '%s entered time! %s' % (
-                    obj.user.username,
-                    obj.get_absolute_url(request.get_host()))
-                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL)
+                if hasattr(obj.user, 'profile'):
+                    if obj.user.profile.notify:
+                        subject = 'Time entry'
+                        message = '%s entered time! %s' % (
+                            obj.user.username,
+                            obj.get_absolute_url(request.get_host()))
+                        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
