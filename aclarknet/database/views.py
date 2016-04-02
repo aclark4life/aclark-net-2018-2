@@ -529,7 +529,7 @@ def report(request, pk=None):
 def report_index(request):
     context = {}
     items = Report.objects.all().annotate(diff=F('gross')-F('net'))
-    agg = Report.objects.aggregate(gross=Sum(F('gross'), net=Sum(F('net'))))
+    agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     context['items'] = items
     context['agg'] = agg
     return render(request, 'report_index.html', context)
