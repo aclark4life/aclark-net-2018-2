@@ -688,10 +688,12 @@ def user(request, pk=None):
 
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
+    times = Time.objects.filter(user=user)
 
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
+    context['times'] = times
 
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
