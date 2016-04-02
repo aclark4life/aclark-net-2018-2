@@ -293,17 +293,13 @@ def edit(request,
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
                 # Send mail when time entry created
-                sender = settings.DEFAULT_FROM_EMAIL
                 subject = 'Time entry'
                 message = '%s entered time! %s' % (
                     obj.user.username,
                     obj.get_absolute_url(request.get_host()))
-                recipients = [settings.DEFAULT_FROM_EMAIL, ]
                 send_mail(subject,
                           message,
-                          sender,
-                          recipients,
-                          fail_silently=True)
+                          settings.DEFAULT_FROM_EMAIL)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
