@@ -303,7 +303,8 @@ def edit(request,
                         message = '%s entered time! %s' % (
                             obj.user.username,
                             obj.get_absolute_url(request.get_host()))
-                        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL)
+                        send_mail(subject, message,
+                                  settings.DEFAULT_FROM_EMAIL)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
