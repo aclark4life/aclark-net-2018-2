@@ -1,11 +1,11 @@
+from .utils import class_name_pk
+from .utils import gravatar_url
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
-from .utils import class_name_pk
-from .utils import gravatar_url
 
 # Create your models here.
 
