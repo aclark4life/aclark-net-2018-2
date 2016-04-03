@@ -688,7 +688,7 @@ def user(request, pk=None):
 
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
-    times = Time.objects.filter(user=user)
+    times = Time.objects.filter(user=user, estimate=None, invoiced=False)
 
     context['profile'] = profile
     context['request'] = request
