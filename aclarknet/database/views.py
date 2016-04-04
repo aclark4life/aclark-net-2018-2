@@ -505,8 +505,7 @@ def report_index(request):
 
 @staff_member_required
 def report_edit(request, pk=None):
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
-    gross, net = dashboard_totals(invoices_active)
+    gross, net = dashboard_totals(Invoice)
     return edit(request,
                 ReportForm,
                 Report,
