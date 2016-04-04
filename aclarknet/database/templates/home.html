@@ -21,6 +21,8 @@
                   <div><a href="https://github.com/ACLARKNET/aclarknet-database"><i class="fa fa-github"></i></a></div>
               </div> 
               {% endif %}
+
               {% if request.user.is_authenticated %}<h3>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>{% endif %}
-              {% include 'project_table.html' %}
+
+              {% if request.user.is_staff %} {% include 'project_table.html' %} {% endif %}
 {% endblock %}
