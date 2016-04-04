@@ -21,8 +21,5 @@
                   <div><a href="https://github.com/ACLARKNET/aclarknet-database"><i class="fa fa-github"></i></a></div>
               </div> 
               {% endif %}
-              {% if request.user.is_authenticated %}
-              <h3>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>
-              {% if not request.user.is_staff %}<h4>Welcome to the ACLARK.NET, LLC Client & Contractor Database. Please <a href="{% url 'user_edit' request.user.pk %}">enter your hourly rate</a> and <a href="https://github.com/aclarknet/aclarknet-database/issues">report issues here</a>.</h4>{% endif %}
-              {% endif %}
+              {% if request.user.is_authenticated %}<h3>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>{% endif %}
 {% endblock %}
