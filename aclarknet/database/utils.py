@@ -82,35 +82,32 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def dashboard_items():
+def dashboard_items(model):
     """
     """
-    # Not in use \/\/\/
-    clients = Client.objects.all()
-    clients_active = Client.objects.filter(active=True)
-    company = Company.get_solo()
-    contacts = Contact.objects.all()
-    contacts_active = Contact.objects.filter(active=True)
-    projects = Project.objects.all()
-    tasks = Task.objects.all()
-    tasks_active = Task.objects.filter(active=True)
-    times = Time.objects.all()
-    times_active = Time.objects.filter(invoiced=False, estimate=None)
-    invoices = Invoice.objects.all()
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
-    invoices_active = invoices_active.order_by('-pk')
-    estimates = Estimate.objects.all()
-    estimates_active = Estimate.objects.filter(accepted_date=None)
-
-    # In use \/\/\/
-    projects_active = Project.objects.filter(active=True)
-    projects_active = projects_active.order_by('-start_date')
-    return projects_active
+    # clients = Client.objects.all()
+    # clients_active = Client.objects.filter(active=True)
+    # company = Company.get_solo()
+    # contacts = Contact.objects.all()
+    # contacts_active = Contact.objects.filter(active=True)
+    # projects = Project.objects.all()
+    # tasks = Task.objects.all()
+    # tasks_active = Task.objects.filter(active=True)
+    # times = Time.objects.all()
+    # times_active = Time.objects.filter(invoiced=False, estimate=None)
+    # invoices = Invoice.objects.all()
+    # invoices_active = Invoice.objects.filter(last_payment_date=None)
+    # invoices_active = invoices_active.order_by('-pk')
+    # estimates = Estimate.objects.all()
+    # estimates_active = Estimate.objects.filter(accepted_date=None)
+    items = model.objects.filter(active=True)
+    items = items.order_by('-start_date')
+    return items
 
 
-def dashboard_totals():
+def dashboard_totals(model):
     results = OrderedDict()
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
+    invoices_active = model.objects.filter(last_payment_date=None)
     invoices_active = invoices_active.order_by('-pk')
     gross = 0
     net = 0

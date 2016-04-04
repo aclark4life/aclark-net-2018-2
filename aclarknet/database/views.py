@@ -306,8 +306,8 @@ def estimate_index(request):
 
 def home(request):
     context = {}
-    items = dashboard_items()
-    gross, net = dashboard_totals()
+    items = dashboard_items(Project)
+    gross, net = dashboard_totals(Invoice)
     context['gross'] = gross
     context['items'] = items
     context['net'] = net
@@ -506,7 +506,7 @@ def report_index(request):
 @staff_member_required
 def report_edit(request, pk=None):
     invoices_active = Invoice.objects.filter(last_payment_date=None)
-    gross, net = dashboard_total(invoices_active)
+    gross, net = dashboard_totals(invoices_active)
     return edit(request,
                 ReportForm,
                 Report,
