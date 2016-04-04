@@ -306,8 +306,10 @@ def estimate_index(request):
 
 def home(request):
     context = {}
-    items = dashboard_items(Project)
+    company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
+    items = dashboard_items(Project)
+    context['company'] = company
     context['gross'] = gross
     context['items'] = items
     context['net'] = net
