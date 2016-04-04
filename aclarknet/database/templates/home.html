@@ -22,4 +22,5 @@
               </div> 
               {% endif %}
               {% if request.user.is_authenticated %}<h3>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>{% endif %}
+              {% include 'project_table.html' %}
 {% endblock %}

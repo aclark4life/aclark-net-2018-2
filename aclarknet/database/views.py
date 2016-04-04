@@ -25,7 +25,8 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
-from .utils import dashboard_total
+from .utils import dashboard_items
+from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
 from .utils import search
@@ -305,46 +306,11 @@ def estimate_index(request):
 
 def home(request):
     context = {}
-
-    clients = Client.objects.all()
-    clients_active = Client.objects.filter(active=True)
-    company = Company.get_solo()
-    contacts = Contact.objects.all()
-    contacts_active = Contact.objects.filter(active=True)
-    projects = Project.objects.all()
-    projects_active = Project.objects.filter(active=True)
-    projects_active = projects_active.order_by('-start_date')
-    tasks = Task.objects.all()
-    tasks_active = Task.objects.filter(active=True)
-    times = Time.objects.all()
-    times_active = Time.objects.filter(invoiced=False, estimate=None)
-    invoices = Invoice.objects.all()
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
-    invoices_active = invoices_active.order_by('-pk')
-    estimates = Estimate.objects.all()
-    estimates_active = Estimate.objects.filter(accepted_date=None)
-
-    gross, net = dashboard_total(invoices_active)
-
-    context['clients'] = clients
-    context['clients_active'] = clients_active
-    context['company'] = company
-    context['contacts'] = contacts
-    context['contacts_active'] = contacts_active
-    context['projects'] = projects
-    context['projects_active'] = projects_active
-    context['tasks'] = tasks
-    context['tasks_active'] = tasks_active
-    context['times'] = times
-    context['times_active'] = times_active
-    context['invoices'] = invoices
-    context['invoices_active'] = invoices_active
+    items = dashboard_items()
+    gross, net = dashboard_totals()
     context['gross'] = gross
+    context['items'] = items
     context['net'] = net
-    context['estimates'] = estimates
-    context['estimates_active'] = estimates_active
-    context['request'] = request
-
     return render(request, 'home.html', context)
 
 
