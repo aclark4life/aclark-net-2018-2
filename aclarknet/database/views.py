@@ -29,7 +29,6 @@ from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
-from .utils import project_task
 from .utils import search
 from .utils import send_mail
 from django.contrib import messages
@@ -594,17 +593,18 @@ def time_edit(request, pk=None):
         url_name = 'entry'
 
     client = request.GET.get('client')
+    project = request.GET.get('project')
+
+    task = None
+
     if client:
         client = get_object_or_404(Client, pk=client)
 
-    # project = request.GET.get('project')
-    # task = None
-    # if project:
-    #     project = get_object_or_404(Project, pk=project)
-    #     if project.task:
-    #         task = get_object_or_404(Task, pk=project.task.pk)
+    if project:
+        project = get_object_or_404(Project, pk=project)
 
-    task = project_task(Project, Task, request)
+        if project.task:
+            task = get_object_or_404(Task, pk=project.task.pk)
 
     projects = Project.objects.filter(team=request.user.pk)
     clients = Client.objects.filter(
