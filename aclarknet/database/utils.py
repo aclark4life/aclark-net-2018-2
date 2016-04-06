@@ -454,6 +454,19 @@ def paginate(items, page):
     return items
 
 
+def project_task(project_model, task_model, request):
+    """
+    Return task if project has task, else return None.
+    """
+    pk = request.GET.get('project')
+    task = None
+    if pk:
+        project = get_object_or_404(project_model, pk=pk)
+        if project.task:
+            task = get_object_or_404(task_model, pk=project.task.pk)
+    return task
+
+
 def search(request, model, fields, order_by=None, context={}):
     """
     """
