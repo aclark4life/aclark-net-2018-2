@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <h3>Project<a class="btn btn-default pull-right" href="{% url 'project_edit' pk=project.pk %}">Edit Project</a></h3>
                 <hr>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
@@ -49,7 +49,7 @@
                 <div class="notes">{{ project.notes|linebreaks|default:'' }}</div>
                 {% endif %}
               </div>
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <h3>Time<a class="btn btn-default pull-right" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time</a></h3>
                 <hr>
                 <table data-toggle="table">
