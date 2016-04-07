@@ -19,27 +19,26 @@
               <div class="col-md-4">
                 <h3>Project<a class="btn btn-default pull-right" href="{% url 'project_edit' pk=project.pk %}">Edit Project</a></h3>
                 <hr>
+                <h4>{{ project.name }}</h4>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Budget</th>
+                      <th>Client</th>
                       <th>Start Date</th>
                       <th>End Date</th>
-                      <th>Client</th>
+                      <th>Budget</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                        <td>{{ project.name }}</td>
-                        <td>{{ project.budget|default:'' }}</td>
-                        <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                        <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                         {% if project.client %}
                           <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
                         {% else %}
                           <td>{{ project.client|default:'' }}</td>
                         {% endif %}
+                        <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
+                        <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
+                        <td>{{ project.budget|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>
