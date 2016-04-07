@@ -1,11 +1,11 @@
+from .utils import class_name_pk
+from .utils import gravatar_url
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
-from .utils import class_name_pk
-from .utils import gravatar_url
 
 # Create your models here.
 
@@ -183,6 +183,7 @@ class Profile(models.Model):
                                max_digits=12,
                                decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
+    notify = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.user.username

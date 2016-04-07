@@ -25,17 +25,18 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
-from .utils import dashboard_total
+from .utils import dashboard_items
+from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
 from .utils import search
+from .utils import send_mail
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.db.models import F, Sum
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -192,20 +193,13 @@ def contact_index(request):
 @staff_member_required
 def contact_mail(request, pk=None):
     context = {}
-    recipients = []
     contact = get_object_or_404(Contact, pk=pk)
     if request.method == 'POST':
         form = MailForm(request.POST)
         if form.is_valid():
-            sender = settings.DEFAULT_FROM_EMAIL
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
-            recipients.append(contact.email)
-            send_mail(subject,
-                      message,
-                      sender,
-                      recipients,
-                      fail_silently=False)
+            send_mail(subject, message, contact.email)
             messages.add_message(request, messages.SUCCESS, 'Message sent!')
             return HttpResponseRedirect(reverse('contact_index'))
     else:
@@ -261,7 +255,7 @@ def estimate(request, pk=None):
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf('entry_table.html',
+        return generate_pdf('invoice_table.html',
                             context=context,
                             file_object=response)
     else:
@@ -312,46 +306,13 @@ def estimate_index(request):
 
 def home(request):
     context = {}
-
-    clients = Client.objects.all()
-    clients_active = Client.objects.filter(active=True)
     company = Company.get_solo()
-    contacts = Contact.objects.all()
-    contacts_active = Contact.objects.filter(active=True)
-    projects = Project.objects.all()
-    projects_active = Project.objects.filter(active=True)
-    projects_active = projects_active.order_by('-start_date')
-    tasks = Task.objects.all()
-    tasks_active = Task.objects.filter(active=True)
-    times = Time.objects.all()
-    times_active = Time.objects.filter(invoiced=False, estimate=None)
-    invoices = Invoice.objects.all()
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
-    invoices_active = invoices_active.order_by('-pk')
-    estimates = Estimate.objects.all()
-    estimates_active = Estimate.objects.filter(accepted_date=None)
-
-    gross, net = dashboard_total(invoices_active)
-
-    context['clients'] = clients
-    context['clients_active'] = clients_active
+    gross, net = dashboard_totals(Invoice)
+    items = dashboard_items(Project)
     context['company'] = company
-    context['contacts'] = contacts
-    context['contacts_active'] = contacts_active
-    context['projects'] = projects
-    context['projects_active'] = projects_active
-    context['tasks'] = tasks
-    context['tasks_active'] = tasks_active
-    context['times'] = times
-    context['times_active'] = times_active
-    context['invoices'] = invoices
-    context['invoices_active'] = invoices_active
     context['gross'] = gross
+    context['items'] = items
     context['net'] = net
-    context['estimates'] = estimates
-    context['estimates_active'] = estimates_active
-    context['request'] = request
-
     return render(request, 'home.html', context)
 
 
@@ -404,7 +365,7 @@ def invoice(request, pk=None):
             company_name = 'COMPANY'
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf('entry_table.html',
+        return generate_pdf('invoice_table.html',
                             context=context,
                             file_object=response)
     else:
@@ -446,6 +407,7 @@ def invoice_edit(request, pk=None):
                 'invoice_edit.html',
                 amount=amount,
                 paid_amount=paid_amount,
+                paid=paid,
                 pk=pk,
                 subtotal=subtotal,
                 company=company)
@@ -527,21 +489,25 @@ def report(request, pk=None):
     context = {}
     report = get_object_or_404(Report, pk=pk)
     context['report'] = report
+    context['diff'] = report.gross - report.net
     return render(request, 'report.html', context)
 
 
 @staff_member_required
 def report_index(request):
     context = {}
-    items = Report.objects.all()
+    items = Report.objects.all().annotate(diff=F('gross') - F('net'))
+    agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
+    diff = agg['gross'] - agg['net']
     context['items'] = items
+    context['agg'] = agg
+    context['diff'] = diff
     return render(request, 'report_index.html', context)
 
 
 @staff_member_required
 def report_edit(request, pk=None):
-    invoices_active = Invoice.objects.filter(last_payment_date=None)
-    gross, net = dashboard_total(invoices_active)
+    gross, net = dashboard_totals(Invoice)
     return edit(request,
                 ReportForm,
                 Report,
@@ -689,10 +655,12 @@ def user(request, pk=None):
 
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
+    times = Time.objects.filter(user=user, estimate=None, invoiced=False)
 
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
+    context['items'] = times
 
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)

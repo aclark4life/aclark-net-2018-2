@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
-from django.test import TestCase
 from ..models import Contact
 from ..models import Client
+from django.contrib.auth.models import User
+from django.test import TestCase
 
 # Create your tests here.
 

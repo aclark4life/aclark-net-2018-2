@@ -32,65 +32,7 @@
               </div>
               <hr>
               {% include 'pagination.html' %}
-              <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc">
-                <thead>
-                  <tr>
-                    {% if request.user.is_staff %}
-                    <th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true"><span class="currency"><i class="fa fa-dollar"></i></span></th>
-                    {% endif %}
-                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                    <th data-sort-name="hidden-date" data-sortable="true">Date</th>
-                    <th data-field="hours" data-sortable="true">Hours</th>
-                    <th data-field="client" data-sortable="true">Client</th>
-                    <th data-field="project" data-sortable="true">Project</th>
-                    <th data-field="notes" data-sortable="true">Notes</th>
-                    <th data-field="user" data-sortable="true">User</th>
-                    <th data-field="task" data-sortable="true">Task</th>
-                    <th>View</th> 
-                    <th>Edit</th> 
-                    <th>Copy</th> 
-                    <th>Delete</th> 
-                    {% if request.user.is_staff %}
-                    <th data-field="invoice" data-sortable="true">Invoice</th>
-                    <th data-field="estimate" data-sortable="true">Estimate</th>
-                    {% endif %}
-                  </tr>
-                </thead>
-                <tbody>
-                {% for entry in items %}
-                  <tr>
-                    {% if request.user.is_staff %}
-                      <td>{% if entry.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="currency fa fa-check"></i>{% endif %}</td>
-                    {% endif %}
-                    <td>{{ entry.date|date:'U' }}</td>
-                    <td>{{ entry.date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ entry.hours|default:'' }}</td>
-                    <td>{{ entry.client|default:'' }}</td>
-                    {% if request.user.is_staff %}{% if entry.project %}<td><a href="{% url 'project' entry.project.pk %}">{{ entry.project|default:'' }}</a></td>{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}
-                    <td>{{ entry.notes|linebreaks }}</td>
-                    {% if entry.user %}<td><a href="{% url 'user' entry.user.pk %}">{{ entry.user|default:'' }}</a></td>{% else %}<td>{{ entry.user|default:'' }}</td>{% endif %}
-                    <td>{{ entry.task|default:'' }}</td>
-                    <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
-                    <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()"><i class="fa fa-plus"></i></button></form></td>
-                    <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
-                    {% if request.user.is_staff %}
-                      {% if entry.invoice %}
-                        <td><a href="{% url 'invoice' entry.invoice.pk %}">{{ entry.invoice.document_id|default:'' }}</a></td>
-                      {% else %}
-                        <td></td>
-                      {% endif %}
-                      {% if entry.estimate %}
-                        <td><a href="{% url 'estimate' entry.estimate.pk %}">{{ entry.estimate.document_id|default:'' }}</a></td>
-                      {% else %}
-                        <td>{{ entry.estimate|default:'' }}</td>
-                      {% endif %}
-                    {% endif %}
-                  </tr>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+              {% include 'time_table.html' %}
               <hr>
               {% include 'pagination.html' %}
               <script>

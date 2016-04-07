@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+from django.core.mail import send_mail as _send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -82,11 +82,36 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def dashboard_total(invoices):
+def dashboard_items(model):
+    """
+    """
+    # clients = Client.objects.all()
+    # clients_active = Client.objects.filter(active=True)
+    # company = Company.get_solo()
+    # contacts = Contact.objects.all()
+    # contacts_active = Contact.objects.filter(active=True)
+    # projects = Project.objects.all()
+    # tasks = Task.objects.all()
+    # tasks_active = Task.objects.filter(active=True)
+    # times = Time.objects.all()
+    # times_active = Time.objects.filter(invoiced=False, estimate=None)
+    # invoices = Invoice.objects.all()
+    # invoices_active = Invoice.objects.filter(last_payment_date=None)
+    # invoices_active = invoices_active.order_by('-pk')
+    # estimates = Estimate.objects.all()
+    # estimates_active = Estimate.objects.filter(accepted_date=None)
+    items = model.objects.filter(active=True)
+    items = items.order_by('-start_date')
+    return items
+
+
+def dashboard_totals(model):
     results = OrderedDict()
+    invoices_active = model.objects.filter(last_payment_date=None)
+    invoices_active = invoices_active.order_by('-pk')
     gross = 0
     net = 0
-    for invoice in invoices:
+    for invoice in invoices_active:
         results[invoice] = {}
         results[invoice]['subtotal'] = invoice.subtotal
         results[invoice]['amount'] = invoice.amount
@@ -95,6 +120,15 @@ def dashboard_total(invoices):
         if invoice.amount:
             net += invoice.amount
     return gross, net
+
+
+def send_mail(subject, message, to):
+    recipients = []
+    sender = settings.DEFAULT_FROM_EMAIL
+    subject = subject
+    message = message
+    recipients.append(to)
+    _send_mail(subject, message, sender, recipients, fail_silently=False)
 
 
 def edit(request,
@@ -112,6 +146,7 @@ def edit(request,
          net=None,
          pk=None,
          paid_amount=None,
+         paid=None,
          project=None,
          projects=[],
          subtotal=None,
@@ -212,7 +247,7 @@ def edit(request,
             checkbox = request.POST.get('checkbox')
             checkbox_publish = request.POST.get('checkbox-publish')
 
-            if checkbox == 'on' or checkbox == 'off': 
+            if checkbox == 'on' or checkbox == 'off':
                 kwargs = {}
                 if checkbox == 'on':
                     obj.active = True
@@ -233,7 +268,7 @@ def edit(request,
                     url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
-            if checkbox_publish == 'on' or checkbox_publish == 'off': 
+            if checkbox_publish == 'on' or checkbox_publish == 'off':
                 kwargs = {}
                 if checkbox_publish == 'on':
                     obj.published = True
@@ -254,7 +289,14 @@ def edit(request,
                     url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
-            if amount and subtotal and paid_amount:
+            if amount and subtotal and paid_amount and paid:
+                obj.amount = amount
+                obj.last_payment_date = timezone.now()
+                obj.subtotal = subtotal
+                obj.paid_amount = paid_amount
+                obj.save()
+                return HttpResponseRedirect(reverse(url_name))
+            elif amount and subtotal and paid_amount:
                 obj.amount = amount
                 obj.subtotal = subtotal
                 obj.paid_amount = paid_amount
@@ -280,17 +322,14 @@ def edit(request,
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
                 # Send mail when time entry created
-                sender = settings.DEFAULT_FROM_EMAIL
-                subject = 'Time entry'
-                message = '%s entered time! %s' % (
-                    obj.user.username,
-                    obj.get_absolute_url(request.get_host()))
-                recipients = [settings.DEFAULT_FROM_EMAIL, ]
-                send_mail(subject,
-                          message,
-                          sender,
-                          recipients,
-                          fail_silently=True)
+                if hasattr(obj.user, 'profile'):
+                    if obj.user.profile.notify:
+                        subject = 'Time entry'
+                        message = '%s entered time! %s' % (
+                            obj.user.username,
+                            obj.get_absolute_url(request.get_host()))
+                        send_mail(subject, message,
+                                  settings.DEFAULT_FROM_EMAIL)
 
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and

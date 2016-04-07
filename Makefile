@@ -133,6 +133,9 @@ copy:
 	heroku maintenance:off
 db-reset:
 	heroku pg:reset DATABASE_URL
+dump:
+	$(MAKE) backup
+	curl -o aclarknet-database.dump `heroku pg:backups public-url`
 remote: remote-add
 remote-add:
 	git remote add heroku git@heroku.com:aclarknet-database.git

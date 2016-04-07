@@ -25,12 +25,15 @@
                 </div>
               </div>
               <hr>
-              <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc">
+              <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc">
                 <thead>
                   <tr>
-                    <th data-field="fullname" data-sortable="true">Date</th>
-                    <th data-field="email" data-sortable="true">Gross</th>
-                    <th data-field="rate" data-sortable="true">Net</th>
+                    <th data-field="name" data-sortable="true">Name</th>
+                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                    <th data-sort-name="hidden-issue-date" data-sortable="true">Date</th>
+                    <th data-field="gross" data-sortable="true">Gross</th>
+                    <th data-field="net" data-sortable="true">Net</th>
+                    <th data-field="diff" data-sortable="true">Diff</th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -39,14 +42,28 @@
                 <tbody>
                 {% for report in items %}
                   <tr>
-                    <td>{{ report.date }}</td>
+                    <td>{{ report.name }}</td>
+                    <td>{{ report.date|date:'U'|default:'' }}</td>
+                    <td>{{ report.date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ report.gross }}</td>
                     <td>{{ report.net }}</td>
+                    <td>{{ report.diff }}</td>
                     <td><a href="{% url 'report' report.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'report_edit' report.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                     <td><form action="{% url 'report_edit' report.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ agg.gross }}</td>
+                    <td>{{ agg.net }}</td>
+                    <td>{{ diff }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
               </table>
 {% endblock content %}
