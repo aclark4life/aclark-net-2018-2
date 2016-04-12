@@ -357,6 +357,7 @@ def edit(request,
 
     context['item'] = obj
     context['form'] = form
+    context['pk'] = pk
     return render(request, template, context)
 
 
