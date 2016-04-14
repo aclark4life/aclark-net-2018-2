@@ -29,18 +29,9 @@
                     <td>{{ project.start_date|date:'U'|default:'' }}</td>
                     <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.end_date|date:'U'|default:'' }}</td>
-                    {% if project.client.pk %}
-                      <td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>
-                      <td>{{ project.client }}</td>
-                    {% else %}
-                      <td></td>
-                      <td></td>
-                    {% endif %}
-                    {% if project.task %}
-                      <td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>
-                    {% else %}
-                      <td>{{ task.name }}</td>
-                    {% endif %}
+                    {% if project.client.pk %}<td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>{% else %}<td>{{ project.client }}</td>{% endif %}
+                    <td>{{ project.client }}</td>
+                    {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                     <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                     <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
