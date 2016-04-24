@@ -45,7 +45,7 @@
 #ps
 #uninstall
 
-.DEFAULT_GOAL := git-commit-auto-push
+.DEFAULT_GOAL := commit-heroku
 .PHONY := install
 
 # Short target names to execute default, multiple and preferred targets
@@ -202,3 +202,6 @@ vagrant-init:
 	vagrant init ubuntu/trusty64; vagrant up --provider virtualbox
 vagrant-up:
 	vagrant up --provision
+
+# aclarknet-database
+commit-heroku: commit heroku
