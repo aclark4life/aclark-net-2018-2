@@ -44,7 +44,7 @@
                 </table>
                 <hr>
                 <h5>Invoices</h5>
-                <ul>
+                <ul id="project-invoices">
                 {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></li>
                 {% endfor %}
