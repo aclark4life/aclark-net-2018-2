@@ -437,8 +437,10 @@ def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
     times = Time.objects.filter(project=project).order_by('-date')
+    invoices = Invoice.objects.filter(project=project, active=True)
     context['project'] = project
     context['times'] = times
+    context['invoices'] = invoices
     return render(request, 'project.html', context)
 
 

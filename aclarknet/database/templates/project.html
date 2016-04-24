@@ -43,6 +43,13 @@
                   </tbody>
                 </table>
                 <hr>
+                <h5>Invoices</h5>
+                <ul>
+                {% for invoice in invoices %}
+                    <li><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></li>
+                {% endfor %}
+                </ul>
+                <hr>
                 <h5>Notes</h5>
                 {% if project.notes %}
                 <div class="notes">{{ project.notes|linebreaks|default:'' }}</div>
