@@ -3,7 +3,7 @@ ul#project-invoices {
 }
 #project-invoices li:before {
     font-family: 'FontAwesome';
-    content: '\f067';
+    content: '\f138';
     margin:0 5px 0 -15px;
-    color: #f00;
+    color: #000;
 }
