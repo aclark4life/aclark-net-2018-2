@@ -308,7 +308,7 @@ def home(request):
     context = {}
     company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
-    items = dashboard_items(Project)
+    items = dashboard_items(Project, order_by='client__name')
     context['company'] = company
     context['gross'] = gross
     context['items'] = items
