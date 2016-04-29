@@ -82,11 +82,12 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def dashboard_items(model, active=True, order_by='-pk'):
+def dashboard_items(model, active=True, order_by=None):
     """
     """
     items = model.objects.filter(active=active)
-    items = items.order_by(order_by)
+    if order_by:
+        items = items.order_by(order_by)
     return items
 
 
