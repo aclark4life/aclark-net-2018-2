@@ -483,6 +483,7 @@ def project_index(request, pk=None):
                             fields,
                             order_by=order_by,
                             context=context)
+    context['active_column'] = 'true'
     context['items'] = items
     return render(request, 'project_index.html', context)
 
