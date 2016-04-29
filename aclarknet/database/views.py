@@ -437,8 +437,8 @@ def invoice_index(request):
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
-    times = Time.objects.filter(project=project).order_by('-date',
-                                                          invoiced=False)
+    times = Time.objects.filter(project=project,
+                                invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['project'] = project
     context['times'] = times
