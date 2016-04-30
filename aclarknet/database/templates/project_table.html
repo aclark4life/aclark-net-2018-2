@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                 {% for project in items %}
-                  <tr {% if forloop.counter|divisibleby:2 %}style="background:lightgray"{% endif %}>
+                  <tr {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>
                     <td data-visible="{{ active_column }}"><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ project.active }}</td>
                     <td>{{ project.name }}</td>
