@@ -11,10 +11,11 @@ $(document).ready(function() {
         $('.actives').slideToggle(250);
         return false;
     });
-    function rowStyle(value, row, index) {
-      return {
-        classes: 'text-nowrap another-class',
-        css: {"color": "blue", "font-size": "50px"}
-      };
-    }
 });
+function rowStyle(value, row, index) {
+  if (row%2 == 0) {
+    return {
+      classes: 'background: lightgray',
+    };
+  };
+}
