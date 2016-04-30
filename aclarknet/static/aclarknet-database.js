@@ -1,3 +1,8 @@
+function rowStyle(value, row, index) {
+  return {
+    css: {"background": "lightgray"}
+  };
+}
 $(document).ready(function() {
     $('.dateinput').datepicker({ format: "yyyy-mm-dd", todayHighlight: "true"});
     $('.datetimeinput').datepicker({ format: "yyyy-mm-dd", todayHighlight: "true"});
@@ -11,10 +16,4 @@ $(document).ready(function() {
         $('.actives').slideToggle(250);
         return false;
     });
-    function rowStyle(value, row, index) {
-      return {
-        css: {"background": "lightgray"}
-      };
-    }
 });
-
