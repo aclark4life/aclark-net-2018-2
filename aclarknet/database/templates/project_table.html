@@ -43,16 +43,17 @@
               </table>
               <script>
                 function isEven(value) {
-                  if (value%2 == 0)
-                    return true;
-                  else
-                    return false;
+                  if (value%2 == 0) {
+                    return true
+                  } else {
+                    return false
+                  }
                 }
                 function rowStyle(value, row, index) {
-                  return {
-                    if (isEven(row)) {
+                  if (isEven(row)) {
+                    return {
                       css: {"background": "lightgray"}
                     }
-                  };
+                  }
                 }
               </script>
