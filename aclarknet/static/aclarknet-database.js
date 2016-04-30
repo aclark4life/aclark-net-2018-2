@@ -15,7 +15,7 @@ $(document).ready(function() {
 function rowStyle(value, row, index) {
   if (row%2 == 0) {
     return {
-      classes: 'background: lightgray',
+      css: {"background": "lightgray"}
     };
   };
 }
