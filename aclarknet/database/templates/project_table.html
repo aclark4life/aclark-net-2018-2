@@ -41,19 +41,3 @@
                 {% endfor %}
                 </tbody>
               </table>
-              <script>
-                function isEven(value) {
-                  if (value%2 == 0) {
-                    return true
-                  } else {
-                    return false
-                  }
-                }
-                function rowStyle(value, row, index) {
-                  if (isEven(row)) {
-                    return {
-                      css: {"background": "lightgray"}
-                    }
-                  }
-                }
-              </script>
