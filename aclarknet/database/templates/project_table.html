@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                 {% for project in items %}
-                  <tr> 
+                  <tr {% if forloop.counter|divisibleby:2 %}data-row-style="rowStyle"{% endif %}> 
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ project.active }}</td>
                     <td>{{ project.name }}</td>
