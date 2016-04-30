@@ -20,22 +20,22 @@
                 </thead>
                 <tbody>
                 {% for project in items %}
-                  <tr {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>
-                    <td data-visible="{{ active_column }}"><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
-                    <td>{{ project.active }}</td>
-                    <td>{{ project.name }}</td>
-                    <td>{{ project.budget|floatformat }}</td>
-                    <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ project.start_date|date:'U'|default:'' }}</td>
-                    <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ project.end_date|date:'U'|default:'' }}</td>
-                    {% if project.client.pk %}<td><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>{% else %}<td>{{ project.client }}</td>{% endif %}
-                    <td>{{ project.client }}</td>
-                    {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
-                    <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
-                    <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
-                    <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                  <tr> 
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %} data-visible="{{ active_column }}"><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.active }}</td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.name }}</td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.budget|floatformat }}</td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.start_date|date:'U'|default:'' }}</td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.end_date|date:'U'|default:'' }}</td>
+                    {% if project.client.pk %}<td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></td>{% else %}<td>{{ project.client }}</td>{% endif %}
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}>{{ project.client }}</td>
+                    {% if project.task %}<td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
+                    <td {% if forloop.counter|divisibleby:2 %}style="background-color: lightgray !important;"{% endif %}><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
 
                   </tr>
                 {% endfor %}
