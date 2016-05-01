@@ -15,11 +15,11 @@ $(document).ready(function() {
 function rowStyle(value, row, index) {
   if (row%2 == 0) {
     return {
-      css: {"background": "lightgray"}
+      css: {"background": "white"}
     };
   } else {
     return {
-      css: {"background": "white"}
+      css: {"background": "#f5f5f5"}
     };
   }
 }
