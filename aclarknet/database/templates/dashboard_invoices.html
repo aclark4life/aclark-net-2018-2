@@ -11,7 +11,7 @@
 <tbody>
   <tr>
     {% for invoice in invoices %}
-    <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar currency"></i>{{ invoice.amount }}</a></td>
+    <td class="currency"><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar"></i>{{ invoice.amount }}</a></td>
     {% endfor %}
   </tr>
 </tbody>
