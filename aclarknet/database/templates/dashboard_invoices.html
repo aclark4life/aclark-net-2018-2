@@ -1,17 +1,18 @@
 <table data-toggle="table">
 <thead>
   <tr>
+    {% for invoice in invoices %}
     <th>
+      {{ invoice.client }}
     </th>
+    {% endfor %}
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>
     {% for invoice in invoices %}
-      <a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-circle-open fa-2x">{{ invoice.amount }}</i></a>
+    <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.amount }}</a></td>
     {% endfor %}
-    </td>
   </tr>
 </tbody>
 </table>
