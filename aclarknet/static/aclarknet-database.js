@@ -13,9 +13,9 @@ $(document).ready(function() {
     });
 });
 function rowStyle(value, row, index) {
-  if (0 == 0) {
+  if (row == 0) {
     return {
-      css: {"background": row}
+      css: {"background": "lightgray"}
     };
   }
 }
