@@ -23,12 +23,13 @@
               {% endif %}
               {% if request.user.is_authenticated %}<h3>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>{% endif %}
 {% if request.user.is_staff %}
+              <h4>Active Projects</h4>
+{% include 'project_table.html' %}
               <h4>Current Totals</h4>
               <div class="row">
                 <div class="col-md-6">
 {% include 'dashboard_totals.html' %}
                 </div>
               </div>
-              <h4>Active Projects</h4>
-{% include 'project_table.html' %}{% endif %}
+{% endif %}
 {% endblock %}
