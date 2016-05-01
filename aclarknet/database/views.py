@@ -309,7 +309,7 @@ def home(request):
     company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
     items = dashboard_items(Project, order_by='client__name')
-    invoices = Invoice.objects.filter(last_payment_date=None)
+    invoices = Invoice.objects.filter(last_payment_date=None).order_by('-amount')
     context['active_column'] = 'false'
     context['company'] = company
     context['gross'] = gross
