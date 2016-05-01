@@ -11,6 +11,13 @@ $(document).ready(function() {
         $('.actives').slideToggle(250);
         return false;
     });
+
+    $('tr').on('hover', function (e, data) {
+        rows.forEach(function(value, index){
+            $(value).addClass('danger');
+        });
+    });
+
 });
 function rowStyle(value, row, index) {
   if (row%2 == 0) {
