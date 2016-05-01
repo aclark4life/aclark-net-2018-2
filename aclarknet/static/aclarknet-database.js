@@ -13,7 +13,7 @@ $(document).ready(function() {
     });
 });
 function rowStyle(value, row, index) {
-  if (row == 0) {
+  if (row%2 == 0) {
     return {
       css: {"background": "lightgray"}
     };
