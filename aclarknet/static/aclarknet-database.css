@@ -7,6 +7,3 @@ ul#project-invoices {
     margin:0 5px 0 -15px;
     color: #000;
 }
-tr:hover {
-    background: #f5f5f5 !important;
-}
