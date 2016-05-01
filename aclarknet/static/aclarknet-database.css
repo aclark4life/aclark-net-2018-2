@@ -7,3 +7,9 @@ ul#project-invoices {
     margin:0 5px 0 -15px;
     color: #000;
 }
+tbody tr:hover td {
+    background-color: #f0f0f0 !important;
+}
+tbody tr:hover a {
+    text-decoration: none;
+}
