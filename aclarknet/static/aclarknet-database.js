@@ -17,5 +17,9 @@ function rowStyle(value, row, index) {
     return {
       css: {"background": "lightgray"}
     };
+  } else {
+    return {
+      css: {"background": "white"}
+    };
   }
 }
