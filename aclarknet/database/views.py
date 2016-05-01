@@ -309,10 +309,12 @@ def home(request):
     company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
     items = dashboard_items(Project, order_by='client__name')
+    invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['active_column'] = 'false'
     context['company'] = company
     context['gross'] = gross
-    context['items'] = items
+    context['invoices'] = invoices
+    context['items'] = items  # projects
     context['net'] = net
     return render(request, 'home.html', context)
 

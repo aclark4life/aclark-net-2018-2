@@ -7,7 +7,11 @@
 </thead>
 <tbody>
   <tr>
-    <td>Efficiently initiate fully tested portals through visionary partnerships. Conveniently envisioneer ubiquitous users whereas progressive networks. Enthusiastically orchestrate magnetic value without client-based users.</td>
+    <td>
+    {% for invoice in invoices %}
+      <a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar fa-2x"></i></a>
+    {% endfor %}
+    </td>
   </tr>
 </tbody>
 </table>
