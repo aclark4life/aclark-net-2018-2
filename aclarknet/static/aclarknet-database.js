@@ -11,11 +11,6 @@ $(document).ready(function() {
         $('.actives').slideToggle(250);
         return false;
     });
-    $("tr").hover(function() {
-        $(this).css("background-color", "yellow");
-        }, function() {
-        $(this).css("background-color", "pink");
-    });
 });
 function rowStyle(value, row, index) {
   if (row%2 == 0) {
