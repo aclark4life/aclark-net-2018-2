@@ -53,17 +53,17 @@
                     <td><form action="{% url 'report_edit' report.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}
+                  <tr>
+                    <td><strong>Total:</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td class="currency"><i class="fa fa-dollar"></i>{{ agg.gross }}</td>
+                    <td class="currency"><i class="fa fa-dollar"></i>{{ agg.net }}</td>
+                    <td class="currency"><i class="fa fa-dollar"></i>{{ diff }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
-                <tr>
-                  <td><strong>Total:</strong></td>
-                  <td></td>
-                  <td></td>
-                  <td class="currency"><i class="fa fa-dollar"></i>{{ agg.gross }}</td>
-                  <td class="currency"><i class="fa fa-dollar"></i>{{ agg.net }}</td>
-                  <td class="currency"><i class="fa fa-dollar"></i>{{ diff }}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
               </table>
 {% endblock content %}
