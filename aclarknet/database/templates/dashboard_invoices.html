@@ -9,7 +9,7 @@
   <tr>
     <td>
     {% for invoice in invoices %}
-      <a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar fa-2x"></i></a>
+      <a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-circle-open fa-2x">{{ invoice.amount }}</i></a>
     {% endfor %}
     </td>
   </tr>
