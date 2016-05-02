@@ -43,7 +43,7 @@
                   </tbody>
                 </table>
                 <hr>
-                <h5>Invoices</h5>
+                <h5>Invoices <a href="{% url 'invoice_edit' %}?project={{ project.pk }}">{{ invoice }}</a></h5>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></li>
