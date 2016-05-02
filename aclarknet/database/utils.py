@@ -162,11 +162,16 @@ def edit(request,
             form.fields['client'].queryset = clients
 
         # Populate time entry form fields with project, client
-        # and task values; populate invoice with project.
-        if project: 
+        # and task values
+        if project and hasattr(project, 'task'):
             entry = model(project=project,
                           client=project.client,
                           task=project.task)
+            form = form_model(instance=entry)
+        # Populate invoice with project
+        elif project:
+            entry = model(project=project,
+                          client=project.client)
             form = form_model(instance=entry)
         # Populate time entry form fields with client and
         # task values
