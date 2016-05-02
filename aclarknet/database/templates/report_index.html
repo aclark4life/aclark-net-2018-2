@@ -42,7 +42,7 @@
                 <tbody>
                 {% for report in items %}
                   <tr>
-                    <td>{{ report.name }}</td>
+                    <td><strong>{{ report.name }}</strong></td>
                     <td>{{ report.date|date:'U'|default:'' }}</td>
                     <td>{{ report.date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ report.gross }}</td>
