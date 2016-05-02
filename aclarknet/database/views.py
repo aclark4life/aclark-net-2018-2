@@ -384,6 +384,7 @@ def invoice_edit(request, pk=None):
     times = request.GET.get('times')
     paid = request.GET.get('paid')
     company = Company.get_solo()
+    project = request.GET.get('project')
 
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
@@ -413,6 +414,7 @@ def invoice_edit(request, pk=None):
                 paid_amount=paid_amount,
                 paid=paid,
                 pk=pk,
+                project=project,
                 subtotal=subtotal,
                 company=company)
 
