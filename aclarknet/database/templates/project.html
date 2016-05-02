@@ -43,7 +43,14 @@
                   </tbody>
                 </table>
                 <hr>
-                <h5>Invoices <a href="{% url 'invoice_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle"></i></a></h5>
+                <div class="row">
+                  <div class="col-md-3">
+                    <h5>Invoices</h5> 
+                  </div>
+                  <div class="col-md-3">
+                    <a class="pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle"></i></a>
+                  </div>
+                </div>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">{{ invoice }}</a></li>
