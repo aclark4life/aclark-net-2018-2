@@ -386,6 +386,9 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     project = request.GET.get('project')
 
+    if project:
+        project = get_object_or_404(Project, pk=project)
+
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
         if invoice.project:
