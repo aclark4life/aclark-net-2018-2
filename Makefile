@@ -205,3 +205,5 @@ vagrant-up:
 
 # aclarknet-database
 commit-heroku: commit heroku
+heroku-db-reset:
+	heroku pg:reset DATABASE_URL
