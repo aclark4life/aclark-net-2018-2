@@ -703,8 +703,15 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = {}
+    active = request.GET.get('active')
+    if active:
+        context['active'] = True
     company = Company.get_solo()
-    items = User.objects.all()
+    fields = ('first_name', 'last_name', 'email', 'notes')
+    context, items = search(request,
+                            Profile,
+                            fields,
+                            context=context)
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)

@@ -256,6 +256,8 @@ def edit(request,
                     url_name = 'project_index'
                 if obj._meta.verbose_name == 'task':
                     url_name = 'task_index'
+                if obj._meta.verbose_name == 'profile':
+                    url_name = 'user_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
             if checkbox_publish == 'on' or checkbox_publish == 'off':
@@ -462,7 +464,8 @@ def search(request, model, fields, order_by=None, context={}):
             results = model.objects.filter(accepted_date=None)
         else:
             results = model.objects.filter(active=True)
-        results = results.order_by(order_by)
+        if order_by:
+            results = results.order_by(order_by)
         if request.user.is_staff:
             return context, results
         else:

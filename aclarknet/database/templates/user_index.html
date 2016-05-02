@@ -18,10 +18,13 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-1">
-                  <h3>Tasks</h3>
+                  <h3>Users</h3>
                 </div>
-                <div class="col-md-11">
+                <div class="col-md-3">
                   <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-{% if not active %}square-o{% else %}check-square{% endif %}"></i></a></span></h3>
+                </div>
+                <div class="col-md-7">
+                  {% include 'search.html' %}
                 </div>
               </div>
               <hr>
