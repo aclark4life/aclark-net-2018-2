@@ -16,13 +16,22 @@
 {% endblock %}
 
 {% block content %}
-              <h3>Users</h3>
+              <div class="row">
+                <div class="col-md-1">
+                  <h3>Tasks</h3>
+                </div>
+                <div class="col-md-11">
+                  <h3><span class="col-md-3"><a href="?active=true"><i class="fa fa-{% if not active %}square-o{% else %}check-square{% endif %}"></i></a></span></h3>
+                </div>
+              </div>
               <hr>
               {% include 'messages.html' %}    
               {% include 'pagination.html' %}
               <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc" data-row-style="rowStyle">
                 <thead>
                   <tr>
+                    <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                    <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                     <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                     <th data-field="username" data-sortable="true">User Name</th>
                     <th data-field="fullname" data-sortable="true">Full Name</th>
@@ -36,6 +45,8 @@
                 <tbody>
                 {% for user in items %}
                   <tr>
+                    <td><form action="{% url 'user_edit' user.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if user.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td>{{ user.active }}</td>
                     <td>{{ user.pk }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.get_full_name }}</td>
