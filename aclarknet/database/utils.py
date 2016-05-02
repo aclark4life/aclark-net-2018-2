@@ -163,15 +163,14 @@ def edit(request,
 
         # Populate time entry form fields with project, client
         # and task values
-        if project and hasattr(project, 'task'):
+        if project and model._meta.verbose_name == 'time':
             entry = model(project=project,
                           client=project.client,
                           task=project.task)
             form = form_model(instance=entry)
         # Populate invoice with project
-        elif project:
-            entry = model(project=project,
-                          client=project.client)
+        elif project and model._meta.verbose_name == 'invoice':
+            entry = model(project=project, client=project.client)
             form = form_model(instance=entry)
         # Populate time entry form fields with client and
         # task values
