@@ -205,6 +205,8 @@ vagrant-up:
 
 # aclarknet-database
 commit-heroku: commit heroku
+heroku-db-backup:
+	heroku pg:backups capture
 heroku-db-copy:
 	heroku maintenance:on
 	heroku ps:scale web=0
