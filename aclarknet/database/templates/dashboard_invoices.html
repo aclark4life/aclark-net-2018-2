@@ -1,6 +1,6 @@
 <table data-toggle="table">
 <thead>
-  <tr>
+  <tr class="light">
     {% for invoice in invoices %}
     <th>
       {{ invoice.project }}
@@ -11,7 +11,7 @@
 <tbody>
   <tr>
     {% for invoice in invoices %}
-    <td class="currency"><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar"></i>{{ invoice.subtotal }}</a></td>
+    <td class="currency"><h4><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar"></i>{{ invoice.subtotal }}</a></h4></td>
     {% endfor %}
   </tr>
 </tbody>
