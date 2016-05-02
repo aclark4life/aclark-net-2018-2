@@ -447,7 +447,7 @@ def paginate(items, page):
     return items
 
 
-def search(request, model, fields, order_by=None, context={}):
+def search(request, model, fields, order_by=None, context={}, user_model=None):
     """
     """
     results = []
