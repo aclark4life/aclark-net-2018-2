@@ -31,12 +31,12 @@
                     <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.end_date|date:'U'|default:'' }}</td>
                     <td>{{ project.name }}</td>
-                    {% if project.task %}<td id="task-color"><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
+                    {% if project.task %}<td class="task-color"><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                     <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                     <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
-                  </tr><script>$('task-color').css('background', '{{ project.task.color }}')</script>
+                  </tr><script>$('.task-color').css('background', '{{ project.task.color }}')</script>
                 {% endfor %}
                 </tbody>
               </table>
