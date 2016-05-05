@@ -87,7 +87,7 @@ class ServiceForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('active', 'name', 'rate', 'unit')
+        fields = ('active', 'name', 'rate', 'unit', 'color')
 
 
 class TimeAdminForm(forms.ModelForm):
