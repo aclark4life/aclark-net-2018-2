@@ -36,7 +36,7 @@
                     <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                     <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
-                  </tr><script>$('.task-color').cssText('background-color: {{ project.task.color|default:'#000000' }} !important')</script>
+                  </tr>
                 {% endfor %}
                 </tbody>
               </table>
