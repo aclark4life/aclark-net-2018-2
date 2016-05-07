@@ -20,6 +20,13 @@
                 </thead>
                 <tbody>
                 {% for project in items %}
+                  {% if project.task %}
+                  <style>
+                    .task-color {
+                        background-color: {{ project.task.color }}
+                    }
+                  </style>
+                  {% endif %}
                   <tr> 
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ project.active }}</td>
