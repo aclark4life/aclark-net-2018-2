@@ -20,7 +20,7 @@
                 </thead>
                 <tbody>
                 {% for project in items %}
-                  {% if project.task %}
+                  {% if project.task.color %}
                   <style>
                     .task-color {
                         background-color: {{ project.task.color }} !important;
