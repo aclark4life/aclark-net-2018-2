@@ -45,17 +45,24 @@
 #ps
 #uninstall
 
-.DEFAULT_GOAL := commit-heroku
-.PHONY := install
+# https://www.gnu.org/software/make/manual/html_node/Special-Variables.html#Special-Variables
+.DEFAULT_GOAL := git-commit-auto-push
+
+# https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
+.PHONY : install
 
 # Short target names to execute default, multiple and preferred targets
 commit: git-commit-auto-push
 co: git-checkout-branches
 db: django-migrate django-su
 db-clean: django-db-clean-postgres
+fe-init: npm-init npm-install grunt-init grunt-serve
+fe: npm-install grunt-serve
+freeze: python-pip-freeze
 heroku: heroku-push
 install: python-virtualenv-create python-pip-install
 lint: python-flake python-yapf python-wc
+readme: python-package-readme-test
 release: python-package-release
 releasetest: python-package-release-test
 serve: django-serve
@@ -66,8 +73,9 @@ vm-down: vagrant-suspend
 
 # Variables to configure defaults 
 COMMIT_MESSAGE="Update"
-PROJECT=aclarknet
-APP=database
+PROJECT=project
+APP=app
+DIR := $(shell echo `tmp`)
 
 # Django
 django-db-clean-postgres:
@@ -141,6 +149,10 @@ npm-init:
 	npm init
 npm-install:
 	npm install
+grunt-init:
+	grunt-init `pwd`
+grunt-serve:
+	grunt serve
 
 # Plone
 plone-heroku:
@@ -166,6 +178,9 @@ python-flake:
 python-package-check:
 	check-manifest
 	pyroma .
+python-pip-freeze:
+	bin/pip freeze | sort > $(DIR)/requirements.txt
+	mv -f $(DIR)/requirements.txt .
 python-pip-install:
 	bin/pip install -r requirements.txt
 python-virtualenv-create:
@@ -186,10 +201,17 @@ python-package-release:
 	python setup.py sdist --format=gztar,zip upload
 python-package-release-test:
 	python setup.py sdist --format=gztar,zip upload -r test
+python-package-test:
+	python setup.py test
 
 # Sphinx
 sphinx-start:
 	sphinx-quickstart -q -p "Python Project" -a "Alex Clark" -v 0.0.1 doc
+
+# Static
+static-serve:
+	@echo "\n\tServing HTTP on http://0.0.0.0:8000\n"
+	python -m SimpleHTTPServer
 
 # Vagrant
 vagrant-box-update:
