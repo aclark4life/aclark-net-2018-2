@@ -73,8 +73,8 @@ vm-down: vagrant-suspend
 
 # Variables to configure defaults 
 COMMIT_MESSAGE="Update"
-PROJECT=project
-APP=app
+PROJECT=aclarknet
+APP=database
 DIR := $(shell echo `tmp`)
 
 # Django

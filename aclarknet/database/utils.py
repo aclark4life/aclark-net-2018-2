@@ -9,10 +9,12 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils import timezone
+from docx import Document
 from import_export import widgets
 from md5 import md5
 import datetime
@@ -106,6 +108,18 @@ def dashboard_totals(model):
         if invoice.amount:
             net += invoice.amount
     return gross, net
+
+
+def generate_doc(request):
+    """
+    http://stackoverflow.com/a/31904512/185820
+    """
+    document = Document()
+    document.add_heading('Document Title', 0)
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = 'attachment; filename=download.docx'
+    document.save(response)
+    return response
 
 
 def send_mail(subject, message, to):

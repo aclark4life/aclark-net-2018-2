@@ -29,6 +29,7 @@ from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
+from .utils import generate_doc
 from .utils import search
 from .utils import send_mail
 from django.contrib import messages
