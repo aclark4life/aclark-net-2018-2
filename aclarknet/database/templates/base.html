@@ -95,7 +95,7 @@
           </ul>
           <ul class="nav navbar-nav pull-right">
             <li class="dropdown">
-              <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-caret-down fa-2x"></i></a>
+              <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\/</a>
               <ul class="dropdown-menu"> 
                 {% if request.user.is_staff %}<li><a href="{% url 'report_edit' %}">Add Report</a></li>{% endif %}
                 <li><a href="{% url 'entry_edit' %}">Add Time</a></li>
