@@ -95,20 +95,8 @@
           </ul>
           <ul class="nav navbar-nav pull-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\/</a>
-              <ul class="dropdown-menu"> 
                 {% if request.user.is_staff %}<li><a href="{% url 'report_edit' %}">Add Report</a></li>{% endif %}
                 <li><a href="{% url 'entry_edit' %}">Add Time</a></li>
                 <li><a href="{% url 'entry_index' %}">View Time</a></li>
