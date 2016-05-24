@@ -22,36 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# GNU software standard targets... for inspiration.
-# https://www.gnu.org/prep/standards/html_node/Standard-Targets.html
-#TAGS
-#all
-#check
-#clean
-#distclean
-#dist
-#dvi
-#html
-#info
-#install-dvi
-#install-html
-#install-pdf
-#install-ps
-#install-strip
-#install
-#maintainer-clean
-#mostlyclean
-#pdf
-#ps
-#uninstall
+.DEFAULT_GOAL=git-commit-auto-push
 
-# https://www.gnu.org/software/make/manual/html_node/Special-Variables.html#Special-Variables
-.DEFAULT_GOAL := git-commit-auto-push
+APP=app
+COMMITMESSAGE="Update"
+DIR:=$(shell echo `tmp`)
+PROJECT=project
 
-# https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
-.PHONY : install
-
-# Short target names to execute default, multiple and preferred targets
 commit: git-commit-auto-push
 co: git-checkout-branches
 db: django-migrate django-su
@@ -71,11 +48,6 @@ test: django-test
 vm: vagrant-up
 vm-down: vagrant-suspend
 
-# Variables to configure defaults 
-COMMIT_MESSAGE="Update"
-PROJECT=aclarknet
-APP=database
-DIR := $(shell echo `tmp`)
 
 # Django
 django-db-clean-postgres:
@@ -83,6 +55,10 @@ django-db-clean-postgres:
 	-createdb $(PROJECT)-$(APP)
 django-db-clean-sqlite:
 	-rm -f $(PROJECT)-$(APP).sqlite3
+django-init:
+	-mkdir -p $(PROJECT)/$(APP)
+	-django-admin startproject $(PROJECT) .
+	-django-admin startapp $(APP) $(PROJECT)/$(APP)
 django-migrate:
 	python manage.py migrate
 django-migrations:
@@ -96,10 +72,6 @@ django-test:
 	python manage.py test
 django-shell:
 	python manage.py shell
-django-start:
-	-mkdir -p $(PROJECT)/$(APP)
-	-django-admin startproject $(PROJECT) .
-	-django-admin startapp $(APP) $(PROJECT)/$(APP)
 django-static:
 	python manage.py collectstatic --noinput
 django-su:
@@ -114,7 +86,7 @@ git-checkout-branches:
 	-for i in $(REMOTE_BRANCHES) ; do \
         git checkout -t $$i ; done
 git-commit-auto-push:
-	git commit -a -m $(COMMIT_MESSAGE)
+	git commit -a -m $(COMMITMESSAGE)
 	$(MAKE) git-push
 git-commit-edit-push:
 	git commit -a
@@ -150,7 +122,8 @@ npm-init:
 npm-install:
 	npm install
 grunt-init:
-	grunt-init `pwd`
+	npm install grunt
+	grunt-init Gruntfile
 grunt-serve:
 	grunt serve
 
@@ -221,7 +194,8 @@ vagrant-clean:
 vagrant-down:
 	vagrant suspend
 vagrant-init:
-	vagrant init ubuntu/trusty64; vagrant up --provider virtualbox
+	vagrant init ubuntu/trusty64
+	vagrant up --provider virtualbox
 vagrant-up:
 	vagrant up --provision
 
