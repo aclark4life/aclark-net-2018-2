@@ -23,7 +23,7 @@
                   <tr> 
                     <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ project.active }}</td>
-                    {% if project.client.pk %}<td><strong><i class="fa fa-building fa-2x"></i><a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></strong></td>{% else %}<td>{{ project.client|default:'' }}</td>{% endif %}
+                    {% if project.client.pk %}<td><strong><i class="fa fa-building"></i>&nbsp;<a href="{% url 'client' project.client.pk %}">{{ project.client }}</a></strong></td>{% else %}<td>{{ project.client|default:'' }}</td>{% endif %}
                     <td>{{ project.client|default:'' }}</td>
                     <td>{{ project.budget|floatformat }}</td>
                     <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
