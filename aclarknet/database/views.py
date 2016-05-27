@@ -312,7 +312,7 @@ def home(request):
     items = dashboard_items(Project, order_by='client__name')
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    context['active_column'] = 'false'
+    context['data_visible'] = 'false'
     context['company'] = company
     context['gross'] = gross
     context['invoices'] = invoices
@@ -493,7 +493,7 @@ def project_index(request, pk=None):
                             fields,
                             order_by=order_by,
                             context=context)
-    context['active_column'] = 'true'
+    context['data_visible'] = 'true'
     context['items'] = items
     return render(request, 'project_index.html', context)
 
