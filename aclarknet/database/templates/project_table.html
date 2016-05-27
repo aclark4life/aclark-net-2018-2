@@ -30,7 +30,7 @@
                     <td>{{ project.start_date|date:'U'|default:'' }}</td>
                     <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.end_date|date:'U'|default:'' }}</td>
-                    <td>{<i class="fa fa-folder"></i>&nbsp;{ project.name }}</td>
+                    <td><i class="fa fa-folder"></i>&nbsp;{{ project.name }}</td>
                     {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                     <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
