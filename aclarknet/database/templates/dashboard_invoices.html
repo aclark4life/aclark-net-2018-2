@@ -2,9 +2,7 @@
 <thead>
   <tr> 
     {% for invoice in invoices %}
-    <th class="light">
-      {{ invoice.project }}
-    </th>
+    <th class="light"><a href="{% url 'project' project.pk %}"><i class="fa fa-folder"></i></a></th>
     {% endfor %}
   </tr>
 </thead>
