@@ -2,7 +2,7 @@
 <thead>
   <tr> 
     {% for invoice in invoices %}
-    <th class="light"><a href="{% url 'project' invoice.project.pk %}"><i class="fa fa-folder"></i></a></th>
+    <th class="light"><a data-toggle="tooltip" data-placement="top" title="{{ invoice.project.name }}" href="{% url 'project' invoice.project.pk %}"><i class="fa fa-folder"></i></a></th>
     {% endfor %}
   </tr>
 </thead>
