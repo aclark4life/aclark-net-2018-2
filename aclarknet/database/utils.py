@@ -114,11 +114,11 @@ def generate_doc(request):
     """
     http://stackoverflow.com/a/31904512/185820
     """
+    content_type = 'application/vnd.openxmlformats'
+    content_type += '-officedocument.wordprocessingml.document'
     document = Document()
     document.add_heading('Document Title', 0)
-    response = HttpResponse(
-        content_type=
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response = HttpResponse(content_type=content_type)
     response['Content-Disposition'] = 'attachment; filename=download.docx'
     document.save(response)
     return response
