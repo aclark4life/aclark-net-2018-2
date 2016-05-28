@@ -5,12 +5,12 @@
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                     <th data-field="client" data-sort-name="hidden-client" data-sortable="true">Client</th>
                     <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
+                    <th data-sortable="true">Task</th>
                     <th data-sortable="true">Budget</th>
                     <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
                     <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
                     <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">End Date</th>
                     <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
-                    <th data-sortable="true">Task</th>
                     <th data-sortable="true">Name</th>
                     <th>View</th>
                     <th>Edit</th>
@@ -25,12 +25,12 @@
                     <td>{{ project.active }}</td>
                     {% if project.client.pk %}<td><strong><a href="{% url 'client' project.client.pk %}"><i class="fa fa-building"></i>&nbsp;{{ project.client }}</a></strong></td>{% else %}<td>{{ project.client|default:'' }}</td>{% endif %}
                     <td>{{ project.client|default:'' }}</td>
+                    {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                     <td>{{ project.budget|floatformat }}</td>
                     <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.start_date|date:'U'|default:'' }}</td>
                     <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.end_date|date:'U'|default:'' }}</td>
-                    {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                     <td><i class="fa fa-folder"></i>&nbsp;{{ project.name }}</td>
                     <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
