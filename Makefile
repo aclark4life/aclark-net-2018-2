@@ -24,10 +24,10 @@
 
 .DEFAULT_GOAL=commit-heroku
 
-APP=app
+APP=database
 COMMITMESSAGE="Update"
 DIR:=$(shell echo `tmp`)
-PROJECT=project
+PROJECT=aclarknet
 
 commit: git-commit-auto-push
 co: git-checkout-branches
