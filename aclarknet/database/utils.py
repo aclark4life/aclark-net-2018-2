@@ -479,7 +479,7 @@ def search(request, model, fields, order_by=None, context={}):
         elif model._meta.verbose_name == 'estimate':
             results = model.objects.filter(accepted_date=None)
         elif model._meta.verbose_name == 'user':
-            results = model.objects.filter(profile_set__active=True)
+            results = model.objects.filter(profile__active=True)
         else:
             results = model.objects.filter(active=True)
         if order_by:
