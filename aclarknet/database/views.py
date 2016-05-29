@@ -710,7 +710,7 @@ def user_index(request):
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email', 'notes')
     context, items = search(request,
-                            Profile,
+                            User,
                             fields,
                             context=context,
                             user_model=User)
