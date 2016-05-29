@@ -14,7 +14,6 @@ tbody tr:hover a {
     text-decoration: none;
 }
 .rv {
-    background: black;
     border-radius: 5px;
     color: white;
     padding: 5px;
