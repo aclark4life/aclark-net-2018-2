@@ -21,17 +21,17 @@
                   <div><a href="https://github.com/ACLARKNET/aclarknet-database"><i class="fa fa-github"></i></a></div>
               </div> 
               {% endif %}
-              {% if request.user.is_authenticated %}<h3><i class="fa fa-cog fa-2x"></i>Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>{% endif %}
+              {% if request.user.is_authenticated %}<h3><i class="fa fa-cog"></i>&nbsp;Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></h3><hr>{% endif %}
 {% if request.user.is_staff %}
-              <h4>Active <span class="rv">Projects</span></h4>
+              <h4 class="rv">Active Projects</h4>
 {% include 'project_table.html' %}
               <div class="row">
                 <div class="col-md-6">
-                  <h4>Current <span class="rv">Invoices</span></h4>
+                  <h4 class="rv">Current Invoices</h4>
 {% include 'dashboard_invoices.html' %}
                 </div>
                 <div class="col-md-6">
-                  <h4>Current <span class="rv">Totals</span></h4>
+                  <h4 class="rv">Current Totals</h4>
 {% include 'dashboard_totals.html' %}
                 </div>
               </div>
