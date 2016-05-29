@@ -31,7 +31,7 @@
                     <td>{{ project.start_date|date:'U'|default:'' }}</td>
                     <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ project.end_date|date:'U'|default:'' }}</td>
-                    <td><i class="fa fa-folder"></i>&nbsp;{{ project.name }}</td>
+                    <td><i class="fa fa-folder-o"></i>&nbsp;{{ project.name }}</td>
                     <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                     <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x text-success"></i></a></td>
