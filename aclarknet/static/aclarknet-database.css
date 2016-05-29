@@ -23,5 +23,9 @@ tbody tr:hover a {
     background-repeat: repeat-x;
 }
 .text-ellipsis {
+    /* Via https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow */
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
