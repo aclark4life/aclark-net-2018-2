@@ -712,8 +712,7 @@ def user_index(request):
     context, items = search(request,
                             User,
                             fields,
-                            context=context,
-                            user_model=User)
+                            context=context)
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)
