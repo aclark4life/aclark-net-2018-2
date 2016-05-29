@@ -17,8 +17,6 @@ tbody tr:hover a {
     border-radius: 5px;
     color: white;
     padding: 5px;
-    background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
-    background-repeat: repeat-x;
 }
 .text-ellipsis {
     text-overflow: ellipsis;
