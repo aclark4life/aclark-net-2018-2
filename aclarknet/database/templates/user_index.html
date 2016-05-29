@@ -28,7 +28,7 @@
                 </div>
               </div>
               <hr>
-              {% include 'messages.html' %}    
+              {% include 'messages.html' %}
               {% include 'pagination.html' %}
               <table data-toggle="table" data-sort-name="hidden-id" data-sort-order="desc" data-row-style="rowStyle">
                 <thead>
@@ -48,7 +48,7 @@
                 <tbody>
                 {% for user in items %}
                   <tr>
-                    <td><form action="{% url 'user_edit' user.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if user.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td><form action="{% url 'user_edit' user.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if user.profile.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ user.active }}</td>
                     <td>{{ user.pk }}</td>
                     <td>{{ user.username|default:'' }}</td>
