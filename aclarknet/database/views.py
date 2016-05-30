@@ -670,11 +670,12 @@ def user(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
     times = Time.objects.filter(user=user, estimate=None, invoiced=False)
-
+    agg = times.aggregate(hours=Sum(F('hours')))
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
     context['items'] = times
+    context['agg'] = agg
 
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
