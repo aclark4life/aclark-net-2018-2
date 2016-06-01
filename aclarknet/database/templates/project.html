@@ -46,7 +46,7 @@
                 <h5>Invoices <a class="btn btn-default pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h5>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
-                    <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;{{ invoice.document_id }}</a></li>
+                    <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id }}</a></li>
                 {% endfor %}
                 </ul>
                 <hr>
