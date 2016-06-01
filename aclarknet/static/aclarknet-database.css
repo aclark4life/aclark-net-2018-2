@@ -23,4 +23,5 @@ tbody tr:hover a {
 }
 a div.project-folder:hover {
     background: #f5f5f5;
+    text-decoration: none;
 }
