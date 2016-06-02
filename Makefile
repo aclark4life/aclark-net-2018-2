@@ -113,7 +113,7 @@ help:
         '{print "    - "$$0}'
 	@echo "\n"
 review:
-	open -a "Sublime Text 2" `find $(PROJECT) -name \*.py | grep -v __init__.py`\
+	open -a "Sublime Text" `find $(PROJECT) -name \*.py | grep -v __init__.py`\
         `find $(PROJECT) -name \*.html`
 
 # Node
