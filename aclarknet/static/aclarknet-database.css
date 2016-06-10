@@ -21,7 +21,8 @@ tbody tr:hover a {
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
 }
-a div.project-folder:hover {
+
+html body div#content.container div.row div.col-md-12 div.row div.col-md-6 div.bootstrap-table div.fixed-table-container div.fixed-table-body table.table.table-hover thead tr th.light div.th-inner a div.project-folder:hover {
     background: #f5f5f5;
     text-decoration: none;
 }
