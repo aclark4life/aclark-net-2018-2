@@ -21,8 +21,3 @@ tbody tr:hover a {
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
 }
-
-a:hover div.project-folder {
-    background: #f5f5f5;
-    text-decoration: none;
-}
