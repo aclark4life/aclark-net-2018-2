@@ -25,6 +25,7 @@
                     <th>Name</th>
                     <th>Rate</th>
                     <th>Username</th>
+                    <th>Total Hours</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                     <td>{{ user.get_full_name|default:'' }}</td>
                     <td>{{ user.profile.rate|default:'' }}</td>
                     <td>{{ user.username|default:'' }}</td>
+                    <td>{{ agg.hours }}</td>
                   </tr>
                 </tbody>
               </table>
