@@ -21,3 +21,13 @@ tbody tr:hover a {
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
 }
+
+/* http://stackoverflow.com/a/15308291 */
+
+.hideOverflow {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:100%;
+    display:block;
+}
