@@ -222,6 +222,6 @@ heroku-db-copy:
 	heroku ps:scale web=1
 	heroku maintenance:off
 heroku-db-reset:
-	heroku pg:reset DATABASE_URL
+	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
