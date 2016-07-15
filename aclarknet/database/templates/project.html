@@ -56,7 +56,20 @@
                 {% endif %}
               </div>
               <div class="col-md-8">
-                <h3>Time<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time&nbsp;<i class="fa fa-plus"></i></a></h3>
+                <h3>Daily Burn Rate</h3>
+                <table data-toggle="table" data-row-style="rowStyle">
+                  <thead>
+                    <tr>
+                      <th>Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ daily_burn }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h3>Time Entries<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time&nbsp;<i class="fa fa-plus"></i></a></h3>
                 <hr>
                 <table data-toggle="table" data-row-style="rowStyle">
                   <thead>

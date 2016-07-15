@@ -25,6 +25,7 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
+from .utils import daily_burn
 from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
@@ -452,6 +453,7 @@ def project(request, pk=None):
     context['project'] = project
     context['times'] = times
     context['invoices'] = invoices
+    context['daily_burn'] = daily_burn(project)
     return render(request, 'project.html', context)
 
 

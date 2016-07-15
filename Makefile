@@ -24,10 +24,10 @@
 
 .DEFAULT_GOAL=commit-heroku
 
-APP=database
+APP=app
 MESSAGE="Update"
-DIR:=$(shell echo `tmp`)
-PROJECT=aclarknet
+PROJECT=project
+TMP:=$(shell echo `tmp`)
 
 commit: git-commit-auto-push
 co: git-checkout-branches
@@ -43,13 +43,15 @@ lint: python-flake python-yapf python-wc
 migrate: django-migrate
 push: git-push
 plone-start: plone-init
+python-test: python-package-test
 readme: python-package-readme-test
+readme-test: python-package-readme-test
 release: python-package-release
-releasetest: python-package-release-test
-serve: django-serve
+release-test: python-package-release-test
+serve: python-serve
 sphinx-start: sphinx-init
 static: django-static
-test: django-test
+test: python-test
 vm: vagrant-up
 vm-down: vagrant-suspend
 
@@ -214,14 +216,15 @@ vagrant-up:
 # aclarknet-database
 commit-heroku: commit heroku
 heroku-db-backup:
-	heroku pg:backups capture
+	   heroku pg:backups capture
 heroku-db-copy:
-	heroku maintenance:on
-	heroku ps:scale web=0
-	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2` --confirm d8f07befvk2djm
-	heroku ps:scale web=1
-	heroku maintenance:off
+	   heroku maintenance:on
+	   heroku ps:scale web=0
+	   heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2` --confirm d8f07befvk2djm
+	   heroku ps:scale web=1
+	   heroku maintenance:off
 heroku-db-reset:
-	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
+	   heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 heroku-remote:
-	git remote add heroku git@heroku.com:aclarknet-database.git
+	   git remote add heroku git@heroku.com:aclarknet-database.git
+

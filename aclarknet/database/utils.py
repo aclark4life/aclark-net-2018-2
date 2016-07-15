@@ -84,6 +84,12 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
+def daily_burn(project):
+    days = (project.end_date - project.start_date).days
+    hours = project.budget
+    return hours / days
+
+
 def dashboard_items(model, active=True, order_by=None):
     """
     """
