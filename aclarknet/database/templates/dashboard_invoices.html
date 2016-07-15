@@ -1,5 +1,6 @@
 {% if invoices %}
 <style>
+/* http://www.w3schools.com/cssref/tryit.asp?filename=trycss3_text-overflow_hover */
 a.text-overflow-ellipsis {
     display: block;
     white-space: nowrap;
@@ -11,7 +12,7 @@ a.text-overflow-ellipsis {
 <table data-toggle="table">
 <thead>
   <tr> 
-    {% for invoice in invoices %}{% if invoice.project %}<th> <a class="text-overflow-ellipsis" href="{% url 'project' invoice.project.pk %}"><div data-toggle="tooltip" title="{{ invoice.project.name }}"><i class="fa fa-folder-o"></i>{{ invoice.project.name }}</a></th>{% else %}<th><i class="fa fa-folder-o"></i></th>{% endif %}{% endfor %}
+    {% for invoice in invoices %}<th>{% if invoice.project %}<a class="text-overflow-ellipsis" href="{% url 'project' invoice.project.pk %}"><div data-toggle="tooltip" title="{{ invoice.project.name }}">{{ invoice.project.name }}</a>{% endif %}</th>{% endfor %}
   </tr>
 </thead>
 <tbody>
