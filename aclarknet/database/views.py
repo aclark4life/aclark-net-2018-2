@@ -311,6 +311,9 @@ def home(request):
     company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
     items = dashboard_items(Project, order_by='client__name')
+    # http://stackoverflow.com/a/35044521
+    for item in items:
+        item.daily_burn = daily_burn(item)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     context['data_visible'] = 'false'
