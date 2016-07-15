@@ -87,7 +87,10 @@ def class_name_pk(self):
 def daily_burn(project):
     days = (project.end_date - project.start_date).days
     hours = project.budget
-    return hours / days
+    try:
+        return hours / days
+    except TypeError:
+        return 0
 
 
 def dashboard_items(model, active=True, order_by=None):
