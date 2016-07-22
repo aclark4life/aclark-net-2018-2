@@ -322,7 +322,7 @@ def home(request):
     context['invoices'] = invoices
     context['items'] = items  # projects
     context['net'] = net
-    return render(request, 'home.html', context)
+    return render(request, 'dashboard.html', context)
 
 
 @staff_member_required
