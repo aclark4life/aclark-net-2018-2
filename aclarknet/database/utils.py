@@ -88,7 +88,8 @@ def daily_burn(project):
     try:
         days = (project.end_date - project.start_date).days
         hours = project.budget
-        return hours / days
+        burn = hours / days
+        return '%.2f' % burn
     except (TypeError, ZeroDivisionError):
         return 0
 
