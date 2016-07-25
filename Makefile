@@ -24,15 +24,15 @@
 
 .DEFAULT_GOAL=commit-heroku
 
-APP=app
+APP=database
 MESSAGE="Update"
-PROJECT=project
+PROJECT=aclarknet
 TMP:=$(shell echo `tmp`)
 
 commit: git-commit-auto-push
 co: git-checkout-branches
 db: django-migrate django-su
-db-clean: django-db-clean-postgres
+db-init: django-db-init-postgres
 django-start: django-init
 fe-init: npm-init npm-install grunt-init grunt-serve
 fe: npm-install grunt-serve
@@ -42,25 +42,33 @@ install: python-virtualenv python-pip-install
 lint: python-flake python-yapf python-wc
 migrate: django-migrate
 push: git-push
+package-init: python-package-init
 plone-start: plone-init
 python-test: python-package-test
 readme: python-package-readme-test
 readme-test: python-package-readme-test
 release: python-package-release
 release-test: python-package-release-test
-serve: python-serve
+serve: django-serve
 sphinx-start: sphinx-init
 static: django-static
 test: python-test
 vm: vagrant-up
 vm-down: vagrant-suspend
 
+# ABlog
+ablog-init:
+	ablog start
+ablog-build:
+	ablog build
+ablog-serve:
+	ablog serve
 
 # Django
-django-db-clean-postgres:
+django-db-init-postgres:
 	-dropdb $(PROJECT)-$(APP)
 	-createdb $(PROJECT)-$(APP)
-django-db-clean-sqlite:
+django-db-init-sqlite:
 	-rm -f $(PROJECT)-$(APP).sqlite3
 django-init:
 	-mkdir -p $(PROJECT)/$(APP)
@@ -73,7 +81,7 @@ django-migrate:
 	python manage.py migrate
 django-migrations:
 	python manage.py makemigrations $(APP)
-django-migrations-clean:
+django-migrations-init:
 	rm -rf $(PROJECT)/$(APP)/migrations
 	$(MAKE) django-migrations
 django-serve:
@@ -166,6 +174,10 @@ python-flake:
 python-package-check:
 	check-manifest
 	pyroma .
+python-package-init:
+	mkdir -p $(PROJECT)/$(APP)
+	touch $(PROJECT)/$(APP)/__init__.py
+	touch $(PROJECT)/__init__.py
 python-package-readme-test:
 	rst2html.py README.rst > readme.html; open readme.html
 python-package-release:
@@ -203,11 +215,10 @@ sphinx-serve:
 # Vagrant
 vagrant-box-update:
 	vagrant box update
-vagrant-clean:
-	vagrant destroy
 vagrant-down:
 	vagrant suspend
 vagrant-init:
+	vagrant destroy
 	vagrant init ubuntu/trusty64
 	vagrant up --provider virtualbox
 vagrant-up:
@@ -216,15 +227,17 @@ vagrant-up:
 # aclarknet-database
 commit-heroku: commit heroku
 heroku-db-backup:
-	   heroku pg:backups capture
+	heroku pg:backups capture
 heroku-db-copy:
-	   heroku maintenance:on
-	   heroku ps:scale web=0
-	   heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2` --confirm d8f07befvk2djm
-	   heroku ps:scale web=1
-	   heroku maintenance:off
+	heroku maintenance:on
+	heroku ps:scale web=0
+	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2` --confirm d8f07befvk2djm
+	heroku ps:scale web=1
+	heroku maintenance:off
 heroku-db-reset:
-	   heroku pg:reset DATABASE_URL --confirm aclarknet-database2
+	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 heroku-remote:
-	   git remote add heroku git@heroku.com:aclarknet-database.git
-
+	git remote add heroku git@heroku.com:aclarknet-database.git
+django-db-init-postgres:
+	-dropdb $(PROJECT)
+	-createdb $(PROJECT)
