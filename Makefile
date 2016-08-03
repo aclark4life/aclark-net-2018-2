@@ -231,7 +231,7 @@ heroku-db-backup:
 heroku-db-copy:
 	heroku maintenance:on
 	heroku ps:scale web=0
-	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2` --confirm d8f07befvk2djm
+	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2`
 	heroku ps:scale web=1
 	heroku maintenance:off
 heroku-db-reset:
