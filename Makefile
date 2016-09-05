@@ -238,6 +238,8 @@ heroku-db-reset:
 	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
+heroku-remote2:
+	git remote add heroku git@heroku.com:aclarknet-database2.git
 django-db-init-postgres:
 	-dropdb $(PROJECT)
 	-createdb $(PROJECT)
