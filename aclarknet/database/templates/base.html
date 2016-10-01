@@ -51,25 +51,16 @@
         </ul>
         <ul class="nav navbar-nav pull-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <ul class="dropdown-menu">
-              {% if request.user.is_staff %}<li><a href="{% url 'report_edit' %}">Add Report</a></li>{% endif %}
-              <li><a href="{% url 'entry_edit' %}">Add Time</a></li>
-              <li><a href="{% url 'entry_index' %}">View Time</a></li>
-              <li role="separator" class="divider"></li>
-              {% if not request.user.is_anonymous %}
-              <li><a href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>
-              <li><a href="{% url 'auth:logout' %}?next={% url 'home' %}">Logout</a></li>
-              {% else %}
-              <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
-              {% endif %}
-              <li role="separator" class="divider"></li>
-              {% if request.user.is_staff %} 
-              <li><a href="{% url 'company' %}">Company Settings</a></li>
-              {% endif %}
-              <li><a href="{% url 'admin:index' %}">Manage Site</a></li>
-              <li><a href="https://github.com/aclarknet/aclarknet-database/issues">Report Issue</a></li>
-              <li><a href="/api" target="_blank">View API</a></li>
+              {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'report_edit' %}">Add Report</a></li>{% endif %}
+              <li><a class="dropdown-item" href="{% url 'entry_edit' %}">Add Time</a></li>
+              <li><a class="dropdown-item" href="{% url 'entry_index' %}">View Time</a></li>
+              {% if not request.user.is_anonymous %}<li><a class="dropdown-item" href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li><li><a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}">Logout</a></li>{% else %}<li><a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>{% endif %}
+              {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'company' %}">Company Settings</a></li>{% endif %}
+              <li><a class="dropdown-item" href="{% url 'admin:index' %}">Manage Site</a></li>
+              <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues">Report Issue</a></li>
+              <li><a class="dropdown-item" href="/api" target="_blank">View API</a></li>
             </ul>
           </li>
         </ul>
