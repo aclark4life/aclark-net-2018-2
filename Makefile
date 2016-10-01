@@ -241,5 +241,5 @@ heroku-remote:
 heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
 django-db-init-postgres:
-	-dropdb $(PROJECT)
+	-dropdb --if-exists $(PROJECT)
 	-createdb $(PROJECT)
