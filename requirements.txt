@@ -1,6 +1,6 @@
 APScheduler==3.0.5
 Babel==2.1.1
-Django==1.9.9
+Django==1.9.10
 Pillow==3.3.0
 PyJWT==1.4.0
 PyPDF2==1.25.1
