@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-            <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
-            <li class="active"><a href="{% url 'contact_index' %}">Contacts</a></li>
-            <li><a href="{% url 'client_index' %}">Clients</a></li>
-            <li><a href="{% url 'project_index' %}">Projects</a></li>
-            <li><a href="{% url 'task_index' %}">Tasks</a></li>
-            <li><a href="{% url 'entry_index' %}">Times</a></li>
-            <li><a href="{% url 'user_index' %}">Users</a></li>
-            <li><a href="{% url 'invoice_index' %}">Invoices</a></li>
-            <li><a href="{% url 'estimate_index' %}">Estimates</a></li>
-            <li><a href="{% url 'report_index' %}">Reports</a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'user_index' %}">Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'report_index' %}">Reports</a></li>
             {% endif %}
 {% endblock %}
 

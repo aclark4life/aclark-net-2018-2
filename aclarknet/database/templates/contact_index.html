@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-            <li><a href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
             <li class="active"><a href="{% url 'contact_index' %}">Contacts</a></li>
             <li><a href="{% url 'client_index' %}">Clients</a></li>
