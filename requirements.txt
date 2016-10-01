@@ -1,7 +1,7 @@
 APScheduler==3.0.5
 Babel==2.1.1
 Django==1.9.10
-Pillow==3.3.0
+Pillow==3.3.1
 PyJWT==1.4.0
 PyPDF2==1.25.1
 diff-match-patch==20121119
