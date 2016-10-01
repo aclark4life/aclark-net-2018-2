@@ -517,7 +517,12 @@ def report_index(request):
     context = {}
     items = Report.objects.all().annotate(diff=F('gross') - F('net'))
     agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
-    diff = agg['gross'] - agg['net']
+    if agg['gross'] is not None and agg['net'] is not None:
+        diff = agg['gross'] - agg['net']
+    else:
+        agg['gross'] = 0
+        agg['net'] = 0
+        diff = 0
     context['items'] = items
     context['agg'] = agg
     context['diff'] = diff
