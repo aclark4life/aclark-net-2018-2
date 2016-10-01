@@ -13,14 +13,6 @@ tbody tr:hover td {
 tbody tr:hover a {
     text-decoration: none;
 }
-.rv {
-    color: white;
-    border-radius: 5px;
-    padding: 5px;
-    /* Via Bootstrap navbar-inverse */
-    background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
-    background-repeat: repeat-x;
-}
 ul.nav.navbar-nav li a {
     color: white;
 }
