@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,53 +10,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="{% static 'favicon.ico' %}">
-
     <title>ACLARK.NET, LLC — DB</title>
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'aclarknet-database.css' %}">
-
     <style>
         body {
             background: url({% static 'aclark-doe.jpg' %});
             padding: 75px 0 50px 0;
-        }
-        ul.nav.navbar-nav li a {
-            color: white;
-        }
-        ul.dropdown-menu li a {
-            color: black !important;
-        }
-        #content {
-            background: white;
-            padding-bottom: 15px;
-        }
-        .light {
-            color: lightgray;
-            font-weight: bold;
-        }
-        .currency {
-            color: green;
-            font-weight: bold;
-        }
-        .currency a {
-            color: green;
-            font-weight: bold;
-        }
-        .notes {
-            background: lightyellow;
-            padding: 15px;
-            border: 1px solid #EAEAEA;
         }
     </style>
   </head>
@@ -68,7 +32,7 @@
           &#9776;
         </button>
         <a class="navbar-brand hidden-sm-up" href="/">
-          Bootstrap
+          <i class="fa fa-home"></i>
         </a>
       </div>
       <div class="collapse navbar-toggleable-xs" id="bd-main-nav">

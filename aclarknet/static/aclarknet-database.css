@@ -21,3 +21,30 @@ tbody tr:hover a {
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
 }
+ul.nav.navbar-nav li a {
+    color: white;
+}
+ul.dropdown-menu li a {
+    color: black !important;
+}
+#content {
+    background: white;
+    padding-bottom: 15px;
+}
+.light {
+    color: lightgray;
+    font-weight: bold;
+}
+.currency {
+    color: green;
+    font-weight: bold;
+}
+.currency a {
+    color: green;
+    font-weight: bold;
+}
+.notes {
+    background: lightyellow;
+    padding: 15px;
+    border: 1px solid #EAEAEA;
+}
