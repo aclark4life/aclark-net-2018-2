@@ -32,7 +32,6 @@
                   <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'invoice_edit' %}">Add Invoice&nbsp;<i class="fa fa-plus"></i></a></h3>
                 </div>
               </div>
-              <hr>
               {% include 'pagination.html' %}
               <table data-toggle="table" data-sort-name="document-id" data-sort-order="desc" data-row-style="rowStyle">
                 <thead>
@@ -72,6 +71,5 @@
                 {% endfor %}
                 </tbody>
               </table>
-              <hr>
               {% include 'pagination.html' %}
 {% endblock %}

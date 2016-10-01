@@ -18,7 +18,6 @@
 {% block content %}
               <div class="col-md-4">
                 <h3>Project<a class="btn btn-default pull-right" href="{% url 'project_edit' pk=project.pk %}">Edit Project</a></h3>
-                <hr>
                 <h4>{{ project.name }}</h4>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
@@ -42,14 +41,12 @@
                     </tr>
                   </tbody>
                 </table>
-                <hr>
                 <h5>Invoices <a class="btn btn-default pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h5>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id }}</a></li>
                 {% endfor %}
                 </ul>
-                <hr>
                 <h5>Notes</h5>
                 {% if project.notes %}
                 <div class="notes">{{ project.notes|linebreaks|default:'' }}</div>
@@ -70,7 +67,6 @@
                   </tbody>
                 </table>
                 <h3>Time Entries<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time&nbsp;<i class="fa fa-plus"></i></a></h3>
-                <hr>
                 <table data-toggle="table" data-row-style="rowStyle">
                   <thead>
                     <tr>

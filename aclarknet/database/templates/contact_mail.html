@@ -19,7 +19,6 @@
 
 {% block content %}
               <h3>Contact &rarr; {{ contact.first_name }} {{ contact.last_name }} &rarr; Mail</h3>
-              <hr>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input type="submit" class="btn btn-lg btn-success" value="Send Mail"> 

@@ -32,7 +32,6 @@
                   <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'estimate_edit' %}">Add Estimate&nbsp;<i class="fa fa-plus"></i></a></h3>
                 </div>
               </div>
-              <hr>
               {% include 'pagination.html' %}
               <table data-toggle="table" data-row-style="rowStyle">
                 <thead>
@@ -68,6 +67,5 @@
                 {% endfor %}
                 </tbody>
               </table>
-              <hr>
               {% include 'pagination.html' %}
 {% endblock %}

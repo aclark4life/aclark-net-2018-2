@@ -35,9 +35,7 @@
                   </h3>
                 </div>
               </div>
-              <hr>
               {% include 'invoice_table.html' %}
-              <hr>
               <h3>
                 <form 
                   action="{% url 'estimate_edit' pk=document.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"

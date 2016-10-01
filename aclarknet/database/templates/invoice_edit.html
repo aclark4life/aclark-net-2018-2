@@ -19,7 +19,6 @@
 
 {% block content %}
               <h3>Invoice &rarr; Edit</h3>
-              <hr>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save Invoice">

@@ -18,7 +18,6 @@
 {% block content %}
             <div class="col-md-6">
               <h3>Client<a class="btn btn-default pull-right" href="{% url 'client_edit' client.pk %}">Edit Client</a></h3>
-              <hr>
               <table data-toggle="table"> 
                 <thead>
                   <tr>
@@ -31,7 +30,6 @@
                 </tbody>
               </table>
               <h3>Contacts<a class="btn btn-default pull-right" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add Contact</a></h3>
-              <hr>
               <table data-toggle="table"> 
                 <thead>
                   <tr>
@@ -57,7 +55,6 @@
             </div>
             <div class="col-md-6">
               <h3>Projects<a class="btn btn-default pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h3>
-              <hr>
               <table data-toggle="table"> 
                 <thead>
                   <tr>
