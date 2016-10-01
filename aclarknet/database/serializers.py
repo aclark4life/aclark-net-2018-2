@@ -15,7 +15,7 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-#        fields = ('first_name', 'last_name', 'project_set')
+        #        fields = ('first_name', 'last_name', 'project_set')
         fields = ('first_name', 'last_name')
 
 

@@ -726,10 +726,7 @@ def user_index(request):
         context['active'] = True
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email', 'notes')
-    context, items = search(request,
-                            User,
-                            fields,
-                            context=context)
+    context, items = search(request, User, fields, context=context)
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)
