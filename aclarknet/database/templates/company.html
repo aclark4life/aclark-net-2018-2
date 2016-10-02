@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-              <h3>Company <a class="btn btn-default pull-right" href="{% url 'company_edit' %}">Edit Company</a></h3>
+              <h3>Company <a class="btn btn-secondary pull-right" href="{% url 'company_edit' %}">Edit Company</a></h3>
               {% if company.name %}
               <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                 <thead>

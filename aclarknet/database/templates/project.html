@@ -17,7 +17,7 @@
 
 {% block content %}
               <div class="col-md-4">
-                <h3>Project<a class="btn btn-default pull-right" href="{% url 'project_edit' pk=project.pk %}">Edit Project</a></h3>
+                <h3>Project<a class="btn btn-secondary pull-right" href="{% url 'project_edit' pk=project.pk %}">Edit Project</a></h3>
                 <h4>{{ project.name }}</h4>
                 <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                   <thead>
@@ -41,7 +41,7 @@
                     </tr>
                   </tbody>
                 </table>
-                <h5>Invoices <a class="btn btn-default pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h5>
+                <h5>Invoices <a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h5>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id }}</a></li>

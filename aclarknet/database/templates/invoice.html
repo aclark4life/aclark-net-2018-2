@@ -25,7 +25,7 @@
                 <div class="col-md-2">
                   <h3>
                     <div class="dropdown pull-right">
-                      <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><a href="{% url 'entry_edit' %}?project={{ document.project.pk }}"><i class="fa fa-plus-square fa-2x"></i>&nbsp;&nbsp;Add Entry</a></li>
                         <li><a href="{% url 'invoice_edit' pk=document.pk %}"><i class="fa fa-edit fa-2x"></i>&nbsp;Edit Invoice</a></li>
@@ -47,7 +47,7 @@
                 <div class="col-md-6">
                 <form class="pull-right"
                   action="{% url 'invoice_edit' pk=document.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}&paid=true"
-                  method="post">{% csrf_token %}<input class="btn btn-lg btn-default" type="submit" value="Mark Paid">
+                  method="post">{% csrf_token %}<input class="btn btn-lg btn-secondary" type="submit" value="Mark Paid">
                 </form>
                 </div>
               </div>
