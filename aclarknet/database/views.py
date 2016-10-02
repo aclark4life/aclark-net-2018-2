@@ -730,3 +730,7 @@ def user_index(request):
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)
+
+# http://stackoverflow.com/a/24817024
+def certbot(request):
+    return HttpResponse("sDCP-vgBF1OCR9Li6hiOx9qEuHGg1O2fFgpvzvT32IE.6xThCuQTIxsbemzNAhijnalO8y0T07rvXof2ZC8c4EM")

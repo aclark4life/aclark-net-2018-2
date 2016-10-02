@@ -167,4 +167,7 @@ urlpatterns = [
     url(r'^user$',
         views.user_index,
         name='user_index'),
+    url(r'.well-known/acme-challenge/sDCP-vgBF1OCR9Li6hiOx9qEuHGg1O2fFgpvzvT32IE',
+        views.certbot,
+        name='certbot'),
 ]
