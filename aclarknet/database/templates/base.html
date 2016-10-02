@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'aclarknet-database.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
     <style>
         body {
             background: url({% static 'aclark-doe.jpg' %});
@@ -66,14 +67,37 @@
         </ul>
       </div>
     </nav>
-    <div id="content" class="container">
+
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12"> 
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
+
 {% block content %}
 {% endblock %}
+
         </div>
       </div>
-    </div><!-- /.container -->
+    </div>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
@@ -88,5 +112,9 @@
 
     <!-- Bootstrap Datepicker -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- Node modules -->
+    <script src="{% static 'node_modules/holderjs/holder.min.js' %}"></script>
+
   </body>
 </html>
