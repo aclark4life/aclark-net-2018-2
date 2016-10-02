@@ -27,7 +27,7 @@
               {% if request.user.is_anonymous %}
 {% include 'banner.html' %}
               {% elif request.user.is_authenticated %}
-              <h3>&nbsp;Dashboard<a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time&nbsp;<i class="fa fa-plus"></i></a></h3>
+              <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'entry_edit' %}">Add Time&nbsp;<i class="fa fa-plus"></i></a></h3>
               {% endif %}
 
               {% if request.user.is_staff %}
