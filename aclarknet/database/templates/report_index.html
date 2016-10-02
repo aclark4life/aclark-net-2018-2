@@ -52,6 +52,23 @@
                     <td><form action="{% url 'report_edit' report.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}
+                </tbody>
+              </table>
+              <table class="table"> 
+                <thead>
+                  <tr>
+                    <th></th> 
+                    <th></th>
+                    <th></th>
+                    <th data-field="gross" data-sortable="true">Gross</th>
+                    <th data-field="net" data-sortable="true">Net</th>
+                    <th data-field="diff" data-sortable="true">Contractor</th>
+                    <th></th> 
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
                   <tr>
                     <td><h4>Totals</h4></td>
                     <td></td>
