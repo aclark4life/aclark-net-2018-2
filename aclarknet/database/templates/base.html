@@ -70,10 +70,12 @@
 
     <div class="container-fluid">
       <div class="row">
-        {% if request.user.is_staff %}
+        {% if request.user.is_authenticated %}
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
+            {% if request.user.is_staff %}
             <li class="nav-item"><a class="nav-link" href="{% url 'report_index' %}">Reports</a></li>
+            {% endif %}
           </ul>
         </div>
         {% endif %}
