@@ -92,7 +92,12 @@
           </ul>
         </div>
         {% endif %}
+
+        {% if request.user.is_anonymous %}
+        <div class="col-sm-9 offset-sm-2 col-md-10 offset-md-1 main" id="content">
+        {% else %}
         <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">
+        {% endif %}
 
 {% block content %}
 {% endblock %}
