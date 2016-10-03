@@ -316,7 +316,7 @@ def home(request):
         item.daily_burn = daily_burn(item)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    context['data_visible'] = 'false'
+    context['data_visible'] = 'false'  # Hide some items
     context['company'] = company
     context['gross'] = gross
     context['invoices'] = invoices

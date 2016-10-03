@@ -91,7 +91,7 @@ def daily_burn(project):
         burn = hours / days
         return '%.2f' % burn
     except (TypeError, ZeroDivisionError):
-        return 0
+        return ''
 
 
 def dashboard_items(model, active=True, order_by=None):
