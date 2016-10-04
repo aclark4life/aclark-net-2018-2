@@ -24,6 +24,7 @@ from .serializers import ClientSerializer
 from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
+from .utils import active_status
 from .utils import add_user_to_contacts
 from .utils import daily_burn
 from .utils import dashboard_items
@@ -179,13 +180,11 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = search(
         request, Contact, fields, order_by=order_by, context=context)
+    context['active'] = active_status(request)
     context['items'] = items
     return render(request, 'contact_index.html', context)
 

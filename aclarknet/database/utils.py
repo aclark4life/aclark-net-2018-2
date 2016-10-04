@@ -54,6 +54,14 @@ class UserWidget(widgets.Widget):
         return value
 
 
+def active_status(request):
+    active = request.GET.get('active')
+    if active:
+        return True
+    else:
+        return False
+
+
 def add_user_to_contacts(request, model, pk=None):
     """
     """
