@@ -122,13 +122,11 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     fields = ('address', 'name')
     order_by = '-pk'
     context, items = search(
         request, Client, fields, order_by=order_by, context=context)
+    context['active'] = active_status(request)
     context['items'] = items
     return render(request, 'client_index.html', context)
 
@@ -292,13 +290,11 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
     context, items = search(request, Estimate, fields, order_by=order_by)
+    context['active'] = active_status(request)
     context['items'] = items
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -427,9 +423,6 @@ def invoice_edit(request, pk=None):
 def invoice_index(request):
     context = {}
     company = Company.get_solo()
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     fields = ('client__name',
               'document_id',
               'issue_date',
@@ -437,6 +430,7 @@ def invoice_index(request):
               'subject', )
     order_by = '-issue_date'
     context, items = search(request, Invoice, fields, order_by=order_by)
+    context['active'] = active_status(request)
     context['items'] = items
     context['company'] = company
     return render(request, 'invoice_index.html', context)
@@ -485,13 +479,11 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = search(
         request, Project, fields, order_by=order_by, context=context)
+    context['active'] = active_status(request)
     context['data_visible'] = 'true'
     context['items'] = items
     return render(request, 'project_index.html', context)
@@ -565,13 +557,11 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     order_by = '-pk'
     fields = ('name', )
     context, items = search(
         request, Task, fields, order_by=order_by, context=context)
+    context['active'] = active_status(request)
     context['items'] = items
     return render(request, 'task_index.html', context)
 
@@ -652,14 +642,12 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
     context, items = search(
         request, Time, fields, order_by=order_by, context=context)
+    context['active'] = active_status(request)
     context['items'] = items
     return render(request, 'time_index.html', context)
 
@@ -713,12 +701,10 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = {}
-    active = request.GET.get('active')
-    if active:
-        context['active'] = True
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context, items = search(request, User, fields, context=context)
+    context['active'] = active_status(request)
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)
