@@ -99,20 +99,19 @@ django-su:
 
 # Git
 REMOTE_BRANCHES=`git branch -a |\
-	grep remote |\
-	grep -v HEAD |\
-	grep -v master`
-git-checkout-branches:
+    grep remote |\
+    grep -v HEAD |\
+    grep -v master`
+git-checkout:
 	-for i in $(REMOTE_BRANCHES) ; do \
-        git checkout -t $$i ; done
-git-commit-auto-push:
+		git checkout -t $$i ; done
+git-commit:
 	git commit -a -m $(MESSAGE)
-	$(MAKE) git-push
-git-commit-edit-push:
+git-commit-edit:
 	git commit -a
-	$(MAKE) git-push
 git-push:
 	git push
+commit: git-commit
 
 # Heroku
 heroku-debug-on:
