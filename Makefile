@@ -27,34 +27,39 @@
 APP=database
 MESSAGE="Update"
 PROJECT=aclarknet
+EDITOR="Sublime Text"
 TMP:=$(shell echo `tmp`)
 
-commit: git-commit-auto-push
-co: git-checkout-branches
-db: django-migrate django-su
-db-init: django-db-init-postgres
-django-start: django-init
-fe-init: npm-init npm-install grunt-init grunt-serve
-fe: npm-install grunt-serve
-freeze: python-pip-freeze
-heroku: heroku-push
-install: python-virtualenv python-pip-install
-lint: python-flake python-yapf python-wc
-migrate: django-migrate
-push: git-push
-package-init: python-package-init
-plone-start: plone-init
-python-test: python-package-test
-readme: python-package-readme-test
-readme-test: python-package-readme-test
-release: python-package-release
-release-test: python-package-release-test
-serve: django-serve
-sphinx-start: sphinx-init
-static: django-static
-test: python-test
-vm: vagrant-up
-vm-down: vagrant-suspend
+#co: git-checkout-branches
+#commit: git-commit-auto-push
+#commit-auto: git-commit-auto-push
+#commit-edit: git-commit-edit-push
+#db: django-migrate django-su
+#db-init: django-db-init-postgres
+#django-start: django-init
+#fe-init: npm-init npm-install grunt-init grunt-serve
+#fe: npm-install grunt-serve
+#freeze: python-pip-freeze
+#heroku: heroku-push
+#install: python-virtualenv python-install
+#lint: python-flake python-yapf python-wc
+#migrate: django-migrate
+#push: git-push
+#package-init: python-package-init
+#package-lint: python-package-lint
+#package-test: python-package-test
+#plone-start: plone-init
+#python-test: python-package-test
+#readme-test: python-package-readme-test
+#release: python-package-release
+#release-test: python-package-release-test
+#remote: heroku-remote
+#serve: python-serve
+#sphinx-start: sphinx-init
+#static: django-static
+#test: python-test
+#vm: vagrant-up
+#vm-down: vagrant-suspend
 
 # ABlog
 ablog-init:
@@ -74,9 +79,6 @@ django-init:
 	-mkdir -p $(PROJECT)/$(APP)
 	-django-admin startproject $(PROJECT) .
 	-django-admin startapp $(APP) $(PROJECT)/$(APP)
-django-install:
-	$(MAKE) python-virtualenv
-	bin/pip install Django
 django-migrate:
 	python manage.py migrate
 django-migrations:
@@ -117,22 +119,35 @@ heroku-debug-on:
 	heroku config:set DEBUG=1
 heroku-debug-off:
 	heroku config:unset DEBUG
+heroku-web-on:
+	heroku ps:scale web=1
+heroku-web-off:
+	heroku ps:scale web=0
 heroku-push:
 	git push heroku
 heroku-shell:
 	heroku run bash
+heroku-remote:
+	git remote add heroku
 
-# Misc
+# Misc (http://stackoverflow.com/a/26339924)
 help:
-	@echo "\nPlease run \`make\` with one of these targets:\n"
+	@echo "Usage: make [TARGET]\nAvailable targets:\n"
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F:\
         '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
         | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
         '{print "    - "$$0}'
 	@echo "\n"
+
+uname := $(shell uname)
 review:
-	open -a "Sublime Text 2" `find $(PROJECT) -name \*.py | grep -v __init__.py`\
-        `find $(PROJECT) -name \*.html`
+
+ifeq ($(uname), Darwin)
+	@open -a $(EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py`\
+		`find $(PROJECT) -name \*.html`
+else
+	@echo "Unsupported"
+endif
 
 # Node
 npm-init:
@@ -155,9 +170,6 @@ plone-heroku:
 		bin/buildout -c heroku.cfg
 plone-init:
 	plock --force --no-cache --no-virtualenv .
-plone-install:
-	$(MAKE) install
-	bin/buildout
 plone-db-sync:
 	bin/buildout -c database.cfg
 plone-serve:
@@ -171,13 +183,13 @@ python-flake:
 	-flake8 *.py
 	-flake8 $(PROJECT)/*.py
 	-flake8 $(PROJECT)/$(APP)/*.py
-python-package-check:
-	check-manifest
-	pyroma .
 python-package-init:
 	mkdir -p $(PROJECT)/$(APP)
 	touch $(PROJECT)/$(APP)/__init__.py
 	touch $(PROJECT)/__init__.py
+python-package-lint:
+	check-manifest
+	pyroma .
 python-package-readme-test:
 	rst2html.py README.rst > readme.html; open readme.html
 python-package-release:
@@ -189,7 +201,7 @@ python-package-test:
 python-pip-freeze:
 	bin/pip freeze | sort > $(TMP)/requirements.txt
 	mv -f $(TMP)/requirements.txt .
-python-pip-install:
+python-install:
 	bin/pip install -r requirements.txt
 python-serve:
 	@echo "\n\tServing HTTP on http://0.0.0.0:8000\n"
