@@ -77,6 +77,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 
+# http://stackoverflow.com/a/24817024
+def certbot(request):
+    return HttpResponse(
+        "sDCP-vgBF1OCR9Li6hiOx9qEuHGg1O2fFgpvzvT32IE.6xThCuQTIxsbemzNAhijnalO8y0T07rvXof2ZC8c4EM")
+
+
 @staff_member_required
 def client(request, pk=None):
     context = {}
@@ -102,13 +108,14 @@ def client_edit(request, pk=None):
     if pk:
         kwargs['pk'] = pk
         url_name = 'client'
-    return edit(request,
-                ClientForm,
-                Client,
-                url_name,
-                'client_edit.html',
-                kwargs=kwargs,
-                pk=pk)
+    return edit(
+        request,
+        ClientForm,
+        Client,
+        url_name,
+        'client_edit.html',
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required
@@ -119,23 +126,16 @@ def client_index(request):
         context['active'] = True
     fields = ('address', 'name')
     order_by = '-pk'
-    context, items = search(request,
-                            Client,
-                            fields,
-                            order_by=order_by,
-                            context=context)
+    context, items = search(
+        request, Client, fields, order_by=order_by, context=context)
     context['items'] = items
     return render(request, 'client_index.html', context)
 
 
 @staff_member_required
 def company_edit(request, pk=None):
-    return edit(request,
-                CompanyForm,
-                Company,
-                'company',
-                'company_edit.html',
-                pk=1)
+    return edit(
+        request, CompanyForm, Company, 'company', 'company_edit.html', pk=1)
 
 
 @staff_member_required
@@ -165,14 +165,15 @@ def contact_edit(request, pk=None):
     if client:
         client = get_object_or_404(Client, pk=client)
         url_name = 'client_index'
-    return edit(request,
-                ContactForm,
-                Contact,
-                url_name,
-                'contact_edit.html',
-                client=client,
-                kwargs=kwargs,
-                pk=pk)
+    return edit(
+        request,
+        ContactForm,
+        Contact,
+        url_name,
+        'contact_edit.html',
+        client=client,
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required
@@ -183,11 +184,8 @@ def contact_index(request):
         context['active'] = True
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
-    context, items = search(request,
-                            Contact,
-                            fields,
-                            order_by=order_by,
-                            context=context)
+    context, items = search(
+        request, Contact, fields, order_by=order_by, context=context)
     context['items'] = items
     return render(request, 'contact_index.html', context)
 
@@ -230,11 +228,12 @@ def estimate(request, pk=None):
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
 
-    times_client = Time.objects.filter(client=estimate.client,
-                                       estimate=None,
-                                       project=None,
-                                       invoiced=False,
-                                       invoice=None)
+    times_client = Time.objects.filter(
+        client=estimate.client,
+        estimate=None,
+        project=None,
+        invoiced=False,
+        invoice=None)
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-date')
@@ -257,9 +256,8 @@ def estimate(request, pk=None):
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf('invoice_table.html',
-                            context=context,
-                            file_object=response)
+        return generate_pdf(
+            'invoice_table.html', context=context, file_object=response)
     else:
         return render(request, 'estimate.html', context)
 
@@ -279,16 +277,17 @@ def estimate_edit(request, pk=None):
             entry.estimate = estimate
             entry.save()
 
-    return edit(request,
-                EstimateForm,
-                Estimate,
-                'estimate_index',
-                'estimate_edit.html',
-                amount=amount,
-                paid_amount=paid_amount,
-                pk=pk,
-                subtotal=subtotal,
-                company=company)
+    return edit(
+        request,
+        EstimateForm,
+        Estimate,
+        'estimate_index',
+        'estimate_edit.html',
+        amount=amount,
+        paid_amount=paid_amount,
+        pk=pk,
+        subtotal=subtotal,
+        company=company)
 
 
 @staff_member_required
@@ -344,10 +343,8 @@ def invoice(request, pk=None):
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
 
-    times_project = Time.objects.filter(invoiced=False,
-                                        project=invoice.project,
-                                        estimate=None,
-                                        invoice=None)
+    times_project = Time.objects.filter(
+        invoiced=False, project=invoice.project, estimate=None, invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
     times = times_project | times_invoice
     times = times.order_by('-date')
@@ -374,9 +371,8 @@ def invoice(request, pk=None):
             company_name = 'COMPANY'
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf('invoice_table.html',
-                            context=context,
-                            file_object=response)
+        return generate_pdf(
+            'invoice_table.html', context=context, file_object=response)
     else:
         return render(request, 'invoice.html', context)
 
@@ -413,18 +409,19 @@ def invoice_edit(request, pk=None):
             entry.invoice = invoice
             entry.save()
 
-    return edit(request,
-                InvoiceForm,
-                Invoice,
-                'invoice_index',
-                'invoice_edit.html',
-                amount=amount,
-                paid_amount=paid_amount,
-                paid=paid,
-                pk=pk,
-                project=project,
-                subtotal=subtotal,
-                company=company)
+    return edit(
+        request,
+        InvoiceForm,
+        Invoice,
+        'invoice_index',
+        'invoice_edit.html',
+        amount=amount,
+        paid_amount=paid_amount,
+        paid=paid,
+        pk=pk,
+        project=project,
+        subtotal=subtotal,
+        company=company)
 
 
 @staff_member_required
@@ -450,8 +447,8 @@ def invoice_index(request):
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
-    times = Time.objects.filter(project=project,
-                                invoiced=False).order_by('-date')
+    times = Time.objects.filter(
+        project=project, invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['project'] = project
     context['times'] = times
@@ -474,15 +471,16 @@ def project_edit(request, pk=None):
     if client:
         client = get_object_or_404(Client, pk=client)
         url_name = 'client_index'
-    return edit(request,
-                ProjectForm,
-                Project,
-                url_name,
-                'project_edit.html',
-                client=client,
-                clients=clients,
-                kwargs=kwargs,
-                pk=pk)
+    return edit(
+        request,
+        ProjectForm,
+        Project,
+        url_name,
+        'project_edit.html',
+        client=client,
+        clients=clients,
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required
@@ -493,11 +491,8 @@ def project_index(request, pk=None):
         context['active'] = True
     fields = ('id', 'name')
     order_by = '-start_date'
-    context, items = search(request,
-                            Project,
-                            fields,
-                            order_by=order_by,
-                            context=context)
+    context, items = search(
+        request, Project, fields, order_by=order_by, context=context)
     context['data_visible'] = 'true'
     context['items'] = items
     return render(request, 'project_index.html', context)
@@ -532,14 +527,15 @@ def report_index(request):
 @staff_member_required
 def report_edit(request, pk=None):
     gross, net = dashboard_totals(Invoice)
-    return edit(request,
-                ReportForm,
-                Report,
-                'report_index',
-                'report_edit.html',
-                gross=gross,
-                net=net,
-                pk=pk)
+    return edit(
+        request,
+        ReportForm,
+        Report,
+        'report_index',
+        'report_edit.html',
+        gross=gross,
+        net=net,
+        pk=pk)
 
 
 @staff_member_required
@@ -557,13 +553,14 @@ def task_edit(request, pk=None):
     if pk:
         kwargs['pk'] = pk
         url_name = 'task'
-    return edit(request,
-                TaskForm,
-                Task,
-                url_name,
-                'task_edit.html',
-                pk=pk,
-                kwargs=kwargs)
+    return edit(
+        request,
+        TaskForm,
+        Task,
+        url_name,
+        'task_edit.html',
+        pk=pk,
+        kwargs=kwargs)
 
 
 @staff_member_required
@@ -574,11 +571,8 @@ def task_index(request):
         context['active'] = True
     order_by = '-pk'
     fields = ('name', )
-    context, items = search(request,
-                            Task,
-                            fields,
-                            order_by=order_by,
-                            context=context)
+    context, items = search(
+        request, Task, fields, order_by=order_by, context=context)
     context['items'] = items
     return render(request, 'task_index.html', context)
 
@@ -640,19 +634,20 @@ def time_edit(request, pk=None):
     else:
         from .forms import TimeForm
 
-    return edit(request,
-                TimeForm,
-                Time,
-                url_name,
-                'time_edit.html',
-                client=client,
-                clients=clients,
-                pk=pk,
-                project=project,
-                projects=projects,
-                task=task,
-                tasks=tasks,
-                kwargs=kwargs)
+    return edit(
+        request,
+        TimeForm,
+        Time,
+        url_name,
+        'time_edit.html',
+        client=client,
+        clients=clients,
+        pk=pk,
+        project=project,
+        projects=projects,
+        task=task,
+        tasks=tasks,
+        kwargs=kwargs)
 
 
 @login_required
@@ -664,11 +659,8 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
-    context, items = search(request,
-                            Time,
-                            fields,
-                            order_by=order_by,
-                            context=context)
+    context, items = search(
+        request, Time, fields, order_by=order_by, context=context)
     context['items'] = items
     return render(request, 'time_index.html', context)
 
@@ -709,13 +701,14 @@ def user_edit(request, pk=None):
     context = {}
     user = get_object_or_404(User, pk=pk)
     context['user'] = user
-    return edit(request,
-                ProfileForm,
-                Profile,
-                'home',
-                'user_edit.html',
-                pk=pk,
-                context=context)
+    return edit(
+        request,
+        ProfileForm,
+        Profile,
+        'home',
+        'user_edit.html',
+        pk=pk,
+        context=context)
 
 
 @staff_member_required
@@ -730,7 +723,3 @@ def user_index(request):
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)
-
-# http://stackoverflow.com/a/24817024
-def certbot(request):
-    return HttpResponse("sDCP-vgBF1OCR9Li6hiOx9qEuHGg1O2fFgpvzvT32IE.6xThCuQTIxsbemzNAhijnalO8y0T07rvXof2ZC8c4EM")
