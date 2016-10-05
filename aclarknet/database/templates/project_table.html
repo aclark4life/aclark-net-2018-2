@@ -2,12 +2,12 @@
                 <table class="table table-striped" data-toggle="table" data-row-style="rowStyle">
                   <thead>
                     <tr>
+                      <th data-sortable="true">Burn Rate</th>
                       <th data-field="active" data-sort-name="hidden-active" data-visible="{{ data_visible }}" data-sortable="true">Active</th>
                       <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-sortable="true">Name</th>
                       <th data-sortable="true" data-visible="{{ data_visible }}">Task</th>
                       <th data-sortable="true" data-visible="{{ data_visible }}">Budget</th>
-                      <th data-sortable="true">Burn Rate</th>
                       <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true" data-visible="{{ data_visible }}">Start Date</th>
                       <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
                       <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true" data-visible="{{ data_visible }}">End Date</th>
@@ -22,12 +22,12 @@
                   <tbody>
                   {% for project in items %}
                     <tr> 
+                      <td>{{ project.daily_burn }}</td>
                       <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                       <td>{{ project.active }}</td>
                       <td><a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open-o fa-3x"></i>&nbsp;{{ project.name }}</a></td>
                       {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                       <td>{{ project.budget|floatformat }}</td>
-                      <td>{{ project.daily_burn }}</td>
                       <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
                       <td>{{ project.start_date|date:'U'|default:'' }}</td>
                       <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
