@@ -40,3 +40,5 @@ ul.dropdown-menu li a {
     padding: 15px;
     border: 1px solid #EAEAEA;
 }
+/* http://stackoverflow.com/a/14974871 */
+td a{width:100%;display:block;}
