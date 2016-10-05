@@ -45,5 +45,6 @@ ul.dropdown-menu li a {
 td a{width:100%;display:block;}
 
 td a:hover {
-    background: #777777;
+    border: 1px solid #777777;
+    border-radius: 5px;
 }
