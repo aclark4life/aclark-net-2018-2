@@ -24,7 +24,7 @@
                     <tr> 
                       <td><form action="{% url 'project_edit' project.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if project.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                       <td>{{ project.active }}</td>
-                      <td><a href="{% url 'project' project.pk %}"><i class="fa fa-folder"></i>&nbsp;{{ project.name }}</a></td>
+                      <td><a href="{% url 'project' project.pk %}"><i class="fa fa-folder-o"></i>&nbsp;{{ project.name }}</a></td>
                       {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                       <td>{{ project.budget|floatformat }}</td>
                       <td>{{ project.daily_burn }}</td>
