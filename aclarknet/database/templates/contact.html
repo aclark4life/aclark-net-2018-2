@@ -18,7 +18,7 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h3>Contact &rarr; {{ contact.first_name }} {{ contact.last_name }}</h3>
+                  <h2><span class="rv">Contact&gt;</span> {{ contact.first_name }} {{ contact.last_name }}</h2>
                 </div>
                 <div class="col-md-2">
                   <h3>
@@ -35,26 +35,26 @@
               <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
                 <thead>
                   <tr>
+                    <th>Title</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Title</th>
-                    <th>Client</th>
                     <th>Email</th>
                     <th>Mobile Phone</th>
                     <th>Office Phone</th>
                     <th>Fax</th>
+                    <th>Client</th>
                   </tr>
                 </thead>
                 <tbody>
                 <tr>
+                  <td>{{ contact.title }}</td>
                   <td>{{ contact.first_name }}</td>
                   <td>{{ contact.last_name }}</td>
-                  <td>{{ contact.title }}</td>
-                  {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
                   <td>{{ contact.email }}</td>
                   <td>{{ contact.mobile_phone }}</td>
                   <td>{{ contact.office_phone }}</td>
                   <td>{{ contact.fax }}</td>
+                  {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
                 </tr>
                 </tbody>
               </table>
