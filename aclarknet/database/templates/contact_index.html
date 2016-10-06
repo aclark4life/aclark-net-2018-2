@@ -56,7 +56,7 @@
                     <td>{{ contact.last_name }}</td>
                     <td>{{ contact.email }}</td>
                     {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
-                    <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-right fa-3x text-success"></i></a></td>
+                    <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-right fa-3x"></i></a></td>
                   </tr>
                 {% endfor %}
                 </tbody>
