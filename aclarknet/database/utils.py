@@ -17,6 +17,7 @@ from django.utils import timezone
 from docx import Document
 from import_export import widgets
 from md5 import md5
+from smtplib import SMTPSenderRefused
 import datetime
 import operator
 import re
@@ -143,13 +144,16 @@ def generate_doc(request):
     return response
 
 
-def send_mail(subject, message, to):
+def send_mail(request, subject, message, to):
     recipients = []
     sender = settings.DEFAULT_FROM_EMAIL
     subject = subject
     message = message
     recipients.append(to)
-    _send_mail(subject, message, sender, recipients, fail_silently=False)
+    try:
+        _send_mail(subject, message, sender, recipients, fail_silently=False)
+    except SMTPSenderRefused:
+        messages.add_message(request, messages.WARN, 'SMTPSenderRefused!')
 
 
 def edit(request,
@@ -354,7 +358,7 @@ def edit(request,
                         message = '%s entered time! %s' % (
                             obj.user.username,
                             obj.get_absolute_url(request.get_host()))
-                        send_mail(subject, message,
+                        send_mail(request, subject, message,
                                   settings.DEFAULT_FROM_EMAIL)
 
             # Assign and increment invoice counter
