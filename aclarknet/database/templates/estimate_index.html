@@ -61,7 +61,7 @@
                     <td>{% if estimate.amount %}{{ company.currency_symbol }}{% endif %}{{ estimate.amount|default:'' }}</td>
                     <td>{{ estimate.amount|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x"></a></td>
+                    <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x text-warning"></a></td>
                     <td><form action="{% url 'estimate_edit' estimate.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}

@@ -47,7 +47,7 @@
                     <td>{{ contact.first_name }}</td>
                     <td>{{ contact.last_name }}</td>
                     <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -78,7 +78,7 @@
                   <td>{{ project.start_date|date:'U' }}</td>
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.end_date|date:'U' }}</td>
-                  <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                  <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                 </tr>
               {% endfor %} 
                 </tbody>

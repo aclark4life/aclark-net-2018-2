@@ -48,7 +48,7 @@
                     <td>{{ report.net }}</td>
                     <td>{{ report.diff }}</td>
                     <td><a href="{% url 'report' report.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'report_edit' report.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><a href="{% url 'report_edit' report.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                     <td><form action="{% url 'report_edit' report.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}

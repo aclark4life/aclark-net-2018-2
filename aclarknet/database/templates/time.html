@@ -51,7 +51,7 @@
                     {% if request.user.is_staff %}{% if entry.project %}<td><a href="{% url 'project' entry.project.pk %}">{{ entry.project|default:'' }}</a></td>{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}
                     <td>{{ entry.user|default:'' }}</td>
                     <td>{{ entry.task|default:'' }}</td>
-                    <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                    <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                     <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()"><i class="fa fa-plus"></i></button></form></td>
                     <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                     {% if request.user.is_staff %}

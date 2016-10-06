@@ -58,7 +58,7 @@
                 <td>{{ client.name }}</td>
                 <td>{{ client.address|linebreaks }}</td>
                 <td><a href="{% url 'client' client.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
+                <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                 <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
               </tr>
             {% endfor %}
