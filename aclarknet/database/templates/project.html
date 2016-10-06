@@ -59,8 +59,6 @@
                     <tr>
                       <th data-sortable="true">Date</th>
                       <th data-sortable="true">Hours</th>
-                      <th data-sortable="true">Notes</th>
-                      <th>View</th>
                       <th>Edit</th>
                       <th>Copy</th>
                       <th>Delete</th>
@@ -69,10 +67,8 @@
                   <tbody>
                     {% for entry in times %}
                     <tr>
-                        <td>{{ entry.date|date:'Y-m-d' }}</td>
+                        <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d' }}</a></td>
                         <td>{{ entry.hours }}</td>
-                        <td>{{ entry.notes }}</td>
-                        <td><a href="{% url 'entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                         <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                         <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()"><i class="fa fa-plus-circle"></i></button></form></td>
                         <td><form action="{% url 'entry_edit' entry.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-times-circle"></i></button></form></td>
