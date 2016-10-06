@@ -33,6 +33,7 @@
               <table data-toggle="table"> 
                 <thead>
                   <tr>
+                    <th>Active</th>
                     <th data-sortable="true">First Name</th>
                     <th data-sortable="true">Last Name</th>
                     <th>View</th>
@@ -46,7 +47,7 @@
                     <td>{{ contact.first_name }}</td>
                     <td>{{ contact.last_name }}</td>
                     <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
+                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x"></i></a></td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -57,6 +58,8 @@
               <table data-toggle="table"> 
                 <thead>
                   <tr>
+                    <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                    <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                     <th data-sortable="true">Name</th>
                     <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start Date</th>
                     <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
