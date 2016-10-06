@@ -21,13 +21,13 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-4">
-                  <h3>Contacts</h3>
+                <div class="col-md-3">
+                  <h2><span class="rv">Contacts&gt;</span></h2> 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   {% include 'search.html' %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'contact_edit' %}">Add Contact&nbsp;<i class="fa fa-plus"></i></a></h3>
                 </div>
               </div>
@@ -38,13 +38,13 @@
                   <tr>
                     <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                    <th data-sortable="true">Title</th>
                     <th data-sortable="true">First Name</th>
                     <th data-sortable="true">Last Name</th>
                     <th data-sortable="true">Email</th>
+                    <th data-sortable="true">Client</th>
                     <th>View</th> 
                     <th>Edit</th> 
-                    <th>Mail</th> 
-                    <th data-sortable="true">Client</th>
                     <th>Delete</th> 
                   </tr>
                 </thead>
@@ -53,13 +53,13 @@
                   <tr>
                     <td><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if contact.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ contact.active }}</td>
+                    <td>{{ contact.title }}</td>
                     <td>{{ contact.first_name }}</td>
                     <td>{{ contact.last_name }}</td>
                     <td>{{ contact.email }}</td>
-                    <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
-                    <td><a href="{% url 'contact_mail' contact.pk %}"><i class="fa fa-send-o fa-3x"></i></a></td>
                     {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
+                    <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-right fa-3x text-success"></i></a></td>
+                    <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
                     <td><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
                   </tr>
                 {% endfor %}
