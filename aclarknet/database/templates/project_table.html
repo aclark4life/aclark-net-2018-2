@@ -31,7 +31,7 @@
                       <td>{{ project.start_date|date:'U'|default:'' }}</td>
                       <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                       <td>{{ project.end_date|date:'U'|default:'' }}</td>
-                      {% if project.client.pk %}<td><strong><a href="{% url 'client' project.client.pk %}"><i class="fa fa-building-o"></i>&nbsp;{{ project.client }}</a></strong></td>{% else %}<td>{{ project.client|default:'' }}</td>{% endif %}
+                      {% if project.client.pk %}<td><a href="{% url 'client' project.client.pk %}"><i class="fa fa-building-o fa-3x"></i>&nbsp;{{ project.client }}</a></td>{% else %}<td>{{ project.client|default:'' }}</td>{% endif %}
                       <td>{{ project.client|default:'' }}</td>
                       <td><a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open-o fa-3x"></i>&nbsp;{{ project.name }}</a></td>
                       <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
