@@ -8,8 +8,8 @@
 {% block nav %}
             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
             {% if request.user.is_staff %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>
             <li class="nav-item active"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>
