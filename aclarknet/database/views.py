@@ -483,6 +483,12 @@ def project_index(request, pk=None):
     order_by = '-start_date'
     context, items = search(
         request, Project, fields, order_by=order_by, context=context)
+
+    for project in items:
+        if project.active:
+            project.background = "#DFF0D8"
+        else:
+            project.background = None
     context['active'] = active_status(request)
     context['data_visible'] = 'true'
     context['items'] = items
