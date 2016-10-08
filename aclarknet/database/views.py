@@ -127,6 +127,7 @@ def client_index(request):
     context, items = search(
         request, Client, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
+    context['edit_url'] = 'client_edit'
     context['items'] = items
     return render(request, 'client_index.html', context)
 
