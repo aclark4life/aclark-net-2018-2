@@ -1,0 +1,26 @@
+
+                  <a href="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-times-circle-o fa-3x text-danger"></i></a>
+
+                  <!-- Delete form modal -->
+                  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <h4 class="modal-title">Are you sure?</h4>
+                        </div>
+                        <div class="modal-body">
+                            You are about to remove something forever!
+                        </div>
+                        <div class="modal-footer">
+                          <form action="{% url 'client_edit' client.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-times"></i>&nbsp;Remove</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
