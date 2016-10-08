@@ -25,7 +25,6 @@
                       <th>Client</th>
                       <th>Start Date</th>
                       <th>End Date</th>
-                      <th>Budget</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -37,14 +36,14 @@
                         {% endif %}
                         <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
                         <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
-                        <td>{{ project.budget|default:'' }}</td>
                     </tr>
                   </tbody>
                 </table>
+                <h5>Budget <span class="pull-right">{{ company.currency_symbol }}{{ project.budget|floatformat|default:'' }}</span></h5>
                 <h5>Invoices <a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h5>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
-                    <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id }}</a></li>
+                    <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id|default:''}}</a></li>
                 {% endfor %}
                 </ul>
                 <h5>Notes</h5>

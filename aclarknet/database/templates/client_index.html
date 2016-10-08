@@ -40,8 +40,8 @@
                 <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                 <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                 <th data-sortable="true">Address</th>
-                <th>Edit</th> 
-                <th>Delete</th> 
+                <th data-valign="middle">Edit</th> 
+                <th data-valign="middle">Delete</th> 
               </tr>
             </thead>
             <tbody>
@@ -53,10 +53,13 @@
                 <td>{{ client.name }}</td>
                 <td>{{ client.address|linebreaks }}</td>
                 <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
-                <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                <td><a href="{% url 'client_edit' client.pk %}?remove=true"><i class="fa fa-times fa-3x text-danger"></i></a></td>
               </tr>
             {% endfor %}
             </tbody>
           </table>
           {% include 'pagination.html' %}
 {% endblock %}
+          <div id="modal">
+            <form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form>
+          </div>

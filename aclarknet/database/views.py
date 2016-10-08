@@ -443,6 +443,7 @@ def project(request, pk=None):
     times = Time.objects.filter(
         project=project, invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
+    context['company'] = Company.get_solo()
     context['project'] = project
     context['times'] = times
     context['invoices'] = invoices
