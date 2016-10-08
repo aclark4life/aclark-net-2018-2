@@ -10,11 +10,6 @@
                       <th data-field="client" data-sort-name="hidden-client" data-sortable="true" data-visible="{{ data_visible }}">Client</th>
                       <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                       <th data-sortable="true" data-visible="{{ data_visible }}">Task</th>
-                      <th data-sortable="true" data-visible="{{ data_visible }}">Budget</th>
-                      <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true" data-visible="{{ data_visible }}">Start Date</th>
-                      <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
-                      <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true" data-visible="{{ data_visible }}">End Date</th>
-                      <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
                       <th>Edit</th>
                       <th>Add Time</th>
                       <th data-visible="{{ data_visible }}">Delete</th>
@@ -31,11 +26,6 @@
                       {% if project.client.pk %}<td><a href="{% url 'client' project.client.pk %}"><i class="fa fa-building-o fa-3x"></i>&nbsp;{{ project.client }}</a></td>{% else %}<td>{{ project.client|default:'' }}</td>{% endif %}
                       <td>{{ project.client|default:'' }}</td>
                       {% if project.task %}<td><a href="{% url 'task' project.task.pk %}">{{ project.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
-                      <td>{{ project.budget|floatformat }}</td>
-                      <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                      <td>{{ project.start_date|date:'U'|default:'' }}</td>
-                      <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
-                      <td>{{ project.end_date|date:'U'|default:'' }}</td>
                       <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
 
                       <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x text-success"></i></a></td>
