@@ -1,31 +1,12 @@
-ul#project-invoices {
-    list-style-type:none;
+#content {
+    background: white;
+    padding-bottom: 15px;
 }
 #project-invoices li:before {
     font-family: 'FontAwesome';
     content: '\f138';
     margin:0 5px 0 -15px;
     color: #000;
-}
-tbody tr:hover td {
-    background-color: #f0f0f0 !important;
-}
-tbody tr:hover a {
-    text-decoration: none;
-}
-ul.nav.navbar-nav li a {
-    color: white;
-}
-ul.dropdown-menu li a {
-    color: black !important;
-}
-#content {
-    background: white;
-    padding-bottom: 15px;
-}
-.light {
-    color: lightgray;
-    font-weight: bold;
 }
 .currency {
     color: green;
@@ -35,31 +16,51 @@ ul.dropdown-menu li a {
     color: green;
     font-weight: bold;
 }
-.notes {
-    background: lightyellow;
-    padding: 15px;
-    border: 1px solid #EAEAEA;
-}
-td {
-    height: 100%;
-}
-td a {
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-}
-td a:hover {
-    background: #DFF0D8;
-    display: table;
-    height: 100%;
-    position: relative;
-    width: 100%;
-}
 .inverse {
     color: white;
     border-radius: 5px;
     padding: 5px;
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
+}
+.light {
+    color: lightgray;
+    font-weight: bold;
+}
+.notes {
+    background: lightyellow;
+    padding: 15px;
+    border: 1px solid #EAEAEA;
+}
+td {  /* http://stackoverflow.com/a/21361545/185820 */
+    height: 100%;
+}
+td a {  /* http://stackoverflow.com/a/21361545/185820 */
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+td a:hover {  /* http://stackoverflow.com/a/21361545/185820 */
+    background: #D9EDF7;
+    border-radius: 5px;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+tbody tr:hover td {
+    background-color: #f0f0f0 !important;
+}
+tbody tr:hover a {
+    text-decoration: none;
+}
+ul.dropdown-menu li a {
+    color: black !important;
+}
+ul.nav.navbar-nav li a {
+    color: white;
+}
+ul#project-invoices {
+    list-style-type:none;
 }
