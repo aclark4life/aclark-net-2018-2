@@ -41,11 +41,32 @@
                 <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                 <th data-sortable="true">Address</th>
                 <th data-valign="middle">Edit</th> 
-                <th data-valign="middle">Delete</th> 
+                <th data-valign="middle">Remove</th> 
               </tr>
             </thead>
             <tbody>
             {% for client in items %}
+              <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h4 class="modal-title">Are you sure?</h4>
+                      </form>
+                    </div>
+                    <div class="modal-body">
+                        You are about to remove something forever!
+                    </div>
+                    <div class="modal-footer">
+                      <form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-danger" name="delete" type="submit" value="Yes" onChange="this.form.submit()"><i class="fa fa-remove"></i>&nbsp;Remove</button></form>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <tr>
                 <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ client.active }}</td>
@@ -53,13 +74,12 @@
                 <td>{{ client.name }}</td>
                 <td>{{ client.address|linebreaks }}</td>
                 <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
-                <td><a href="{% url 'client_edit' client.pk %}?remove=true"><i class="fa fa-times fa-3x text-danger"></i></a></td>
+                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-remove"></i></button></td>
               </tr>
             {% endfor %}
             </tbody>
           </table>
           {% include 'pagination.html' %}
+
 {% endblock %}
-          <div id="modal">
-            <form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form>
-          </div>
+
