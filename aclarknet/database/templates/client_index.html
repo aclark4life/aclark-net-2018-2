@@ -37,8 +37,6 @@
               <tr>
                 <th data-sort-name="hidden-active" data-sortable="true">Active</th> 
                 <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
-                <th data-sort-name="hidden-published" data-sortable="true">Published</th> 
-                <th data-field="hidden-published" data-sortable="true" data-visible="false">Hidden Published</th> 
                 <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                 <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                 <th data-sortable="true">Address</th>
@@ -52,8 +50,6 @@
               <tr>
                 <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ client.active }}</td>
-                <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-publish"><input type="checkbox" value="on" name="checkbox-publish"{% if client.published %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                <td>{{ client.published }}</td>
                 <td><a href="{% url 'client' client.pk %}">{{ client.name }}</i></a></td>
                 <td>{{ client.name }}</td>
                 <td>{{ client.address|linebreaks }}</td>
