@@ -153,7 +153,7 @@ def send_mail(request, subject, message, to):
     try:
         _send_mail(subject, message, sender, recipients, fail_silently=False)
     except SMTPSenderRefused:
-        messages.add_message(request, messages.WARN, 'SMTPSenderRefused!')
+        messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
 
 def edit(request,
