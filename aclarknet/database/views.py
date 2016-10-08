@@ -487,6 +487,7 @@ def project_index(request, pk=None):
         request, Project, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
     context['data_visible'] = 'true'
+    context['edit_url'] = 'project_edit'
     context['items'] = items
     return render(request, 'project_index.html', context)
 
