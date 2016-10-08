@@ -44,19 +44,23 @@
                     <th data-sortable="true">Email</th>
                     <th data-sortable="true">Client</th>
                     <th>View</th> 
+                    <th>Remove</th> 
                   </tr>
                 </thead>
                 <tbody>
-                {% for contact in items %}
+                {% for item in items %}
                   <tr>
-                    <td><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if contact.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ contact.active }}</td>
-                    <td>{{ contact.title }}</td>
-                    <td>{{ contact.first_name }}</td>
-                    <td>{{ contact.last_name }}</td>
-                    <td>{{ contact.email }}</td>
-                    {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
-                    <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td>{{ item.active }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.first_name }}</td>
+                    <td>{{ item.last_name }}</td>
+                    <td>{{ item.email }}</td>
+                    {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
+                    <td><a href="{% url 'contact' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td>
+                      {% include 'delete_form.html' %}
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

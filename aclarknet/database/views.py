@@ -184,6 +184,7 @@ def contact_index(request):
     context, items = search(
         request, Contact, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
+    context['edit_url'] = 'contact_edit'
     context['items'] = items
     return render(request, 'contact_index.html', context)
 

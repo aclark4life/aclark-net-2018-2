@@ -27,8 +27,6 @@
                       <ul class="dropdown-menu">
                         <li><a href="{% url 'contact_edit' pk=contact.pk %}"><i class="fa fa-edit fa-2x text-warning"></i>&nbsp;Edit Contact</a></li>
                         <li><a href="{% url 'contact_mail' pk=contact.pk %}"><i class="fa fa-send-o fa-2x"></i>&nbsp;Send Mail</a></li>
-                        <li><form action="{% url 'contact_edit' contact.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button> Delete</form></li>
-
                       </ul>
                     </div>
                   </h3>
