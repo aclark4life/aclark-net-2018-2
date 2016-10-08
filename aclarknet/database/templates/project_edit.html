@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-              <h2><span class="rv">Project&gt;Edit</span></h2>
+              <h2><span class="inverse">Project&gt;Edit</span></h2>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save Project">

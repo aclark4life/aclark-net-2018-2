@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-              <h2><span class="rv">Contact&raquo;Edit&gt;</span> {{ item.first_name }} {{ item.last_name }}</h2>
+              <h2><span class="inverse">Contact&raquo;Edit&gt;</span> {{ item.first_name }} {{ item.last_name }}</h2>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save Contact">

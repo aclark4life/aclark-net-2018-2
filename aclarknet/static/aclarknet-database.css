@@ -50,22 +50,16 @@ td a {
     width: 100%;
 }
 td a:hover {
-    border: 1px solid #DDDDDD;
-    border-radius: 5px;
+    background: #DFF0D8;
     display: table;
     height: 100%;
     position: relative;
     width: 100%;
 }
-.rv {   /* Reverse video effect, via Bootstrap navbar-inverse */
+.inverse {
     color: white;
     border-radius: 5px;
     padding: 5px;
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
-}
-
-.name {
-    display: table-cell;
-    vertical-align: top;
 }
