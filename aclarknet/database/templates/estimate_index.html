@@ -50,19 +50,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for estimate in items %}
+                {% for item in items %}
                   <tr>
-                    <td>{{ estimate.issue_date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ estimate.issue_date|date:'U'|default:'' }}</td>
-                    <td>{{ estimate.document_id|default:'' }}</td>
-                    {% if estimate.client %}<td><a href="{% url 'client' estimate.client.pk %}">{{ estimate.client|default:'' }}</a></td>{% else %}<td></td>{% endif %}
-                    <td>{{ estimate.client }}</td>
-                    <td>{{ estimate.subject|default:'' }}</td>
-                    <td>{% if estimate.amount %}{{ company.currency_symbol }}{% endif %}{{ estimate.amount|default:'' }}</td>
-                    <td>{{ estimate.amount|unlocalize|default:'' }}</td>
-                    <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-3x text-warning"></a></td>
-                    <td><form action="{% url 'estimate_edit' estimate.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                    <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
+                    <td>{{ item.issue_date|date:'U'|default:'' }}</td>
+                    <td>{{ item.document_id|default:'' }}</td>
+                    {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client|default:'' }}</a></td>{% else %}<td></td>{% endif %}
+                    <td>{{ item.client }}</td>
+                    <td>{{ item.subject|default:'' }}</td>
+                    <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
+                    <td>{{ item.amount|unlocalize|default:'' }}</td>
+                    <td><a href="{% url 'estimate' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'estimate_edit' item.pk %}"><i class="fa fa-edit fa-3x text-warning"></a></td>
+                    <td>
+                      {% include 'delete_form.html' %}
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

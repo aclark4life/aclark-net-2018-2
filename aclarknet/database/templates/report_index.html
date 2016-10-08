@@ -39,17 +39,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for report in items %}
+                {% for item in items %}
                   <tr>
-                    <td><strong>{{ report.name }}</strong></td>
-                    <td>{{ report.date|date:'U'|default:'' }}</td>
-                    <td>{{ report.date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ report.gross }}</td>
-                    <td>{{ report.net }}</td>
-                    <td>{{ report.diff }}</td>
-                    <td><a href="{% url 'report' report.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'report_edit' report.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
-                    <td><form action="{% url 'report_edit' report.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                    <td><strong>{{ item.name }}</strong></td>
+                    <td>{{ item.date|date:'U'|default:'' }}</td>
+                    <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
+                    <td>{{ item.gross }}</td>
+                    <td>{{ item.net }}</td>
+                    <td>{{ item.diff }}</td>
+                    <td><a href="{% url 'report' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
+                    <td>
+                      {% include 'delete_form.html' %}
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

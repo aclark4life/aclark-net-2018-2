@@ -46,16 +46,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for task in items %}
+                {% for item in items %}
                   <tr>
-                    <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ task.active }}</td>
-                    <td>{{ task.name|default:'' }}</td>
-                    <td>{{ task.rate|default:'' }}</td>
-                    <td>{{ task.unit|default:'' }}</td>
-                    <td><a href="{% url 'task' task.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'task_edit' task.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
-                    <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                    <td><form action="{% url 'task_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td>{{ item.active }}</td>
+                    <td>{{ item.name|default:'' }}</td>
+                    <td>{{ item.rate|default:'' }}</td>
+                    <td>{{ item.unit|default:'' }}</td>
+                    <td><a href="{% url 'task' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'task_edit' item.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
+                    <td>
+                      {% include 'delete_form.html' %}
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

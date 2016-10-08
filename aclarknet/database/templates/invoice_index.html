@@ -52,21 +52,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for invoice in items %}
+                {% for item in items %}
                   <tr>
-                    <td>{% if invoice.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
-                    <td>{{ invoice.issue_date|date:'U'|default:'' }}</td>
-                    <td>{{ invoice.issue_date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ invoice.document_id|default:'' }}</td>
-                    <td>{{ invoice.client }}</td>
-                    {% if invoice.client %}<td><a href="{% url 'client' invoice.client.pk %}">{{ invoice.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
-                    {% if invoice.project %}<td><a href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
-                    <td>{{ invoice.subject|default:'' }}</td>
-                    <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
-                    <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
-                    <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-3x text-warning"></a></td>
-                    <td><form action="{% url 'invoice_edit' invoice.pk %}" method="post">{% csrf_token %}<button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-remove"></i></button></form></td>
+                    <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
+                    <td>{{ item.issue_date|date:'U'|default:'' }}</td>
+                    <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
+                    <td>{{ item.document_id|default:'' }}</td>
+                    <td>{{ item.client }}</td>
+                    {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
+                    {% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
+                    <td>{{ item.subject|default:'' }}</td>
+                    <td>{% if item.subtotal %}{{ company.currency_symbol }}{% endif %}{{ item.subtotal|default:'' }}</td>
+                    <td>{{ item.subtotal|unlocalize|default:'' }}</td>
+                    <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                    <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-edit fa-3x text-warning"></a></td>
+                    <td>
+                      {% include 'delete_form.html' %}
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>

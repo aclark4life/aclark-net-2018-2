@@ -127,7 +127,7 @@ def client_index(request):
     context, items = search(
         request, Client, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['edit_url'] = 'client_edit'
+    context['edit_url'] = 'client_edit'  # delete form modal
     context['items'] = items
     return render(request, 'client_index.html', context)
 
@@ -184,7 +184,7 @@ def contact_index(request):
     context, items = search(
         request, Contact, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['edit_url'] = 'contact_edit'
+    context['edit_url'] = 'contact_edit'  # delete form modal
     context['items'] = items
     return render(request, 'contact_index.html', context)
 
@@ -297,6 +297,7 @@ def estimate_index(request):
     order_by = '-issue_date'
     context, items = search(request, Estimate, fields, order_by=order_by)
     context['active'] = active_status(request)
+    context['edit_url'] = 'estimate_edit'  # delete form modal
     context['items'] = items
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -433,6 +434,7 @@ def invoice_index(request):
     order_by = '-issue_date'
     context, items = search(request, Invoice, fields, order_by=order_by)
     context['active'] = active_status(request)
+    context['edit_url'] = 'invoice_edit'  # delete form modal
     context['items'] = items
     context['company'] = company
     return render(request, 'invoice_index.html', context)
@@ -488,7 +490,7 @@ def project_index(request, pk=None):
         request, Project, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
     context['data_visible'] = 'true'
-    context['edit_url'] = 'project_edit'
+    context['edit_url'] = 'project_edit'  # delete form modal
     context['items'] = items
     return render(request, 'project_index.html', context)
 
@@ -516,6 +518,7 @@ def report_index(request):
     context['items'] = items
     context['agg'] = agg
     context['diff'] = diff
+    context['edit_url'] = 'report_edit'  # delete form modal
     return render(request, 'report_index.html', context)
 
 
@@ -566,6 +569,7 @@ def task_index(request):
     context, items = search(
         request, Task, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
+    context['edit_url'] = 'task_edit'  # delete form modal
     context['items'] = items
     return render(request, 'task_index.html', context)
 
@@ -652,6 +656,7 @@ def time_index(request):
     context, items = search(
         request, Time, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
+    context['edit_url'] = 'entry_edit'  # delete form modal
     context['items'] = items
     return render(request, 'time_index.html', context)
 
