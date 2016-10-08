@@ -49,7 +49,7 @@
               <tr>
                 <td><form action="{% url 'client_edit' client.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if client.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ client.active }}</td>
-                <td><a href="{% url 'client' client.pk %}">{{ client.name }}</i></a></td>
+                <td><a href="{% url 'client' client.pk %}"><span class="name">{{ client.name }}</span></i></a></td>
                 <td>{{ client.name }}</td>
                 <td>{{ client.address|linebreaks }}</td>
                 <td><a href="{% url 'client_edit' client.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>

@@ -40,14 +40,22 @@ ul.dropdown-menu li a {
     padding: 15px;
     border: 1px solid #EAEAEA;
 }
-td a {     /* http://stackoverflow.com/a/14974871 */
-    display:block;
-    width:100%;
+td {
+    height: 100%;
+}
+td a {
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
 }
 td a:hover {
     border: 1px solid #DDDDDD;
     border-radius: 5px;
-    margin: -1px;
+    display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
 }
 .rv {   /* Reverse video effect, via Bootstrap navbar-inverse */
     color: white;
@@ -55,4 +63,9 @@ td a:hover {
     padding: 5px;
     background-image: linear-gradient(to bottom, #3c3c3c 0px, #222 100%);
     background-repeat: repeat-x;
+}
+
+.name {
+    display: table-cell;
+    vertical-align: top;
 }
