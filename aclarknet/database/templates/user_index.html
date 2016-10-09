@@ -51,7 +51,7 @@
                     <td><form action="{% url 'user_edit' user.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if user.profile.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ user.active }}</td>
                     <td>{{ user.pk }}</td>
-                    <td><a href="{% url 'user' user.pk %}">{{ user.name }}</a></td>
+                    <td><a href="{% url 'user' user.pk %}">{{ user.username }}</a></td>
                     <td>{{ user.username|default:'' }}</td>
                     <td>{{ user.get_full_name }}</td>
                     <td>{{ user.email }}</td>
