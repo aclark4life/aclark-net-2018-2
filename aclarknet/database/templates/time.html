@@ -42,7 +42,7 @@
                 <tbody>
                   <tr>
                     {% if request.user.is_staff %}
-                    <td>{{ entry.invoiced }}</td>
+                    <td>{{ entry.invoiced|default:'' }}</td>
                     {% endif %}
                     <td>{{ entry.pk }}</td>
                     <td>{{ entry.date|default:'' }}</td>
