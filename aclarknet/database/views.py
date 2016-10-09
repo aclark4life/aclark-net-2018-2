@@ -675,6 +675,7 @@ def user(request, pk=None):
     else:
         total_dollars = 0
     context['company'] = company
+    context['edit_url'] = 'entry_edit'  # delete form modal
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
