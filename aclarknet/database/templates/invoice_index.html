@@ -36,17 +36,17 @@
               <table data-toggle="table" data-sort-name="document-id" data-sort-order="desc" data-row-style="rowStyle">
                 <thead>
                   <tr>
-                    <th data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true"><span class="currency"><i class="fa fa-dollar"></i></span></th>
-                    <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
-                    <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true">Paid</th>
+                    <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
+                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Name</th>
                     <th data-field="document-id" data-sortable="true">Id</th>
                     <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                     <th data-sort-name="hidden-client" data-sortable="true">Client</th>
                     <th data-field="project" data-sortable="true">Project</th>
-                    <th data-field="subject" data-sortable="true">Subject</th>
+                    <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
+                    <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
                     <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
                     <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                    <th>View</th>
                     <th>Edit</th>
                     <th>Remove</th>
                   </tr>
@@ -55,16 +55,16 @@
                 {% for item in items %}
                   <tr>
                     <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
-                    <td>{{ item.issue_date|date:'U'|default:'' }}</td>
-                    <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
+                    <td><a href="{% url 'invoice' item.pk %}">{{ item.name }}</a></td>
+                    <td>{{ item.subject|default:'' }}</td>
                     <td>{{ item.document_id|default:'' }}</td>
                     <td>{{ item.client }}</td>
                     {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                     {% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
-                    <td>{{ item.subject|default:'' }}</td>
+                    <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
+                    <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                     <td>{% if item.subtotal %}{{ company.currency_symbol }}{% endif %}{{ item.subtotal|default:'' }}</td>
                     <td>{{ item.subtotal|unlocalize|default:'' }}</td>
-                    <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                     <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-3x"></a></td>
                     <td>
                       {% include 'delete_form.html' %}
