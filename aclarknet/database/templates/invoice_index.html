@@ -37,8 +37,8 @@
                 <thead>
                   <tr>
                     <th data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true">Paid</th>
-                    <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
-                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Name</th>
+                    <th data-sort-name="hidden-subject" data-sortable="true">Subject</th>
+                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
                     <th data-field="document-id" data-sortable="true">Id</th>
                     <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                     <th data-sort-name="hidden-client" data-sortable="true">Client</th>
@@ -55,7 +55,7 @@
                 {% for item in items %}
                   <tr>
                     <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
-                    <td><a href="{% url 'invoice' item.pk %}">{{ item.name }}</a></td>
+                    <td><a href="{% url 'invoice' item.pk %}">{{ item.subject }}</a></td>
                     <td>{{ item.subject|default:'' }}</td>
                     <td>{{ item.document_id|default:'' }}</td>
                     <td>{{ item.client }}</td>
