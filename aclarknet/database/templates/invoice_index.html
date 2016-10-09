@@ -65,7 +65,7 @@
                     <td>{% if item.subtotal %}{{ company.currency_symbol }}{% endif %}{{ item.subtotal|default:'' }}</td>
                     <td>{{ item.subtotal|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-edit fa-3x text-warning"></a></td>
+                    <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-3x"></a></td>
                     <td>
                       {% include 'delete_form.html' %}
                     </td>

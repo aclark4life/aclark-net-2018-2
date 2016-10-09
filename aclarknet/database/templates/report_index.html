@@ -48,7 +48,7 @@
                     <td>{{ item.net }}</td>
                     <td>{{ item.diff }}</td>
                     <td><a href="{% url 'report' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                    <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-edit fa-3x text-warning"></i></a></td>
+                    <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                     <td>
                       {% include 'delete_form.html' %}
                     </td>
