@@ -670,7 +670,7 @@ def user(request, pk=None):
     times = Time.objects.filter(user=user, estimate=None, invoiced=False)
     total_hours = times.aggregate(hours=Sum(F('hours')))
     total_hours = total_hours['hours']
-    if profile.rate:
+    if profile.rate and total_hours:
         total_dollars = profile.rate * total_hours
     else:
         total_dollars = 0
