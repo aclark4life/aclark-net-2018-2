@@ -42,10 +42,11 @@
                 <tbody>
                   <tr>
                     {% if request.user.is_staff %}
-                    <td>{{ entry.invoiced|default:'' }}</td>
+                    <td>{% if entry.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
+
                     {% endif %}
                     <td>{{ entry.pk }}</td>
-                    <td>{{ entry.date|default:'' }}</td>
+                    <td>{{ entry.date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ entry.hours|default:'' }}</td>
                     <td>{{ entry.client|default:'' }}</td>
                     {% if request.user.is_staff %}{% if entry.project %}<td><a href="{% url 'project' entry.project.pk %}">{{ entry.project|default:'' }}</a></td>{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}{% else %}<td>{{ entry.project|default:'' }}</td>{% endif %}
