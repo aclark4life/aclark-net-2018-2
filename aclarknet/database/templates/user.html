@@ -34,7 +34,7 @@
                     <td>{{ user.get_full_name|default:'' }}</td>
                     <td>{{ user.profile.rate|default:'' }}</td>
                     <td>{{ user.username|default:'' }}</td>
-                    <td>{{ total_hours }}</td>
+                    <td>{{ total_hours|default:'' }}</td>
                     <td class="currency">{{ company.currency_symbol }}{{ total_dollars }}</td>
                   </tr>
                 </tbody>
