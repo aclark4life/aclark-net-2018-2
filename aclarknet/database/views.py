@@ -507,6 +507,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_index(request):
     context = {}
+    company = Company.get_solo()
     items = Report.objects.all().annotate(diff=F('gross') - F('net'))
     agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     if agg['gross'] is not None and agg['net'] is not None:
@@ -517,6 +518,7 @@ def report_index(request):
         diff = 0
     context['items'] = items
     context['agg'] = agg
+    context['company'] = company
     context['diff'] = diff
     context['edit_url'] = 'report_edit'  # delete form modal
     return render(request, 'report_index.html', context)
