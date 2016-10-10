@@ -64,3 +64,6 @@ ul.nav.navbar-nav li a {
 ul#project-invoices {
     list-style-type:none;
 }
+.table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
+    vertical-align: top;
+}
