@@ -27,7 +27,6 @@ class BooleanWidget(widgets.Widget):
     """
     Convert strings to boolean values
     """
-
     def clean(self, value):
         if value == 'Yes':
             return True
@@ -39,7 +38,6 @@ class DecimalWidget(widgets.Widget):
     """
     Convert strings to decimal values
     """
-
     def clean(self, value):
         if value:
             return Decimal(value.replace(',', ''))
@@ -50,7 +48,6 @@ class DecimalWidget(widgets.Widget):
 class UserWidget(widgets.Widget):
     """
     """
-
     def clean(self, value):
         return value
 
@@ -254,7 +251,6 @@ def edit(request,
                         company.estimate_counter):
                     company.estimate_counter -= 1
                     company.save()
-
                 # Redir to appropriate index
                 if obj._meta.verbose_name == 'client':
                     url_name = 'client_index'
@@ -271,10 +267,8 @@ def edit(request,
 
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
-
             checkbox = request.POST.get('checkbox')
             checkbox_publish = request.POST.get('checkbox-publish')
-
             if checkbox == 'on' or checkbox == 'off':
                 kwargs = {}
                 if checkbox == 'on':
@@ -318,7 +312,6 @@ def edit(request,
                 if obj._meta.verbose_name == 'task':
                     url_name = 'task_index'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-
             if amount and subtotal and paid_amount and paid:
                 obj.amount = amount
                 obj.last_payment_date = timezone.now()
@@ -360,7 +353,6 @@ def edit(request,
                             obj.get_absolute_url(request.get_host()))
                         send_mail(request, subject, message,
                                   settings.DEFAULT_FROM_EMAIL)
-
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
                     company.invoice_counter and pk is None):
@@ -368,7 +360,6 @@ def edit(request,
                 company.save()
                 obj.document_id = company.invoice_counter
                 obj.save()
-
             # Assign and increment estimate counter
             if (obj._meta.verbose_name == 'estimate' and
                     company.estimate_counter and pk is None):
@@ -376,15 +367,12 @@ def edit(request,
                 company.save()
                 obj.document_id = company.estimate_counter
                 obj.save()
-
             # Assign client to invoice
             if obj._meta.verbose_name == 'invoice' and obj.project:
                 if obj.project.client and not obj.client:
                     obj.client = obj.project.client
                     obj.save()
-
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-
     context['item'] = obj
     context['form'] = form
     context['pk'] = pk
@@ -396,63 +384,47 @@ def entries_total(queryset):
     Add estimate and invoice time entries, could be an aggregate
     (https://docs.djangoproject.com/en/1.9/topics/db/aggregation/)
     """
-
     entries = OrderedDict()
-
     total = 0
     running_total_co = 0
     running_total_dev = 0
     running_total_hours = 0
-
     for entry in queryset:
         entries[entry] = {}
-
         hours = entry.hours
         if hours:
             running_total_hours += hours
-
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = hours
         entries[entry]['notes'] = entry.notes
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
         entries[entry]['task'] = entry.task
-
         line_total = 0
         line_total_co = 0
         line_total_dev = 0
         line_total_client = 0
-
         if entry.task:
-
             rate = entry.task.rate
             entries[entry]['rate'] = rate
             if rate:
                 line_total_co = rate * hours
-
             entries[entry]['line_total_co'] = line_total_co
-
             running_total_co += line_total_co
-
         if entry.user and entry.project:
-
             if hasattr(entry.user, 'profile'):
                 if entry.user.profile.rate:
                     line_total_dev = entry.user.profile.rate * hours
                 entries[entry]['line_total_dev'] = line_total_dev
                 running_total_dev += line_total_dev
-
         if entry.project:
             line_total = line_total_co - line_total_dev
             line_total_client = line_total_co
             entries[entry]['line_total_client'] = '%.2f' % line_total_client
         else:
             line_total = line_total_co
-
         entries[entry]['line_total'] = '%.2f' % line_total
-
     total = running_total_co - running_total_dev
-
     return (entries, running_total_co, running_total_dev, running_total_hours,
             total)
 
@@ -536,11 +508,8 @@ def search(request, model, fields, order_by=None, context={}):
                 results = model.objects.filter(user=request.user)
         else:
             results = model.objects.all()
-
     if order_by:
         results = results.order_by(order_by)
-
     if not search:
         results = paginate(results, page)
-
     return context, results
