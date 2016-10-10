@@ -24,6 +24,7 @@
                   <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'report_edit' %}">Add Report&nbsp;<i class="fa fa-plus"></i></a></h3>
                 </div>
               </div>
+              {% include 'report_table.html' %}
               <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-row-style="rowStyle">
                 <thead>
                   <tr>
@@ -56,32 +57,5 @@
                 {% endfor %}
                 </tbody>
               </table>
-              <table class="table"> 
-                <thead>
-                  <tr>
-                    <th></th> 
-                    <th></th>
-                    <th></th>
-                    <th data-field="gross" data-sortable="true">Gross</th>
-                    <th data-field="net" data-sortable="true">Net</th>
-                    <th data-field="diff" data-sortable="true">Contractor</th>
-                    <th></th> 
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><h4>Totals</h4></td>
-                    <td></td>
-                    <td></td>
-                    <td class="currency"><h4><i class="fa fa-dollar"></i>{{ agg.gross }}</h4></td>
-                    <td class="currency"><h4><i class="fa fa-dollar"></i>{{ agg.net }}</h4></td>
-                    <td class="currency"><h4><i class="fa fa-dollar"></i>{{ diff }}</h4></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+              {% include 'report_table.html' %}
 {% endblock content %}
