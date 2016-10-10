@@ -38,7 +38,9 @@
                     {% if item.user %}<td><a href="{% url 'user' item.user.pk %}">{{ item.user|default:'' }}</a></td>{% else %}<td>{{ item.user|default:'' }}</td>{% endif %}
                     <td>{{ item.task|default:'' }}</td>
                     <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                    <td><form action="{% url 'entry_edit' item.pk %}" method="post">{% csrf_token %}<button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()"><i class="fa fa-plus"></i></button></form></td>
+                    <td>
+                      {% include 'copy_form.html' %}
+                    </td>
                     <td>
                       {% include 'delete_form.html' %}
                     </td>
