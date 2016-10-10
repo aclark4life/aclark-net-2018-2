@@ -22,12 +22,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-.DEFAULT_GOAL=commit-heroku
+.DEFAULT_GOAL=git-commit-auto-push
 
-APP=database
+APP=app
 MESSAGE="Update"
-PROJECT=aclarknet
-EDITOR="Sublime Text"
+PROJECT=project
 TMP:=$(shell echo `tmp`)
 
 #co: git-checkout-branches
@@ -98,20 +97,23 @@ django-su:
 	python manage.py createsuperuser
 
 # Git
-REMOTE_BRANCHES=`git branch -a |\
-    grep remote |\
-    grep -v HEAD |\
-    grep -v master`
+REMOTES=`\
+	git branch -a |\
+	grep remote |\
+	grep -v HEAD |\
+	grep -v master`
+commit: git-commit
 git-checkout:
-	-for i in $(REMOTE_BRANCHES) ; do \
-		git checkout -t $$i ; done
+	-for i in $(REMOTES) ; do \
+        git checkout -t $$i ; done
+git-commit-auto-push: git-commit git-push
 git-commit:
 	git commit -a -m $(MESSAGE)
 git-commit-edit:
 	git commit -a
 git-push:
 	git push
-commit: git-commit
+push: git-push
 
 # Heroku
 heroku-debug-on:
@@ -205,7 +207,7 @@ python-install:
 python-serve:
 	@echo "\n\tServing HTTP on http://0.0.0.0:8000\n"
 	python -m SimpleHTTPServer
-python-virtualenv:
+python-venv:
 	virtualenv .
 python-yapf:
 	-yapf -i *.py
@@ -236,6 +238,8 @@ vagrant-up:
 	vagrant up --provision
 
 # aclarknet-database
+APP=database
+PROJECT=aclarknet
 commit-heroku: commit heroku
 heroku-db-backup:
 	heroku pg:backups capture
@@ -254,3 +258,4 @@ heroku-remote2:
 django-db-init-postgres:
 	-dropdb --if-exists $(PROJECT)
 	-createdb $(PROJECT)
+
