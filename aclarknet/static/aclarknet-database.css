@@ -29,6 +29,20 @@
     padding: 15px;
     border: 1px solid #EAEAEA;
 }
+.table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
+    vertical-align: top;
+}
+a.text-overflow-ellipsis {  /* http://www.w3schools.com/cssref/tryit.asp?filename=trycss3_text-overflow_hover */
+    display: block;
+    white-space: nowrap;
+    width: 12em;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    color: #373A3C;
+}
+a:hover.text-overflow-ellipsis {
+    text-decoration: none;
+}
 td {  /* http://stackoverflow.com/a/21361545/185820 */
     height: 100%;
 }
@@ -60,7 +74,4 @@ ul.nav.navbar-nav li a {
 }
 ul#project-invoices {
     list-style-type:none;
-}
-.table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
-    vertical-align: top;
 }
