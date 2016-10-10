@@ -314,6 +314,7 @@ def home(request):
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     context['data_visible'] = 'false'  # Hide some items
+    context['edit_url'] = 'project_edit'  # delete form modal
     context['company'] = company
     context['gross'] = gross
     context['invoices'] = invoices
