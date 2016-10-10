@@ -10,11 +10,9 @@
 }
 .currency {
     color: green;
-    font-weight: bold;
 }
 .currency a {
     color: green;
-    font-weight: bold;
 }
 .inverse {
     color: white;
@@ -25,7 +23,6 @@
 }
 .light {
     color: lightgray;
-    font-weight: bold;
 }
 .notes {
     background: lightyellow;

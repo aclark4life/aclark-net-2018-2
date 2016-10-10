@@ -18,7 +18,7 @@ a.text-overflow-ellipsis {
 <tbody>
   <tr>
     {% for invoice in invoices %}
-    <td class="currency"><h4><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-dollar"></i>{{ invoice.subtotal|default:0 }}</a></h4></td>
+    <td class="currency"><h4><a href="{% url 'invoice' invoice.pk %}">{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</a></h4></td>
     {% endfor %}
   </tr>
 </tbody>
