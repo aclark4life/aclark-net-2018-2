@@ -3,15 +3,15 @@
             <div class="col-md-12">
               <span class="table-bordered col-md-3"><h5>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</h5></span>
               <span class="table-bordered col-md-3 offset-md-6">
-                  {% if items.has_next %}
-                  <span class="pull-right">&nbsp;<a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-3x"></i></a></span>
-                  <span class="pull-right">&nbsp;<a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></span>
-                  {% endif %}
-                  <span class="current pull-right"><h5>Page {{ items.number }} of {{ items.paginator.num_pages }}</h5></span>
-                  {% if items.has_previous %}
-                  <span class="pull-right"><a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-3x"></i></a>&nbsp;</span>
-                  <span class="pull-right"><a href="?page=1"><i class="fa fa-step-backward fa-3x"></i></a>&nbsp;</span>
-                  {% endif %}
+                {% if items.has_next %}
+                <span class="pull-right">&nbsp;<a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-3x"></i></a></span>
+                <span class="pull-right">&nbsp;<a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></span>
+                {% endif %}
+                <span class="current pull-right"><h5>Page {{ items.number }} of {{ items.paginator.num_pages }}</h5></span>
+                {% if items.has_previous %}
+                <span class="pull-right"><a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-3x"></i></a>&nbsp;</span>
+                <span class="pull-right"><a href="?page=1"><i class="fa fa-step-backward fa-3x"></i></a>&nbsp;</span>
+                {% endif %}
               </span>
             </div>
           </div>
