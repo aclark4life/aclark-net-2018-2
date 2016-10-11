@@ -17,14 +17,15 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <h1>Reports</h1>
                 </div>
-                <div class="col-md-6">
-                  <a class="btn btn-lg btn-success pull-right" href="{% url 'report_edit' %}">Add Report&nbsp;<i class="fa fa-plus"></i></a>
+                <div class="col-md-3 offset-md-6">
+                  <a class="btn btn-lg btn-success" href="{% url 'report_edit' %}">Add Report&nbsp;<i class="fa fa-plus"></i></a>
                 </div>
               </div>
               {% include 'report_table.html' %}
+              <h2>Entries</h2>
               <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-row-style="rowStyle">
                 <thead>
                   <tr>
