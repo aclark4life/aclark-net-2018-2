@@ -39,21 +39,21 @@
                     </tr>
                   </tbody>
                 </table>
-                <h5>Budget <span class="pull-right">{{ project.budget|default:'' }} units</span></h5>
-                <h5>Burn Rate<span class="pull-right">{{ project.daily_burn|default:'' }} units</span></h5>
-                <h5>Invoices <a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h5>
+                <h3>Budget <span class="pull-right">{{ project.budget|default:'' }} units</span></h3>
+                <h3>Burn Rate<span class="pull-right">{{ project.daily_burn|default:'' }} units</span></h3>
+                <h3>Invoices <a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h3>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id|default:''}}</a></li>
                 {% endfor %}
                 </ul>
-                <h5>Notes</h5>
+                <h3>Notes</h3>
                 {% if project.notes %}
                 <div class="notes">{{ project.notes|linebreaks|default:'' }}</div>
                 {% endif %}
               </div>
               <div class="col-md-6">
-                <h5>Times<a class="btn btn-secondary pull-right" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time</h5>
+                <h3>Times<a class="btn btn-secondary pull-right" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time</h3>
                 <table data-toggle="table" data-row-style="rowStyle">
                   <thead>
                     <tr>
