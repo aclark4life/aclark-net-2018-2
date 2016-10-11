@@ -17,7 +17,7 @@
 
 {% block content %}
             <div class="col-md-6">
-              <h2>Client<a class="btn btn-lg btn-success pull-right" href="{% url 'client_edit' client.pk %}">Edit Client</a></h2>
+              <h1>Client<a class="btn btn-lg btn-success pull-right" href="{% url 'client_edit' client.pk %}">Edit Client</a></h1>
               <table data-toggle="table"> 
                 <thead>
                   <tr>
@@ -29,7 +29,7 @@
                   <tr><td>{{ client.name }}</td><td>{{ client.address|linebreaks }}</td></tr>
                 </tbody>
               </table>
-              <h4>Contacts<a class="btn btn-secondary pull-right" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add Contact <i class="fa fa-plus"></i></a></h4>
+              <h2>Contacts<a class="btn btn-secondary pull-right" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add Contact <i class="fa fa-plus"></i></a></h2>
               <table data-toggle="table"> 
                 <thead>
                   <tr>
@@ -52,7 +52,7 @@
               </table>
             </div>
             <div class="col-md-6">
-              <h4>Projects<a class="btn btn-secondary pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project <i class="fa fa-plus"></i></a></h4>
+              <h2>Projects<a class="btn btn-secondary pull-right" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project <i class="fa fa-plus"></i></a></h2>
               <table data-toggle="table"> 
                 <thead>
                   <tr>
