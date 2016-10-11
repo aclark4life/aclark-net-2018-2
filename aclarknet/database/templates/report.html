@@ -18,17 +18,15 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h3>Report</h3>
+                  <h1>Report</h1>
                 </div>
                 <div class="col-md-2">
-                  <h3>
-                    <div class="dropdown pull-right">
-                      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
-                      <ul class="dropdown-menu">
-                        <li><a href="{% url 'report_edit' pk=report.pk %}"><i class="fa fa-cog fa-2x"></i>&nbsp;Edit Report</a></li>
-                      </ul>
-                    </div>
-                  </h3>
+                  <div class="dropdown pull-right">
+                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'report_edit' pk=report.pk %}"><i class="fa fa-cog fa-2x"></i>&nbsp;Edit Report</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <table data-toggle="table" data-sort-name="id" data-sort-order="desc"> 

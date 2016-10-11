@@ -23,13 +23,13 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-3">
-                  <h2>Estimates</h2>
+                  <h1>Estimates</h1>
                 </div>
                 <div class="col-md-6">
                   {% include 'search.html' %}
                 </div>
                 <div class="col-md-3">
-                  <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'estimate_edit' %}">Add Estimate&nbsp;<i class="fa fa-plus"></i></a></h3>
+                  <a class="btn btn-lg btn-success pull-right" href="{% url 'estimate_edit' %}">Add Estimate&nbsp;<i class="fa fa-plus"></i></a>
                 </div>
               </div>
               {% include 'pagination.html' %}

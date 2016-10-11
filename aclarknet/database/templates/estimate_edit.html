@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-              <h3>Estimate &rarr; Edit</h3>
+              <h1>Estimate</h1>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save Estimate">
