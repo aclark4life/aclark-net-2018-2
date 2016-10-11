@@ -1,8 +1,8 @@
 
-                  <a href="" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fa fa-times-circle-o fa-3x text-danger"></i></a>
+                  <a href="" data-toggle="modal" data-target=".bd-contact-modal-sm"><i class="fa fa-plus-circle fa-3x text-success"></i></a>
 
                   <!-- Delete form modal -->
-                  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                  <div class="modal fade bd-contact-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -12,13 +12,13 @@
                           <h4 class="modal-title">Are you sure?</h4>
                         </div>
                         <div class="modal-body">
-                            You are about to remove this item forever!
+                            You are about to add a contact!
                         </div>
                         <div class="modal-footer">
-                          <form action="{% url edit_url item.pk %}" method="post">
+                          <form action="{% url 'user_contact' user.pk %}" method="post">
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-times"></i>&nbsp;Remove</button>
+                            <button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()">Add</button>
                           </form>
                         </div>
                       </div>
