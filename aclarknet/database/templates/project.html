@@ -46,7 +46,7 @@
                   </tbody>
                 </table>
                 <h3>Budget <span class="pull-right">{{ project.budget|default:'' }} units</span></h3>
-                <h3>Burn Rate<span class="pull-right">{{ project.daily_burn|default:'' }} units</span></h3>
+                <h3>Burn Rate<span class="pull-right">{{ project.daily_burn|default:'' }}</span></h3>
                 <h3>Invoices <a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h3>
                 <ul id="project-invoices">
                 {% for invoice in invoices %}
