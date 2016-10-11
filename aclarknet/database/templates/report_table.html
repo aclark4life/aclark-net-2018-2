@@ -4,14 +4,12 @@
                   <tr>
                     <th data-field="gross" data-sortable="true">Gross</th>
                     <th data-field="net" data-sortable="true">Net</th>
-                    <th data-field="diff" data-sortable="true">Contractor</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="currency"><h4>{{ company.currency_symbol }}{{ agg.gross }}</h4></td>
-                    <td class="currency"><h4>{{ company.currency_symbol }}{{ agg.net }}</h4></td>
-                    <td class="currency"><h4>{{ company.currency_symbol }}{{ diff }}</h4></td>
+                    <td data-toggle="tooltip" title="Contractor: {{ diff }}" class="currency"><h4>{{ company.currency_symbol }}{{ agg.gross }}</h4></td>
+                    <td data-toggle="tooltip" title="Contractor: {{ diff }}" class="currency"><h4>{{ company.currency_symbol }}{{ agg.net }}</h4></td>
                   </tr>
                 </tbody>
               </table>
