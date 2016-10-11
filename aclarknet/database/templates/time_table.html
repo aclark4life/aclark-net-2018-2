@@ -2,23 +2,23 @@
                 <thead>
                   <tr>
                     {% if request.user.is_staff %}
-                    <th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true">Invoiced</th>
+                    <th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" data-visible="{{ data_visible }}">Invoiced</th>
                     {% endif %}
                     <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                     <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                     <th data-field="hours" data-sortable="true">Hours</th>
-                    <th data-field="client" data-sortable="true">Client</th>
-                    <th data-field="project" data-sort-name="hidden-project" data-sortable="true">Project</th>
+                    <th data-field="client" data-sortable="true" data-visible="{{ data_visible }}">Client</th>
+                    <th data-field="project" data-sort-name="hidden-project" data-sortable="true" data-visible="{{ data_visible }}">Project</th>
                     <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
-                    <th data-field="notes" data-sortable="true">Notes</th>
-                    <th data-field="user" data-sortable="true">User</th>
-                    <th data-field="task" data-sortable="true">Task</th>
+                    <th data-field="notes" data-sortable="true" data-visible="{{ data_visible }}">Notes</th>
+                    <th data-field="user" data-sortable="true" data-visible="{{ data_visible }}">User</th>
+                    <th data-field="task" data-sortable="true" data-visible="{{ data_visible }}">Task</th>
                     <th>Edit</th> 
                     <th>Copy</th> 
-                    <th>Remove</th> 
+                    <th data-visible="{{ data_visible }}">Remove</th> 
                     {% if request.user.is_staff %}
-                    <th data-field="invoice" data-sortable="true">Invoice</th>
-                    <th data-field="estimate" data-sortable="true">Estimate</th>
+                    <th data-field="invoice" data-sortable="true" data-visible="{{ data_visible }}">Invoice</th>
+                    <th data-field="estimate" data-sortable="true" data-visible="{{ data_visible }}">Estimate</th>
                     {% endif %}
                   </tr>
                 </thead>

@@ -126,7 +126,7 @@ def client_index(request):
     context, items = search(
         request, Client, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['edit_url'] = 'client_edit'  # delete form modal
+    context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'client_index.html', context)
 
@@ -183,7 +183,7 @@ def contact_index(request):
     context, items = search(
         request, Contact, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['edit_url'] = 'contact_edit'  # delete form modal
+    context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'contact_index.html', context)
 
@@ -296,7 +296,7 @@ def estimate_index(request):
     order_by = '-issue_date'
     context, items = search(request, Estimate, fields, order_by=order_by)
     context['active'] = active_status(request)
-    context['edit_url'] = 'estimate_edit'  # delete form modal
+    context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['items'] = items
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -313,7 +313,7 @@ def home(request):
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     context['data_visible'] = 'false'  # Hide some items
-    context['edit_url'] = 'project_edit'  # delete form modal
+    context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['gross'] = gross
     context['invoices'] = invoices
@@ -434,7 +434,7 @@ def invoice_index(request):
     order_by = '-issue_date'
     context, items = search(request, Invoice, fields, order_by=order_by)
     context['active'] = active_status(request)
-    context['edit_url'] = 'invoice_edit'  # delete form modal
+    context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['items'] = items
     context['company'] = company
     return render(request, 'invoice_index.html', context)
@@ -448,8 +448,9 @@ def project(request, pk=None):
         project=project, invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['company'] = Company.get_solo()
+    context['data_visible'] = 'false'  # Hide some items
     context['project'] = project
-    context['edit_url'] = 'entry_edit'  # delete form modal
+    context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = times
     context['invoices'] = invoices
     context['daily_burn'] = daily_burn(project)
@@ -490,8 +491,8 @@ def project_index(request, pk=None):
     context, items = search(
         request, Project, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['data_visible'] = 'true'
-    context['edit_url'] = 'project_edit'  # delete form modal
+    context['data_visible'] = 'true'  # Show all items
+    context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'project_index.html', context)
 
@@ -521,7 +522,7 @@ def report_index(request):
     context['agg'] = agg
     context['company'] = company
     context['diff'] = diff
-    context['edit_url'] = 'report_edit'  # delete form modal
+    context['edit_url'] = 'report_edit'  # Delete form modal
     return render(request, 'report_index.html', context)
 
 
@@ -572,7 +573,7 @@ def task_index(request):
     context, items = search(
         request, Task, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['edit_url'] = 'task_edit'  # delete form modal
+    context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'task_index.html', context)
 
@@ -659,7 +660,8 @@ def time_index(request):
     context, items = search(
         request, Time, fields, order_by=order_by, context=context)
     context['active'] = active_status(request)
-    context['edit_url'] = 'entry_edit'  # delete form modal
+    context['data_visible'] = 'true'  # Show all items
+    context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'time_index.html', context)
 
@@ -678,7 +680,7 @@ def user(request, pk=None):
     else:
         total_dollars = 0
     context['company'] = company
-    context['edit_url'] = 'entry_edit'  # delete form modal
+    context['edit_url'] = 'entry_edit'  # Delete form modal
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
