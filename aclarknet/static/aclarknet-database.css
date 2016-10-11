@@ -59,7 +59,7 @@ td a {  /* http://stackoverflow.com/a/21361545/185820 */
     width: 100%;
 }
 td a:hover {  /* http://stackoverflow.com/a/21361545/185820 */
-    background: #D9EDF7;
+    background: #e0e0e0;
     border-radius: 5px;
     display: table;
     height: 100%;
