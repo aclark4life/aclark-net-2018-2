@@ -1,28 +1,17 @@
+              <h2>Totals</h2>
               <table class="table table-sm" data-toggle="table"> 
                 <thead>
                   <tr>
-                    <th></th> 
-                    <th></th>
-                    <th></th>
                     <th data-field="gross" data-sortable="true">Gross</th>
                     <th data-field="net" data-sortable="true">Net</th>
                     <th data-field="diff" data-sortable="true">Contractor</th>
-                    <th></th> 
-                    <th></th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><h4>Totals</h4></td>
-                    <td></td>
-                    <td></td>
                     <td class="currency"><h4>{{ company.currency_symbol }}{{ agg.gross }}</h4></td>
                     <td class="currency"><h4>{{ company.currency_symbol }}{{ agg.net }}</h4></td>
                     <td class="currency"><h4>{{ company.currency_symbol }}{{ diff }}</h4></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                   </tr>
                 </tbody>
               </table>
