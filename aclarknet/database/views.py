@@ -449,7 +449,8 @@ def project(request, pk=None):
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['company'] = Company.get_solo()
     context['project'] = project
-    context['times'] = times
+    context['edit_url'] = 'entry_edit'  # delete form modal
+    context['items'] = times
     context['invoices'] = invoices
     context['daily_burn'] = daily_burn(project)
     return render(request, 'project.html', context)
