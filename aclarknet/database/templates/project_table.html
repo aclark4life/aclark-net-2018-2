@@ -30,7 +30,7 @@
                         {% if item.task %}<td><a href="{% url 'task' item.task.pk %}">{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                         <td><a href="{% url 'project_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
 
-                        <td><a href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle fa-3x text-success"></i></a></td>
+                        <td><a href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
                         <td>
                           {% include 'delete_form.html' %}
                         </td>
