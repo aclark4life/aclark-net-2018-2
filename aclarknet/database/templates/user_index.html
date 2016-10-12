@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block sidebar %}
-            {% if request.user.is_staff %}{% if not active %}<li class="nav-item"><a class="nav-link" href="?active=true">Active <i class="fa fa-square-o"></i></a></li>{% else %}<li class="nav-item active"><a class="nav-link" href="{% url 'user_index' %}">Active <i class="fa fa-check-square"></i></a></li>{% endif %}{% endif %}
+            {% if request.user.is_staff %}{% if not active %}<li class="nav-item"><a class="nav-link" href="?active=true">Active</a></li>{% else %}<li class="nav-item active"><a class="nav-link" href="{% url 'user_index' %}">Active</a></li>{% endif %}{% endif %}
 {% endblock %}
 
 {% block nav %}
