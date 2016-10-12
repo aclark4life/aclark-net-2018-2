@@ -10,7 +10,7 @@
               <div class="col-md-1">
                 {% if items.has_previous %}
                 <p>
-                  <a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-2x"></i></a><a href="?page=1"><i class="fa fa-step-backward fa-2x"></i></a>
+                  <a href="?page=1"><i class="fa fa-step-backward fa-2x"></i></a><a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
                 </p>
                 {% endif %}
               </div>
@@ -20,7 +20,7 @@
               <div class="col-md-1">
                 {% if items.has_next %}
                 <p>
-                  <a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-2x"></i></a><a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
+                  <a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-2x"></i></a><a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-2x"></i></a>
                 </p>
                 {% endif %}
               </div>
