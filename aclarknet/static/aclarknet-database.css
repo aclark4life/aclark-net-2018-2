@@ -30,6 +30,9 @@
 .light {
     color: lightgray;
 }
+.nav-sidebar a:hover {
+  text-decoration: underline; 
+}
 .notes {
     background: lightyellow;
     padding: 15px;
