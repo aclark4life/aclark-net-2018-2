@@ -28,37 +28,39 @@
               {% include 'search.html' %}
             </div>
             <div class="col-md-3">
-              <h3><a class="btn btn-lg btn-success pull-right" href="{% url 'client_edit' %}">Add Client</a></h3>
+              <p><a class="btn btn-lg btn-success pull-right" href="{% url 'client_edit' %}">Add Client</a></p>
             </div>
           </div>
           {% include 'pagination.html' %}
-          <table data-toggle="table" data-row-style="rowStyle">
-            <thead>
-              <tr>
-                <th data-sort-name="hidden-active" data-sortable="true">Active</th> 
-                <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
-                <th data-sort-name="hidden-name" data-sortable="true">Name</th>
-                <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                <th data-sortable="true">Address</th>
-                <th data-valign="top">Edit</th> 
-                <th data-valign="top">Remove</th> 
-              </tr>
-            </thead>
-            <tbody>
-            {% for item in items %}
-              <tr>
-                <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                <td>{{ item.active }}</td>
-                <td><a href="{% url 'client' item.pk %}">{{ item.name }}</a></td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.address|linebreaks }}</td>
-                <td><a href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                <td>
-                  {% include 'delete_form.html' %}
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+          <p>  
+            <table data-toggle="table" data-row-style="rowStyle">
+              <thead>
+                <tr>
+                  <th data-sort-name="hidden-active" data-sortable="true">Active</th> 
+                  <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
+                  <th data-sort-name="hidden-name" data-sortable="true">Name</th>
+                  <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                  <th data-sortable="true">Address</th>
+                  <th data-valign="top">Edit</th> 
+                  <th data-valign="top">Remove</th> 
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in items %}
+                <tr>
+                  <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                  <td>{{ item.active }}</td>
+                  <td><a href="{% url 'client' item.pk %}">{{ item.name }}</a></td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.address|linebreaks }}</td>
+                  <td><a href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                  <td>
+                    {% include 'delete_form.html' %}
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </p>
           {% include 'pagination.html' %}
 {% endblock %}

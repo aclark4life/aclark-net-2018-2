@@ -21,40 +21,42 @@
                   <h1>Reports</h1>
                 </div>
                 <div class="col-md-2 offset-md-6">
-                  <a class="btn btn-lg btn-success" href="{% url 'report_edit' %}">Add Report</a>
+                  <p><a class="btn btn-lg btn-success pull-right" href="{% url 'report_edit' %}">Add Report</a></p>
                 </div>
               </div>
-              <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-row-style="rowStyle">
-                <thead>
-                  <tr>
-                    <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
-                    <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                    <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
-                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                    <th data-field="gross" data-sortable="true">Gross</th>
-                    <th data-field="net" data-sortable="true">Net</th>
-                    <th data-field="diff" data-sortable="true">Contractor</th>
-                    <th>Edit</th>
-                    <th>Remove</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for item in items %}
-                  <tr>
-                    <td><a href="{% url 'report' item.pk %}">{{ item.name }}</a></td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ item.date|date:'U'|default:'' }}</td>
-                    <td>{{ item.gross }}</td>
-                    <td>{{ item.net }}</td>
-                    <td>{{ item.diff }}</td>
-                    <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                    <td>
-                      {% include 'delete_form.html' %}
-                    </td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+              <p>
+                <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-row-style="rowStyle">
+                  <thead>
+                    <tr>
+                      <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
+                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                      <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                      <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                      <th data-field="gross" data-sortable="true">Gross</th>
+                      <th data-field="net" data-sortable="true">Net</th>
+                      <th data-field="diff" data-sortable="true">Contractor</th>
+                      <th>Edit</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for item in items %}
+                    <tr>
+                      <td><a href="{% url 'report' item.pk %}">{{ item.name }}</a></td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
+                      <td>{{ item.date|date:'U'|default:'' }}</td>
+                      <td>{{ item.gross }}</td>
+                      <td>{{ item.net }}</td>
+                      <td>{{ item.diff }}</td>
+                      <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                      <td>
+                        {% include 'delete_form.html' %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </p>
               {% include 'report_table.html' %}
 {% endblock content %}

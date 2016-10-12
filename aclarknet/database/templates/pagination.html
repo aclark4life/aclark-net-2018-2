@@ -1,26 +1,30 @@
           {% if items.paginator %}
-          <div class="row">
-            <div class="col-md-12">
-              <span class="col-md-3"><h4>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</h4></span>
-              <!-- Search for one space (" ") to show all items -->
-              <span class="col-md-2 offset-md-2"><form class="form-inline" action="" method="post">{% csrf_token %}<input name="search" style="display: none" value=" "><button type="submit" class="btn btn-secondary btn-sm">Show all items</button></form></span>
-              <span class="col-md-3 offset-md-2">
+          <p>
+            <div class="row">
+              <div class="col-md-4">
+                <h3>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</h3>
+              </div>
+              <div class="col-md-4">
+                <!-- Search for one space (" ") to show all items -->
+                <form class="form-inline" action="" method="post">{% csrf_token %}<input name="search" style="display: none" value=" "><button type="submit" class="btn btn-secondary btn-sm">Show all items</button></form>
+              </div>
+              <div class="col-md-4">
                 {% if items.has_next %}
-                <span class="pull-right">&nbsp;<a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-2x"></i></a></span>
-                <span class="pull-right">&nbsp;<a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-2x"></i></a></span>
+                <a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-2x"></i></a>
+                <a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
                 {% endif %}
-                <span class="current pull-right"><h4>Page {{ items.number }} of {{ items.paginator.num_pages }}</h4></span>
+                <h3 class="pull-right">Page {{ items.number }} of {{ items.paginator.num_pages }}</h3>
                 {% if items.has_previous %}
-                <span class="pull-right"><a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-2x"></i></a>&nbsp;</span>
-                <span class="pull-right"><a href="?page=1"><i class="fa fa-step-backward fa-2x"></i></a>&nbsp;</span>
+                <a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
+                <a href="?page=1"><i class="fa fa-step-backward fa-2x"></i></a>
                 {% endif %}
-              </span>
+              </div>
             </div>
-          </div>
-          {% else %}  <!-- Form submitted -->
-          <div class="row">
-            <div class="col-md-12">
-              <h4>Items 1 to {{ items.count }} of {{ items.count }}</h4>
+            {% else %}  <!-- Form submitted -->
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Items 1 to {{ items.count }} of {{ items.count }}</h3>
+              </div>
             </div>
-          </div>
+          </p>
           {% endif %}
