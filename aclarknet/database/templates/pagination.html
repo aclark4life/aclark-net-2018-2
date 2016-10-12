@@ -10,13 +10,15 @@
               </div>
               <div class="col-md-4">
                 {% if items.has_next %}
-                <a href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-2x"></i></a>
-                <a href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
+                <p>
+                  <a class="pull-right" href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward fa-2x"></i></a><a class="pull-right" href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right fa-2x"></i></a>
+                </p>
                 {% endif %}
                 <h3 class="pull-right">Page {{ items.number }} of {{ items.paginator.num_pages }}</h3>
                 {% if items.has_previous %}
-                <a href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
-                <a href="?page=1"><i class="fa fa-step-backward fa-2x"></i></a>
+                <p>
+                  <a class="pull-right" href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left fa-2x"></i></a><a class="pull-right" href="?page=1"><i class="fa fa-step-backward fa-2x"></i></a>
+                </p>
                 {% endif %}
               </div>
             </div>
