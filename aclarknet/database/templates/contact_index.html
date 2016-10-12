@@ -33,37 +33,39 @@
               </div>
               {% include 'messages.html' %}
               {% include 'pagination.html' %}
-              <table data-toggle="table" data-row-style="rowStyle">
-                <thead>
-                  <tr>
-                    <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
-                    <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
-                    <th data-field="first-name" data-sort-name="first-name" data-sortable="true">First Name</th>
-                    <th data-field="last-name" data-sort-name="hidden-last-name" data-sortable="true">Last Name</th>
-                    <th data-field="hidden-last-name" data-sortable="true" data-visible="false">Hidden Last Name</th>
-                    <th data-sortable="true">Email</th>
-                    <th data-sortable="true">Client</th>
-                    <th>Edit</th> 
-                    <th>Remove</th> 
-                  </tr>
-                </thead>
-                <tbody>
-                {% for item in items %}
-                  <tr>
-                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ item.active }}</td>
-                    <td>{{ item.first_name }}</td>
-                    <td><a href="{% url 'contact' item.pk %}">{{ item.last_name }}</a></td>
-                    <td>{{ item.last_name }}</td>
-                    <td>{{ item.email }}</td>
-                    {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
-                    <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                    <td>
-                      {% include 'delete_form.html' %}
-                    </td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+              <p>
+                <table data-toggle="table" data-row-style="rowStyle">
+                  <thead>
+                    <tr>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                      <th data-field="first-name" data-sort-name="first-name" data-sortable="true">First Name</th>
+                      <th data-field="last-name" data-sort-name="hidden-last-name" data-sortable="true">Last Name</th>
+                      <th data-field="hidden-last-name" data-sortable="true" data-visible="false">Hidden Last Name</th>
+                      <th data-sortable="true">Email</th>
+                      <th data-sortable="true">Client</th>
+                      <th>Edit</th> 
+                      <th>Remove</th> 
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for item in items %}
+                    <tr>
+                      <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                      <td>{{ item.active }}</td>
+                      <td>{{ item.first_name }}</td>
+                      <td><a href="{% url 'contact' item.pk %}">{{ item.last_name }}</a></td>
+                      <td>{{ item.last_name }}</td>
+                      <td>{{ item.email }}</td>
+                      {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
+                      <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                      <td>
+                        {% include 'delete_form.html' %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </p>
               {% include 'pagination.html' %}
 {% endblock %}
