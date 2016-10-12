@@ -71,7 +71,7 @@ td a:hover {  /* http://stackoverflow.com/a/21361545/185820 */
     width: 100%;
 }
 tbody tr:hover td {
-    background-color: #f0f0f0 !important;
+    /* background-color: #f0f0f0 !important; */
 }
 tbody tr:hover a {
     text-decoration: none;
