@@ -489,11 +489,12 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = {}
+    active = active_status(request)
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = search(
-        request, Project, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Project, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
