@@ -33,7 +33,11 @@
                 <table data-toggle="table"> 
                   <thead>
                     <tr>
-                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true">Active</th>
+                      <th data-field="active" data-sort-name="hidden-active" data-sortable="true"
+                        {% if active %}
+                        data-visible="false"
+                        {% endif %}
+                        >Active</th>
                       <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="first-name" data-sort-name="first-name" data-sortable="true">First Name</th>
                       <th data-field="last-name" data-sort-name="hidden-last-name" data-sortable="true">Last Name</th>
