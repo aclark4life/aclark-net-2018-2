@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-              <h1>Company <a class="btn btn-secondary pull-right" href="{% url 'company_edit' %}">Edit Company</a></h1>
+              <div class="row">
+                <div class="col-md-4">
+                  <h1>Company</h1>
+                </div>
+                <div class="col-md-2 offset-md-6">
+                  <p><a class="btn btn-lg btn-success" href="{% url 'company_edit' %}">Edit</a></p>
+                </div>
+              </div>
               {% if company.name %}
-              <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
-                <thead>
+              <p>
+                <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                   <tr>
-                    <th>Name</th>
-                    <th>Address</th>
+                    <td>{{ company.name|default:'' }}</td>
+                    <td>{{ company.address|default:'' }}</td>
                   </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>{{ company.name|default:'' }}</td>
-                  <td>{{ company.address|default:'' }}</td>
-                </tr>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </p>
               {% endif %}
 {% endblock %}
