@@ -179,11 +179,12 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
+    active = active_status(request)
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = search(
-        request, Contact, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Contact, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'contact_index.html', context)
