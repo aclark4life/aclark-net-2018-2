@@ -63,6 +63,23 @@
                     </tbody>
                   </table>
                 </p>
+                <h3>Notes</h3>
+                {% if project.notes %}
+                <div class="notes">
+                  <p>{{ project.notes|linebreaks|default:'' }}</p>
+                </div>
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h2>Times</h2>
+                  </div>
+                  <div class="col-md-3">
+                    <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
+                  </div>
+                </div>
+                {% include 'time_table.html' %}
                 <div class="row">
                   <div class="col-md-9">
                     <h3>Invoices</h3>
@@ -78,20 +95,5 @@
                   {% endfor %}
                   </ul>
                 </p>
-                {% if project.notes %}
-                <h3>Notes</h3>
-                <p class="notes">{{ project.notes|linebreaks|default:'' }}</p>
-                {% endif %}
-              </div>
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h2>Times</h2>
-                  </div>
-                  <div class="col-md-3">
-                    <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
-                  </div>
-                </div>
-                {% include 'time_table.html' %}
               </div>
 {% endblock %}
