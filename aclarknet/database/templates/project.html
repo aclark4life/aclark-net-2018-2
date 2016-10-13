@@ -18,53 +18,78 @@
 {% block content %}
               <div class="col-md-6">
                 <div class="row">
-                  <div class="col-md-9">
+                  <div class="col-md-4">
                     <h1>{{ project.name }}</h1>
                   </div>
-                  <div class="col-md-3">
-                    <a class="btn btn-lg btn-success pull-right" href="{% url 'project_edit' pk=project.pk %}">Edit</a>
+                  <div class="col-md-2 offset-md-5">
+                    <p><a class="btn btn-lg btn-success" href="{% url 'project_edit' pk=project.pk %}">Edit</a></p>
                   </div>
                 </div>
-                <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
-                  <thead>
-                    <tr>
-                      <th>Client</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                        {% if project.client %}
-                          <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
-                        {% else %}
-                          <td>{{ project.client|default:'' }}</td>
-                        {% endif %}
-                        <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                        <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h3>Budget <span class="pull-right">{{ project.budget|default:'' }} units</span></h3>
-                <h3>Burn Rate<span class="pull-right">{{ project.daily_burn|default:'' }}</span></h3>
-                <h3>Invoices <a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></h3>
-                <ul id="project-invoices">
-                {% for invoice in invoices %}
+                <p>
+                  <table data-toggle="table" data-sort-name="id" data-sort-order="desc">
+                    <thead>
+                      <tr>
+                        <th>Client</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          {% if project.client %}
+                            <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
+                          {% else %}
+                            <td>{{ project.client|default:'' }}</td>
+                          {% endif %}
+                          <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
+                          <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </p>
+                <p>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Budget</th>
+                        <th>Burn Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ project.budget|default:'' }}</td>
+                        <td>{{ project.daily_burn|default:'' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <h3>Invoices</h3>
+                  </div>
+                  <div class="col-md-2 offset-md-6">
+                    <p><a class="btn btn-secondary pull-right" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add Invoice</a></p>
+                  </div>
+                </div>
+                <p>
+                  <ul id="project-invoices">
+                  {% for invoice in invoices %}
                     <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id|default:''}}</a></li>
-                {% endfor %}
-                </ul>
-                <h3>Notes</h3>
+                  {% endfor %}
+                  </ul>
+                </p>
                 {% if project.notes %}
-                <div class="notes">{{ project.notes|linebreaks|default:'' }}</div>
+                <h3>Notes</h3>
+                <p class="notes">{{ project.notes|linebreaks|default:'' }}</p>
                 {% endif %}
               </div>
               <div class="col-md-6">
                 <div class="row">
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <h2>Times</h2>
                   </div>
-                  <div class="col-md-2 offset-md-6">
-                    <a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time</a>
+                  <div class="col-md-2 offset-md-5">
+                    <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add Time</a></p>
                   </div>
                 </div>
                 {% include 'time_table.html' %}
