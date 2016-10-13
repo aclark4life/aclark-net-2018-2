@@ -572,11 +572,12 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     context = {}
+    active = active_status(request)
     order_by = '-pk'
     fields = ('name', )
     context, items = search(
-        request, Task, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Task, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'task_index.html', context)
