@@ -26,7 +26,7 @@
                     <a class="btn btn-lg btn-success" href="{% url 'client_edit' client.pk %}">Edit Client</a>
                   </div>
                 </div>
-                <p>
+                <div class="table-responsive">
                   <table data-toggle="table"> 
                     <thead>
                       <tr>
@@ -38,9 +38,9 @@
                       <tr><td>{{ client.name }}</td><td>{{ client.address|linebreaks }}</td></tr>
                     </tbody>
                   </table>
-                </p>
+                </div>
                 <h2>Contacts<a class="btn btn-secondary" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add Contact</a></h2>
-                <p>
+                <div class="table-responsive">
                   <table data-toggle="table"> 
                     <thead>
                       <tr>
@@ -61,7 +61,7 @@
                       {% endfor %}
                     </tbody>
                   </table>
-                </p>
+                </div>
               </div>
               <div class="col-md-6">
                 <div class="row">
@@ -72,7 +72,7 @@
                     <a class="btn btn-secondary" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h2>
                   </div>
                 </div>
-                <p>
+                <div class="table-responsive">
                   <table data-toggle="table"> 
                     <thead>
                       <tr>
@@ -97,7 +97,7 @@
                     {% endfor %} 
                     </tbody>
                   </table>
-                </p>
+                </div>
               </div>
             </div>
 {% endblock %}

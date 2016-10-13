@@ -24,7 +24,7 @@
                   <p><a class="btn btn-lg btn-success pull-right" href="{% url 'report_edit' %}">Add Report</a></p>
                 </div>
               </div>
-              <p>
+              <div class="table-responsive">
                 <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-row-style="rowStyle">
                   <thead>
                     <tr>
@@ -57,6 +57,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
-              </p>
+              </div>
               {% include 'report_table.html' %}
 {% endblock content %}

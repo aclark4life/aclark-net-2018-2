@@ -1,4 +1,4 @@
-              <p>
+              <div class="table-responsive">
                 <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-row-style="rowStyle">
                   <thead>
                     <tr>
@@ -29,7 +29,7 @@
                       {% if request.user.is_staff %}
                         <td>{% if item.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="fa fa-check"></i>{% endif %}</td>
                       {% endif %}
-                      <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</td>
+                      <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
                       <td>{{ item.date|date:'U' }}</td>
                       <td>{{ item.hours|default:'' }}</td>
                       <td>{{ item.client|default:'' }}</td>
@@ -61,4 +61,4 @@
                     {% endfor %}
                   </tbody>
                 </table>
-              </p>
+              </div>

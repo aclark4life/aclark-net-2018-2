@@ -33,7 +33,7 @@
                 </div>
               </div>
               {% include 'pagination.html' %}
-              <p>
+              <div class="table-responsive">
                 <table data-toggle="table" data-row-style="rowStyle">
                   <thead>
                     <tr>
@@ -70,6 +70,6 @@
                   {% endfor %}
                   </tbody>
                 </table>
-              </p>
+              </div>
               {% include 'pagination.html' %}
 {% endblock %}

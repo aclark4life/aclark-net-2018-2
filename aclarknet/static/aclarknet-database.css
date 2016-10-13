@@ -36,6 +36,9 @@
 .table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
     vertical-align: top;
 }
+.table-responsive {
+    margin-bottom: 1em;
+}
 a.text-overflow-ellipsis {  /* http://www.w3schools.com/cssref/tryit.asp?filename=trycss3_text-overflow_hover */
     display: block;
     white-space: nowrap;
