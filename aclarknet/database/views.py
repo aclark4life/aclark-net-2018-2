@@ -659,12 +659,13 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
+    active = active_status(request)
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
     context, items = search(
-        request, Time, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Time, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
