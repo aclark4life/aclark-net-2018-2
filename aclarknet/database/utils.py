@@ -56,11 +56,18 @@ class UserWidget(widgets.Widget):
 
 
 def active_status(request):
+    """
+    Get query string parameter; return True when 'active=true' or no query
+    string exists, else return False.
+    """
     active = request.GET.get('active')
     if active:
-        return True
+        if active == u'true':
+            return True
+        else:
+            return False
     else:
-        return False
+        return True
 
 
 def add_user_to_contacts(request, model, pk=None):
@@ -460,12 +467,11 @@ def paginate(items, page):
     return items
 
 
-def search(request, model, fields, order_by=None, context={}):
+def search(request, model, fields, active=False, order_by=None, context={}):
     """
     """
     results = []
     query = []
-    active = request.GET.get('active')
     page = request.GET.get('page')
     search = None
     if active:

@@ -121,11 +121,12 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = {}
+    active = active_status(request)
     fields = ('address', 'name')
     order_by = '-pk'
     context, items = search(
-        request, Client, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Client, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'client_index.html', context)
