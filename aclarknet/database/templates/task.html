@@ -16,23 +16,32 @@
 {% endblock %}
 
 {% block content %}
-              <h1>Task<a class="btn btn-secondary pull-right" href="{% url 'task_edit' pk=task.pk %}">Edit Task</a></h1>
-              <table data-toggle="table"> 
-                <thead>
-                  <tr>
-                    <th>Active</th>
-                    <th>Name</th>
-                    <th>Rate</th>
-                    <th>Unit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ task.name }}</td>
-                    <td>{{ task.rate|default:'' }}</td>
-                    <td>{{ task.unit|default:'' }}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="row">
+                <div class="col-md-9">
+                  <h1>Task</h1>
+                </div>
+                <div class="col-md-3">
+                  <a class="btn btn-lg btn-success" href="{% url 'task_edit' pk=task.pk %}">Edit</a>
+                </div>
+              </div>
+              <div class="table-responsive">  
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Active</th>
+                      <th>Name</th>
+                      <th>Rate</th>
+                      <th>Unit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><form action="{% url 'task_edit' task.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if task.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                      <td>{{ task.name }}</td>
+                      <td>{{ task.rate|default:'' }}</td>
+                      <td>{{ task.unit|default:'' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 {% endblock %}
