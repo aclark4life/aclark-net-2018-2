@@ -63,7 +63,7 @@
                     </tbody>
                   </table>
                 </p>
-                <h3>Notes</h3>
+                <h2>Notes</h2>
                 {% if project.notes %}
                 <div class="notes">
                   <p>{{ project.notes|linebreaks|default:'' }}</p>
@@ -82,7 +82,7 @@
                 {% include 'time_table.html' %}
                 <div class="row">
                   <div class="col-md-9">
-                    <h3>Invoices</h3>
+                    <h2>Invoices</h2>
                   </div>
                   <div class="col-md-3">
                     <p><a class="btn btn-secondary" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add</a></p>
