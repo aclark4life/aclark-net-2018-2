@@ -3,13 +3,13 @@
                 <table class="table table-sm" data-toggle="table"> 
                   <thead>
                     <tr>
-                      <th>Gross</th>
+                      <th class="light">Gross</th>
                       <th>Net</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.gross }}</td>
+                      <td class="light" data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.gross }}</td>
                       <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.net }}</td>
                     </tr>
                   </tbody>
