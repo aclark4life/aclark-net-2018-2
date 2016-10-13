@@ -60,7 +60,7 @@ def active_status(request):
     Get query string parameter; return True when 'active=true' or no query
     string exists, else return False.
     """
-    active = request.GET.get('active')
+    active = request.GET.get('active-only')
     if active:
         if active == u'true':
             return True

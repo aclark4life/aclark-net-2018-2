@@ -86,6 +86,9 @@
         {% if request.user.is_authenticated %}
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
+            {% if not dashboard %}
+            {% if request.user.is_staff %}{% if not active %}<li class="nav-item"><a class="nav-link" href="?active-only=true">Show only active</a></li>{% else %}<li class="nav-item"><a class="nav-link" href="?active-only=false">Show all items</a></li>{% endif %}{% endif %}
+            {% endif %}
             {% block sidebar %}
             {% endblock %}
           </ul>

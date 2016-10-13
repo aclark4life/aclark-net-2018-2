@@ -316,6 +316,7 @@ def home(request):
     context['data_visible'] = 'false'  # Hide some items
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
+    context['dashboard'] = True  # Hide active sidebar controls
     context['gross'] = gross
     context['invoices'] = invoices
     context['items'] = items  # projects
