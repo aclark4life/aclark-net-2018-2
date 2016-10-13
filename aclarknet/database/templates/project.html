@@ -16,78 +16,78 @@
 {% endblock %}
 
 {% block content %}
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h1>{{ project.name }}</h1>
-                  </div>
-                  <div class="col-md-3">
-                    <p><a class="btn btn-lg btn-success" href="{% url 'project_edit' pk=project.pk %}">Edit</a></p>
-                  </div>
-                </div>
-                <table class="table table-bordered"> 
-                  <thead>
-                    <tr>
-                      <th>Client</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                        {% if project.client %}
-                          <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
-                        {% else %}
-                          <td>{{ project.client|default:'' }}</td>
-                        {% endif %}
-                        <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                        <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Budget</th>
-                      <th>Burn Rate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ project.budget|default:'' }}</td>
-                      <td>{{ project.daily_burn|default:'' }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h2>Notes</h2>
-                {% if project.notes %}
-                <div class="notes">
-                  <p>{{ project.notes|linebreaks|default:'' }}</p>
-                </div>
-                {% endif %}
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9">
+                <h1>{{ project.name }}</h1>
               </div>
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h2>Times</h2>
-                  </div>
-                  <div class="col-md-3">
-                    <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
-                  </div>
-                </div>
-                {% include 'time_table.html' %}
-                <div class="row">
-                  <div class="col-md-9">
-                    <h2>Invoices</h2>
-                  </div>
-                  <div class="col-md-3">
-                    <p><a class="btn btn-secondary" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add</a></p>
-                  </div>
-                </div>
-                <ul id="project-invoices">
-                {% for invoice in invoices %}
-                  <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id|default:''}}</a></li>
-                {% endfor %}
-                </ul>
+              <div class="col-md-3">
+                <p><a class="btn btn-lg btn-success" href="{% url 'project_edit' pk=project.pk %}">Edit</a></p>
               </div>
+            </div>
+            <table class="table table-bordered"> 
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    {% if project.client %}
+                      <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
+                    {% else %}
+                      <td>{{ project.client|default:'' }}</td>
+                    {% endif %}
+                    <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
+                    <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Budget</th>
+                  <th>Burn Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ project.budget|default:'' }}</td>
+                  <td>{{ project.daily_burn|default:'' }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h2>Notes</h2>
+            {% if project.notes %}
+            <div class="notes">
+              <p>{{ project.notes|linebreaks|default:'' }}</p>
+            </div>
+            {% endif %}
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9">
+                <h2>Times</h2>
+              </div>
+              <div class="col-md-3">
+                <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
+              </div>
+            </div>
+            {% include 'time_table.html' %}
+            <div class="row">
+              <div class="col-md-9">
+                <h2>Invoices</h2>
+              </div>
+              <div class="col-md-3">
+                <p><a class="btn btn-secondary" href="{% url 'invoice_edit' %}?project={{ project.pk }}">Add</a></p>
+              </div>
+            </div>
+            <ul id="project-invoices">
+            {% for invoice in invoices %}
+              <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id|default:''}}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
 {% endblock %}
