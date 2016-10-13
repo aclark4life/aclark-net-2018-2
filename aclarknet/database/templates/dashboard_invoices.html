@@ -1,21 +1,42 @@
-{% if invoices %}
-<style>
-  td.currency a:hover {
-    background: none;
-  }
-</style>
-<table data-toggle="table">
-<thead>
-  <tr> 
-    {% for invoice in invoices %}<th data-toggle="tooltip" title="{{ invoice.project.name }}">{% if invoice.project %}<a class="text-overflow-ellipsis" href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a>{% endif %}</th>{% endfor %}
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    {% for invoice in invoices %}
-    <td class="currency"><h4><a href="{% url 'invoice' invoice.pk %}">{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</a></h4></td>
-    {% endfor %}
-  </tr>
-</tbody>
-</table>
-{% endif %}
+              <div class="row">
+                <div class="col-md-6">
+                  <h2>Invoices</h2>
+                  {% if invoices %}
+                  <p>
+                    <table class="table table-bordered">
+                    <thead>
+                      <tr> 
+                        {% for invoice in invoices %}<th data-toggle="tooltip" title="{{ invoice.project.name }}">{% if invoice.project %}<a class="text-overflow-ellipsis" href="{% url 'project' invoice.project.pk %}">{{ invoice.project.name }}</a>{% endif %}</th>{% endfor %}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        {% for invoice in invoices %}
+                        <td class="currency"><h4><a href="{% url 'invoice' invoice.pk %}">{{ company.currency_symbol }}{{ invoice.subtotal|default:0 }}</a></h4></td>
+                        {% endfor %}
+                      </tr>
+                    </tbody>
+                    </table>
+                  </p>
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  <h2>Totals</h2>
+                  <p>
+                    <table class="table table-bordered"> 
+                      <thead>
+                        <tr>
+                          <th class="light">Gross</th>
+                          <th>Net</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="light"><h4>{{ company.currency_symbol }}{{ gross }}</h4></td>
+                          <td><h4>{{ company.currency_symbol }}{{ net }}</h4></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </p>
+                </div>
+              </div>

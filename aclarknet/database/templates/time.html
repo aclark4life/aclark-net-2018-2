@@ -42,7 +42,7 @@
                 <tbody>
                   <tr>
                     {% if request.user.is_staff %}
-                    <td>{% if entry.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="currency fa fa-check"></i>{% endif %}</td>
+                    <td>{% if entry.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
 
                     {% endif %}
                     <td>{{ entry.pk }}</td>

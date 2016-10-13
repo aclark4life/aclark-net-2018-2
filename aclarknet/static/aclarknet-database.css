@@ -15,12 +15,6 @@
 .banner h3, .banner div {
     font-size: 400%;
 }
-.currency {
-    color: green;
-}
-.currency a {
-    color: green;
-}
 .inverse {
     color: white;
     border-radius: 5px;
@@ -67,9 +61,6 @@ td a:hover {  /* http://stackoverflow.com/a/21361545/185820 */
     height: 100%;
     position: relative;
     width: 100%;
-}
-tbody tr:hover td {
-    /* background-color: #f0f0f0 !important; */
 }
 tbody tr:hover a {
     text-decoration: none;
