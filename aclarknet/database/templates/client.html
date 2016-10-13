@@ -19,15 +19,15 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-9">
                     <h1>Client</h1>
                   </div>
-                  <div class="col-md-6">
-                    <a class="btn btn-lg btn-success" href="{% url 'client_edit' client.pk %}">Edit Client</a>
+                  <div class="col-md-3">
+                    <a class="btn btn-lg btn-success" href="{% url 'client_edit' client.pk %}">Edit</a>
                   </div>
                 </div>
                 <div class="table-responsive">
-                  <table data-toggle="table"> 
+                  <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -39,7 +39,14 @@
                     </tbody>
                   </table>
                 </div>
-                <h2>Contacts<a class="btn btn-secondary" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add Contact</a></h2>
+                <div class="row">
+                  <div class="col-md-9">
+                    <h2>Contacts</h2>
+                  </div>
+                  <div class="col-md-3">
+                    <a class="btn btn-secondary" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add</a></h2>
+                  </div>
+                </div>
                 <div class="table-responsive">
                   <table data-toggle="table"> 
                     <thead>
@@ -65,11 +72,11 @@
               </div>
               <div class="col-md-6">
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-9">
                     <h2>Projects</h2>
                   </div>
-                  <div class="col-md-6">
-                    <a class="btn btn-secondary" href="{% url 'project_edit' %}?client={{ client.pk }}">Add Project</a></h2>
+                  <div class="col-md-3">
+                    <a class="btn btn-secondary" href="{% url 'project_edit' %}?client={{ client.pk }}">Add</a></h2>
                   </div>
                 </div>
                 <div class="table-responsive">

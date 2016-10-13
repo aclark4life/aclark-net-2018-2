@@ -37,7 +37,7 @@
     vertical-align: top;
 }
 .table-responsive {
-    margin-bottom: 1em;
+    margin: 1em 0 1em 0;
 }
 a.text-overflow-ellipsis {  /* http://www.w3schools.com/cssref/tryit.asp?filename=trycss3_text-overflow_hover */
     display: block;
