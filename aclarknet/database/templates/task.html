@@ -17,11 +17,16 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-10">
                   <h1>Task</h1>
                 </div>
-                <div class="col-md-3">
-                  <a class="btn btn-lg btn-success" href="{% url 'task_edit' pk=task.pk %}">Edit</a>
+                <div class="col-md-2">
+                  <div class="dropdown pull-right">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'task_edit' pk=task.pk %}"><i class="fa fa-cog"></i>&nbsp;Edit</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div class="table-responsive">  
