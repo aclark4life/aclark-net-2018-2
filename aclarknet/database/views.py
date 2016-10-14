@@ -297,11 +297,13 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     context = {}
+    active = active_status(request)
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
-    context, items = search(request, Estimate, fields, order_by=order_by)
-    context['active'] = active_status(request)
+    context, items = search(request, Estimate, fields, active=active,
+        order_by=order_by)
+    context['active'] = active
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['items'] = items
     context['company'] = company
