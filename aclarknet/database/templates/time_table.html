@@ -15,8 +15,8 @@
                     <th data-field="notes" data-sortable="true" data-visible="{{ data_visible }}">Notes</th>
                     <th data-field="user" data-sortable="true" data-visible="{{ data_visible }}">User</th>
                     <th data-field="task" data-sortable="true" data-visible="{{ data_visible }}">Task</th>
-                    <th>Edit</th> 
                     <th>Copy</th> 
+                    <th>Edit</th> 
                     <th data-visible="{{ data_visible }}">Remove</th> 
                     {% if request.user.is_staff %}
                     <th data-field="invoice" data-sortable="true" data-visible="{{ data_visible }}">Invoice</th>
@@ -39,10 +39,10 @@
                     <td>{{ item.notes|linebreaks }}</td>
                     {% if item.user %}<td><a href="{% url 'user' item.user.pk %}">{{ item.user|default:'' }}</a></td>{% else %}<td>{{ item.user|default:'' }}</td>{% endif %}
                     <td>{{ item.task|default:'' }}</td>
-                    <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                     <td>
 {% include 'copy_form.html' %}
                     </td>
+                    <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                     <td>
 {% include 'delete_form.html' %}
                     </td>
