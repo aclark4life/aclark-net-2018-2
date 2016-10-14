@@ -179,11 +179,12 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = {}
+    active = active_status(request)
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = search(
-        request, Contact, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Contact, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'contact_index.html', context)
@@ -488,11 +489,12 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = {}
+    active = active_status(request)
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = search(
-        request, Project, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Project, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
@@ -570,11 +572,12 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     context = {}
+    active = active_status(request)
     order_by = '-pk'
     fields = ('name', )
     context, items = search(
-        request, Task, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Task, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'task_index.html', context)
@@ -656,12 +659,13 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     context = {}
+    active = active_status(request)
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
     context, items = search(
-        request, Time, fields, order_by=order_by, context=context)
-    context['active'] = active_status(request)
+        request, Time, fields, active=active, order_by=order_by, context=context)
+    context['active'] = active
     context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items

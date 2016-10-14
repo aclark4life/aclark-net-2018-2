@@ -2,7 +2,13 @@
                 <table class="table table-striped" data-toggle="table"> 
                   <thead>
                     <tr>
-                      <th data-field="active" data-sort-name="hidden-active" data-visible="{{ data_visible }}" data-sortable="true">Active</th>
+                      <th data-field="active" data-sort-name="hidden-active"
+                        {% if active %}
+                        data-visible="false"
+                        {% else %}
+                        data-visible="{{ data_visible }}"
+                        {% endif %}
+                        data-sortable="true">Active</th>
                       <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-sortable="true" data-visible="false">Burn Rate</th>
                       <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
