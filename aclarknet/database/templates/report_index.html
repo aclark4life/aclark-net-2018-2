@@ -20,13 +20,17 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-3">
                   <h1>Reports</h1>
+                </div>
+                <div class="col-md-6">
+{% include 'search_disabled.html' %}
                 </div>
                 <div class="col-md-3">
                   <p><a class="btn btn-lg btn-success" href="{% url 'report_edit' %}">Add Report <i class="fa fa-plus"></i></a></p>
                 </div>
               </div>
+{% include 'pagination.html' %}
               <div class="table-responsive">
                 <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc"> 
                   <thead>
@@ -61,5 +65,6 @@
                   </tbody>
                 </table>
               </div>
-              {% include 'report_table.html' %}
+{% include 'pagination.html' %}
+{% include 'report_table.html' %}
 {% endblock content %}

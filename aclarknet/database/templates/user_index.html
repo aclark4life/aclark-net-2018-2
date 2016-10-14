@@ -17,11 +17,14 @@
 
 {% block content %}
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <h1>Users</h1>
                 </div>
                 <div class="col-md-6">
-                  {% include 'search.html' %}
+{% include 'search_disabled.html' %}
+                </div>
+                <div class="col-md-3">
+                    <p><button class="btn btn-lg btn-success" disabled>Add User <i class="fa fa-plus"></i></button></p>
                 </div>
               </div>
               {% include 'messages.html' %}

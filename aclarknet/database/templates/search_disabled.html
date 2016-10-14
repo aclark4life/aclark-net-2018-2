@@ -1,0 +1,10 @@
+            {% if request.user.is_staff %}
+            <div class="navbar">
+              <form class="form-inline" action="" method="post">{% csrf_token %}
+                <div class="form-group">
+                  <input class="form-control" name="search" type="text" disabled>
+                  <button type="submit" class="btn btn-secondary" disabled>Search</button>
+                </div>
+              </form>
+            </div>
+            {% endif %}
