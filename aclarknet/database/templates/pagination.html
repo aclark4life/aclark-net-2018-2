@@ -2,26 +2,24 @@
           <p>
             <div class="row">
               <div class="col-md-4">
-                <h3>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</h3>
+                <h2>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</h2>
               </div>
               <div class="col-md-4">
                 <form class="form-inline" action="" method="post">{% csrf_token %}<input name="search" style="display: none" value=" "><button type="submit" class="btn btn-secondary btn-sm">Show all items</button></form>  <!-- Search for one space (" ") to show all items -->
               </div>
               <div class="col-md-1">
                 {% if items.has_previous %}
-                <p>
-                  <a href="?page=1&active-only=false"><i class="fa fa-step-backward fa-2x"></i></a><a href="?page={{ items.previous_page_number }}&active-only=false"><i class="fa fa-chevron-circle-left fa-2x"></i></a>
-                </p>
+                <a href="?page=1&active-only=false"><i class="fa fa-step-backward fa-3x"></i></a>
+                <a href="?page={{ items.previous_page_number }}&active-only=false"><i class="fa fa-chevron-circle-left fa-3x"></i></a>
                 {% endif %}
               </div>
               <div class="col-md-2">
-                <h3>Page {{ items.number }} of {{ items.paginator.num_pages }}</h3>
+                <h2>Page {{ items.number }} of {{ items.paginator.num_pages }}</h2>
               </div>
               <div class="col-md-1">
                 {% if items.has_next %}
-                <p>
-                  <a href="?page={{ items.next_page_number }}&active-only=false"><i class="fa fa-chevron-circle-right fa-2x"></i></a><a href="?page={{ items.paginator.num_pages }}&active-only=false"><i class="fa fa-step-forward fa-2x"></i></a>
-                </p>
+                <a href="?page={{ items.next_page_number }}&active-only=false"><i class="fa fa-chevron-circle-right fa-3x"></i></a>
+                <a href="?page={{ items.paginator.num_pages }}&active-only=false"><i class="fa fa-step-forward fa-3x"></i></a>
                 {% endif %}
               </div>
             </div>
@@ -29,9 +27,9 @@
             <div class="row">
               <div class="col-md-12">
                 {% if items.count %}
-                <h3>Items 1 to {{ items.count }} of {{ items.count }}</h3>
+                <h2>Items 1 to {{ items.count }} of {{ items.count }}</h2>
                 {% else %}
-                <h3>Items 0 to {{ items.count }} of {{ items.count }}</h3>
+                <h2>Items 0 to {{ items.count }} of {{ items.count }}</h2>
                 {% endif %}
               </div>
             </div>
