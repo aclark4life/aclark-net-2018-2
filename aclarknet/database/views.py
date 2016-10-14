@@ -722,10 +722,11 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = {}
+    active = active_status(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context, items = search(request, User, fields, context=context)
-    context['active'] = active_status(request)
+    context, items = search(request, User, fields, active=active, context=context)
+    context['active'] = active
     context['items'] = items
     context['company'] = company
     return render(request, 'user_index.html', context)
