@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+
+{% block sidebar %}
+{% endblock %}
+
 {% block content %}
               {% if request.user.is_anonymous %}
 {% include 'banner.html' %}

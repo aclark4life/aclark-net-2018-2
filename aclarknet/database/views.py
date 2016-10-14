@@ -317,7 +317,6 @@ def home(request):
     context['data_visible'] = 'false'  # Hide some items
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
-    context['dashboard'] = True  # Hide active sidebar controls
     context['gross'] = gross
     context['invoices'] = invoices
     context['items'] = items  # projects
@@ -428,6 +427,7 @@ def invoice_edit(request, pk=None):
 @staff_member_required
 def invoice_index(request):
     context = {}
+    active = active_status(request)
     company = Company.get_solo()
     fields = ('client__name',
               'document_id',
@@ -435,8 +435,8 @@ def invoice_index(request):
               'project__name',
               'subject', )
     order_by = '-issue_date'
-    context, items = search(request, Invoice, fields, order_by=order_by)
-    context['active'] = active_status(request)
+    context, items = search(request, Invoice, fields, active=active, order_by=order_by)
+    context['active'] = active
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['items'] = items
     context['company'] = company
