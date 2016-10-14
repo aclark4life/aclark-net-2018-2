@@ -1,7 +1,6 @@
 #content {
     background: white;
     padding-bottom: 15px;
-    opacity: 0.9;
 }
 #project-invoices li:before {
     font-family: 'FontAwesome';
@@ -32,6 +31,9 @@
     background: lightyellow;
     padding: 15px;
     border: 1px solid #EAEAEA;
+}
+.sidebar {
+    opacity: 0.9;
 }
 .table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
     vertical-align: top;
