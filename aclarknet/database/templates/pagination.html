@@ -28,7 +28,11 @@
             {% else %}  <!-- Form submitted -->
             <div class="row">
               <div class="col-md-12">
+                {% if items.count %}
                 <h3>Items 1 to {{ items.count }} of {{ items.count }}</h3>
+                {% else %}
+                <h3>Items 0 to {{ items.count }} of {{ items.count }}</h3>
+                {% endif %}
               </div>
             </div>
           </p>
