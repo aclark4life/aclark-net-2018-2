@@ -125,7 +125,12 @@ def client_index(request):
     fields = ('address', 'name')
     order_by = '-pk'
     context, items = search(
-        request, Client, fields, active=active, order_by=order_by, context=context)
+        request,
+        Client,
+        fields,
+        active=active,
+        order_by=order_by,
+        context=context)
     context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
@@ -183,7 +188,12 @@ def contact_index(request):
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = search(
-        request, Contact, fields, active=active, order_by=order_by, context=context)
+        request,
+        Contact,
+        fields,
+        active=active,
+        order_by=order_by,
+        context=context)
     context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
@@ -435,7 +445,8 @@ def invoice_index(request):
               'project__name',
               'subject', )
     order_by = '-issue_date'
-    context, items = search(request, Invoice, fields, active=active, order_by=order_by)
+    context, items = search(
+        request, Invoice, fields, active=active, order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['items'] = items
@@ -493,7 +504,12 @@ def project_index(request, pk=None):
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = search(
-        request, Project, fields, active=active, order_by=order_by, context=context)
+        request,
+        Project,
+        fields,
+        active=active,
+        order_by=order_by,
+        context=context)
     context['active'] = active
     context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'project_edit'  # Delete form modal
@@ -576,7 +592,12 @@ def task_index(request):
     order_by = '-pk'
     fields = ('name', )
     context, items = search(
-        request, Task, fields, active=active, order_by=order_by, context=context)
+        request,
+        Task,
+        fields,
+        active=active,
+        order_by=order_by,
+        context=context)
     context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
@@ -664,7 +685,12 @@ def time_index(request):
               'invoice__document_id', 'user__username')
     order_by = '-pk'
     context, items = search(
-        request, Time, fields, active=active, order_by=order_by, context=context)
+        request,
+        Time,
+        fields,
+        active=active,
+        order_by=order_by,
+        context=context)
     context['active'] = active
     context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'entry_edit'  # Delete form modal
@@ -725,7 +751,8 @@ def user_index(request):
     active = active_status(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context, items = search(request, User, fields, active=active, context=context)
+    context, items = search(
+        request, User, fields, active=active, context=context)
     context['active'] = active
     context['items'] = items
     context['company'] = company
