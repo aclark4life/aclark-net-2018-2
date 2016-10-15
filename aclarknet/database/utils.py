@@ -467,6 +467,14 @@ def paginate(items, page):
     return items
 
 
+def paginated_status(request):
+    paginated = request.GET.get('paginated')
+    if paginated == u'false':
+        return False
+    else:
+        return True
+
+
 def search(request, model, fields, active=False, order_by=None, context={}):
     """
     """
@@ -474,6 +482,11 @@ def search(request, model, fields, active=False, order_by=None, context={}):
     query = []
     page = request.GET.get('page')
     search = None
+
+    paginated = paginated_status(request)
+    if not paginated:
+        return context, model.objects.all()
+
     if active:
         if model._meta.verbose_name == 'time':
             results = model.objects.filter(invoiced=False, estimate=None)
