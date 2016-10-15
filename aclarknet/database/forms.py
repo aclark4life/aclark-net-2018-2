@@ -62,7 +62,7 @@ class MailForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('active', 'bio', 'rate', 'username')
+        fields = ('active', 'published', 'bio', 'rate', 'username')
 
 
 class ProjectForm(forms.ModelForm):
