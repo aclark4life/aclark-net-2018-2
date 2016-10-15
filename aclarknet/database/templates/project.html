@@ -89,7 +89,7 @@
             </div>
             <ul id="project-invoices">
             {% for invoice in invoices %}
-              <li><a href="{% url 'invoice' invoice.pk %}">Invoice&nbsp;&#35;{{ invoice.document_id|default:''}}</a></li>
+              <li><a href="{% url 'invoice' invoice.pk %}">Invoice {{ invoice.document_id|default:''}}</a></li>
             {% endfor %}
             </ul>
           </div>
