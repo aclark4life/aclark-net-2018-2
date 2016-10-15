@@ -2,28 +2,22 @@
 
 {% block sidebar %}
 {% endblock %}
-
 {% block content %}
-
-              {% if request.user.is_anonymous %}
-{% include 'banner.html' %}
-              {% endif %}
-
-            {% if request.user.is_authenticated %}
-            <div class="row">
-              <div class="col-md-9">
-                <h1>Dashboard</h1>
-              </div>
-              <div class="col-md-3"> 
-                <p><a class="btn btn-lg btn-success" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></p>
-              </div>
+{% if request.user.is_anonymous %}{% include 'banner.html' %}{% endif %}
+          {% if request.user.is_authenticated %}
+          <div class="row">
+            <div class="col-md-9">
+              <h1>Dashboard</h1>
             </div>
-            {% endif %}
-
-              {% if request.user.is_staff %}
+            <div class="col-md-3"> 
+              <p><a class="btn btn-lg btn-success" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></p>
+            </div>
+          </div>
+          {% endif %}
+          {% if request.user.is_staff %}
 {% include 'dashboard_graphs.html' %}
-              <h2>Projects</h2>
+          <h2>Projects</h2>
 {% include 'project_table.html' %}
 {% include 'dashboard_invoices.html' %}
-              {% endif %}
+          {% endif %}
 {% endblock %}
