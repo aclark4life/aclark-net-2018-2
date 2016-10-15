@@ -44,6 +44,7 @@
                       <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
                       <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
                       <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
+                      <th>View</th>
                       <th>Edit</th>
                       <th>Remove</th>
                     </tr>
@@ -62,6 +63,7 @@
                       <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                       <td>{% if item.subtotal %}{{ company.currency_symbol }}{% endif %}{{ item.subtotal|default:'' }}</td>
                       <td>{{ item.subtotal|unlocalize|default:'' }}</td>
+                      <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-3x"></a></td>
                       <td>
                         {% include 'delete_form.html' %}
