@@ -17,6 +17,7 @@
                       <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                       <th data-sortable="true" data-visible="{{ data_visible }}">Task</th>
                       <th>Add Time</th>
+                      <th>View</th>
                       <th>Edit</th>
                       <th data-visible="{{ data_visible }}">Remove</th>
                       <th data-field="hidden-delete" data-sortable="true" data-visible="false">Hidden Remove</th>
@@ -33,6 +34,7 @@
                       {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-3x"></i>&nbsp;{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                       <td>{{ item.client|default:'' }}</td>
                       {% if item.task %}<td><a href="{% url 'task' item.task.pk %}">{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
+                      <td><a href="{% url 'project' item.pk %}"><i class="fa fa-chevron-circle-right"></i></a></td>
                       <td><a href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
                       <td><a href="{% url 'project_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                       <td>
