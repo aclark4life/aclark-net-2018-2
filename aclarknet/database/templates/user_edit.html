@@ -6,7 +6,7 @@
 
 {% block nav %}
             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
-            {% if user.is_staff %}
+            {% if request.user.is_staff %}
             <li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>
@@ -24,6 +24,6 @@
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save User">
-              <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a><!-- http://stackoverflow.com/a/4406484 -->
+              <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
               </form>
 {% endblock %}
