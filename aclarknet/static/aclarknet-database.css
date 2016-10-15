@@ -35,6 +35,9 @@
 .sidebar {
     opacity: 0.9;
 }
+.single-page, .single-page:hover {
+    color: white;
+}
 .table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
     vertical-align: top;
 }
