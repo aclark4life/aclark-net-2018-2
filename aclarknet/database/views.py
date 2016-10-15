@@ -73,7 +73,7 @@ class TestimonialViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     """
     """
-    queryset = Profile.objects.filter(active=True).order_by('user__first_name')
+    queryset = Profile.objects.filter(published=True).order_by('user__first_name')
     serializer_class = ProfileSerializer
 
 
