@@ -81,7 +81,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             {% block sidebar %}
-            {% if request.user.is_staff %}{% if not active %}<li class="nav-item"><a class="nav-link" href="?active-only=true">Show only active</a></li>{% else %}<li class="nav-item"><a class="nav-link" href="?active-only=false">Show all items</a></li>{% endif %}{% endif %}
+            {% if request.user.is_authenticated %}{% if not active %}<li class="nav-item"><a class="nav-link" href="?active-only=true">Show only active</a></li>{% else %}<li class="nav-item"><a class="nav-link" href="?active-only=false">Show all items</a></li>{% endif %}{% endif %}
             {% endblock %}
           </ul>
         </div>
