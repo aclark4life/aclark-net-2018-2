@@ -12,12 +12,14 @@
                         </tr>
                       </thead>
                       <tbody>
+                       {% for invoice in invoices %}
                         <tr>
-                          <td></td>
+                          <td>{{ invoice.subject }}</td>
                           <td></td>
                           <td></td>
                           <td></td>
                         </tr>
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>
