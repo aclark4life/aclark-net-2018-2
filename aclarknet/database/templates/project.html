@@ -78,6 +78,15 @@
                 <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
               </div>
               <table data-toggle="table">
+                <thead>
+                </thead>
+                <table>
+                  {% for entry in times %}
+                    <tr>
+                      <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
+                    </tr>
+                  {% endfor %}
+                </table>
               </table>
             </div> 
             <div class="row">
