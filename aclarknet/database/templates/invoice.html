@@ -36,6 +36,7 @@
                   </div>
                 </div>
               </div>
+              <hr>
 {% include 'invoice_time.html' %}
               <div class="row">
                 <div class="col-md-6">
@@ -47,7 +48,7 @@
                 <div class="col-md-3 offset-md-3">
                   <form
                     action="{% url 'invoice_edit' pk=document.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}&paid=true"
-                    method="post">{% csrf_token %}<input class="btn btn-lg btn-secondary" type="submit" value="Mark Sent">
+                    method="post">{% csrf_token %}<input class="btn btn-lg btn-secondary" type="submit" value="Mark Paid">
                   </form>
                 </div>
               </div>
