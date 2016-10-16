@@ -314,17 +314,17 @@ def home(request):
     context = {}
     company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
-    items = dashboard_items(Project, order_by='client__name')
+    projects = dashboard_items(Project, order_by='client__name')
     # http://stackoverflow.com/a/35044521
-    for item in items:
-        item.daily_burn = daily_burn(item)
+    for project in projects:
+        project.daily_burn = daily_burn(project)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
-    context['gross'] = gross
+    context['projects'] = projects
     context['invoices'] = invoices
-    context['items'] = items  # projects
+    context['gross'] = gross
     context['net'] = net
     return render(request, 'dashboard.html', context)
 
