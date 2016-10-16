@@ -56,9 +56,7 @@
                   <tbody>
                   {% for item in items %}
                     <tr>
-                      {% if request.user.is_staff %}
-                        <td>{% if item.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="fa fa-check"></i>{% endif %}</td>
-                      {% endif %}
+                      {% if request.user.is_staff %}<td>{% if item.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="fa fa-check"></i>{% endif %}</td>{% endif %}
                       <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
                       <td>{{ item.date|date:'U' }}</td>
                       <td>{{ item.hours|default:'' }}</td>

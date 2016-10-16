@@ -500,7 +500,7 @@ def search(request, model, fields, active=False, order_by=None, context={}):
             results = model.objects.filter(active=True)
         if order_by:
             results = results.order_by(order_by)
-        if request.user.is_staff:
+        if request.user.is_authenticated:
             return context, results
         else:
             return context, []
