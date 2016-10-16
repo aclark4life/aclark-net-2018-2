@@ -28,7 +28,7 @@
                   <p><a class="btn btn-lg btn-success" href="{% url 'invoice_edit' %}">Add Invoice <i class="fa fa-plus"></i></a></p>
                 </div>
               </div>
-              {% include 'pagination.html' %}
+{% include 'pagination.html' %}
               <div class="table-responsive">
                 <table data-toggle="table" data-sort-name="document-id" data-sort-order="desc"> 
                   <thead>
@@ -66,12 +66,12 @@
                       <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-3x"></a></td>
                       <td>
-                        {% include 'delete_form.html' %}
+{% include 'delete_form.html' %}
                       </td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
               </div>
-              {% include 'pagination.html' %}
+{% include 'pagination.html' %}
 {% endblock %}

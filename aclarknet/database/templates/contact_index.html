@@ -27,8 +27,8 @@
                   <p><a class="btn btn-lg btn-success" href="{% url 'contact_edit' %}">Add Contact <i class="fa fa-plus"></i></a></p>
                 </div>
               </div>
-              {% include 'messages.html' %}
-              {% include 'pagination.html' %}
+{% include 'messages.html' %}
+{% include 'pagination.html' %}
               <div class="table-responsive">
                 <table data-toggle="table"> 
                   <thead>
@@ -60,12 +60,12 @@
                       <td><a href="{% url 'contact' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                       <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                       <td>
-                        {% include 'delete_form.html' %}
+{% include 'delete_form.html' %}
                       </td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
               </div>
-              {% include 'pagination.html' %}
+{% include 'pagination.html' %}
 {% endblock %}
