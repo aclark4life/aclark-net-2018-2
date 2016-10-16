@@ -20,7 +20,7 @@
           {% if request.user.is_staff %}
 {% include 'dashboard_invoices.html' %}
           {% endif %}
-          {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
 {% include 'dashboard_projects.html' %}
           {% endif %}
           {% if request.user.is_staff %}
