@@ -33,9 +33,7 @@
                 <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc"> 
                   <thead>
                     <tr>
-                      {% if request.user.is_staff %}
-                      <th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" data-visible="{{ data_visible }}">Invoiced</th>
-                      {% endif %}
+                      {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" {% if active %} data-visible="false" {% else %} data-visible="true" {% endif %}>Invoiced</th>{% endif %}
                       <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                       <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                       <th data-field="hours" data-sortable="true">Hours</th>
