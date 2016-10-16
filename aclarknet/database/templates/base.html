@@ -59,14 +59,12 @@
               <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues">Report Issue</a></li>
               <li><a class="dropdown-item" href="/api" target="_blank">View API</a></li>
               <div class="dropdown-divider"></div>
-
               {% if not request.user.is_anonymous %}
               <li><a class="dropdown-item" href="{% url 'user' request.user.pk %}">{{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>
               <li><a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}">Logout</a></li>
               {% else %}
               <li><a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a></li>
               {% endif %}
-
               {% if request.user.is_staff %}
               <div class="dropdown-divider"></div>
               <li><a class="dropdown-item" href="{% url 'company' %}">Company Settings</a></li>
@@ -75,14 +73,8 @@
             </ul>
           </li>
         </ul>
-        <!--
-        <form class="pull-xs-right">
-          <input type="text" class="form-control" placeholder="Search...">
-        </form>
-        -->
       </div>
     </nav>
-
     <div class="container-fluid">
       <div class="row">
         {% if request.user.is_authenticated %}
@@ -94,7 +86,12 @@
           </ul>
         </div>
         {% endif %}
-        {% if request.user.is_anonymous %}<div class="col-sm-9 offset-sm-2 col-md-9 offset-md-1 main" id="content">{% else %}<div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">{% endif %}
+        {% if request.user.is_anonymous %}
+        <div class="col-md-12" id="content">
+{% include 'banner.html' %}
+        {% else %}
+        <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">
+        {% endif %}
 {% block content %}
 {% endblock %}
         </div>
