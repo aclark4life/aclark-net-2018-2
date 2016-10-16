@@ -2,24 +2,18 @@
                 <table class="table table-striped" data-toggle="table"> 
                   <thead>
                     <tr>
-                      <th data-field="active" data-sort-name="hidden-active"
-                        {% if active %}
-                        data-visible="false"
-                        {% else %}
-                        data-visible="{{ data_visible }}"
-                        {% endif %}
-                        data-sortable="true">Active</th>
+                      <th data-field="active" data-sort-name="hidden-active" {% if active %}data-visible="false"{% endif %} data-sortable="true">Active</th>
                       <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-sortable="true" data-visible="false">Burn Rate</th>
                       <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
                       <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                      <th data-field="client" data-sort-name="hidden-client" data-sortable="true" data-visible="{{ data_visible }}">Client</th>
+                      <th data-field="client" data-sort-name="hidden-client" data-sortable="true" data-visible="true">Client</th>
                       <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
-                      <th data-sortable="true" data-visible="{{ data_visible }}">Task</th>
+                      <th data-sortable="true" data-visible="true">Task</th>
                       <th>View</th>
                       <th>Time</th>
                       <th>Edit</th>
-                      <th data-visible="{{ data_visible }}">Remove</th>
+                      <th data-visible="true">Remove</th>
                       <th data-field="hidden-delete" data-sortable="true" data-visible="false">Hidden Remove</th>
                     </tr>
                   </thead>

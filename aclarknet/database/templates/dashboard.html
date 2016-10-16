@@ -2,8 +2,9 @@
 
 {% block sidebar %}
 {% endblock %}
+
 {% block content %}
-{% if request.user.is_anonymous %}{% include 'banner.html' %}{% endif %}
+          {% if request.user.is_anonymous %}{% include 'banner.html' %}{% endif %}
           {% if request.user.is_authenticated %}
           <div class="row">
             <div class="col-md-9">
@@ -15,9 +16,9 @@
           </div>
           {% endif %}
           {% if request.user.is_staff %}
-{% include 'dashboard_graphs.html' %}
-          <h2>Projects</h2>
-{% include 'project_table.html' %}
+{% include 'dashboard_data.html' %}
+{% include 'dashboard_projects.html' %}
 {% include 'dashboard_invoices.html' %}
+{% include 'dashboard_totals.html' %}
           {% endif %}
 {% endblock %}

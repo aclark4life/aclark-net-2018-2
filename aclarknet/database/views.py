@@ -320,7 +320,6 @@ def home(request):
         item.daily_burn = daily_burn(item)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    context['data_visible'] = 'false'  # Hide some items
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['gross'] = gross
@@ -458,7 +457,6 @@ def project(request, pk=None):
         project=project, invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['company'] = Company.get_solo()
-    context['data_visible'] = 'false'  # Hide some items
     context['project'] = project
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = times
@@ -507,7 +505,6 @@ def project_index(request, pk=None):
         order_by=order_by,
         context=context)
     context['active'] = active
-    context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'project_index.html', context)
@@ -688,7 +685,6 @@ def time_index(request):
         order_by=order_by,
         context=context)
     context['active'] = active
-    context['data_visible'] = 'true'  # Show all items
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
     return render(request, 'time_index.html', context)
