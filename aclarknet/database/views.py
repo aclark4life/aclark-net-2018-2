@@ -459,7 +459,7 @@ def project(request, pk=None):
     context['company'] = Company.get_solo()
     context['project'] = project
     context['edit_url'] = 'entry_edit'  # Delete form modal
-    context['items'] = times
+    context['times'] = times
     context['invoices'] = invoices
     context['daily_burn'] = daily_burn(project)
     return render(request, 'project.html', context)

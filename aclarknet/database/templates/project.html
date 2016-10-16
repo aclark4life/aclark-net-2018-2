@@ -38,13 +38,13 @@
               </thead>
               <tbody>
                 <tr>
-                    {% if project.client %}
-                      <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
-                    {% else %}
-                      <td>{{ project.client|default:'' }}</td>
-                    {% endif %}
-                    <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                    <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
+                  {% if project.client %}
+                  <td><a href="{% url 'client' project.client.pk %}">{{ project.client|default:'' }}</a></td>
+                  {% else %}
+                  <td>{{ project.client|default:'' }}</td>
+                  {% endif %}
+                  <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
+                  <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                 </tr>
               </tbody>
             </table>
@@ -77,18 +77,29 @@
               <div class="col-md-3">
                 <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
               </div>
+            </div> 
+            <div class="table-responsive">
               <table data-toggle="table">
                 <thead>
+                  <tr>
+                    <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                    <th data-field="hours" data-sortable="true">Hours</th>
+                    <th>Edit</th>
+                  </tr>
                 </thead>
-                <table>
-                  {% for entry in times %}
-                    <tr>
-                      <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
-                    </tr>
-                  {% endfor %}
-                </table>
+                <tbody>
+                {% for entry in times %}
+                <tr>
+                  <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
+                  <td>{{ entry.date|date:'U' }}</td>
+                  <td>{{ entry.hours|default:'' }}</td>
+                  <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
               </table>
-            </div> 
+            </div>
             <div class="row">
               <div class="col-md-9">
                 <h2>Invoices</h2>
