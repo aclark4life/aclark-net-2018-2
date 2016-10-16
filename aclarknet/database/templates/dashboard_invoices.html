@@ -16,7 +16,7 @@
                         <tr>
                           <td>{{ invoice.subject }}</td>
                           <td></td>
-                          <td></td>
+                          <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                           <td></td>
                         </tr>
                         {% endfor %}

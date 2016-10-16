@@ -77,8 +77,9 @@
               <div class="col-md-3">
                 <p><a class="btn btn-secondary" href="{% url 'entry_edit' %}?project={{ project.pk }}">Add</a></p>
               </div>
-            </div>
-            {% include 'time_table.html' %}
+              <table data-toggle="table">
+              </table>
+            </div> 
             <div class="row">
               <div class="col-md-9">
                 <h2>Invoices</h2>
