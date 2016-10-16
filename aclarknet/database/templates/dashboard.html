@@ -16,8 +16,14 @@
           {% endif %}
           {% if request.user.is_authenticated %}
 {% include 'dashboard_data.html' %}
-{% include 'dashboard_projects.html' %}
+          {% endif %}
+          {% if request.user.is_staff %}
 {% include 'dashboard_invoices.html' %}
+          {% endif %}
+          {% if request.user.is_authenticated %}
+{% include 'dashboard_projects.html' %}
+          {% endif %}
+          {% if request.user.is_staff %}
 {% include 'dashboard_totals.html' %}
           {% endif %}
 {% endblock %}
