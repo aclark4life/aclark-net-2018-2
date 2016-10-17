@@ -334,7 +334,7 @@ def edit(request,
                 obj.subtotal = subtotal
                 obj.paid_amount = paid_amount
                 obj.save()
-                return HttpResponseRedirect(reverse(url_name))
+                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             elif amount and subtotal:
                 obj.amount = amount
                 obj.subtotal = subtotal

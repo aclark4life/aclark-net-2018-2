@@ -390,6 +390,7 @@ def invoice(request, pk=None):
 
 @staff_member_required
 def invoice_edit(request, pk=None):
+    kwargs = {}
     amount = request.GET.get('amount')
     paid_amount = request.GET.get('paid_amount')
     subtotal = request.GET.get('subtotal')
@@ -397,11 +398,14 @@ def invoice_edit(request, pk=None):
     paid = request.GET.get('paid')
     company = Company.get_solo()
     project = request.GET.get('project')
+    url_name = 'invoice_index'
 
     if project:
         project = get_object_or_404(Project, pk=project)
 
     if pk:
+        kwargs['pk'] = pk
+        url_name = 'invoice'
         invoice = get_object_or_404(Invoice, pk=pk)
         if invoice.project:
             if invoice.project.client and not invoice.client:
@@ -423,9 +427,10 @@ def invoice_edit(request, pk=None):
     return edit(request,
                 InvoiceForm,
                 Invoice,
-                'invoice_index',
+                url_name,
                 'invoice_edit.html',
                 amount=amount,
+                kwargs=kwargs,
                 paid_amount=paid_amount,
                 paid=paid,
                 pk=pk,
