@@ -41,7 +41,7 @@
                 <div class="col-md-6">
                   <form 
                     action="{% url 'invoice_edit' pk=document.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"
-                    method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Save Invoice">
+                    method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Update Totals">
                   </form>
                 </div>
                 <div class="col-md-3 offset-md-3">
