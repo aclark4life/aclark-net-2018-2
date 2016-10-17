@@ -73,7 +73,8 @@ class TestimonialViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     """
     """
-    queryset = Profile.objects.filter(published=True).order_by('user__first_name')
+    queryset = Profile.objects.filter(
+        published=True).order_by('user__first_name')
     serializer_class = ProfileSerializer
 
 
@@ -301,8 +302,8 @@ def estimate_index(request):
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
-    context, items = search(request, Estimate, fields, active=active,
-        order_by=order_by)
+    context, items = search(
+        request, Estimate, fields, active=active, order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['items'] = items
