@@ -53,13 +53,15 @@
           <li class="dropdown">
             <button class="bg-inverse btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a></li>
+              <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-chevron-circle-right"></i> View Time</a></li>
+              <div class="dropdown-divider"></div>
               <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues"><i class="fa fa-github"></i> Add Issue</a></li>
               {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-plus-circle"></i> Add Report</a></li>{% endif %}
-              <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a></li>
+              
               {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> Edit Company</a></li>{% endif %}
               <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Manage Site</a></li>
               <li><a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-chevron-circle-right"></i> View API</a></li>
-              <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-clock-o"></i> View Time</a></li>
               <div class="dropdown-divider"></div>
               {% if not request.user.is_anonymous %}
               <li><a class="dropdown-item" href="{% url 'user' request.user.pk %}"><i class="fa fa-user"></i> {{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>

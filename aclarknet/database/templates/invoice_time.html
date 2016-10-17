@@ -92,7 +92,7 @@
     {% if not pdf %}<td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
     <td valign="top" align="left" class="border-right padding-5" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
     <td valign="top" align="right" class="border-right padding-5" style="width: 20%">
-        {% if not pdf %}<a href="{% url 'entry_edit' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}
+        {% if not pdf %}<a href="{% url 'entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}
         {{ entry.hours|default:'0' }}
         {% endif %}
     </td>
