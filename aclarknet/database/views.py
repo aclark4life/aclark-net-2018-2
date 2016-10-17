@@ -269,11 +269,17 @@ def estimate(request, pk=None):
 
 @staff_member_required
 def estimate_edit(request, pk=None):
+    kwargs = {}
+    url_name = 'estimate_index',
     amount = request.GET.get('amount')
     paid_amount = request.GET.get('paid_amount')
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
+
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'estimate'
 
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
@@ -285,9 +291,10 @@ def estimate_edit(request, pk=None):
     return edit(request,
                 EstimateForm,
                 Estimate,
-                'estimate_index',
+                url_name,
                 'estimate_edit.html',
                 amount=amount,
+                kwargs=kwargs,
                 paid_amount=paid_amount,
                 pk=pk,
                 subtotal=subtotal,
@@ -552,13 +559,19 @@ def report_index(request):
 
 @staff_member_required
 def report_edit(request, pk=None):
+    kwargs = {}
+    url_name = 'report_index'
     gross, net = dashboard_totals(Invoice)
+    if pk: 
+        kwargs['pk'] = pk
+        url_name = 'report'
     return edit(request,
                 ReportForm,
                 Report,
-                'report_index',
+                url_name,
                 'report_edit.html',
                 gross=gross,
+                kwargs=kwargs,
                 net=net,
                 pk=pk)
 
@@ -621,6 +634,8 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
+    kwargs = {}
+    url_name = 'entry_index'
     if pk is not None:
         entry = get_object_or_404(Time, pk=pk)
         if entry.user:
@@ -631,8 +646,6 @@ def time_edit(request, pk=None):
             if not request.user.is_staff:
                 return HttpResponseRedirect(reverse('admin:index'))
 
-    url_name = 'entry_index'
-    kwargs = {}
 
     if pk:
         kwargs['pk'] = pk
