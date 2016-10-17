@@ -29,9 +29,9 @@
                   <div class="dropdown pull-right">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li class="dropdown-item"><i class="fa fa-plus-square"></i> <a href="{% url 'entry_edit' %}?client={{ document.client.pk }}">Add Entry</a></li>
-                      <li class="dropdown-item"><i class="fa fa-cog"></i> <a href="{% url 'estimate_edit' pk=document.pk %}">Edit Estimate</a></li>
-                      <li class="dropdown-item"><i class="fa fa-file-pdf-o"></i> <a href="{% url 'estimate' pk=document.pk %}?pdf=true">View PDF</a></li>
+                      <li><a class="dropdown-item" href="{% url 'entry_edit' %}?client={{ document.client.pk }}"><i class="fa fa-plus-square"></i> Add Entry</a></li>
+                      <li><a class="dropdown-item" href="{% url 'estimate_edit' pk=document.pk %}"><i class="fa fa-cog"></i> Edit Estimate</a></li>
+                      <li><a class="dropdown-item" href="{% url 'estimate' pk=document.pk %}?pdf=true"><i class="fa fa-file-pdf-o"></i> View PDF</a></li>
                     </ul>
                   </div>
                 </div>
