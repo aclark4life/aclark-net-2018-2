@@ -53,11 +53,11 @@
           <li class="dropdown">
             <button class="bg-inverse btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <ul class="dropdown-menu">
-              {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-file-o"></i> Add Report</a></li>{% endif %}
-              <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a></li>
-              {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-cog"></i> Edit Company</a></li>{% endif %}
-              <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fa fa-cog"></i> Manage Site</a></li>
-              <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues"><i class="fa fa-bullhorn"></i> Report Issue</a></li>
+              <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues"><i class="fa fa-plus"></i> Add Issue</a></li>
+              {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-plus"></i> Add Report</a></li>{% endif %}
+              <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-plus"></i> Add Time</a></li>
+              {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-pencil"></i> Edit Company</a></li>{% endif %}
+              <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fa fa-pencil"></i> Edit Site</a></li>
               <li><a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-eye"></i> View API</a></li>
               <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-eye"></i> View Time</a></li>
               <div class="dropdown-divider"></div>
