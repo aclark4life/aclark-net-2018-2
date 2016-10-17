@@ -708,7 +708,7 @@ def user(request, pk=None):
     context['profile'] = profile
     context['request'] = request
     context['user'] = user
-    context['items'] = times
+    context['times'] = times
     context['total_hours'] = total_hours
     context['total_dollars'] = '%.2f' % total_dollars
     if request.user.pk == int(pk) or request.user.is_staff:
