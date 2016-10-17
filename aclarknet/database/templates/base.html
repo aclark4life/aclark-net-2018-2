@@ -54,7 +54,7 @@
             <button class="bg-inverse btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a></li>
-              <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-clock-o"></i> View Time</a></li>
+              <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-chevron-circle-right"></i> View Time</a></li>
               <div class="dropdown-divider"></div>
               <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues"><i class="fa fa-github"></i> Add Issue</a></li>
               {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-plus-circle"></i> Add Report</a></li>{% endif %}
