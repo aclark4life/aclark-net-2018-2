@@ -631,7 +631,8 @@ def time(request, pk=None):
         if (not entry.user.username == request.user.username and
                 not request.user.is_staff):
             return HttpResponseRedirect(reverse('admin:index'))
-    context['entry'] = entry
+    context['edit_url'] = 'entry_edit'  # Delete form modal
+    context['item'] = entry
     return render(request, 'time.html', context)
 
 
