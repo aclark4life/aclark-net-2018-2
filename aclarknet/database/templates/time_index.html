@@ -73,7 +73,7 @@
                       </td>
                       <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                       <td>
-                    <a href="" data-toggle="modal" data-target=".bd-example-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o fa-3x"></i></a>
+                    <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o fa-3x"></i></a>
 
 {% include 'delete_form.html' %}
                       </td>
