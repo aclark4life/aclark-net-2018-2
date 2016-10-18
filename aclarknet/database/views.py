@@ -89,7 +89,8 @@ def client(request, pk=None):
     projects = Project.objects.filter(client=client)
     projects = projects.order_by('-start_date')
 
-    context['client'] = client
+    context['edit_url'] = 'client_edit'
+    context['item'] = client
     context['contacts'] = contacts
     context['projects'] = projects
 

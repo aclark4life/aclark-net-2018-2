@@ -26,9 +26,17 @@
                     <h1>Client</h1>
                   </div>
                   <div class="col-md-3 offset-md-3">
-                    <a class="btn btn-lg btn-success" href="{% url 'client_edit' client.pk %}">Edit</a>
+                    <div class="dropdown pull-right">
+                      <button class="btn btn-lg btn-secondary btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'contact_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+            
+                      </ul>
+                    </div>
                   </div>
                 </div>
+{% include 'delete_form.html' %}
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead>
@@ -38,7 +46,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr><td>{{ client.name }}</td><td>{{ client.address|linebreaks }}</td></tr>
+                      <tr><td>{{ item.name }}</td><td>{{ item.address|linebreaks }}</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -47,7 +55,7 @@
                     <h2>Contacts</h2>
                   </div>
                   <div class="col-md-3">
-                    <a class="btn btn-lg btn-secondary" href="{% url 'contact_edit' %}?client={{ client.pk }}">Add</a></h2>
+                    <a class="btn btn-block btn-lg btn-secondary pull-right" href="{% url 'contact_edit' %}?client={{ item.pk }}">Add</a></h2>
                   </div>
                 </div>
                 <div class="table-responsive">
@@ -77,7 +85,7 @@
                     <h2>Projects</h2>
                   </div>
                   <div class="col-md-3">
-                    <a class="btn btn-lg btn-secondary" href="{% url 'project_edit' %}?client={{ client.pk }}">Add</a></h2>
+                    <a class="btn btn-block btn-lg btn-secondary pull-right" href="{% url 'project_edit' %}?client={{ item.pk }}">Add</a></h2>
                   </div>
                 </div>
                 <div class="table-responsive">
