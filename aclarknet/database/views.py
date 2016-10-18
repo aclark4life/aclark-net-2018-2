@@ -582,7 +582,8 @@ def report_edit(request, pk=None):
 def task(request, pk=None):
     context = {}
     task = get_object_or_404(Task, pk=pk)
-    context['task'] = task
+    context['edit_url'] = 'task_edit'  # Delete form modal
+    context['item'] = task
     return render(request, 'task.html', context)
 
 
