@@ -153,7 +153,7 @@ def company(request):
 def contact(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
-    context['edit_url'] = 'contact_edit'
+    context['edit_url'] = 'contact_edit'  # Delete form modal
     context['item'] = contact
     return render(request, 'contact.html', context)
 
@@ -479,8 +479,8 @@ def project(request, pk=None):
                                 invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['company'] = Company.get_solo()
-    context['project'] = project
-    context['edit_url'] = 'entry_edit'  # Delete form modal
+    context['edit_url'] = 'project_edit'  # Delete form modal
+    context['item'] = project
     context['times'] = times
     context['invoices'] = invoices
     context['daily_burn'] = daily_burn(project)
