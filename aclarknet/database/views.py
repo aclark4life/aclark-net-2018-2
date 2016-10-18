@@ -152,7 +152,8 @@ def company(request):
 def contact(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
-    context['contact'] = contact
+    context['edit_url'] = 'contact_edit'
+    context['item'] = contact
     return render(request, 'contact.html', context)
 
 

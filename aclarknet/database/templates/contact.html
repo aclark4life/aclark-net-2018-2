@@ -27,12 +27,15 @@
                   <div class="dropdown pull-right">
                     <button class="btn btn-lg btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'contact_edit' pk=contact.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="{% url 'contact_mail' pk=contact.pk %}"><i class="fa fa-send-o"></i> Send Mail</a></li>
+                      <li><a class="dropdown-item" href="{% url 'contact_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+                      <li><a class="dropdown-item" href="{% url 'contact_mail' pk=item.pk %}"><i class="fa fa-send-o"></i> Send Mail</a></li>
+
                     </ul>
                   </div>
                 </div>
               </div>
+{% include 'delete_form.html' %}
               <div class="table-responsive">
                 <table class="table table-bordered"> 
                   <thead>
@@ -49,14 +52,14 @@
                   </thead>
                   <tbody>
                   <tr>
-                    <td>{{ contact.title }}</td>
-                    <td>{{ contact.first_name }}</td>
-                    <td>{{ contact.last_name }}</td>
-                    <td>{{ contact.email }}</td>
-                    <td>{{ contact.mobile_phone|default:'' }}</td>
-                    <td>{{ contact.office_phone|default:'' }}</td>
-                    <td>{{ contact.fax }}</td>
-                    {% if contact.client %} <td><a href="{% url 'client' contact.client.pk %}">{{ contact.client }}</a></td> {% else %} <td>{{ contact.client|default:'' }}</td> {% endif %}
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.first_name }}</td>
+                    <td>{{ item.last_name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.mobile_phone|default:'' }}</td>
+                    <td>{{ item.office_phone|default:'' }}</td>
+                    <td>{{ item.fax }}</td>
+                    {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
                   </tr>
                   </tbody>
                 </table>
@@ -64,11 +67,11 @@
               <div class="row">
                 <div class="col-md-6">
                   <h3>Address</h3>
-                  {% if contact.address %}<div class="notes">{{ contact.address|linebreaks|default:'' }}</div>{% endif %}
+                  {% if item.address %}<div class="notes">{{ item.address|linebreaks|default:'' }}</div>{% endif %}
                 </div>
                 <div class="col-md-6">
                   <h3>Notes</h3>
-                  {% if contact.notes %}<div class="notes">{{ contact.notes|linebreaks|default:'' }}</div>{% endif %}
+                  {% if item.notes %}<div class="notes">{{ item.notes|linebreaks|default:'' }}</div>{% endif %}
                 </div>
               </div>
 {% endblock %}
