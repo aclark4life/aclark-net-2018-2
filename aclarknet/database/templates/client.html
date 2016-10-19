@@ -67,6 +67,7 @@
                       <tr>
                         <th data-sortable="true">First Name</th>
                         <th data-sortable="true">Last Name</th>
+                        <th>View</th>
                         <th>Edit</th>
                       </tr>
                     </thead>
@@ -74,7 +75,8 @@
                       {% for contact in contacts %}
                       <tr>
                         <td>{{ contact.first_name }}</td>
-                        <td><a href="{% url 'contact' contact.pk %}">{{ contact.last_name }}</a></td>
+                        <td>{{ contact.last_name }}</td>
+                        <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                         <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                       </tr>
                       {% endfor %}
