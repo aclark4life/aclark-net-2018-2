@@ -266,6 +266,8 @@ def edit(request,
                     url_name = 'client_index'
                 if obj._meta.verbose_name == 'contact':
                     url_name = 'contact_index'
+                if obj._meta.verbose_name == 'estimate':
+                    url_name = 'estimate_index'
                 if obj._meta.verbose_name == 'invoice':
                     url_name = 'invoice_index'
                 if obj._meta.verbose_name == 'task':

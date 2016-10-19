@@ -23,22 +23,22 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h1>Estimate {{ document.document_id|default:'' }}</h1>
+                  <h1>Estimate {{ item.document_id|default:'' }}</h1>
                 </div>
                 <div class="col-md-2">
                   <div class="dropdown pull-right">
                     <button class="btn btn-lg btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'entry_edit' %}?client={{ document.client.pk }}"><i class="fa fa-plus-circle"></i> Add Entry</a></li>
-                      <li><a class="dropdown-item" href="{% url 'estimate_edit' pk=document.pk %}"><i class="fa fa-cog"></i> Edit Estimate</a></li>
-                      <li><a class="dropdown-item" href="{% url 'estimate' pk=document.pk %}?pdf=true"><i class="fa fa-file-pdf-o"></i> View PDF</a></li>
+                      <li><a class="dropdown-item" href="{% url 'entry_edit' %}?client={{ item.client.pk }}"><i class="fa fa-plus-circle"></i> Add Entry</a></li>
+                      <li><a class="dropdown-item" href="{% url 'estimate_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit Estimate</a></li>
+                      <li><a class="dropdown-item" href="{% url 'estimate' pk=item.pk %}?pdf=true"><i class="fa fa-file-pdf-o"></i> View PDF</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
               {% include 'invoice_time.html' %}
               <form 
-                action="{% url 'estimate_edit' pk=document.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"
+                action="{% url 'estimate_edit' pk=item.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"
                 method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Save Estimate">
               </form>
 {% endblock %}

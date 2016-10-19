@@ -231,7 +231,7 @@ def estimate(request, pk=None):
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
 
-    context['document'] = estimate
+    context['item'] = estimate
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
 
