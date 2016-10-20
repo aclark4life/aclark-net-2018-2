@@ -37,8 +37,8 @@
                   <th data-sort-name="hidden-subject" data-sortable="true">Subject</th>
                   <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
                   <th data-field="document-id" data-sortable="true">Id</th>
-                  <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                   <th data-sort-name="hidden-client" data-sortable="true">Client</th>
+                  <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                   <th data-field="project" data-sortable="true">Project</th>
                   <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
                   <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
@@ -56,8 +56,8 @@
                   <td><a href="{% url 'invoice' item.pk %}">{{ item.subject }}</a></td>
                   <td>{{ item.subject|default:'' }}</td>
                   <td>{{ item.document_id|default:'' }}</td>
-                  <td>{{ item.client }}</td>
                   {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
+                  <td>{{ item.client }}</td>
                   {% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                   <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ item.issue_date|date:'U'|default:'' }}</td>
