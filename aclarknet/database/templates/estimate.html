@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load l10n %}
 
 {% block sidebar %}
@@ -28,12 +27,15 @@
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'entry_edit' %}?client={{ item.client.pk }}"><i class="fa fa-plus-circle"></i> Add Entry</a></li>
                       <li><a class="dropdown-item" href="{% url 'estimate_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit Estimate</a></li>
+                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+
                       <li><a class="dropdown-item" href="{% url 'estimate' pk=item.pk %}?pdf=true"><i class="fa fa-file-pdf-o"></i> View PDF</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
               {% include 'invoice_time.html' %}
+              {% include 'delete_form.html' %}
               <form 
                 action="{% url 'estimate_edit' pk=item.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"
                 method="post">{% csrf_token %}<input class="btn btn-lg btn-success" type="submit" value="Save Estimate">

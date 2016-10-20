@@ -234,6 +234,7 @@ def estimate(request, pk=None):
     context['item'] = estimate
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
+    context['edit_url'] = 'estimate_edit'
 
     times_client = Time.objects.filter(
         client=estimate.client,
