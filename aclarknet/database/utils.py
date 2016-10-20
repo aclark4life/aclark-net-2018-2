@@ -250,7 +250,7 @@ def edit(request,
                     url_name = 'entry_edit'
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if delete:
-                url_name = 'home'
+                url_name = None
                 # Decrement invoice counter
                 if (obj._meta.verbose_name == 'invoice' and
                         company.invoice_counter):
@@ -262,23 +262,7 @@ def edit(request,
                     company.estimate_counter -= 1
                     company.save()
                 # Redir to appropriate index
-                if obj._meta.verbose_name == 'client':
-                    url_name = 'client_index'
-                if obj._meta.verbose_name == 'contact':
-                    url_name = 'contact_index'
-                if obj._meta.verbose_name == 'estimate':
-                    url_name = 'estimate_index'
-                if obj._meta.verbose_name == 'invoice':
-                    url_name = 'invoice_index'
-                if obj._meta.verbose_name == 'task':
-                    url_name = 'task_index'
-                if obj._meta.verbose_name == 'time':
-                    url_name = 'entry_index'
-                if obj._meta.verbose_name == 'project':
-                    url_name = 'project_index'
-                if obj._meta.verbose_name == 'report':
-                    url_name = 'report_index'
-
+                url_name = url_name_from_verbose_name(obj)
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
             checkbox = request.POST.get('checkbox')
@@ -540,3 +524,27 @@ def search(request, model, fields, active=False, order_by=None, context={}):
     if not search:
         results = paginate(results, page)
     return context, results
+
+
+def url_name_from_verbose_name(obj):
+    """
+    """
+    url_name = None
+
+    if obj._meta.verbose_name == 'client':
+        url_name = 'client_index'
+    if obj._meta.verbose_name == 'contact':
+        url_name = 'contact_index'
+    if obj._meta.verbose_name == 'estimate':
+        url_name = 'estimate_index'
+    if obj._meta.verbose_name == 'invoice':
+        url_name = 'invoice_index'
+    if obj._meta.verbose_name == 'task':
+        url_name = 'task_index'
+    if obj._meta.verbose_name == 'time':
+        url_name = 'entry_index'
+    if obj._meta.verbose_name == 'project':
+        url_name = 'project_index'
+    if obj._meta.verbose_name == 'report':
+        url_name = 'report_index'
+    return url_name
