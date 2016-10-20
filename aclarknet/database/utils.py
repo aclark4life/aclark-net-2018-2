@@ -154,9 +154,12 @@ def send_mail(request, subject, message, to):
     subject = subject
     message = message
     recipients.append(to)
+
+    # http://stackoverflow.com/a/28476681/185820
+    html_message = render_to_string('marketing.html', {'username': to})
     try:
         django_send_mail(subject, message, sender, recipients,
-            fail_silently=False)
+            fail_silently=False, html_message=html_message)
     except SMTPSenderRefused:
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
