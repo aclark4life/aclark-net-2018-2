@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.core.mail import send_mail as _send_mail
+from django.core.mail import send_mail as django_send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils import timezone
 from docx import Document
 from import_export import widgets
@@ -154,7 +155,8 @@ def send_mail(request, subject, message, to):
     message = message
     recipients.append(to)
     try:
-        _send_mail(subject, message, sender, recipients, fail_silently=False)
+        django_send_mail(subject, message, sender, recipients,
+            fail_silently=False)
     except SMTPSenderRefused:
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
