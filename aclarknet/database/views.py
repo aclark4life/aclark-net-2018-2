@@ -273,7 +273,7 @@ def estimate(request, pk=None):
 @staff_member_required
 def estimate_edit(request, pk=None):
     kwargs = {}
-    url_name = 'estimate_index',
+    url_name = 'estimate_index'
     amount = request.GET.get('amount')
     paid_amount = request.GET.get('paid_amount')
     subtotal = request.GET.get('subtotal')
