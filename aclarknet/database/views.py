@@ -168,7 +168,7 @@ def contact_edit(request, pk=None):
     client = request.GET.get('client')
     if client:
         client = get_object_or_404(Client, pk=client)
-        url_name = 'client_index'
+        url_name = 'contact_index'
     return edit(request,
                 ContactForm,
                 Contact,
