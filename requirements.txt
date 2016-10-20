@@ -38,4 +38,5 @@ tablib==0.10.0
 tzlocal==1.2.2
 whitenoise==2.0.6
 xhtml2pdf==0.0.6
+yagmail==0.5.147
 yapf==0.6.2
