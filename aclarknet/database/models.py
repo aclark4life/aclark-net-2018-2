@@ -13,7 +13,7 @@ from solo.models import SingletonModel
 class Client(models.Model):
     """
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
     name = models.CharField(max_length=300, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
@@ -52,7 +52,7 @@ class Contact(models.Model):
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     client = models.ForeignKey(Client,
                                blank=True,
                                null=True,
@@ -167,7 +167,7 @@ class Invoice(models.Model):
 class Profile(models.Model):
     """
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
     bio = models.TextField(blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -208,7 +208,7 @@ class Project(models.Model):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     client = models.ForeignKey(Client,
                                blank=True,
                                null=True,
@@ -284,7 +284,7 @@ class Report(models.Model):
 class Service(models.Model):
     """
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -296,7 +296,7 @@ class Service(models.Model):
 class Testimonial(models.Model):
     """
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -312,7 +312,7 @@ class Testimonial(models.Model):
 class Task(models.Model):
     """
     """
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     billable = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     color = models.CharField(max_length=7,
