@@ -115,7 +115,6 @@ def client_edit(request, pk=None):
 
 @staff_member_required
 def client_index(request):
-    context = {}
     active = active_status(request)
     fields = ('address', 'name')
     order_by = '-pk'
@@ -123,8 +122,7 @@ def client_index(request):
                             Client,
                             fields,
                             active=active,
-                            order_by=order_by,
-                            context=context)
+                            order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
@@ -181,7 +179,6 @@ def contact_edit(request, pk=None):
 
 @staff_member_required
 def contact_index(request):
-    context = {}
     active = active_status(request)
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
@@ -189,8 +186,7 @@ def contact_index(request):
                             Contact,
                             fields,
                             active=active,
-                            order_by=order_by,
-                            context=context)
+                            order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
@@ -306,7 +302,6 @@ def estimate_edit(request, pk=None):
 
 @staff_member_required
 def estimate_index(request):
-    context = {}
     active = active_status(request)
     company = Company.get_solo()
     fields = ('subject', )
@@ -452,7 +447,6 @@ def invoice_edit(request, pk=None):
 
 @staff_member_required
 def invoice_index(request):
-    context = {}
     active = active_status(request)
     company = Company.get_solo()
     fields = ('client__name',
@@ -516,7 +510,6 @@ def project_edit(request, pk=None):
 
 @staff_member_required
 def project_index(request, pk=None):
-    context = {}
     active = active_status(request)
     fields = ('id', 'name')
     order_by = '-start_date'
@@ -524,8 +517,7 @@ def project_index(request, pk=None):
                             Project,
                             fields,
                             active=active,
-                            order_by=order_by,
-                            context=context)
+                            order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
@@ -607,7 +599,6 @@ def task_edit(request, pk=None):
 
 @staff_member_required
 def task_index(request):
-    context = {}
     active = active_status(request)
     order_by = '-pk'
     fields = ('name', )
@@ -615,8 +606,7 @@ def task_index(request):
                             Task,
                             fields,
                             active=active,
-                            order_by=order_by,
-                            context=context)
+                            order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
@@ -697,7 +687,6 @@ def time_edit(request, pk=None):
 
 @login_required
 def time_index(request):
-    context = {}
     active = active_status(request)
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
@@ -706,8 +695,7 @@ def time_index(request):
                             Time,
                             fields,
                             active=active,
-                            order_by=order_by,
-                            context=context)
+                            order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
@@ -768,15 +756,13 @@ def user_edit(request, pk=None):
 
 @staff_member_required
 def user_index(request):
-    context = {}
     active = active_status(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context, items = search(request,
                             User,
                             fields,
-                            active=active,
-                            context=context)
+                            active=active)
     context['active'] = active
     context['items'] = items
     context['company'] = company
