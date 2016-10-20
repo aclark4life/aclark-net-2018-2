@@ -21,6 +21,7 @@ from smtplib import SMTPSenderRefused
 import datetime
 import operator
 import re
+import yagmail
 
 
 class BooleanWidget(widgets.Widget):
@@ -153,6 +154,8 @@ def send_mail(request, subject, message, to):
     subject = subject
     message = message
     recipients.append(to)
+
+
     try:
         _send_mail(subject, message, sender, recipients, fail_silently=False)
     except SMTPSenderRefused:
