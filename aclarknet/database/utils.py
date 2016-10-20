@@ -27,7 +27,6 @@ class BooleanWidget(widgets.Widget):
     """
     Convert strings to boolean values
     """
-
     def clean(self, value):
         if value == 'Yes':
             return True
@@ -39,7 +38,6 @@ class DecimalWidget(widgets.Widget):
     """
     Convert strings to decimal values
     """
-
     def clean(self, value):
         if value:
             return Decimal(value.replace(',', ''))
@@ -50,7 +48,6 @@ class DecimalWidget(widgets.Widget):
 class UserWidget(widgets.Widget):
     """
     """
-
     def clean(self, value):
         return value
 
@@ -183,29 +180,23 @@ def edit(request,
          subtotal=None,
          task=None,
          tasks=[]):
-
     obj = None
-
     if pk is None:
         form = form_model()
-
         # Populate new report with gross and net calculated
         # from active invoices
         if form._meta.model._meta.verbose_name == 'report':
             obj = model(gross=gross, net=net)
             form = form_model(instance=obj)
-
         # Limit time entry project, client
         # and task choices
         if form._meta.model._meta.verbose_name == 'time':
             form.fields['project'].queryset = projects
             form.fields['client'].queryset = clients
             form.fields['task'].queryset = tasks
-
         # Limit project client choices
         if form._meta.model._meta.verbose_name == 'project':
             form.fields['client'].queryset = clients
-
         # Populate time entry form fields with project, client
         # and task values
         if project and model._meta.verbose_name == 'time':
@@ -233,7 +224,6 @@ def edit(request,
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
-
     if request.method == 'POST':
         if pk is None:
             form = form_model(request.POST)
@@ -309,9 +299,7 @@ def edit(request,
                 obj.amount = amount
                 obj.save()
                 return HttpResponseRedirect(reverse(url_name))
-
             form = form_model(request.POST, instance=obj)
-
         if form.is_valid():
             obj = form.save()
             # Time entry
@@ -447,11 +435,9 @@ def search(request, model, fields, active=False, order_by=None, context={}):
     query = []
     page = request.GET.get('page')
     search = None
-
     paginated = paginated_status(request)
     if not paginated:
         return context, model.objects.all()
-
     if active:
         if model._meta.verbose_name == 'time':
             results = model.objects.filter(invoiced=False, estimate=None)
