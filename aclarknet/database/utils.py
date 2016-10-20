@@ -28,6 +28,7 @@ class BooleanWidget(widgets.Widget):
     """
     Convert strings to boolean values
     """
+
     def clean(self, value):
         if value == 'Yes':
             return True
@@ -39,6 +40,7 @@ class DecimalWidget(widgets.Widget):
     """
     Convert strings to decimal values
     """
+
     def clean(self, value):
         if value:
             return Decimal(value.replace(',', ''))
@@ -49,6 +51,7 @@ class DecimalWidget(widgets.Widget):
 class UserWidget(widgets.Widget):
     """
     """
+
     def clean(self, value):
         return value
 
@@ -157,10 +160,14 @@ def send_mail(request, subject, message, to):
 
     # http://stackoverflow.com/a/28476681/185820
     html_message = render_to_string('cerberus-responsive.html',
-        {'username': to})
+                                    {'username': to})
     try:
-        django_send_mail(subject, message, sender, recipients,
-            fail_silently=False, html_message=html_message)
+        django_send_mail(subject,
+                         message,
+                         sender,
+                         recipients,
+                         fail_silently=False,
+                         html_message=html_message)
     except SMTPSenderRefused:
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 

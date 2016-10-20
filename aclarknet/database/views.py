@@ -759,10 +759,7 @@ def user_index(request):
     active = active_status(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context, items = search(request,
-                            User,
-                            fields,
-                            active=active)
+    context, items = search(request, User, fields, active=active)
     context['active'] = active
     context['items'] = items
     context['company'] = company
