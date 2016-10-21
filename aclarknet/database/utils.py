@@ -401,7 +401,7 @@ def kwargs_by_verbose_name(model, active):
     elif model._meta.verbose_name == 'estimate':
         kwargs['accepted_date'] = None
     elif model._meta.verbose_name == 'user':
-        kwargs['profile__active'] = True
+        kwargs['profile__active'] = active
     else:
         kwargs['active'] = active
     return Q(**kwargs)
@@ -464,7 +464,9 @@ def context_items(request,
                   active=False,
                   context={},
                   order_by=None,
-                  paginated=False):
+                  page=None,
+                  paginated=False,
+                  search=''):
     """
     """
 
@@ -474,13 +476,12 @@ def context_items(request,
 
     kwargs = kwargs_by_verbose_name(model, active)
     results = model.objects.filter(kwargs)
+    results = paginate(results, page)
     return context, results
 
     #    if not paginated:
     #        return context, model.objects.all()
 
-    #    else:
-    #        results = model.objects.filter(active=True)
     #
     #    if order_by:
     #        results = results.order_by(order_by)
@@ -525,9 +526,6 @@ def context_items(request,
     #    if order_by:
     #        results = results.order_by(order_by)
     #
-    #    if not search:
-    #        page = request.GET.get('page')
-    #        results = paginate(results, page)
 
     return context, results
 
