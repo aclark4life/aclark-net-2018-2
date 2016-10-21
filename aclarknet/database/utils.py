@@ -87,6 +87,43 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
+def context_items(request,
+                  model,
+                  fields,
+                  active=False,
+                  context={},
+                  order_by=None,
+                  page=None,
+                  paginated=False,
+                  search=''):
+    """
+    """
+
+    #    query = []
+    #    results = []
+    #    search = ''
+
+    kwargs = kwargs_by_verbose_name(model, active)
+    kwargs = kwargs_by_search(kwargs, search, model, fields)
+    results = model.objects.filter(kwargs)
+    results = paginate(results, page)
+    return context, results
+
+    #    if not paginated:
+    #        return context, model.objects.all()
+
+    #
+    #    if order_by:
+    #        results = results.order_by(order_by)
+    #
+    #
+    #    if request.user.is_authenticated:
+    #        return context, results
+    #    else:
+    #        return context, []
+    #
+
+
 def daily_burn(project):
     try:
         days = (project.end_date - project.start_date).days
@@ -135,28 +172,6 @@ def generate_doc(request):
     response['Content-Disposition'] = 'attachment; filename=download.docx'
     document.save(response)
     return response
-
-
-def send_mail(request, subject, message, to):
-    recipients = []
-    sender = settings.DEFAULT_FROM_EMAIL
-    subject = subject
-    message = message
-    recipients.append(to)
-
-    # http://stackoverflow.com/a/28476681/185820
-    html_message = render_to_string('cerberus-responsive.html',
-                                    {'username': to})
-    try:
-        django_send_mail(
-            subject,
-            message,
-            sender,
-            recipients,
-            fail_silently=False,
-            html_message=html_message)
-    except SMTPSenderRefused:
-        messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
 
 def edit(request,
@@ -391,6 +406,28 @@ def entries_total(queryset):
             total)
 
 
+def kwargs_by_search(kwargs, search, model, fields):
+    query = []
+    if 'date' in fields:
+        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+        if expr.match(search):
+            match = list(expr.match(search).groups())
+            match.reverse()
+            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+            kwargs['date__day'] = dt.day
+            kwargs['date__month'] = dt.month
+            kwargs['date__year'] = dt.year
+        else:
+            for field in fields:
+                query.append(Q(**{field + '__icontains': search}))
+            args = reduce(operator.or_, query)
+    else:
+        for field in fields:
+            query.append(Q(**{field + '__icontains': search}))
+        args = reduce(operator.or_, query)
+    return Q(args, **kwargs)
+
+
 def kwargs_by_verbose_name(model, active):
     kwargs = {}
     if model._meta.verbose_name == 'time':
@@ -457,63 +494,6 @@ def paginate(items, page):
         items = paginator.page(paginator.num_pages)
     return items
 
-
-def context_items(request,
-                  model,
-                  fields,
-                  active=False,
-                  context={},
-                  order_by=None,
-                  page=None,
-                  paginated=False,
-                  search=''):
-    """
-    """
-
-    #    query = []
-    #    results = []
-    #    search = ''
-
-    kwargs = kwargs_by_verbose_name(model, active)
-    results = model.objects.filter(kwargs)
-    results = paginate(results, page)
-    return context, results
-
-    #    if not paginated:
-    #        return context, model.objects.all()
-
-    #
-    #    if order_by:
-    #        results = results.order_by(order_by)
-    #
-    #
-    #    if request.user.is_authenticated:
-    #        return context, results
-    #    else:
-    #        return context, []
-    #
-    #
-    #    if 'date' in fields:
-    #        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
-    #        if expr.match(search):
-    #            match = list(expr.match(search).groups())
-    #            match.reverse()
-    #            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-    #            results = model.objects.filter(date__day=dt.day,
-    #                                           date__month=dt.month,
-    #                                           date__year=dt.year,
-    #                                           active=active)
-    #        else:
-    #            for field in fields:
-    #                query.append(Q(**{field + '__icontains': search}))
-    #            results = model.objects.filter(reduce(operator.or_, query),
-    #                                           active=active)
-    #    else:
-    #        for field in fields:
-    #            query.append(Q(**{field + '__icontains': search}))
-    #        results = model.objects.filter(reduce(operator.or_, query),
-    #                                           active=active)
-
     #
     #    if model._meta.verbose_name == 'time':
     #        if request.user.is_staff:
@@ -527,7 +507,27 @@ def context_items(request,
     #        results = results.order_by(order_by)
     #
 
-    return context, results
+
+def send_mail(request, subject, message, to):
+    recipients = []
+    sender = settings.DEFAULT_FROM_EMAIL
+    subject = subject
+    message = message
+    recipients.append(to)
+
+    # http://stackoverflow.com/a/28476681/185820
+    html_message = render_to_string('cerberus-responsive.html',
+                                    {'username': to})
+    try:
+        django_send_mail(
+            subject,
+            message,
+            sender,
+            recipients,
+            fail_silently=False,
+            html_message=html_message)
+    except SMTPSenderRefused:
+        messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
 
 def url_name_from_verbose_name(obj):
