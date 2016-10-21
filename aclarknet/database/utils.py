@@ -100,7 +100,7 @@ def context_items(request,
     """
     kwargs = kwargs_by_verbose_name(model, active)
     kwargs = kwargs_by_search(kwargs, search, model, fields)
-    results = model.objects.filter(kwargs)
+    results = model.objects.filter(Q(**kwargs))
     results = paginate(results, page)
     return context, results
 
@@ -421,13 +421,13 @@ def kwargs_by_search(kwargs, search, model, fields):
     #        query.append(Q(**{field + '__icontains': search}))
     #    args = reduce(operator.or_, query)
 
-    return Q(**kwargs)
+    return kwargs
 
 
 def kwargs_by_verbose_name(model, active):
     kwargs = {}
     if model._meta.verbose_name == 'time':
-        kwargs['invoiced'] = False
+        kwargs['invoiced'] = not(active)
         kwargs['estimate'] = None
     elif model._meta.verbose_name == 'invoice':
         kwargs['last_payment_date'] = None
