@@ -20,7 +20,7 @@ from import_export import widgets
 from md5 import md5
 from smtplib import SMTPSenderRefused
 import datetime
-# import operator
+import operator
 import re
 
 
@@ -98,25 +98,21 @@ def context_items(request,
                   search=''):
     """
     """
-    kwargs = kwargs_by_verbose_name(model, active)
-    kwargs = kwargs_by_search(kwargs, search, model, fields)
-    results = model.objects.filter(Q(**kwargs))
+    query = []
+    query = kwargs_by_verbose_name(query, model, active=active)
+
+    #    query = kwargs_by_search(query, search, model, fields)
+
+    results = model.objects.filter(reduce(operator.or_, query))
+
+    if order_by:
+        results = results.order_by(order_by)
     results = paginate(results, page)
+
+    if not request.user.is_authenticated:
+        results = []
+
     return context, results
-
-    #    if not paginated:
-    #        return context, model.objects.all()
-
-    #
-    #    if order_by:
-    #        results = results.order_by(order_by)
-    #
-    #
-    #    if request.user.is_authenticated:
-    #        return context, results
-    #    else:
-    #        return context, []
-    #
 
 
 def daily_burn(project):
@@ -401,7 +397,8 @@ def entries_total(queryset):
             total)
 
 
-def kwargs_by_search(kwargs, search, model, fields):
+def kwargs_by_search(query, search, model, fields):
+    kwargs = {}
     for field in fields:
         if field == 'date':
             expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
@@ -412,27 +409,29 @@ def kwargs_by_search(kwargs, search, model, fields):
                 kwargs['date__day'] = dt.day
                 kwargs['date__month'] = dt.month
                 kwargs['date__year'] = dt.year
-        kwargs[field + '__icontains'] = search
+        else:
+            kwargs[field + '__icontains'] = search
+        query.append(Q(**kwargs))
+    return query
 
-    # reduce(operator.or_, query)
 
-    return kwargs
-
-
-def kwargs_by_verbose_name(model, active):
+def kwargs_by_verbose_name(query, model, active=False):
     kwargs = {}
-    if model._meta.verbose_name == 'time':
+    if model._meta.verbose_name == 'estimate':
+        if active:
+            kwargs['accepted_date'] = None
+    elif model._meta.verbose_name == 'invoice':
+        if active:
+            kwargs['last_payment_date'] = None
+    elif model._meta.verbose_name == 'time':
         kwargs['invoiced'] = not (active)
         kwargs['estimate'] = None
-    elif model._meta.verbose_name == 'invoice':
-        kwargs['last_payment_date'] = None
-    elif model._meta.verbose_name == 'estimate':
-        kwargs['accepted_date'] = None
     elif model._meta.verbose_name == 'user':
         kwargs['profile__active'] = active
     else:
         kwargs['active'] = active
-    return kwargs
+    query.append(Q(**kwargs))
+    return query
 
 
 def gravatar_url(email):
