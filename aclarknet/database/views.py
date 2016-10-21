@@ -120,7 +120,7 @@ def client_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     fields = ('address', 'name')
     order_by = '-pk'
     context, items = context_items(
@@ -188,7 +188,7 @@ def contact_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = context_items(
@@ -319,7 +319,7 @@ def estimate_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
@@ -469,7 +469,7 @@ def invoice_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('client__name',
               'document_id',
@@ -540,7 +540,7 @@ def project_index(request, pk=None):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = context_items(
@@ -638,7 +638,7 @@ def task_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     order_by = '-pk'
     fields = ('name', )
     context, items = context_items(
@@ -734,7 +734,7 @@ def time_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
@@ -811,7 +811,7 @@ def user_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search')
+    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context, items = context_items(
