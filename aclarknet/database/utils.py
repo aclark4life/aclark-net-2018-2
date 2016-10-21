@@ -98,11 +98,6 @@ def context_items(request,
                   search=''):
     """
     """
-
-    #    query = []
-    #    results = []
-    #    search = ''
-
     kwargs = kwargs_by_verbose_name(model, active)
     kwargs = kwargs_by_search(kwargs, search, model, fields)
     results = model.objects.filter(kwargs)
@@ -417,15 +412,16 @@ def kwargs_by_search(kwargs, search, model, fields):
             kwargs['date__day'] = dt.day
             kwargs['date__month'] = dt.month
             kwargs['date__year'] = dt.year
-        else:
-            for field in fields:
-                query.append(Q(**{field + '__icontains': search}))
-            args = reduce(operator.or_, query)
-    else:
-        for field in fields:
-            query.append(Q(**{field + '__icontains': search}))
-        args = reduce(operator.or_, query)
-    return Q(args, **kwargs)
+    #    else:
+    #        for field in fields:
+    #            query.append(Q(**{field + '__icontains': search}))
+    #        args = reduce(operator.or_, query)
+    #else:
+    #    for field in fields:
+    #        query.append(Q(**{field + '__icontains': search}))
+    #    args = reduce(operator.or_, query)
+
+    return Q(**kwargs)
 
 
 def kwargs_by_verbose_name(model, active):
@@ -441,7 +437,7 @@ def kwargs_by_verbose_name(model, active):
         kwargs['profile__active'] = active
     else:
         kwargs['active'] = active
-    return Q(**kwargs)
+    return kwargs
 
 
 def gravatar_url(email):
