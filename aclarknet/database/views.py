@@ -767,10 +767,10 @@ def user(request, pk=None):
     else:
         total_dollars = 0
     context['company'] = company
-    context['edit_url'] = 'entry_edit'  # Delete form modal
+    context['edit_url'] = 'user_edit'  # Delete form modal
     context['profile'] = profile
     context['request'] = request
-    context['user'] = user
+    context['item'] = user
     context['times'] = times
     context['total_hours'] = total_hours
     context['total_dollars'] = '%.2f' % total_dollars
