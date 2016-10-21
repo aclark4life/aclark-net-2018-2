@@ -412,6 +412,7 @@ def kwargs_by_search(kwargs, search, model, fields):
             kwargs['date__day'] = dt.day
             kwargs['date__month'] = dt.month
             kwargs['date__year'] = dt.year
+
     #    else:
     #        for field in fields:
     #            query.append(Q(**{field + '__icontains': search}))
@@ -427,7 +428,7 @@ def kwargs_by_search(kwargs, search, model, fields):
 def kwargs_by_verbose_name(model, active):
     kwargs = {}
     if model._meta.verbose_name == 'time':
-        kwargs['invoiced'] = not(active)
+        kwargs['invoiced'] = not (active)
         kwargs['estimate'] = None
     elif model._meta.verbose_name == 'invoice':
         kwargs['last_payment_date'] = None
