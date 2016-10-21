@@ -56,21 +56,6 @@ class UserWidget(widgets.Widget):
         return value
 
 
-def active_status(request):
-    """
-    Get query string parameter; return True when 'active=true' or no query
-    string exists, else return False.
-    """
-    active = request.GET.get('active-only')
-    if active:
-        if active == u'true':
-            return True
-        else:
-            return False
-    else:
-        return True
-
-
 def add_user_to_contacts(request, model, pk=None):
     """
     """
@@ -84,10 +69,11 @@ def add_user_to_contacts(request, model, pk=None):
                 messages.add_message(request, messages.INFO,
                                      'No email no contact!')
                 return HttpResponseRedirect(reverse('user_index'))
-            contact = model(email=user.email,
-                            active=True,
-                            first_name=user.first_name,
-                            last_name=user.last_name)
+            contact = model(
+                email=user.email,
+                active=True,
+                first_name=user.first_name,
+                last_name=user.last_name)
             contact.save()
             messages.add_message(request, messages.INFO,
                                  'User added to contacts!')
@@ -162,12 +148,13 @@ def send_mail(request, subject, message, to):
     html_message = render_to_string('cerberus-responsive.html',
                                     {'username': to})
     try:
-        django_send_mail(subject,
-                         message,
-                         sender,
-                         recipients,
-                         fail_silently=False,
-                         html_message=html_message)
+        django_send_mail(
+            subject,
+            message,
+            sender,
+            recipients,
+            fail_silently=False,
+            html_message=html_message)
     except SMTPSenderRefused:
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
@@ -213,9 +200,8 @@ def edit(request,
         # Populate time entry form fields with project, client
         # and task values
         if project and model._meta.verbose_name == 'time':
-            entry = model(project=project,
-                          client=project.client,
-                          task=project.task)
+            entry = model(
+                project=project, client=project.client, task=project.task)
             form = form_model(instance=entry)
         # Populate invoice with project
         elif project and model._meta.verbose_name == 'invoice':
@@ -405,11 +391,50 @@ def entries_total(queryset):
             total)
 
 
+def kwargs_by_verbose_name(model, active):
+    kwargs = {}
+    if model._meta.verbose_name == 'time':
+        kwargs['invoiced'] = False
+        kwargs['estimate'] = None
+    elif model._meta.verbose_name == 'invoice':
+        kwargs['last_payment_date'] = None
+    elif model._meta.verbose_name == 'estimate':
+        kwargs['accepted_date'] = None
+    elif model._meta.verbose_name == 'user':
+        kwargs['profile__active'] = True
+    else:
+        kwargs['active'] = active
+    return Q(**kwargs)
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
     """
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+
+
+def is_active(request):
+    """
+    Get query string parameter; return True when 'active=true' or no query
+    string exists, else return False.
+    """
+    active = request.GET.get('active-only')
+    if active:
+        if active == u'true':
+            return True
+        else:
+            return False
+    else:
+        return True
+
+
+def is_paginated(request):
+    paginated = request.GET.get('paginated')
+    if paginated == u'false':
+        return False
+    else:
+        return True
 
 
 def last_month():
@@ -433,84 +458,76 @@ def paginate(items, page):
     return items
 
 
-def paginated_status(request):
-    paginated = request.GET.get('paginated')
-    if paginated == u'false':
-        return False
-    else:
-        return True
-
-
-def context_items(request, model, fields, active=False, context={}, order_by=None):
+def context_items(request,
+                  model,
+                  fields,
+                  active=False,
+                  context={},
+                  order_by=None,
+                  paginated=False):
     """
     """
-    paginated = paginated_status(request)
-    query = []
-    results = []
-    search = ''
 
+    #    query = []
+    #    results = []
+    #    search = ''
 
-#    if not paginated:
-#        return context, model.objects.all()
+    kwargs = kwargs_by_verbose_name(model, active)
+    results = model.objects.filter(kwargs)
+    return context, results
 
+    #    if not paginated:
+    #        return context, model.objects.all()
 
-#    if model._meta.verbose_name == 'time':
-#        results = model.objects.filter(invoiced=False, estimate=None)
-#    elif model._meta.verbose_name == 'invoice':
-#        results = model.objects.filter(last_payment_date=None)
-#    elif model._meta.verbose_name == 'estimate':
-#        results = model.objects.filter(accepted_date=None)
-#    elif model._meta.verbose_name == 'user':
-#        results = model.objects.filter(profile__active=True)
-#    else:
-#        results = model.objects.filter(active=True)
-#
-#    if order_by:
-#        results = results.order_by(order_by)
-#
-#
-#    if request.user.is_authenticated:
-#        return context, results
-#    else:
-#        return context, []
-#
-#
-#    if 'date' in fields:
-#        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
-#        if expr.match(search):
-#            match = list(expr.match(search).groups())
-#            match.reverse()
-#            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-#            results = model.objects.filter(date__day=dt.day,
-#                                           date__month=dt.month,
-#                                           date__year=dt.year,
-#                                           active=active)
-#        else:
-#            for field in fields:
-#                query.append(Q(**{field + '__icontains': search}))
-#            results = model.objects.filter(reduce(operator.or_, query),
-#                                           active=active)
-#    else:
-#        for field in fields:
-#            query.append(Q(**{field + '__icontains': search}))
-#        results = model.objects.filter(reduce(operator.or_, query),
-#                                           active=active)
+    #    else:
+    #        results = model.objects.filter(active=True)
+    #
+    #    if order_by:
+    #        results = results.order_by(order_by)
+    #
+    #
+    #    if request.user.is_authenticated:
+    #        return context, results
+    #    else:
+    #        return context, []
+    #
+    #
+    #    if 'date' in fields:
+    #        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+    #        if expr.match(search):
+    #            match = list(expr.match(search).groups())
+    #            match.reverse()
+    #            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+    #            results = model.objects.filter(date__day=dt.day,
+    #                                           date__month=dt.month,
+    #                                           date__year=dt.year,
+    #                                           active=active)
+    #        else:
+    #            for field in fields:
+    #                query.append(Q(**{field + '__icontains': search}))
+    #            results = model.objects.filter(reduce(operator.or_, query),
+    #                                           active=active)
+    #    else:
+    #        for field in fields:
+    #            query.append(Q(**{field + '__icontains': search}))
+    #        results = model.objects.filter(reduce(operator.or_, query),
+    #                                           active=active)
 
-#
-#    if model._meta.verbose_name == 'time':
-#        if request.user.is_staff:
-#            results = model.objects.all()
-#        else:
-#            results = model.objects.filter(user=request.user)
-#    else:
-#        results = model.objects.all()
-#
-#    if order_by:
-#        results = results.order_by(order_by)
-#
-#    if not search:
-#        page = request.GET.get('page')
-#        results = paginate(results, page)
+    #
+    #    if model._meta.verbose_name == 'time':
+    #        if request.user.is_staff:
+    #            results = model.objects.all()
+    #        else:
+    #            results = model.objects.filter(user=request.user)
+    #    else:
+    #        results = model.objects.all()
+    #
+    #    if order_by:
+    #        results = results.order_by(order_by)
+    #
+    #    if not search:
+    #        page = request.GET.get('page')
+    #        results = paginate(results, page)
 
     return context, results
 
