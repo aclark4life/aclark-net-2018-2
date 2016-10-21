@@ -99,7 +99,8 @@ def context_items(request,
     """
     """
     query = []
-    query = kwargs_by_verbose_name(query, model, active=active, user=request.user)
+    query = kwargs_by_verbose_name(
+        query, model, active=active, user=request.user)
 
     #    query = kwargs_by_search(query, search, model, fields)
 
@@ -487,7 +488,6 @@ def paginate(items, page):
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
     return items
-
 
 
 def send_mail(request, subject, message, to):
