@@ -31,7 +31,7 @@ from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
-from .utils import search
+from .utils import query
 from .utils import send_mail
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -118,7 +118,7 @@ def client_index(request):
     active = active_status(request)
     fields = ('address', 'name')
     order_by = '-pk'
-    context, items = search(request,
+    context, items = query(request,
                             Client,
                             fields,
                             active=active,
@@ -182,7 +182,7 @@ def contact_index(request):
     active = active_status(request)
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
-    context, items = search(request,
+    context, items = query(request,
                             Contact,
                             fields,
                             active=active,
@@ -306,7 +306,7 @@ def estimate_index(request):
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
-    context, items = search(request,
+    context, items = query(request,
                             Estimate,
                             fields,
                             active=active,
@@ -455,7 +455,7 @@ def invoice_index(request):
               'project__name',
               'subject', )
     order_by = '-issue_date'
-    context, items = search(request,
+    context, items = query(request,
                             Invoice,
                             fields,
                             active=active,
@@ -513,7 +513,7 @@ def project_index(request, pk=None):
     active = active_status(request)
     fields = ('id', 'name')
     order_by = '-start_date'
-    context, items = search(request,
+    context, items = query(request,
                             Project,
                             fields,
                             active=active,
@@ -602,7 +602,7 @@ def task_index(request):
     active = active_status(request)
     order_by = '-pk'
     fields = ('name', )
-    context, items = search(request,
+    context, items = query(request,
                             Task,
                             fields,
                             active=active,
@@ -691,7 +691,7 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
-    context, items = search(request,
+    context, items = query(request,
                             Time,
                             fields,
                             active=active,
@@ -759,7 +759,7 @@ def user_index(request):
     active = active_status(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context, items = search(request, User, fields, active=active)
+    context, items = query(request, User, fields, active=active)
     context['active'] = active
     context['items'] = items
     context['company'] = company

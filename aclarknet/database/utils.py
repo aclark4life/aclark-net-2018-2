@@ -441,64 +441,77 @@ def paginated_status(request):
         return True
 
 
-def search(request, model, fields, active=False, order_by=None, context={}):
+def query(request, model, fields, active=False, context={}, order_by=None):
     """
     """
-    results = []
-    query = []
-    page = request.GET.get('page')
-    search = None
     paginated = paginated_status(request)
-    if not paginated:
-        return context, model.objects.all()
-    if active:
-        if model._meta.verbose_name == 'time':
-            results = model.objects.filter(invoiced=False, estimate=None)
-        elif model._meta.verbose_name == 'invoice':
-            results = model.objects.filter(last_payment_date=None)
-        elif model._meta.verbose_name == 'estimate':
-            results = model.objects.filter(accepted_date=None)
-        elif model._meta.verbose_name == 'user':
-            results = model.objects.filter(profile__active=True)
-        else:
-            results = model.objects.filter(active=True)
-        if order_by:
-            results = results.order_by(order_by)
-        if request.user.is_authenticated:
-            return context, results
-        else:
-            return context, []
-    if request.POST:
-        search = request.POST.get('search', '')
-        if 'date' in fields:
-            expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
-            if expr.match(search):
-                match = list(expr.match(search).groups())
-                match.reverse()
-                dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-                results = model.objects.filter(date__day=dt.day,
-                                               date__month=dt.month,
-                                               date__year=dt.year)
-            else:
-                for field in fields:
-                    query.append(Q(**{field + '__icontains': search}))
-                results = model.objects.filter(reduce(operator.or_, query))
+    query = []
+    results = []
+    search = ''
+
+
+#    if not paginated:
+#        return context, model.objects.all()
+
+
+#    if model._meta.verbose_name == 'time':
+#        results = model.objects.filter(invoiced=False, estimate=None)
+#    elif model._meta.verbose_name == 'invoice':
+#        results = model.objects.filter(last_payment_date=None)
+#    elif model._meta.verbose_name == 'estimate':
+#        results = model.objects.filter(accepted_date=None)
+#    elif model._meta.verbose_name == 'user':
+#        results = model.objects.filter(profile__active=True)
+#    else:
+#        results = model.objects.filter(active=True)
+#
+#    if order_by:
+#        results = results.order_by(order_by)
+#
+#
+#    if request.user.is_authenticated:
+#        return context, results
+#    else:
+#        return context, []
+#
+#
+    if 'date' in fields:
+        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+        if expr.match(search):
+            match = list(expr.match(search).groups())
+            match.reverse()
+            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+            results = model.objects.filter(date__day=dt.day,
+                                           date__month=dt.month,
+                                           date__year=dt.year,
+                                           active=active)
         else:
             for field in fields:
                 query.append(Q(**{field + '__icontains': search}))
-            results = model.objects.filter(reduce(operator.or_, query))
+            results = model.objects.filter(reduce(operator.or_, query),
+                                           active=active)
     else:
-        if model._meta.verbose_name == 'time':
-            if request.user.is_staff:
-                results = model.objects.all()
-            else:
-                results = model.objects.filter(user=request.user)
-        else:
-            results = model.objects.all()
-    if order_by:
-        results = results.order_by(order_by)
-    if not search:
-        results = paginate(results, page)
+        for field in fields:
+            query.append(Q(**{field + '__icontains': search}))
+        results = model.objects.filter(reduce(operator.or_, query),
+                                           active=active)
+
+#
+#    if model._meta.verbose_name == 'time':
+#        if request.user.is_staff:
+#            results = model.objects.all()
+#        else:
+#            results = model.objects.filter(user=request.user)
+#    else:
+#        results = model.objects.all()
+#
+#    if order_by:
+#        results = results.order_by(order_by)
+#
+#    if not search:
+#        page = request.GET.get('page')
+#        results = paginate(results, page)
+
     return context, results
 
 
