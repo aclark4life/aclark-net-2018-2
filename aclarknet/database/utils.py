@@ -20,7 +20,7 @@ from import_export import widgets
 from md5 import md5
 from smtplib import SMTPSenderRefused
 import datetime
-import operator
+# import operator
 import re
 
 
@@ -402,25 +402,19 @@ def entries_total(queryset):
 
 
 def kwargs_by_search(kwargs, search, model, fields):
-    query = []
-    if 'date' in fields:
-        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
-        if expr.match(search):
-            match = list(expr.match(search).groups())
-            match.reverse()
-            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-            kwargs['date__day'] = dt.day
-            kwargs['date__month'] = dt.month
-            kwargs['date__year'] = dt.year
+    for field in fields:
+        if field == 'date':
+            expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+            if expr.match(search):
+                match = list(expr.match(search).groups())
+                match.reverse()
+                dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+                kwargs['date__day'] = dt.day
+                kwargs['date__month'] = dt.month
+                kwargs['date__year'] = dt.year
+        kwargs[field + '__icontains'] = search
 
-    #    else:
-    #        for field in fields:
-    #            query.append(Q(**{field + '__icontains': search}))
-    #        args = reduce(operator.or_, query)
-    #else:
-    #    for field in fields:
-    #        query.append(Q(**{field + '__icontains': search}))
-    #    args = reduce(operator.or_, query)
+    # reduce(operator.or_, query)
 
     return kwargs
 
