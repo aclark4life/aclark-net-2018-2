@@ -99,7 +99,7 @@ def context_items(request,
     """
     """
     query = []
-    query = kwargs_by_verbose_name(query, model, active=active)
+    query = kwargs_by_verbose_name(query, model, active=active, user=request.user)
 
     #    query = kwargs_by_search(query, search, model, fields)
 
@@ -417,7 +417,7 @@ def kwargs_by_search(query, search, model, fields):
     return query
 
 
-def kwargs_by_verbose_name(query, model, active=False):
+def kwargs_by_verbose_name(query, model, active=False, user=None):
     kwargs = {}
     if model._meta.verbose_name == 'estimate':
         if active:
@@ -426,6 +426,8 @@ def kwargs_by_verbose_name(query, model, active=False):
         if active:
             kwargs['last_payment_date'] = None
     elif model._meta.verbose_name == 'time':
+        if not user.is_staff:
+            kwargs['user'] = user
         kwargs['invoiced'] = not (active)
         kwargs['estimate'] = None
     elif model._meta.verbose_name == 'user':
@@ -486,18 +488,6 @@ def paginate(items, page):
         items = paginator.page(paginator.num_pages)
     return items
 
-    #
-    #    if model._meta.verbose_name == 'time':
-    #        if request.user.is_staff:
-    #            results = model.objects.all()
-    #        else:
-    #            results = model.objects.filter(user=request.user)
-    #    else:
-    #        results = model.objects.all()
-    #
-    #    if order_by:
-    #        results = results.order_by(order_by)
-    #
 
 
 def send_mail(request, subject, message, to):
