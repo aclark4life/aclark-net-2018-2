@@ -441,7 +441,7 @@ def paginated_status(request):
         return True
 
 
-def query(request, model, fields, active=False, context={}, order_by=None):
+def context_items(request, model, fields, active=False, context={}, order_by=None):
     """
     """
     paginated = paginated_status(request)
@@ -475,26 +475,26 @@ def query(request, model, fields, active=False, context={}, order_by=None):
 #        return context, []
 #
 #
-    if 'date' in fields:
-        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
-        if expr.match(search):
-            match = list(expr.match(search).groups())
-            match.reverse()
-            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-            results = model.objects.filter(date__day=dt.day,
-                                           date__month=dt.month,
-                                           date__year=dt.year,
-                                           active=active)
-        else:
-            for field in fields:
-                query.append(Q(**{field + '__icontains': search}))
-            results = model.objects.filter(reduce(operator.or_, query),
-                                           active=active)
-    else:
-        for field in fields:
-            query.append(Q(**{field + '__icontains': search}))
-        results = model.objects.filter(reduce(operator.or_, query),
-                                           active=active)
+#    if 'date' in fields:
+#        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+#        if expr.match(search):
+#            match = list(expr.match(search).groups())
+#            match.reverse()
+#            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+#            results = model.objects.filter(date__day=dt.day,
+#                                           date__month=dt.month,
+#                                           date__year=dt.year,
+#                                           active=active)
+#        else:
+#            for field in fields:
+#                query.append(Q(**{field + '__icontains': search}))
+#            results = model.objects.filter(reduce(operator.or_, query),
+#                                           active=active)
+#    else:
+#        for field in fields:
+#            query.append(Q(**{field + '__icontains': search}))
+#        results = model.objects.filter(reduce(operator.or_, query),
+#                                           active=active)
 
 #
 #    if model._meta.verbose_name == 'time':
