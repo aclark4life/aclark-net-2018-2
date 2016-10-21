@@ -19,9 +19,10 @@ from docx import Document
 from import_export import widgets
 from md5 import md5
 from smtplib import SMTPSenderRefused
-import datetime
-import operator
-import re
+
+# import datetime
+# import operator
+# import re
 
 
 class BooleanWidget(widgets.Widget):
@@ -69,11 +70,10 @@ def add_user_to_contacts(request, model, pk=None):
                 messages.add_message(request, messages.INFO,
                                      'No email no contact!')
                 return HttpResponseRedirect(reverse('user_index'))
-            contact = model(
-                email=user.email,
-                active=True,
-                first_name=user.first_name,
-                last_name=user.last_name)
+            contact = model(email=user.email,
+                            active=True,
+                            first_name=user.first_name,
+                            last_name=user.last_name)
             contact.save()
             messages.add_message(request, messages.INFO,
                                  'User added to contacts!')
@@ -98,27 +98,14 @@ def context_items(request,
                   search=''):
     """
     """
-    filters = []
-    # Single page
-    if not paginated:
-        items = model.objects.all()
-        return context, items
-
-    kwargs = kwargs_for_active_items(
-        model, active=active, user=request.user)
-
-    filters.append(Q(**kwargs))
-
-    # query = kwargs_by_search(query, search, model, fields)
-
-    filters = reduce(operator.or_, filters)
-
-    items = model.objects.filter(filters)
+    kwargs = kwargs_for_active_items(model, active=active, user=request.user)
+    items = model.objects.filter(Q(**kwargs))
     if order_by:
         items = items.order_by(order_by)
-    items = paginate(items, page)
     if not request.user.is_authenticated:
         items = []
+    if paginated:
+        items = paginate(items, page)
     return context, items
 
 
@@ -213,8 +200,9 @@ def edit(request,
         # Populate time entry form fields with project, client
         # and task values
         if project and model._meta.verbose_name == 'time':
-            entry = model(
-                project=project, client=project.client, task=project.task)
+            entry = model(project=project,
+                          client=project.client,
+                          task=project.task)
             form = form_model(instance=entry)
         # Populate invoice with project
         elif project and model._meta.verbose_name == 'invoice':
@@ -404,28 +392,10 @@ def entries_total(queryset):
             total)
 
 
-def kwargs_by_search(query, search, model, fields):
-    for field in fields:
-        kwargs = {}
-        if field == 'date':
-            expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
-            if expr.match(search):
-                match = list(expr.match(search).groups())
-                match.reverse()
-                dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-                kwargs['date__day'] = dt.day
-                kwargs['date__month'] = dt.month
-                kwargs['date__year'] = dt.year
-        else:
-            kwargs[field + '__icontains'] = search
-        query.append(Q(**kwargs))
-    return query
-
-
 def kwargs_for_active_items(model, active=False, user=None):
     """
     Return kwargs for "active" items by checking appropriate field
-    for model. 
+    for model.
     """
     kwargs = {}
     if model._meta.verbose_name == 'estimate':
@@ -515,13 +485,12 @@ def send_mail(request, subject, message, to):
     html_message = render_to_string('cerberus-responsive.html',
                                     {'username': to})
     try:
-        django_send_mail(
-            subject,
-            message,
-            sender,
-            recipients,
-            fail_silently=False,
-            html_message=html_message)
+        django_send_mail(subject,
+                         message,
+                         sender,
+                         recipients,
+                         fail_silently=False,
+                         html_message=html_message)
     except SMTPSenderRefused:
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
