@@ -103,10 +103,16 @@ def context_items(request,
     if not paginated:
         items = model.objects.all()
         return context, items
-    filters = active_by_type(
-        filters, model, active=active, user=request.user)
+
+    kwargs = kwargs_for_active_items(
+        model, active=active, user=request.user)
+
+    filters.append(Q(**kwargs))
+
     # query = kwargs_by_search(query, search, model, fields)
+
     filters = reduce(operator.or_, filters)
+
     items = model.objects.filter(filters)
     if order_by:
         items = items.order_by(order_by)
@@ -416,9 +422,10 @@ def kwargs_by_search(query, search, model, fields):
     return query
 
 
-def active_by_type(filters, model, active=False, user=None):
+def kwargs_for_active_items(model, active=False, user=None):
     """
-    Return "active" items by checking appropriate field.
+    Return kwargs for "active" items by checking appropriate field
+    for model. 
     """
     kwargs = {}
     if model._meta.verbose_name == 'estimate':
@@ -443,8 +450,7 @@ def active_by_type(filters, model, active=False, user=None):
     else:
         # All other models check active field
         kwargs['active'] = active
-    filters.append(Q(**kwargs))
-    return filters
+    return kwargs
 
 
 def gravatar_url(email):
