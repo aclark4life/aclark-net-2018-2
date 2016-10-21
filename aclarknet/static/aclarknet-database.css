@@ -32,11 +32,11 @@
     padding: 15px;
     border: 1px solid #EAEAEA;
 }
+.page-nav a, .page-nav a:hover {
+    color: white; 
+}
 .sidebar {
     opacity: 0.9;
-}
-.single-page, .single-page:hover {
-    color: white;
 }
 .table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
     vertical-align: top;
