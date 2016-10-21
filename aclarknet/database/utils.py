@@ -103,7 +103,9 @@ def context_items(request,
 
     #    query = kwargs_by_search(query, search, model, fields)
 
-    results = model.objects.filter(reduce(operator.or_, query))
+    filters = reduce(operator.or_, query)
+
+    results = model.objects.filter(filters)
 
     if order_by:
         results = results.order_by(order_by)
@@ -398,8 +400,8 @@ def entries_total(queryset):
 
 
 def kwargs_by_search(query, search, model, fields):
-    kwargs = {}
     for field in fields:
+        kwargs = {}
         if field == 'date':
             expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
             if expr.match(search):
