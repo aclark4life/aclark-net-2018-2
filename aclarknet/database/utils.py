@@ -99,7 +99,7 @@ def context_items(request,
     """
     """
     query = []
-    query = kwargs_by_verbose_name(
+    query = active_by_type(
         query, model, active=active, user=request.user)
 
     #    query = kwargs_by_search(query, search, model, fields)
@@ -418,22 +418,32 @@ def kwargs_by_search(query, search, model, fields):
     return query
 
 
-def kwargs_by_verbose_name(query, model, active=False, user=None):
+def active_by_type(query, model, active=False, user=None):
+    """
+    Return "active" items by checking appropriate field.
+    """
     kwargs = {}
     if model._meta.verbose_name == 'estimate':
+        # Unaccepted invoices are "active"
         if active:
             kwargs['accepted_date'] = None
     elif model._meta.verbose_name == 'invoice':
+        # Unpaid invoices are "active"
         if active:
             kwargs['last_payment_date'] = None
     elif model._meta.verbose_name == 'time':
+        # Only staff can see all items
         if not user.is_staff:
             kwargs['user'] = user
+        # Uninvoiced times are "active"
         kwargs['invoiced'] = not (active)
+        # Estimated times are never "active"
         kwargs['estimate'] = None
     elif model._meta.verbose_name == 'user':
+        # Use related model's active field
         kwargs['profile__active'] = active
     else:
+        # All other models check active field
         kwargs['active'] = active
     query.append(Q(**kwargs))
     return query
