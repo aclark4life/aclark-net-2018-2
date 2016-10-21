@@ -98,24 +98,22 @@ def context_items(request,
                   search=''):
     """
     """
-    query = []
-    query = active_by_type(
-        query, model, active=active, user=request.user)
-
-    #    query = kwargs_by_search(query, search, model, fields)
-
-    filters = reduce(operator.or_, query)
-
-    results = model.objects.filter(filters)
-
+    filters = []
+    # Single page
+    if not paginated:
+        items = model.objects.all()
+        return context, items
+    filters = active_by_type(
+        filters, model, active=active, user=request.user)
+    # query = kwargs_by_search(query, search, model, fields)
+    filters = reduce(operator.or_, filters)
+    items = model.objects.filter(filters)
     if order_by:
-        results = results.order_by(order_by)
-    results = paginate(results, page)
-
+        items = items.order_by(order_by)
+    items = paginate(items, page)
     if not request.user.is_authenticated:
-        results = []
-
-    return context, results
+        items = []
+    return context, items
 
 
 def daily_burn(project):
@@ -418,7 +416,7 @@ def kwargs_by_search(query, search, model, fields):
     return query
 
 
-def active_by_type(query, model, active=False, user=None):
+def active_by_type(filters, model, active=False, user=None):
     """
     Return "active" items by checking appropriate field.
     """
@@ -445,8 +443,8 @@ def active_by_type(query, model, active=False, user=None):
     else:
         # All other models check active field
         kwargs['active'] = active
-    query.append(Q(**kwargs))
-    return query
+    filters.append(Q(**kwargs))
+    return filters
 
 
 def gravatar_url(email):
