@@ -119,6 +119,7 @@ def client_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     fields = ('address', 'name')
     order_by = '-pk'
     context, items = context_items(request,
@@ -127,6 +128,7 @@ def client_index(request):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
@@ -187,6 +189,7 @@ def contact_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = context_items(request,
@@ -195,6 +198,7 @@ def contact_index(request):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
@@ -314,6 +318,7 @@ def estimate_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
@@ -323,6 +328,7 @@ def estimate_index(request):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'estimate_edit'  # Delete form modal
@@ -463,6 +469,7 @@ def invoice_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('client__name',
               'document_id',
@@ -476,6 +483,7 @@ def invoice_index(request):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'invoice_edit'  # Delete form modal
@@ -530,6 +538,7 @@ def project_index(request, pk=None):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = context_items(request,
@@ -538,6 +547,7 @@ def project_index(request, pk=None):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'project_edit'  # Delete form modal
@@ -623,6 +633,7 @@ def task_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     order_by = '-pk'
     fields = ('name', )
     context, items = context_items(request,
@@ -631,6 +642,7 @@ def task_index(request):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
@@ -715,6 +727,7 @@ def time_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
@@ -724,6 +737,7 @@ def time_index(request):
                                    active=active,
                                    page=page,
                                    paginated=paginated,
+                                   search=search,
                                    order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'entry_edit'  # Delete form modal
@@ -788,6 +802,7 @@ def user_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
+    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context, items = context_items(request,
@@ -795,7 +810,8 @@ def user_index(request):
                                    fields,
                                    active=active,
                                    page=page,
-                                   paginated=paginated)
+                                   paginated=paginated,
+                                   search=search)
     context['active'] = active
     context['items'] = items
     context['company'] = company
