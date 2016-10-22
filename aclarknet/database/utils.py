@@ -401,8 +401,9 @@ def items_for_search_criteria(fields, items, search):
             match = list(expr.match(search).groups())
             match.reverse()
             dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
-            items = items.filter(
-                date__day=dt.day, date__month=dt.month, date__year=dt.year)
+            items = items.filter(date__day=dt.day,
+                                 date__month=dt.month,
+                                 date__year=dt.year)
         else:
             for field in fields:
                 filters.append(Q(**{field + '__icontains': search}))
