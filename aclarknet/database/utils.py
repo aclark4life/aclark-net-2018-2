@@ -94,10 +94,14 @@ def context_items(request,
                   context={},
                   order_by=None,
                   page=None,
-                  paginated=False,
-                  search=''):
+                  paginated=False):
     """
     """
+    search = request.GET.get('search')
+    if 'search' in request.GET.keys() and not search:
+        return context, []
+    else:
+        search = ''
     kwargs = kwargs_for_active_items(model, active=active, user=request.user)
     items = model.objects.filter(Q(**kwargs))
     items = items_for_search_criteria(fields, items, search)
