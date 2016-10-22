@@ -94,9 +94,9 @@ django-su:
 # Git
 MESSAGE="Update"
 REMOTES=`\
-	git branch -a |\
-	grep remote |\
-	grep -v HEAD |\
+	git branch -a   |\
+	grep remotes    |\
+	grep -v HEAD    |\
 	grep -v master`
 co: git-checkout-remotes
 commit: git-commit
