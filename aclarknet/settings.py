@@ -82,8 +82,8 @@ WSGI_APPLICATION = 'aclarknet.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {'default': dj_database_url.config(default=os.environ.get(
-    'HEROKU_POSTGRESQL_BRONZE_URL', 'postgres://%s:@localhost:5432/aclarknet' %
-    os.environ.get('USER', '')))}
+    'HEROKU_POSTGRESQL_BRONZE_URL',
+    'postgres://%s:@localhost:5432/aclarknet' % os.environ.get('USER', '')))}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
