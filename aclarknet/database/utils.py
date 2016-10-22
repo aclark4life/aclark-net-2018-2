@@ -20,9 +20,9 @@ from import_export import widgets
 from md5 import md5
 from smtplib import SMTPSenderRefused
 
-# import datetime
-# import operator
-# import re
+import datetime
+import operator
+import re
 
 
 class BooleanWidget(widgets.Widget):
@@ -100,6 +100,7 @@ def context_items(request,
     """
     kwargs = kwargs_for_active_items(model, active=active, user=request.user)
     items = model.objects.filter(Q(**kwargs))
+    items = items_for_search_criteria(fields, items, search)
     if order_by:
         items = items.order_by(order_by)
     if not request.user.is_authenticated:
@@ -390,6 +391,27 @@ def entries_total(queryset):
     total = running_total_co - running_total_dev
     return (entries, running_total_co, running_total_dev, running_total_hours,
             total)
+
+
+def items_for_search_criteria(fields, items, search):
+    filters = []
+    if 'date' in fields:
+        expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
+        if expr.match(search):
+            match = list(expr.match(search).groups())
+            match.reverse()
+            dt = datetime.date(int(match[0]), int(match[2]), int(match[1]))
+            items = items.filter(
+                date__day=dt.day, date__month=dt.month, date__year=dt.year)
+        else:
+            for field in fields:
+                filters.append(Q(**{field + '__icontains': search}))
+            items = items.filter(reduce(operator.or_, filters))
+    else:
+        for field in fields:
+            filters.append(Q(**{field + '__icontains': search}))
+        items = items.filter(reduce(operator.or_, filters))
+    return items
 
 
 def kwargs_for_active_items(model, active=False, user=None):
