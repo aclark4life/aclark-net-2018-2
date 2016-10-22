@@ -395,6 +395,12 @@ def entries_total(queryset):
 
 def items_for_search_criteria(fields, items, search):
     filters = []
+    # XXX Logic below flawed; no need to repeat:
+    # 
+    #     for field in fields:
+    #         filters.append(Q(**{field + '__icontains': search}))
+    #     items = items.filter(reduce(operator.or_, filters))
+    # 
     if 'date' in fields:
         expr = re.compile('(\d\d)/(\d\d)/(\d\d\d\d)')
         if expr.match(search):
