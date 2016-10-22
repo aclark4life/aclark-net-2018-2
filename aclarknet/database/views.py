@@ -105,14 +105,13 @@ def client_edit(request, pk=None):
     if pk:
         kwargs['pk'] = pk
         url_name = 'client'
-    return edit(
-        request,
-        ClientForm,
-        Client,
-        url_name,
-        'client_edit.html',
-        kwargs=kwargs,
-        pk=pk)
+    return edit(request,
+                ClientForm,
+                Client,
+                url_name,
+                'client_edit.html',
+                kwargs=kwargs,
+                pk=pk)
 
 
 @staff_member_required
@@ -122,14 +121,13 @@ def client_index(request):
     paginated = is_paginated(request)
     fields = ('address', 'name')
     order_by = '-pk'
-    context, items = context_items(
-        request,
-        Client,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Client,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
@@ -138,8 +136,12 @@ def client_index(request):
 
 @staff_member_required
 def company_edit(request, pk=None):
-    return edit(
-        request, CompanyForm, Company, 'company', 'company_edit.html', pk=1)
+    return edit(request,
+                CompanyForm,
+                Company,
+                'company',
+                'company_edit.html',
+                pk=1)
 
 
 @staff_member_required
@@ -170,15 +172,14 @@ def contact_edit(request, pk=None):
     if client:
         client = get_object_or_404(Client, pk=client)
         url_name = 'contact_index'
-    return edit(
-        request,
-        ContactForm,
-        Contact,
-        url_name,
-        'contact_edit.html',
-        client=client,
-        kwargs=kwargs,
-        pk=pk)
+    return edit(request,
+                ContactForm,
+                Contact,
+                url_name,
+                'contact_edit.html',
+                client=client,
+                kwargs=kwargs,
+                pk=pk)
 
 
 @staff_member_required
@@ -188,14 +189,13 @@ def contact_index(request):
     paginated = is_paginated(request)
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
-    context, items = context_items(
-        request,
-        Contact,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Contact,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
@@ -241,12 +241,11 @@ def estimate(request, pk=None):
     context['document_type_title'] = document_type_title
     context['edit_url'] = 'estimate_edit'
 
-    times_client = Time.objects.filter(
-        client=estimate.client,
-        estimate=None,
-        project=None,
-        invoiced=False,
-        invoice=None)
+    times_client = Time.objects.filter(client=estimate.client,
+                                       estimate=None,
+                                       project=None,
+                                       invoiced=False,
+                                       invoice=None)
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-date')
@@ -269,8 +268,9 @@ def estimate(request, pk=None):
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf(
-            'invoice_time.html', context=context, file_object=response)
+        return generate_pdf('invoice_time.html',
+                            context=context,
+                            file_object=response)
     else:
         return render(request, 'estimate.html', context)
 
@@ -296,18 +296,17 @@ def estimate_edit(request, pk=None):
             entry.estimate = estimate
             entry.save()
 
-    return edit(
-        request,
-        EstimateForm,
-        Estimate,
-        url_name,
-        'estimate_edit.html',
-        amount=amount,
-        kwargs=kwargs,
-        paid_amount=paid_amount,
-        pk=pk,
-        subtotal=subtotal,
-        company=company)
+    return edit(request,
+                EstimateForm,
+                Estimate,
+                url_name,
+                'estimate_edit.html',
+                amount=amount,
+                kwargs=kwargs,
+                paid_amount=paid_amount,
+                pk=pk,
+                subtotal=subtotal,
+                company=company)
 
 
 @staff_member_required
@@ -318,14 +317,13 @@ def estimate_index(request):
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
-    context, items = context_items(
-        request,
-        Estimate,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Estimate,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['items'] = items
@@ -372,8 +370,10 @@ def invoice(request, pk=None):
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
 
-    times_project = Time.objects.filter(
-        invoiced=False, project=invoice.project, estimate=None, invoice=None)
+    times_project = Time.objects.filter(invoiced=False,
+                                        project=invoice.project,
+                                        estimate=None,
+                                        invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
     times = times_project | times_invoice
     times = times.order_by('-date')
@@ -400,8 +400,9 @@ def invoice(request, pk=None):
             company_name = 'COMPANY'
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf(
-            'invoice_time.html', context=context, file_object=response)
+        return generate_pdf('invoice_time.html',
+                            context=context,
+                            file_object=response)
     else:
         return render(request, 'invoice.html', context)
 
@@ -442,20 +443,19 @@ def invoice_edit(request, pk=None):
             entry.invoice = invoice
             entry.save()
 
-    return edit(
-        request,
-        InvoiceForm,
-        Invoice,
-        url_name,
-        'invoice_edit.html',
-        amount=amount,
-        kwargs=kwargs,
-        paid_amount=paid_amount,
-        paid=paid,
-        pk=pk,
-        project=project,
-        subtotal=subtotal,
-        company=company)
+    return edit(request,
+                InvoiceForm,
+                Invoice,
+                url_name,
+                'invoice_edit.html',
+                amount=amount,
+                kwargs=kwargs,
+                paid_amount=paid_amount,
+                paid=paid,
+                pk=pk,
+                project=project,
+                subtotal=subtotal,
+                company=company)
 
 
 @staff_member_required
@@ -470,14 +470,13 @@ def invoice_index(request):
               'project__name',
               'subject', )
     order_by = '-issue_date'
-    context, items = context_items(
-        request,
-        Invoice,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Invoice,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['items'] = items
@@ -489,8 +488,8 @@ def invoice_index(request):
 def project(request, pk=None):
     context = {}
     project = get_object_or_404(Project, pk=pk)
-    times = Time.objects.filter(
-        project=project, invoiced=False).order_by('-date')
+    times = Time.objects.filter(project=project,
+                                invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete form modal
@@ -515,16 +514,15 @@ def project_edit(request, pk=None):
     if client:
         client = get_object_or_404(Client, pk=client)
         url_name = 'client_index'
-    return edit(
-        request,
-        ProjectForm,
-        Project,
-        url_name,
-        'project_edit.html',
-        client=client,
-        clients=clients,
-        kwargs=kwargs,
-        pk=pk)
+    return edit(request,
+                ProjectForm,
+                Project,
+                url_name,
+                'project_edit.html',
+                client=client,
+                clients=clients,
+                kwargs=kwargs,
+                pk=pk)
 
 
 @staff_member_required
@@ -534,14 +532,13 @@ def project_index(request, pk=None):
     paginated = is_paginated(request)
     fields = ('id', 'name')
     order_by = '-start_date'
-    context, items = context_items(
-        request,
-        Project,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Project,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
@@ -585,16 +582,15 @@ def report_edit(request, pk=None):
     if pk:
         kwargs['pk'] = pk
         url_name = 'report'
-    return edit(
-        request,
-        ReportForm,
-        Report,
-        url_name,
-        'report_edit.html',
-        gross=gross,
-        kwargs=kwargs,
-        net=net,
-        pk=pk)
+    return edit(request,
+                ReportForm,
+                Report,
+                url_name,
+                'report_edit.html',
+                gross=gross,
+                kwargs=kwargs,
+                net=net,
+                pk=pk)
 
 
 @staff_member_required
@@ -613,14 +609,13 @@ def task_edit(request, pk=None):
     if pk:
         kwargs['pk'] = pk
         url_name = 'task'
-    return edit(
-        request,
-        TaskForm,
-        Task,
-        url_name,
-        'task_edit.html',
-        pk=pk,
-        kwargs=kwargs)
+    return edit(request,
+                TaskForm,
+                Task,
+                url_name,
+                'task_edit.html',
+                pk=pk,
+                kwargs=kwargs)
 
 
 @staff_member_required
@@ -630,14 +625,13 @@ def task_index(request):
     paginated = is_paginated(request)
     order_by = '-pk'
     fields = ('name', )
-    context, items = context_items(
-        request,
-        Task,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Task,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
@@ -701,20 +695,19 @@ def time_edit(request, pk=None):
     else:
         from .forms import TimeForm
 
-    return edit(
-        request,
-        TimeForm,
-        Time,
-        url_name,
-        'time_edit.html',
-        client=client,
-        clients=clients,
-        pk=pk,
-        project=project,
-        projects=projects,
-        task=task,
-        tasks=tasks,
-        kwargs=kwargs)
+    return edit(request,
+                TimeForm,
+                Time,
+                url_name,
+                'time_edit.html',
+                client=client,
+                clients=clients,
+                pk=pk,
+                project=project,
+                projects=projects,
+                task=task,
+                tasks=tasks,
+                kwargs=kwargs)
 
 
 @login_required
@@ -725,14 +718,13 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
-    context, items = context_items(
-        request,
-        Time,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated,
-        order_by=order_by)
+    context, items = context_items(request,
+                                   Time,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated,
+                                   order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
@@ -781,15 +773,14 @@ def user_edit(request, pk=None):
     if pk:
         kwargs['pk'] = pk
         url_name = 'user'
-    return edit(
-        request,
-        ProfileForm,
-        Profile,
-        url_name,
-        'user_edit.html',
-        kwargs=kwargs,
-        pk=pk,
-        context=context)
+    return edit(request,
+                ProfileForm,
+                Profile,
+                url_name,
+                'user_edit.html',
+                kwargs=kwargs,
+                pk=pk,
+                context=context)
 
 
 @staff_member_required
@@ -799,8 +790,12 @@ def user_index(request):
     paginated = is_paginated(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context, items = context_items(
-        request, User, fields, active=active, page=page, paginated=paginated)
+    context, items = context_items(request,
+                                   User,
+                                   fields,
+                                   active=active,
+                                   page=page,
+                                   paginated=paginated)
     context['active'] = active
     context['items'] = items
     context['company'] = company
