@@ -37,7 +37,6 @@
                   <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                   <th data-field="first-name" data-sort-name="first-name" data-sortable="true">First Name</th>
                   <th data-field="last-name" data-sort-name="last-name" data-sortable="true">Last Name</th>
-                  <th data-sortable="true">Email</th>
                   <th data-sortable="true">Client</th>
                   <th>View</th>
                   <th>Edit</th> 
@@ -51,7 +50,6 @@
                   <td>{{ item.active }}</td>
                   <td>{{ item.first_name }}</td>
                   <td>{{ item.last_name }}</td>
-                  <td>{{ item.email }}</td>
                   {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
                   <td><a href="{% url 'contact' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                   <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
