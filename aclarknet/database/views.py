@@ -135,6 +135,7 @@ def client_index(request):
     context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'client_index.html', context)
 
 
@@ -203,6 +204,7 @@ def contact_index(request):
     context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'contact_index.html', context)
 
 
@@ -336,6 +338,7 @@ def estimate_index(request):
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['items'] = items
     context['company'] = company
+    context['search'] = '+'.join(search.split())
     return render(request, 'estimate_index.html', context)
 
 
@@ -487,9 +490,10 @@ def invoice_index(request):
         search=search,
         order_by=order_by)
     context['active'] = active
+    context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['items'] = items
-    context['company'] = company
+    context['search'] = '+'.join(search.split())
     return render(request, 'invoice_index.html', context)
 
 
@@ -555,6 +559,7 @@ def project_index(request, pk=None):
     context['active'] = active
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'project_index.html', context)
 
 
@@ -579,11 +584,12 @@ def report_index(request):
         agg['gross'] = 0
         agg['net'] = 0
         diff = 0
-    context['items'] = items
     context['agg'] = agg
     context['company'] = company
     context['diff'] = diff
     context['edit_url'] = 'report_edit'  # Delete form modal
+    context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'report_index.html', context)
 
 
@@ -653,6 +659,7 @@ def task_index(request):
     context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'task_index.html', context)
 
 
@@ -750,6 +757,7 @@ def time_index(request):
     context['active'] = active
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'time_index.html', context)
 
 
@@ -823,6 +831,7 @@ def user_index(request):
         paginated=paginated,
         search=search)
     context['active'] = active
-    context['items'] = items
     context['company'] = company
+    context['items'] = items
+    context['search'] = '+'.join(search.split())
     return render(request, 'user_index.html', context)
