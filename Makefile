@@ -218,6 +218,7 @@ python-wc:
 	-wc -l $(PROJECT)/$(APP)/*.py
 
 # Sphinx
+sphinx: sphinx-init
 sphinx-init:
 	sphinx-quickstart -q -p "Python Project" -a "Alex Clark" -v 0.0.1 doc
 sphinx-serve:
