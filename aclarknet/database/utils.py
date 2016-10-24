@@ -445,6 +445,9 @@ def kwargs_for_active_items(model, active=False, user=None):
     elif model._meta.verbose_name == 'user':
         # Use related model's active field
         kwargs['profile__active'] = active
+    elif model._meta.verbose_name == 'report':
+        # Reports are always active
+        pass
     else:
         # All other models check active field
         kwargs['active'] = active

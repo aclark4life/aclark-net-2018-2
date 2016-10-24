@@ -574,10 +574,15 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_index(request):
-    context = {}
-    company = Company.get_solo()
-    items = Report.objects.all().annotate(diff=F('gross') - F('net'))
     agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
+    company = Company.get_solo()
+    fields = ('id', 'name')
+    items = Report.objects.all().annotate(diff=F('gross') - F('net'))
+    page = request.GET.get('page')
+    paginated = is_paginated(request)
+    search = request.GET.get('search', '')
+    context, items = context_items(
+        request, Report, fields, page=page, paginated=paginated, search=search)
     if agg['gross'] is not None and agg['net'] is not None:
         diff = agg['gross'] - agg['net']
     else:
