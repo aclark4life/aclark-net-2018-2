@@ -44,7 +44,7 @@
       </div>
     </td>
     <td valign="top"> 
-      <div class="padding-5"><strong>{{ item.document_id|default:'123' }}</strong><br>
+      <div class="padding-5"><br><strong>{{ item.document_id|default:'123' }}</strong><br>
         {{ item.issue_date|date:'Y-m-d' }}<br>
         {% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}
         {{ item.subject }}<br>
