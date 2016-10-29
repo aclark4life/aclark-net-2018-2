@@ -408,11 +408,11 @@ def gravatar_url(email):
 def index_items(request, model, fields, context={}, order_by=None):
     """
     """
-    active = is_active_only(request)
+    active_only = is_active_only(request)
     page = get_page(request)
     paginated = is_paginated(request)
     search = get_search(request)
-    kwargs = get_kwargs(model, active=active, user=request.user, search=search)
+    kwargs = get_kwargs(model, active=active_only, user=request.user, search=search)
     items = model.objects.filter(Q(**kwargs))
     if order_by:
         items = items.order_by(order_by)
@@ -420,7 +420,7 @@ def index_items(request, model, fields, context={}, order_by=None):
         items = []
     if paginated:
         items = paginate(items, page)
-    context['active'] = active
+    context['active'] = active_only
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
@@ -429,7 +429,7 @@ def index_items(request, model, fields, context={}, order_by=None):
 
 def is_active_only(request):
     """
-    Get query string parameter; return True when 'active=true' or no query
+    Get query string parameter; return True when 'active-only=true' or no query
     string exists, else return False.
     """
     active_only = request.GET.get('active-only')
