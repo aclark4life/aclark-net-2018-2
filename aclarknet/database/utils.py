@@ -94,7 +94,8 @@ def index_items(request, model, fields, context={}, order_by=None):
     active = is_active(request)
     page = get_page(request)
     paginated = is_paginated(request)
-    kwargs = kwargs_for_active_items(model, active=active, user=request.user)
+    search = get_search(request)
+    kwargs = get_kwargs(model, active=active, user=request.user, search=search)
     items = model.objects.filter(Q(**kwargs))
     if order_by:
         items = items.order_by(order_by)
@@ -163,6 +164,12 @@ def get_page(request):
     """
     """
     return request.GET.get('page', '')
+
+
+def get_search(request):
+    """
+    """
+    return request.GET.get('search', '')
 
 
 def edit(request,
@@ -397,10 +404,8 @@ def entries_total(queryset):
             total)
 
 
-def kwargs_for_active_items(model, active=False, user=None):
+def get_kwargs(model, active=False, user=None, search=None):
     """
-    Return kwargs for "active" items by checking appropriate field
-    for model.
     """
     kwargs = {}
     if model._meta.verbose_name == 'estimate':
