@@ -20,9 +20,9 @@ from import_export import widgets
 from md5 import md5
 from smtplib import SMTPSenderRefused
 
-import datetime
-import operator
-import re
+# import datetime
+# import operator
+# import re
 
 
 class BooleanWidget(widgets.Widget):
