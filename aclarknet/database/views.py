@@ -120,7 +120,6 @@ def client_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     fields = ('address', 'name')
     order_by = '-pk'
     context, items = context_items(
@@ -130,12 +129,10 @@ def client_index(request):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'client_index.html', context)
 
 
@@ -189,7 +186,6 @@ def contact_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context, items = context_items(
@@ -199,12 +195,10 @@ def contact_index(request):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'contact_index.html', context)
 
 
@@ -321,7 +315,6 @@ def estimate_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
@@ -332,13 +325,11 @@ def estimate_index(request):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['items'] = items
     context['company'] = company
-    context['search'] = '+'.join(search.split())
     return render(request, 'estimate_index.html', context)
 
 
@@ -472,7 +463,6 @@ def invoice_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('client__name',
               'document_id',
@@ -487,13 +477,11 @@ def invoice_index(request):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'invoice_index.html', context)
 
 
@@ -544,7 +532,6 @@ def project_index(request, pk=None):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     fields = ('id', 'name')
     order_by = '-start_date'
     context, items = context_items(
@@ -554,12 +541,10 @@ def project_index(request, pk=None):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'project_index.html', context)
 
 
@@ -580,9 +565,8 @@ def report_index(request):
     items = Report.objects.all().annotate(diff=F('gross') - F('net'))
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     context, items = context_items(
-        request, Report, fields, page=page, paginated=paginated, search=search)
+        request, Report, fields, page=page, paginated=paginated)
     if agg['gross'] is not None and agg['net'] is not None:
         diff = agg['gross'] - agg['net']
     else:
@@ -594,7 +578,6 @@ def report_index(request):
     context['diff'] = diff
     context['edit_url'] = 'report_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'report_index.html', context)
 
 
@@ -649,7 +632,6 @@ def task_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     order_by = '-pk'
     fields = ('name', )
     context, items = context_items(
@@ -659,12 +641,10 @@ def task_index(request):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'task_index.html', context)
 
 
@@ -746,7 +726,6 @@ def time_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
@@ -757,12 +736,10 @@ def time_index(request):
         active=active,
         page=page,
         paginated=paginated,
-        search=search,
         order_by=order_by)
     context['active'] = active
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'time_index.html', context)
 
 
@@ -824,7 +801,6 @@ def user_index(request):
     active = is_active(request)
     page = request.GET.get('page')
     paginated = is_paginated(request)
-    search = request.GET.get('search', '')
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context, items = context_items(
@@ -833,10 +809,8 @@ def user_index(request):
         fields,
         active=active,
         page=page,
-        paginated=paginated,
-        search=search)
+        paginated=paginated)
     context['active'] = active
     context['company'] = company
     context['items'] = items
-    context['search'] = '+'.join(search.split())
     return render(request, 'user_index.html', context)
