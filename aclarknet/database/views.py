@@ -295,7 +295,7 @@ def home(request):
     context = {}
     company = Company.get_solo()
     gross, net = dashboard_totals(Invoice)
-    projects = dashboard_items(Project, order_by='client__name')
+    projects = dashboard_items(Project, order_by='client__name', active=True)
     # http://stackoverflow.com/a/35044521
     for project in projects:
         project.daily_burn = daily_burn(project)
