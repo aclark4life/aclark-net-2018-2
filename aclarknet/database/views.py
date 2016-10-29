@@ -804,12 +804,7 @@ def user_index(request):
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context, items = context_items(
-        request,
-        User,
-        fields,
-        active=active,
-        page=page,
-        paginated=paginated)
+        request, User, fields, active=active, page=page, paginated=paginated)
     context['active'] = active
     context['company'] = company
     context['items'] = items
