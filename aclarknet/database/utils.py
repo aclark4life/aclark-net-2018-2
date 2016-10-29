@@ -88,28 +88,6 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def index_items(request, model, fields, context={}, order_by=None):
-    """
-    """
-    active = is_active(request)
-    page = get_page(request)
-    paginated = is_paginated(request)
-    search = get_search(request)
-    kwargs = get_kwargs(model, active=active, user=request.user, search=search)
-    items = model.objects.filter(Q(**kwargs))
-    if order_by:
-        items = items.order_by(order_by)
-    if not request.user.is_authenticated:
-        items = []
-    if paginated:
-        items = paginate(items, page)
-    context['active'] = active
-    context['items'] = items
-    context['page'] = page
-    context['paginated'] = paginated
-    return context
-
-
 def daily_burn(project):
     try:
         days = (project.end_date - project.start_date).days
@@ -144,32 +122,6 @@ def dashboard_totals(model):
         if invoice.amount:
             net += invoice.amount
     return gross, net
-
-
-def generate_doc(request):
-    """
-    http://stackoverflow.com/a/31904512/185820
-    """
-    content_type = 'application/vnd.openxmlformats'
-    content_type += '-officedocument.wordprocessingml.document'
-    document = Document()
-    document.add_heading('Document Title', 0)
-    response = HttpResponse(content_type=content_type)
-    response['Content-Disposition'] = 'attachment; filename=download.docx'
-    document.save(response)
-    return response
-
-
-def get_page(request):
-    """
-    """
-    return request.GET.get('page', '')
-
-
-def get_search(request):
-    """
-    """
-    return request.GET.get('search', '')
 
 
 def edit(request,
@@ -436,11 +388,45 @@ def get_kwargs(model, active=False, user=None, search=None):
     return kwargs
 
 
+def get_page(request):
+    """
+    """
+    return request.GET.get('page', '')
+
+
+def get_search(request):
+    """
+    """
+    return request.GET.get('search', '')
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
     """
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+
+
+def index_items(request, model, fields, context={}, order_by=None):
+    """
+    """
+    active = is_active(request)
+    page = get_page(request)
+    paginated = is_paginated(request)
+    search = get_search(request)
+    kwargs = get_kwargs(model, active=active, user=request.user, search=search)
+    items = model.objects.filter(Q(**kwargs))
+    if order_by:
+        items = items.order_by(order_by)
+    if not request.user.is_authenticated:
+        items = []
+    if paginated:
+        items = paginate(items, page)
+    context['active'] = active
+    context['items'] = items
+    context['page'] = page
+    context['paginated'] = paginated
+    return context
 
 
 def is_active(request):
