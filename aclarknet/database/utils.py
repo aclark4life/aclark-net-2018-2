@@ -91,13 +91,13 @@ def class_name_pk(self):
 def context_items(request,
                   model,
                   fields,
-                  active=False,
                   context={},
-                  order_by=None,
-                  page=None,
-                  paginated=False):
+                  order_by=None):
     """
     """
+    active = is_active(request)
+    page = get_page(request)
+    paginated = is_paginated(request)
     kwargs = kwargs_for_active_items(model, active=active, user=request.user)
     items = model.objects.filter(Q(**kwargs))
     if order_by:
@@ -106,7 +106,11 @@ def context_items(request,
         items = []
     if paginated:
         items = paginate(items, page)
-    return context, items
+    context['active'] = active
+    context['items'] = items
+    context['page'] = page
+    context['paginated'] = paginated
+    return context
 
 
 def daily_burn(project):
@@ -157,6 +161,10 @@ def generate_doc(request):
     response['Content-Disposition'] = 'attachment; filename=download.docx'
     document.save(response)
     return response
+
+
+def get_page(request):
+    return request.GET.get('page', '')
 
 
 def edit(request,

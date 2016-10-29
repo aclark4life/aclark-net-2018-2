@@ -29,8 +29,6 @@ from .utils import context_items
 from .utils import daily_burn
 from .utils import dashboard_items
 from .utils import dashboard_totals
-from .utils import is_active
-from .utils import is_paginated
 from .utils import edit
 from .utils import entries_total
 from .utils import send_mail
@@ -117,22 +115,14 @@ def client_edit(request, pk=None):
 
 @staff_member_required
 def client_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     fields = ('address', 'name')
     order_by = '-pk'
-    context, items = context_items(
+    context = context_items(
         request,
         Client,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['edit_url'] = 'client_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'client_index.html', context)
 
 
@@ -183,22 +173,14 @@ def contact_edit(request, pk=None):
 
 @staff_member_required
 def contact_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
-    context, items = context_items(
+    context = context_items(
         request,
         Contact,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['edit_url'] = 'contact_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'contact_index.html', context)
 
 
@@ -312,23 +294,15 @@ def estimate_edit(request, pk=None):
 
 @staff_member_required
 def estimate_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
-    context, items = context_items(
+    context = context_items(
         request,
         Estimate,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['edit_url'] = 'estimate_edit'  # Delete form modal
-    context['items'] = items
     context['company'] = company
     return render(request, 'estimate_index.html', context)
 
@@ -460,9 +434,6 @@ def invoice_edit(request, pk=None):
 
 @staff_member_required
 def invoice_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     company = Company.get_solo()
     fields = ('client__name',
               'document_id',
@@ -470,18 +441,13 @@ def invoice_index(request):
               'project__name',
               'subject', )
     order_by = '-issue_date'
-    context, items = context_items(
+    context = context_items(
         request,
         Invoice,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'invoice_index.html', context)
 
 
@@ -529,22 +495,14 @@ def project_edit(request, pk=None):
 
 @staff_member_required
 def project_index(request, pk=None):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     fields = ('id', 'name')
     order_by = '-start_date'
-    context, items = context_items(
+    context = context_items(
         request,
         Project,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['edit_url'] = 'project_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'project_index.html', context)
 
 
@@ -563,10 +521,8 @@ def report_index(request):
     company = Company.get_solo()
     fields = ('id', 'name')
     items = Report.objects.all().annotate(diff=F('gross') - F('net'))
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
-    context, items = context_items(
-        request, Report, fields, page=page, paginated=paginated)
+    context = context_items(
+        request, Report, fields)
     if agg['gross'] is not None and agg['net'] is not None:
         diff = agg['gross'] - agg['net']
     else:
@@ -577,7 +533,6 @@ def report_index(request):
     context['company'] = company
     context['diff'] = diff
     context['edit_url'] = 'report_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'report_index.html', context)
 
 
@@ -629,22 +584,14 @@ def task_edit(request, pk=None):
 
 @staff_member_required
 def task_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     order_by = '-pk'
     fields = ('name', )
-    context, items = context_items(
+    context = context_items(
         request,
         Task,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['edit_url'] = 'task_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'task_index.html', context)
 
 
@@ -723,23 +670,15 @@ def time_edit(request, pk=None):
 
 @login_required
 def time_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
-    context, items = context_items(
+    context = context_items(
         request,
         Time,
         fields,
-        active=active,
-        page=page,
-        paginated=paginated,
         order_by=order_by)
-    context['active'] = active
     context['edit_url'] = 'entry_edit'  # Delete form modal
-    context['items'] = items
     return render(request, 'time_index.html', context)
 
 
@@ -798,14 +737,9 @@ def user_edit(request, pk=None):
 
 @staff_member_required
 def user_index(request):
-    active = is_active(request)
-    page = request.GET.get('page')
-    paginated = is_paginated(request)
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context, items = context_items(
-        request, User, fields, active=active, page=page, paginated=paginated)
-    context['active'] = active
+    context = context_items(
+        request, User, fields)
     context['company'] = company
-    context['items'] = items
     return render(request, 'user_index.html', context)
