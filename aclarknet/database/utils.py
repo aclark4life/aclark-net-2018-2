@@ -408,7 +408,7 @@ def gravatar_url(email):
 def index_items(request, model, fields, context={}, order_by=None):
     """
     """
-    active = is_active(request)
+    active = is_active_only(request)
     page = get_page(request)
     paginated = is_paginated(request)
     search = get_search(request)
@@ -427,14 +427,14 @@ def index_items(request, model, fields, context={}, order_by=None):
     return context
 
 
-def is_active(request):
+def is_active_only(request):
     """
     Get query string parameter; return True when 'active=true' or no query
     string exists, else return False.
     """
-    active = request.GET.get('active-only')
-    if active:
-        if active == u'true':
+    active_only = request.GET.get('active-only')
+    if active_only:
+        if active_only == u'true':
             return True
         else:
             return False
