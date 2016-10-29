@@ -160,6 +160,8 @@ def generate_doc(request):
 
 
 def get_page(request):
+    """
+    """
     return request.GET.get('page', '')
 
 
