@@ -25,7 +25,7 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
-from .utils import context_items
+from .utils import index_items
 from .utils import daily_burn
 from .utils import dashboard_items
 from .utils import dashboard_totals
@@ -113,7 +113,7 @@ def client_edit(request, pk=None):
 def client_index(request):
     fields = ('address', 'name')
     order_by = '-pk'
-    context = context_items(request, Client, fields, order_by=order_by)
+    context = index_items(request, Client, fields, order_by=order_by)
     context['edit_url'] = 'client_edit'  # Delete form modal
     return render(request, 'client_index.html', context)
 
@@ -167,7 +167,7 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
-    context = context_items(request, Contact, fields, order_by=order_by)
+    context = index_items(request, Contact, fields, order_by=order_by)
     context['edit_url'] = 'contact_edit'  # Delete form modal
     return render(request, 'contact_index.html', context)
 
@@ -285,7 +285,7 @@ def estimate_index(request):
     company = Company.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
-    context = context_items(request, Estimate, fields, order_by=order_by)
+    context = index_items(request, Estimate, fields, order_by=order_by)
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -425,7 +425,7 @@ def invoice_index(request):
               'project__name',
               'subject', )
     order_by = '-issue_date'
-    context = context_items(request, Invoice, fields, order_by=order_by)
+    context = index_items(request, Invoice, fields, order_by=order_by)
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     return render(request, 'invoice_index.html', context)
@@ -477,7 +477,7 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     fields = ('id', 'name')
     order_by = '-start_date'
-    context = context_items(request, Project, fields, order_by=order_by)
+    context = index_items(request, Project, fields, order_by=order_by)
     context['edit_url'] = 'project_edit'  # Delete form modal
     return render(request, 'project_index.html', context)
 
@@ -497,7 +497,7 @@ def report_index(request):
     company = Company.get_solo()
     fields = ('id', 'name')
     items = Report.objects.all().annotate(diff=F('gross') - F('net'))
-    context = context_items(request, Report, fields)
+    context = index_items(request, Report, fields)
     if agg['gross'] is not None and agg['net'] is not None:
         diff = agg['gross'] - agg['net']
     else:
@@ -561,7 +561,7 @@ def task_edit(request, pk=None):
 def task_index(request):
     order_by = '-pk'
     fields = ('name', )
-    context = context_items(request, Task, fields, order_by=order_by)
+    context = index_items(request, Task, fields, order_by=order_by)
     context['edit_url'] = 'task_edit'  # Delete form modal
     return render(request, 'task_index.html', context)
 
@@ -644,7 +644,7 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
-    context = context_items(request, Time, fields, order_by=order_by)
+    context = index_items(request, Time, fields, order_by=order_by)
     context['edit_url'] = 'entry_edit'  # Delete form modal
     return render(request, 'time_index.html', context)
 
@@ -706,6 +706,6 @@ def user_edit(request, pk=None):
 def user_index(request):
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context = context_items(request, User, fields)
+    context = index_items(request, User, fields)
     context['company'] = company
     return render(request, 'user_index.html', context)
