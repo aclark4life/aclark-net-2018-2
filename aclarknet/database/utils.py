@@ -88,11 +88,7 @@ def class_name_pk(self):
     return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
-def context_items(request,
-                  model,
-                  fields,
-                  context={},
-                  order_by=None):
+def context_items(request, model, fields, context={}, order_by=None):
     """
     """
     active = is_active(request)
