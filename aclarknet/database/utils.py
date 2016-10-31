@@ -354,7 +354,7 @@ def entries_total(queryset):
             total)
 
 
-def get_kwargs(model, active=False, user=None, search=None):
+def get_kwargs(model, active=False, fields=None, user=None, search=None):
     """
     """
     kwargs = {}
