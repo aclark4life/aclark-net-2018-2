@@ -214,7 +214,7 @@ def edit(request,
                     company.estimate_counter -= 1
                     company.save()
                 # Redir to appropriate index
-                url_name = url_name_from_verbose_name(obj)
+                url_name = url_name_from(obj._meta.verbose_name)
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
             checkbox = request.POST.get('checkbox')
@@ -227,7 +227,7 @@ def edit(request,
                     obj.active = False
                 obj.save()
                 # Redir to appropriate index for checkbox
-                url_name = url_name_from_verbose_name(obj)
+                url_name = url_name_from(obj._meta.verbose_name)
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if checkbox_publish == 'on' or checkbox_publish == 'off':
                 kwargs = {}
@@ -237,7 +237,7 @@ def edit(request,
                     obj.published = False
                 obj.save()
                 # Redir to appropriate index for checkbox_publish
-                url_name = url_name_from_verbose_name(obj)
+                url_name = url_name_from(obj._meta.verbose_name)
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if amount and subtotal and paid_amount and paid:
                 obj.amount = amount
@@ -493,24 +493,17 @@ def send_mail(request, subject, message, to):
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 
 
-def url_name_from_verbose_name(obj):
+def url_name_from(verbose_name):
     """
     """
-    url_name = None
-    if obj._meta.verbose_name == 'client':
-        url_name = 'client_index'
-    if obj._meta.verbose_name == 'contact':
-        url_name = 'contact_index'
-    if obj._meta.verbose_name == 'estimate':
-        url_name = 'estimate_index'
-    if obj._meta.verbose_name == 'invoice':
-        url_name = 'invoice_index'
-    if obj._meta.verbose_name == 'task':
-        url_name = 'task_index'
-    if obj._meta.verbose_name == 'time':
-        url_name = 'entry_index'
-    if obj._meta.verbose_name == 'project':
-        url_name = 'project_index'
-    if obj._meta.verbose_name == 'report':
-        url_name = 'report_index'
-    return url_name
+    url_name = {
+        'client': 'client_index',
+        'contact': 'contact_index',
+        'estimate': 'estimate_index',
+        'invoice': 'invoice_index',
+        'project': 'project_index',
+        'report': 'report_index',
+        'task': 'task_index',
+        'time': 'entry_index',
+    }
+    return url_name[verbose_name]
