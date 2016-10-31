@@ -412,7 +412,7 @@ def index_items(request, model, fields, context={}, order_by=None):
     page = get_page(request)
     paginated = is_paginated(request)
     search = get_search(request)
-    kwargs = get_kwargs(model, active=active_only, user=request.user, search=search)
+    kwargs = get_kwargs(model, active=active_only, fields=fields, user=request.user, search=search)
     items = model.objects.filter(Q(**kwargs))
     if order_by:
         items = items.order_by(order_by)
