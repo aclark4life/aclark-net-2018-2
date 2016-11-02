@@ -45,22 +45,26 @@
     <td align="left" style="width: 5%" class="border-padding">{{ item.document_id|default:'' }}</td>
     <!-- Right column -->
     <td rowspan=5 valign="top" align="right" class="border-right border-padding light-text">{{ document_type_title }} For</td>
-    <td rowspan=5 valign="top"><div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>{{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
+    <td rowspan=5 valign="top" class="border-padding">
+      <strong>{{ item.client.name|default:'Client' }}</strong>
+      <br>
+      {{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
+    </td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Issue Date</div></td>
-    <td align="left" style="width: 5%"><div class="border-padding">{{ item.issue_date|date:'Y-m-d' }}</div></td>
+    <td valign="top" align="left" style="width: 5%" class="border-right border-padding light-text">Issue Date</td>
+    <td align="left" style="width: 5%" class="border-padding">{{ item.issue_date|date:'Y-m-d' }}</td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if invoice %}Due Date<br>{% endif %}</div></td>
-    <td align="left" style="width: 5%"><div class="border-padding">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</div></td>
+    <td valign="top" align="left" style="width: 5%" class="border-right border-padding light-text">{% if invoice %}Due Date<br>{% endif %}</td>
+    <td align="left" style="width: 5%" class="border-padding">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Subject</div></td>
-    <td align="left" style="width: 5%"><div class="border-padding">{{ item.subject }}</div></td>
+    <td valign="top" align="left" style="width: 5%" class="border-right border-padding light-text">Subject</td>
+    <td align="left" style="width: 5%" class="border-padding">{{ item.subject }}</td>
   </tr>
   <tr>
     <!-- Left column -->
