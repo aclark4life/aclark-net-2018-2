@@ -38,7 +38,7 @@
   <tr>
     <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{{ document_type_title }} ID </td></td>
-    <td valign="top" align="left" style="width: 5%">{{ item.document_id|default:'' }}</td>
+    <td align="left" style="width: 5%"><div class="border-padding">{{ item.document_id|default:'' }}</div></td>
     <!-- Right column -->
     <td rowspan=5 valign="top" align="right" class="border-right"><div class="border-padding light-text">{{ document_type_title }} For</div></td>
     <td rowspan=5 valign="top"><div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>{{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
@@ -46,27 +46,27 @@
   <tr>
     <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Issue Date</div></td>
-    <td valign="top" align="left" style="width: 5%">{{ item.issue_date|date:'Y-m-d' }}</td>
+    <td align="left" style="width: 5%"><div class="border-padding">{{ item.issue_date|date:'Y-m-d' }}</div></td>
   </tr>
   <tr>
     <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if invoice %}Due Date<br>{% endif %}</div></td>
-    <td valign="top" align="left" style="width: 5%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}</td>
+    <td align="left" style="width: 5%"><div class="border-padding">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</div></td>
   </tr>
   <tr>
     <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Subject</div></td>
-    <td valign="top" align="left" style="width: 5%">{{ item.subject }}</td>
+    <td align="left" style="width: 5%"><div class="border-padding">{{ item.subject }}</div></td>
   </tr>
   <tr>
     <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if item.po_number %}PO Number{% endif %}</div></td>
-    <td valign="top" align="left" style="width: 5%">{% if item.po_number %}{{ item.po_number }}{% endif %}</div></td>
+    <td align="left" style="width: 5%"><div class="border-padding">{% if item.po_number %}{{ item.po_number }}{% endif %}</div></td>
   </tr>
   <tr>
     <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 10%"></td>
-    <td valign="top"><div class="border-padding"></td>
+    <td valign="top"></td>
   </tr>
 </table>
 <table id="time-entries">
@@ -96,10 +96,10 @@
     <td valign="top" align="left" class="border-right border-padding" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
     {% if not pdf %}<td valign="top" align="left" class="border-right border-padding" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
     <td valign="top" align="left" class="border-right border-padding" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
-    <td valign="top" align="right" class="border-right border-padding" style="width: 20%">
+    <td align="right" class="border-right border-padding" style="width: 20%">
       {% if not pdf %}<a href="{% url 'entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours|default:'0' }}{% endif %}</td>
     <td valign="top" align="right" class="border-right border-padding" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
-    <td valign="top" align="right" class="border-padding" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
+    <td align="right" class="border-padding" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
   </tr>
   {% endfor %}
   <tr></tr>
