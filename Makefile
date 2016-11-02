@@ -83,16 +83,16 @@ ablog-serve:
 	bin/ablog serve
 
 # Django
+db: django-database
 django: django-clean django-install django-init django-migrate django-su django-serve  # Chain
-django-clean:
+django-clean:  # SQLite or PostgreSQL
 	-rm -rf $(PROJECT)
 	-rm manage.py
-	-dropdb $(PROJECT)-$(APP)
-	-createdb $(PROJECT)-$(APP)
 	-rm db.sqlite3
-django-clean-migrations:
-	rm -rf $(PROJECT)/$(APP)/migrations
-	$(MAKE) django-migrations
+	-dropdb $(PROJECT)
+django-database:
+	-touch db.sqlite3
+	-createdb $(PROJECT)
 django-init:
 	-mkdir -p $(PROJECT)/$(APP)
 	-django-admin startproject $(PROJECT) .
@@ -165,7 +165,7 @@ help:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F:\
         '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
         | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
-        '{print "    - "$$0}'  # http://stackoverflow.com/a/26339924
+        '{print "    - "$$0}' | less  # http://stackoverflow.com/a/26339924
 	@echo "\n"
 
 # Heroku
@@ -316,7 +316,6 @@ vagrant-update:
 # aclarknet-database
 APP=database
 PROJECT=aclarknet
-
 heroku-backup:
 	heroku pg:backups capture
 heroku-copy:
@@ -331,4 +330,3 @@ heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
-
