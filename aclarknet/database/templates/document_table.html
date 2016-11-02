@@ -29,16 +29,9 @@
 </style>
 <table border=0 id="client-info">
   <tr>
-    <td colspan=2>
-      <h1 class="document-header">{{ document_type_upper }}</h1>
-    </td>
-    <td valign="top" align="right" class="border-right">
-      <div class="border-padding light-text">From</div>
-    </td>
-    <td valign="top"> 
-      <div class="border-padding"><strong>{{ company.name|default:'Company' }}</strong><br>
-      {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div>
-    </td>
+    <td colspan=2><h1 class="document-header">{{ document_type_upper }}</h1></td>
+    <td valign="top" align="right" class="border-right"><div class="border-padding light-text">From</div></td>
+    <td valign="top"><div class="border-padding"><strong>{{ company.name|default:'Company' }}</strong><br>{{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
   </tr>
   <tr>
     <td valign="top" align="left" class="border-right" style="width: 10%">
@@ -66,7 +59,7 @@
     </td>
   </tr>
 </table>
-<table>
+<table id="time-entries">
   <thead>
     <tr class="border-bottom">
       <th align="left" class="border-right border-padding">
