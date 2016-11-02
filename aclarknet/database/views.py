@@ -240,7 +240,7 @@ def estimate(request, pk=None):
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
-            'invoice_time.html', context=context, file_object=response)
+            'document_table.html', context=context, file_object=response)
     else:
         return render(request, 'estimate.html', context)
 
@@ -359,7 +359,7 @@ def invoice(request, pk=None):
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
-            'invoice_time.html', context=context, file_object=response)
+            'document_table.html', context=context, file_object=response)
     else:
         return render(request, 'invoice.html', context)
 
