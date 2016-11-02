@@ -98,8 +98,8 @@
   </tr>
   {% endfor %}
   <tr>
-    <td align="right" colspan=3>{% if invoice %}<h2 class="amount-due">Amount Due</h2>{% else %}<h2 class="amount-due">Estimate Total</h2>{% endif %}</td>
-    <td align="right" colspan=2>{% if invoice %}<h2 class="amount-due">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h2>{% else %}<h2 class="amount-due">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h2>{% endif %}</td>
+    <td align="right" colspan=3>{% if invoice %}<h2>Amount Due</h2>{% else %}<h2>Estimate Total</h2>{% endif %}</td>
+    <td align="right" colspan=2>{% if invoice %}<h2>{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h2>{% else %}<h2>{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h2>{% endif %}</td>
   </tr>
   </tbody>
 </table>
