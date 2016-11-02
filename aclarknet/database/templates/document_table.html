@@ -29,33 +29,42 @@
 </style>
 <table border=0 id="client-info">
   <tr>
+    <!-- Left column -->
     <td colspan=2><h1 class="document-header">{{ document_type_upper }}</h1></td>
+    <!-- Right column -->
     <td valign="top" align="right" class="border-right"><div class="border-padding light-text">From</div></td>
     <td valign="top"><div class="border-padding"><strong>{{ company.name|default:'Company' }}</strong><br>{{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
   </tr>
   <tr>
+    <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{{ document_type_title }} ID </td></td>
     <td valign="top" align="left" style="width: 5%">{{ item.document_id|default:'' }}</td>
-  </tr>
-  <tr>
-    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Issue Date</div></td>
-    <td valign="top" align="left" style="width: 5%">{{ item.issue_date|date:'Y-m-d' }}</td>
-  </tr>
-  <tr>
-    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if invoice %}Due Date<br>{% endif %}</div></td>
-    <td valign="top" align="left" style="width: 5%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}</td>
-  </tr>
-  <tr>
-    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Subject</div></td>
-    <td valign="top" align="left" style="width: 5%">{{ item.subject }}</td>
+    <!-- Right column -->
     <td valign="top" align="right" class="border-right"><div class="border-padding light-text">{{ document_type_title }} For</div></td>
     <td valign="top"><div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>{{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
   </tr>
   <tr>
+    <!-- Left column -->
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Issue Date</div></td>
+    <td valign="top" align="left" style="width: 5%">{{ item.issue_date|date:'Y-m-d' }}</td>
+  </tr>
+  <tr>
+    <!-- Left column -->
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if invoice %}Due Date<br>{% endif %}</div></td>
+    <td valign="top" align="left" style="width: 5%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}</td>
+  </tr>
+  <tr>
+    <!-- Left column -->
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Subject</div></td>
+    <td valign="top" align="left" style="width: 5%">{{ item.subject }}</td>
+  </tr>
+  <tr>
+    <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if item.po_number %}PO Number{% endif %}</div></td>
     <td valign="top" align="left" style="width: 5%">{% if item.po_number %}{{ item.po_number }}{% endif %}</div></td>
   </tr>
   <tr>
+    <!-- Left column -->
     <td valign="top" align="left" class="border-right" style="width: 10%"></td>
     <td valign="top"><div class="border-padding"></td>
   </tr>
