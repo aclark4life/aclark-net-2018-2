@@ -9,15 +9,15 @@
   .border-padding {
     padding: 5px;
   }
-  #client-info { 
-    margin: 0 0 75px 0;
-  }
   .document-header {
     font-weight: bold;
     font-size: 300%;
   }
   .light-text {
     color: gray;
+  }
+  #client-info { 
+    margin: 0 0 75px 0;
   }
   body {
     background: white;
@@ -40,8 +40,8 @@
     <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{{ document_type_title }} ID </td></td>
     <td valign="top" align="left" style="width: 5%">{{ item.document_id|default:'' }}</td>
     <!-- Right column -->
-    <td valign="top" align="right" class="border-right"><div class="border-padding light-text">{{ document_type_title }} For</div></td>
-    <td valign="top"><div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>{{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
+    <td rowspan=5 valign="top" align="right" class="border-right"><div class="border-padding light-text">{{ document_type_title }} For</div></td>
+    <td rowspan=5 valign="top"><div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>{{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
   </tr>
   <tr>
     <!-- Left column -->
