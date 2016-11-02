@@ -3,14 +3,14 @@
   #client-info { 
     margin: 0 0 75px 0;
   }
-  .cell-border {
+  .data-separator {
     border-right: 1px solid lightgray;
   }
   .document-header {
     font-weight: bold;
     font-size: 300%;
   }
-  .light-text {
+  .title-text {
     color: gray;
   }
   .row-border {
@@ -29,7 +29,7 @@
     <!-- Left column -->
     <td colspan=2><h1 class="document-header">{{ document_type_upper }}</h1></td>
     <!-- Right column -->
-    <td valign="top" align="right" class="cell-border light-text">From</td>
+    <td valign="top" align="right" class="data-separator title-text">From</td>
     <td valign="top"> 
       <strong>{{ company.name|default:'Company' }}</strong>
       <br>
@@ -38,10 +38,10 @@
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" class="cell-border light-text" style="width: 5%">{{ document_type_title }} ID</td>
+    <td valign="top" align="left" class="data-separator title-text" style="width: 5%">{{ document_type_title }} ID</td>
     <td valign="top" align="left" style="width: 5%">{{ item.document_id|default:'' }}</td>
     <!-- Right column -->
-    <td rowspan=5 valign="top" align="right" class="cell-border light-text">{{ document_type_title }} For</td>
+    <td rowspan=5 valign="top" align="right" class="data-separator title-text">{{ document_type_title }} For</td>
     <td rowspan=5 valign="top">
       <strong>{{ item.client.name|default:'Client' }}</strong>
       <br>
@@ -50,50 +50,50 @@
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" style="width: 5%" class="cell-border light-text">Issue Date</td>
+    <td valign="top" align="left" style="width: 5%" class="data-separator title-text">Issue Date</td>
     <td valign="top" align="left" style="width: 5%">{{ item.issue_date|date:'Y-m-d' }}</td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" style="width: 5%" class="cell-border light-text">{% if invoice %}Due Date<br>{% endif %}</td>
+    <td valign="top" align="left" style="width: 5%" class="data-separator title-text">{% if invoice %}Due Date<br>{% endif %}</td>
     <td valign="top" align="left" style="width: 5%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" style="width: 5%" class="cell-border light-text">Subject</td>
+    <td valign="top" align="left" style="width: 5%" class="data-separator title-text">Subject</td>
     <td valign="top" align="left" style="width: 5%">{{ item.subject }}</td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" style="width: 5%" class="cell-border light-text">{% if item.po_number %}PO Number{% endif %}</td>
+    <td valign="top" align="left" style="width: 5%" class="data-separator title-text">{% if item.po_number %}PO Number{% endif %}</td>
     <td valign="top" align="left" style="width: 5%">{% if item.po_number %}{{ item.po_number }}{% endif %}</td>
   </tr>
   <tr>
     <!-- Left column -->
-    <td valign="top" align="left" class="cell-border" style="width: 10%"></td>
+    <td valign="top" align="left" class="data-separator" style="width: 10%"></td>
     <td valign="top"></td>
   </tr>
 </table>
 <table id="time-entries">
   <thead>
     <tr class="row-border">
-      <th align="left" class="cell-border">Item Type</th>
-      {% if not pdf %}<th align="left" class="cell-border">Date</th>{% endif %}
-      <th align="left" class="cell-border">Description</th>
-      <th align="right" class="cell-border">Quantity</th>
-      <th align="right" class="cell-border">Unit Price</th>
+      <th align="left" class="data-separator">Item Type</th>
+      {% if not pdf %}<th align="left" class="data-separator">Date</th>{% endif %}
+      <th align="left" class="data-separator">Description</th>
+      <th align="right" class="data-separator">Quantity</th>
+      <th align="right" class="data-separator">Unit Price</th>
       <th align="right">Amount</th>
     </tr>
   </thead>
   <tbody>
   {% for entry in entries.values %}
   <tr class="row-border">
-    <td valign="top" align="left" class="cell-border" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
-    {% if not pdf %}<td valign="top" align="left" class="cell-border" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
-    <td valign="top" align="left" class="cell-border" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
-    <td align="right" class="cell-border" style="width: 20%">
+    <td valign="top" align="left" class="data-separator" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
+    {% if not pdf %}<td valign="top" align="left" class="data-separator" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
+    <td valign="top" align="left" class="data-separator" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
+    <td align="right" class="data-separator" style="width: 20%">
       {% if not pdf %}<a href="{% url 'entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours|default:'0' }}{% endif %}</td>
-    <td valign="top" align="right" class="cell-border" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
+    <td valign="top" align="right" class="data-separator" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
     <td align="right" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
   </tr>
   {% endfor %}
