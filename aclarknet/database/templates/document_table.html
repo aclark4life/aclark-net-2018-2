@@ -9,7 +9,7 @@
     .border-padding {
         padding: 5px;
     }
-    .client-info { 
+    #client-info { 
         margin: 0 0 75px 0;
     }
     .document-header {
@@ -27,7 +27,7 @@
         font-size: 175%;
     }
 </style>
-<table border=0 class="client-info">
+<table border=0 id="client-info">
   <tr>
     <td colspan=2>
       <h1 class="document-header">{{ document_type_upper }}</h1>
@@ -66,7 +66,7 @@
     </td>
   </tr>
 </table>
-<table> 
+<table>
   <thead>
     <tr class="border-bottom">
       <th align="left" class="border-right border-padding">
@@ -105,18 +105,10 @@
   <tr></tr>
   <tr>
     <td align="right" class="border-padding" colspan=3> 
-        {% if invoice %}
-        <h2 class="amount-due">Amount Due</h2>
-        {% else %}
-        <h2 class="amount-due">Estimate Total</h2>
-        {% endif %} 
+      {% if invoice %}<h2 class="amount-due">Amount Due</h2>{% else %}<h2 class="amount-due">Estimate Total</h2>{% endif %}
     </td>
     <td align="right" class="border-padding" colspan=2>
-        {% if invoice %}
-        <h2 class="amount-due">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h2>
-        {% else %}
-        <h2 class="amount-due">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h2>
-        {% endif %} 
+      {% if invoice %}<h2 class="amount-due">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h2>{% else %}<h2 class="amount-due">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h2>{% endif %}
     </td>
   </tr>
   </tbody>
