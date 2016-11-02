@@ -34,22 +34,34 @@
     <td valign="top"><div class="border-padding"><strong>{{ company.name|default:'Company' }}</strong><br>{{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div></td>
   </tr>
   <tr>
-    <td valign="top" align="left" class="border-right" style="width: 10%">
-      <div class="border-padding light-text">{{ document_type_title }} ID<br>
-        Issue Date<br>
-        {% if invoice %}Due Date<br>{% endif %}
-        Subject<br>
-        {% if item.po_number %}PO Number{% endif %}
-      </div>
+    <td valign="top" align="left" class="border-right" style="width: 5%">
+      <div class="border-padding light-text">{{ document_type_title }} ID </td>
     </td>
-    <td valign="top"> 
-      <div class="border-padding"><br><strong>{{ item.document_id|default:'123' }}</strong><br>
-        {{ item.issue_date|date:'Y-m-d' }}<br>
-        {% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}
-        {{ item.subject }}<br>
-        {% if item.po_number %}{{ item.po_number }}{% endif %}
-      </div>
+    <td valign="top" align="left" class="border-right" style="width: 5%">
+        123
     </td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Issue Date</div></td>
+    <td valign="top" align="left" class="border-right" style="width: 5%">{{ item.issue_date|date:'Y-m-d' }}</td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if invoice %}Due Date<br>{% endif %}</div></td>
+    <td valign="top" align="left" class="border-right" style="width: 5%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}</td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">Subject</div></td>
+    <td valign="top" align="left" class="border-right" style="width: 5%">{{ item.subject }}</td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" class="border-right" style="width: 5%"><div class="border-padding light-text">{% if item.po_number %}PO Number{% endif %}</div></td>
+    <td valign="top" align="left" class="border-right" style="width: 5%">
+    </td>
+    <td valign="top"><div class="border-padding">{% if item.po_number %}{{ item.po_number }}{% endif %}</div></td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" class="border-right" style="width: 10%"></td>
+    <td valign="top"><div class="border-padding"></td>
     <td valign="top" align="right" class="border-right">
       <div class="border-padding light-text">{{ document_type_title }} For</div>
     </td>
