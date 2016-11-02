@@ -1,24 +1,24 @@
 <!-- Include styles here for pdf conversion -->
 <style>
-    body {
-        background: white;
+    .border-bottom {
+        border-bottom: 1px solid lightgray;
+    }
+    .border-right {
+        border-right: 1px solid lightgray;
+    }
+    .border-padding {
+        padding: 5px;
     }
     .document-header {
         font-weight: bold;
         font-size: 300%;
     }
+    body {
+        background: white;
+    }
     h2 {
         font-weight: bold;
         font-size: 175%;
-    }
-    .border-right {
-        border-right: 1px solid lightgray;
-    }
-    .border-bottom {
-        border-bottom: 1px solid lightgray;
-    }
-    .padding-5 {
-        padding: 5px;
     }
 </style>
 <table border=0>
@@ -27,17 +27,17 @@
       <h1 class="document-header">{{ document_type_upper }}</h1>
     </td>
     <td valign="top" align="right" class="border-right">
-      <div style="color: gray" class="padding-5">From</div>
+      <div style="color: gray" class="border-padding">From</div>
     </td>
     <td valign="top"> 
-      <div class="padding-5"><strong>{{ company.name|default:'Company' }}</strong><br>
+      <div class="border-padding"><strong>{{ company.name|default:'Company' }}</strong><br>
       {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div>
     </td>
   </tr>
   <tr></tr>
   <tr>
     <td valign="top" align="left" class="border-right" style="width: 10%">
-      <div style="color: gray" class="padding-5">{{ document_type_title }} ID<br>
+      <div style="color: gray" class="border-padding">{{ document_type_title }} ID<br>
         Issue Date<br>
         {% if invoice %}Due Date<br>{% endif %}
         Subject<br>
@@ -45,7 +45,7 @@
       </div>
     </td>
     <td valign="top"> 
-      <div class="padding-5"><br><strong>{{ item.document_id|default:'123' }}</strong><br>
+      <div class="border-padding"><br><strong>{{ item.document_id|default:'123' }}</strong><br>
         {{ item.issue_date|date:'Y-m-d' }}<br>
         {% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt)<br>{% endif %}
         {{ item.subject }}<br>
@@ -53,10 +53,10 @@
       </div>
     </td>
     <td valign="top" align="right" class="border-right">
-      <div style="color: gray" class="padding-5">{{ document_type_title }} For</div>
+      <div style="color: gray" class="border-padding">{{ document_type_title }} For</div>
     </td>
     <td valign="top"> 
-      <div class="padding-5"><strong>{{ item.client.name|default:'Client' }}</strong><br>
+      <div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>
       {{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}</div>
     </td>
   </tr>
@@ -68,17 +68,17 @@
 <table> 
   <thead>
     <tr class="border-bottom">
-      <th align="left" class="border-right padding-5">
+      <th align="left" class="border-right border-padding">
         Item Type
       </th>
-      {% if not pdf %}<th align="left" class="border-right padding-5">Date</th>{% endif %}
-      <th align="left" class="border-right padding-5">
+      {% if not pdf %}<th align="left" class="border-right border-padding">Date</th>{% endif %}
+      <th align="left" class="border-right border-padding">
         Description
       </th>
-      <th align="right" class="border-right padding-5">
+      <th align="right" class="border-right border-padding">
         Quantity
       </th>
-      <th align="right" class="border-right padding-5">
+      <th align="right" class="border-right border-padding">
         Unit Price
       </th>
       <th align="right">
@@ -89,28 +89,28 @@
   <tbody>
   {% for entry in entries.values %}
   <tr class="border-bottom">
-    <td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
-    {% if not pdf %}<td valign="top" align="left" class="border-right padding-5" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
-    <td valign="top" align="left" class="border-right padding-5" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
-    <td valign="top" align="right" class="border-right padding-5" style="width: 20%">
+    <td valign="top" align="left" class="border-right border-padding" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
+    {% if not pdf %}<td valign="top" align="left" class="border-right border-padding" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
+    <td valign="top" align="left" class="border-right border-padding" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
+    <td valign="top" align="right" class="border-right border-padding" style="width: 20%">
         {% if not pdf %}<a href="{% url 'entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}
         {{ entry.hours|default:'0' }}
         {% endif %}
     </td>
-    <td valign="top" align="right" class="border-right padding-5" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
-    <td valign="top" align="right" class="padding-5" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
+    <td valign="top" align="right" class="border-right border-padding" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
+    <td valign="top" align="right" class="border-padding" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
   </tr>
   {% endfor %}
   <tr></tr>
   <tr>
-    <td align="right" class="padding-5" colspan=3> 
+    <td align="right" class="border-padding" colspan=3> 
         {% if invoice %}
         <h2 class="amount-due">Amount Due</h2>
         {% else %}
         <h2 class="amount-due">Estimate Total</h2>
         {% endif %} 
     </td>
-    <td align="right" class="padding-5" colspan=2>
+    <td align="right" class="border-padding" colspan=2>
         {% if invoice %}
         <h2 class="amount-due">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h2>
         {% else %}
