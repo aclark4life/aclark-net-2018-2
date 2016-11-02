@@ -3,13 +3,13 @@
     body {
         background: white;
     }
-    h1 {
-        font-weight: bold;
-        font-size: 175%;
-    }
-    .document-type-upper {
+    .document-header {
         font-weight: bold;
         font-size: 300%;
+    }
+    h2 {
+        font-weight: bold;
+        font-size: 175%;
     }
     .border-right {
         border-right: 1px solid lightgray;
@@ -24,7 +24,7 @@
 <table border=0>
   <tr>
     <td colspan=2>
-      <h1 class="document-type-upper">{{ document_type_upper }}</h1>
+      <h1 class="document-header">{{ document_type_upper }}</h1>
     </td>
     <td valign="top" align="right" class="border-right">
       <div style="color: gray" class="padding-5">From</div>
@@ -105,16 +105,16 @@
   <tr>
     <td align="right" class="padding-5" colspan=3> 
         {% if invoice %}
-        <h1 class="amount-due">Amount Due</h1>
+        <h2 class="amount-due">Amount Due</h2>
         {% else %}
-        <h1 class="amount-due">Estimate Total</h1>
+        <h2 class="amount-due">Estimate Total</h2>
         {% endif %} 
     </td>
     <td align="right" class="padding-5" colspan=2>
         {% if invoice %}
-        <h1 class="amount-due">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h1>
+        <h2 class="amount-due">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h2>
         {% else %}
-        <h1 class="amount-due">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h1>
+        <h2 class="amount-due">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h2>
         {% endif %} 
     </td>
   </tr>
