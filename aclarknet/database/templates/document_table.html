@@ -16,6 +16,9 @@
         font-weight: bold;
         font-size: 300%;
     }
+    .light-text {
+        color: gray;
+    }
     body {
         background: white;
     }
@@ -30,7 +33,7 @@
       <h1 class="document-header">{{ document_type_upper }}</h1>
     </td>
     <td valign="top" align="right" class="border-right">
-      <div style="color: gray" class="border-padding">From</div>
+      <div class="border-padding light-text">From</div>
     </td>
     <td valign="top"> 
       <div class="border-padding"><strong>{{ company.name|default:'Company' }}</strong><br>
@@ -39,7 +42,7 @@
   </tr>
   <tr>
     <td valign="top" align="left" class="border-right" style="width: 10%">
-      <div style="color: gray" class="border-padding">{{ document_type_title }} ID<br>
+      <div class="border-padding light-text">{{ document_type_title }} ID<br>
         Issue Date<br>
         {% if invoice %}Due Date<br>{% endif %}
         Subject<br>
@@ -55,7 +58,7 @@
       </div>
     </td>
     <td valign="top" align="right" class="border-right">
-      <div style="color: gray" class="border-padding">{{ document_type_title }} For</div>
+      <div class="border-padding light-text">{{ document_type_title }} For</div>
     </td>
     <td valign="top"> 
       <div class="border-padding"><strong>{{ item.client.name|default:'Client' }}</strong><br>
