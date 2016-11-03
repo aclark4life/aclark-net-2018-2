@@ -336,4 +336,3 @@ heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
-
