@@ -176,6 +176,10 @@ heroku-debug-off:
 	heroku config:unset DEBUG
 heroku-init:
 	heroku apps:create $(PROJECT)-$(APP)	
+heroku-maint-on:
+	heroku maintenance:on
+heroku-maint-off:
+	heroku maintenance:off
 heroku-push:
 	git push heroku
 heroku-remote:
@@ -332,3 +336,4 @@ heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
+
