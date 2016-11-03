@@ -316,6 +316,8 @@ vagrant-update:
 # aclarknet-database
 APP=database
 PROJECT=aclarknet
+django-restore:
+	pg_restore -c -d aclarknet ~/Dropbox/Documents/ACLARKNET/aclarknet-database.dump
 heroku-backup:
 	heroku pg:backups capture
 heroku-copy:
