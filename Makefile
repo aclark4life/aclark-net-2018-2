@@ -336,3 +336,5 @@ heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
+patch:
+	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
