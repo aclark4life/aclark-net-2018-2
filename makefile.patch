@@ -1,4 +1,4 @@
-318a319,340
+318a319,341
 > 
 > # aclarknet-database
 > APP=database
@@ -21,3 +21,4 @@
 > 	git remote add heroku git@heroku.com:aclarknet-database2.git
 > patch:
 > 	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
+> restore: django-restore
