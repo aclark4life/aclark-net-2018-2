@@ -10,6 +10,9 @@
   #line-items th, #line-items td {
     padding: 5px;
   }
+  #total { 
+    margin: 35px;
+  }
   .data-separator {
     border-right: 1px solid lightgray;
   }
@@ -28,7 +31,7 @@
     background: white;
   }
 </style>
-<table border=0 id="client-info">
+<table id="client-info">
   <tr>
     <!-- Left column -->
     <td colspan=2><h1 id="document-type">{{ document_type_upper }}</h1></td>
@@ -96,9 +99,11 @@
     <td align="right" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
   </tr>
   {% endfor %}
-  <tr> 
-    <td align="right" colspan=3>{% if invoice %}<h1 class="total-text">Amount Due</h1>{% else %}<h1 class="total-text">Estimate Total</h1>{% endif %}</td>
-    <td align="right" colspan=2>{% if invoice %}<h1 class="total-text">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h1>{% else %}<h1 class="total-text">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h1>{% endif %}</td>
-  </tr>
   </tbody>
+</table>
+<table id="total">
+  <tr>
+    <td align="right" colspan=4>{% if invoice %}<h1 class="total-text">Amount Due</h1>{% else %}<h1 class="total-text">Estimate Total</h1>{% endif %}</td>
+    <td align="right" colspan=1>{% if invoice %}<h1 class="total-text">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h1>{% else %}<h1 class="total-text">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h1>{% endif %}</td>
+  </tr>
 </table>
