@@ -1,109 +1,103 @@
-<!-- Include styles here for pdf conversion -->
-<style>
-  #client-info { 
-    margin: 0 0 75px 0;
-  }
-  #document-type {
-    font-weight: bold;
-    font-size: 300%;
-  }
-  #line-items th, #line-items td {
-    padding: 5px;
-  }
-  #total { 
-    margin: 35px;
-  }
-  .data-separator {
-    border-right: 1px solid lightgray;
-  }
-  .row-separator {
-    border-bottom: 1px solid lightgray;
-  }
-  .title-text {
-    color: gray;
-    padding: 5px;
-  }
-  .total-text {
-    font-weight: bold;
-    font-size: 175%;
-  }
-  body {
-    background: white;
-  }
-</style>
-<table id="client-info">
-  <tr>
-    <!-- Left column -->
-    <td colspan=2><h1 id="document-type">{{ document_type_upper }}</h1></td>
-    <!-- Right column -->
-    <td valign="top" align="right" class="data-separator title-text">From</td>
-    <td valign="top"> 
-      <strong>{{ company.name|default:'Company' }}</strong>
-      <br>
-      {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
-    </td>
-  </tr>
-  <tr>
-    <!-- Left column -->
-    <td valign="top" align="left" style="width: 20%" class="data-separator title-text">{{ document_type_title }} ID</td>
-    <td valign="top" align="left" style="width: 20%">{{ item.document_id|default:'' }}</td>
-    <!-- Right column -->
-    <td rowspan=5 valign="top" align="right" class="data-separator title-text">{{ document_type_title }} For</td>
-    <td rowspan=5 valign="top">
-      <strong>{{ item.client.name|default:'Client' }}</strong>
-      <br>
-      {{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
-    </td>
-  </tr>
-  <tr>
-    <!-- Left column -->
-    <td valign="top" align="left" style="width: 16%" class="data-separator title-text">Issue Date</td>
-    <td valign="top" align="left" style="width: 50%">{{ item.issue_date|date:'Y-m-d' }}</td>
-  </tr>
-  <tr>
-    <!-- Left column -->
-    <td valign="top" align="left" style="width: 16%" class="data-separator title-text">{% if invoice %}Due Date<br>{% endif %}</td>
-    <td valign="top" align="left" style="width: 50%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</td>
-  </tr>
-  <tr>
-    <!-- Left column -->
-    <td valign="top" align="left" style="width: 16%" class="data-separator title-text">Subject</td>
-    <td valign="top" align="left" style="width: 50%">{{ item.subject }}</td>
-  </tr>
-  <tr>
-    <!-- Left column -->
-    <td valign="top" align="left" style="width: 16%" class="data-separator title-text">{% if item.po_number %}PO Number{% endif %}</td>
-    <td valign="top" align="left" style="width: 50%">{% if item.po_number %}{{ item.po_number }}{% endif %}</td>
-  </tr>
-</table>
-<table id="line-items">
-  <thead>
-    <tr class="row-separator">
-      <th align="left" class="data-separator">Item Type</th>
-      {% if not pdf %}<th align="left" class="data-separator">Date</th>{% endif %}
-      <th align="left" class="data-separator">Description</th>
-      <th align="right" class="data-separator">Quantity</th>
-      <th align="right" class="data-separator">Unit Price</th>
-      <th align="right">Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for entry in entries.values %}
-  <tr class="row-separator">
-    <td valign="top" align="left" class="data-separator" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
-    {% if not pdf %}<td valign="top" align="left" class="data-separator" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
-    <td valign="top" align="left" class="data-separator" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
-    <td align="right" class="data-separator" style="width: 20%">
-      {% if not pdf %}<a href="{% url 'entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours|default:'0' }}{% endif %}</td>
-    <td valign="top" align="right" class="data-separator" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
-    <td align="right" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
-  </tr>
-  {% endfor %}
-  </tbody>
-</table>
-<table id="total">
-  <tr>
-    <td align="right" colspan=4>{% if invoice %}<h1 class="total-text">Amount Due</h1>{% else %}<h1 class="total-text">Estimate Total</h1>{% endif %}</td>
-    <td align="right" colspan=1>{% if invoice %}<h1 class="total-text">{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h1>{% else %}<h1 class="total-text">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h1>{% endif %}</td>
-  </tr>
-</table>
+            <!-- Include styles here for pdf conversion -->
+            <style>
+              body {
+                background: white;
+              }
+              .border-bottom {
+                border-bottom: 1px solid lightgray;
+              }
+              .border-right {
+                border-right: 1px solid lightgray;
+              }
+              #line-items th, #line-items td {
+                padding: 5px;
+              }
+              .title h1 {
+                font-weight: bold;
+                font-size: 300%;
+              }
+              .total h1 {
+                font-weight: bold;
+                font-size: 175%;
+              }
+              .text-gray {
+                color: gray;
+                padding: 5px;
+              }
+            </style>
+            <table style="margin: 0 0 75px 0;">
+              <tr>
+                <!-- Left column -->
+                <td colspan=2 class="title"><h1>{{ document_type_upper }}</h1></td>
+                <!-- Right column -->
+                <td valign="top" align="right" class="border-right text-gray">From</td>
+                <td valign="top"> 
+                  <strong>{{ company.name|default:'Company' }}</strong>
+                  <br>
+                  {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
+                </td>
+              </tr>
+              <tr>
+                <!-- Left column -->
+                <td valign="top" align="left" style="width: 20%" class="border-right text-gray">{{ document_type_title }} ID</td>
+                <td valign="top" align="left" style="width: 20%">{{ item.document_id|default:'' }}</td>
+                <!-- Right column -->
+                <td rowspan=5 valign="top" align="right" class="border-right text-gray">{{ document_type_title }} For</td>
+                <td rowspan=5 valign="top">
+                  <strong>{{ item.client.name|default:'Client' }}</strong>
+                  <br>
+                  {{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
+                </td>
+              </tr>
+              <tr>
+                <!-- Left column -->
+                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">Issue Date</td>
+                <td valign="top" align="left" style="width: 50%">{{ item.issue_date|date:'Y-m-d' }}</td>
+              </tr>
+              <tr>
+                <!-- Left column -->
+                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">{% if invoice %}Due Date<br>{% endif %}</td>
+                <td valign="top" align="left" style="width: 50%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</td>
+              </tr>
+              <tr>
+                <!-- Left column -->
+                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">Subject</td>
+                <td valign="top" align="left" style="width: 50%">{{ item.subject }}</td>
+              </tr>
+              <tr>
+                <!-- Left column -->
+                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">{% if item.po_number %}PO Number{% endif %}</td>
+                <td valign="top" align="left" style="width: 50%">{% if item.po_number %}{{ item.po_number }}{% endif %}</td>
+              </tr>
+            </table>
+            <table id="line-items">
+              <thead>
+                <tr class="border-bottom">
+                  <th align="left" class="border-right">Item Type</th>
+                  {% if not pdf %}<th align="left" class="border-right">Date</th>{% endif %}
+                  <th align="left" class="border-right">Description</th>
+                  <th align="right" class="border-right">Quantity</th>
+                  <th align="right" class="border-right">Unit Price</th>
+                  <th align="right">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for entry in entries.values %}
+              <tr class="border-bottom">
+                <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.task|default:'Misc' }}</td>
+                {% if not pdf %}<td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>{% endif %}
+                <td valign="top" align="left" class="border-right" style="width: 100%">{{ entry.notes|linebreaks|default:'' }}</td>
+                <td align="right" class="border-right" style="width: 20%">
+                  {% if not pdf %}<a href="{% url 'entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours|default:'0' }}{% endif %}</td>
+                <td valign="top" align="right" class="border-right" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
+                <td align="right" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0.00' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0.00' }}{% endif %}</strong></td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            <table style="margin: 35px;">
+              <tr>
+                <td align="right" colspan=4 class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1 class="total-text">Estimate Total</h1>{% endif %}</td>
+                <td align="right" colspan=1 class="total">{% if invoice %}<h1>{{ item.currency_symbol }}{{ item.subtotal|default:'0.00' }}</h1>{% else %}<h1 class="total-text">{{ company.currency_symbol }}{{ item.amount|default:'0.00' }}</h1>{% endif %}</td>
+              </tr>
+            </table>
