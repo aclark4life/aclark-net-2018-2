@@ -1,4 +1,36 @@
-318a319,341
+86c86
+< db: django-clean-db django-init-db
+---
+> db: django-database
+88,97c88,90
+< django-clean: django-clean-db django-clean-proj  # Chain
+< django-clean-db: django-clean-sql  # Alias
+< django-init: django-init-db django-init-proj  # Chain
+< django-init-db: django-init-sql  # Alias
+< django-clean-pg:  # PostgreSQL
+< 	-dropdb $(PROJECT)
+< django-clean-proj:
+< 	@-rm -rvf $(PROJECT)
+< 	@-rm -v manage.py
+< django-clean-sql:  # SQLite
+---
+> django-clean:  # SQLite or PostgreSQL
+> 	-rm -rf $(PROJECT)
+> 	-rm manage.py
+99c92,94
+< django-init-pg:  # PostgreSQL
+---
+> 	-dropdb $(PROJECT)
+> django-database:
+> 	-touch db.sqlite3
+101c96
+< django-init-proj:
+---
+> django-init:
+105,106d99
+< django-init-sql:  # SQLite
+< 	-touch db.sqlite3
+325a319,343
 > 
 > # aclarknet-database
 > APP=database
@@ -19,6 +51,8 @@
 > 	git remote add heroku git@heroku.com:aclarknet-database.git
 > heroku-remote2:
 > 	git remote add heroku git@heroku.com:aclarknet-database2.git
-> patch:
+> patch-create:
 > 	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
+> patch-restore:
+> 	patch -p0 Makefile < makefile.patch
 > restore: django-restore

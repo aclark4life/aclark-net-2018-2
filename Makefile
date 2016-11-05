@@ -336,6 +336,8 @@ heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
-patch:
+patch-create:
 	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
+patch-restore:
+	patch -p0 Makefile < makefile.patch
 restore: django-restore
