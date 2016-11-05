@@ -20,30 +20,34 @@
                 font-weight: bold;
                 font-size: 175%;
               }
-              .text-gray {
+              .field-name {
                 color: gray;
-                padding: 5px;
+                padding: 0 3px 0 0;
+              }
+              .field-value {
+                padding: 0 0 0 3px;
               }
             </style>
             <table style="margin: 0 0 75px 0;">
-              <tr>
+              <tr> 
                 <!-- Left column -->
                 <td colspan=2 class="title"><h1>{{ document_type_upper }}</h1></td>
                 <!-- Right column -->
-                <td valign="top" align="right" class="border-right text-gray">From</td>
-                <td valign="top"> 
+                <td valign="top" align="right" class="border-right field-name">From</td>
+                <td valign="top" class="field-value"> 
                   <strong>{{ company.name|default:'Company' }}</strong>
                   <br>
                   {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
                 </td>
               </tr>
+              <tr><!-- After "From" and before "Invoice For" --></tr>
               <tr>
                 <!-- Left column -->
-                <td valign="top" align="left" style="width: 20%" class="border-right text-gray">{{ document_type_title }} ID</td>
-                <td valign="top" align="left" style="width: 20%">{{ item.document_id|default:'' }}</td>
+                <td valign="top" align="left" style="width: 20%" class="border-right field-name">{{ document_type_title }} ID</td>
+                <td valign="top" align="left" style="width: 20%" class="field-value">{{ item.document_id|default:'' }}</td>
                 <!-- Right column -->
-                <td rowspan=5 valign="top" align="right" class="border-right text-gray">{{ document_type_title }} For</td>
-                <td rowspan=5 valign="top">
+                <td rowspan=5 valign="top" align="right" class="border-right field-name">{{ document_type_title }} For</td>
+                <td rowspan=5 valign="top" class="field-value">
                   <strong>{{ item.client.name|default:'Client' }}</strong>
                   <br>
                   {{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
@@ -51,23 +55,23 @@
               </tr>
               <tr>
                 <!-- Left column -->
-                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">Issue Date</td>
-                <td valign="top" align="left" style="width: 50%">{{ item.issue_date|date:'Y-m-d' }}</td>
+                <td valign="top" align="left" style="width: 16%" class="border-right field-name">Issue Date</td>
+                <td valign="top" align="left" style="width: 50%" class="field-value">{{ item.issue_date|date:'Y-m-d' }}</td>
               </tr>
               <tr>
                 <!-- Left column -->
-                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">{% if invoice %}Due Date<br>{% endif %}</td>
-                <td valign="top" align="left" style="width: 50%">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</td>
+                <td valign="top" align="left" style="width: 16%" class="border-right field-name">{% if invoice %}Due Date<br>{% endif %}</td>
+                <td valign="top" align="left" style="width: 50%" class="field-value">{% if invoice %}{{ item.issue_date|date:'Y-m-d' }} (upon receipt){% endif %}</td>
               </tr>
               <tr>
                 <!-- Left column -->
-                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">Subject</td>
-                <td valign="top" align="left" style="width: 50%">{{ item.subject }}</td>
+                <td valign="top" align="left" style="width: 16%" class="border-right field-name">Subject</td>
+                <td valign="top" align="left" style="width: 50%" class="field-value">{{ item.subject }}</td>
               </tr>
               <tr>
                 <!-- Left column -->
-                <td valign="top" align="left" style="width: 16%" class="border-right text-gray">{% if item.po_number %}PO Number{% endif %}</td>
-                <td valign="top" align="left" style="width: 50%">{% if item.po_number %}{{ item.po_number }}{% endif %}</td>
+                <td valign="top" align="left" style="width: 16%" class="border-right field-name">{% if item.po_number %}PO Number{% endif %}</td>
+                <td valign="top" align="left" style="width: 50%" class="field-value">{% if item.po_number %}{{ item.po_number }}{% endif %}</td>
               </tr>
             </table>
             <table id="line-items">
