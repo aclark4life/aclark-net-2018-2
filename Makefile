@@ -320,24 +320,21 @@ vagrant-update:
 # aclarknet-database
 APP=database
 PROJECT=aclarknet
-django-restore:
-	pg_restore -c -d aclarknet ~/Dropbox/Documents/ACLARKNET/aclarknet-database.dump
-heroku-backup:
+heroku-remote:
+	git remote add heroku git@heroku.com:aclarknet-database.git
+heroku-remote2:
+	git remote add heroku git@heroku.com:aclarknet-database2.git
+patch:
+	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
+pg-capture:
 	heroku pg:backups capture
-heroku-copy:
+pg-copy:
 	heroku maintenance:on
 	heroku ps:scale web=0
 	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2`
 	heroku ps:scale web=1
 	heroku maintenance:off
-heroku-reset:
+pg-reset:
 	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
-heroku-remote:
-	git remote add heroku git@heroku.com:aclarknet-database.git
-heroku-remote2:
-	git remote add heroku git@heroku.com:aclarknet-database2.git
-patch-create:
-	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
-patch-restore:
-	patch -p0 Makefile < makefile.patch
-restore: django-restore
+pg-restore:
+	pg_restore -c -d aclarknet ~/Dropbox/Documents/ACLARKNET/aclarknet-database.dump
