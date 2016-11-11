@@ -83,20 +83,27 @@ ablog-serve:
 	bin/ablog serve
 
 # Django
-db: django-database
+db: django-clean-db django-init-db
 django: django-clean django-install django-init django-migrate django-su django-serve  # Chain
-django-clean:  # SQLite or PostgreSQL
-	-rm -rf $(PROJECT)
-	-rm manage.py
-	-rm db.sqlite3
+django-clean: django-clean-db django-clean-proj  # Chain
+django-clean-db: django-clean-sql  # Alias
+django-init: django-init-db django-init-proj  # Chain
+django-init-db: django-init-sql  # Alias
+django-clean-pg:  # PostgreSQL
 	-dropdb $(PROJECT)
-django-database:
-	-touch db.sqlite3
+django-clean-proj:
+	@-rm -rvf $(PROJECT)
+	@-rm -v manage.py
+django-clean-sql:  # SQLite
+	-rm db.sqlite3
+django-init-pg:  # PostgreSQL
 	-createdb $(PROJECT)
-django-init:
+django-init-proj:
 	-mkdir -p $(PROJECT)/$(APP)
 	-django-admin startproject $(PROJECT) .
 	-django-admin startapp $(APP) $(PROJECT)/$(APP)
+django-init-sql:  # SQLite
+	-touch db.sqlite3
 django-install:
 	@echo "Django\n" > requirements.txt
 	@$(MAKE) python-virtualenv
@@ -136,7 +143,7 @@ git-commit-auto-push: git-commit-auto git-push  # Chain
 push: git-push
 git-checkout-remotes:
 	-for i in $(REMOTES) ; do \
-        git checkout -t $$i ; done
+	 git checkout -t $$i ; done
 git-commit-auto:
 	git commit -a -m $(MESSAGE)
 git-commit-edit:
@@ -163,9 +170,9 @@ he: help  # Alias
 help:
 	@echo "Usage: make [TARGET]\nAvailable targets:\n"
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F:\
-        '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
-        | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
-        '{print "    - "$$0}' | less  # http://stackoverflow.com/a/26339924
+	 '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
+	 | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
+	 '{print "    - "$$0}' | less  # http://stackoverflow.com/a/26339924
 	@echo "\n"
 
 # Heroku
