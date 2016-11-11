@@ -1,36 +1,16 @@
-86c86
-< db: django-clean-db django-init-db
+146c146
+<         git checkout -t $$i ; done
 ---
-> db: django-database
-88,97c88,90
-< django-clean: django-clean-db django-clean-proj  # Chain
-< django-clean-db: django-clean-sql  # Alias
-< django-init: django-init-db django-init-proj  # Chain
-< django-init-db: django-init-sql  # Alias
-< django-clean-pg:  # PostgreSQL
-< 	-dropdb $(PROJECT)
-< django-clean-proj:
-< 	@-rm -rvf $(PROJECT)
-< 	@-rm -v manage.py
-< django-clean-sql:  # SQLite
+> 	 git checkout -t $$i ; done
+173,175c173,175
+<         '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
+<         | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
+<         '{print "    - "$$0}' | less  # http://stackoverflow.com/a/26339924
 ---
-> django-clean:  # SQLite or PostgreSQL
-> 	-rm -rf $(PROJECT)
-> 	-rm manage.py
-99c92,94
-< django-init-pg:  # PostgreSQL
----
-> 	-dropdb $(PROJECT)
-> django-database:
-> 	-touch db.sqlite3
-101c96
-< django-init-proj:
----
-> django-init:
-105,106d99
-< django-init-sql:  # SQLite
-< 	-touch db.sqlite3
-325a319,340
+> 	 '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
+> 	 | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
+> 	 '{print "    - "$$0}' | less  # http://stackoverflow.com/a/26339924
+325a326,347
 > 
 > # aclarknet-database
 > APP=database
