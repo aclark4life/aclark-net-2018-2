@@ -36,8 +36,9 @@ class ClientResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -73,8 +74,9 @@ class ContactResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -114,8 +116,9 @@ class EstimateResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -160,8 +163,9 @@ class InvoiceResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -210,8 +214,9 @@ class ProjectResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -262,8 +267,9 @@ class TaskResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -307,8 +313,9 @@ class TimeResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')

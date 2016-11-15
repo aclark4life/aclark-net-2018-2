@@ -419,11 +419,12 @@ def invoice_edit(request, pk=None):
 @staff_member_required
 def invoice_index(request):
     company = Company.get_solo()
-    fields = ('client__name',
-              'document_id',
-              'issue_date',
-              'project__name',
-              'subject', )
+    fields = (
+        'client__name',
+        'document_id',
+        'issue_date',
+        'project__name',
+        'subject', )
     order_by = '-issue_date'
     context = index_items(request, Invoice, fields, order_by=order_by)
     context['company'] = company
