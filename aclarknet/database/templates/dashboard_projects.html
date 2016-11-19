@@ -1,29 +1,29 @@
-              <div class="row">
-                <div class="col-md-12">
-                  <h2>Projects</h2>
-                  <div class="table-responsive">
-                    <table data-toggle="table">
-                      <thead>
-                        <tr> 
-                          <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
-                          <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                          <th>Time</th>    
-                          <th>View</th>
-                          <th>Edit</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for project in projects %}
-                        <tr>
-                          <td data-toggle="tooltip" title="Burn Rate: {{ project.daily_burn }}">{% if project.name %}<a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open fa-3x"></i> {{ project.name }}</a>{% endif %}</td>
-                          <td>{{ project.name|default:'' }}</td>
-                          <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
-                          <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                          <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Projects</h2>
+              <div class="table-responsive">
+                <table data-toggle="table">
+                  <thead>
+                    <tr> 
+                      <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
+                      <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                      <th>Time</th>    
+                      <th>View</th>
+                      <th>Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for project in projects %}
+                    <tr>
+                      <td data-toggle="tooltip" title="Burn Rate: {{ project.daily_burn }}">{% if project.name %}<a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open fa-3x"></i> {{ project.name }}</a>{% endif %}</td>
+                      <td>{{ project.name|default:'' }}</td>
+                      <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
+                      <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                      <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
+            </div>
+          </div>
