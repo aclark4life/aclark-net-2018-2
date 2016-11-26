@@ -27,7 +27,8 @@
                   <div class="dropdown pull-right">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'report_edit' pk=report.pk %}"><i class="fa fa-cog"></i> Edit Report</a></li>
+                      <li><a class="dropdown-item" href="{% url 'report_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                     </ul>
                   </div>
                 </div>
@@ -44,10 +45,10 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>{{ report.name }}</td>
-                  <td>{{ report.date }}</td>
-                  <td>{{ report.gross }}</td>
-                  <td>{{ report.net }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.date }}</td>
+                  <td>{{ item.gross }}</td>
+                  <td>{{ item.net }}</td>
                   <td>{{ diff }}</td>
                 </tr>
                 </tbody>
