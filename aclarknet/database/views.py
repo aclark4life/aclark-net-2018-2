@@ -710,3 +710,28 @@ def user_index(request):
     context = index_items(request, User, fields)
     context['company'] = company
     return render(request, 'user_index.html', context)
+
+
+def plot(request):  # http://stackoverflow.com/a/5515994/185820
+    """
+    """
+
+    import cStringIO
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+
+    x, y = 4, 4
+    x = int([x][0])
+    y = int([y][0])
+    fig = Figure(figsize=[x, y])
+    ax = fig.add_axes([.1, .1, .8, .8])
+    ax.scatter([1, 2], [3, 4])
+    canvas = FigureCanvasAgg(fig)
+
+    # write image data to a string buffer and get the PNG image bytes
+    buf = cStringIO.StringIO()
+    canvas.print_png(buf)
+    data = buf.getvalue()
+
+    # write image bytes back to the browser
+    return HttpResponse(data, content_type="image/png")

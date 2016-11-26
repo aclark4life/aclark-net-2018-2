@@ -91,4 +91,5 @@ urlpatterns = [
     url(r'^user/(?P<pk>\d+)/contact$', views.user_contact,
         name='user_contact'),
     url(r'^user$', views.user_index, name='user_index'),
+    url(r'^plot$', views.plot, name='plot'),
 ]
