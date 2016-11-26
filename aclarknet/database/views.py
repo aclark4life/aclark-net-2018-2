@@ -486,6 +486,7 @@ def project_index(request, pk=None):
 def report(request, pk=None):
     context = {}
     report = get_object_or_404(Report, pk=pk)
+    context['edit_url'] = 'report_edit'  # Delete form modal
     context['item'] = report
     context['diff'] = report.gross - report.net
     return render(request, 'report.html', context)
