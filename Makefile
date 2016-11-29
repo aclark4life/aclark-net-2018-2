@@ -327,21 +327,21 @@ vagrant-update:
 # aclarknet-database
 APP=database
 PROJECT=aclarknet
-heroku-remote:
+aclarknet-heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
-heroku-remote2:
+aclarknet-heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
-patch:
+aclarknet-patch:
 	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
-pg-capture:
+aclarknet-pg-capture:
 	heroku pg:backups capture
-pg-copy:
+aclarknet-pg-copy:
 	heroku maintenance:on
 	heroku ps:scale web=0
 	heroku pg:copy DATABASE_URL `heroku config:get DATABASE_URL2`
 	heroku ps:scale web=1
 	heroku maintenance:off
-pg-reset:
+aclarknet-pg-reset:
 	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
-pg-restore:
+aclarknet-pg-restore:
 	pg_restore -c -d aclarknet ~/Dropbox/Documents/ACLARKNET/aclarknet-database.dump
