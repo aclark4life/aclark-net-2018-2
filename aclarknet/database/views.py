@@ -716,7 +716,7 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
 
-    import cStringIO
+    from io import BytesIO
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_agg import FigureCanvasAgg
 
@@ -729,7 +729,7 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     canvas = FigureCanvasAgg(fig)
 
     # write image data to a string buffer and get the PNG image bytes
-    buf = cStringIO.StringIO()
+    buf = BytesIO()
     canvas.print_png(buf)
     data = buf.getvalue()
 
