@@ -15,7 +15,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
 from import_export import widgets
-from md5 import md5
+from hashlib import md5
 from smtplib import SMTPSenderRefused
 
 # import datetime
