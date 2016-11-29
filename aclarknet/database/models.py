@@ -19,7 +19,7 @@ class Client(models.Model):
     address = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -35,7 +35,7 @@ class Company(SingletonModel):
     currency_symbol = models.CharField(
         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -63,7 +63,7 @@ class Contact(models.Model):
     address = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return class_name_pk(self)
 
 
@@ -98,7 +98,7 @@ class Estimate(models.Model):
     accepted_date = models.DateField(blank=True, null=True)
     declined_date = models.DateField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'estimate-%s' % self.document_id
 
 
@@ -149,7 +149,7 @@ class Invoice(models.Model):
         default="$", max_length=300, blank=True, null=True)
     document_type = models.CharField(max_length=300, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'invoice-%s' % self.document_id
 
 
@@ -174,7 +174,7 @@ class Profile(models.Model):
     avatar_url = models.URLField(blank=True, null=True)
     notify = models.BooleanField(default=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
     def get_avatar_url(self):
@@ -231,7 +231,7 @@ class Project(models.Model):
         limit_choices_to={'active': True}, )
     team = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -246,7 +246,7 @@ class Report(models.Model):
         blank=True, null=True, max_digits=12, decimal_places=2)
     notes = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'report-%s' % self.date
 
 
@@ -258,7 +258,7 @@ class Service(models.Model):
     name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -272,7 +272,7 @@ class Testimonial(models.Model):
     issue_date = models.DateField(
         "Issue Date", blank=True, null=True, default=timezone.now)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -294,7 +294,7 @@ class Task(models.Model):
         max_digits=12,
         decimal_places=2)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -349,7 +349,7 @@ class Time(models.Model):
     invoice = models.ForeignKey(
         Invoice, blank=True, null=True, on_delete=models.SET_NULL)
 
-    def __unicode__(self):
+    def __str__(self):
         return class_name_pk(self)
 
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
