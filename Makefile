@@ -336,6 +336,7 @@ aclarknet-heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
 aclarknet-pg-capture:
 	heroku pg:backups capture
+	curl -o latest.dump `heroku pg:backups public-url`
 aclarknet-pg-copy:
 	heroku maintenance:on
 	heroku ps:scale web=0
@@ -345,5 +346,4 @@ aclarknet-pg-copy:
 aclarknet-pg-reset:
 	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 aclarknet-pg-restore:
-	pg_restore -c -d aclarknet ~/Dropbox/Documents/ACLARKNET/aclarknet-database.dump
-
+	pg_restore -c -d aclarknet latest.dump
