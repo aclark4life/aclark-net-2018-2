@@ -12,7 +12,7 @@ django-extensions==1.6.1
 django-import-export==0.4.2
 django-phonenumber-field==1.0.0
 django-solo==1.1.2
--e git+git@github.com:aclark4life/django-xhtml2pdf.git#egg=django-xhtml2pdf
+-e git+https://github.com/aclark4life/django-xhtml2pdf.git#egg=django-xhtml2pdf
 djangorestframework==3.4.7
 flake8==2.5.1
 futures==3.0.5
