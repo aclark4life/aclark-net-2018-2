@@ -15,7 +15,7 @@
                   <tbody>
                     {% for project in projects %}
                     <tr>
-                      <td data-toggle="tooltip" title="Burn Rate: {{ project.daily_burn }}">{% if project.name %}<a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open fa-3x"></i> {{ project.name }}</a>{% endif %}</td>
+                      <td data-toggle="tooltip" title="Burn Rate: {{ project.daily_burn }}">{% if project.name %}<a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open fa-3x valign-middle"></i> {{ project.name }}</a>{% endif %}</td>
                       <td>{{ project.name|default:'' }}</td>
                       <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
                       <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
