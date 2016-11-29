@@ -331,8 +331,6 @@ aclarknet-heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 aclarknet-heroku-remote2:
 	git remote add heroku git@heroku.com:aclarknet-database2.git
-aclarknet-patch:
-	diff ~/Developer/project-makefile/Makefile Makefile > makefile.patch
 aclarknet-pg-capture:
 	heroku pg:backups capture
 aclarknet-pg-copy:
