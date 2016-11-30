@@ -723,7 +723,7 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     x, y, z = get_xyz(request)
     figure = Figure()
-    axes = figure.add_subplot(x, x, x)
+    axes = figure.add_subplot(1, 1, 1)
     axes.plot([0, x], [0, y])
     canvas = FigureCanvasAgg(figure)
 
