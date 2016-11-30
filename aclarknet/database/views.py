@@ -718,13 +718,10 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     from matplotlib.figure import Figure
     from matplotlib.backends.backend_agg import FigureCanvasAgg
 
-    x, y = 4, 4
-    x = int([x][0])
-    y = int([y][0])
-    fig = Figure(figsize=[x, y])
-    ax = fig.add_axes([.1, .1, .8, .8])
-    ax.scatter([1, 2], [3, 4])
-    canvas = FigureCanvasAgg(fig)
+    figure = Figure()
+    axes = figure.add_subplot(1, 1, 1)
+    axes.plot([0, 4], [0, 4])
+    canvas = FigureCanvasAgg(figure)
 
     # write image data to a string buffer and get the PNG image bytes
     buf = BytesIO()
