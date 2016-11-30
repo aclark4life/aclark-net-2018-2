@@ -43,6 +43,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
+from io import BytesIO
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 from rest_framework import viewsets
 
 # Create your views here.
@@ -713,11 +716,6 @@ def user_index(request):
 def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
-
-    from io import BytesIO
-    from matplotlib.figure import Figure
-    from matplotlib.backends.backend_agg import FigureCanvasAgg
-
     figure = Figure()
     axes = figure.add_subplot(1, 1, 1)
     axes.plot([0, 4], [0, 4])
