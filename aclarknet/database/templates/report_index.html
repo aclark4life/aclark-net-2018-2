@@ -30,6 +30,11 @@
               <div class="navbar"><a class="btn btn-block btn-lg btn-success" href="{% url 'report_edit' %}">Add Report <i class="fa fa-plus"></i></a></div>
             </div>
           </div>
+          <div class="navbar" style="border: 1px solid #ebebeb; margin-bottom: 1em">
+            <div class="col-md-12" style="text-align: center;">
+              <a href="{% url 'plot' %}" target="_blank"><img class="img-thumbnail" style="width: 25%" src="{% url 'plot' %}"></a>
+            </div>
+          </div>
 {% include 'pagination.html' %}
           <div class="table-responsive">
             <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc"> 
