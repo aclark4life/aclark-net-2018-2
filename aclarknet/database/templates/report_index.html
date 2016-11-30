@@ -32,7 +32,7 @@
           </div>
           <div class="navbar" style="border: 1px solid #ebebeb; margin-bottom: 1em">
             <div class="col-md-12" style="text-align: center;">
-              <a href="{% url 'plot' %}" target="_blank"><img class="img-thumbnail" style="width: 25%" src="{% url 'plot' %}"></a>
+              <a href="{% url 'plot' %}?x={{ x }}&y={{ y }}&z={{ z }}" target="_blank"><img class="img-thumbnail" style="width: 25%" src="{% url 'plot' %}"></a>
             </div>
           </div>
 {% include 'pagination.html' %}

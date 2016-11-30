@@ -392,6 +392,19 @@ def get_page(request):
     return request.GET.get('page', '')
 
 
+def get_xyz(request):
+    x = request.GET.get('x')
+    y = request.GET.get('y')
+    z = request.GET.get('z')
+    if not x:
+        x = 1
+    if not y:
+        y = 1
+    if not z:
+        z = 1
+    return x, y, z
+
+
 def get_search(request):
     """
     """
