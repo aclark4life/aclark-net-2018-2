@@ -398,10 +398,16 @@ def get_xyz(request):
     z = request.GET.get('z')
     if not x:
         x = 1
+    else:
+        x = int(x)
     if not y:
         y = 1
+    else:
+        y = int(y)
     if not z:
         z = 1
+    else:
+        z = int(z)
     return x, y, z
 
 
