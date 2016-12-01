@@ -718,7 +718,10 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     import datetime
     values = request.GET.get('values')
-    values = values.split(' ')
+    if values:
+        values = values.split(' ')
+    else:
+        values = []
     values = [i.split(',') for i in values]
     values = [[datetime.datetime.strptime(i[0], '%Y-%m-%d').strftime('%s'), i[1]] for i in values]
     figure = Figure()
