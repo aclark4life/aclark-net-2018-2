@@ -31,7 +31,6 @@ from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
-from .utils import get_xyz
 from .utils import send_mail
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -500,7 +499,6 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_index(request):
-    x, y, z = get_xyz(request)
     agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name')
@@ -516,9 +514,6 @@ def report_index(request):
     context['company'] = company
     context['diff'] = diff
     context['edit_url'] = 'report_edit'  # Delete form modal
-    context['x'] = x
-    context['y'] = y
-    context['z'] = z
     return render(request, 'report_index.html', context)
 
 
@@ -721,10 +716,14 @@ def user_index(request):
 def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
-    x, y, z = get_xyz(request)
+    import datetime
+    values = request.GET.get('values')
+    values = values.split(' ')
+    values = [i.split(',') for i in values]
+    values = [[datetime.datetime.strptime(i[0], '%Y-%m-%d').strftime('%s'), i[1]] for i in values]
     figure = Figure()
     axes = figure.add_subplot(1, 1, 1)
-    axes.plot([0, x], [0, y])
+    axes.plot(values)
     canvas = FigureCanvasAgg(figure)
 
     # write image data to a string buffer and get the PNG image bytes
