@@ -1,6 +1,6 @@
 {% load l10n %}
           <div class="navbar" style="border: 1px solid #ebebeb; margin-bottom: 1em">
             <div class="col-md-12" style="text-align: center;">
-              <a href="{% url 'plot' %}?values={% for item in items %}{{ item.date|unlocalize }},{{ item.net|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" target="_blank"><img class="img-thumbnail" style="width: 25%" src="{% url 'plot' %}?values={% for item in items %}{{ item.date|unlocalize }},{{ item.net|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}"></a>
+              <a href="{% url 'plot' %}?values={% for item in items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" target="_blank"><img class="img-thumbnail" style="width: 25%" src="{% url 'plot' %}?values={% for item in items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}"></a>
             </div>
           </div>

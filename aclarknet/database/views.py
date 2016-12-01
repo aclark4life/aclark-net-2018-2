@@ -724,7 +724,7 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     values = get_values(request)
     values = [i.split(',') for i in values]
     values = [
-        [datetime.strptime(i[0], '%Y-%m-%d').strftime('%s'), i[1]]
+        [i[0], datetime.strptime(i[1], '%Y-%m-%d').strftime('%s')]
         for i in values
     ]
     figure = Figure()
