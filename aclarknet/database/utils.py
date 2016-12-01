@@ -68,10 +68,11 @@ def add_user_to_contacts(request, model, pk=None):
                 messages.add_message(request, messages.INFO,
                                      'No email no contact!')
                 return HttpResponseRedirect(reverse('user_index'))
-            contact = model(email=user.email,
-                            active=True,
-                            first_name=user.first_name,
-                            last_name=user.last_name)
+            contact = model(
+                email=user.email,
+                active=True,
+                first_name=user.first_name,
+                last_name=user.last_name)
             contact.save()
             messages.add_message(request, messages.INFO,
                                  'User added to contacts!')
@@ -162,9 +163,8 @@ def edit(request,
         # Populate time entry form fields with project, client
         # and task values
         if project and model._meta.verbose_name == 'time':
-            entry = model(project=project,
-                          client=project.client,
-                          task=project.task)
+            entry = model(
+                project=project, client=project.client, task=project.task)
             form = form_model(instance=entry)
         # Populate invoice with project
         elif project and model._meta.verbose_name == 'invoice':
@@ -412,11 +412,12 @@ def index_items(request, model, fields, context={}, order_by=None):
     page = get_page(request)
     paginated = is_paginated(request)
     search = get_search(request)
-    kwargs = get_kwargs(model,
-                        active=active_only,
-                        fields=fields,
-                        user=request.user,
-                        search=search)
+    kwargs = get_kwargs(
+        model,
+        active=active_only,
+        fields=fields,
+        user=request.user,
+        search=search)
     items = model.objects.filter(Q(**kwargs))
     if order_by:
         items = items.order_by(order_by)
@@ -486,12 +487,13 @@ def send_mail(request, subject, message, to):
     html_message = render_to_string('cerberus-responsive.html',
                                     {'username': to})
     try:
-        django_send_mail(subject,
-                         message,
-                         sender,
-                         recipients,
-                         fail_silently=False,
-                         html_message=html_message)
+        django_send_mail(
+            subject,
+            message,
+            sender,
+            recipients,
+            fail_silently=False,
+            html_message=html_message)
     except SMTPSenderRefused:
         messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
 

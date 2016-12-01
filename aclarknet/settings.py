@@ -58,32 +58,33 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'aclarknet.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'social.apps.django_app.context_processors.backends',
-                'social.apps.django_app.context_processors.login_redirect',
-            ],
-        },
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'social.apps.django_app.context_processors.backends',
+            'social.apps.django_app.context_processors.login_redirect',
+        ],
     },
-]
+}, ]
 
 WSGI_APPLICATION = 'aclarknet.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {'default': dj_database_url.config(default=os.environ.get(
-    'HEROKU_POSTGRESQL_BRONZE_URL', 'postgres://%s:@localhost:5432/aclarknet' %
-    os.environ.get('USER', '')))}
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('HEROKU_POSTGRESQL_BRONZE_URL',
+                               'postgres://%s:@localhost:5432/aclarknet' %
+                               os.environ.get('USER', '')))
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -111,8 +112,9 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Django social auth
-AUTHENTICATION_BACKENDS = ('social.backends.google.GoogleOAuth2',
-                           'django.contrib.auth.backends.ModelBackend', )
+AUTHENTICATION_BACKENDS = (
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend', )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(

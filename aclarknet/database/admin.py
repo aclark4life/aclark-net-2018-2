@@ -36,8 +36,9 @@ class ClientResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -59,9 +60,10 @@ class CompanyAdmin(SingletonModelAdmin):
 class ContactResource(ImportExportModelResource):
     """
     """
-    client = fields.Field(column_name='client',
-                          attribute='client',
-                          widget=widgets.ForeignKeyWidget(Client, 'name'))
+    client = fields.Field(
+        column_name='client',
+        attribute='client',
+        widget=widgets.ForeignKeyWidget(Client, 'name'))
 
     class Meta:
         model = Contact
@@ -72,8 +74,9 @@ class ContactResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -89,18 +92,20 @@ class ContactAdmin(ImportExportModelAdmin):
 class EstimateResource(ImportExportModelResource):
     """
     """
-    client = fields.Field(column_name='client',
-                          attribute='client',
-                          widget=widgets.ForeignKeyWidget(Client, 'name'))
-    amount = fields.Field(column_name='estimate_amount',
-                          attribute='amount',
-                          widget=DecimalWidget())
-    subtotal = fields.Field(column_name='subtotal',
-                            attribute='subtotal',
-                            widget=DecimalWidget())
-    document_id = fields.Field(column_name='estimate_id',
-                               attribute='document_id',
-                               widget=DecimalWidget())
+    client = fields.Field(
+        column_name='client',
+        attribute='client',
+        widget=widgets.ForeignKeyWidget(Client, 'name'))
+    amount = fields.Field(
+        column_name='estimate_amount',
+        attribute='amount',
+        widget=DecimalWidget())
+    subtotal = fields.Field(
+        column_name='subtotal', attribute='subtotal', widget=DecimalWidget())
+    document_id = fields.Field(
+        column_name='estimate_id',
+        attribute='document_id',
+        widget=DecimalWidget())
 
     class Meta:
         model = Estimate
@@ -111,8 +116,9 @@ class EstimateResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -129,24 +135,24 @@ class InvoiceResource(ImportExportModelResource):
     """
     """
 
-    client = fields.Field(column_name='client',
-                          attribute='client',
-                          widget=widgets.ForeignKeyWidget(Client, 'name'))
-    amount = fields.Field(column_name='amount',
-                          attribute='amount',
-                          widget=DecimalWidget())
-    paid_amount = fields.Field(column_name='paid_amount',
-                               attribute='paid_amount',
-                               widget=DecimalWidget())
-    subtotal = fields.Field(column_name='subtotal',
-                            attribute='subtotal',
-                            widget=DecimalWidget())
-    balance = fields.Field(column_name='balance',
-                           attribute='balance',
-                           widget=DecimalWidget())
-    document_id = fields.Field(column_name='invoice_id',
-                               attribute='document_id',
-                               widget=DecimalWidget())
+    client = fields.Field(
+        column_name='client',
+        attribute='client',
+        widget=widgets.ForeignKeyWidget(Client, 'name'))
+    amount = fields.Field(
+        column_name='amount', attribute='amount', widget=DecimalWidget())
+    paid_amount = fields.Field(
+        column_name='paid_amount',
+        attribute='paid_amount',
+        widget=DecimalWidget())
+    subtotal = fields.Field(
+        column_name='subtotal', attribute='subtotal', widget=DecimalWidget())
+    balance = fields.Field(
+        column_name='balance', attribute='balance', widget=DecimalWidget())
+    document_id = fields.Field(
+        column_name='invoice_id',
+        attribute='document_id',
+        widget=DecimalWidget())
 
     class Meta:
         model = Invoice
@@ -157,8 +163,9 @@ class InvoiceResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -174,24 +181,28 @@ class InvoiceAdmin(ImportExportModelAdmin):
 class ProjectResource(ImportExportModelResource):
     """
     """
-    client = fields.Field(column_name='client',
-                          attribute='client',
-                          widget=widgets.ForeignKeyWidget(Client, 'name'))
-    billable_amount = fields.Field(column_name='billable_amount',
-                                   attribute='billable_amount',
-                                   widget=DecimalWidget())
-    budget = fields.Field(column_name='budget',
-                          attribute='budget',
-                          widget=DecimalWidget())
-    budget_spent = fields.Field(column_name='budget_spent',
-                                attribute='budget_spent',
-                                widget=DecimalWidget())
-    team_costs = fields.Field(column_name='team_costs',
-                              attribute='team_costs',
-                              widget=DecimalWidget())
-    total_costs = fields.Field(column_name='total_costs',
-                               attribute='total_costs',
-                               widget=DecimalWidget())
+    client = fields.Field(
+        column_name='client',
+        attribute='client',
+        widget=widgets.ForeignKeyWidget(Client, 'name'))
+    billable_amount = fields.Field(
+        column_name='billable_amount',
+        attribute='billable_amount',
+        widget=DecimalWidget())
+    budget = fields.Field(
+        column_name='budget', attribute='budget', widget=DecimalWidget())
+    budget_spent = fields.Field(
+        column_name='budget_spent',
+        attribute='budget_spent',
+        widget=DecimalWidget())
+    team_costs = fields.Field(
+        column_name='team_costs',
+        attribute='team_costs',
+        widget=DecimalWidget())
+    total_costs = fields.Field(
+        column_name='total_costs',
+        attribute='total_costs',
+        widget=DecimalWidget())
 
     class Meta:
         model = Project
@@ -203,8 +214,9 @@ class ProjectResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -255,8 +267,9 @@ class TaskResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
@@ -272,24 +285,24 @@ class TaskAdmin(ImportExportModelAdmin):
 class TimeResource(ImportExportModelResource):
     """
     """
-    billable = fields.Field(column_name='billable',
-                            attribute='billable',
-                            widget=BooleanWidget())
-    client = fields.Field(column_name='client',
-                          attribute='client',
-                          widget=widgets.ForeignKeyWidget(Client, 'name'))
-    invoiced = fields.Field(column_name='invoiced',
-                            attribute='invoiced',
-                            widget=BooleanWidget())
-    project = fields.Field(column_name='project',
-                           attribute='project',
-                           widget=widgets.ForeignKeyWidget(Project, 'name'))
-    task = fields.Field(column_name='task',
-                        attribute='task',
-                        widget=widgets.ForeignKeyWidget(Task, 'name'))
-    user = fields.Field(column_name='user',
-                        attribute='user',
-                        widget=UserWidget())
+    billable = fields.Field(
+        column_name='billable', attribute='billable', widget=BooleanWidget())
+    client = fields.Field(
+        column_name='client',
+        attribute='client',
+        widget=widgets.ForeignKeyWidget(Client, 'name'))
+    invoiced = fields.Field(
+        column_name='invoiced', attribute='invoiced', widget=BooleanWidget())
+    project = fields.Field(
+        column_name='project',
+        attribute='project',
+        widget=widgets.ForeignKeyWidget(Project, 'name'))
+    task = fields.Field(
+        column_name='task',
+        attribute='task',
+        widget=widgets.ForeignKeyWidget(Task, 'name'))
+    user = fields.Field(
+        column_name='user', attribute='user', widget=UserWidget())
 
     class Meta:
         model = Time
@@ -300,8 +313,9 @@ class TimeResource(ImportExportModelResource):
     def before_import(self, dataset, dry_run, file_name=None, user=None):
 
         if dataset.headers:
-            dataset.headers = [str(header).lower().strip()
-                               for header in dataset.headers]
+            dataset.headers = [
+                str(header).lower().strip() for header in dataset.headers
+            ]
 
         if 'id' not in dataset.headers:
             dataset.headers.append('id')
