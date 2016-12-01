@@ -46,6 +46,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
+from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from rest_framework import viewsets
@@ -724,7 +725,7 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     values = get_values(request)
     values = [i.split(',') for i in values]
     values = [
-        [i[0], datetime.strptime(i[1], '%Y-%m-%d').strftime('%s')]
+        [i[0], date2num(datetime.strptime(i[1], '%Y-%m-%d'))]
         for i in values
     ]
     figure = Figure()
