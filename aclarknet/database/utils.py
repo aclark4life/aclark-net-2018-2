@@ -398,6 +398,15 @@ def get_search(request):
     return request.GET.get('search', '')
 
 
+def get_values(request):
+    values = request.GET.get('values')
+    if values:
+        values = values.split(' ')
+    else:
+        values = []
+    return values
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar

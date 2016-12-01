@@ -31,7 +31,9 @@ from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
+from .utils import get_values
 from .utils import send_mail
+from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
@@ -719,15 +721,10 @@ def user_index(request):
 def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
-    import datetime
-    values = request.GET.get('values')
-    if values:
-        values = values.split(' ')
-    else:
-        values = []
+    values = get_values(request)
     values = [i.split(',') for i in values]
     values = [
-        [datetime.datetime.strptime(i[0], '%Y-%m-%d').strftime('%s'), i[1]]
+        [datetime.strptime(i[0], '%Y-%m-%d').strftime('%s'), i[1]]
         for i in values
     ]
     figure = Figure()
