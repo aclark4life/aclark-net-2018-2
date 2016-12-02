@@ -503,7 +503,8 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_index(request):
-    agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
+    agg = Report.objects.filter(active=True)
+    agg = agg.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name')
     context = index_items(request, Report, fields, order_by='date')
