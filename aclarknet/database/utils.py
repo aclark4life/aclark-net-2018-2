@@ -404,6 +404,7 @@ def get_values(request):
         values = values.split(' ')
     else:
         values = []
+    values = [i.split(',') for i in values]
     return values
 
 

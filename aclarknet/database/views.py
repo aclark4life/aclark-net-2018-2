@@ -504,7 +504,6 @@ def report_index(request):
     agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name')
-    # items = Report.objects.all().annotate(diff=F('gross') - F('net'))
     context = index_items(request, Report, fields)
     if agg['gross'] is not None and agg['net'] is not None:
         diff = agg['gross'] - agg['net']
@@ -723,12 +722,11 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
     values = get_values(request)
-    values = [i.split(',') for i in values]
-    values = [[i[0], date2num(datetime.strptime(i[1], '%Y-%m-%d'))]
-              for i in values]
+    x = [date2num(datetime.strptime(i[1], '%Y-%m-%d')) for i in values]
+    y = [i[0] for i in values]
     figure = Figure()
     axes = figure.add_subplot(1, 1, 1)
-    axes.plot(values)
+    axes.plot(x, y)
     canvas = FigureCanvasAgg(figure)
 
     # write image data to a string buffer and get the PNG image bytes
