@@ -724,10 +724,8 @@ def plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     values = get_values(request)
     values = [i.split(',') for i in values]
-    values = [
-        [i[0], date2num(datetime.strptime(i[1], '%Y-%m-%d'))]
-        for i in values
-    ]
+    values = [[i[0], date2num(datetime.strptime(i[1], '%Y-%m-%d'))]
+              for i in values]
     figure = Figure()
     axes = figure.add_subplot(1, 1, 1)
     axes.plot(values)
