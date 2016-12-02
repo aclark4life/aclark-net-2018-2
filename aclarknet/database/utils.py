@@ -419,7 +419,6 @@ def index_items(request, model, fields, context={}, order_by=None):
     active_only = is_active_only(request)
     page = get_page(request)
     paginated = is_paginated(request)
-    search = get_search(request)
     kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
         model,
         active=active_only,
