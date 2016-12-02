@@ -540,6 +540,7 @@ def report_edit(request, pk=None):
         net=net,
         pk=pk)
 
+
 def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
