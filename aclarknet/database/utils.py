@@ -354,8 +354,9 @@ def entries_total(queryset):
             total)
 
 
-def get_kwargs(model, active=False, fields=None, user=None, search=None):
+def get_active_kwarg(model, active=False, user=None):
     """
+    Kwarg for "active" varies by type
     """
     kwargs = {}
     if model._meta.verbose_name == 'estimate':
@@ -377,9 +378,6 @@ def get_kwargs(model, active=False, fields=None, user=None, search=None):
     elif model._meta.verbose_name == 'user':
         # Use related model's active field
         kwargs['profile__active'] = active
-    elif model._meta.verbose_name == 'report':
-        # Reports are always active
-        pass
     else:
         # All other models check active field
         kwargs['active'] = active
@@ -422,12 +420,10 @@ def index_items(request, model, fields, context={}, order_by=None):
     page = get_page(request)
     paginated = is_paginated(request)
     search = get_search(request)
-    kwargs = get_kwargs(
+    kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
         model,
         active=active_only,
-        fields=fields,
-        user=request.user,
-        search=search)
+        user=request.user)
     items = model.objects.filter(Q(**kwargs))
     if order_by:
         items = items.order_by(order_by)

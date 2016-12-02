@@ -43,6 +43,8 @@
             <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc"> 
               <thead>
                 <tr>
+                  <th data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th>
+                  <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                   <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
                   <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                   <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
@@ -58,6 +60,8 @@
               <tbody>
               {% for item in items %}
                 <tr>
+                  <td><form action="{% url 'report_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>      
+                  <td>{{ item.active }}</td>
                   <td><a href="{% url 'report' item.pk %}">{{ item.name }}</a></td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
