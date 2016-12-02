@@ -30,7 +30,14 @@
               <div class="navbar"><a class="btn btn-block btn-lg btn-success" href="{% url 'report_edit' %}">Add Report <i class="fa fa-plus"></i></a></div>
             </div>
           </div>
-{% include 'plot.html' %}
+          <div class="row">
+            <div class="col-md-6">
+{% include 'report_total.html' %}
+            </div>
+            <div class="col-md-6">
+{% include 'report_plot.html' %}
+            </div>
+          </div>
 {% include 'pagination.html' %}
           <div class="table-responsive">
             <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc"> 
@@ -66,23 +73,6 @@
                   </td>
                 </tr>
               {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          <div class="table-responsive">
-            <h2>Totals</h2>
-            <table class="table table-bordered"> 
-              <thead>
-                <tr>
-                  <th class="light">Gross</th>
-                  <th>Net</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="light" data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.gross }}</td>
-                  <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.net }}</td>
-                </tr>
               </tbody>
             </table>
           </div>

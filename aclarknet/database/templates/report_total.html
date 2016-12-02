@@ -1,0 +1,17 @@
+         <h2>Total</h2>
+         <div class="table-responsive">
+            <table class="table table-bordered"> 
+              <thead>
+                <tr>
+                  <th class="light">Gross</th>
+                  <th>Net</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="light" data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.gross }}</td>
+                  <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ agg.net }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
