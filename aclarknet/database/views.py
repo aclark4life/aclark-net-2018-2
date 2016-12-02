@@ -46,6 +46,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
+from matplotlib.dates import DateFormatter
+from matplotlib.dates import MonthLocator
 from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -537,6 +539,32 @@ def report_edit(request, pk=None):
         net=net,
         pk=pk)
 
+def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
+    """
+    """
+    values = get_values(request)
+
+    # http://matplotlib.org/examples/api/date_demo.html
+    x = [date2num(datetime.strptime(i[1], '%Y-%m-%d')) for i in values]
+    y = [i[0] for i in values]
+
+    figure = Figure()
+    canvas = FigureCanvasAgg(figure)
+
+    axes = figure.add_subplot(1, 1, 1)
+    axes.grid(True)
+    axes.plot(x, y)
+    axes.xaxis.set_major_locator(MonthLocator())
+    axes.xaxis.set_major_formatter(DateFormatter('%m'))
+
+    # write image data to a string buffer and get the PNG image bytes
+    buf = BytesIO()
+    canvas.print_png(buf)
+    data = buf.getvalue()
+
+    # write image bytes back to the browser
+    return HttpResponse(data, content_type="image/png")
+
 
 @staff_member_required
 def task(request, pk=None):
@@ -716,23 +744,3 @@ def user_index(request):
     context = index_items(request, User, fields)
     context['company'] = company
     return render(request, 'user_index.html', context)
-
-
-def plot(request):  # http://stackoverflow.com/a/5515994/185820
-    """
-    """
-    values = get_values(request)
-    x = [date2num(datetime.strptime(i[1], '%Y-%m-%d')) for i in values]
-    y = [i[0] for i in values]
-    figure = Figure()
-    axes = figure.add_subplot(1, 1, 1)
-    axes.plot(x, y)
-    canvas = FigureCanvasAgg(figure)
-
-    # write image data to a string buffer and get the PNG image bytes
-    buf = BytesIO()
-    canvas.print_png(buf)
-    data = buf.getvalue()
-
-    # write image bytes back to the browser
-    return HttpResponse(data, content_type="image/png")

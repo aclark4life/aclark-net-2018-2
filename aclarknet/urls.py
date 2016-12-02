@@ -70,6 +70,7 @@ urlpatterns = [
     url(r'^report$', views.report_index, name='report_index'),
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
+    url(r'^report_plot$', views.report_plot, name='report_plot'),
     # Social
     url('', include(
         'django.contrib.auth.urls', namespace='auth')),
@@ -91,5 +92,4 @@ urlpatterns = [
     url(r'^user/(?P<pk>\d+)/contact$', views.user_contact,
         name='user_contact'),
     url(r'^user$', views.user_index, name='user_index'),
-    url(r'^plot$', views.plot, name='plot'),
 ]
