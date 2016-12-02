@@ -238,6 +238,7 @@ class Project(models.Model):
 class Report(models.Model):
     """
     """
+    active = models.BooleanField(default=True)
     date = models.DateField(default=timezone.now)
     name = models.CharField(max_length=300, blank=True, null=True)
     gross = models.DecimalField(
