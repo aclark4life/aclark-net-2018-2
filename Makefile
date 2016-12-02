@@ -330,6 +330,7 @@ vagrant-update:
 # aclarknet-database
 APP=database
 PROJECT=aclarknet
+db: aclarknet-pg-capture aclarknet-pg-restore
 aclarknet-heroku-remote:
 	git remote add heroku git@heroku.com:aclarknet-database.git
 aclarknet-heroku-remote2:

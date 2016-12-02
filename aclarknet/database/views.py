@@ -504,7 +504,7 @@ def report_index(request):
     agg = Report.objects.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name')
-    context = index_items(request, Report, fields)
+    context = index_items(request, Report, fields, order_by='date')
     if agg['gross'] is not None and agg['net'] is not None:
         diff = agg['gross'] - agg['net']
     else:
