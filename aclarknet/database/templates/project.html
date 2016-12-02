@@ -84,6 +84,36 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
+                <h2>Times</h2>
+              </div>
+              <div class="col-md-3">
+                <p><a class="btn btn-lg btn-secondary" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add</a></p>
+              </div>
+            </div> 
+            <div class="table-responsive">
+              <table data-toggle="table">
+                <thead>
+                  <tr>
+                    <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                    <th data-field="hours" data-sortable="true">Hours</th>
+                    <th>Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for entry in times %}
+                <tr>
+                  <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
+                  <td>{{ entry.date|date:'U' }}</td>
+                  <td>{{ entry.hours|default:'' }}</td>
+                  <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-9">
                 <h2>Invoices</h2>
               </div>
               <div class="col-md-3">
@@ -119,36 +149,6 @@
                   </table>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-9">
-                <h2>Times</h2>
-              </div>
-              <div class="col-md-3">
-                <p><a class="btn btn-lg btn-secondary" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add</a></p>
-              </div>
-            </div> 
-            <div class="table-responsive">
-              <table data-toggle="table">
-                <thead>
-                  <tr>
-                    <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
-                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                    <th data-field="hours" data-sortable="true">Hours</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for entry in times %}
-                <tr>
-                  <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
-                  <td>{{ entry.date|date:'U' }}</td>
-                  <td>{{ entry.hours|default:'' }}</td>
-                  <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                </tr>
-                {% endfor %}
-                </tbody>
-              </table>
             </div>
           </div>
 {% endblock %}
