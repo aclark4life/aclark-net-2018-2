@@ -503,18 +503,18 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_index(request):
-    agg = Report.objects.filter(active=True)
-    agg = agg.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
+    reports = Report.objects.filter(active=True)
+    reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name')
     context = index_items(request, Report, fields, order_by='date')
-    if agg['gross'] is not None and agg['net'] is not None:
-        cost = agg['gross'] - agg['net']
+    if reports['gross'] is not None and reports['net'] is not None:
+        cost = reports['gross'] - reports['net']
     else:
-        agg['gross'] = 0
-        agg['net'] = 0
+        reports['gross'] = 0
+        reports['net'] = 0
         cost = 0
-    context['agg'] = agg
+    context['reports'] = reports
     context['company'] = company
     context['cost'] = cost
     context['edit_url'] = 'report_edit'  # Delete form modal
