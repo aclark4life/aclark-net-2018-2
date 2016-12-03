@@ -2,6 +2,16 @@
           <h2>Graph</h2>
           <div class="navbar" style="border: 1px solid #ebebeb; margin-bottom: 1em">
             <div class="col-md-12" style="text-align: center;">
-              <a href="{% url 'report_plot' %}?values={% for item in items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" target="_blank"><img class="rounded" style="width: 50%" src="{% url 'report_plot' %}?values={% for item in items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}"></a>
+              <img class="rounded" style="width: 50%" src="{% url 'report_plot' %}?values={% for item in items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
+            </div>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                    <img style="width: 100%" class="rounded" src="{% url 'report_plot' %}?values={% for item in items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}">
+                </div>
+              </div>
             </div>
           </div>
