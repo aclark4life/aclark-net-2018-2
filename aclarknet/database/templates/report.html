@@ -42,7 +42,7 @@
                     <th>Date</th>
                     <th>Gross</th>
                     <th>Net</th>
-                    <th>Diff</th>
+                    <th>Cost</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,8 +55,12 @@
                 </tr>
                 </tbody>
               </table>
-              <h3>Notes</h3>
-              {% if report.notes %}
-              <div class="notes">{{ report.notes|linebreaks|default:'' }}</div>
+              {% if item.notes %}
+              <div class="row" id="notes">
+                <div class="col-md-12">
+                  <h2>Notes</h2>
+                  <div class="notes">{{ item.notes|linebreaks|default:'' }}</div>
+                </div>
+              </div>
               {% endif %}
 {% endblock %}
