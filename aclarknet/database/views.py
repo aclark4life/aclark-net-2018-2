@@ -497,7 +497,7 @@ def report(request, pk=None):
     report = get_object_or_404(Report, pk=pk)
     context['edit_url'] = 'report_edit'  # Delete form modal
     context['item'] = report
-    context['diff'] = report.gross - report.net
+    context['cost'] = report.gross - report.net
     return render(request, 'report.html', context)
 
 
@@ -509,14 +509,14 @@ def report_index(request):
     fields = ('id', 'name')
     context = index_items(request, Report, fields, order_by='date')
     if agg['gross'] is not None and agg['net'] is not None:
-        diff = agg['gross'] - agg['net']
+        cost = agg['gross'] - agg['net']
     else:
         agg['gross'] = 0
         agg['net'] = 0
-        diff = 0
+        cost = 0
     context['agg'] = agg
     context['company'] = company
-    context['diff'] = diff
+    context['cost'] = cost
     context['edit_url'] = 'report_edit'  # Delete form modal
     return render(request, 'report_index.html', context)
 
