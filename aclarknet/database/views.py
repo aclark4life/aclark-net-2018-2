@@ -503,6 +503,7 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_index(request):
+    show_plot = False
     reports = Report.objects.filter(active=True)
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
@@ -514,10 +515,13 @@ def report_index(request):
         reports['gross'] = 0
         reports['net'] = 0
         cost = 0
+    if len(context['items']) > 1:
+        show_plot = True
     context['reports'] = reports
     context['company'] = company
     context['cost'] = cost
     context['edit_url'] = 'report_edit'  # Delete form modal
+    context['show_plot'] = show_plot
     return render(request, 'report_index.html', context)
 
 
