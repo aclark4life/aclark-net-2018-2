@@ -86,3 +86,9 @@ ul#project-invoices {
     vertical-align: middle;
     margin-right: 8px;
 }
+img:hover {
+  cursor: pointer;
+}   
+.modal-body img:hover {
+  cursor: default;
+}
