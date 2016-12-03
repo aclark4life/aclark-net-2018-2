@@ -68,7 +68,7 @@
                   <td>{{ item.date|date:'U'|default:'' }}</td>
                   <td>{{ item.gross }}</td>
                   <td>{{ item.net }}</td>
-                  <td>{{ item.cost }}</td>
+                  <td>{{ item.cost|default:'' }}</td>
                   <td><a href="{% url 'report' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                   <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                   <td>

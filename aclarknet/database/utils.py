@@ -424,8 +424,17 @@ def index_items(request, model, fields, context={}, order_by=None):
         active=active_only,
         user=request.user)
     items = model.objects.filter(Q(**kwargs))
+
     if order_by:
         items = items.order_by(order_by)
+
+    # Calculate cost per report
+    if model._meta.verbose_name == 'report':
+        for item in items:
+            cost = item.gross - item.net
+            item.cost = cost
+            item.save()
+
     if not request.user.is_authenticated:
         items = []
     if paginated:
@@ -434,6 +443,7 @@ def index_items(request, model, fields, context={}, order_by=None):
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
+
     return context
 
 
