@@ -406,6 +406,12 @@ def get_values(request):
     return values
 
 
+def get_reports(request, model):
+    active_only = is_active_only(request)
+    reports = model.objects.filter(active=active_only)
+    return reports
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
