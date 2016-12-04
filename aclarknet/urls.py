@@ -59,6 +59,12 @@ urlpatterns = [
         name='invoice_edit'),
     url(r'^invoice/add$', views.invoice_edit, name='invoice_edit'),
     url(r'^invoice$', views.invoice_index, name='invoice_index'),
+    # Note
+    url(r'^note/(?P<pk>\d+)$', views.note, name='note'),
+    url(r'^note/(?P<pk>\d+)/edit$', views.note_edit,
+        name='note_edit'),
+    url(r'^note/add$', views.note_edit, name='note_edit'),
+    url(r'^note$', views.note_index, name='note_index'),
     # Project
     url(r'^project/(?P<pk>\d+)$', views.project, name='project'),
     url(r'^project/(?P<pk>\d+)/edit$', views.project_edit,

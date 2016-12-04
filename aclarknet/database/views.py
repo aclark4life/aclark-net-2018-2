@@ -13,6 +13,7 @@ from .models import Company
 from .models import Contact
 from .models import Estimate
 from .models import Invoice
+from .models import Note
 from .models import Profile
 from .models import Project
 from .models import Report
@@ -439,6 +440,24 @@ def invoice_index(request):
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     return render(request, 'invoice_index.html', context)
+
+
+@staff_member_required
+def note(request, pk=None):
+    pass
+
+
+@staff_member_required
+def note_edit(request, pk=None):
+    pass
+
+
+@staff_member_required
+def note_index(request, pk=None):
+    fields = ()
+    context = index_items(request, Note, fields)
+    context['edit_url'] = 'note_edit'  # Delete form modal
+    return render(request, 'note_index.html', context)
 
 
 @staff_member_required
