@@ -4,6 +4,7 @@ from .forms import ContactForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import MailForm
+from .forms import NoteForm
 from .forms import ProfileForm
 from .forms import ProjectForm
 from .forms import ReportForm
@@ -449,7 +450,19 @@ def note(request, pk=None):
 
 @staff_member_required
 def note_edit(request, pk=None):
-    pass
+    kwargs = {}
+    url_name = 'note_index'
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'note'
+    return edit(
+        request,
+        NoteForm,
+        Note,
+        url_name,
+        'note_edit.html',
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required

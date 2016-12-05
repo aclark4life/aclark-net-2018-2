@@ -3,6 +3,7 @@ from .models import Company
 from .models import Contact
 from .models import Estimate
 from .models import Invoice
+from .models import Note
 from .models import Profile
 from .models import Project
 from .models import Report
@@ -58,6 +59,12 @@ class InvoiceForm(forms.ModelForm):
 class MailForm(forms.Form):
     subject = forms.CharField()
     message = forms.CharField(widget=forms.Textarea())
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = '__all__'
 
 
 class ProfileForm(forms.ModelForm):
