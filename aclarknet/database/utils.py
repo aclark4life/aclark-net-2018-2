@@ -96,10 +96,10 @@ def daily_burn(project):
         return ''
 
 
-def dashboard_items(model, active=None, order_by=None):
+def dashboard_items(model, active=True, hidden=False, order_by=None):
     """
     """
-    items = model.objects.filter(active=active)
+    items = model.objects.filter(active=active, hidden=hidden)
     if order_by:
         items = items.order_by(order_by)
     return items

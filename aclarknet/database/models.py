@@ -207,6 +207,7 @@ class Project(models.Model):
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
     active = models.BooleanField(default=True)
+    hidden = models.BooleanField(default=False)
     client = models.ForeignKey(
         Client,
         blank=True,

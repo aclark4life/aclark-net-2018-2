@@ -76,7 +76,7 @@ class ProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('active', 'budget', 'client', 'name', 'notes', 'start_date',
+        fields = ('active', 'hidden', 'budget', 'client', 'name', 'notes', 'start_date',
                   'end_date', 'task', 'team')
 
 
