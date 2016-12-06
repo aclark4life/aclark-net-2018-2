@@ -40,7 +40,7 @@
                 </div>
 {% include 'delete_form.html' %}
                 <div class="table-responsive">
-                  <table class="table table-bordered">
+                  <table data-toggle="table">
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -56,7 +56,7 @@
                   </table>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-bordered">
+                  <table data-toggle="table">
                     <thead>
                       <tr>
                         <th>Description</th>
@@ -74,7 +74,7 @@
                     <h2>Contacts</h2>
                   </div>
                   <div class="col-md-3">
-                    <a class="btn btn-block btn-lg btn-secondary pull-right" href="{% url 'contact_edit' %}?client={{ item.pk }}">Add</a></h2>
+                    <a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'contact_edit' %}?client={{ item.pk }}">Add <i class="fa fa-plus"></i></a></h2>
                   </div>
                 </div>
                 <div class="table-responsive">
@@ -104,7 +104,7 @@
                     <h2>Projects</h2>
                   </div>
                   <div class="col-md-3">
-                    <a class="btn btn-block btn-lg btn-secondary pull-right" href="{% url 'project_edit' %}?client={{ item.pk }}">Add</a></h2>
+                    <a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'project_edit' %}?client={{ item.pk }}">Add <i class="fa fa-plus"></i></a></h2>
                   </div>
                 </div>
                 <div class="table-responsive">
