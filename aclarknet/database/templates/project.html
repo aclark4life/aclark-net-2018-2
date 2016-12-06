@@ -24,7 +24,7 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-9">
-                <h1>{{ item.name }}</h1>
+                <h1>Project</h1>
               </div>
               <div class="col-md-3">
                 <div class="dropdown pull-right">
@@ -41,6 +41,7 @@
               <table class="table table-bordered"> 
                 <thead>
                   <tr>
+                    <th>Name</th>
                     <th>Client</th>
                     <th>Start Date</th>
                     <th>End Date</th>
@@ -48,6 +49,7 @@
                 </thead>
                 <tbody>
                   <tr>
+                    <td>{{ item.name|default:'' }}</td>
                     {% if item.client %}
                     <td><a href="{% url 'client' item.client.pk %}">{{ item.client|default:'' }}</a></td>
                     {% else %}
