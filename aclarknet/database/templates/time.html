@@ -84,7 +84,7 @@
               </table>
               </div>
               {% if item.notes %}
-              <h2>Description</h2>
-              <div>{{ item.notes|linebreaks|default:'' }}</div>
+              <h2>Notes</h2>
+              <div class="notes">{{ item.notes|linebreaks|default:'' }}</div>
               {% endif %}
 {% endblock %}
