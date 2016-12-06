@@ -38,7 +38,7 @@
             </div>
 {% include 'delete_form.html' %}
             <div class="table-responsive">
-              <table class="table table-bordered"> 
+              <table data-toggle="table">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -61,22 +61,6 @@
                 </tbody>
               </table>
             </div>
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Budget</th>
-                    <th>Burn Rate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{ item.budget|default:'' }}</td>
-                    <td>{{ item.daily_burn|default:'' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
             {% if item.notes %}
             <h2>Notes</h2>
             <div class="notes">
@@ -90,7 +74,7 @@
                 <h2>Times</h2>
               </div>
               <div class="col-md-3">
-                <p><a class="btn btn-lg btn-secondary" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add</a></p>
+                <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
               </div>
             </div> 
             <div class="table-responsive">
@@ -120,7 +104,7 @@
                 <h2>Invoices</h2>
               </div>
               <div class="col-md-3">
-                <p><a class="btn btn-lg btn-secondary" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add</a></p>
+                <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
               </div>
             </div>
             <div class="row">
