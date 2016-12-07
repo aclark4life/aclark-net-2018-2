@@ -527,6 +527,7 @@ def url_name_from(verbose_name):
         'contact': 'contact_index',
         'estimate': 'estimate_index',
         'invoice': 'invoice_index',
+        'note': 'note_index',
         'project': 'project_index',
         'report': 'report_index',
         'task': 'task_index',

@@ -446,7 +446,13 @@ def invoice_index(request):
 
 @staff_member_required
 def note(request, pk=None):
-    pass
+    context = {}
+    note = get_object_or_404(Note, pk=pk)
+    notes = Note.objects.filter(note=note)
+    notes = notes.order_by('-pk')
+    context['edit_url'] = 'note_edit'
+    context['item'] = note
+    return render(request, 'note.html', context)
 
 
 @staff_member_required

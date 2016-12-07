@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load l10n %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block nav %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i></a></li>
+            {% if request.user.is_staff %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>
+            <li class="nav-item active"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'user_index' %}">Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'report_index' %}">Reports</a></li>
+            {% endif %}
+{% endblock %}
+
+{% block content %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h1>Note</h1>
+                  </div>
+                  <div class="col-md-3 offset-md-3">
+                    <div class="dropdown pull-right">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'note_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+            
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+{% include 'delete_form.html' %}
+                <div class="table-responsive">
+                  <table data-toggle="table" data-classes="table">
+                    <tbody>
+                      <tr>
+                        <td>{{ item.note }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+{% endblock %}
