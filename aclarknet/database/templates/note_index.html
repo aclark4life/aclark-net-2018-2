@@ -47,8 +47,8 @@
                 <tr>
                   <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   <td>{{ item.active }}</td>
-                  <td><a href="{% url 'note' item.pk %}">{{ item.note }}</a></td>
-                  <td>{{ item.note }}</td>
+                  <td><a href="{% url 'note' item.pk %}">{{ item.note|linebreaks }}</a></td>
+                  <td>{{ item.note|linebreaks }}</td>
                   <td><a href="{% url 'note' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                   <td><a href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                   <td>
