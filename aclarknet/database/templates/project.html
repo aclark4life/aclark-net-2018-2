@@ -50,13 +50,23 @@
                 <tbody>
                   <tr>
                     <td>{{ item.name|default:'' }}</td>
-                    {% if item.client %}
-                    <td><a href="{% url 'client' item.client.pk %}">{{ item.client|default:'' }}</a></td>
-                    {% else %}
-                    <td>{{ item.client|default:'' }}</td>
-                    {% endif %}
+                    {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client|default:'' }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                     <td>{{ item.start_date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ item.end_date|date:'Y-m-d'|default:'' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-responsive">
+              <table data-toggle="table" data-classes="table">
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% if item.task %}<td><a href="{% url 'task' item.task.pk %}">{{ item.task|default:'' }}</a></td>{% else %}<td>{{ item.task|default:'' }}</td>{% endif %}
                   </tr>
                 </tbody>
               </table>
