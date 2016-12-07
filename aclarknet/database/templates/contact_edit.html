@@ -23,7 +23,7 @@
 {% block content %}
               <h1>Contact</h1>
               <div class="alert alert-warning">
-                <strong>Enter a valid phone number.</strong> Please use <a href="https://en.wikipedia.org/wiki/E.164">E.164 format</a> to enter phone numbers e.g. +13015551212.
+                <strong>Enter a valid phone number.</strong> Please use <a href="https://en.wikipedia.org/wiki/E.164" target="_blank">E.164 format</a> to enter phone numbers e.g. +13015551212.
               </div>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
