@@ -51,7 +51,7 @@
                   <td>{{ item.active }}</td>
                   <td>{{ item.first_name }}</td>
                   <td>{{ item.last_name }}</td>
-                  {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
+                  <td>{% if item.client %}<a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.client }}</a>{% else %}{{ item.client|default:'' }}{% endif %}</td>
                   <td><a href="{% url 'contact' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
                   <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                   <td>
