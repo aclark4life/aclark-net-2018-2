@@ -31,7 +31,7 @@
           </div>
 {% include 'pagination.html' %}
           <div class="table-responsive">
-            <table class="table table-striped" data-toggle="table"> 
+            <table class="table table-striped" data-toggle="table" data-sort-name="hidden-color">
               <thead>
                 <tr>
                   <th data-field="active" data-sort-name="hidden-active" {% if active %}data-visible="false"{% endif %} data-sortable="true">Active</th>
@@ -39,6 +39,7 @@
                   <th data-sortable="true" data-visible="false">Burn Rate</th>
                   <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
                   <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                  <th data-field="hidden-color" data-sortable="true" data-visible="false">Hidden Color</th>
                   <th data-field="client" data-sort-name="hidden-client" data-sortable="true" data-visible="true">Client</th>
                   <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                   <th data-sortable="true" data-visible="true">Task</th>
@@ -57,6 +58,7 @@
                   <td>{{ item.daily_burn }}</td>
                   <td data-toggle="tooltip" title="Burn Rate: {{ item.daily_burn }}">{% if item.name %}<a href="{% url 'project' item.pk %}"><i class="fa fa-folder-open fa-3x valign-middle"></i>{{ item.name }}</a>{% endif %}</td>
                   <td>{{ item.name|default:'' }}</td>
+                  <td>{{ item.task.color|default:'' }}</td>
                   {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                   <td>{{ item.client|default:'' }}</td>
                   {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"><i class="fa fa-tasks fa-3x valign-middle"></i>{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
