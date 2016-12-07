@@ -294,8 +294,7 @@ class Task(models.Model):
     active = models.BooleanField(default=True)
     billable = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
-    color = models.CharField(
-        max_length=7, blank=True, null=True)
+    color = models.CharField(max_length=7, blank=True, null=True)
     rate = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     unit = models.DecimalField(
