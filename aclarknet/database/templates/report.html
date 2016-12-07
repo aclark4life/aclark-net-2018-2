@@ -57,10 +57,10 @@
                 </tbody>
               </table>
               {% if item.notes %}
-              <div class="row" id="notes">
+              <div class="row"> 
                 <div class="col-md-12">
                   <h2>Notes</h2>
-                  <div class="notes">{{ item.notes|linebreaks|default:'' }}</div>
+                  <div class="note">{{ item.notes|linebreaks|default:'' }}</div>
                 </div>
               </div>
               {% endif %}

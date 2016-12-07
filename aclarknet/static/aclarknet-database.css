@@ -27,7 +27,7 @@
 .nav-sidebar a:hover {
   text-decoration: underline; 
 }
-.notes {
+.note {
     background: lightyellow;
     padding: 1em 0 0 1em;
     border: 1px solid #EAEAEA;
