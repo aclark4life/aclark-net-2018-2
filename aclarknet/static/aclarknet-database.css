@@ -32,8 +32,9 @@
 }
 .notes {
     background: lightyellow;
-    padding: 15px;
+    padding-left: 1em;
     border: 1px solid #EAEAEA;
+    border-radius: 5px;
 }
 .page-nav, .page-nav a, .page-nav a:hover {
     color: #CDCDCE;
