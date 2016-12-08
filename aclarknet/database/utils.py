@@ -427,14 +427,10 @@ def get_reports(request, model):
 
 def get_search_results(model, fields, search):
     context = {}
-    items = []
     query = []
-    if model._meta.verbose_name == 'client':
-        items = model.objects.filter(name__icontains=search)
-    elif model._meta.verbose_name == 'contact':
-        for field in fields:
-            query.append(Q(**{field + '__icontains': search}))
-        items = model.objects.filter(reduce(OR, query))
+    for field in fields:
+        query.append(Q(**{field + '__icontains': search}))
+    items = model.objects.filter(reduce(OR, query))
     context['items'] = items
     return context
 
