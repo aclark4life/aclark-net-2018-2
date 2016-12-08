@@ -405,6 +405,8 @@ def get_query(request, query):
             return False
         else:
             return True
+    elif query == 'search' and request.method == 'POST':
+        return request.POST.get('search', '')
     elif query == 'values':
         values = request.GET.get('values')
         if values:
@@ -423,6 +425,15 @@ def get_reports(request, model):
     return reports
 
 
+def get_search_results(model, search):
+    context = {}
+    items = []
+    if model._meta.verbose_name == 'client':
+        items = model.objects.filter(name__contains=search)
+    context['items'] = items
+    return context
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
@@ -435,18 +446,24 @@ def index_items(request, model, fields, context={}, order_by=None):
     """
     active_only = get_query(request, 'active-only')
     page = get_query(request, 'page')
+    paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
 
-    if search == u'' and request.method == 'POST':  # Empty search returns none
-        return {}
+    # Search is easy
+    if request.method == 'POST':
+        if search == u'':  # Empty search returns none
+            return {}
+        else:
+            return get_search_results(model, search)
 
-    paginated = get_query(request, 'paginated')
+    # Activeness is harder
     kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
         model,
         active=active_only,
         user=request.user)
     items = model.objects.filter(Q(**kwargs))
 
+    # Reorder items
     if order_by:
         items = items.order_by(order_by)
 
@@ -457,10 +474,14 @@ def index_items(request, model, fields, context={}, order_by=None):
             item.cost = cost
             item.save()
 
+    # Don't show items to anon
     if not request.user.is_authenticated:
         items = []
+
+    # Paginate if paginated
     if paginated:
         items = paginate(items, page)
+
     context['active'] = active_only
     context['items'] = items
     context['page'] = page
