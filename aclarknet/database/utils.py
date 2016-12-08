@@ -490,10 +490,6 @@ def index_items(request, model, fields, context={}, order_by=None):
     return context
 
 
-
-
-
-
 def last_month():
     """
     Returns last day of last month
