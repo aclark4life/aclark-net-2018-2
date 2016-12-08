@@ -16,10 +16,10 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from import_export import widgets
 from hashlib import md5
+from operator import or_ as OR
 from smtplib import SMTPSenderRefused
 
 # import datetime
-# import operator
 # import re
 
 
@@ -425,11 +425,16 @@ def get_reports(request, model):
     return reports
 
 
-def get_search_results(model, search):
+def get_search_results(model, fields, search):
     context = {}
     items = []
+    query = []
     if model._meta.verbose_name == 'client':
-        items = model.objects.filter(name__contains=search)
+        items = model.objects.filter(name__icontains=search)
+    elif model._meta.verbose_name == 'contact':
+        for field in fields:
+            query.append(Q(**{field + '__icontains': search}))
+        items = model.objects.filter(reduce(OR, query))
     context['items'] = items
     return context
 
@@ -454,7 +459,7 @@ def index_items(request, model, fields, context={}, order_by=None):
         if search == u'':  # Empty search returns none
             return {}
         else:
-            return get_search_results(model, search)
+            return get_search_results(model, fields, search)
 
     # Activeness is harder
     kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
