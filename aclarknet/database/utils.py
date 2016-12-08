@@ -384,30 +384,41 @@ def get_active_kwarg(model, active=False, user=None):
     return kwargs
 
 
-def get_page(request):
+def get_query(request, query):
     """
     """
-    return request.GET.get('page', '')
-
-
-def get_search(request):
-    """
-    """
-    return request.GET.get('search', '')
-
-
-def get_values(request):
-    values = request.GET.get('values')
-    if values:
-        values = values.split(' ')
-    else:
-        values = []
-    values = [i.split(',') for i in values]
-    return values
+    # Special handling for some query strings
+    if query == 'active-only':
+        # Get query string parameter; return True when 'active-only=true' or
+        # no query string exists, else return False.
+        active_only = request.GET.get('active-only')
+        if active_only:
+            if active_only == u'true':
+                return True
+            else:
+                return False
+        else:
+            return True
+    elif query == 'paginated':
+        paginated = request.GET.get('paginated')
+        if paginated == u'false':
+            return False
+        else:
+            return True
+    elif query == 'values':
+        values = request.GET.get('values')
+        if values:
+            values = values.split(' ')
+        else:
+            values = []
+        values = [i.split(',') for i in values]
+        return values
+    else:  # Normal handling
+        return request.GET.get(query, '')
 
 
 def get_reports(request, model):
-    active_only = is_active_only(request)
+    active_only = get_query(request, 'active-only')
     reports = model.objects.filter(active=active_only)
     return reports
 
@@ -422,9 +433,14 @@ def gravatar_url(email):
 def index_items(request, model, fields, context={}, order_by=None):
     """
     """
-    active_only = is_active_only(request)
-    page = get_page(request)
-    paginated = is_paginated(request)
+    active_only = get_query(request, 'active-only')
+    page = get_query(request, 'page')
+    search = get_query(request, 'search')
+
+    if search == u'' and request.method == 'POST':  # Empty search returns none
+        return {}
+
+    paginated = get_query(request, 'paginated')
     kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
         model,
         active=active_only,
@@ -453,27 +469,8 @@ def index_items(request, model, fields, context={}, order_by=None):
     return context
 
 
-def is_active_only(request):
-    """
-    Get query string parameter; return True when 'active-only=true' or no query
-    string exists, else return False.
-    """
-    active_only = request.GET.get('active-only')
-    if active_only:
-        if active_only == u'true':
-            return True
-        else:
-            return False
-    else:
-        return True
 
 
-def is_paginated(request):
-    paginated = request.GET.get('paginated')
-    if paginated == u'false':
-        return False
-    else:
-        return True
 
 
 def last_month():

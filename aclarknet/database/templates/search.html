@@ -1,6 +1,6 @@
             {% if request.user.is_staff %}
             <div class="navbar">
-              <form class="form-inline" method="get">
+              <form class="form-inline" method="post">{% csrf_token %}
                 <div class="form-group">
                   <input type="hidden" name="active-only" value="false">
                   <input class="form-control" name="search" type="text"> 

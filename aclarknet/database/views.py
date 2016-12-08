@@ -34,7 +34,7 @@ from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
 from .utils import get_reports
-from .utils import get_values
+from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
 from django.contrib import messages
@@ -588,7 +588,7 @@ def report_edit(request, pk=None):
 def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
-    values = get_values(request)
+    values = get_query(request, 'values')
 
     # http://matplotlib.org/examples/api/date_demo.html
     x = [date2num(datetime.strptime(i[1], '%Y-%m-%d')) for i in values]
