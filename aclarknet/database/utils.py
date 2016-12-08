@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
+from functools import reduce
 from import_export import widgets
 from hashlib import md5
 from operator import or_ as OR
