@@ -486,7 +486,7 @@ def project(request, pk=None):
     project = get_object_or_404(Project, pk=pk)
     times = Time.objects.filter(
         project=project, invoiced=False).order_by('-date')
-    invoices = Invoice.objects.filter(project=project, last_payment_date=None)
+    invoices = Invoice.objects.filter(project=project)
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['item'] = project
