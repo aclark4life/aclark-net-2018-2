@@ -446,7 +446,7 @@ def gravatar_url(email):
 def index_items(request, model, fields, context={}, order_by=None):
     """
     """
-    active_only = get_query(request, 'active-only')
+    # active_only = get_query(request, 'active-only')
     page = get_query(request, 'page')
     paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
@@ -459,11 +459,12 @@ def index_items(request, model, fields, context={}, order_by=None):
             return get_search_results(model, fields, search)
 
     # Activeness is harder
-    kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
-        model,
-        active=active_only,
-        user=request.user)
-    items = model.objects.filter(Q(**kwargs))
+    # kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
+    #     model,
+    #     active=active_only,
+    #     user=request.user)
+    # items = model.objects.filter(Q(**kwargs))
+    items = model.objects.all()
 
     # Reorder items
     if order_by:
@@ -484,7 +485,7 @@ def index_items(request, model, fields, context={}, order_by=None):
     if paginated:
         items = paginate(items, page)
 
-    context['active'] = active_only
+    # context['active'] = active_only
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
