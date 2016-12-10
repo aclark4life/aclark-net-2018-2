@@ -389,17 +389,6 @@ def get_query(request, query):
     """
     """
     # Special handling for some query strings
-    # if query == 'active-only':
-    #     # Get query string parameter; return True when 'active-only=true' or
-    #     # no query string exists, else return False.
-    #     active_only = request.GET.get('active-only')
-    #     if active_only:
-    #         if active_only == u'true':
-    #             return True
-    #         else:
-    #             return False
-    #     else:
-    #         return True
     if query == 'paginated':
         paginated = request.GET.get('paginated')
         if paginated == u'false':
@@ -421,8 +410,7 @@ def get_query(request, query):
 
 
 def get_reports(request, model):
-    active_only = get_query(request, 'active-only')
-    reports = model.objects.filter(active=active_only)
+    reports = model.objects.all()
     return reports
 
 
@@ -446,7 +434,6 @@ def gravatar_url(email):
 def index_items(request, model, fields, context={}, order_by=None):
     """
     """
-    # active_only = get_query(request, 'active-only')
     page = get_query(request, 'page')
     paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
@@ -458,12 +445,7 @@ def index_items(request, model, fields, context={}, order_by=None):
         else:
             return get_search_results(model, fields, search)
 
-    # Activeness is harder
-    # kwargs = get_active_kwarg(  # Kwarg for "active" varies by type
-    #     model,
-    #     active=active_only,
-    #     user=request.user)
-    # items = model.objects.filter(Q(**kwargs))
+    # Not a search
     items = model.objects.all()
 
     # Reorder items
@@ -485,7 +467,6 @@ def index_items(request, model, fields, context={}, order_by=None):
     if paginated:
         items = paginate(items, page)
 
-    # context['active'] = active_only
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
