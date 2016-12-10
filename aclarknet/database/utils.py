@@ -409,11 +409,6 @@ def get_query(request, query):
         return request.GET.get(query, '')
 
 
-def get_reports(request, model):
-    reports = model.objects.all()
-    return reports
-
-
 def get_search_results(model, fields, search):
     context = {}
     query = []

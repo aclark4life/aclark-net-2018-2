@@ -33,7 +33,6 @@ from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
-from .utils import get_reports
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -544,7 +543,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_index(request):
     show_plot = False
-    reports = get_reports(request, Report)
+    reports = Report.objects.all()
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
