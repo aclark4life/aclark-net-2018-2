@@ -389,18 +389,18 @@ def get_query(request, query):
     """
     """
     # Special handling for some query strings
-    if query == 'active-only':
-        # Get query string parameter; return True when 'active-only=true' or
-        # no query string exists, else return False.
-        active_only = request.GET.get('active-only')
-        if active_only:
-            if active_only == u'true':
-                return True
-            else:
-                return False
-        else:
-            return True
-    elif query == 'paginated':
+    # if query == 'active-only':
+    #     # Get query string parameter; return True when 'active-only=true' or
+    #     # no query string exists, else return False.
+    #     active_only = request.GET.get('active-only')
+    #     if active_only:
+    #         if active_only == u'true':
+    #             return True
+    #         else:
+    #             return False
+    #     else:
+    #         return True
+    if query == 'paginated':
         paginated = request.GET.get('paginated')
         if paginated == u'false':
             return False
