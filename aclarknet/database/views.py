@@ -204,6 +204,7 @@ def contact_mail(request, pk=None):
 @staff_member_required
 def estimate(request, pk=None):
     context = {}
+    pdf = get_query(request, 'pdf')
 
     company = Company.get_solo()
     if company:
@@ -238,7 +239,6 @@ def estimate(request, pk=None):
     context['subtotal'] = subtotal
     context['hours'] = hours
 
-    pdf = request.GET.get('pdf')
     context['pdf'] = pdf
     if pdf:
         company_name = ''
@@ -324,6 +324,7 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = {}
+    pdf = get_query(request, 'pdf')
 
     company = Company.get_solo()
     if company:
@@ -357,7 +358,6 @@ def invoice(request, pk=None):
 
     context['invoice'] = True
 
-    pdf = request.GET.get('pdf')
     context['pdf'] = pdf
     if pdf:
         response = HttpResponse(content_type='application/pdf')
