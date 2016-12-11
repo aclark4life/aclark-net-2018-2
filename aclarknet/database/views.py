@@ -204,11 +204,13 @@ def contact_mail(request, pk=None):
 @staff_member_required
 def estimate(request, pk=None):
     context = {}
-    pdf = get_query(request, 'pdf')
 
     company = Company.get_solo()
     if company:
         context['company'] = company
+
+    pdf = get_query(request, 'pdf')
+    context['pdf'] = pdf
 
     estimate = get_object_or_404(Estimate, pk=pk)
 
@@ -239,7 +241,6 @@ def estimate(request, pk=None):
     context['subtotal'] = subtotal
     context['hours'] = hours
 
-    context['pdf'] = pdf
     if pdf:
         company_name = ''
         if company.name:
@@ -324,11 +325,13 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = {}
-    pdf = get_query(request, 'pdf')
 
     company = Company.get_solo()
     if company:
         context['company'] = company
+
+    pdf = get_query(request, 'pdf')
+    context['pdf'] = pdf
 
     invoice = get_object_or_404(Invoice, pk=pk)
 
@@ -358,7 +361,6 @@ def invoice(request, pk=None):
 
     context['invoice'] = True
 
-    context['pdf'] = pdf
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         if company.name:
