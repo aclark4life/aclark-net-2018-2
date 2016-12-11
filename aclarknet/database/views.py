@@ -448,12 +448,24 @@ def invoice_index(request):
 @staff_member_required
 def note(request, pk=None):
     context = {}
+
+    pdf = get_query(request, 'pdf')
+    context['pdf'] = pdf
+
     note = get_object_or_404(Note, pk=pk)
     notes = Note.objects.filter(note=note)
     notes = notes.order_by('-pk')
+
     context['edit_url'] = 'note_edit'
     context['item'] = note
-    return render(request, 'note.html', context)
+
+    if pdf:
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=note.pdf'
+        return generate_pdf(
+            'pdf_note.html', context=context, file_object=response)
+    else:
+        return render(request, 'note.html', context)
 
 
 @staff_member_required
