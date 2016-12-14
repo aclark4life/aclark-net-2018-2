@@ -89,7 +89,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
 def certbot(request):  # http://stackoverflow.com/a/24817024
-    return HttpResponse(certbot_data)
+    return HttpResponse(certbot_data())
 
 
 @staff_member_required
