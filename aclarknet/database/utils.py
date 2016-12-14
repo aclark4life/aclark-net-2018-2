@@ -80,14 +80,6 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def certbot_data():
-    """
-    """
-    data = 'BQAYWZI8srCAhJZneZRQwwfQ6VzYduU0B8SumnfZBL0.'
-    data += 'gPCswvmAzfObWoqUg6d_VZ8MMcAWkQxY33wdQci6Mnc'
-    return data
-
-
 def class_name_pk(self):
     """
     Concatenate class name and id
