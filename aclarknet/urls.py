@@ -25,11 +25,16 @@ router.register(r'services', views.ServiceViewSet)
 router.register(r'testimonials', views.TestimonialViewSet)
 router.register(r'profiles', views.ProfileViewSet)
 
+certbot_url = r'.well-known/acme-challenge/'
+certbot_url += 'BQAYWZI8srCAhJZneZRQwwfQ6VzYduU0B8SumnfZBL0'
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     # API
     url(r'^api/', include(router.urls)),
+    # Certbot
+    url(certbot_url, views.certbot, name='certbot'),
     # Client
     url(r'^client/(?P<pk>\d+)$', views.client, name='client'),
     url(r'^client/(?P<pk>\d+)/edit$', views.client_edit, name='client_edit'),

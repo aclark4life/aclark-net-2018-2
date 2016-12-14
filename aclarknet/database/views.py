@@ -28,6 +28,7 @@ from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
 from .utils import index_items
+from .utils import certbot_data
 from .utils import daily_burn
 from .utils import dashboard_items
 from .utils import dashboard_totals
@@ -85,6 +86,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.filter(
         published=True).order_by('user__first_name')
     serializer_class = ProfileSerializer
+
+
+def certbot(request):  # http://stackoverflow.com/a/24817024
+    return HttpResponse(certbot_data)
 
 
 @staff_member_required
