@@ -80,7 +80,7 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def certbot_data(self):
+def certbot_data():
     """
     """
     data = 'BQAYWZI8srCAhJZneZRQwwfQ6VzYduU0B8SumnfZBL0.'
