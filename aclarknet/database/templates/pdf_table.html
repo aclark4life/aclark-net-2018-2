@@ -37,7 +37,7 @@
                 <td valign="top" class="field-value"> 
                   <strong>{{ company.name|default:'Company' }}</strong>
                   <br>
-                  {{ company.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
+                  {{ company.address|default:''|linebreaksbr }}
                 </td>
               </tr>
               <tr><!-- After "From" and before "Invoice For" --></tr>
@@ -50,7 +50,7 @@
                 <td rowspan=5 valign="top" class="field-value">
                   <strong>{{ item.client.name|default:'Client' }}</strong>
                   <br>
-                  {{ item.client.address|default:'1234 Main Street City, State USA'|linebreaksbr }}
+                  {{ item.client.address|default:''|linebreaksbr }}
                 </td>
               </tr>
               <tr>
