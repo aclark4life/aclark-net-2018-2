@@ -56,21 +56,24 @@ a.text-overflow-ellipsis {  /* http://www.w3schools.com/cssref/tryit.asp?filenam
 a:hover.text-overflow-ellipsis {
     text-decoration: none;
 }
-td {  /* http://stackoverflow.com/a/21361545/185820 */
+/* http://stackoverflow.com/a/21361545/185820 */
+/*
+td {  
     height: 100%;
 }
-td a {  /* http://stackoverflow.com/a/21361545/185820 */
+td a {  
     display: table;
     height: 100%;
     position: relative;
     width: 100%;
 }
-td a:hover {  /* http://stackoverflow.com/a/21361545/185820 */
+td a:hover {  
     display: table;
     height: 100%;
     position: relative;
     width: 100%;
 }
+*/
 tbody tr:hover a {
     text-decoration: none;
 }
