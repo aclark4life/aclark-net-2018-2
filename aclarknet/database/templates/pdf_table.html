@@ -48,7 +48,7 @@
                 <!-- Right column -->
                 <td rowspan=5 valign="top" align="right" class="field-name border-right">{{ document_type_title }} For</td>
                 <td rowspan=5 valign="top" class="field-value">
-                  <strong>{{ item.client.name|default:'Client' }}</strong>
+                  <strong>{% if not pdf %}<a href="{% url 'client' item.client.pk %}">{{ item.client.name|default:'Client' }}</a> <a href="{% url 'client_edit' item.client.pk %}"><i class="fa fa-cog"></i></a>{% else %}{{ item.client.name|default:'Client' }}{% endif %}</strong>
                   <br>
                   {{ item.client.address|default:''|linebreaksbr }}
                 </td>
