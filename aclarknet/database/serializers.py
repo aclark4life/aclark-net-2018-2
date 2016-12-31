@@ -32,7 +32,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Service
-        fields = ('name', 'description')
+        fields = ('name', 'description', 'icon')
 
 
 class TestimonialSerializer(serializers.HyperlinkedModelSerializer):
