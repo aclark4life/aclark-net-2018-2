@@ -9,13 +9,12 @@ from rest_framework import serializers
 class ClientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Client
-        fields = ('name', 'description')
+        fields = ('name', 'description', 'icon')
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        #        fields = ('first_name', 'last_name', 'project_set')
         fields = ('first_name', 'last_name')
 
 
