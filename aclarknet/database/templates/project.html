@@ -102,8 +102,8 @@
                   <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
                   <td>{{ entry.date|date:'U' }}</td>
                   <td>{{ entry.hours|default:'' }}</td>
-                  <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                   <td>{{ entry.notes|default:'' }}</td>
+                  <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
