@@ -69,6 +69,10 @@
                   </table>
                 </div>
                 {% endif %}
+                {% if item.notes %}
+                <h2>Notes</h2>
+                <div class="note">{{ item.notes|linebreaks|default:'' }}</div>
+                {% endif %}
               </div>
               <div class="col-md-6">
                 <div class="row">
