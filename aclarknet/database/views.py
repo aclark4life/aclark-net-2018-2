@@ -566,6 +566,7 @@ def report_index(request):
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
     context = index_items(request, Report, fields, order_by='date')
+    items = context['items']
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
