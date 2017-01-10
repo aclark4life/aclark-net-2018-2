@@ -579,6 +579,7 @@ def report_index(request):
     context['cost'] = cost
     context['edit_url'] = 'report_edit'  # Delete form modal
     context['show_plot'] = show_plot
+    context['plot_items'] = [i for i in items if i.active]
     return render(request, 'report_index.html', context)
 
 
