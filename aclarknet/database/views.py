@@ -561,7 +561,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_index(request):
     show_plot = False
-    reports = Report.objects.all()
+    reports = Report.objects.filter(active=True)
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
