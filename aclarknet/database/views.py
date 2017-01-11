@@ -562,11 +562,11 @@ def report(request, pk=None):
 def report_index(request):
     show_plot = False
     reports = Report.objects.filter(active=True)
+    plot_items = reports  # Save for plotting
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
     context = index_items(request, Report, fields, order_by='-date')
-    items = context['items']
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
@@ -580,7 +580,7 @@ def report_index(request):
     context['cost'] = cost
     context['edit_url'] = 'report_edit'  # Delete form modal
     context['show_plot'] = show_plot
-    context['plot_items'] = [i for i in items if i.active]
+    context['plot_items'] = plot_items
     return render(request, 'report_index.html', context)
 
 
