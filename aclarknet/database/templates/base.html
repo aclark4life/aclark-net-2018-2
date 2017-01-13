@@ -52,22 +52,17 @@
           <li class="dropdown">
             <button class="btn btn-secondary dropdown-toggle bg-inverse text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a></li>
-              <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-chevron-circle-right"></i> View Time</a></li>
-              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fa fa-cog"></i> Admin</a></li>
               <li><a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues/new"><i class="fa fa-github"></i> Add Issue</a></li>
+              <li><a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a></li>
               {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-plus-circle"></i> Add Report</a></li>{% endif %}
               
-              <li><a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fa fa-cog"></i> Manage Site</a></li>
+              <li><a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-sign-in"></i> Login with Google</a></li>
+              {% if not request.user.is_anonymous %}<li><a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a></li>{% endif %}
               <li><a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-chevron-circle-right"></i> View API</a></li>
               {% if request.user.is_staff %}<li><a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> View Company</a></li>{% endif %}
-              <div class="dropdown-divider"></div>
-              {% if not request.user.is_anonymous %}
-              <li><a class="dropdown-item" href="{% url 'user' request.user.pk %}"><i class="fa fa-user"></i> {{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>
-              <li><a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a></li>
-              {% else %}
-              <li><a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-sign-in"></i> Login with Google</a></li>
-              {% endif %}
+              <li><a class="dropdown-item" href="{% url 'entry_index' %}"><i class="fa fa-chevron-circle-right"></i> View Time</a></li>
+              {% if not request.user.is_anonymous %}<li><a class="dropdown-item" href="{% url 'user' request.user.pk %}"><i class="fa fa-user"></i> {{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a></li>{% endif %}
             </ul>
           </li>
         </ul>
