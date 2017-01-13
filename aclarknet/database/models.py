@@ -36,6 +36,7 @@ class Company(SingletonModel):
         "Invoice Counter", blank=True, null=True)
     currency_symbol = models.CharField(
         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
