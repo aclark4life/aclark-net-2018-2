@@ -1,36 +1,7 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags always come first -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="{% static 'favicon.ico' %}">
-    <title>ACLARK.NET, LLC — DB</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css">
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{% static 'aclarknet-database.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-    <style>
-        body {
-            background: url({% static 'aclark-doe.jpg' %});
-        }
-    </style>
-  </head>
-  <body>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}"><i class="fa fa-home"></i></a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           {% block nav %}
@@ -67,44 +38,3 @@
         </ul>
       </div>
     </nav>
-    <div class="container-fluid">
-      <div class="row">
-        {% if request.user.is_authenticated %}
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            {% block sidebar %}
-            {% endblock %}
-          </ul>
-        </div>
-        {% endif %}
-        {% if request.user.is_anonymous %}
-        <div class="col-md-12" id="content">
-{% include 'banner.html' %}
-        {% else %}
-        <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">
-        {% endif %}
-{% block content %}
-{% endblock %}
-        </div>
-      </div>
-    </div>
-
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-    <!-- Custom JS -->
-    <script src="{% static 'aclarknet-database.js' %}"></script>
-
-    <!-- Bootstrap Table -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
-
-    <!-- Bootstrap Datepicker -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-
-    <!-- Node modules -->
-    <script src="{% static 'node_modules/holderjs/holder.min.js' %}"></script>
-
-  </body>
-</html>
