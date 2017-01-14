@@ -65,6 +65,8 @@
                   <tr>
                     <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                     <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                    <th data-field="project" data-sort-name="hidden-project" data-sortable="true">Project</th>
+                    <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
                     <th data-field="hours" data-sortable="true">Hours</th>
                     <th>Edit</th>
                   </tr>
@@ -74,6 +76,8 @@
                 <tr>
                   <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
                   <td>{{ entry.date|date:'U' }}</td>
+                  <td><a href="{% url 'project' entry.project.pk %}">{{ entry.project|default:'' }}</a></td>
+                  <td>{{ entry.project }}</td>
                   <td>{{ entry.hours|default:'' }}</td>
                   <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
                 </tr>
