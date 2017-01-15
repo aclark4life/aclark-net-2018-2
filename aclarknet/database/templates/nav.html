@@ -21,7 +21,6 @@
               {% if not request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a>{% endif %}
             </div>
           </li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
