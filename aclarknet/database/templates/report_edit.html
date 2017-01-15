@@ -1,24 +1,5 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
-{% block sidebar %}
-{% endblock %}
-
-{% block nav %}
-            {% if request.user.is_staff %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'user_index' %}">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>
-            <li class="nav-item active"><a class="nav-link" href="{% url 'report_index' %}">Reports</a></li>
-            {% endif %}
-{% endblock %}
-
 {% block content %}
               <h1>Report</h1> 
               <form action="" method="post">{% csrf_token %}

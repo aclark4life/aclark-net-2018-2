@@ -323,6 +323,7 @@ def home(request):
     context['invoices'] = invoices
     context['gross'] = gross
     context['net'] = net
+    context['nav_status'] = 'active'
     return render(request, 'dashboard.html', context)
 
 
