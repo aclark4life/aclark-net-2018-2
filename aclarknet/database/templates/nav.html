@@ -5,12 +5,6 @@
       <a class="navbar-brand" href="{% url 'home' %}"><i class="fa fa-home"></i></a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>{% endif %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -27,6 +21,12 @@
               {% if not request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a>{% endif %}
             </div>
           </li>
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'user_index' %}">Users</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
