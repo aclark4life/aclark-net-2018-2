@@ -11,8 +11,8 @@
                       <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                       <th data-field="hidden-color" data-sortable="true" data-visible="false">Hidden Color</th>
                       <th>View</th>
-                      <th>Time</th>    
-                      <th>Edit</th>
+                      <!-- <th>Time</th> -->
+                      <!-- <th>Edit</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -24,8 +24,8 @@
                       <td>{{ project.name|default:'' }}</td>
                       <td>{{ project.task.color|default:'' }}</td>
                       <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                      <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
-                      <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                      <!-- <td><a href="{% url 'entry_edit' %}?project={{ project.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td> -->
+                      <!-- <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-3x"></i></a></td> -->
                     </tr>
                     {% endfor %}
                   </tbody>
