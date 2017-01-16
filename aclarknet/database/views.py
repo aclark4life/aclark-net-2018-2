@@ -574,8 +574,9 @@ def report_index(request):
         reports['gross'] = 0
         reports['net'] = 0
         cost = 0
-    if len(context['items']) > 1:
-        show_plot = True
+    if 'items' in context:
+        if len(context['items']) > 1:
+            show_plot = True
     context['reports'] = reports
     context['company'] = company
     context['cost'] = cost
