@@ -1,19 +1,23 @@
-         <h2>Total</h2>
-         <div class="table-responsive">
-            <table data-toggle="table" data-classes="table">
-              <thead>
-                <tr>
-                  <th>Gross</th>
-                  <th>Net</th>
-                  <th>Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ reports.gross }}</td>
-                  <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ reports.net }}</td>
-                  <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ cost }}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Total</h2>
+              <div class="table-responsive">
+                <table data-toggle="table" data-classes="table">
+                  <thead>
+                    <tr>
+                      <th>Gross</th>
+                      <th>Net</th>
+                      <th>Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ reports.gross }}</td>
+                      <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ reports.net }}</td>
+                      <td data-toggle="tooltip" title="Contractor: {{ diff }}">{{ company.currency_symbol }}{{ cost }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
