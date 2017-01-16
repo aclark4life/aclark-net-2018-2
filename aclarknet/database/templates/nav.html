@@ -8,14 +8,14 @@
 {% include 'dropdown.html' %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'report_index' %}">Reports</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'user_index' %}">Users</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item"><a class="nav-link" href="{% url 'report_index' %}">Reports</a></li>{% endif %}
         </ul>
       </div>
     </nav>
