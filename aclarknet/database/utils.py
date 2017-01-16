@@ -188,6 +188,7 @@ def edit(request,
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
     if request.method == 'POST':
+        ref = request.META['HTTP_REFERER']
         if pk is None:
             form = form_model(request.POST)
         else:
@@ -227,9 +228,7 @@ def edit(request,
                 else:
                     obj.active = False
                 obj.save()
-                # Redir to appropriate index for checkbox
-                url_name = url_name_from(obj._meta.verbose_name)
-                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+                return HttpResponseRedirect(ref)
             if checkbox_publish == 'on' or checkbox_publish == 'off':
                 kwargs = {}
                 if checkbox_publish == 'on':
