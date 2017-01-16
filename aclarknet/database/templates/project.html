@@ -1,135 +1,130 @@
 {% extends 'base.html' %}
 {% load l10n %}
 {% block content %}
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-6">
-                    <h1>Project</h1>
-                  </div>
-                  <div class="col-md-3 offset-md-3">
-                    <div class="dropdown pull-right">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-    {% include 'delete_form.html' %}
-                <div class="table-responsive">
-                  <table data-toggle="table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Client</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{{ item.name|default:'' }}</td>
-                        {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client|default:'' }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
-                        <td>{{ item.start_date|date:'Y-m-d'|default:'' }}</td>
-                        <td>{{ item.end_date|date:'Y-m-d'|default:'' }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="table-responsive">
-                  <table data-toggle="table" data-classes="table">
-                    <thead>
-                      <tr>
-                        <th>Task</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        {% if item.task %}<td><a href="{% url 'task' item.task.pk %}">{{ item.task|default:'' }}</a></td>{% else %}<td>{{ item.task|default:'' }}</td>{% endif %}
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                {% if item.notes %}
-                <h2>Notes</h2>
-                <div class="note">{{ item.notes|linebreaks|default:'' }}</div>
-                {% endif %}
-              </div>
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h2>Times</h2>
-                  </div>
-                  <div class="col-md-3">
-                    <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
-                  </div>
-                </div> 
-                <div class="table-responsive">
-                  <table data-toggle="table">
-                    <thead>
-                      <tr>
-                        <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
-                        <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                        <th data-field="hours" data-sortable="true">Hours</th>
-                        <th data-field="notes" data-sortable="true">Notes</th>
-                        <th>Edit</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {% for entry in times %}
-                    <tr>
-                      <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
-                      <td>{{ entry.date|date:'U' }}</td>
-                      <td>{{ entry.hours|default:'' }}</td>
-                      <td>{{ entry.notes|default:'' }}</td>
-                      <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-                <div class="row">
-                  <div class="col-md-9">
-                    <h2>Invoices</h2>
-                  </div>
-                  <div class="col-md-3">
-                    <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="table-responsive">
-                      <table data-toggle="table">
-                        <thead>
-                          <tr>
-                            <th data-align="center" data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true">Paid</th>
-                            <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
-                            <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
-                            <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Due</th>
-                            <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                            <th>View</th>
-                            <th>Edit</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                         {% for invoice in invoices %}
-                          <tr>
-                            <td>{% if invoice.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>        
-                            <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject }}</a></td>
-                            <td>{{ invoice.subject|default:'' }}</td>
-                            <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
-                            <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
-                            <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                            <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+          <div class="row">
+            <div class="col-md-9">
+              <h1>Project</h1>
+            </div>
+            <div class="col-md-3">
+              <div class="dropdown pull-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                  <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+                </ul>
               </div>
             </div>
+          </div>
+          <div class="table-responsive">
+            <table data-toggle="table" data-sort-name="hidden-color">
+              <thead>
+                <tr>
+                  <th data-field="active" data-sort-name="hidden-active" {% if active %}data-visible="false"{% endif %} data-sortable="true">Active</th>
+                  <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                  <th data-sortable="true" data-visible="false">Burn Rate</th>
+                  <th data-field="name" data-sort-name="hidden-name" data-sortable="true">Name</th>
+                  <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
+                  <th data-field="hidden-color" data-sortable="true" data-visible="false">Hidden Color</th>
+                  <th data-field="client" data-sort-name="hidden-client" data-sortable="true" data-visible="true">Client</th>
+                  <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
+                  <th data-sortable="true" data-visible="true">Task</th>
+                  <th>View</th>
+                  <th>Time</th>
+                  <th>Edit</th>
+                  <th data-visible="true">Remove</th>
+                  <th data-field="hidden-delete" data-sortable="true" data-visible="false">Hidden Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-{{ item.task.color }}"> 
+                  <td><form action="{% url 'project_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
+                  <td>{{ item.active }}</td>
+                  <td>{{ item.daily_burn }}</td>
+                  <td data-toggle="tooltip" title="Burn Rate: {{ item.daily_burn }}">{% if item.name %}<a href="{% url 'project' item.pk %}"><i class="fa fa-folder-open fa-3x valign-middle"></i>{{ item.name }}</a>{% endif %}</td>
+                  <td>{{ item.name|default:'' }}</td>
+                  <td>{{ item.task.color|default:'' }}</td>
+                  {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
+                  <td>{{ item.client|default:'' }}</td>
+                  {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"><i class="fa fa-tasks fa-3x valign-middle"></i>{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
+                  <td><a href="{% url 'project' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                  <td><a href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
+                  <td><a href="{% url 'project_edit' item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                  <td>
+                    <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o fa-3x"></i></a>
+{% include 'delete_form.html' %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!------------------------------------------------------------------------------------>
+          <div class="row">
+            <div class="col-md-9">
+              <h2>Times</h2>
+            </div>
+            <div class="col-md-3">
+              <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
+            </div>
+          </div> 
+          <div class="table-responsive">
+            <table data-toggle="table">
+              <thead>
+                <tr>
+                  <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                  <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                  <th data-field="hours" data-sortable="true">Hours</th>
+                  <th data-field="notes" data-sortable="true">Notes</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for entry in times %}
+              <tr>
+                <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
+                <td>{{ entry.date|date:'U' }}</td>
+                <td>{{ entry.hours|default:'' }}</td>
+                <td>{{ entry.notes|default:'' }}</td>
+                <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!------------------------------------------------------------------------------------>
+          <div class="row">
+            <div class="col-md-9">
+              <h2>Invoices</h2>
+            </div>
+            <div class="col-md-3">
+              <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table data-toggle="table">
+              <thead>
+                <tr>
+                  <th data-align="center" data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true">Paid</th>
+                  <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
+                  <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
+                  <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Due</th>
+                  <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
+                  <th>View</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+               {% for invoice in invoices %}
+                <tr>
+                  <td>{% if invoice.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>        
+                  <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject }}</a></td>
+                  <td>{{ invoice.subject|default:'' }}</td>
+                  <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
+                  <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
+                  <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
+                  <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
 {% endblock %}
