@@ -1,11 +1,7 @@
             {% if request.user.is_staff %}
-            <div class="navbar">
-              <form class="form-inline" method="post">{% csrf_token %}
-                <div class="form-group">
-                  <input type="hidden" name="active-only" value="false">
-                  <input class="form-control" name="search" type="text"> 
-                  <button type="submit" class="btn btn-secondary">Search</button>
-                </div>
-              </form>
-            </div>
+            <form class="form-inline my-2 my-lg-0" method="post">{% csrf_token %}
+              <input type="hidden" name="active-only" value="false">
+              <input class="form-control mr-sm-2" name="search" type="text"> 
+              <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+            </form>
             {% endif %}
