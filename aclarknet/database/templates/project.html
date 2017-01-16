@@ -103,7 +103,6 @@
             <table data-toggle="table">
               <thead>
                 <tr>
-                  <th data-align="center" data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true">Paid</th>
                   <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
                   <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
                   <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Due</th>
@@ -115,7 +114,6 @@
               <tbody>
                {% for invoice in invoices %}
                 <tr>
-                  <td>{% if invoice.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>        
                   <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject }}</a></td>
                   <td>{{ invoice.subject|default:'' }}</td>
                   <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
