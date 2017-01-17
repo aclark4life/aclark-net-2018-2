@@ -17,6 +17,8 @@
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'time' %}active{% endif %}"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'user' %}active{% endif %}"><a class="nav-link" href="{% url 'user_index' %}">Users</a></li>{% endif %}
         </ul>
+        {% if show_search %}
 {% include 'search.html' %}
+        {% endif %}
       </div>
     </nav>
