@@ -25,9 +25,6 @@
                   <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                   <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                   <th data-sortable="true">Address</th>
-                  <th>View</th>
-                  <th>Edit</th> 
-                  <th>Remove</th> 
                 </tr>
               </thead>
               <tbody>
@@ -37,12 +34,6 @@
                   <td><a href="{% url 'client' item.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.name }}</a></td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.address|linebreaks }}</td>
-                  <td><a href="{% url 'client' item.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                  <td><a href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
-                  <td>
-                    <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o fa-3x"></i></a>
-{% include 'delete_form.html' %}
-                  </td>
                 </tr>
               </tbody>
             </table>
