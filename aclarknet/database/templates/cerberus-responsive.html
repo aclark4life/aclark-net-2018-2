@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8"> <!-- utf-8 works for most cases -->
@@ -8,7 +8,7 @@
 	<title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 	<!-- Web Font / @font-face : BEGIN -->
-	<!-- NOTE: If web fonts are not required, lines 9 - 26 can be safely removed. -->
+	<!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
 	
 	<!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
 	<!--[if mso]>
@@ -79,7 +79,21 @@
             color:inherit !important;
             text-decoration: underline !important;
         }
+
+        /* What it does: Prevents underlining the button text in Windows 10 */
+        .button-link {
+            text-decoration: none !important;
+        }
       
+        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+        /* Create one of these media queries for each additional viewport size you'd like to fix */
+        /* Thanks to Eric Lepetit @ericlepetitsf) for help troubleshooting */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { /* iPhone 6 and 6+ */
+            .email-container {
+                min-width: 375px !important;
+            }
+        }
+    
     </style>
     
     <!-- Progressive Enhancements -->
@@ -142,7 +156,7 @@
     </style>
 
 </head>
-<body bgcolor="#222222" width="100%" style="margin: 0;">
+<body width="100%" bgcolor="#222222" style="margin: 0; mso-line-height-rule: exactly;">
     <center style="width: 100%; background: #222222;">
 
         <!-- Visually Hidden Preheader Text : BEGIN -->
@@ -155,7 +169,7 @@
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
 			<tr>
 				<td style="padding: 20px 0; text-align: center">
-					<img src="http://2bffe1f689fbb13d8040-6cd7a31e38760e59df0a930378a96aa8.r64.cf1.rackcdn.com/aclarknet-logo.png" width="200" height="50" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+					<img src="http://placehold.it/200x50" width="200" height="50" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
 				</td>
 			</tr>
         </table>
@@ -167,14 +181,14 @@
             <!-- Hero Image, Flush : BEGIN -->
             <tr>
 				<td bgcolor="#ffffff">
-					<img src="http://2bffe1f689fbb13d8040-6cd7a31e38760e59df0a930378a96aa8.r64.cf1.rackcdn.com/aclark-doe.jpg" width="600" height="300" alt="alt_text" border="0" align="center" class="fluid" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+					<img src="http://placehold.it/600x300" width="600" height="300" alt="alt_text" border="0" align="center" class="fluid" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
 				</td>
             </tr>
             <!-- Hero Image, Flush : END -->
 
             <!-- 1 Column Text : BEGIN -->
             <tr>
-                <td bgcolor="#ffffff" style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                <td bgcolor="#ffffff" style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                     Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.
                     <br><br>
                     <!-- Button : Begin -->
@@ -205,7 +219,7 @@
                     <div>
                         <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
-                                <td valign="middle" style="text-align: center; padding: 40px; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #ffffff;">
+                                <td valign="middle" style="text-align: center; padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #ffffff;">
                                     Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.
                                 </td>
                             </tr>
@@ -229,11 +243,11 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px; text-align: center">
-                                            <img src="http://placehold.it/270" width="270" height="270" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/270" width="270" height="270" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                        <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
                                         </td>
                                     </tr>
@@ -245,11 +259,11 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px; text-align: center">
-                                            <img src="http://placehold.it/270" width="270" height="270" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/270" width="270" height="270" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                        <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
                                         </td>
                                     </tr>
@@ -272,11 +286,11 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px; text-align: center">
-                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                        <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
                                         </td>
                                     </tr>
@@ -288,11 +302,11 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px; text-align: center">
-                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                        <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
                                         </td>
                                     </tr>
@@ -304,11 +318,11 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px; text-align: center">
-                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                        <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. 
                                         </td>
                                     </tr>
@@ -331,7 +345,7 @@
                                 <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <td dir="ltr" valign="top" style="padding: 0 10px;">
-                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="center-on-narrow" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="center-on-narrow" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                 </table>
@@ -341,7 +355,7 @@
                             <td width="66.66%" class="stack-column-center">
                                 <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
-                                        <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
+                                        <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
                                             <strong style="color:#111111;">Class aptent taciti sociosqu</strong>
                                             <br><br>
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
@@ -351,7 +365,7 @@
                                                 <tr>
                                                     <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
                                                         <a href="http://www.google.com" style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-						                                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff">A Button</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						                                    <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;A Button&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						                                </a>
                                                     </td>
                                                 </tr>
@@ -378,7 +392,7 @@
                                 <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <td dir="ltr" valign="top" style="padding: 0 10px;">
-                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="center-on-narrow" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                            <img src="http://placehold.it/170" width="170" height="170" alt="alt_text" border="0" class="center-on-narrow" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                         </td>
                                     </tr>
                                 </table>
@@ -388,7 +402,7 @@
                             <td width="66.66%" class="stack-column-center">
                                 <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
-                                        <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
+                                        <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
                                             <strong style="color:#111111;">Class aptent taciti sociosqu</strong>
                                             <br><br>
                                             Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
@@ -398,7 +412,7 @@
                                                 <tr>
                                                     <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
                                                         <a href="http://www.google.com" style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-						                                    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff">A Button</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						                                    <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;A Button&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						                                </a>
                                                     </td>
                                                 </tr>
@@ -428,7 +442,7 @@
                 <td bgcolor="#ffffff">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     	<tr>
-                            <td style="padding: 40px; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                            <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                 Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.
                             </td>
 							</tr>
@@ -443,7 +457,7 @@
         <!-- Email Footer : BEGIN -->
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
             <tr>
-                <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; mso-height-rule: exactly; line-height:18px; text-align: center; color: #888888;">
+                <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; line-height:18px; text-align: center; color: #888888;">
                     <webversion style="color:#cccccc; text-decoration:underline; font-weight: bold;">View as a Web Page</webversion>
                     <br><br>
                     Company Name<br><span class="mobile-link--footer">123 Fake Street, SpringField, OR, 97477 US</span><br><span class="mobile-link--footer">(123) 456-7890</span>
