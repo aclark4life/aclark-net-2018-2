@@ -103,11 +103,11 @@ def client(request, pk=None):
     contacts = contacts.order_by('-pk')
     projects = Project.objects.filter(client=client)
     projects = projects.order_by('-start_date')
+    context['active_nav'] = 'client'
     context['edit_url'] = 'client_edit'
     context['item'] = client
     context['contacts'] = contacts
     context['projects'] = projects
-    context['active_nav'] = 'client'
     return render(request, 'client.html', context)
 
 
@@ -157,6 +157,7 @@ def company(request):
 def contact(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
+    context['active_nav'] = 'contact'
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['item'] = contact
     return render(request, 'contact.html', context)
@@ -179,6 +180,7 @@ def contact_edit(request, pk=None):
         Contact,
         url_name,
         'contact_edit.html',
+        active_nav='contact',
         client=client,
         kwargs=kwargs,
         pk=pk)
@@ -189,6 +191,7 @@ def contact_index(request):
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context = index_items(request, Contact, fields, order_by=order_by)
+    context['active_nav'] = 'contact'
     context['edit_url'] = 'contact_edit'  # Delete form modal
     return render(request, 'contact_index.html', context)
 
@@ -207,6 +210,7 @@ def contact_mail(request, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
     else:
         form = MailForm()
+    context['active_nav'] = 'contact'
     context['form'] = form
     context['contact'] = contact
     return render(request, 'contact_mail.html', context)
@@ -230,6 +234,7 @@ def estimate(request, pk=None):
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
 
+    context['active_nav'] = 'estimate'
     context['item'] = estimate
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
@@ -294,6 +299,7 @@ def estimate_edit(request, pk=None):
         Estimate,
         url_name,
         'estimate_edit.html',
+        active_nav='estimate',
         amount=amount,
         kwargs=kwargs,
         paid_amount=paid_amount,
@@ -308,6 +314,7 @@ def estimate_index(request):
     fields = ('subject', )
     order_by = '-issue_date'
     context = index_items(request, Estimate, fields, order_by=order_by)
+    context['active_nav'] = 'estimate'
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -352,6 +359,7 @@ def invoice(request, pk=None):
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
 
+    context['active_nav'] = 'invoice'
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['item'] = invoice
     context['document_type_upper'] = document_type_upper
@@ -431,6 +439,7 @@ def invoice_edit(request, pk=None):
         Invoice,
         url_name,
         'invoice_edit.html',
+        active_nav='invoice',
         amount=amount,
         kwargs=kwargs,
         paid_amount=paid_amount,
@@ -452,6 +461,7 @@ def invoice_index(request):
         'subject', )
     order_by = '-issue_date'
     context = index_items(request, Invoice, fields, order_by=order_by)
+    context['active_nav'] = 'invoice'
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     return render(request, 'invoice_index.html', context)
@@ -468,6 +478,7 @@ def note(request, pk=None):
     notes = Note.objects.filter(note=note)
     notes = notes.order_by('-pk')
 
+    context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'
     context['item'] = note
 
@@ -493,6 +504,7 @@ def note_edit(request, pk=None):
         Note,
         url_name,
         'note_edit.html',
+        active_nav='note',
         kwargs=kwargs,
         pk=pk)
 
@@ -501,6 +513,7 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     fields = ()
     context = index_items(request, Note, fields)
+    context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
     return render(request, 'note_index.html', context)
 
@@ -512,6 +525,7 @@ def project(request, pk=None):
     times = Time.objects.filter(
         project=project, invoiced=False).order_by('-date')
     invoices = Invoice.objects.filter(project=project)
+    context['active_nav'] = 'project'
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['item'] = project
@@ -541,6 +555,7 @@ def project_edit(request, pk=None):
         Project,
         url_name,
         'project_edit.html',
+        active_nav='project',
         client=client,
         clients=clients,
         kwargs=kwargs,
@@ -552,6 +567,7 @@ def project_index(request, pk=None):
     fields = ('id', 'name')
     order_by = '-start_date'
     context = index_items(request, Project, fields, order_by=order_by)
+    context['active_nav'] = 'project'
     context['edit_url'] = 'project_edit'  # Delete form modal
     return render(request, 'project_index.html', context)
 
@@ -560,10 +576,32 @@ def project_index(request, pk=None):
 def report(request, pk=None):
     context = {}
     report = get_object_or_404(Report, pk=pk)
+    context['active_nav'] = 'report'
     context['edit_url'] = 'report_edit'  # Delete form modal
     context['item'] = report
     context['cost'] = report.gross - report.net
     return render(request, 'report.html', context)
+
+
+@staff_member_required
+def report_edit(request, pk=None):
+    kwargs = {}
+    url_name = 'report_index'
+    gross, net = dashboard_totals(Invoice)
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'report'
+    return edit(
+        request,
+        ReportForm,
+        Report,
+        url_name,
+        'report_edit.html',
+        active_nav='report',
+        gross=gross,
+        kwargs=kwargs,
+        net=net,
+        pk=pk)
 
 
 @staff_member_required
@@ -584,6 +622,7 @@ def report_index(request):
     if 'items' in context:
         if len(context['items']) > 1:
             show_plot = True
+    context['active_nav'] = 'report'
     context['reports'] = reports
     context['company'] = company
     context['cost'] = cost
@@ -591,26 +630,6 @@ def report_index(request):
     context['show_plot'] = show_plot
     context['plot_items'] = plot_items
     return render(request, 'report_index.html', context)
-
-
-@staff_member_required
-def report_edit(request, pk=None):
-    kwargs = {}
-    url_name = 'report_index'
-    gross, net = dashboard_totals(Invoice)
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'report'
-    return edit(
-        request,
-        ReportForm,
-        Report,
-        url_name,
-        'report_edit.html',
-        gross=gross,
-        kwargs=kwargs,
-        net=net,
-        pk=pk)
 
 
 def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
@@ -644,6 +663,7 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 def task(request, pk=None):
     context = {}
     task = get_object_or_404(Task, pk=pk)
+    context['active_nav'] = 'task'
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['item'] = task
     return render(request, 'task.html', context)
@@ -662,6 +682,7 @@ def task_edit(request, pk=None):
         Task,
         url_name,
         'task_edit.html',
+        active_nav='task',
         pk=pk,
         kwargs=kwargs)
 
@@ -671,6 +692,7 @@ def task_index(request):
     order_by = '-pk'
     fields = ('name', )
     context = index_items(request, Task, fields, order_by=order_by)
+    context['active_nav'] = 'task'
     context['edit_url'] = 'task_edit'  # Delete form modal
     return render(request, 'task_index.html', context)
 
@@ -685,6 +707,7 @@ def time(request, pk=None):
         if (not entry.user.username == request.user.username and
                 not request.user.is_staff):
             return HttpResponseRedirect(reverse('admin:index'))
+    context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['item'] = entry
     return render(request, 'time.html', context)
@@ -738,6 +761,7 @@ def time_edit(request, pk=None):
         Time,
         url_name,
         'time_edit.html',
+        active_nav='time',
         client=client,
         clients=clients,
         pk=pk,
@@ -754,6 +778,7 @@ def time_index(request):
               'invoice__document_id', 'user__username')
     order_by = '-pk'
     context = index_items(request, Time, fields, order_by=order_by)
+    context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete form modal
     return render(request, 'time_index.html', context)
 
@@ -771,6 +796,7 @@ def user(request, pk=None):
         total_dollars = profile.rate * total_hours
     else:
         total_dollars = 0
+    context['active_nav'] = 'user'
     context['company'] = company
     context['edit_url'] = 'user_edit'  # Delete form modal
     context['profile'] = profile
@@ -806,6 +832,7 @@ def user_edit(request, pk=None):
         Profile,
         url_name,
         'user_edit.html',
+        active_nav='user',
         kwargs=kwargs,
         pk=pk,
         context=context)
@@ -816,5 +843,6 @@ def user_index(request):
     company = Company.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context = index_items(request, User, fields)
+    context['active_nav'] = 'user'
     context['company'] = company
     return render(request, 'user_index.html', context)
