@@ -107,7 +107,7 @@ def client(request, pk=None):
     context['item'] = client
     context['contacts'] = contacts
     context['projects'] = projects
-    context['nav_active'] = 'client'
+    context['active_nav'] = 'client'
     return render(request, 'client.html', context)
 
 
@@ -125,7 +125,7 @@ def client_edit(request, pk=None):
         url_name,
         'client_edit.html',
         kwargs=kwargs,
-        nav_active='client',
+        active_nav='client',
         pk=pk)
 
 
@@ -135,7 +135,7 @@ def client_index(request):
     order_by = '-pk'
     context = index_items(request, Client, fields, order_by=order_by)
     context['edit_url'] = 'client_edit'  # Delete form modal
-    context['nav_active'] = 'client'
+    context['active_nav'] = 'client'
     return render(request, 'client_index.html', context)
 
 

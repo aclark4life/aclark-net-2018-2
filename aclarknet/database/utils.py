@@ -135,7 +135,7 @@ def edit(request,
          context={},
          gross=None,
          kwargs={},
-         nav_active=None,
+         active_nav=None,
          net=None,
          pk=None,
          paid_amount=None,
@@ -301,7 +301,7 @@ def edit(request,
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
     context['item'] = obj
     context['form'] = form
-    context['nav_active'] = nav_active
+    context['active_nav'] = active_nav
     context['pk'] = pk
     return render(request, template, context)
 
