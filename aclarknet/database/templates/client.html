@@ -3,7 +3,7 @@
 {% block content %}
           <div class="row">
             <div class="col-md-9">
-              <h1>Clients</h1>
+              <h1>Client</h1>
             </div>
             <div class="col-md-3">
               <div class="dropdown pull-right">
@@ -23,7 +23,6 @@
                   <th data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th> 
                   <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
                   <th data-sort-name="hidden-name" data-sortable="true">Name</th>
-                  <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                   <th data-sortable="true">Address</th>
                 </tr>
               </thead>
@@ -31,8 +30,7 @@
                 <tr>
                   <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   <td>{{ item.active }}</td>
-                  <td><a href="{% url 'client' item.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.name }}</a></td>
-                  <td>{{ item.name }}</td>
+                  <td><i class="fa fa-building fa-3x valign-middle"></i>{{ item.name }}</td>
                   <td>{{ item.address|linebreaks }}</td>
                 </tr>
               </tbody>
