@@ -11,6 +11,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'client_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                   <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+                  <li><a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-user"></i> Add Contact</a></li>
+                  <li><a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-folder-open"></i> Add Project</a></li>
             
                 </ul>
               </div>
@@ -37,11 +39,8 @@
             </table>
           </div>
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
               <h2>Contacts</h2>
-            </div>
-            <div class="col-md-3">
-              <a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'contact_edit' %}?client={{ item.pk }}">Add <i class="fa fa-plus"></i></a></h2>
             </div>
           </div>
           <div class="table-responsive">
@@ -67,11 +66,8 @@
             </table>
           </div>
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
               <h2>Projects</h2>
-            </div>
-            <div class="col-md-3">
-              <a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'project_edit' %}?client={{ item.pk }}">Add <i class="fa fa-plus"></i></a></h2>
             </div>
           </div>
           <div class="table-responsive">
