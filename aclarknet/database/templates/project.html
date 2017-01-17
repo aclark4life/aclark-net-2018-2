@@ -11,6 +11,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                   <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+                  <li><a class="dropdown-item" href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
+                  <li><a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add Invoice<i class="fa fa-plus"></i></a></li>
                 </ul>
               </div>
             </div>
@@ -26,7 +28,6 @@
                   <th data-field="client" data-sort-name="hidden-client" data-sortable="true" data-visible="true">Client</th>
                   <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
                   <th data-sortable="true" data-visible="true">Task</th>
-                  <th>Time</th>
                 </tr>
               </thead>
               <tbody>
@@ -38,18 +39,14 @@
                   {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                   <td>{{ item.client|default:'' }}</td>
                   {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"><i class="fa fa-tasks fa-3x valign-middle"></i>{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
-                  <td><a href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle fa-3x"></i></a></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <!------------------------------------------------------------------------------------>
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
               <h2>Times</h2>
-            </div>
-            <div class="col-md-3">
-              <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'entry_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
             </div>
           </div> 
           <div class="table-responsive">
@@ -78,11 +75,8 @@
           </div>
           <!------------------------------------------------------------------------------------>
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
               <h2>Invoices</h2>
-            </div>
-            <div class="col-md-3">
-              <p><a class="btn btn-block btn-lg btn-success pull-right" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add <i class="fa fa-plus"></i></a></p>
             </div>
           </div>
           <div class="table-responsive">
