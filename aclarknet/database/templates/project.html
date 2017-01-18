@@ -12,7 +12,7 @@
                   <li><a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                   <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                   <li><a class="dropdown-item" href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
-                  <li><a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}">Add Invoice<i class="fa fa-plus"></i></a></li>
+                  <li><a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}"><i class="fa fa-plus"></i> Add Invoice</a></li>
                 </ul>
               </div>
             </div>
@@ -43,6 +43,15 @@
               </tbody>
             </table>
           </div>
+          <!------------------------------------------------------------------------------------>
+          {% if item.notes %}
+          <div class="card note">
+            <div class="card-block">
+              <h2 class="card-title">Notes</h2>
+              <p class="card-text">{{ item.notes|linebreaks|default:'' }}</p>
+            </div>
+          </div>
+          {% endif %}
           <!------------------------------------------------------------------------------------>
           <div class="row">
             <div class="col-md-12">
