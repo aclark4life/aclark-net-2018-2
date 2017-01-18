@@ -207,8 +207,8 @@ def contact_mail(request, pk=None):
         if form.is_valid():
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
-            send_mail(request, subject, message, contact.email)
-            messages.add_message(request, messages.SUCCESS, 'Mail sent!')
+            if send_mail(request, subject, message, contact.email):
+                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
             return HttpResponseRedirect(reverse('contact_index'))
     else:
         form = MailForm()

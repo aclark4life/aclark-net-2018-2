@@ -66,7 +66,7 @@ def add_user_to_contacts(request, model, pk=None):
             contact = request.POST.get('contact')
             user = get_object_or_404(User, pk=pk)
             if not user.email or not user.first_name or not user.last_name:
-                messages.add_message(request, messages.INFO,
+                messages.add_message(request, messages.WARN,
                                      'No email no contact!')
                 return HttpResponseRedirect(reverse('user_index'))
             contact = model(
@@ -508,8 +508,10 @@ def send_mail(request, subject, message, to):
             recipients,
             fail_silently=False,
             html_message=html_message)
+        return True
     except SMTPSenderRefused:
-        messages.add_message(request, messages.INFO, 'SMTPSenderRefused!')
+        messages.add_message(request, messages.WARNING, 'SMTPSenderRefused!')
+        return False
 
 
 def url_name_from(verbose_name):
