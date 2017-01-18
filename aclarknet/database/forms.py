@@ -57,8 +57,8 @@ class InvoiceForm(forms.ModelForm):
 
 
 class MailForm(forms.Form):
-    subject = forms.CharField()
-    message = forms.CharField(widget=forms.Textarea())
+    subject = forms.CharField(required=False)
+    message = forms.CharField(widget=forms.Textarea(), required=False)
 
 
 class NoteForm(forms.ModelForm):
