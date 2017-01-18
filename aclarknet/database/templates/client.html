@@ -32,12 +32,20 @@
                 <tr>
                   <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   <td>{{ item.active }}</td>
-                  <td><i class="fa fa-building fa-3x valign-middle"></i>{{ item.name }}</td>
+                  <td>{% if item.url %}<a href="{{ item.url }}" target="_blank"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.name }}</a>{% else %}<i class="fa fa-building fa-3x valign-middle"></i>{{ item.name }}{% endif %}</td>
                   <td>{{ item.address|linebreaks }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
+          {% if item.description %}
+          <div class="card note">
+            <div class="card-block">
+              <h2 class="card-title">Description</h2>
+              <p class="card-text">{{ item.description|linebreaks|default:'' }}</p>
+            </div>
+          </div>
+          {% endif %}
           {% if item.notes %}
           <div class="card note">
             <div class="card-block">
