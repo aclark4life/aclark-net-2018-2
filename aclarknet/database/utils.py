@@ -497,7 +497,7 @@ def send_mail(request, subject, message, to):
     recipients.append(to)
 
     # http://stackoverflow.com/a/28476681/185820
-    html_message = render_to_string('cerberus-responsive.html',
+    html_message = render_to_string('cerberus-fluid.html',
                                     {'username': to,
                                      'message': message})
     try:
