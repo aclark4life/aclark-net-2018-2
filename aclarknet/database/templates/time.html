@@ -64,7 +64,11 @@
               </table>
               </div>
               {% if item.notes %}
-              <h2>Notes</h2>
-              <div class="note">{{ item.notes|linebreaks|default:'' }}</div>
+              <div class="card note">
+                <div class="card">
+                  <h2 class="card-title">Notes</h2>
+                  <p class="card-text">{{ item.notes|linebreaks|default:'' }}</p>
+                </div>
+              </div>
               {% endif %}
 {% endblock %}
