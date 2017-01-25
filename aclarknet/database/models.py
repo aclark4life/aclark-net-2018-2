@@ -286,6 +286,7 @@ class Testimonial(models.Model):
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
+    title = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, null=True, default=timezone.now)
