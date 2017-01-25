@@ -37,4 +37,4 @@ class ServiceSerializer(serializers.HyperlinkedModelSerializer):
 class TestimonialSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Testimonial
-        fields = ('name', 'description', 'issue_date')
+        fields = ('name', 'slug', 'title', 'description', 'issue_date')
