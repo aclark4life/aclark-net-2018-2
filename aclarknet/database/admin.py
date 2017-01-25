@@ -258,6 +258,7 @@ class ServiceAdmin(admin.ModelAdmin):
 class TestimonialAdmin(admin.ModelAdmin):
     """
     """
+    prepopulated_fields = {"slug": ("name",)}
 
 
 class TaskResource(ImportExportModelResource):
