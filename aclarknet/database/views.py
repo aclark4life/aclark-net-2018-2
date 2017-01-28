@@ -880,7 +880,7 @@ def user_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context = index_items(request, User, fields, order_by='active')
+    context = index_items(request, User, fields, order_by='profile__active')
     context['active_nav'] = 'user'
     context['icon_size'] = settings.icon_size
     context['company'] = company
