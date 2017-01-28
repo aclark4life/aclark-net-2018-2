@@ -34,11 +34,11 @@
                 <tr class="table-{{ item.task.color }}"> 
                   <td><form action="{% url 'project_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                   <td>{{ item.active }}</td>
-                  <td><i class="fa fa-folder-open fa-3x valign-middle"></i>{{ item.name|default:'' }}</td>
+                  <td><i class="fa fa-folder-open fa-{{ icon_size }} valign-middle"></i>{{ item.name|default:'' }}</td>
                   <td>{{ item.task.color|default:'' }}</td>
-                  {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-3x valign-middle"></i>{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
+                  {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-{{ icon_size }} valign-middle"></i>{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                   <td>{{ item.client|default:'' }}</td>
-                  {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"><i class="fa fa-tasks fa-3x valign-middle"></i>{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
+                  {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"><i class="fa fa-tasks fa-{{ icon_size }} valign-middle"></i>{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                 </tr>
               </tbody>
             </table>
@@ -76,7 +76,7 @@
                 <td>{{ entry.date|date:'U' }}</td>
                 <td>{{ entry.hours|default:'' }}</td>
                 <td>{{ entry.notes|default:'' }}</td>
-                <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
               </tr>
               {% endfor %}
               </tbody>
@@ -107,8 +107,8 @@
                   <td>{{ invoice.subject|default:'' }}</td>
                   <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
                   <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
-                  <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-3x"></i></a></td>
-                  <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-3x"></i></a></td>
+                  <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
+                  <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                 </tr>
                 {% endfor %}
               </tbody>

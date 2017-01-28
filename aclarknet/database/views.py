@@ -99,6 +99,7 @@ def certbot(request):  # http://stackoverflow.com/a/24817024
 @staff_member_required
 def client(request, pk=None):
     context = {}
+    settings = Settings.get_solo()
     client = get_object_or_404(Client, pk=pk)
     contacts = Contact.objects.filter(client=client)
     contacts = contacts.order_by('-pk')
@@ -134,6 +135,7 @@ def client_edit(request, pk=None):
 def client_index(request):
     fields = ('address', 'name')
     order_by = '-pk'
+    settings = Settings.get_solo()
     context = index_items(request, Client, fields, order_by=order_by)
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['active_nav'] = 'client'
@@ -190,6 +192,7 @@ def contact_edit(request, pk=None):
 
 @staff_member_required
 def contact_index(request):
+    settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email', 'notes')
     order_by = '-pk'
     context = index_items(request, Contact, fields, order_by=order_by)
@@ -314,6 +317,7 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     company = Company.get_solo()
+    settings = Settings.get_solo()
     fields = ('subject', )
     order_by = '-issue_date'
     context = index_items(request, Estimate, fields, order_by=order_by)
@@ -459,6 +463,7 @@ def invoice_edit(request, pk=None):
 @staff_member_required
 def invoice_index(request):
     company = Company.get_solo()
+    settings = Settings.get_solo()
     fields = (
         'client__name',
         'document_id',
@@ -518,6 +523,7 @@ def note_edit(request, pk=None):
 
 @staff_member_required
 def note_index(request, pk=None):
+    settings = Settings.get_solo()
     fields = ()
     context = index_items(request, Note, fields, order_by='-active')
     context['active_nav'] = 'note'
@@ -528,6 +534,7 @@ def note_index(request, pk=None):
 
 @staff_member_required
 def project(request, pk=None):
+    settings = Settings.get_solo()
     context = {}
     project = get_object_or_404(Project, pk=pk)
     times = Time.objects.filter(
@@ -572,6 +579,7 @@ def project_edit(request, pk=None):
 
 @staff_member_required
 def project_index(request, pk=None):
+    settings = Settings.get_solo()
     fields = ('id', 'name')
     order_by = '-start_date'
     context = index_items(request, Project, fields, order_by=order_by)
@@ -615,6 +623,7 @@ def report_edit(request, pk=None):
 
 @staff_member_required
 def report_index(request):
+    settings = Settings.get_solo()
     show_plot = False
     reports = Report.objects.filter(active=True)
     plot_items = reports  # Save for plotting
@@ -699,6 +708,7 @@ def task_edit(request, pk=None):
 
 @staff_member_required
 def task_index(request):
+    settings = Settings.get_solo()
     order_by = '-pk'
     fields = ('name', )
     context = index_items(request, Task, fields, order_by=order_by)
@@ -788,6 +798,7 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     order_by = '-pk'
+    settings = Settings.get_solo()
     context = index_items(request, Time, fields, order_by=order_by)
     context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete form modal
@@ -799,6 +810,7 @@ def time_index(request):
 def user(request, pk=None):
     context = {}
     company = Company.get_solo()
+    settings = Settings.get_solo()
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
     # times = Time.objects.filter(user=user, estimate=None, invoiced=False)
@@ -854,6 +866,7 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     company = Company.get_solo()
+    settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email')
     context = index_items(request, User, fields)
     context['active_nav'] = 'user'
