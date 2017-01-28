@@ -11,6 +11,6 @@
           <div class="col-md-12" style="text-align: center">  <!-- Single page -->
             <span>{% if items.count %}Items 1 to {{ items.count }} of {{ items.count }}{% else %}Items 0 to {{ items.count }} of {{ items.count }}{% endif %}</span> 
             <button class="btn btn-secondary" disabled><i class="fa fa-step-backward"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-left"></i></button> <span>Page 1 of 1</span> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-right"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-step-forward"></i></button>
-            <span><a class="btn btn-secondary" href="?paginated=true">Show paginated</a><span>
+            <span><a class="btn btn-secondary" href="?paginated=true">Show paginated</a></span>
           </div>
           {% endif %}
