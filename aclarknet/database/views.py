@@ -19,6 +19,7 @@ from .models import Profile
 from .models import Project
 from .models import Report
 from .models import Service
+from .models import Settings
 from .models import Testimonial
 from .models import Task
 from .models import Time
@@ -326,6 +327,7 @@ def estimate_index(request):
 def home(request):
     context = {}
     company = Company.get_solo()
+    settings = Settings.get_solo()
     gross, net = dashboard_totals(Invoice)
     projects = dashboard_items(
         Project, order_by='client__name', active=True, hidden=False)
@@ -337,6 +339,7 @@ def home(request):
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['projects'] = projects
+    context['icon_size'] = settings.icon_size
     context['invoices'] = invoices
     context['gross'] = gross
     context['net'] = net
