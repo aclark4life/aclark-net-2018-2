@@ -718,9 +718,8 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     settings = Settings.get_solo()
-    order_by = '-pk'
     fields = ('name', )
-    context = index_items(request, Task, fields, order_by=order_by)
+    context = index_items(request, Task, fields, order_by='-active')
     context['active_nav'] = 'task'
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
