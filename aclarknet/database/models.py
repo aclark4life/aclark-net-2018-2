@@ -279,6 +279,12 @@ class Service(models.Model):
         return self.name
 
 
+class Settings(SingletonModel):
+    """
+    """
+    icon_size = models.CharField(max_length=255, blank=True, null=True)
+
+
 class Testimonial(models.Model):
     """
     """
