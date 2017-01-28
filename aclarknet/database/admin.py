@@ -8,6 +8,7 @@ from .models import Profile
 from .models import Project
 from .models import Report
 from .models import Service
+from .models import Settings
 from .models import Task
 from .models import Testimonial
 from .models import Time
@@ -250,6 +251,12 @@ class ReportAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
+    """
+    """
+
+
+@admin.register(Settings)
+class SettingsAdmin(SingletonModelAdmin):
     """
     """
 
