@@ -218,7 +218,7 @@ def edit(request,
                     company.save()
                 # Redir to appropriate location
                 url_name = url_name_from(obj._meta.verbose_name)
-                if (obj._meta.verbose_name == 'entry' and
+                if (obj._meta.verbose_name == 'time' and
                         not request.user.is_staff):
                     url_name = 'home'
                 obj.delete()
