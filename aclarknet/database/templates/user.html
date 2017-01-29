@@ -40,6 +40,7 @@
                 </table>
               </div>
               <h2>Times</h2>
+{% include 'pagination.html' %}
               <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc">
                 <thead>
                   <tr>
@@ -64,4 +65,5 @@
                 {% endfor %}
                 </tbody>
               </table>
+{% include 'pagination.html' %}
 {% endblock %}
