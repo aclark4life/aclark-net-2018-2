@@ -2,9 +2,9 @@
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" href="https://github.com/aclarknet/aclarknet-database/issues/new"><i class="fa fa-github"></i> Add Issue</a>
-              <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Admin</a>
-              <a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-chevron-circle-right"></i> View API</a>
-              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> View Company</a>{% endif %}
+              <a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API Root</a>
+              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> Company Profile</a>{% endif %}
+              <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Django Admin</a>
               <div class="dropdown-divider"></div>
               {% if not request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'user' request.user.pk %}"><i class="fa fa-user"></i> {{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-sign-in"></i> Login with Google</a>{% endif %}
