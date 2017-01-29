@@ -34,8 +34,8 @@
     color: #CDCDCE;
 }
 .paginator {
-    text-align: center;
-    margin: 1em 0 1em 0;
+    text-align: center !important;
+    margin: 1em 0 1em 0 !important;
 }
 .sidebar {
     opacity: 0.9;
