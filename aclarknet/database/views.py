@@ -821,20 +821,29 @@ def time_index(request):
 
 @login_required
 def user(request, pk=None):
-    context = {}
     company = Company.get_solo()
     settings = Settings.get_solo()
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
+
     # times = Time.objects.filter(user=user, estimate=None, invoiced=False)
-    times = Time.objects.filter(user=user, estimate=None)
-    times.order_by('-date')
-    total_hours = times.aggregate(hours=Sum(F('hours')))
-    total_hours = total_hours['hours']
+    # times = Time.objects.filter(user=user, estimate=None)
+    # times.order_by('-date')
+
+    filters = {
+        'estimate': None,
+        # 'invoiced': False,
+        'user': user,
+    }
+    fields = ()
+    context = index_items(request, Time, fields=fields, order_by='-date', filters=filters)
+    total_hours = context['total_hours']
+
     if profile.rate and total_hours:
         total_dollars = profile.rate * total_hours
     else:
         total_dollars = 0
+
     context['active_nav'] = 'user'
     context['company'] = company
     context['edit_url'] = 'user_edit'  # Delete form modal
@@ -842,8 +851,6 @@ def user(request, pk=None):
     context['request'] = request
     context['icon_size'] = settings.icon_size
     context['item'] = user
-    context['times'] = times
-    context['total_hours'] = total_hours
     context['total_dollars'] = '%.2f' % total_dollars
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)

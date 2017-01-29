@@ -9,6 +9,8 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.db.models import F
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -434,7 +436,7 @@ def gravatar_url(email):
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def index_items(request, model, fields, context={}, order_by=None):
+def index_items(request, model, fields, context={}, filters={}, order_by=None):
     """
     """
     page = get_query(request, 'page')
@@ -449,11 +451,20 @@ def index_items(request, model, fields, context={}, order_by=None):
             return get_search_results(model, fields, search)
 
     # Not a search
-    items = model.objects.all()
+    if filters:
+        items = model.objects.filter(Q(**filters))
+    else:
+        items = model.objects.all()
 
     # Reorder items
     if order_by:
         items = items.order_by(order_by)
+
+    # Calculate total hours
+    if model._meta.verbose_name == 'time':
+        total_hours = items.aggregate(hours=Sum(F('hours')))
+        total_hours = total_hours['hours']
+        context['total_hours'] = total_hours
 
     # Calculate cost per report
     if model._meta.verbose_name == 'report':
