@@ -301,6 +301,10 @@ def edit(request,
                 if obj.project.client and not obj.client:
                     obj.client = obj.project.client
                     obj.save()
+            # Redir to appropriate location
+            if (obj._meta.verbose_name == 'time' and
+                    not request.user.is_staff):
+                url_name = 'home'
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
     context['item'] = obj
     context['form'] = form
