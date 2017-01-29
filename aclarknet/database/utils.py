@@ -436,9 +436,10 @@ def gravatar_url(email):
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def index_items(request, model, fields, context={}, filters={}, order_by=None):
+def index_items(request, model, fields, filters={}, order_by=None):
     """
     """
+    context = {}
     page = get_query(request, 'page')
     paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
@@ -452,7 +453,7 @@ def index_items(request, model, fields, context={}, filters={}, order_by=None):
 
     # Not a search
     if filters:
-        items = model.objects.filter(Q(**filters))
+        items = model.objects.filter(**filters)
     else:
         items = model.objects.all()
 
