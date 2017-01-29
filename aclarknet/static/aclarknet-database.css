@@ -33,6 +33,10 @@
 .page-nav, .page-nav a, .page-nav a:hover {
     color: #CDCDCE;
 }
+.paginator {
+    text-align: center;
+    margin: 1em 0 1em 0;
+}
 .sidebar {
     opacity: 0.9;
 }
@@ -53,8 +57,9 @@ a.text-overflow-ellipsis {  /* http://www.w3schools.com/cssref/tryit.asp?filenam
 a:hover.text-overflow-ellipsis {
     text-decoration: none;
 }
+
+/* How to center text in TD with anchor/link that fills 100% */
 /* http://stackoverflow.com/a/21361545/185820 */
-/*
 td {  
     height: 100%;
 }
@@ -70,10 +75,10 @@ td a:hover {
     position: relative;
     width: 100%;
 }
-*/
 tbody tr:hover a {
     text-decoration: none;
 }
+
 ul.dropdown-menu li a {
     color: black !important;
 }
