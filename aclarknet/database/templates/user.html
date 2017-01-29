@@ -52,14 +52,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for entry in times %}
+                {% for item in items %}
                 <tr>
-                  <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
-                  <td>{{ entry.date|date:'U' }}</td>
-                  <td>{% if entry.project %}<a href="{% url 'project' entry.project.pk %}">{{ entry.project|default:'' }}</a>{% endif %}</td>
-                  <td>{{ entry.project }}</td>
-                  <td>{{ entry.hours|default:'' }}</td>
-                  <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+                  <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
+                  <td>{{ item.date|date:'U' }}</td>
+                  <td>{% if item.project %}<a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a>{% endif %}</td>
+                  <td>{{ item.project }}</td>
+                  <td>{{ item.hours|default:'' }}</td>
+                  <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
