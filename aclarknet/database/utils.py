@@ -216,8 +216,11 @@ def edit(request,
                         company.estimate_counter):
                     company.estimate_counter -= 1
                     company.save()
-                # Redir to appropriate index
+                # Redir to appropriate location
                 url_name = url_name_from(obj._meta.verbose_name)
+                if (obj._meta.verbose_name == 'entry' and
+                        not request.user.is_staff):
+                    url_name = 'home'
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
             checkbox = request.POST.get('checkbox')
