@@ -813,7 +813,10 @@ def time_index(request):
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
     context['show_search'] = True
-    return render(request, 'time_index.html', context)
+    if not request.user.is_staff:
+        return HttpResponseRedirect(reverse('admin:index'))
+    else:
+        return render(request, 'time_index.html', context)
 
 
 @login_required
