@@ -828,6 +828,7 @@ def user(request, pk=None):
     profile = Profile.objects.get_or_create(user=user)[0]
     # times = Time.objects.filter(user=user, estimate=None, invoiced=False)
     times = Time.objects.filter(user=user, estimate=None)
+    times.order_by('-date')
     total_hours = times.aggregate(hours=Sum(F('hours')))
     total_hours = total_hours['hours']
     if profile.rate and total_hours:
