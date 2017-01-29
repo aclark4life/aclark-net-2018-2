@@ -836,7 +836,8 @@ def user(request, pk=None):
         'user': user,
     }
     fields = ()
-    context = index_items(request, Time, fields=fields, order_by='-date', filters=filters)
+    context = index_items(
+        request, Time, fields=fields, order_by='-date', filters=filters)
     total_hours = context['total_hours']
 
     if profile.rate and total_hours:
