@@ -196,8 +196,7 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email', 'notes')
-    order_by = '-pk'
-    context = index_items(request, Contact, fields, order_by=order_by)
+    context = index_items(request, Contact, fields, order_by='-active')
     context['active_nav'] = 'contact'
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -638,7 +637,7 @@ def report_index(request):
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
-    context = index_items(request, Report, fields, order_by='-active')
+    context = index_items(request, Report, fields, order_by='-date')
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
