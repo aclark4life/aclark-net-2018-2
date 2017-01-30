@@ -638,7 +638,7 @@ def report_index(request):
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
-    context = index_items(request, Report, fields, order_by='-date')
+    context = index_items(request, Report, fields, order_by='-active')
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
