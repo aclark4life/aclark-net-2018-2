@@ -60,6 +60,7 @@ a:hover.text-overflow-ellipsis {
 
 /* How to center text in TD with anchor/link that fills 100% */
 /* http://stackoverflow.com/a/21361545/185820 */
+/*
 td {  
     height: 100%;
 }
@@ -78,6 +79,7 @@ td a:hover {
 tbody tr:hover a {
     text-decoration: none;
 }
+*/
 
 ul.dropdown-menu li a {
     color: black !important;
