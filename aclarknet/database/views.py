@@ -588,7 +588,7 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('id', 'name')
-    order_by = '-start_date'
+    order_by = '-active'
     context = index_items(request, Project, fields, order_by=order_by)
     context['active_nav'] = 'project'
     context['edit_url'] = 'project_edit'  # Delete form modal
