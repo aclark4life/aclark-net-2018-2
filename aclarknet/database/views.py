@@ -135,9 +135,8 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     fields = ('address', 'name')
-    order_by = '-pk'
     settings = Settings.get_solo()
-    context = index_items(request, Client, fields, order_by=order_by)
+    context = index_items(request, Client, fields, order_by='-active')
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
     context['active_nav'] = 'client'
