@@ -350,7 +350,7 @@ def home(request):
     context['gross'] = gross
     context['net'] = net
     context['nav_status'] = 'active'
-    return render(request, 'dashboard.html', context)
+    return render(request, 'home.html', context)
 
 
 @staff_member_required
