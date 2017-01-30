@@ -436,7 +436,7 @@ def gravatar_url(email):
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def index_items(request, model, fields, filters={}, order_by=None):
+def index_items(request, model, fields, filters={}, order_by=()):
     """
     """
     context = {}
@@ -459,7 +459,10 @@ def index_items(request, model, fields, filters={}, order_by=None):
 
     # Reorder items
     if order_by:
-        items = items.order_by(order_by)
+        if len(order_by) > 1:
+            items = items.order_by(order_by[0], order_by[1])
+        else:
+            items = items.order_by(order_by[0])
 
     # Calculate total hours
     if model._meta.verbose_name == 'time':
