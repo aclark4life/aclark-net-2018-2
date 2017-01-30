@@ -136,7 +136,8 @@ def client_edit(request, pk=None):
 def client_index(request):
     fields = ('address', 'name')
     settings = Settings.get_solo()
-    context = index_items(request, Client, fields, order_by=('-active', 'name'))
+    context = index_items(
+        request, Client, fields, order_by=('-active', 'name'))
     context['edit_url'] = 'client_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
     context['active_nav'] = 'client'
@@ -195,7 +196,7 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email', 'notes')
-    context = index_items(request, Contact, fields, order_by=('-active',))
+    context = index_items(request, Contact, fields, order_by=('-active', ))
     context['active_nav'] = 'contact'
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -320,7 +321,7 @@ def estimate_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     fields = ('subject', )
-    context = index_items(request, Estimate, fields, order_by=('issue_date',))
+    context = index_items(request, Estimate, fields, order_by=('issue_date', ))
     context['active_nav'] = 'estimate'
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -471,7 +472,7 @@ def invoice_index(request):
         'issue_date',
         'project__name',
         'subject', )
-    context = index_items(request, Invoice, fields, order_by=('issue_date',))
+    context = index_items(request, Invoice, fields, order_by=('issue_date', ))
     context['active_nav'] = 'invoice'
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
@@ -526,7 +527,7 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ()
-    context = index_items(request, Note, fields, order_by=('-active',))
+    context = index_items(request, Note, fields, order_by=('-active', ))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -584,7 +585,7 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('id', 'name')
-    context = index_items(request, Project, fields, order_by=('-active',))
+    context = index_items(request, Project, fields, order_by=('-active', ))
     context['active_nav'] = 'project'
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -633,7 +634,7 @@ def report_index(request):
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
-    context = index_items(request, Report, fields, order_by=('-date',))
+    context = index_items(request, Report, fields, order_by=('-date', ))
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
@@ -714,7 +715,7 @@ def task_edit(request, pk=None):
 def task_index(request):
     settings = Settings.get_solo()
     fields = ('name', )
-    context = index_items(request, Task, fields, order_by=('-active',))
+    context = index_items(request, Task, fields, order_by=('-active', ))
     context['active_nav'] = 'task'
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -802,7 +803,7 @@ def time_index(request):
     fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     settings = Settings.get_solo()
-    context = index_items(request, Time, fields, order_by=('-date',))
+    context = index_items(request, Time, fields, order_by=('-date', ))
     context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -831,7 +832,7 @@ def user(request, pk=None):
     }
     fields = ()
     context = index_items(
-        request, Time, fields=fields, order_by=('-date',), filters=filters)
+        request, Time, fields=fields, order_by=('-date', ), filters=filters)
     total_hours = context['total_hours']
 
     if profile.rate and total_hours:
@@ -885,7 +886,8 @@ def user_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email')
-    context = index_items(request, User, fields, order_by=('-profile__active',))
+    context = index_items(
+        request, User, fields, order_by=('-profile__active', ))
     context['active_nav'] = 'user'
     context['icon_size'] = settings.icon_size
     context['company'] = company
