@@ -76,11 +76,11 @@ td a:hover {
     position: relative;
     width: 100%;
 }
+*/
+
 tbody tr:hover a {
     text-decoration: none;
 }
-*/
-
 ul.dropdown-menu li a {
     color: black !important;
 }
