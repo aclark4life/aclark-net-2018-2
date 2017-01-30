@@ -8,6 +8,7 @@ from .models import Profile
 from .models import Project
 from .models import Report
 from .models import Service
+from .models import Settings
 from .models import Task
 from .models import Time
 from django import forms
@@ -89,6 +90,12 @@ class ReportForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
+        fields = '__all__'
+
+
+class SettingsForm(forms.ModelForm):
+    class Meta:
+        model = Settings
         fields = '__all__'
 
 

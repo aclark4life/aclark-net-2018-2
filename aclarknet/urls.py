@@ -82,6 +82,9 @@ urlpatterns = [
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
     url(r'^report_plot$', views.report_plot, name='report_plot'),
+    # Settings
+    url(r'^settings/edit$', views.settings_edit, name='settings_edit'),
+    url(r'^settings$', views.settings, name='settings'),
     # Social
     url('', include(
         'django.contrib.auth.urls', namespace='auth')),

@@ -8,6 +8,7 @@ from .forms import NoteForm
 from .forms import ProfileForm
 from .forms import ProjectForm
 from .forms import ReportForm
+from .forms import SettingsForm
 from .forms import TaskForm
 from .models import Client
 from .models import Company
@@ -681,6 +682,20 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 
     # write image bytes back to the browser
     return HttpResponse(data, content_type="image/png")
+
+
+@staff_member_required
+def settings(request):
+    context = {}
+    settings = Settings.get_solo()
+    context['settings'] = settings
+    return render(request, 'settings.html', context)
+
+
+@staff_member_required
+def settings_edit(request, pk=None):
+    return edit(
+        request, SettingsForm, Settings, 'settings', 'settings_edit.html', pk=1)
 
 
 @staff_member_required
