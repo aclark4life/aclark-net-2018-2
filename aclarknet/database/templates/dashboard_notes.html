@@ -1,0 +1,21 @@
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Notes</h2>
+              <div class="table-responsive">
+                <table data-toggle="table"> 
+                  <thead>
+                    <tr>
+                      <th data-sort-name="hidden-name" data-sortable="true">Note</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for note in notes %}
+                    <tr>
+                      <td><a href="{% url 'note' item.pk %}">{{ item.note|linebreaks|truncatechars:80 }}</a></td>
+                      <td><a href="{% url 'note' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
