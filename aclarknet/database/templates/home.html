@@ -11,12 +11,9 @@
           </div>
           {% endif %}
           {% if request.user.is_staff %}
-{% include 'dashboard_projects.html' %}
-          {% endif %}
-          {% if request.user.is_staff %}
 {% include 'dashboard_invoices.html' %}
-          {% endif %}
-          {% if request.user.is_staff %}
+{% include 'dashboard_notes.html' %}
+{% include 'dashboard_projects.html' %}
 {% include 'dashboard_totals.html' %}
           {% endif %}
 {% endblock %}
