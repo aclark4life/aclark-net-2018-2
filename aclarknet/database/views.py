@@ -344,7 +344,7 @@ def home(request):
         project.daily_burn = daily_burn(project)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True)
+    notes = Note.objects.filter(active=True).order_by('name')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['projects'] = projects
