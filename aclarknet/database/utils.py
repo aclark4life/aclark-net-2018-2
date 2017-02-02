@@ -22,9 +22,6 @@ from hashlib import md5
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
 
-# import datetime
-# import re
-
 
 class BooleanWidget(widgets.Widget):
     """
