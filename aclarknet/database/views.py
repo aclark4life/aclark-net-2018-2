@@ -197,7 +197,8 @@ def contact_edit(request, pk=None):
 def contact_index(request):
     settings = Settings.get_solo()
     fields = ('first_name', 'last_name', 'email', 'notes')
-    context = index_items(request, Contact, fields, order_by=('-active', 'first_name'))
+    context = index_items(
+        request, Contact, fields, order_by=('-active', 'first_name'))
     context['active_nav'] = 'contact'
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -695,7 +696,12 @@ def settings(request):
 @staff_member_required
 def settings_edit(request, pk=None):
     return edit(
-        request, SettingsForm, Settings, 'settings', 'settings_edit.html', pk=1)
+        request,
+        SettingsForm,
+        Settings,
+        'settings',
+        'settings_edit.html',
+        pk=1)
 
 
 @staff_member_required
