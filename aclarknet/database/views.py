@@ -474,7 +474,7 @@ def invoice_index(request):
         'issue_date',
         'project__name',
         'subject', )
-    context = index_items(request, Invoice, fields, order_by=('issue_date', ))
+    context = index_items(request, Invoice, fields, order_by=('-issue_date', ))
     context['active_nav'] = 'invoice'
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
