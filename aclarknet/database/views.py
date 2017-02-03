@@ -530,7 +530,7 @@ def note_edit(request, pk=None):
 @staff_member_required
 def note_index(request, pk=None):
     settings = Settings.get_solo()
-    fields = ()
+    fields = ('note',)
     context = index_items(request, Note, fields, order_by=('-active', 'note'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
