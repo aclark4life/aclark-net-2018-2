@@ -30,8 +30,6 @@ from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
 from .utils import index_items
-from .utils import daily_burn
-from .utils import dashboard_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
@@ -337,17 +335,16 @@ def home(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     gross, net = dashboard_totals(Invoice)
-    projects = dashboard_items(
-        Project, order_by='client__name', active=True, hidden=False)
+    fields = ('active', 'hidden')
+    context = index_items(request, Project, fields, order_by=('client__name',))
     # http://stackoverflow.com/a/35044521
-    for project in projects:
-        project.daily_burn = daily_burn(project)
+    # for project in projects:
+    #     project.daily_burn = daily_burn(project)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     notes = Note.objects.filter(active=True).order_by('note')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
-    context['projects'] = projects
     context['icon_size'] = settings.icon_size
     context['invoices'] = invoices
     context['gross'] = gross
@@ -554,7 +551,7 @@ def project(request, pk=None):
     context['item'] = project
     context['times'] = times
     context['invoices'] = invoices
-    context['daily_burn'] = daily_burn(project)
+    # context['daily_burn'] = daily_burn(project)
     return render(request, 'project.html', context)
 
 
