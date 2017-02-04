@@ -447,7 +447,7 @@ def index_items(request, model, fields, filters={}, order_by=()):
 
     # Reorder items
     if order_by:
-    	# http://stackoverflow.com/a/20257999/185820
+        # http://stackoverflow.com/a/20257999/185820
         if len(order_by) > 1:
             items = items.order_by(order_by[0], order_by[1])
         else:

@@ -336,7 +336,8 @@ def home(request):
     settings = Settings.get_solo()
     gross, net = dashboard_totals(Invoice)
     fields = ('active', 'hidden')
-    context = index_items(request, Project, fields, order_by=('client__name',))
+    context = index_items(
+        request, Project, fields, order_by=('client__name', ))
     # http://stackoverflow.com/a/35044521
     # for project in projects:
     #     project.daily_burn = daily_burn(project)
@@ -527,7 +528,7 @@ def note_edit(request, pk=None):
 @staff_member_required
 def note_index(request, pk=None):
     settings = Settings.get_solo()
-    fields = ('note',)
+    fields = ('note', )
     context = index_items(request, Note, fields, order_by=('-active', 'note'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
