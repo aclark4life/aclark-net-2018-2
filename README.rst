@@ -32,7 +32,8 @@ AWS
 
 ::
 
-    Ubuntu 16.04.1 LTS \n \l
+    Ubuntu 16.04.1 LTS
 
 ::
+
     sudo apt-get install aptitude graphviz graphviz-dev libpq-dev libxml2 libxml2-dev libxslt-dev make nginx postgresql python python3 python3-pip python3-virtualenv python-dev
