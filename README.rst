@@ -25,3 +25,14 @@ Models
 ~~~~~~
 
 .. image:: graph_models.png
+
+
+AWS
+~~~
+
+::
+
+    Ubuntu 16.04.1 LTS \n \l
+
+::
+    sudo apt-get install aptitude graphviz graphviz-dev libpq-dev libxml2 libxml2-dev libxslt-dev make nginx postgresql python python3 python3-pip python3-virtualenv python-dev
