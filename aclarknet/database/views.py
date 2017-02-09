@@ -338,9 +338,6 @@ def home(request):
     fields = ('active', 'hidden')
     context = index_items(
         request, Project, fields, order_by=('client__name', ))
-    # http://stackoverflow.com/a/35044521
-    # for project in projects:
-    #     project.daily_burn = daily_burn(project)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     notes = Note.objects.filter(active=True).order_by('note')
