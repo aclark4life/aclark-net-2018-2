@@ -166,6 +166,7 @@ class Note(models.Model):
 
     active = models.BooleanField(default=True)
     note = models.TextField(blank=True, null=True)
+    priority = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return class_name_pk(self)
