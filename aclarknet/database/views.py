@@ -331,7 +331,6 @@ def estimate_index(request):
 
 
 def home(request):
-    context = {}
     company = Company.get_solo()
     settings = Settings.get_solo()
     gross, net = dashboard_totals(Invoice)
@@ -340,7 +339,7 @@ def home(request):
         request, Project, fields, order_by=('client__name', ))
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True).order_by('note')
+    notes = Note.objects.filter(active=True).order_by('priority')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['icon_size'] = settings.icon_size

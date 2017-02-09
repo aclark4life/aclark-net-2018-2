@@ -2,10 +2,11 @@
             <div class="col-md-12">
               <h2>Notes</h2>
               <div class="table-responsive">
-                <table data-toggle="table"> 
+                <table data-toggle="table" data-sort-name="priority" data-sort-order="desc">
                   <thead>
                     <tr>
-                      <th data-sort-name="hidden-name" data-sortable="true">Note</th>
+                      <th data-field="name" data-sortable="true">Note</th>
+                      <th data-field="priority" data-sortable="true">Priority</th>
                       <th>View</th>
                     </tr>
                   </thead>
@@ -13,6 +14,7 @@
                   {% for note in notes %}
                     <tr>
                       <td><a href="{% url 'note' note.pk %}">{{ note.note|linebreaks|truncatechars:80 }}</a></td>
+                      <td>{{ note.priority|default:'' }}</td>
                       <td><a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                     </tr>
                   {% endfor %}
