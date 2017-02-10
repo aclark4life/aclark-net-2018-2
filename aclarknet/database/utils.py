@@ -136,6 +136,7 @@ def edit(request,
          task=None,
          tasks=[]):
     obj = None
+    ref = request.META['HTTP_REFERER']
     if pk is None:
         form = form_model()
         # Populate new report with gross and net calculated
@@ -179,7 +180,6 @@ def edit(request,
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
     if request.method == 'POST':
-        ref = request.META['HTTP_REFERER']
         if pk is None:
             form = form_model(request.POST)
         else:
