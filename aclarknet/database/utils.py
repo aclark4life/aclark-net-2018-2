@@ -271,7 +271,7 @@ def edit(request,
                             obj.user.username,
                             obj.get_absolute_url(request.get_host()))
                         send_mail(request, subject, message,
-                                  settings.DEFAULT_FROM_EMAIL)
+                                  settings.EMAIL_FROM)
             # Assign and increment invoice counter
             if (obj._meta.verbose_name == 'invoice' and
                     company.invoice_counter and pk is None):
@@ -504,7 +504,7 @@ def paginate(items, page):
 
 def send_mail(request, subject, message, to):
     recipients = []
-    sender = settings.DEFAULT_FROM_EMAIL
+    sender = settings.EMAIL_FROM
     recipients.append(to)
 
     # http://stackoverflow.com/a/28476681/185820

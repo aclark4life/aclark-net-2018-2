@@ -125,12 +125,15 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
 
 # Send mail with sendgrid
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
-EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
-EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+# EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+# EMAIL_USE_TLS = True
+
+# Send mail with AWS SES
+EMAIL_BACKEND = 'django_ses.SESBackend'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
