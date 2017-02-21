@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'django_extensions',
-    'django_ses',
     'import_export',
     'social.apps.django_app.default',
     'solo',

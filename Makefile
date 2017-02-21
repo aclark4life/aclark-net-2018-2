@@ -350,5 +350,3 @@ aclarknet-pg-reset:
 	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 aclarknet-pg-restore:
 	pg_restore -c -d aclarknet latest.dump
-pull:
-	ssh db "cd /srv/aclarknet-database; git pull"
