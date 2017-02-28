@@ -5,6 +5,8 @@
                 <table data-toggle="table" data-sort-name="priority" data-sort-order="desc">
                   <thead>
                     <tr>
+                      <th data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th>
+                      <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                       <th data-field="name" data-sortable="true">Note</th>
                       <th data-field="priority" data-sortable="true">Priority</th>
                       <th>View</th>
@@ -13,6 +15,9 @@
                   <tbody>
                   {% for note in notes %}
                     <tr>
+                      <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                      <td>{{ item.active }}</td>
+
                       <td><a href="{% url 'note' note.pk %}">{{ note.note|linebreaks|truncatechars:80 }}</a></td>
                       <td>{{ note.priority|default:'' }}</td>
                       <td><a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
