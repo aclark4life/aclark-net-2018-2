@@ -25,8 +25,8 @@
                   <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
                   <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
                   <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                  <th>View</th>
                   <th>Edit</th>
+                  <th>View</th>
                   <th>Remove</th>
                 </tr>
               </thead>
@@ -44,8 +44,8 @@
                   <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                   <td>{% if item.subtotal %}{{ company.currency_symbol }}{% endif %}{{ item.subtotal|default:'' }}</td>
                   <td>{{ item.subtotal|unlocalize|default:'' }}</td>
-                  <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                   <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></a></td>
+                  <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                   <td>
                     <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o fa-{{ icon_size }}"></i></a>
 {% include 'delete_form.html' %}
