@@ -160,13 +160,12 @@ class Invoice(models.Model):
 class Note(models.Model):
     """
     """
-    # https://docs.djangoproject.com/en/1.10/ref/models/fields/#datefield
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
     active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return class_name_pk(self)
