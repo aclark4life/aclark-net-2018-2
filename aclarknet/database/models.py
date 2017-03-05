@@ -1,4 +1,3 @@
-from .utils import class_name_pk
 from .utils import gravatar_url
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -68,7 +67,7 @@ class Contact(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return class_name_pk(self)
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Estimate(models.Model):
@@ -168,7 +167,7 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return class_name_pk(self)
+        return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
 
 class Profile(models.Model):
@@ -378,7 +377,7 @@ class Time(models.Model):
         Invoice, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return class_name_pk(self)
+        return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
 
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):

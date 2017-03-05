@@ -79,13 +79,6 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def class_name_pk(self):
-    """
-    Concatenate class name and id
-    """
-    return '-'.join([self.__class__.__name__.lower(), str(self.pk)])
-
-
 def daily_burn(project):
     try:
         days = (project.end_date - project.start_date).days
