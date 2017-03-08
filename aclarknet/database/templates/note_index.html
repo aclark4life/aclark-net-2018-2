@@ -17,6 +17,8 @@
                   <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                   <th data-sort-name="hidden-note" data-sortable="true">Note</th>
                   <th data-field="hidden-note" data-sortable="true" data-visible="false">Hidden Note</th>
+                  <th data-sort-name="hidden-due" data-sortable="true">Due</th>
+                  <th data-field="hidden-due" data-sortable="true" data-visible="false">Hidden Due</th>
                   <th data-field="priority" data-sortable="true" data-visible="true">Priority</th>
                   <th>View</th>
                   <th>Edit</th> 
@@ -30,6 +32,8 @@
                   <td>{{ item.active }}</td>
                   <td><a href="{% url 'note' item.pk %}">{{ item.note|linebreaks|truncatechars:80 }}</a></td>
                   <td>{{ item.note|truncatechars:8 }}</td>
+                  <td>{{ item.due_date|date:'Y-m-d' }}</td>
+                  <td>{{ item.due_date|date:'U' }}</td>
                   <td>{{ item.priority|default:'' }}</td>
                   <td><a href="{% url 'note' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                   <td><a href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
