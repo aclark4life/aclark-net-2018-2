@@ -525,7 +525,7 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('note', )
-    context = index_items(request, Note, fields, order_by=('-active', 'priority', 'due_date', 'note'))
+    context = index_items(request, Note, fields, order_by=('-active', 'note', 'priority', 'due_date'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
