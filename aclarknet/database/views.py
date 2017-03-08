@@ -339,7 +339,7 @@ def home(request):
         request, Project, fields, order_by=('client__name', ))
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True).order_by('priority', 'note')
+    notes = Note.objects.filter(active=True).order_by('priority', 'due_date', 'note')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['icon_size'] = settings.icon_size
@@ -525,7 +525,7 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('note', )
-    context = index_items(request, Note, fields, order_by=('-active', 'priority', 'note'))
+    context = index_items(request, Note, fields, order_by=('-active', 'priority', 'due_date', 'note'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
