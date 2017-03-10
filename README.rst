@@ -165,6 +165,8 @@ If memory < 1G, increase swap before installing. [1]_
     sudo mkswap /swapfile
     sudo swapon /swapfile
 
+Then:
+
 ::
 
     git clone git@github.com:ACLARKNET/aclarknet-database.git
