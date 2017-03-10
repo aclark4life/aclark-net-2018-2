@@ -41,6 +41,11 @@ AWS
 systemd
 ~~~~~~~
 
+::
+
+    systemctl enable gunicorn.socket
+    systemctl start gunicorn.socket
+
 gunicorn.service
 ++++++++++++++++
 
