@@ -89,12 +89,12 @@ gunicorn.socket
     [Install]
     WantedBy=sockets.target
 
-/etc/tmpfiles.d/gunicorn.conf
+/run/tmpfiles.d/gunicorn.conf
 +++++++++++++++++++++++++++++
 
 ::
 
-    # d /run/gunicorn 0755 someuser somegroup -
+    d /run/gunicorn 0755 ubuntu ubuntu -
 
 NGINX
 ~~~~~
