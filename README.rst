@@ -141,6 +141,8 @@ Letsencrypt
 
     $ sudo letsencrypt certonly
 
+    …
+
     IMPORTANT NOTES:
      - Congratulations! Your certificate and chain have been saved at
        /etc/letsencrypt/live/db.aclark.net/fullchain.pem. Your cert will
