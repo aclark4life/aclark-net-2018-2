@@ -43,8 +43,10 @@ systemd
 
 ::
 
-    systemctl enable gunicorn.socket
-    systemctl start gunicorn.socket
+    sudo systemctl enable gunicorn.socket
+    sudo systemctl start gunicorn.socket
+    sudo mkdir /run/gunicorn
+    sudo chown ubuntu:ubuntu /run/gunicorn/
 
 gunicorn.service
 ++++++++++++++++
