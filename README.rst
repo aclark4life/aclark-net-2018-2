@@ -43,10 +43,10 @@ systemd
 
 ::
 
+    # sudo mkdir /run/gunicorn
+    # sudo chown ubuntu:ubuntu /run/gunicorn/
     sudo systemctl enable gunicorn.socket
     sudo systemctl start gunicorn.socket
-    sudo mkdir /run/gunicorn
-    sudo chown ubuntu:ubuntu /run/gunicorn/
 
 gunicorn.service
 ++++++++++++++++
@@ -88,13 +88,6 @@ gunicorn.socket
 
     [Install]
     WantedBy=sockets.target
-
-/run/tmpfiles.d/gunicorn.conf
-+++++++++++++++++++++++++++++
-
-::
-
-    d /run/gunicorn 0755 ubuntu ubuntu -
 
 NGINX
 ~~~~~
