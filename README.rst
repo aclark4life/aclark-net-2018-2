@@ -36,7 +36,7 @@ AWS
 
 ::
 
-    sudo apt-get install aptitude graphviz graphviz-dev jq libpq-dev libxml2 libxml2-dev libxslt-dev make nginx postgresql python python3 python3-pip python3-virtualenv python-dev
+    sudo apt-get install aptitude awscli graphviz graphviz-dev jq libpq-dev libxml2 libxml2-dev libxslt-dev make nginx postgresql python python3 python3-pip python3-virtualenv python-dev
 
 systemd
 ~~~~~~~
@@ -67,7 +67,6 @@ gunicorn.service
 
     [Install]
     WantedBy=multi-user.target
-
 
 gunicorn.socket
 +++++++++++++++
