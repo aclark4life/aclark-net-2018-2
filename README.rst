@@ -137,4 +137,14 @@ Letsencrypt
 
 ::
 
-    sudo letsencrypt certonly
+    $ sudo letsencrypt certonly
+
+    IMPORTANT NOTES:
+     - Congratulations! Your certificate and chain have been saved at
+       /etc/letsencrypt/live/db.aclark.net/fullchain.pem. Your cert will
+       expire on 2017-06-08. To obtain a new version of the certificate in
+       the future, simply run Let's Encrypt again.
+     - If you like Let's Encrypt, please consider supporting our work by:
+
+       Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+       Donating to EFF:                    https://eff.org/donate-le
