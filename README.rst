@@ -52,8 +52,7 @@ gunicorn.service
     After=network.target
 
     [Service]
-    # http://tech.akom.net/archives/93-Getting-a-systemd-unit-to-read-your-.bashrc-file-for-its-environment.html
-    # ExecStartPre=/bin/bash --login -c 'env > /srv/aclarknet-database/env'
+    # env | sort > /srv/aclarknet-database/env
     EnvironmentFile=/srv/aclarknet-database/env
 
     PIDFile=/run/gunicorn/pid
