@@ -36,7 +36,7 @@ AWS
 
 ::
 
-    sudo apt-get install aptitude awscli graphviz graphviz-dev jq libpq-dev libxml2 libxml2-dev libxslt-dev make nginx postgresql python python3 python3-pip python3-virtualenv python-dev
+    sudo apt-get install aptitude awscli graphviz graphviz-dev jq libpq-dev libxml2 libxml2-dev libxslt-dev make nginx postgresql python python-pip python3 python3-pip python3-virtualenv python-dev
 
 systemd
 ~~~~~~~
@@ -126,3 +126,11 @@ NGINX
 
         return 301 https://$host$request_uri;
     }
+
+Letsencrypt
+~~~~~~~~~~~
+
+::
+
+    sudo pip3 install --upgrade cryptography pip
+    sudo pip3 install certbot
