@@ -157,3 +157,18 @@ Letsencrypt
 
        Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
        Donating to EFF:                    https://eff.org/donate-le
+
+Django
+~~~~~~
+
+[1]_
+
+::
+
+    git clone git@github.com:ACLARKNET/aclarknet-database.git
+    sudo mv aclarknet-database /srv
+    cd /srv/aclarknet-database
+    virtualenv --python=python3 .
+    bin/pip install -r requirements.txt
+
+.. [1] http://stackoverflow.com/a/26762938/185820
