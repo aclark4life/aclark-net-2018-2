@@ -161,7 +161,14 @@ Letsencrypt
 Django
 ~~~~~~
 
-[1]_
+If memory < 1G, increase swap before installing. [1]_
+
+::
+
+    sudo dd if=/dev/zero of=/swapfile bs=1024 count=524288
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
+    sudo swapon /swapfile
 
 ::
 
