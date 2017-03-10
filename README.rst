@@ -137,5 +137,4 @@ Letsencrypt
 
 ::
 
-    sudo pip3 install --upgrade cryptography pip
-    sudo pip3 install certbot
+    sudo letsencrypt certonly
