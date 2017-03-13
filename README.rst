@@ -41,7 +41,7 @@ AWS
         libpq-dev libxml2 libxml2-dev libxslt-dev make nginx pkg-config       \
         postgresql python python-pip python3 python3-pip python-virtualenv    \
         python3-virtualenv python-dev -y
-    sudo aptitude upgrade
+    sudo aptitude upgrade -y
 
 systemd
 ~~~~~~~
