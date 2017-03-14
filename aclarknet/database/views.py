@@ -753,6 +753,7 @@ def time(request, pk=None):
     context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['item'] = entry
+    context['css_class'] = 'dropdown-item'
     return render(request, 'time.html', context)
 
 
