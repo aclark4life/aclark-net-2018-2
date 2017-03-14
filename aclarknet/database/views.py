@@ -754,7 +754,7 @@ def time(request, pk=None):
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['item'] = entry
     context['css_class'] = 'dropdown-item'
-    context['link_text'] = 'Copy'
+    context['link_text'] = ' Copy'
     return render(request, 'time.html', context)
 
 
