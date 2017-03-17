@@ -331,6 +331,7 @@ vagrant-update:
 # aclarknet-database
 APP=database
 PROJECT=aclarknet
+.DEFAULT_GOAL=deploy
 db: aclarknet-django-db-init aclarknet-pg-capture aclarknet-pg-restore
 aclarknet-django-db-init: django-pg-init  # Alias
 aclarknet-heroku-remote:
@@ -350,6 +351,7 @@ aclarknet-pg-reset:
 	heroku pg:reset DATABASE_URL --confirm aclarknet-database2
 aclarknet-pg-restore:
 	pg_restore -c -d aclarknet latest.dump
-pull:
+deploy:
+	@$(MAKE) git-commit-auto-push
 	ssh db "cd /srv/aclarknet-database; git pull"
 	ssh db "sudo systemctl restart gunicorn.socket"
