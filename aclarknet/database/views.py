@@ -321,7 +321,7 @@ def estimate_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     fields = ('subject', )
-    context = index_items(request, Estimate, fields, order_by=('issue_date', ))
+    context = index_items(request, Estimate, fields, order_by=('-issue_date', ))
     context['active_nav'] = 'estimate'
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
