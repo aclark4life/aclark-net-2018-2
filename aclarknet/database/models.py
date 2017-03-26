@@ -165,6 +165,9 @@ class Note(models.Model):
     note = models.TextField(blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
+    requires = models.ManyToManyField('Note',
+        blank=True,
+        related_name="Requires")
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
