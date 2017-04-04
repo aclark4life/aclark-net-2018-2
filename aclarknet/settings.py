@@ -83,11 +83,11 @@ DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL',
                                'postgres://%s:%s@%s:%s/%s' %
-                               os.environ.get('DB_USER'), 
-                               os.environ.get('DB_PASS'),
-                               os.environ.get('DB_HOST'),
-                               os.environ.get('DB_PORT'),
-                               os.environ.get('DB_NAME'),)
+                               os.environ.get('DB_USER', ''), 
+                               os.environ.get('DB_PASS', ''),
+                               os.environ.get('DB_HOST', ''),
+                               os.environ.get('DB_PORT', ''),
+                               os.environ.get('DB_NAME', ''),)
 }
 
 # Internationalization
