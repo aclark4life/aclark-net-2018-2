@@ -356,6 +356,7 @@ deploy:
 	@$(MAKE) remote-git-pull
 remote-git-pull::
 	ssh db "cd /srv/aclarknet-database; git pull"
+	ssh db "cd /srv/aclarknet-database; make install"
 	ssh db "sudo systemctl restart gunicorn.socket"
 remote-django-migrate:
 	ssh db "sudo systemctl stop gunicorn.socket"
