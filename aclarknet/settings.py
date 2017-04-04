@@ -79,12 +79,10 @@ WSGI_APPLICATION = 'aclarknet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-#DATABASES = {
-#    'default': dj_database_url.config(
-#        default=os.environ.get('DATABASE_URL',
-#                               'postgres://%s:@localhost:5432/aclarknet' %
-#                               os.environ.get('USER', '')))
-#}
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', ''))
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
