@@ -355,3 +355,7 @@ deploy:
 	@$(MAKE) git-commit-auto-push
 	ssh db "cd /srv/aclarknet-database; git pull"
 	ssh db "sudo systemctl restart gunicorn.socket"
+remote-django-migrate:
+	ssh db "sudo systemctl stop gunicorn.socket"
+	ssh db "cd /srv/aclarknet-database; bin/python manage.py migrate"
+	ssh db "sudo systemctl start gunicorn.socket"

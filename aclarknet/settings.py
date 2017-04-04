@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'aclarknet.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('HEROKU_POSTGRESQL_BRONZE_URL',
+        default=os.environ.get('DATABASE_URL',
                                'postgres://%s:@localhost:5432/aclarknet' %
                                os.environ.get('USER', '')))
 }
