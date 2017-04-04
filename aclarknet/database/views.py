@@ -321,7 +321,8 @@ def estimate_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     fields = ('subject', )
-    context = index_items(request, Estimate, fields, order_by=('-issue_date', ))
+    context = index_items(
+        request, Estimate, fields, order_by=('-issue_date', ))
     context['active_nav'] = 'estimate'
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
@@ -339,7 +340,8 @@ def home(request):
         request, Project, fields, order_by=('client__name', ))
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True).order_by('note', 'due_date', 'priority')
+    notes = Note.objects.filter(active=True).order_by('note', 'due_date',
+                                                      'priority')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['icon_size'] = settings.icon_size
@@ -525,7 +527,11 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('note', )
-    context = index_items(request, Note, fields, order_by=('-active', 'note', 'due_date', 'priority'))
+    context = index_items(
+        request,
+        Note,
+        fields,
+        order_by=('-active', 'note', 'due_date', 'priority'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
