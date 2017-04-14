@@ -10,7 +10,7 @@ boto==2.45.0
 cycler==0.10.0
 diff-match-patch==20121119
 dj-database-url==0.3.0
-django-crispy-forms==1.5.2
+django-crispy-forms==1.6.1
 django-extensions==1.6.1
 django-import-export==0.4.2
 django-phonenumber-field==1.0.0
