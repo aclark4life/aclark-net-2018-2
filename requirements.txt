@@ -1,4 +1,4 @@
--e git+https://github.com/aclark4life/django-xhtml2pdf.git#egg=django_xhtml2pdf
+-e git+https://github.com/aclark4life/django-xhtml2pdf.git@8d0dc2ff8943debb7a7a0c0d2667a50f8c1d05f5#egg=django_xhtml2pdf
 APScheduler==3.0.5
 Babel==2.1.1
 Django==1.11
