@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'solo',
     'aclarknet.database',
     'rest_framework',
+    'social_django',
 ]
 
 MIDDLEWARE_CLASSES = (
