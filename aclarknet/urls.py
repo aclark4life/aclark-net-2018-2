@@ -89,7 +89,7 @@ urlpatterns = [
     url('', include(
         'django.contrib.auth.urls', namespace='auth')),
     url('', include(
-        'social.apps.django_app.urls', namespace='social')),
+        'social_django.urls', namespace='social')),
     # Task
     url(r'^task/(?P<pk>\d+)$', views.task, name='task'),
     url(r'^task/(?P<pk>\d+)/edit$', views.task_edit, name='task_edit'),
