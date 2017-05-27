@@ -7,11 +7,10 @@
             </div>
             <div class="col-md-3"> 
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Add items
-                </button>
+                <button class="btn btn-lg btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-plus"></i> Add Time</a>
+                  <a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
+                  <a class="dropdown-item" href="{% url 'note_edit' %}"><i class="fa fa-sticky-note-o"></i> Add Note</a>
                 </div>
               </div>
             </div>
