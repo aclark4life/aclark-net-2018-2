@@ -6,13 +6,14 @@
               <h1>Dashboard</h1>
             </div>
             <div class="col-md-3"> 
-              <li class="dropdown">
-                <a class="dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Add items
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="{% url 'entry_edit' %}"><i class="fa fa-plus"></i> Add Time</a>
                 </div>
-              </li>
-            </div>
+              </div>
           </div>
           {% endif %}
           {% if request.user.is_staff %}
