@@ -6,7 +6,12 @@
               <h1>Dashboard</h1>
             </div>
             <div class="col-md-3"> 
-              <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a></div>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                  <a class="dropdown-item" href="{% url 'entry_edit' %}">Add Time <i class="fa fa-plus"></i></a>
+                </div>
+              </li>
             </div>
           </div>
           {% endif %}
