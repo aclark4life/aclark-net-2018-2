@@ -1,5 +1,6 @@
 #content {
     background: white;
+    padding-top: 15px;
     padding-bottom: 15px;
 }
 #project-invoices li:before {
