@@ -385,11 +385,14 @@ def invoice(request, pk=None):
 
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
 
+    last_payment_date = invoice.last_payment_date
+
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
     context['hours'] = hours
+    context['last_payment_date'] = last_payment_date
 
     context['invoice'] = True
 
