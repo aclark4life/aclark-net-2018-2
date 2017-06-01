@@ -27,7 +27,7 @@
                 <div class="col-md-3 offset-md-6">
                   <form
                     action="{% url 'invoice_edit' pk=item.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}&paid=true"
-                    method="post">{% csrf_token %}<input class="btn btn-block btn-lg btn-secondary" type="submit" value="Mark Paid">
+                    method="post">{% csrf_token %}{% if not last_payment_date %}<input class="btn btn-block btn-lg btn-secondary" type="submit" value="Mark Paid">{% endif %}
                   </form>
                 </div>
               </div>
