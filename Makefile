@@ -353,7 +353,7 @@ aclarknet-pg-restore:
 	pg_restore -c -d aclarknet latest.dump
 aclarknet-deploy:
 	@$(MAKE) git-commit-auto-push
-	@$(MAKE) remote-git-pull
+	@$(MAKE) aclarknet-remote-git-pull
 aclarknet-remote-git-pull::
 	ssh db "cd /srv/aclarknet-database; git pull"
 	ssh db "sudo systemctl stop gunicorn.socket"
