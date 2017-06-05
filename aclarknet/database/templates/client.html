@@ -39,10 +39,10 @@
             </table>
           </div>
           {% if item.description %}
-          <div class="card note">
-            <div class="card-block">
-              <h2 class="card-title">Description</h2>
-              <p class="card-text">{{ item.description|linebreaks|default:'' }}</p>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Description</h2>
+              <p>{{ item.description|linebreaks|default:'' }}</p>
             </div>
           </div>
           {% endif %}
