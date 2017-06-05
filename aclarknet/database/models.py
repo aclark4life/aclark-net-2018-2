@@ -19,7 +19,7 @@ class Client(models.Model):
     address = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-    url = models.URLField(blank=True, null=True)
+    url = models.URLField("URL", blank=True, null=True)
 
     def __str__(self):
         return self.name
