@@ -1,5 +1,5 @@
 -e git+https://github.com/aclark4life/django-xhtml2pdf.git@ca6fae09f70856d701124583cacb9e5a83e7ac26#egg=django_xhtml2pdf
--e git+https://github.com/aclark4life/django-tinymce.git#egg=tinymce
+-e git+https://github.com/aclark4life/django-tinymce.git#egg=django-tinymce
 APScheduler==3.3.1
 Babel==2.4.0
 Django==1.11
