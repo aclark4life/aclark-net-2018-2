@@ -31,7 +31,7 @@
                   <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   <td>{{ item.active }}</td>
                   <td><a href="{% url 'note' item.pk %}">{{ item.note|safe|linebreaks|truncatechars:80 }}</a></td>
-                  <td>{{ item.note|safe|truncatechars:8 }}</td>
+                  <td>{{ item.note|truncatechars:8 }}</td>
                   <td>{{ item.due_date|date:'Y-m-d' }}</td>
                   <td>{{ item.due_date|date:'U' }}</td>
                   <td>{{ item.priority|default:'' }}</td>
