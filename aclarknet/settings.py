@@ -170,3 +170,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':
     ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', ),
 }
+
+# TinyMCE
+TINYMCE_INCLUDE_JQUERY = False
