@@ -12,7 +12,6 @@ from .models import Settings
 from .models import Task
 from .models import Time
 from django import forms
-from tinymce.widgets import TinyMCE
 
 
 class ClientForm(forms.ModelForm):
@@ -64,7 +63,6 @@ class MailForm(forms.Form):
 
 
 class NoteForm(forms.ModelForm):
-    note = forms.CharField(widget=TinyMCE(attrs={'cols': 160, 'rows': 60}))
     class Meta:
         model = Note
         fields = ('note', )
