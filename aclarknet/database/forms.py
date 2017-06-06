@@ -67,7 +67,7 @@ class NoteForm(forms.ModelForm):
     note = forms.CharField(widget=TinyMCE())
     class Meta:
         model = Note
-        fields = '__all__'
+        fields = ('note', )
 
 
 class ProfileForm(forms.ModelForm):
