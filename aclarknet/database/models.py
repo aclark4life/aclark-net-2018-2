@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
-from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -163,7 +162,7 @@ class Note(models.Model):
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(blank=True, null=True)
-    note = HTMLField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     requires = models.ManyToManyField(

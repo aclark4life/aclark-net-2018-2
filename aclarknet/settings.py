@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'aclarknet.database',
     'rest_framework',
     'social_django',
-    'tinymce',
 ]
 
 MIDDLEWARE_CLASSES = (
@@ -170,7 +169,3 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':
     ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', ),
 }
-
-# TinyMCE
-# TINYMCE_INCLUDE_JQUERY = False
-TINYMCE_DEFAULT_CONFIG = {'theme': "advanced", 'relative_urls': False}
