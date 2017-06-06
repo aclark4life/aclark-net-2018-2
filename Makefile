@@ -359,6 +359,7 @@ aclarknet-remote-git-pull::
 	ssh db "cd /srv/aclarknet-database; git pull"
 	ssh db "sudo systemctl stop gunicorn.socket"
 	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
+	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic"
 	ssh db "sudo systemctl start gunicorn.socket"
 aclarknet-remote-django-migrate:
 	ssh db "sudo systemctl stop gunicorn.socket"
