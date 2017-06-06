@@ -354,7 +354,7 @@ aclarknet-pg-restore:
 aclarknet-deploy:
 	@$(MAKE) git-commit-auto-push
 	@$(MAKE) aclarknet-remote-git-pull
-	@$(MAKE) aclarknet-remote-django-migrate
+	# @$(MAKE) aclarknet-remote-django-migrate
 aclarknet-remote-git-pull::
 	ssh db "cd /srv/aclarknet-database; git pull"
 	ssh db "sudo systemctl stop gunicorn.socket"
