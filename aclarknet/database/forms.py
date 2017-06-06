@@ -64,7 +64,7 @@ class MailForm(forms.Form):
 
 
 class NoteForm(forms.ModelForm):
-    note = forms.CharField(widget=TinyMCE())
+    note = forms.CharField(widget=TinyMCE(attrs={'cols': 160, 'rows': 60}))
     class Meta:
         model = Note
         fields = ('note', )
