@@ -1,4 +1,5 @@
 -e git+https://github.com/aclark4life/django-xhtml2pdf.git@ca6fae09f70856d701124583cacb9e5a83e7ac26#egg=django_xhtml2pdf
+-e git+https://github.com/aclark4life/django-tinymce.git#egg=tinymce
 APScheduler==3.3.1
 Babel==2.4.0
 Django==1.11
@@ -17,7 +18,6 @@ django-import-export==0.5.1
 django-phonenumber-field==1.3.0
 django-ses==0.8.2
 django-solo==1.1.2
-django-tinymce==2.6.0
 djangorestframework==3.6.2
 flake8==3.3.0
 future==0.16.0
