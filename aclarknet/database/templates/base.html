@@ -24,7 +24,6 @@
             background: url({% static 'aclark-doe.jpg' %});
         }
     </style>
-    {{ form.media }}
   </head>
   <body>
 {% include 'nav.html' %}
@@ -68,6 +67,9 @@
 
     <!-- Node modules -->
     <script src="{% static 'node_modules/holderjs/holder.min.js' %}"></script>
+
+    <!-- TinyMCE -->
+    {{ form.media }}
 
   </body>
 </html>
