@@ -173,3 +173,4 @@ REST_FRAMEWORK = {
 
 # TinyMCE
 TINYMCE_INCLUDE_JQUERY = False
+TINYMCE_DEFAULT_CONFIG = {'theme': "modern", 'relative_urls': False}
