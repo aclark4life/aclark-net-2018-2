@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'aclarknet.database',
     'rest_framework',
     'social_django',
+    'tinymce',
 ]
 
 MIDDLEWARE_CLASSES = (

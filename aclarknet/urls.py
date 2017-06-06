@@ -100,6 +100,8 @@ urlpatterns = [
     url(r'^time/(?P<pk>\d+)/edit$', views.time_edit, name='entry_edit'),
     url(r'^time/add$', views.time_edit, name='entry_edit'),
     url(r'^time$', views.time_index, name='entry_index'),
+    # TinyMCE
+    url(r'^tinymce/', include('tinymce.urls')),
     # User
     url(r'^user/(?P<pk>\d+)$', views.user, name='user'),
     url(r'^user/(?P<pk>\d+)/edit$', views.user_edit, name='user_edit'),
