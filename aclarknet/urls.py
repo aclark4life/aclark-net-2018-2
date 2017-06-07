@@ -33,9 +33,9 @@ urlpatterns = [
     # API
     url(r'^api/', include(router.urls)),
     # Certbot
-    # url(r'.well-known/acme-challenge/%s' % certbot_hash,
-    #     views.certbot,
-    #     name='certbot'),
+    url(r'.well-known/acme-challenge/%s' % certbot_hash,
+        views.certbot,
+        name='certbot'),
     # Client
     url(r'^client/(?P<pk>\d+)$', views.client, name='client'),
     url(r'^client/(?P<pk>\d+)/edit$', views.client_edit, name='client_edit'),
@@ -52,8 +52,6 @@ urlpatterns = [
     url(r'^contact$', views.contact_index, name='contact_index'),
     url(r'^contact/(?P<pk>\d+)/mail$', views.contact_mail,
         name='contact_mail'),
-    url(r'^contact/(?P<pk>\d+)/unsubscribe$', views.contact_unsubscribe,
-        name='contact_unsubscribe'),
     # Estimate
     url(r'^estimate/(?P<pk>\d+)$', views.estimate, name='estimate'),
     url(r'^estimate/(?P<pk>\d+)/edit$',
