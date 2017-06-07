@@ -229,12 +229,11 @@ def edit(request,
                 return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
                 kwargs = {}
-                if checkbox_publish == 'on':
+                if checkbox_subscribed == 'on':
                     obj.subscribed = True
                 else:
                     obj.subscribed = False
                 obj.save()
-                url_name = url_name_from(obj._meta.verbose_name)
                 return HttpResponseRedirect(ref)
             if amount and subtotal and paid_amount and paid:
                 obj.amount = amount
