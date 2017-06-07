@@ -207,7 +207,7 @@ def edit(request,
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
             checkbox = request.POST.get('checkbox')
-            checkbox_publish = request.POST.get('checkbox-publish')
+            # checkbox_publish = request.POST.get('checkbox-publish')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
             if checkbox == 'on' or checkbox == 'off':
                 kwargs = {}
@@ -217,16 +217,16 @@ def edit(request,
                     obj.active = False
                 obj.save()
                 return HttpResponseRedirect(ref)
-            if checkbox_publish == 'on' or checkbox_publish == 'off':
-                kwargs = {}
-                if checkbox_publish == 'on':
-                    obj.published = True
-                else:
-                    obj.published = False
-                obj.save()
-                # Redir to appropriate index for checkbox_publish
-                url_name = url_name_from(obj._meta.verbose_name)
-                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+            # if checkbox_publish == 'on' or checkbox_publish == 'off':
+            #     kwargs = {}
+            #     if checkbox_publish == 'on':
+            #         obj.published = True
+            #     else:
+            #         obj.published = False
+            #     obj.save()
+            #     # Redir to appropriate index for checkbox_publish
+            #     url_name = url_name_from(obj._meta.verbose_name)
+            #     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
                 kwargs = {}
                 if checkbox_subscribed == 'on':
