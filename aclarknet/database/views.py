@@ -87,12 +87,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 
-# certbot_hash = 'vyaZaRpD5a1mARuqFEXbgyiOyeLmGKGv-AYX_RG'
-# certbot_hash += 'Fgt8.gPCswvmAzfObWoqUg6d_VZ8MMcAWkQxY33wdQci6Mnc'
+certbot_hash = 'vyaZaRpD5a1mARuqFEXbgyiOyeLmGKGv-AYX_RG'
+certbot_hash += 'Fgt8.gPCswvmAzfObWoqUg6d_VZ8MMcAWkQxY33wdQci6Mnc'
 
 
-# def certbot(request):  # http://stackoverflow.com/a/24817024
-#     return HttpResponse(certbot_hash)
+def certbot(request):  # http://stackoverflow.com/a/24817024
+    return HttpResponse(certbot_hash)
 
 
 @staff_member_required
