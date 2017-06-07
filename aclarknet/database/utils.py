@@ -234,9 +234,8 @@ def edit(request,
                 else:
                     obj.subscribed = False
                 obj.save()
-                # Redir to appropriate index for checkbox_publish
                 url_name = url_name_from(obj._meta.verbose_name)
-                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+                return HttpResponseRedirect(ref)
             if amount and subtotal and paid_amount and paid:
                 obj.amount = amount
                 obj.last_payment_date = timezone.now()
