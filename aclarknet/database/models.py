@@ -51,6 +51,7 @@ class Contact(models.Model):
     Fax
     """
     active = models.BooleanField(default=True)
+    subscribed = models.BooleanField(default=True)
     client = models.ForeignKey(
         Client,
         blank=True,
@@ -65,7 +66,6 @@ class Contact(models.Model):
     fax = PhoneNumberField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-    subscribed = models.BooleanField(default=True)
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
