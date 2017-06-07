@@ -534,7 +534,7 @@ def note_index(request, pk=None):
         request,
         Note,
         fields,
-        order_by=('-active', 'note', 'due_date', 'priority'))
+        order_by=('created', '-active', 'note', 'due_date', 'priority'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
     context['icon_size'] = settings.icon_size
