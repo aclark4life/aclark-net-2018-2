@@ -504,7 +504,7 @@ def paginate(items, page):
     return items
 
 
-def send_mail(request, subject, message, to):
+def send_mail(request, subject, message, to, url=None):
     recipients = []
     sender = settings.EMAIL_FROM
     recipients.append(to)
@@ -512,7 +512,8 @@ def send_mail(request, subject, message, to):
     # http://stackoverflow.com/a/28476681/185820
     html_message = render_to_string('cerberus-fluid.html',
                                     {'username': to,
-                                     'message': message})
+                                     'message': message,
+                                     'url': url})
     try:
         django_send_mail(
             subject,

@@ -213,9 +213,10 @@ def contact_mail(request, pk=None):
         if form.is_valid():
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
-            if send_mail(request, subject, message, contact.email):
+            url = reverse('contact', kwargs={'pk': pk})
+            if send_mail(request, subject, message, contact.email, url=url):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-            return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
+            return HttpResponseRedirect(url)
     else:
         form = MailForm()
     context['active_nav'] = 'contact'
