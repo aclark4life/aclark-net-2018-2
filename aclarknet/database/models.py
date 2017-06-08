@@ -89,7 +89,7 @@ class Contact(models.Model):
     # 14:26 Wooble aclark: I'd probably just generate a uuid for each user and
     #     store it in the database, myself.
     # 14:27 aclark Wooble: ah, cool thanks 
-    uuid = models.CharField(max_length=300, default=uuid4())
+    uuid = models.CharField('UUID', max_length=300, default=uuid4())
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
