@@ -52,7 +52,8 @@ urlpatterns = [
     url(r'^contact$', views.contact_index, name='contact_index'),
     url(r'^contact/(?P<pk>\d+)/mail$', views.contact_mail,
         name='contact_mail'),
-    url(r'^contact/(?P<pk>\d+)/unsubscribe$', views.contact_unsubscribe,
+    url(r'^contact/(?P<pk>\d+)/unsubscribe$',
+        views.contact_unsubscribe,
         name='contact_unsubscribe'),
     # Estimate
     url(r'^estimate/(?P<pk>\d+)$', views.estimate, name='estimate'),

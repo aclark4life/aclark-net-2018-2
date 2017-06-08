@@ -226,6 +226,14 @@ def contact_mail(request, pk=None):
     return render(request, 'contact_mail.html', context)
 
 
+def contact_unsubscribe(request, pk=None):
+    contact = get_object_or_404(Contact, pk=pk)
+    if request.method == 'POST':
+        return HttpResponse('So long, chum!')
+    else:
+        return HttpResponse('Nothing to see here.')
+
+
 @staff_member_required
 def estimate(request, pk=None):
     context = {}
