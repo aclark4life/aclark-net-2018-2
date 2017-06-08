@@ -214,7 +214,7 @@ def contact_mail(request, pk=None):
             subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
             url = reverse('contact_unsubscribe', kwargs={'pk': pk})
-            url = '/'.join([request.get_host(), url])
+            url = ''.join([request.get_host(), url])
             if send_mail(request, subject, message, contact.email, url=url):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
             return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
