@@ -231,6 +231,7 @@ def contact_unsubscribe(request, pk=None):
     uuid = request.GET.get('id')
     if uuid == contact.uuid:
         contact.subscribed = False
+        contact.save()
         return HttpResponse('So long, chum!')
     else:
         return HttpResponse('Nothing to see here.')
