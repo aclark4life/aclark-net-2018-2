@@ -228,7 +228,8 @@ def contact_mail(request, pk=None):
 
 def contact_unsubscribe(request, pk=None):
     contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST':
+    uuid = request.GET.get('id')
+    if uuid:
         return HttpResponse('So long, chum!')
     else:
         return HttpResponse('Nothing to see here.')
