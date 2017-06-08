@@ -509,7 +509,7 @@ def paginate(items, page):
     return items
 
 
-def send_mail(request, subject, message, to, url=None):
+def send_mail(request, subject, message, to, url=None, uuid=None):
     recipients = []
     sender = settings.EMAIL_FROM
     recipients.append(to)
@@ -518,7 +518,8 @@ def send_mail(request, subject, message, to, url=None):
     html_message = render_to_string('cerberus-fluid.html', {
         'username': to,
         'message': message,
-        'url': url
+        'url': url,
+        'uuid': uuid,
     })
     try:
         django_send_mail(
