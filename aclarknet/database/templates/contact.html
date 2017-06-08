@@ -44,7 +44,7 @@
                     <td>{{ item.email }}</td>
                     <td>{{ item.mobile_phone|default:'' }}</td>
                     <td>{{ item.office_phone|default:'' }}</td>
-                    <td>{{ item.fax }}</td>
+                    <td>{{ item.fax|default:'' }}</td>
                     {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
                   </tr>
                   </tbody>
