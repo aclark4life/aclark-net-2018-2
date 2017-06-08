@@ -62,11 +62,16 @@ def add_user_to_contacts(request, model, pk=None):
         if pk is None:
             return HttpResponseRedirect(reverse('user_index'))
         else:
-            contact = request.POST.get('contact')
+            # contact = request.POST.get('contact')
             user = get_object_or_404(User, pk=pk)
             if not user.email or not user.first_name or not user.last_name:
                 messages.add_message(request, messages.WARN,
                                      'No email no contact!')
+                return HttpResponseRedirect(reverse('user_index'))
+            contact = model.objects.filter(email=user.email)
+            if contact:
+                messages.add_message(request, messages.WARN,
+                                     'Contact exists!')
                 return HttpResponseRedirect(reverse('user_index'))
             contact = model(
                 email=user.email,
