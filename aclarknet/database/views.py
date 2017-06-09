@@ -47,6 +47,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
+from faker import Faker
 from io import BytesIO
 from matplotlib.dates import DateFormatter
 from matplotlib.dates import MonthLocator
@@ -211,8 +212,14 @@ def contact_mail(request, pk=None):
     if request.method == 'POST':
         form = MailForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
+            test = form.cleaned_data['test']
+            if test:
+                fake = Faker()
+                subject = fake.text()
+                message = fake.text()
+            else:
+                subject = form.cleaned_data['subject']
+                message = form.cleaned_data['message']
             url = reverse('contact_unsubscribe', kwargs={'pk': pk})
             url = ''.join([request.get_host(), url])
             if send_mail(request, subject, message, contact.email, url=url, uuid=contact.uuid):
