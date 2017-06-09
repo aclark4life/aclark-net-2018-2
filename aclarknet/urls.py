@@ -68,6 +68,8 @@ urlpatterns = [
         name='invoice_edit'),
     url(r'^invoice/add$', views.invoice_edit, name='invoice_edit'),
     url(r'^invoice$', views.invoice_index, name='invoice_index'),
+    # Logs
+    url(r'^logs$', views.settings, name='logs'),
     # Note
     url(r'^note/(?P<pk>\d+)$', views.note, name='note'),
     url(r'^note/(?P<pk>\d+)/edit$', views.note_edit, name='note_edit'),
