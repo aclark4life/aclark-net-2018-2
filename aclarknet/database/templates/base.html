@@ -39,7 +39,11 @@
         {% endif %}
         {% if request.user.is_anonymous %}
         <div class="col-md-12" id="content">
+          <div class="row">
+            <div class="offset-md-3 col-md-9"> 
 {% include 'messages.html' %}
+            </div>
+          </div>
 {% include 'banner.html' %}
         {% else %}
         <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">
