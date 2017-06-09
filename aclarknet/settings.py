@@ -136,7 +136,8 @@ LOGIN_URL = '/login/google-oauth2/?next=/'
 
 # Send mail with AWS SES
 EMAIL_BACKEND = 'django_ses.SESBackend'
-EMAIL_FROM = os.environ.get('EMAIL_FROM')
+# EMAIL_FROM = os.environ.get('EMAIL_FROM')
+EMAIL_FROM = 'info@aclark.net'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
