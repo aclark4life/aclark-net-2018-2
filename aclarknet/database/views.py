@@ -223,15 +223,16 @@ def contact_mail(request, pk=None):
                 message = form.cleaned_data['message']
             url = reverse('contact_unsubscribe', kwargs={'pk': pk})
             url = ''.join([request.get_host(), url])
+            to = contact.email
             if send_mail(
                     request,
                     subject,
                     message,
-                    contact.email,
+                    to,
                     url=url,
                     uuid=contact.uuid):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-                log = Log(entry='Mail sent!')
+                log = Log(entry='Mail sent to %s.' % to)
                 log.save()
             return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
     else:
