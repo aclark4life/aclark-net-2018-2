@@ -245,9 +245,11 @@ def contact_unsubscribe(request, pk=None):
     if uuid == contact.uuid:
         contact.subscribed = False
         contact.save()
-        return HttpResponse('So long, chum!')
+        messages.add_message(request, messages.SUCCESS, 'You have been unsubscribed!')
+        return HttpResponseRedirect(reverse('home'))
     else:
-        return HttpResponse('Nothing to see here.')
+        messages.add_message(request, messages.WARNING, 'Nothing to see here!')
+        return HttpResponseRedirect(reverse('home'))
 
 
 @staff_member_required
