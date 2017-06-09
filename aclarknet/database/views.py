@@ -518,7 +518,7 @@ def invoice_index(request):
 
 @staff_member_required
 def logs(request):
-    fields = ()
+    fields = ('entry', )
     context = index_items(request, Log, fields)
     return render(request, 'logs.html', context)
 
