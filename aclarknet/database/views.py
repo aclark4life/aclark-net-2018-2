@@ -15,6 +15,7 @@ from .models import Company
 from .models import Contact
 from .models import Estimate
 from .models import Invoice
+from .models import Log
 from .models import Note
 from .models import Profile
 from .models import Project
@@ -230,6 +231,8 @@ def contact_mail(request, pk=None):
                     url=url,
                     uuid=contact.uuid):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
+                log = Log(entry='Mail sent!')
+                log.save()
             return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
     else:
         form = MailForm()
