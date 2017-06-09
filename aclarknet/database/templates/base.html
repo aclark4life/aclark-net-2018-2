@@ -37,13 +37,13 @@
           </ul>
         </div>
         {% endif %}
+{% include 'messages.html' %}
         {% if request.user.is_anonymous %}
         <div class="col-md-12" id="content">
 {% include 'banner.html' %}
         {% else %}
         <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">
         {% endif %}
-{% include 'messages.html' %}
 {% if show_search %}{% include 'search.html' %}{% endif %}
 {% block content %}
 {% endblock %}
