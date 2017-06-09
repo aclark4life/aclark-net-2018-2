@@ -183,8 +183,12 @@ class Invoice(models.Model):
 
 class Log(models.Model):
     """
+    Log sending of marketing emails
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     entry = models.CharField(max_length=300, blank=True, null=True)
+
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
