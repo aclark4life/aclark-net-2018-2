@@ -181,6 +181,12 @@ class Invoice(models.Model):
         return 'invoice-%s' % self.document_id
 
 
+class Log(models.Model):
+    """
+    """
+    entry = models.CharField(max_length=300, blank=True, null=True)
+
+
 class Note(models.Model):
     """
     """
