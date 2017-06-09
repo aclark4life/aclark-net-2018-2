@@ -185,6 +185,8 @@ class Log(models.Model):
     """
     """
     entry = models.CharField(max_length=300, blank=True, null=True)
+    def __str__(self):
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Note(models.Model):
