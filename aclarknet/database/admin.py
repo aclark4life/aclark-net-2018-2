@@ -3,6 +3,7 @@ from .models import Contact
 from .models import Company
 from .models import Estimate
 from .models import Invoice
+from .models import Log
 from .models import Note
 from .models import Profile
 from .models import Project
@@ -178,6 +179,12 @@ class InvoiceAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = InvoiceResource
+
+
+@admin.register(Log)
+class LogAdmin(admin.ModelAdmin):
+    """
+    """
 
 
 @admin.register(Note)
