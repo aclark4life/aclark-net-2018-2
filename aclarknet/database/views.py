@@ -250,9 +250,11 @@ def contact_unsubscribe(request, pk=None):
         contact.subscribed = False
         contact.save()
         messages.add_message(request, messages.SUCCESS, 'You have been unsubscribed!')
+        log = Log(entry='%s unsubscribed.' % contact.email)
+        log.save()
         return HttpResponseRedirect(reverse('home'))
     else:
-        messages.add_message(request, messages.WARNING, 'Nothing to see here!')
+        messages.add_message(request, messages.ERROR, 'Nothing to see here.')
         return HttpResponseRedirect(reverse('home'))
 
 
