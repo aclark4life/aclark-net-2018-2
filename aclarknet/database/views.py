@@ -519,7 +519,7 @@ def invoice_index(request):
 @staff_member_required
 def logs(request):
     fields = ('entry', )
-    context = index_items(request, Log, fields)
+    context = index_items(request, Log, fields, order_by=('-created', ))
     return render(request, 'logs.html', context)
 
 
