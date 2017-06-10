@@ -490,8 +490,8 @@ def invoice_index(request):
         Invoice,
         fields,
         order_by=('-issue_date', ),
-        app_settings=settings)
-    context['active_nav'] = 'invoice'
+        app_settings=settings,
+        active_nav='invoice')
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['show_search'] = True
@@ -604,8 +604,8 @@ def note_index(request, pk=None):
         Note,
         fields,
         order_by=('-active', '-created', 'note', 'due_date', 'priority'),
-        app_settings=settings)
-    context['active_nav'] = 'note'
+        app_settings=settings,
+        active_nav='note')
     context['edit_url'] = 'note_edit'  # Delete form modal
     context['show_search'] = True
     return render(request, 'note_index.html', context)
@@ -665,8 +665,8 @@ def project_index(request, pk=None):
         Project,
         fields,
         order_by=('-active', ),
-        app_settings=settings)
-    context['active_nav'] = 'project'
+        app_settings=settings,
+        active_nav='project')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['show_search'] = True
     return render(request, 'project_index.html', context)
@@ -714,7 +714,12 @@ def report_index(request):
     company = Company.get_solo()
     fields = ('id', 'name', 'gross', 'net')
     context = index_items(
-        request, Report, fields, order_by=('-date', ), app_settings=settings)
+        request,
+        Report,
+        fields,
+        order_by=('-date', ),
+        app_settings=settings,
+        active_nav='report')
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
@@ -724,7 +729,6 @@ def report_index(request):
     if 'items' in context:
         if len(context['items']) > 1:
             show_plot = True
-    context['active_nav'] = 'report'
     context['reports'] = reports
     context['company'] = company
     context['cost'] = cost
@@ -814,8 +818,12 @@ def task_index(request):
     settings = Settings.get_solo()
     fields = ('name', )
     context = index_items(
-        request, Task, fields, order_by=('-active', ), app_settings=settings)
-    context['active_nav'] = 'task'
+        request,
+        Task,
+        fields,
+        order_by=('-active', ),
+        app_settings=settings,
+        active_nav='task')
     context['edit_url'] = 'task_edit'  # Delete form modal
     context['show_search'] = True
     return render(request, 'task_index.html', context)
@@ -893,8 +901,12 @@ def time_index(request):
               'invoice__document_id', 'user__username')
     settings = Settings.get_solo()
     context = index_items(
-        request, Time, fields, order_by=('-date', ), app_settings=settings)
-    context['active_nav'] = 'time'
+        request,
+        Time,
+        fields,
+        order_by=('-date', ),
+        app_settings=settings,
+        active_nav='time')
     context['edit_url'] = 'entry_edit'  # Delete form modal
     context['show_search'] = True
     if not request.user.is_staff:
@@ -972,8 +984,8 @@ def user_index(request):
         User,
         fields,
         order_by=('-profile__active', ),
-        app_settings=settings)
-    context['active_nav'] = 'user'
+        app_settings=settings,
+        active_nav='user')
     context['company'] = company
     context['show_search'] = True
     return render(request, 'user_index.html', context)
