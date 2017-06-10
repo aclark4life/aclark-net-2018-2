@@ -378,6 +378,7 @@ def home(request):
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['invoices'] = invoices
+    context['icon_size'] = settings.icon_size
     context['gross'] = gross
     context['net'] = net
     context['notes'] = notes
