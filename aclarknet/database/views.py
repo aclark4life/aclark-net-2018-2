@@ -529,6 +529,7 @@ def newsletter(request, pk=None):
     context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
     context['item'] = newsletter
+    context['edit_url'] = 'newsletter_edit'
     return render(request, 'newsletter.html', context)
 
 
