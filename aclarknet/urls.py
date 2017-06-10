@@ -25,17 +25,11 @@ router.register(r'services', views.ServiceViewSet)
 router.register(r'testimonials', views.TestimonialViewSet)
 router.register(r'profiles', views.ProfileViewSet)
 
-certbot_hash = 'vyaZaRpD5a1mARuqFEXbgyiOyeLmGKGv-AYX_RGFgt8'
-
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     # API
     url(r'^api/', include(router.urls)),
-    # Certbot
-    url(r'.well-known/acme-challenge/%s' % certbot_hash,
-        views.certbot,
-        name='certbot'),
     # Client
     url(r'^client/(?P<pk>\d+)$', views.client, name='client'),
     url(r'^client/(?P<pk>\d+)/edit$', views.client_edit, name='client_edit'),
