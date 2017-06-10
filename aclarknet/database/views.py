@@ -955,7 +955,6 @@ def user(request, pk=None):
     profile = Profile.objects.get_or_create(user=user)[0]
     filters = {
         'estimate': None,
-        # 'invoiced': False,
         'user': user,
     }
     fields = ()
