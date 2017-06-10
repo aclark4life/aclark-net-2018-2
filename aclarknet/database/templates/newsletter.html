@@ -32,7 +32,7 @@
                   <table data-toggle="table" data-classes="table">
                     <tbody>
                     {% for contact in item.contacts.items %}
-                      <tr><td>{{ contact }}</td></tr>
+                      <tr><td>{{ contact.first_name }}</td></tr>
                     {% endfor %}
                     </tbody>
                   </table>
