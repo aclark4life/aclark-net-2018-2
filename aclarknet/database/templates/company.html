@@ -25,7 +25,7 @@
                   </tbody>
                 </table>
                 <h2>Notes</h2>
-                <div class="note">{{ company.notes|default:'' }}</div>
+                <div class="note">{{ company.notes|safe|default:'' }}</div>
               </div>
               {% endif %}
 {% endblock %}
