@@ -71,6 +71,9 @@ class NewsletterForm(forms.ModelForm):
     class Meta:
         model = Newsletter
         fields = ('text', )
+        widgets = {
+            'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class NoteForm(forms.ModelForm):
