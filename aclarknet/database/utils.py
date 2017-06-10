@@ -27,7 +27,6 @@ class BooleanWidget(widgets.Widget):
     """
     Convert strings to boolean values
     """
-
     def clean(self, value):
         if value == 'Yes':
             return True
@@ -39,7 +38,6 @@ class DecimalWidget(widgets.Widget):
     """
     Convert strings to decimal values
     """
-
     def clean(self, value):
         if value:
             return Decimal(value.replace(',', ''))
@@ -50,7 +48,6 @@ class DecimalWidget(widgets.Widget):
 class UserWidget(widgets.Widget):
     """
     """
-
     def clean(self, value):
         return value
 
@@ -62,7 +59,6 @@ def add_user_to_contacts(request, model, pk=None):
         if pk is None:
             return HttpResponseRedirect(reverse('user_index'))
         else:
-            # contact = request.POST.get('contact')
             user = get_object_or_404(User, pk=pk)
             if not user.email or not user.first_name or not user.last_name:
                 messages.add_message(request, messages.WARNING,
@@ -212,7 +208,6 @@ def edit(request,
                 obj.delete()
                 return HttpResponseRedirect(reverse(url_name))
             checkbox = request.POST.get('checkbox')
-            # checkbox_publish = request.POST.get('checkbox-publish')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
             if checkbox == 'on' or checkbox == 'off':
                 kwargs = {}
@@ -222,16 +217,6 @@ def edit(request,
                     obj.active = False
                 obj.save()
                 return HttpResponseRedirect(ref)
-            # if checkbox_publish == 'on' or checkbox_publish == 'off':
-            #     kwargs = {}
-            #     if checkbox_publish == 'on':
-            #         obj.published = True
-            #     else:
-            #         obj.published = False
-            #     obj.save()
-            #     # Redir to appropriate index for checkbox_publish
-            #     url_name = url_name_from(obj._meta.verbose_name)
-            #     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
             if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
                 kwargs = {}
                 if checkbox_subscribed == 'on':
@@ -444,20 +429,17 @@ def index_items(request,
     page = get_query(request, 'page')
     paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
-
     # Search is easy
     if request.method == 'POST':
         if search == u'':  # Empty search returns none
             return {}
         else:
             return get_search_results(model, fields, search)
-
     # Not a search
     if filters:
         items = model.objects.filter(**filters)
     else:
         items = model.objects.all()
-
     # Reorder items
     if order_by:
         # http://stackoverflow.com/a/20257999/185820
@@ -465,34 +447,28 @@ def index_items(request,
             items = items.order_by(order_by[0], order_by[1])
         else:
             items = items.order_by(order_by[0])
-
     # Calculate total hours
     if model._meta.verbose_name == 'time':
         total_hours = items.aggregate(hours=Sum(F('hours')))
         total_hours = total_hours['hours']
         context['total_hours'] = total_hours
-
     # Calculate cost per report
     if model._meta.verbose_name == 'report':
         for item in items:
             cost = item.gross - item.net
             item.cost = cost
             item.save()
-
     # Don't show items to anon
     if not request.user.is_authenticated:
         items = []
-
     # Paginate if paginated
     if paginated:
         items = paginate(items, page)
-
     context['active_nav'] = active_nav
     context['icon_size'] = app_settings.icon_size
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
-
     return context
 
 
@@ -521,7 +497,6 @@ def send_mail(request, subject, message, to, url=None, uuid=None):
     recipients = []
     sender = settings.EMAIL_FROM
     recipients.append(to)
-
     # http://stackoverflow.com/a/28476681/185820
     html_message = render_to_string('cerberus-fluid.html', {
         'username': to,
