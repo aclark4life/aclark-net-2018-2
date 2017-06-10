@@ -743,25 +743,20 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
     values = get_query(request, 'values')
-
     # http://matplotlib.org/examples/api/date_demo.html
     x = [date2num(datetime.strptime(i[1], '%Y-%m-%d')) for i in values]
     y = [i[0] for i in values]
-
     figure = Figure()
     canvas = FigureCanvasAgg(figure)
-
     axes = figure.add_subplot(1, 1, 1)
     axes.grid(True)
     axes.plot(x, y)
     axes.xaxis.set_major_locator(MonthLocator())
     axes.xaxis.set_major_formatter(DateFormatter('%m'))
-
     # write image data to a string buffer and get the PNG image bytes
     buf = BytesIO()
     canvas.print_png(buf)
     data = buf.getvalue()
-
     # write image bytes back to the browser
     return HttpResponse(data, content_type="image/png")
 
