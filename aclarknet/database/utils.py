@@ -431,7 +431,7 @@ def gravatar_url(email):
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def index_items(request, model, fields, filters={}, order_by=()):
+def index_items(request, model, fields, filters={}, order_by=(), app_settings=None):
     """
     """
     context = {}
@@ -481,7 +481,7 @@ def index_items(request, model, fields, filters={}, order_by=()):
     if paginated:
         items = paginate(items, page)
 
-    context['icon_size'] = settings.icon_size
+    context['icon_size'] = app_settings.icon_size
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated

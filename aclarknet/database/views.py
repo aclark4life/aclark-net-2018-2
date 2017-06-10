@@ -552,8 +552,9 @@ def newsletter_edit(request, pk=None):
 def newsletter_index(request, pk=None):
     """
     """
+    settings = Settings.get_solo()
     fields = ('text', )
-    context = index_items(request, Newsletter, fields, order_by=('-created', ))
+    context = index_items(request, Newsletter, fields, order_by=('-created', ), app_settings=settings)
     return render(request, 'newsletter_index.html', context)
 
 
