@@ -138,7 +138,7 @@ def client_index(request):
         order_by=('-active', 'name'),
         app_settings=settings,
         show_search=True,
-        edit_url='client_edit',  # For delete modal
+        edit_url='client_edit',  # Delete modal
         active_nav='client')
     return render(request, 'client_index.html', context)
 
@@ -162,7 +162,7 @@ def contact(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
     context['active_nav'] = 'contact'
-    context['edit_url'] = 'contact_edit'  # Delete form modal
+    context['edit_url'] = 'contact_edit'  # Delete modal
     context['item'] = contact
     return render(request, 'contact.html', context)
 
@@ -201,7 +201,7 @@ def contact_index(request):
         order_by=('-active', 'first_name'),
         app_settings=settings,
         show_search=True,
-        edit_url='contact_edit',  # For delete modal
+        edit_url='contact_edit',  # Delete modal
         active_nav='contact')
     return render(request, 'contact_index.html', context)
 
@@ -347,7 +347,7 @@ def estimate_index(request):
         order_by=('-issue_date', ),
         app_settings=settings,
         show_search=True,
-        edit_url='estimate_edit',  # For delete modal
+        edit_url='estimate_edit',  # Delete modal
         active_nav='estimate')
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -368,7 +368,7 @@ def home(request):
         last_payment_date=None).order_by('amount')
     notes = Note.objects.filter(active=True).order_by('-created', 'note',
                                                       'due_date', 'priority')
-    context['edit_url'] = 'project_edit'  # Delete form modal
+    context['edit_url'] = 'project_edit'  # Delete modal
     context['company'] = company
     context['invoices'] = invoices
     context['gross'] = gross
@@ -392,7 +392,7 @@ def invoice(request, pk=None):
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
     context['active_nav'] = 'invoice'
-    context['edit_url'] = 'invoice_edit'  # Delete form modal
+    context['edit_url'] = 'invoice_edit'  # Delete modal
     context['item'] = invoice
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
@@ -492,7 +492,7 @@ def invoice_index(request):
         order_by=('-issue_date', ),
         app_settings=settings,
         show_search=True,
-        edit_url='invoice_edit',  # For delete modal
+        edit_url='invoice_edit',  # Delete modal
         active_nav='invoice')
     context['company'] = company
     return render(request, 'invoice_index.html', context)
@@ -607,7 +607,7 @@ def note_index(request, pk=None):
         app_settings=settings,
         show_search=True,
         active_nav='note')
-    context['edit_url'] = 'note_edit'  # Delete form modal
+    context['edit_url'] = 'note_edit'  # Delete modal
     return render(request, 'note_index.html', context)
 
 
@@ -621,7 +621,7 @@ def project(request, pk=None):
     invoices = Invoice.objects.filter(project=project)
     context['active_nav'] = 'project'
     context['company'] = Company.get_solo()
-    context['edit_url'] = 'project_edit'  # Delete form modal
+    context['edit_url'] = 'project_edit'  # Delete modal
     context['icon_size'] = settings.icon_size
     context['item'] = project
     context['times'] = times
@@ -667,7 +667,7 @@ def project_index(request, pk=None):
         order_by=('-active', ),
         app_settings=settings,
         show_search=True,
-        edit_url='project_edit',  # For delete modal
+        edit_url='project_edit',  # Delete modal
         active_nav='project')
     return render(request, 'project_index.html', context)
 
@@ -677,7 +677,7 @@ def report(request, pk=None):
     context = {}
     report = get_object_or_404(Report, pk=pk)
     context['active_nav'] = 'report'
-    context['edit_url'] = 'report_edit'  # Delete form modal
+    context['edit_url'] = 'report_edit'  # Delete modal
     context['item'] = report
     context['cost'] = report.gross - report.net
     return render(request, 'report.html', context)
@@ -720,7 +720,7 @@ def report_index(request):
         order_by=('-date', ),
         app_settings=settings,
         show_search=True,
-        edit_url='report_edit',  # For delete modal
+        edit_url='report_edit',  # Delete modal
         active_nav='report')
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
@@ -785,7 +785,7 @@ def task(request, pk=None):
     context = {}
     task = get_object_or_404(Task, pk=pk)
     context['active_nav'] = 'task'
-    context['edit_url'] = 'task_edit'  # Delete form modal
+    context['edit_url'] = 'task_edit'  # Delete modal
     context['item'] = task
     return render(request, 'task.html', context)
 
@@ -819,7 +819,7 @@ def task_index(request):
         order_by=('-active', ),
         app_settings=settings,
         show_search=True,
-        edit_url='task_edit',  # For delete modal
+        edit_url='task_edit',  # Delete modal
         active_nav='task')
     return render(request, 'task_index.html', context)
 
@@ -835,7 +835,7 @@ def time(request, pk=None):
                 not request.user.is_staff):
             return HttpResponseRedirect(reverse('admin:index'))
     context['active_nav'] = 'time'
-    context['edit_url'] = 'entry_edit'  # Delete form modal
+    context['edit_url'] = 'entry_edit'  # Delete modal
     context['item'] = entry
     return render(request, 'time.html', context)
 
@@ -902,7 +902,7 @@ def time_index(request):
         order_by=('-date', ),
         app_settings=settings,
         show_search=True,
-        edit_url='entry_edit',  # For delete modal
+        edit_url='entry_edit',  # Delete modal
         active_nav='time')
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('admin:index'))
@@ -930,7 +930,7 @@ def user(request, pk=None):
         total_dollars = 0
     context['active_nav'] = 'user'
     context['company'] = company
-    context['edit_url'] = 'user_edit'  # Delete form modal
+    context['edit_url'] = 'user_edit'  # Delete modal
     context['profile'] = profile
     context['request'] = request
     context['icon_size'] = settings.icon_size
