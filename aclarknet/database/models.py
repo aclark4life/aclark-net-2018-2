@@ -202,6 +202,9 @@ class Newsletter(models.Model):
     contacts = models.ManyToManyField(
         'Contact', blank=True, related_name="Contacts")
 
+    def __str__(self):
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
+
 class Note(models.Model):
     """
     """
