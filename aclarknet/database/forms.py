@@ -3,6 +3,7 @@ from .models import Company
 from .models import Contact
 from .models import Estimate
 from .models import Invoice
+from .models import Newsletter
 from .models import Note
 from .models import Profile
 from .models import Project
