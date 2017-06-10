@@ -526,6 +526,8 @@ def log_index(request):
 def newsletter(request, pk=None):
     """
     """
+    newsletter = get_object_or_404(Newsletter, pk=pk)
+    return render(request, 'newsletter.html', context)
 
 
 @staff_member_required
