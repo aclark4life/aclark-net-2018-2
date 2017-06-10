@@ -425,7 +425,8 @@ def index_items(request,
                 filters={},
                 order_by=(),
                 app_settings=None,
-                active_nav=''):
+                active_nav='',
+                show_search=False):
     """
     """
     context = {}
@@ -472,6 +473,7 @@ def index_items(request,
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
+    context['show_search'] = show_search
     return context
 
 
