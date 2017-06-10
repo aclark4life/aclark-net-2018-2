@@ -36,7 +36,7 @@
                 <td valign="top" class="field-name border-right" align="right">From</td>
                 <td valign="top" class="field-value"> 
                   <strong>{% if not pdf %}<a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a> <a href="{% url 'company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|default:'Company' }}{% endif %}</strong>
-                  {{ company.address|striptags|linebreaksbr|default:'' }}
+                  {{ company.address|striptags|default:'' }}
                 </td>
               </tr>
               <tr><!-- After "From" and before "Invoice For" --></tr>
