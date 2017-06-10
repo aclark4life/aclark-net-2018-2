@@ -370,7 +370,7 @@ def home(request):
     gross, net = dashboard_totals(Invoice)
     fields = ('active', 'hidden')
     context = index_items(
-        request, Project, fields, order_by=('client__name', ))
+        request, Project, fields, order_by=('client__name', ), app_settings=settings)
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
     notes = Note.objects.filter(active=True).order_by('-created', 'note', 'due_date',
@@ -378,7 +378,6 @@ def home(request):
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
     context['invoices'] = invoices
-    context['icon_size'] = settings.icon_size
     context['gross'] = gross
     context['net'] = net
     context['notes'] = notes
