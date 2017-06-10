@@ -381,46 +381,35 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = {}
-
     company = Company.get_solo()
     if company:
         context['company'] = company
-
     pdf = get_query(request, 'pdf')
     context['pdf'] = pdf
-
     invoice = get_object_or_404(Invoice, pk=pk)
-
     document_id = str(invoice.document_id)
     document_type = invoice._meta.verbose_name
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
-
     context['active_nav'] = 'invoice'
     context['edit_url'] = 'invoice_edit'  # Delete form modal
     context['item'] = invoice
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
-
     times_project = Time.objects.filter(
         invoiced=False, project=invoice.project, estimate=None, invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
     times = times_project | times_invoice
     times = times.order_by('-date')
-
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
-
     last_payment_date = invoice.last_payment_date
-
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
     context['hours'] = hours
     context['last_payment_date'] = last_payment_date
-
     context['invoice'] = True
-
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         if company.name:
