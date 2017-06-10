@@ -92,7 +92,8 @@ class Contact(models.Model):
     uuid = models.CharField('UUID', max_length=300, default=uuid4)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        #return '-'.join([self._meta.verbose_name, str(self.pk)])
+        return '-'.join([self.first_name, self.last_name])
 
 
 class Estimate(models.Model):
