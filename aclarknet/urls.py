@@ -69,7 +69,7 @@ urlpatterns = [
     url(r'^invoice/add$', views.invoice_edit, name='invoice_edit'),
     url(r'^invoice$', views.invoice_index, name='invoice_index'),
     # Logs
-    url(r'^logs$', views.logs, name='logs'),
+    url(r'^log$', views.log_index, name='log_index'),
     # Newsletter
     url(r'^newsletter/(?P<pk>\d+)$', views.newsletter, name='newsletter'),
     url(r'^newsletter/(?P<pk>\d+)/edit$', views.newsletter_edit, name='newsletter_edit'),
