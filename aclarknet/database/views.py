@@ -437,10 +437,8 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     project = request.GET.get('project')
     url_name = 'invoice_index'
-
     if project:
         project = get_object_or_404(Project, pk=project)
-
     if pk:
         kwargs['pk'] = pk
         url_name = 'invoice'
@@ -449,7 +447,6 @@ def invoice_edit(request, pk=None):
             if invoice.project.client and not invoice.client:
                 invoice.client = invoice.project.client
                 invoice.save()
-
     if paid and times:
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
         for entry in times:
@@ -461,7 +458,6 @@ def invoice_edit(request, pk=None):
         for entry in times:
             entry.invoice = invoice
             entry.save()
-
     return edit(
         request,
         InvoiceForm,
