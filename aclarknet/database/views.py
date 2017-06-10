@@ -372,7 +372,7 @@ def home(request):
         request, Project, fields, order_by=('client__name', ))
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True).order_by('note', 'due_date',
+    notes = Note.objects.filter(active=True).order_by('-created', 'note', 'due_date',
                                                       'priority')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
