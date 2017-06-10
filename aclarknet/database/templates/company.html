@@ -19,13 +19,13 @@
                   </thead>
                   <tbody>
                   <tr>
-                    <td>{{ company.name|safe|default:'' }}</td>
-                    <td>{{ company.address|safe|default:'' }}</td>
+                    <td>{{ company.name|default:'' }}</td>
+                    <td>{{ company.address|default:'' }}</td>
                   </tr>
                   </tbody>
                 </table>
                 <h2>Notes</h2>
-                <div class="note">{{ company.notes|safe|default:'' }}</div>
+                <div class="note">{{ company.notes|default:'' }}</div>
               </div>
               {% endif %}
 {% endblock %}
