@@ -193,6 +193,15 @@ class Log(models.Model):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
+class Newsletter(models.Model):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    text = models.TextField(blank=True, null=True)
+    contacts = models.ManyToManyField(
+        'Contact', blank=True, related_name="Contacts")
+
 class Note(models.Model):
     """
     """
