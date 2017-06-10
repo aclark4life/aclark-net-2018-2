@@ -953,11 +953,6 @@ def user(request, pk=None):
     settings = Settings.get_solo()
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
-
-    # times = Time.objects.filter(user=user, estimate=None, invoiced=False)
-    # times = Time.objects.filter(user=user, estimate=None)
-    # times.order_by('-date')
-
     filters = {
         'estimate': None,
         # 'invoiced': False,
@@ -967,12 +962,10 @@ def user(request, pk=None):
     context = index_items(
         request, Time, fields=fields, order_by=('-date', ), filters=filters)
     total_hours = context['total_hours']
-
     if profile.rate and total_hours:
         total_dollars = profile.rate * total_hours
     else:
         total_dollars = 0
-
     context['active_nav'] = 'user'
     context['company'] = company
     context['edit_url'] = 'user_edit'  # Delete form modal
