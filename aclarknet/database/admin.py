@@ -4,6 +4,7 @@ from .models import Company
 from .models import Estimate
 from .models import Invoice
 from .models import Log
+from .models import Newsletter
 from .models import Note
 from .models import Profile
 from .models import Project
@@ -186,6 +187,11 @@ class LogAdmin(admin.ModelAdmin):
     """
     """
 
+
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
+    """
+    """
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
