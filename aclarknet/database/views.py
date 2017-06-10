@@ -254,7 +254,7 @@ def contact_unsubscribe(request, pk=None):
         log.save()
         return HttpResponseRedirect(reverse('home'))
     else:
-        messages.add_message(request, messages.ERROR, 'Nothing to see here.')
+        messages.add_message(request, messages.WARNING, 'Nothing to see here.')
         return HttpResponseRedirect(reverse('home'))
 
 
