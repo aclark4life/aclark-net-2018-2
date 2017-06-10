@@ -29,6 +29,13 @@
                 </div>
 {% include 'delete_form.html' %}
                 <div class="table-responsive">
+                  <table data-toggle="table" data-classes="table">
+                    <tbody>
+                    {% for contact in item.contacts %}
+                      <tr><td>{{ contact }}</td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
                   <h2>{{ item.subject }}</h2>
                   <table data-toggle="table" data-classes="table">
                     <tbody>
