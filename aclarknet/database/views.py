@@ -526,6 +526,24 @@ def logs(request):
 
 
 @staff_member_required
+def newsletter(request, pk=None):
+    """
+    """
+
+
+@staff_member_required
+def newsletter_edit(request, pk=None):
+    """
+    """
+
+
+@staff_member_required
+def newsletter_index(request, pk=None):
+    """
+    """
+
+
+@staff_member_required
 def note(request, pk=None):
     context = {}
 

@@ -70,6 +70,11 @@ urlpatterns = [
     url(r'^invoice$', views.invoice_index, name='invoice_index'),
     # Logs
     url(r'^logs$', views.logs, name='logs'),
+    # Newsletter
+    url(r'^newsletter/(?P<pk>\d+)$', views.newsletter, name='newsletter'),
+    url(r'^newsletter/(?P<pk>\d+)/edit$', views.newsletter_edit, name='newsletter_edit'),
+    url(r'^newsletter/add$', views.newsletter_edit, name='newsletter_edit'),
+    url(r'^newsletter$', views.newsletter_index, name='newsletter_index'),
     # Note
     url(r'^note/(?P<pk>\d+)$', views.note, name='note'),
     url(r'^note/(?P<pk>\d+)/edit$', views.note_edit, name='note_edit'),
