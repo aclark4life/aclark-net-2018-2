@@ -63,6 +63,12 @@ class MailForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea(), required=False)
 
 
+class NewsletterForm(forms.ModelForm):
+    class Meta:
+        model = Newsletter
+        fields = ('text', )
+
+
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note

@@ -4,6 +4,7 @@ from .forms import ContactForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import MailForm
+from .forms import NewsletterForm
 from .forms import NoteForm
 from .forms import ProfileForm
 from .forms import ProjectForm
@@ -536,6 +537,20 @@ def newsletter(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
+    kwargs = {}
+    url_name = 'newsletter_index'
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'newsletter'
+    return edit(
+        request,
+        NewsletterForm,
+        Newsletter,
+        url_name,
+        'newsletter_edit.html',
+        active_nav='newsletter',
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required
