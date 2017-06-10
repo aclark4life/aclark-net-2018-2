@@ -436,7 +436,8 @@ def index_items(request,
                 fields,
                 filters={},
                 order_by=(),
-                app_settings=None):
+                app_settings=None,
+                active_nav=''):
     """
     """
     context = {}
@@ -486,6 +487,7 @@ def index_items(request,
     if paginated:
         items = paginate(items, page)
 
+    context['active_nav'] = active_nav
     context['icon_size'] = app_settings.icon_size
     context['items'] = items
     context['page'] = page

@@ -547,6 +547,7 @@ def newsletter(request, pk=None):
     newsletter = get_object_or_404(Newsletter, pk=pk)
     context['item'] = newsletter
     context['edit_url'] = 'newsletter_edit'
+    context['active_nav'] = 'newsletter'
     return render(request, 'newsletter.html', context)
 
 
@@ -581,7 +582,8 @@ def newsletter_index(request, pk=None):
         Newsletter,
         fields,
         order_by=('-created', ),
-        app_settings=settings)
+        app_settings=settings,
+        active_nav='newsletter')
     return render(request, 'newsletter_index.html', context)
 
 
