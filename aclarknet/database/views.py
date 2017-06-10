@@ -522,7 +522,7 @@ def invoice_index(request):
 def logs(request):
     fields = ('entry', )
     context = index_items(request, Log, fields, order_by=('-created', ))
-    return render(request, 'logs.html', context)
+    return render(request, 'log_index.html', context)
 
 
 @staff_member_required
@@ -541,6 +541,9 @@ def newsletter_edit(request, pk=None):
 def newsletter_index(request, pk=None):
     """
     """
+    fields = ('text', )
+    context = index_items(request, Newsletter, fields, order_by=('-created', ))
+    return render(request, 'newsletter_index.html', context)
 
 
 @staff_member_required

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Logs</h1>
+                </div>
+              </div>
+{% include 'pagination.html' %}
+          <div class="table-responsive">
+            <table data-toggle="table">
+              <thead>
+                <tr>
+                  <th>Created</th> 
+                  <th>Entry</th> 
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in items %}
+                <tr>
+                  <td>{{ item.created }}</td>
+                  <td>{{ item.entry }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+{% include 'pagination.html' %}
+{% endblock %}
