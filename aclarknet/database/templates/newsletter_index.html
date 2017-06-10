@@ -15,6 +15,7 @@
                 <tr>
                   <th>Created</th> 
                   <th>Subject</th> 
+                  <th>Edit</th> 
                 </tr>
               </thead>
               <tbody>
@@ -22,6 +23,7 @@
                 <tr>
                   <td>{{ item.created }}</td>
                   <td>{{ item.subject }}</td>
+                  <td><a href="{% url 'newsletter_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                 </tr>
               {% endfor %}
               </tbody>
