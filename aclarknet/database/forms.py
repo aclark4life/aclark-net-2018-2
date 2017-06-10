@@ -26,7 +26,7 @@ class CompanyForm(forms.ModelForm):
         model = Company
         fields = '__all__'
         widgets = {
-            'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
 
