@@ -27,6 +27,7 @@ class BooleanWidget(widgets.Widget):
     """
     Convert strings to boolean values
     """
+
     def clean(self, value):
         if value == 'Yes':
             return True
@@ -38,6 +39,7 @@ class DecimalWidget(widgets.Widget):
     """
     Convert strings to decimal values
     """
+
     def clean(self, value):
         if value:
             return Decimal(value.replace(',', ''))
@@ -48,6 +50,7 @@ class DecimalWidget(widgets.Widget):
 class UserWidget(widgets.Widget):
     """
     """
+
     def clean(self, value):
         return value
 

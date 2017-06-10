@@ -74,6 +74,9 @@ class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = ('note', )
+        widgets = {
+            'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class ProfileForm(forms.ModelForm):
