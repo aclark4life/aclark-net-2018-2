@@ -431,7 +431,12 @@ def gravatar_url(email):
     return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def index_items(request, model, fields, filters={}, order_by=(), app_settings=None):
+def index_items(request,
+                model,
+                fields,
+                filters={},
+                order_by=(),
+                app_settings=None):
     """
     """
     context = {}

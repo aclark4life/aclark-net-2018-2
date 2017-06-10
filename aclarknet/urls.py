@@ -72,7 +72,9 @@ urlpatterns = [
     url(r'^log$', views.log_index, name='log_index'),
     # Newsletter
     url(r'^newsletter/(?P<pk>\d+)$', views.newsletter, name='newsletter'),
-    url(r'^newsletter/(?P<pk>\d+)/edit$', views.newsletter_edit, name='newsletter_edit'),
+    url(r'^newsletter/(?P<pk>\d+)/edit$',
+        views.newsletter_edit,
+        name='newsletter_edit'),
     url(r'^newsletter/add$', views.newsletter_edit, name='newsletter_edit'),
     url(r'^newsletter$', views.newsletter_index, name='newsletter_index'),
     # Note

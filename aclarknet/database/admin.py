@@ -193,6 +193,7 @@ class NewsletterAdmin(admin.ModelAdmin):
     """
     """
 
+
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
     """

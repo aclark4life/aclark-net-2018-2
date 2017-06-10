@@ -206,6 +206,7 @@ class Newsletter(models.Model):
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
+
 class Note(models.Model):
     """
     """
