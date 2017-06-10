@@ -199,6 +199,7 @@ class Newsletter(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     text = models.TextField(blank=True, null=True)
+    subject = models.CharField(max_length=300, blank=True, null=True)
     contacts = models.ManyToManyField(
         'Contact', blank=True, related_name="Contacts")
 
