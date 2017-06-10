@@ -19,8 +19,8 @@
                   </thead>
                   <tbody>
                   <tr>
-                    <td>{{ company.name|default:'' }}</td>
-                    <td>{{ company.address|default:'' }}</td>
+                    <td>{{ company.name|safe|default:'' }}</td>
+                    <td>{{ company.address|safe|default:'' }}</td>
                   </tr>
                   </tbody>
                 </table>

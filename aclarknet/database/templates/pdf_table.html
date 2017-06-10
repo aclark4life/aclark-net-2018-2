@@ -37,7 +37,7 @@
                 <td valign="top" class="field-value"> 
                   <strong>{% if not pdf %}<a href="{% url 'company' %}">{{ company.name|default:'Company' }}</a> <a href="{% url 'company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|default:'Company' }}{% endif %}</strong>
                   <br>
-                  {{ company.address|default:''|linebreaksbr }}
+                  {{ company.address|safe|default:'' }}
                 </td>
               </tr>
               <tr><!-- After "From" and before "Invoice For" --></tr>
@@ -50,7 +50,7 @@
                 <td rowspan=5 valign="top" class="field-value">
                   <strong>{% if not pdf and item.client %}<a href="{% url 'client' item.client.pk %}">{{ item.client.name|default:'Client' }}</a> <a href="{% url 'client_edit' item.client.pk %}"><i class="fa fa-cog"></i></a>{% else %}{{ item.client.name|default:'Client' }}{% endif %}</strong>
                   <br>
-                  {{ item.client.address|default:''|linebreaksbr }}
+                  {{ item.client.address|safe|default:'' }}
                 </td>
               </tr>
               <tr>
