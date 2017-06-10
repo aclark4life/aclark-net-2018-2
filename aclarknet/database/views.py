@@ -138,8 +138,8 @@ def client_index(request):
         order_by=('-active', 'name'),
         app_settings=settings,
         show_search=True,
+        edit_url='client_edit',  # For delete modal
         active_nav='client')
-    context['edit_url'] = 'client_edit'  # Delete form modal
     return render(request, 'client_index.html', context)
 
 
@@ -201,8 +201,8 @@ def contact_index(request):
         order_by=('-active', 'first_name'),
         app_settings=settings,
         show_search=True,
+        edit_url='contact_edit',  # For delete modal
         active_nav='contact')
-    context['edit_url'] = 'contact_edit'  # Delete form modal
     return render(request, 'contact_index.html', context)
 
 
@@ -347,8 +347,8 @@ def estimate_index(request):
         order_by=('-issue_date', ),
         app_settings=settings,
         show_search=True,
+        edit_url='estimate_edit',  # For delete modal
         active_nav='estimate')
-    context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['company'] = company
     return render(request, 'estimate_index.html', context)
 
@@ -492,9 +492,9 @@ def invoice_index(request):
         order_by=('-issue_date', ),
         app_settings=settings,
         show_search=True,
+        edit_url='invoice_edit',  # For delete modal
         active_nav='invoice')
     context['company'] = company
-    context['edit_url'] = 'invoice_edit'  # Delete form modal
     return render(request, 'invoice_index.html', context)
 
 
@@ -667,8 +667,8 @@ def project_index(request, pk=None):
         order_by=('-active', ),
         app_settings=settings,
         show_search=True,
+        edit_url='project_edit',  # For delete modal
         active_nav='project')
-    context['edit_url'] = 'project_edit'  # Delete form modal
     return render(request, 'project_index.html', context)
 
 
@@ -720,6 +720,7 @@ def report_index(request):
         order_by=('-date', ),
         app_settings=settings,
         show_search=True,
+        edit_url='report_edit',  # For delete modal
         active_nav='report')
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
@@ -733,7 +734,6 @@ def report_index(request):
     context['reports'] = reports
     context['company'] = company
     context['cost'] = cost
-    context['edit_url'] = 'report_edit'  # Delete form modal
     context['show_plot'] = show_plot
     context['plot_items'] = plot_items
     return render(request, 'report_index.html', context)
@@ -819,8 +819,8 @@ def task_index(request):
         order_by=('-active', ),
         app_settings=settings,
         show_search=True,
+        edit_url='task_edit',  # For delete modal
         active_nav='task')
-    context['edit_url'] = 'task_edit'  # Delete form modal
     return render(request, 'task_index.html', context)
 
 
@@ -902,8 +902,8 @@ def time_index(request):
         order_by=('-date', ),
         app_settings=settings,
         show_search=True,
+        edit_url='entry_edit',  # For delete modal
         active_nav='time')
-    context['edit_url'] = 'entry_edit'  # Delete form modal
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('admin:index'))
     else:
