@@ -68,15 +68,15 @@ class Contact(models.Model):
     address = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     # Freenode #django Jun 8, 2017
-    # 
+    #
     # 14:12 aclark Is this (hashlib.md5) still a reasonable approach for
-    #     generating and checking a token in Django (assuming it was ever)? 
+    #     generating and checking a token in Django (assuming it was ever)?
     #     https://github.com/theskumar/django-unsubscribe/blob/master/\
     #     unsubscribe/utils.py#L11
     # 14:12 aclark I want to do something similar…
-    # 14:13 aclark I assume not, but maybe it's good enough to unsubscribe 
+    # 14:13 aclark I assume not, but maybe it's good enough to unsubscribe
     #     someone from a mailing list.
-    # 14:20 Wooble aclark: yeah, I'd avoid MD5 under all circumstances... 
+    # 14:20 Wooble aclark: yeah, I'd avoid MD5 under all circumstances...
     #     but I can't really imagine how MD5's weakness would be exploited
     #     there :)
     # 14:23 Wooble aclark: the only issue I really see in theory is that it
@@ -88,7 +88,7 @@ class Contact(models.Model):
     #     Wondering if I should install pycrypto or something.
     # 14:26 Wooble aclark: I'd probably just generate a uuid for each user and
     #     store it in the database, myself.
-    # 14:27 aclark Wooble: ah, cool thanks 
+    # 14:27 aclark Wooble: ah, cool thanks
     uuid = models.CharField('UUID', max_length=300, default=uuid4)
 
     def __str__(self):
