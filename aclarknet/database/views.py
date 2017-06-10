@@ -199,8 +199,8 @@ def contact_index(request):
         Contact,
         fields,
         order_by=('-active', 'first_name'),
-        app_settings=settings)
-    context['active_nav'] = 'contact'
+        app_settings=settings,
+        active_nav='contact')
     context['edit_url'] = 'contact_edit'  # Delete form modal
     context['show_search'] = True
     return render(request, 'contact_index.html', context)
