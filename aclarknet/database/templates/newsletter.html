@@ -31,7 +31,9 @@
                 <div class="table-responsive">
                   <table data-toggle="table" data-classes="table">
                     <tbody>
-                      <tr><td>{{ item.contacts.all }}</td></tr>
+                      {% for contact in item.contacts.all %}
+                      <tr><td>{{ contact.first_name }}{{ contact.last_name }}&lt;{{ contact.email }}&gt;</td></tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                   <h2>{{ item.subject }}</h2>
