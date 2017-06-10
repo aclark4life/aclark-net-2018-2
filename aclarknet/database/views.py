@@ -885,35 +885,26 @@ def time_edit(request, pk=None):
         else:
             if not request.user.is_staff:
                 return HttpResponseRedirect(reverse('admin:index'))
-
     if pk:
         kwargs['pk'] = pk
         url_name = 'entry'
-
     client = request.GET.get('client')
     project = request.GET.get('project')
-
     task = None
-
     if client:
         client = get_object_or_404(Client, pk=client)
-
     if project:
         project = get_object_or_404(Project, pk=project)
-
         if project.task:
             task = get_object_or_404(Task, pk=project.task.pk)
-
     projects = Project.objects.filter(team=request.user.pk)
     clients = Client.objects.filter(
         pk__in=[i.client.pk for i in projects if i.client])
     tasks = Task.objects.filter(pk__in=[i.task.pk for i in projects if i.task])
-
     if request.user.is_staff:
         from .forms import TimeAdminForm as TimeForm
     else:
         from .forms import TimeForm
-
     return edit(
         request,
         TimeForm,
