@@ -626,7 +626,6 @@ def project(request, pk=None):
     context['item'] = project
     context['times'] = times
     context['invoices'] = invoices
-    # context['daily_burn'] = daily_burn(project)
     return render(request, 'project.html', context)
 
 
