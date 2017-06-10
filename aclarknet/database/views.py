@@ -142,7 +142,6 @@ def client_index(request):
     context = index_items(
         request, Client, fields, order_by=('-active', 'name'))
     context['edit_url'] = 'client_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['active_nav'] = 'client'
     context['show_search'] = True
     return render(request, 'client_index.html', context)
@@ -203,7 +202,6 @@ def contact_index(request):
         request, Contact, fields, order_by=('-active', 'first_name'))
     context['active_nav'] = 'contact'
     context['edit_url'] = 'contact_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_search'] = True
     return render(request, 'contact_index.html', context)
 
@@ -361,7 +359,6 @@ def estimate_index(request):
         request, Estimate, fields, order_by=('-issue_date', ))
     context['active_nav'] = 'estimate'
     context['edit_url'] = 'estimate_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['company'] = company
     context['show_search'] = True
     return render(request, 'estimate_index.html', context)
@@ -380,7 +377,6 @@ def home(request):
                                                       'priority')
     context['edit_url'] = 'project_edit'  # Delete form modal
     context['company'] = company
-    context['icon_size'] = settings.icon_size
     context['invoices'] = invoices
     context['gross'] = gross
     context['net'] = net
@@ -515,7 +511,6 @@ def invoice_index(request):
     context['active_nav'] = 'invoice'
     context['company'] = company
     context['edit_url'] = 'invoice_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_search'] = True
     return render(request, 'invoice_index.html', context)
 
@@ -615,7 +610,6 @@ def note_index(request, pk=None):
         order_by=('-active', '-created', 'note', 'due_date', 'priority'))
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_search'] = True
     return render(request, 'note_index.html', context)
 
@@ -673,7 +667,6 @@ def project_index(request, pk=None):
     context = index_items(request, Project, fields, order_by=('-active', ))
     context['active_nav'] = 'project'
     context['edit_url'] = 'project_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_search'] = True
     return render(request, 'project_index.html', context)
 
@@ -734,7 +727,6 @@ def report_index(request):
     context['company'] = company
     context['cost'] = cost
     context['edit_url'] = 'report_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_plot'] = show_plot
     context['plot_items'] = plot_items
     context['show_search'] = True
@@ -822,7 +814,6 @@ def task_index(request):
     context = index_items(request, Task, fields, order_by=('-active', ))
     context['active_nav'] = 'task'
     context['edit_url'] = 'task_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_search'] = True
     return render(request, 'task_index.html', context)
 
@@ -910,7 +901,6 @@ def time_index(request):
     context = index_items(request, Time, fields, order_by=('-date', ))
     context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete form modal
-    context['icon_size'] = settings.icon_size
     context['show_search'] = True
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('admin:index'))
@@ -993,7 +983,6 @@ def user_index(request):
     context = index_items(
         request, User, fields, order_by=('-profile__active', ))
     context['active_nav'] = 'user'
-    context['icon_size'] = settings.icon_size
     context['company'] = company
     context['show_search'] = True
     return render(request, 'user_index.html', context)

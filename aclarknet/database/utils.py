@@ -481,6 +481,7 @@ def index_items(request, model, fields, filters={}, order_by=()):
     if paginated:
         items = paginate(items, page)
 
+    context['icon_size'] = settings.icon_size
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
