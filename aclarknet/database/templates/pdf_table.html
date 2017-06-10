@@ -35,7 +35,7 @@
                 <!-- Right column -->
                 <td valign="top" class="field-name border-right" align="right">From</td>
                 <td valign="top" class="field-value"> 
-                  <strong>{% if not pdf %}<a href="{% url 'company' %}">{{ company.name|default:'' }}</a> <a href="{% url 'company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|linebreaksbr|default:'' }}{% endif %}</strong>
+                  <strong>{% if not pdf %}<a href="{% url 'company' %}">{{ company.name|linebreaksbr|default:'' }}</a> <a href="{% url 'company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|linebreaksbr|default:'' }}{% endif %}</strong>
                   {{ company.address|linebreaksbr|default:'' }}
                 </td>
               </tr>
