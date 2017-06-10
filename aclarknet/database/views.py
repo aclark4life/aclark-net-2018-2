@@ -526,7 +526,9 @@ def log_index(request):
 def newsletter(request, pk=None):
     """
     """
+    context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
+    context['item'] = newsletter
     return render(request, 'newsletter.html', context)
 
 
