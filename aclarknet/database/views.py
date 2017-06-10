@@ -257,27 +257,21 @@ def contact_unsubscribe(request, pk=None):
 @staff_member_required
 def estimate(request, pk=None):
     context = {}
-
     company = Company.get_solo()
     if company:
         context['company'] = company
-
     pdf = get_query(request, 'pdf')
     context['pdf'] = pdf
-
     estimate = get_object_or_404(Estimate, pk=pk)
-
     document_id = str(estimate.document_id)
     document_type = estimate._meta.verbose_name
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
-
     context['active_nav'] = 'estimate'
     context['item'] = estimate
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
     context['edit_url'] = 'estimate_edit'
-
     times_client = Time.objects.filter(
         client=estimate.client,
         estimate=None,
@@ -287,14 +281,12 @@ def estimate(request, pk=None):
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-date')
-
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
     context['hours'] = hours
-
     if pdf:
         company_name = ''
         if company.name:
@@ -319,18 +311,15 @@ def estimate_edit(request, pk=None):
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
-
     if pk:
         kwargs['pk'] = pk
         url_name = 'estimate'
-
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
         for entry in times:
             entry.estimate = estimate
             entry.save()
-
     return edit(
         request,
         EstimateForm,
@@ -356,8 +345,8 @@ def estimate_index(request):
         Estimate,
         fields,
         order_by=('-issue_date', ),
-        app_settings=settings)
-    context['active_nav'] = 'estimate'
+        app_settings=settings,
+        active_nav='estimate')
     context['edit_url'] = 'estimate_edit'  # Delete form modal
     context['company'] = company
     context['show_search'] = True
