@@ -24,7 +24,8 @@
                   </tr>
                   </tbody>
                 </table>
-                <div class="note">{{ company.notes|linebreaks|default:'' }}</div>
+                <h2>Notes</h2>
+                <div class="note">{{ company.notes|safe|default:'' }}</div>
               </div>
               {% endif %}
 {% endblock %}
