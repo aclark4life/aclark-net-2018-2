@@ -41,7 +41,7 @@
                 <h2>Recipients</h2>
                 <ul>  
                   {% for contact in contacts %}
-                  <li>{{ contact.first_name }}{{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
+                  <li>{{ contact.first_name }} {{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
                   {% endfor %}
                 </ul>
               </div>
