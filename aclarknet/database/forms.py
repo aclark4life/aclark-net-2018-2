@@ -77,6 +77,13 @@ class NewsletterForm(forms.ModelForm):
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
+    # - https://stackoverflow.com/questions/40543272/django-queryset-in-modelform
+    # - https://stackoverflow.com/questions/2216974/django-modelform-for-many-to-many-fields
+    # - https://stackoverflow.com/a/844572/185820
+    # - https://stackoverflow.com/questions/844556/filtering-for-empty-or-null-names-in-a-queryset
+    contacts = forms.ModelMultipleChoiceField(queryset=Contact.objects.filter(
+        subscribed=True).exclude(email='').order_by('first_name'))
+
 
 class NoteForm(forms.ModelForm):
     class Meta:
