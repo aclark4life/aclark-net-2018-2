@@ -566,7 +566,7 @@ def newsletter_send(request, pk=None):
     newsletter = get_object_or_404(Newsletter, pk=pk)
     contacts = newsletter.contacts.all().order_by('first_name')
     for contact in contacts:
-        url = reverse('contact_unsubscribe', kwargs={'pk': pk})
+        url = reverse('contact_unsubscribe', kwargs={'pk': contact.pk})
         url = ''.join([request.get_host(), url])
         to = contact.email
         subject = newsletter.subject
