@@ -199,7 +199,7 @@ class Newsletter(models.Model):
     subject = models.CharField(max_length=300, blank=True, null=True)
     contacts = models.ManyToManyField(
         'Contact', blank=True, related_name="Contacts",
-        limit_choices_to={'subscribed': True},)
+        limit_choices_to={'subscribed': True, 'email__isnull': False},)
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
