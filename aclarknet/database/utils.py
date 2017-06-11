@@ -122,7 +122,6 @@ def create_form(model, form_model, project=None, client=None, task=None):
     elif task:
         entry = model(task=task)
         form = form_model(instance=entry)
-
     return form
 
 
