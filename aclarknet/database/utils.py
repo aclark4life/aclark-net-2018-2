@@ -210,24 +210,7 @@ def edit(request,
             if copy:
                 return obj_copy(obj, url_name)
             if delete:
-                url_name = None
-                # Decrement invoice counter
-                if (obj._meta.verbose_name == 'invoice' and
-                        company.invoice_counter):
-                    company.invoice_counter -= 1
-                    company.save()
-                # Decrement estimate counter
-                if (obj._meta.verbose_name == 'estimate' and
-                        company.estimate_counter):
-                    company.estimate_counter -= 1
-                    company.save()
-                # Redir to appropriate location
-                url_name = url_name_from(obj._meta.verbose_name)
-                if (obj._meta.verbose_name == 'time' and
-                        not request.user.is_staff):
-                    url_name = 'home'
-                obj.delete()
-                return HttpResponseRedirect(reverse(url_name))
+                return obj_delete(obj, company, request=request)
             checkbox = request.POST.get('checkbox')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
             if checkbox == 'on' or checkbox == 'off':
@@ -528,6 +511,23 @@ def obj_copy(obj, url_name):
     if obj._meta.verbose_name == 'time':
         url_name = 'entry_edit'
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+
+
+def obj_delete(obj, company, request=None):
+    # Decrement invoice counter
+    if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
+        company.invoice_counter -= 1
+        company.save()
+    # Decrement estimate counter
+    if (obj._meta.verbose_name == 'estimate' and company.estimate_counter):
+        company.estimate_counter -= 1
+        company.save()
+    # Redir to appropriate location
+    url_name = url_name_from(obj._meta.verbose_name)
+    if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
+        url_name = 'home'
+    obj.delete()
+    return HttpResponseRedirect(reverse(url_name))
 
 
 def paginate(items, page):
