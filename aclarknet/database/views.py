@@ -562,6 +562,24 @@ def newsletter_index(request, pk=None):
 def newsletter_send(request, pk=None):
     """
     """
+    context = {}
+    newsletter = get_object_or_404(Newsletter, pk=pk)
+    for contact in newsletter.contacts:
+        url = reverse('contact_unsubscribe', kwargs={'pk': pk})
+        url = ''.join([request.get_host(), url])
+        to = contact.email
+        subject = newsletter.subject
+        message = newsletter.text
+        if send_mail(
+                request, subject, message, to, url=url, uuid=contact.uuid):
+            log = Log(entry='Mail sent to %s.' % to)
+            log.save()
+    messages.add_message(request, messages.SUCCESS, 'Batch mail sent!')
+    context['item'] = newsletter
+    context['edit_url'] = 'newsletter_edit'
+    context['active_nav'] = 'newsletter'
+    context['contacts'] = newsletter.contacts.all().order_by('first_name')
+    return render(request, 'newsletter.html', context)
 
 
 @staff_member_required
