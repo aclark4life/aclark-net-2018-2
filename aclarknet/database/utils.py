@@ -280,44 +280,8 @@ def edit(request,
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            # Time entry
-            if obj._meta.verbose_name == 'time' and pk is None:
-                # Assign user to time entry on creation
-                obj.user = User.objects.get(username=request.user)
-                obj.save()
-                # Send mail when time entry created
-                if hasattr(obj.user, 'profile'):
-                    if obj.user.profile.notify:
-                        subject = 'Time entry'
-                        message = '%s entered time! %s' % (
-                            obj.user.username,
-                            obj.get_absolute_url(request.get_host()))
-                        send_mail(request, subject, message,
-                                  settings.EMAIL_FROM)
-            # Assign and increment invoice counter
-            if (obj._meta.verbose_name == 'invoice' and
-                    company.invoice_counter and pk is None):
-                company.invoice_counter += 1
-                company.save()
-                obj.document_id = company.invoice_counter
-                obj.save()
-            # Assign and increment estimate counter
-            if (obj._meta.verbose_name == 'estimate' and
-                    company.estimate_counter and pk is None):
-                company.estimate_counter += 1
-                company.save()
-                obj.document_id = company.estimate_counter
-                obj.save()
-            # Assign client to invoice
-            if obj._meta.verbose_name == 'invoice' and obj.project:
-                if obj.project.client and not obj.client:
-                    obj.client = obj.project.client
-                    obj.save()
-            # Redir to appropriate location
-            if (obj._meta.verbose_name == 'time' and
-                    not request.user.is_staff):
-                url_name = 'home'
-            return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+            return obj_misc(
+                obj, company, request=request, pk=pk, kwargs=kwargs)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -554,6 +518,45 @@ def obj_delete(obj, company, request=None):
         url_name = 'home'
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
+
+
+def obj_misc(obj, company, request=None, pk=None, kwargs={}):
+    # Time entry
+    if obj._meta.verbose_name == 'time' and pk is None:
+        # Assign user to time entry on creation
+        obj.user = User.objects.get(username=request.user)
+        obj.save()
+        # Send mail when time entry created
+        if hasattr(obj.user, 'profile'):
+            if obj.user.profile.notify:
+                subject = 'Time entry'
+                message = '%s entered time! %s' % (
+                    obj.user.username,
+                    obj.get_absolute_url(request.get_host()))
+                send_mail(request, subject, message, settings.EMAIL_FROM)
+    # Assign and increment invoice counter
+    if (obj._meta.verbose_name == 'invoice' and company.invoice_counter and
+            pk is None):
+        company.invoice_counter += 1
+        company.save()
+        obj.document_id = company.invoice_counter
+        obj.save()
+    # Assign and increment estimate counter
+    if (obj._meta.verbose_name == 'estimate' and company.estimate_counter and
+            pk is None):
+        company.estimate_counter += 1
+        company.save()
+        obj.document_id = company.estimate_counter
+        obj.save()
+    # Assign client to invoice
+    if obj._meta.verbose_name == 'invoice' and obj.project:
+        if obj.project.client and not obj.client:
+            obj.client = obj.project.client
+            obj.save()
+    # Redir to appropriate location
+    if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
+        url_name = 'home'
+    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def paginate(items, page):
