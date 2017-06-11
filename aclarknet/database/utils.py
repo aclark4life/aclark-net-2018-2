@@ -316,9 +316,9 @@ def edit(request,
                     not request.user.is_staff):
                 url_name = 'home'
             return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-    context['item'] = obj
-    context['form'] = form
     context['active_nav'] = active_nav
+    context['form'] = form
+    context['item'] = obj
     context['pk'] = pk
     return render(request, template, context)
 
