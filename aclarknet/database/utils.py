@@ -257,14 +257,17 @@ def edit(request,
             checkbox = request.POST.get('checkbox')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
             delete = request.POST.get('delete')
+            # Copy or delete
             if copy:
                 return obj_copy(obj, url_name)
             if delete:
                 return obj_delete(obj, company, request=request)
+            # Check boxes
             if (checkbox == 'on' or checkbox == 'off' or
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
                 return check_boxes(obj, checkbox, checkbox_subscribed, ref)
+            # Edit amounts
             if amount or subtotal or paid_amount or paid:
                 return edit_amounts(
                     obj,
