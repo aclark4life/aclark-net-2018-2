@@ -124,6 +124,7 @@ def client_edit(request, pk=None):
         'client_edit.html',
         kwargs=kwargs,
         active_nav='client',
+        edit_url='client_edit',
         pk=pk)
 
 
