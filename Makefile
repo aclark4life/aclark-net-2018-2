@@ -333,7 +333,8 @@ APP=database
 PROJECT=aclarknet
 .DEFAULT_GOAL=aclarknet-deploy
 aclarknet-pg-restore:
-	pg_restore -c -d aclarknet latest.dump
+#	pg_restore -c -d aclarknet latest.dump
+	psql -d aclarknet < latest.dump
 aclarknet-deploy:
 	@$(MAKE) git-commit-auto-push
 	@$(MAKE) aclarknet-remote-git-pull
