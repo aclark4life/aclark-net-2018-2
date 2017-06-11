@@ -70,7 +70,9 @@ class MailForm(forms.Form):
 class NewsletterForm(forms.ModelForm):
     class Meta:
         model = Newsletter
-        fields = ('contacts', 'text', )
+        fields = (
+            'contacts',
+            'text', )
         widgets = {
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }

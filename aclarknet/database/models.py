@@ -21,6 +21,7 @@ class Client(models.Model):
     description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     url = models.URLField("URL", blank=True, null=True)
+
     def __str__(self):
         return self.name
 
@@ -37,8 +38,10 @@ class Company(SingletonModel):
     currency_symbol = models.CharField(
         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = u'Company'
 
@@ -87,9 +90,11 @@ class Contact(models.Model):
     #     store it in the database, myself.
     # 14:27 aclark Wooble: ah, cool thanks
     uuid = models.CharField('UUID', max_length=300, default=uuid4)
+
     def __str__(self):
         if self.email:
-            return ' '.join([self.first_name, self.last_name, '<%s>' % self.email])
+            return ' '.join(
+                [self.first_name, self.last_name, '<%s>' % self.email])
         else:
             return ' '.join([self.first_name, self.last_name])
 
@@ -175,6 +180,7 @@ class Invoice(models.Model):
     currency_symbol = models.CharField(
         default="$", max_length=300, blank=True, null=True)
     document_type = models.CharField(max_length=300, blank=True, null=True)
+
     def __str__(self):
         return 'invoice-%s' % self.document_id
 
@@ -186,6 +192,7 @@ class Log(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     entry = models.CharField(max_length=300, blank=True, null=True)
+
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
@@ -198,8 +205,11 @@ class Newsletter(models.Model):
     text = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
     contacts = models.ManyToManyField(
-        'Contact', blank=True, related_name="Contacts",
-        limit_choices_to={'subscribed': True, 'email__isnull': False},)
+        'Contact',
+        blank=True,
+        related_name="Contacts",
+        limit_choices_to={'subscribed': True})
+
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
@@ -215,6 +225,7 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True)
     requires = models.ManyToManyField(
         'Note', blank=True, related_name="Requires")
+
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
@@ -239,13 +250,16 @@ class Profile(models.Model):
         decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
     notify = models.BooleanField(default=True)
+
     def __str__(self):
         return self.user.username
+
     def get_avatar_url(self):
         if self.avatar_url is not None:
             return self.avatar_url
         else:
             return gravatar_url(self.user.email)
+
     def get_username(self):
         if self.username is not None:
             return self.username
@@ -294,6 +308,7 @@ class Project(models.Model):
         null=True,
         limit_choices_to={'active': True}, )
     team = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -309,6 +324,7 @@ class Report(models.Model):
     net = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     notes = models.TextField(blank=True, null=True)
+
     def __str__(self):
         return 'report-%s' % self.date
 
@@ -321,6 +337,7 @@ class Service(models.Model):
     name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     icon = models.CharField(max_length=25, blank=True, null=True)
+
     def __str__(self):
         return self.name
 
@@ -342,6 +359,7 @@ class Testimonial(models.Model):
     description = models.TextField(blank=True, null=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, null=True, default=timezone.now)
+
     def __str__(self):
         return self.name
 
@@ -362,6 +380,7 @@ class Task(models.Model):
         null=True,
         max_digits=12,
         decimal_places=2)
+
     def __str__(self):
         return self.name
 
@@ -415,8 +434,10 @@ class Time(models.Model):
         Estimate, blank=True, null=True, on_delete=models.SET_NULL)
     invoice = models.ForeignKey(
         Invoice, blank=True, null=True, on_delete=models.SET_NULL)
+
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
+
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):
         return '%s/%s' % (hostname, reverse('entry', args=[str(self.id)]))
