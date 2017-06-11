@@ -109,33 +109,7 @@ def dashboard_totals(model):
             net += invoice.amount
     return gross, net
 
-
-def edit(request,
-         form_model,
-         model,
-         url_name,
-         template,
-         amount=None,
-         client=None,
-         clients=[],
-         company=None,
-         contacts=None,
-         context={},
-         gross=None,
-         kwargs={},
-         active_nav=None,
-         net=None,
-         pk=None,
-         paid_amount=None,
-         paid=None,
-         project=None,
-         projects=[],
-         subtotal=None,
-         task=None,
-         tasks=[]):
-    obj = None
-    ref = request.META['HTTP_REFERER']
-    if pk is None:
+def create_form(model, form_model, project=None, client=None, task=None):
         form = form_model()
         # Populate new report with gross and net calculated
         # from active invoices
@@ -174,6 +148,37 @@ def edit(request,
         elif task:
             entry = model(task=task)
             form = form_model(instance=entry)
+
+        return form
+
+
+def edit(request,
+         form_model,
+         model,
+         url_name,
+         template,
+         amount=None,
+         client=None,
+         clients=[],
+         company=None,
+         contacts=None,
+         context={},
+         gross=None,
+         kwargs={},
+         active_nav=None,
+         net=None,
+         pk=None,
+         paid_amount=None,
+         paid=None,
+         project=None,
+         projects=[],
+         subtotal=None,
+         task=None,
+         tasks=[]):
+    obj = None
+    ref = request.META['HTTP_REFERER']
+    if pk is None:
+        form = create_form(model, form_model, project=project, client=client, task=task)
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
