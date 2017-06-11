@@ -230,12 +230,10 @@ def edit(request,
                 return obj_copy(obj, url_name)
             if delete:
                 return obj_delete(obj, company, request=request)
-
             if (checkbox == 'on' or checkbox == 'off' or
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
                 return check_boxes(obj, checkbox, checkbox_subscribed, ref)
-
             if amount and subtotal and paid_amount and paid:
                 obj.amount = amount
                 obj.last_payment_date = timezone.now()
