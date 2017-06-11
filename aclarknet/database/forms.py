@@ -84,8 +84,12 @@ class NewsletterForm(forms.ModelForm):
     # - https://stackoverflow.com/a/844572/185820
     # - https://stackoverflow.com/questions/844556/\
     #   filtering-for-empty-or-null-names-in-a-queryset
-    contacts = forms.ModelMultipleChoiceField(queryset=Contact.objects.filter(
-        subscribed=True).exclude(email='').order_by('first_name'))
+    # - https://stackoverflow.com/questions/7621184/\
+    #   django-form-multiple-select-box-size-in-template
+    contacts = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.filter(
+            subscribed=True).exclude(email='').order_by('first_name'),
+        widget=forms.SelectMultiple(attrs={'size': '100'}))
 
 
 class NoteForm(forms.ModelForm):
