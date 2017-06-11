@@ -403,7 +403,7 @@ def get_query(request, query):
         return request.GET.get(query, '')
 
 
-def get_search_results(model, fields, search, edit_url=''):
+def get_search_results(model, fields, search, app_settings=None, edit_url=''):
     context = {}
     query = []
     for field in fields:
