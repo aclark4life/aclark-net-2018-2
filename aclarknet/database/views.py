@@ -564,7 +564,8 @@ def newsletter_send(request, pk=None):
     """
     context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
-    for contact in newsletter.contacts:
+    contacts = newsletter.contacts.all().order_by('first_name')
+    for contact in contacts:
         url = reverse('contact_unsubscribe', kwargs={'pk': pk})
         url = ''.join([request.get_host(), url])
         to = contact.email
@@ -578,7 +579,7 @@ def newsletter_send(request, pk=None):
     context['item'] = newsletter
     context['edit_url'] = 'newsletter_edit'
     context['active_nav'] = 'newsletter'
-    context['contacts'] = newsletter.contacts.all().order_by('first_name')
+    context['contacts'] = contacts
     return render(request, 'newsletter.html', context)
 
 
