@@ -178,6 +178,37 @@ def dashboard_totals(model):
     return gross, net
 
 
+def edit_amounts(obj,
+                 amount,
+                 subtotal,
+                 paid_amount,
+                 paid,
+                 kwargs={},
+                 url_name=''):
+    if amount and subtotal and paid_amount and paid:
+        obj.amount = amount
+        obj.last_payment_date = timezone.now()
+        obj.subtotal = subtotal
+        obj.paid_amount = paid_amount
+        obj.save()
+        return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+    elif amount and subtotal and paid_amount:
+        obj.amount = amount
+        obj.subtotal = subtotal
+        obj.paid_amount = paid_amount
+        obj.save()
+        return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+    elif amount and subtotal:
+        obj.amount = amount
+        obj.subtotal = subtotal
+        obj.save()
+        return HttpResponseRedirect(reverse(url_name))
+    elif amount:
+        obj.amount = amount
+        obj.save()
+        return HttpResponseRedirect(reverse(url_name))
+
+
 def edit(request,
          form_model,
          model,
@@ -234,28 +265,15 @@ def edit(request,
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
                 return check_boxes(obj, checkbox, checkbox_subscribed, ref)
-            if amount and subtotal and paid_amount and paid:
-                obj.amount = amount
-                obj.last_payment_date = timezone.now()
-                obj.subtotal = subtotal
-                obj.paid_amount = paid_amount
-                obj.save()
-                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-            elif amount and subtotal and paid_amount:
-                obj.amount = amount
-                obj.subtotal = subtotal
-                obj.paid_amount = paid_amount
-                obj.save()
-                return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-            elif amount and subtotal:
-                obj.amount = amount
-                obj.subtotal = subtotal
-                obj.save()
-                return HttpResponseRedirect(reverse(url_name))
-            elif amount:
-                obj.amount = amount
-                obj.save()
-                return HttpResponseRedirect(reverse(url_name))
+            if amount or subtotal or paid_amount or paid:
+                return edit_amounts(
+                    obj,
+                    amount,
+                    subtotal,
+                    paid_amount,
+                    paid,
+                    kwargs=kwargs,
+                    url_name=url_name)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
