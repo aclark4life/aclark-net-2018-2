@@ -536,7 +536,7 @@ def newsletter_edit(request, pk=None):
         active_nav='newsletter',
         kwargs=kwargs,
         contacts=Contact.objects.filter(subscribed=True).exclude(
-            email__isnull=True),
+            email__isnull=True).order_by('first_name'),
         pk=pk)
 
 
