@@ -83,6 +83,23 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
+def check_boxes(obj, checkbox, checkbox_subscribed, ref):
+    if checkbox == 'on' or checkbox == 'off':
+        if checkbox == 'on':
+            obj.active = True
+        else:
+            obj.active = False
+        obj.save()
+        return HttpResponseRedirect(ref)
+    if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
+        if checkbox_subscribed == 'on':
+            obj.subscribed = True
+        else:
+            obj.subscribed = False
+        obj.save()
+        return HttpResponseRedirect(ref)
+
+
 def create_form(model,
                 form_model,
                 projects=[],
@@ -206,29 +223,19 @@ def edit(request,
             form = form_model(request.POST)
         else:
             copy = request.POST.get('copy')
+            checkbox = request.POST.get('checkbox')
+            checkbox_subscribed = request.POST.get('checkbox-subscribed')
             delete = request.POST.get('delete')
             if copy:
                 return obj_copy(obj, url_name)
             if delete:
                 return obj_delete(obj, company, request=request)
-            checkbox = request.POST.get('checkbox')
-            checkbox_subscribed = request.POST.get('checkbox-subscribed')
-            if checkbox == 'on' or checkbox == 'off':
-                kwargs = {}
-                if checkbox == 'on':
-                    obj.active = True
-                else:
-                    obj.active = False
-                obj.save()
-                return HttpResponseRedirect(ref)
-            if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
-                kwargs = {}
-                if checkbox_subscribed == 'on':
-                    obj.subscribed = True
-                else:
-                    obj.subscribed = False
-                obj.save()
-                return HttpResponseRedirect(ref)
+
+            if (checkbox == 'on' or checkbox == 'off' or
+                    checkbox_subscribed == 'on' or
+                    checkbox_subscribed == 'off'):
+                return check_boxes(obj, checkbox, checkbox_subscribed, ref)
+
             if amount and subtotal and paid_amount and paid:
                 obj.amount = amount
                 obj.last_payment_date = timezone.now()
