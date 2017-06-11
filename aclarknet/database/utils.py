@@ -410,6 +410,7 @@ def get_search_results(model, fields, search, edit_url=''):
         query.append(Q(**{field + '__icontains': search}))
     items = model.objects.filter(reduce(OR, query))
     context['edit_url'] = edit_url
+    context['icon_size'] = app_settings.icon_size
     context['items'] = items
     return context
 
@@ -441,7 +442,7 @@ def index_items(request,
         if search == u'':  # Empty search returns none
             return {}
         else:
-            return get_search_results(model, fields, search, edit_url=edit_url)
+            return get_search_results(model, fields, search, app_settings=app_settings, edit_url=edit_url)
     # Not a search
     if filters:
         items = model.objects.filter(**filters)
