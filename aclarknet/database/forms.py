@@ -77,6 +77,11 @@ class NewsletterForm(forms.ModelForm):
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super(NewsletterForm, self).__init__(*args, **kwargs)
+        self.fields['contacts'].queryset = Contact.objects.filter(
+            subscribed=True)
+
 
 class NoteForm(forms.ModelForm):
     class Meta:

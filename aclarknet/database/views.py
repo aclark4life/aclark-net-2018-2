@@ -502,7 +502,8 @@ def invoice_index(request):
 def log_index(request):
     settings = Settings.get_solo()
     fields = ('entry', )
-    context = index_items(request, Log, fields, order_by=('-created', ), app_settings=settings)
+    context = index_items(
+        request, Log, fields, order_by=('-created', ), app_settings=settings)
     return render(request, 'log_index.html', context)
 
 
