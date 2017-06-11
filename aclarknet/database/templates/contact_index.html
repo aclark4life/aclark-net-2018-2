@@ -15,6 +15,8 @@
                 <tr>
                   <th data-field="active" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th>
                   <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                  <th data-field="subscribed" data-sort-name="hidden-subscribed" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Subscribed</th>
+                  <th data-field="hidden-subscribed" data-sortable="true" data-visible="false">Hidden Subscribed</th>
                   <th data-field="first-name" data-sort-name="first-name" data-sortable="true">First Name</th>
                   <th data-field="last-name" data-sort-name="last-name" data-sortable="true">Last Name</th>
                   <th data-field="email-address" data-sort-name="email-address" data-sortable="true">Email</th>
@@ -29,6 +31,8 @@
                 <tr>
                   <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   <td>{{ item.active }}</td>
+                  <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-subscribed"><input type="checkbox" value="on" name="checkbox-subscribed"{% if item.subscribed %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                  <td>{{ item.subscribed }}</td>
                   <td>{{ item.first_name }}</td>
                   <td>{{ item.last_name }}</td>
                   <td>{{ item.email }}</td>
