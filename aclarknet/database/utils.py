@@ -403,7 +403,12 @@ def get_query(request, query):
         return request.GET.get(query, '')
 
 
-def get_search_results(model, fields, search, active_nav='', app_settings=None, edit_url=''):
+def get_search_results(model,
+                       fields,
+                       search,
+                       active_nav='',
+                       app_settings=None,
+                       edit_url=''):
     context = {}
     query = []
     for field in fields:
@@ -443,7 +448,13 @@ def index_items(request,
         if search == u'':  # Empty search returns none
             return {}
         else:
-            return get_search_results(model, fields, search, active_nav=active_nav, app_settings=app_settings, edit_url=edit_url)
+            return get_search_results(
+                model,
+                fields,
+                search,
+                active_nav=active_nav,
+                app_settings=app_settings,
+                edit_url=edit_url)
     # Not a search
     if filters:
         items = model.objects.filter(**filters)
