@@ -88,7 +88,10 @@ class Contact(models.Model):
     # 14:27 aclark Wooble: ah, cool thanks
     uuid = models.CharField('UUID', max_length=300, default=uuid4)
     def __str__(self):
-        return ' '.join([self.first_name, self.last_name, '<%s>' % self.email])
+        if self.email:
+            return ' '.join([self.first_name, self.last_name, '<%s>' % self.email])
+        else:
+            return ' '.join([self.first_name, self.last_name])
 
 
 class Estimate(models.Model):
