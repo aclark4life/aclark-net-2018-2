@@ -38,15 +38,11 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="table-responsive">
-                  <h2>Recipients</h2>
-                  <table data-toggle="table" data-classes="table">
-                    <tbody>
-                      {% for contact in item.contacts.all %}
-                      <tr><td>{{ contact.first_name }}{{ contact.last_name }} &lt;{{ contact.email }}&gt;</td></tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
+                <h2>Recipients</h2>
+                <ul>  
+                  {% for contact in item.contacts.all %}
+                  <li>{{ contact.first_name }}{{ contact.last_name }} &lt;{{ contact.email }}&gt;</li>
+                  {% endfor %}
+                </ul>
               </div>
 {% endblock %}
