@@ -121,6 +121,7 @@ def edit(request,
          company=None,
          contacts=None,
          context={},
+         edit_url='',
          gross=None,
          kwargs={},
          active_nav=None,
@@ -295,6 +296,7 @@ def edit(request,
     context['item'] = obj
     context['form'] = form
     context['active_nav'] = active_nav
+    context['edit_url'] = edit_url
     context['pk'] = pk
     return render(request, template, context)
 
