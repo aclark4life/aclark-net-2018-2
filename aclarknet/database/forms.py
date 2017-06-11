@@ -80,7 +80,7 @@ class NewsletterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NewsletterForm, self).__init__(*args, **kwargs)
         self.fields['contacts'].queryset = Contact.objects.filter(
-            subscribed=True)
+            subscribed=True).exclude(email__isnull=True)
 
 
 class NoteForm(forms.ModelForm):
