@@ -559,6 +559,12 @@ def newsletter_index(request, pk=None):
 
 
 @staff_member_required
+def newsletter_send(request, pk=None):
+    """
+    """
+
+
+@staff_member_required
 def note(request, pk=None):
     context = {}
 

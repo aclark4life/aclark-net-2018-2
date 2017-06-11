@@ -19,11 +19,11 @@
                   <div class="offset-md-1 col-md-3">
                     <div class="dropdown">
                       <button class="btn btn-block btn-lg btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                      <ol class="dropdown-menu">
+                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'newsletter_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                         <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-            
-                      </ol>
+                        <li><a class="dropdown-item" href="{% url 'newsletter_send' pk=item.pk %}"><i class="fa fa-send-o"></i> Send</a></li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -39,10 +39,10 @@
                   </table>
                 </div>
                 <h2>Contacts</h2>
-                <ul>  
+                <ol>  
                   {% for contact in contacts %}
                   <li>{{ contact.first_name }} {{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
                   {% endfor %}
-                </ul>
+                </ol>
               </div>
 {% endblock %}
