@@ -77,12 +77,12 @@ class NewsletterForm(forms.ModelForm):
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
-    newsletter = forms.ModelChoiceField(queryset=Contact.objects.none())
+    contacts = forms.ModelChoiceField(queryset=Contact.objects.none())
 
     def __init__(self, *args, **kwargs):
 
         super(NewsletterForm, self).__init__(*args, **kwargs)
-        qs = kwargs.pop('newsletters')
+        qs = kwargs.pop('contacts')
         self.fields['contacts'].queryset = Contact.objects.filter(
             subscribed=True).exclude(email__isnull=True)
 
