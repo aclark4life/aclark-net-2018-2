@@ -83,6 +83,49 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
+def create_form(model, form_model, project=None, client=None, task=None):
+    form = form_model()
+    # Populate new report with gross and net calculated
+    # from active invoices
+    if form._meta.model._meta.verbose_name == 'report':
+        obj = model(gross=gross, net=net)
+        form = form_model(instance=obj)
+    # Limit time entry project, client
+    # and task choices
+    if form._meta.model._meta.verbose_name == 'time':
+        form.fields['project'].queryset = projects
+        form.fields['client'].queryset = clients
+        form.fields['task'].queryset = tasks
+    # Limit project client choices
+    if form._meta.model._meta.verbose_name == 'project':
+        form.fields['client'].queryset = clients
+    # Populate time entry form fields with project, client
+    # and task values
+    if project and model._meta.verbose_name == 'time':
+        entry = model(
+            project=project, client=project.client, task=project.task)
+        form = form_model(instance=entry)
+    # Populate invoice with project
+    elif project and model._meta.verbose_name == 'invoice':
+        entry = model(project=project, client=project.client)
+        form = form_model(instance=entry)
+    # Populate time entry form fields with client and
+    # task values
+    elif client and task:
+        entry = model(client=client, task=task)
+        form = form_model(instance=entry)
+    # Populate project entry form fields with client value
+    elif client:
+        entry = model(client=client)
+        form = form_model(instance=entry)
+    # Populate time entry form fields with task value
+    elif task:
+        entry = model(task=task)
+        form = form_model(instance=entry)
+
+    return form
+
+
 def daily_burn(project):
     try:
         days = (project.end_date - project.start_date).days
@@ -108,48 +151,6 @@ def dashboard_totals(model):
         if invoice.amount:
             net += invoice.amount
     return gross, net
-
-def create_form(model, form_model, project=None, client=None, task=None):
-        form = form_model()
-        # Populate new report with gross and net calculated
-        # from active invoices
-        if form._meta.model._meta.verbose_name == 'report':
-            obj = model(gross=gross, net=net)
-            form = form_model(instance=obj)
-        # Limit time entry project, client
-        # and task choices
-        if form._meta.model._meta.verbose_name == 'time':
-            form.fields['project'].queryset = projects
-            form.fields['client'].queryset = clients
-            form.fields['task'].queryset = tasks
-        # Limit project client choices
-        if form._meta.model._meta.verbose_name == 'project':
-            form.fields['client'].queryset = clients
-        # Populate time entry form fields with project, client
-        # and task values
-        if project and model._meta.verbose_name == 'time':
-            entry = model(
-                project=project, client=project.client, task=project.task)
-            form = form_model(instance=entry)
-        # Populate invoice with project
-        elif project and model._meta.verbose_name == 'invoice':
-            entry = model(project=project, client=project.client)
-            form = form_model(instance=entry)
-        # Populate time entry form fields with client and
-        # task values
-        elif client and task:
-            entry = model(client=client, task=task)
-            form = form_model(instance=entry)
-        # Populate project entry form fields with client value
-        elif client:
-            entry = model(client=client)
-            form = form_model(instance=entry)
-        # Populate time entry form fields with task value
-        elif task:
-            entry = model(task=task)
-            form = form_model(instance=entry)
-
-        return form
 
 
 def edit(request,
@@ -178,7 +179,8 @@ def edit(request,
     obj = None
     ref = request.META['HTTP_REFERER']
     if pk is None:
-        form = create_form(model, form_model, project=project, client=client, task=task)
+        form = create_form(
+            model, form_model, project=project, client=client, task=task)
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
