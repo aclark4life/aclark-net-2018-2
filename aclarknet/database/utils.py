@@ -121,7 +121,6 @@ def edit(request,
          company=None,
          contacts=None,
          context={},
-         edit_url='',
          gross=None,
          kwargs={},
          active_nav=None,
@@ -296,7 +295,6 @@ def edit(request,
     context['item'] = obj
     context['form'] = form
     context['active_nav'] = active_nav
-    context['edit_url'] = edit_url
     context['pk'] = pk
     return render(request, template, context)
 
@@ -405,12 +403,13 @@ def get_query(request, query):
         return request.GET.get(query, '')
 
 
-def get_search_results(model, fields, search):
+def get_search_results(model, fields, search, edit_url=''):
     context = {}
     query = []
     for field in fields:
         query.append(Q(**{field + '__icontains': search}))
     items = model.objects.filter(reduce(OR, query))
+    context['edit_url'] = edit_url
     context['items'] = items
     return context
 
@@ -442,7 +441,7 @@ def index_items(request,
         if search == u'':  # Empty search returns none
             return {}
         else:
-            return get_search_results(model, fields, search)
+            return get_search_results(model, fields, search, edit_url=edit_url)
     # Not a search
     if filters:
         items = model.objects.filter(**filters)
