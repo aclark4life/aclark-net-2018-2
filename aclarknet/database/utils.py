@@ -83,7 +83,16 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def create_form(model, form_model, project=None, client=None, task=None):
+def create_form(model,
+                form_model,
+                projects=[],
+                project=None,
+                clients=[],
+                client=None,
+                gross=None,
+                net=None,
+                tasks=[],
+                task=None):
     form = form_model()
     # Populate new report with gross and net calculated
     # from active invoices
@@ -179,7 +188,16 @@ def edit(request,
     ref = request.META['HTTP_REFERER']
     if pk is None:
         form = create_form(
-            model, form_model, project=project, client=client, task=task)
+            model,
+            form_model,
+            projects=projects,
+            project=project,
+            clients=clients,
+            client=client,
+            gross=gross,
+            net=net,
+            tasks=tasks,
+            task=task)
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
