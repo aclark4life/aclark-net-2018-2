@@ -514,6 +514,7 @@ def newsletter(request, pk=None):
     context['item'] = newsletter
     context['edit_url'] = 'newsletter_edit'
     context['active_nav'] = 'newsletter'
+    context['contacts'] = newsletter.contacts.filter(subscribed=True).order_by('first_name')
     return render(request, 'newsletter.html', context)
 
 
