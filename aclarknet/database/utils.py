@@ -281,7 +281,12 @@ def edit(request,
         if form.is_valid():
             obj = form.save()
             return obj_misc(
-                obj, company, request=request, pk=pk, kwargs=kwargs)
+                obj,
+                company,
+                request=request,
+                pk=pk,
+                kwargs=kwargs,
+                url_name=url_name)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -520,7 +525,7 @@ def obj_delete(obj, company, request=None):
     return HttpResponseRedirect(reverse(url_name))
 
 
-def obj_misc(obj, company, request=None, pk=None, kwargs={}):
+def obj_misc(obj, company, request=None, pk=None, kwargs={}, url_name=''):
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
         # Assign user to time entry on creation
