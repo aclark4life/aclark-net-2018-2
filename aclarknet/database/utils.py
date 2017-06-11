@@ -119,6 +119,7 @@ def edit(request,
          client=None,
          clients=[],
          company=None,
+         contacts=None,
          context={},
          gross=None,
          kwargs={},
@@ -150,6 +151,9 @@ def edit(request,
         # Limit project client choices
         if form._meta.model._meta.verbose_name == 'project':
             form.fields['client'].queryset = clients
+        # Limit newsletter contact choices
+        if form._meta.model._meta.verbose_name == 'newsletter':
+            form.fields['contacts'].queryset = contacts
         # Populate time entry form fields with project, client
         # and task values
         if project and model._meta.verbose_name == 'time':
