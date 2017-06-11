@@ -77,6 +77,9 @@ class NewsletterForm(forms.ModelForm):
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
+    def __init__(self):
+        self.fields['contacts'] = Contact.objects.exclude(email__isnull=True)
+
 
 class NoteForm(forms.ModelForm):
     class Meta:
