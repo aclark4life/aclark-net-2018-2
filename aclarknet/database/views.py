@@ -658,7 +658,7 @@ def note(request, pk=None):
     context['item'] = note
     if pdf:
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=note.pdf'
+        response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
         return generate_pdf(
             'pdf_note.html', context=context, file_object=response)
     else:
