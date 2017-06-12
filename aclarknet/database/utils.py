@@ -620,6 +620,7 @@ def url_name_from(verbose_name):
     url_name = {
         'client': 'client_index',
         'contact': 'contact_index',
+        'contract': 'contract_index',
         'estimate': 'estimate_index',
         'invoice': 'invoice_index',
         'newsletter': 'newsletter_index',
