@@ -543,8 +543,6 @@ def newsletter_edit(request, pk=None):
         url_name,
         'newsletter_edit.html',
         active_nav='newsletter',
-        contacts=Contact.objects.filter(subscribed=True).exclude(
-            email__isnull=True).order_by('first_name'),
         kwargs=kwargs,
         pk=pk)
 
