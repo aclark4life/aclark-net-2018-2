@@ -224,8 +224,15 @@ def contact_mail(request, pk=None):
             url = reverse('contact_unsubscribe', kwargs={'pk': pk})
             url = ''.join([request.get_host(), url])
             to = contact.email
+            first_name = contact.first_name
             if send_mail(
-                    request, subject, message, to, url=url, uuid=contact.uuid):
+                    request,
+                    subject,
+                    message,
+                    to,
+                    url=url,
+                    uuid=contact.uuid,
+                    first_name=first_name):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
                 log = Log(entry='Mail sent to %s.' % to)
                 log.save()
@@ -569,10 +576,17 @@ def newsletter_send(request, pk=None):
         url = reverse('contact_unsubscribe', kwargs={'pk': contact.pk})
         url = ''.join([request.get_host(), url])
         to = contact.email
+        first_name = contact.first_name
         subject = newsletter.subject
         message = newsletter.text
         if send_mail(
-                request, subject, message, to, url=url, uuid=contact.uuid):
+                request,
+                subject,
+                message,
+                to,
+                url=url,
+                uuid=contact.uuid,
+                first_name=first_name):
             log = Log(entry='Mail sent to %s.' % to)
             log.save()
     messages.add_message(request, messages.SUCCESS, 'Batch mail sent!')

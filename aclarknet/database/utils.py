@@ -577,13 +577,23 @@ def paginate(items, page):
     return items
 
 
-def send_mail(request, subject, message, to, url=None, uuid=None):
+def send_mail(request,
+              subject,
+              message,
+              to,
+              url=None,
+              uuid=None,
+              first_name=None):
     recipients = []
     sender = settings.EMAIL_FROM
     recipients.append(to)
     # http://stackoverflow.com/a/28476681/185820
+    if first_name:
+        username = first_name
+    else:
+        username = to
     html_message = render_to_string('cerberus-fluid.html', {
-        'username': to,
+        'username': username,
         'message': message,
         'url': url,
         'uuid': uuid,
