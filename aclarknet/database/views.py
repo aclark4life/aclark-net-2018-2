@@ -268,7 +268,7 @@ def contract(request, pk=None):
     """
     """
     context = {}
-    contract = get_object_or_404(Newsletter, pk=pk)
+    contract = get_object_or_404(Contract, pk=pk)
     context['active_nav'] = 'contract'
     context['edit_url'] = 'contract_edit'
     context['item'] = contract
