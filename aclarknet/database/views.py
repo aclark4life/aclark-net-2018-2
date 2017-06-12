@@ -38,6 +38,7 @@ from .utils import index_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
+from .utils import get_filename
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -267,12 +268,22 @@ def contact_unsubscribe(request, pk=None):
 def contract(request, pk=None):
     """
     """
+    pdf = get_query(request, 'pdf')
+    company = Company.get_solo()
     context = {}
     contract = get_object_or_404(Contract, pk=pk)
     context['active_nav'] = 'contract'
     context['edit_url'] = 'contract_edit'
     context['item'] = contract
-    return render(request, 'contract.html', context)
+    context['pdf'] = pdf
+    if pdf:
+        response = HttpResponse(content_type='application/pdf')
+        filename = get_filename(company)
+        response['Content-Disposition'] = 'filename=%s.pdf' % filename
+        return generate_pdf(
+            'pdf_contract.html', context=context, file_object=response)
+    else:
+        return render(request, 'contract.html', context)
 
 
 @staff_member_required

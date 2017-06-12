@@ -373,6 +373,13 @@ def get_active_kwarg(model, active=False, user=None):
     return kwargs
 
 
+def get_filename(company):
+    company_name = company.name.replace('.', '_')
+    company_name = company_name.replace(', ', '_')
+    company_name = company_name.upper()
+    return company_name
+
+
 def get_query(request, query):
     """
     """
