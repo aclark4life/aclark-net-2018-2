@@ -89,6 +89,9 @@ class Contact(models.Model):
     # 14:26 Wooble aclark: I'd probably just generate a uuid for each user and
     #     store it in the database, myself.
     # 14:27 aclark Wooble: ah, cool thanks
+    #
+    # XXX Should this CharField be a UUIDField instead?
+    # https://docs.djangoproject.com/en/1.11/ref/models/fields/#uuidfield
     uuid = models.CharField('UUID', max_length=300, default=uuid4)
 
     def __str__(self):
