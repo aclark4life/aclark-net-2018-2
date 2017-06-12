@@ -504,6 +504,8 @@ def obj_copy(obj, url_name):
     kwargs['pk'] = dup.pk
     if obj._meta.verbose_name == 'time':
         url_name = 'entry_edit'
+    elif obj._meta.verbose_name == 'newsletter':
+        url_name = 'newsletter_edit'
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
