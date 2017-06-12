@@ -14,6 +14,7 @@ class Client(models.Model):
     """
     """
     active = models.BooleanField(default=True)
+    hidden = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     name = models.CharField(max_length=300, blank=True, null=True)
     icon = models.CharField(max_length=25, blank=True, null=True)
