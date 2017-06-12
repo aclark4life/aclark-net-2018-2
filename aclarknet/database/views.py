@@ -262,6 +262,30 @@ def contact_unsubscribe(request, pk=None):
 
 
 @staff_member_required
+def contract(request, pk=None):
+    """
+    """
+    context = {}
+    return render(request, 'contract.html', context)
+
+
+@staff_member_required
+def contract_edit(request, pk=None):
+    """
+    """
+    context = {}
+    return render(request, 'contract_edit.html', context)
+
+
+@staff_member_required
+def contract_index(request):
+    """
+    """
+    context = {}
+    return render(request, 'contract_index.html', context)
+
+
+@staff_member_required
 def estimate(request, pk=None):
     context = {}
     company = Company.get_solo()

@@ -9,6 +9,7 @@
 {% include 'dropdown.html' %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}active{% endif %}"><a class="nav-link" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contact' %}active{% endif %}"><a class="nav-link" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contract' %}active{% endif %}"><a class="nav-link" href="{% url 'contract_index' %}">Contracts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'estimate' %}active{% endif %}"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'invoice' %}active{% endif %}"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'newsletter' %}active{% endif %}"><a class="nav-link" href="{% url 'newsletter_index' %}">Newsletters</a></li>{% endif %}
