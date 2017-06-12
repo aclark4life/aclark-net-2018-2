@@ -122,8 +122,8 @@ def client_edit(request, pk=None):
         Client,
         url_name,
         'client_edit.html',
-        kwargs=kwargs,
         active_nav='client',
+        kwargs=kwargs,
         pk=pk)
 
 
@@ -135,11 +135,11 @@ def client_index(request):
         request,
         Client,
         fields,
-        order_by=('-active', 'name'),
+        active_nav='client',
         app_settings=settings,
-        show_search=True,
         edit_url='client_edit',  # Delete modal
-        active_nav='client')
+        order_by=('-active', 'name'),
+        show_search=True)
     return render(request, 'client_index.html', context)
 
 
@@ -198,11 +198,11 @@ def contact_index(request):
         request,
         Contact,
         fields,
-        order_by=('-active', 'first_name'),
+        active_nav='contact',
         app_settings=settings,
-        show_search=True,
         edit_url='contact_edit',  # Delete modal
-        active_nav='contact')
+        order_by=('-active', 'first_name'),
+        show_search=True)
     return render(request, 'contact_index.html', context)
 
 
@@ -240,8 +240,8 @@ def contact_mail(request, pk=None):
     else:
         form = MailForm()
     context['active_nav'] = 'contact'
-    context['form'] = form
     context['contact'] = contact
+    context['form'] = form
     return render(request, 'contact_mail.html', context)
 
 
@@ -275,10 +275,10 @@ def estimate(request, pk=None):
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
     context['active_nav'] = 'estimate'
-    context['item'] = estimate
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
     context['edit_url'] = 'estimate_edit'
+    context['item'] = estimate
     times_client = Time.objects.filter(
         client=estimate.client,
         estimate=None,
@@ -335,11 +335,11 @@ def estimate_edit(request, pk=None):
         'estimate_edit.html',
         active_nav='estimate',
         amount=amount,
+        company=company,
         kwargs=kwargs,
         paid_amount=paid_amount,
         pk=pk,
-        subtotal=subtotal,
-        company=company)
+        subtotal=subtotal)
 
 
 @staff_member_required
@@ -351,11 +351,11 @@ def estimate_index(request):
         request,
         Estimate,
         fields,
-        order_by=('-issue_date', ),
+        active_nav='estimate',
         app_settings=settings,
-        show_search=True,
         edit_url='estimate_edit',  # Delete modal
-        active_nav='estimate')
+        order_by=('-issue_date', ),
+        show_search=True)
     context['company'] = company
     return render(request, 'estimate_index.html', context)
 
@@ -399,10 +399,10 @@ def invoice(request, pk=None):
     document_type_upper = document_type.upper()
     document_type_title = document_type.title()
     context['active_nav'] = 'invoice'
-    context['edit_url'] = 'invoice_edit'  # Delete modal
-    context['item'] = invoice
     context['document_type_upper'] = document_type_upper
     context['document_type_title'] = document_type_title
+    context['edit_url'] = 'invoice_edit'  # Delete modal
+    context['item'] = invoice
     times_project = Time.objects.filter(
         invoiced=False, project=invoice.project, estimate=None, invoice=None)
     times_invoice = Time.objects.filter(invoice=invoice)
@@ -410,13 +410,13 @@ def invoice(request, pk=None):
     times = times.order_by('-date')
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     last_payment_date = invoice.last_payment_date
-    context['entries'] = entries
     context['amount'] = amount
+    context['entries'] = entries
+    context['hours'] = hours
+    context['invoice'] = True
+    context['last_payment_date'] = last_payment_date
     context['paid_amount'] = paid_amount
     context['subtotal'] = subtotal
-    context['hours'] = hours
-    context['last_payment_date'] = last_payment_date
-    context['invoice'] = True
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         if company.name:
@@ -473,13 +473,13 @@ def invoice_edit(request, pk=None):
         'invoice_edit.html',
         active_nav='invoice',
         amount=amount,
+        company=company,
         kwargs=kwargs,
         paid_amount=paid_amount,
         paid=paid,
         pk=pk,
         project=project,
-        subtotal=subtotal,
-        company=company)
+        subtotal=subtotal)
 
 
 @staff_member_required
@@ -496,11 +496,11 @@ def invoice_index(request):
         request,
         Invoice,
         fields,
-        order_by=('-issue_date', ),
+        active_nav='invoice',
         app_settings=settings,
-        show_search=True,
         edit_url='invoice_edit',  # Delete modal
-        active_nav='invoice')
+        order_by=('-issue_date', ),
+        show_search=True)
     context['company'] = company
     return render(request, 'invoice_index.html', context)
 
@@ -520,10 +520,10 @@ def newsletter(request, pk=None):
     """
     context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
-    context['item'] = newsletter
-    context['edit_url'] = 'newsletter_edit'
     context['active_nav'] = 'newsletter'
     context['contacts'] = newsletter.contacts.all().order_by('first_name')
+    context['edit_url'] = 'newsletter_edit'
+    context['item'] = newsletter
     return render(request, 'newsletter.html', context)
 
 
@@ -543,9 +543,9 @@ def newsletter_edit(request, pk=None):
         url_name,
         'newsletter_edit.html',
         active_nav='newsletter',
-        kwargs=kwargs,
         contacts=Contact.objects.filter(subscribed=True).exclude(
             email__isnull=True).order_by('first_name'),
+        kwargs=kwargs,
         pk=pk)
 
 
@@ -559,9 +559,9 @@ def newsletter_index(request, pk=None):
         request,
         Newsletter,
         fields,
-        order_by=('-created', ),
+        active_nav='newsletter',
         app_settings=settings,
-        active_nav='newsletter')
+        order_by=('-created', ))
     return render(request, 'newsletter_index.html', context)
 
 
@@ -590,10 +590,10 @@ def newsletter_send(request, pk=None):
             log = Log(entry='Mail sent to %s.' % to)
             log.save()
     messages.add_message(request, messages.SUCCESS, 'Batch mail sent!')
-    context['item'] = newsletter
-    context['edit_url'] = 'newsletter_edit'
     context['active_nav'] = 'newsletter'
     context['contacts'] = contacts
+    context['edit_url'] = 'newsletter_edit'
+    context['item'] = newsletter
     return render(request, 'newsletter.html', context)
 
 
@@ -643,10 +643,10 @@ def note_index(request, pk=None):
         request,
         Note,
         fields,
-        order_by=('-active', '-created', 'note', 'due_date', 'priority'),
+        active_nav='note',
         app_settings=settings,
-        show_search=True,
-        active_nav='note')
+        order_by=('-active', '-created', 'note', 'due_date', 'priority'),
+        show_search=True)
     context['edit_url'] = 'note_edit'  # Delete modal
     return render(request, 'note_index.html', context)
 
@@ -663,9 +663,9 @@ def project(request, pk=None):
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete modal
     context['icon_size'] = settings.icon_size
+    context['invoices'] = invoices
     context['item'] = project
     context['times'] = times
-    context['invoices'] = invoices
     return render(request, 'project.html', context)
 
 
@@ -704,11 +704,11 @@ def project_index(request, pk=None):
         request,
         Project,
         fields,
-        order_by=('-active', ),
+        active_nav='project',
         app_settings=settings,
-        show_search=True,
         edit_url='project_edit',  # Delete modal
-        active_nav='project')
+        order_by=('-active', ),
+        show_search=True)
     return render(request, 'project_index.html', context)
 
 
@@ -717,9 +717,9 @@ def report(request, pk=None):
     context = {}
     report = get_object_or_404(Report, pk=pk)
     context['active_nav'] = 'report'
+    context['cost'] = report.gross - report.net
     context['edit_url'] = 'report_edit'  # Delete modal
     context['item'] = report
-    context['cost'] = report.gross - report.net
     return render(request, 'report.html', context)
 
 
@@ -757,11 +757,11 @@ def report_index(request):
         request,
         Report,
         fields,
-        order_by=('-date', ),
+        active_nav='report',
         app_settings=settings,
-        show_search=True,
         edit_url='report_edit',  # Delete modal
-        active_nav='report')
+        order_by=('-date', ),
+        show_search=True)
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
     else:
@@ -856,11 +856,11 @@ def task_index(request):
         request,
         Task,
         fields,
-        order_by=('-active', ),
+        active_nav='task',
         app_settings=settings,
-        show_search=True,
         edit_url='task_edit',  # Delete modal
-        active_nav='task')
+        order_by=('-active', ),
+        show_search=True)
     return render(request, 'task_index.html', context)
 
 
@@ -939,11 +939,11 @@ def time_index(request):
         request,
         Time,
         fields,
-        order_by=('-date', ),
+        active_nav='time',
         app_settings=settings,
-        show_search=True,
         edit_url='entry_edit',  # Delete modal
-        active_nav='time')
+        order_by=('-date', ),
+        show_search=True)
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('admin:index'))
     else:
@@ -971,10 +971,10 @@ def user(request, pk=None):
     context['active_nav'] = 'user'
     context['company'] = company
     context['edit_url'] = 'user_edit'  # Delete modal
-    context['profile'] = profile
-    context['request'] = request
     context['icon_size'] = settings.icon_size
     context['item'] = user
+    context['profile'] = profile
+    context['request'] = request
     context['total_dollars'] = '%.2f' % total_dollars
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
@@ -1004,9 +1004,9 @@ def user_edit(request, pk=None):
         url_name,
         'user_edit.html',
         active_nav='user',
+        context=context,
         kwargs=kwargs,
-        pk=pk,
-        context=context)
+        pk=pk)
 
 
 @staff_member_required
@@ -1018,9 +1018,9 @@ def user_index(request):
         request,
         User,
         fields,
-        order_by=('-profile__active', ),
+        active_nav='user',
         app_settings=settings,
-        show_search=True,
-        active_nav='user')
+        order_by=('-profile__active', ),
+        show_search=True)
     context['company'] = company
     return render(request, 'user_index.html', context)
