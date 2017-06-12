@@ -222,7 +222,7 @@ def contact_mail(request, pk=None):
                 subject = form.cleaned_data['subject']
                 message = form.cleaned_data['message']
             url = reverse('contact_unsubscribe', kwargs={'pk': pk})
-            url = ''.join([request.get_host(), url])
+            url = '/'.join(['https://db.aclark.net', url])
             to = contact.email
             first_name = contact.first_name
             if send_mail(
