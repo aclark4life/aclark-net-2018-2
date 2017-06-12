@@ -1,6 +1,7 @@
 from .forms import ClientForm
 from .forms import CompanyForm
 from .forms import ContactForm
+from .forms import ContractForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import MailForm
@@ -14,6 +15,7 @@ from .forms import TaskForm
 from .models import Client
 from .models import Company
 from .models import Contact
+from .models import Contract
 from .models import Estimate
 from .models import Invoice
 from .models import Log
@@ -266,6 +268,10 @@ def contract(request, pk=None):
     """
     """
     context = {}
+    contract = get_object_or_404(Newsletter, pk=pk)
+    context['active_nav'] = 'contract'
+    context['edit_url'] = 'contract_edit'
+    context['item'] = contract
     return render(request, 'contract.html', context)
 
 
@@ -273,15 +279,35 @@ def contract(request, pk=None):
 def contract_edit(request, pk=None):
     """
     """
-    context = {}
-    return render(request, 'contract_edit.html', context)
+    kwargs = {}
+    url_name = 'contract_index'
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'contract'
+    return edit(
+        request,
+        ContractForm,
+        Contract,
+        url_name,
+        'contract_edit.html',
+        active_nav='contract',
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required
 def contract_index(request):
     """
     """
-    context = {}
+    settings = Settings.get_solo()
+    fields = ()
+    context = index_items(
+        request,
+        Contract,
+        fields,
+        active_nav='contract',
+        app_settings=settings,
+        order_by=('-created', ))
     return render(request, 'contract_index.html', context)
 
 
@@ -984,7 +1010,11 @@ def user(request, pk=None):
     }
     fields = ()
     context = index_items(
-        request, Time, fields=fields, order_by=('-date', ), filters=filters,
+        request,
+        Time,
+        fields=fields,
+        order_by=('-date', ),
+        filters=filters,
         app_settings=settings)
     total_hours = context['total_hours']
     if profile.rate and total_hours:

@@ -1,6 +1,7 @@
 from .models import Client
 from .models import Company
 from .models import Contact
+from .models import Contract
 from .models import Estimate
 from .models import Invoice
 from .models import Newsletter
@@ -33,6 +34,12 @@ class CompanyForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
+        fields = '__all__'
+
+
+class ContractForm(forms.ModelForm):
+    class Meta:
+        model = Contract
         fields = '__all__'
 
 

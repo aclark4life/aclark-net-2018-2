@@ -109,9 +109,7 @@ class Contract(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     client = models.ForeignKey(
-        'Client',
-        blank=True,
-        limit_choices_to={'active': True})
+        'Client', blank=True, limit_choices_to={'active': True})
     parties = models.TextField(blank=True, null=True)
     scope_of_work = models.TextField(blank=True, null=True)
     payment_terms = models.TextField(blank=True, null=True)
@@ -126,9 +124,7 @@ class Contract(models.Model):
     limited_warranty = models.TextField(blank=True, null=True)
     complete_agreement = models.TextField(blank=True, null=True)
     statement_of_work = models.ForeignKey(
-        'Estimate',
-        blank=True,
-        limit_choices_to={'accepted_date': None})
+        'Estimate', blank=True, limit_choices_to={'accepted_date': None})
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])

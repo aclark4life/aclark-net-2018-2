@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+          <div class="row">
+            <div class="col-md-9">
+              <h1>Contracts</h1>
+            </div>
+            <div class="col-md-3">
+              <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'contract_edit' %}">Add Contract <i class="fa fa-plus"></i></a></div>
+            </div>
+          </div>
+{% include 'pagination.html' %}
+          <div class="table-responsive">
+            <table data-toggle="table">
+              <thead>
+                <tr>
+                  <th>Created</th> 
+                  <th>View</th> 
+                  <th>Edit</th> 
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in items %}
+                <tr>
+                  <td>{{ item.created }}</td>
+                  <td><a href="{% url 'contract' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
+                  <td><a href="{% url 'contract_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+{% include 'pagination.html' %}
+{% endblock %}
