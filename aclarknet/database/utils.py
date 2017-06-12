@@ -510,6 +510,7 @@ def obj_copy(obj, url_name):
 
 
 def obj_delete(obj, company, request=None):
+    url_name = url_name_from(obj._meta.verbose_name)  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
         company.invoice_counter -= 1
@@ -518,10 +519,8 @@ def obj_delete(obj, company, request=None):
     if (obj._meta.verbose_name == 'estimate' and company.estimate_counter):
         company.estimate_counter -= 1
         company.save()
-    # Redir to appropriate location
-    url_name = url_name_from(obj._meta.verbose_name)
     if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
-        url_name = 'home'
+        url_name = 'home'  # Redir to home
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
@@ -621,6 +620,7 @@ def url_name_from(verbose_name):
         'contact': 'contact_index',
         'estimate': 'estimate_index',
         'invoice': 'invoice_index',
+        'newsletter': 'newsletter_index',
         'note': 'note_index',
         'project': 'project_index',
         'report': 'report_index',
