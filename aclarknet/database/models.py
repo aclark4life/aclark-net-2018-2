@@ -103,6 +103,37 @@ class Contact(models.Model):
             return ' '.join([self.first_name, self.last_name])
 
 
+class Contract(models.Model):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    client = models.ForeignKey(
+        'Client',
+        blank=True,
+        limit_choices_to={'active': True})
+    parties = models.TextField(blank=True, null=True)
+    scope_of_work = models.TextField(blank=True, null=True)
+    payment_terms = models.TextField(blank=True, null=True)
+    timing_of_payment = models.TextField(blank=True, null=True)
+    contributor_assignment_agreement = models.TextField(blank=True, null=True)
+    authority_to_act = models.TextField(blank=True, null=True)
+    termination = models.TextField(blank=True, null=True)
+    governing_laws = models.TextField(blank=True, null=True)
+    period_of_agreement = models.TextField(blank=True, null=True)
+    confidentiality = models.TextField(blank=True, null=True)
+    taxes = models.TextField(blank=True, null=True)
+    limited_warranty = models.TextField(blank=True, null=True)
+    complete_agreement = models.TextField(blank=True, null=True)
+    statement_of_work = models.ForeignKey(
+        'Estimate',
+        blank=True,
+        limit_choices_to={'accepted_date': None})
+
+    def __str__(self):
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
+
+
 class Estimate(models.Model):
     """
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
