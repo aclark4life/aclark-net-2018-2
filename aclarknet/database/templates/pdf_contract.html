@@ -16,11 +16,17 @@
                   .section p {
                     font-family: "Times New Roman", Georgia, Serif;
                   }
+                  span {
+                    font-family: "Times New Roman", Georgia, Serif;
+                  }
                   .underline {
                     text-decoration: underline;
                   }
                   .overline {
                     text-decoration: overline;
+                  }
+                  .signature {
+                    width: 100px;
                   }
                 </style>
                 <div class="contract">
@@ -56,5 +62,5 @@
                   <div class="row"><div class="col-md-12 underline"><h2>13. Complete Agreement</h2></div></div>
                   <div class="row"><div class="col-md-12">{{ item.complete_agreement|safe }}</div></div>
                   <div class="row"><div class="col-md-12"><h2>14. IN WITNESS WHEREOF, the parties hereto have executed this Agreement:</h2></div></div>
-                  <div class="row"><div class="col-md-12"><span>Company's Authorized Signature</span><span>Client's Authorized Signature</span></div></div>
+                  <div class="row"><div class="col-md-12"><span class="signature">Company's Authorized Signature</span><span>Client's Authorized Signature</span></div></div>
                 </div>
