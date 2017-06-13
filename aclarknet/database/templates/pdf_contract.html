@@ -1,5 +1,8 @@
 {% load staticfiles %}
                 <style>
+                  .border {
+                    border-bottom: 1px solid;
+                  }
                   .center {
                     text-align: center;
                   }
@@ -50,4 +53,7 @@
                   <div class="row"><div class="col-md-12 underline"><h2>13. Complete Agreement</h2></div></div>
                   <div class="row"><div class="col-md-12">{{ item.complete_agreement|safe }}</div></div>
                   <div class="row"><div class="col-md-12"><h2>14. IN WITNESS WHEREOF, the parties hereto have executed this Agreement:</h2></div></div>
+                  <div class="row"><div class="offset-md-1 col-md-5 border"></div><div class="offset-md-1 col-md-5 border"></div></div>
+                  <div class="row"><div class="offset-md-1 col-md-5 border"></div><div class="offset-md-1 col-md-5 border"></div></div>
+                  <div class="row"><div class="offset-md-1 col-md-5 border"></div><div class="offset-md-1 col-md-5 border"></div></div>
                 </div>
