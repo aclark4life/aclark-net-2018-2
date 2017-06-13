@@ -86,7 +86,7 @@ class Contract(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     client = models.ForeignKey(
-        'Client', blank=True, limit_choices_to={'active': True})
+        'Client', blank=True, null=True, limit_choices_to={'active': True})
     parties = models.TextField(blank=True, null=True)
     scope_of_work = models.TextField(blank=True, null=True)
     payment_terms = models.TextField(blank=True, null=True)
