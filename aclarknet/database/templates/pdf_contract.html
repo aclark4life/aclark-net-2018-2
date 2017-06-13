@@ -4,6 +4,7 @@
                 <div class="row"><div class="col-md-12" style="text-align: center"><h3>{{ company.name }} {{ item.task }} Agreement<br>Prepared for:</h3></div></div>
                 <br>
                 <div class="row"><div class="col-md-12" style="text-align: center"><h3>{{ item.client }}</h3></div></div>
+                <div class="row"><div class="col-md-12" style="text-align: center"><h4>{{ item.client.address }}</h4></div></div>
                 <div class="row"><div class="col-md-12"><h2>1. Parties</h2></div></div>
                 <div class="row"><div class="col-md-12">{{ item.parties|safe }}</div></div>
                 <div class="row"><div class="col-md-12"><h2>2. Scope of Work</h2></div></div>
