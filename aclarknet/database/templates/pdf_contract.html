@@ -19,6 +19,9 @@
                   .underline {
                     text-decoration: underline;
                   }
+                  .overline {
+                    text-decoration: overline;
+                  }
                 </style>
                 <div class="contract">
                   <div class="row"><div class="col-md-12 center"><img src="{% static 'aclarknet-logo.png' %}"></div></div>
@@ -53,5 +56,8 @@
                   <div class="row"><div class="col-md-12 underline"><h2>13. Complete Agreement</h2></div></div>
                   <div class="row"><div class="col-md-12">{{ item.complete_agreement|safe }}</div></div>
                   <div class="row"><div class="col-md-12"><h2>14. IN WITNESS WHEREOF, the parties hereto have executed this Agreement:</h2></div></div>
-                  <div class="row" style="border-bottom: 1px solid black"><div class="col-md-12"></div></div>
+                  <div class="row">
+                    <div class="col-md-12 overline" style="width:50%"><p>Company's Authorized Signature</p></div>
+                    <div class="col-md-12 overline" style="width:50%"><p>Company's Authorized Signature</p></div>
+                  </div>
                 </div>
