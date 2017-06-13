@@ -1,10 +1,10 @@
 {% load staticfiles %}
                 <div class="row"><div class="col-md-12" style="text-align: center"><img src="{% static 'aclarknet-logo.png' %}"></div></div>
                 <br>
-                <div class="row"><div class="col-md-12" style="text-align: center"><h3>{{ company.name }} {{ item.task }} Agreement<br>Prepared for:</h3></div></div>
+                <div class="row"><div class="col-md-12" style="text-align: center"><h1>{{ company.name }} {{ item.task }} Agreement<br>Prepared for:</h1></div></div>
                 <br>
-                <div class="row"><div class="col-md-12" style="text-align: center"><h3>{{ item.client }}</h3></div></div>
-                <div class="row"><div class="col-md-12" style="text-align: center"><h5>{{ item.client.address }}</h5></div></div>
+                <div class="row"><div class="col-md-12" style="text-align: center"><h2>{{ item.client }}</h2></div></div>
+                <div class="row"><div class="col-md-12" style="text-align: center"><h3>{{ item.client.address }}</h3></div></div>
                 <div class="row"><div class="col-md-12"><h2>1. Parties</h2></div></div>
                 <div class="row"><div class="col-md-12">{{ item.parties|safe }}</div></div>
                 <div class="row"><div class="col-md-12"><h2>2. Scope of Work</h2></div></div>
