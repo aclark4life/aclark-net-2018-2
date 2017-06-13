@@ -34,19 +34,19 @@
                 <div class="table-responsive">
                   <table data-toggle="table" data-classes="table">
                     <tbody>
-                      <tr><td>{{ parties | safe }}</td></tr>
-                      <tr><td>{{ scope_of_work | safe }}</td></tr>
-                      <tr><td>{{ payment_terms | safe }}</td></tr>
-                      <tr><td>{{ timing_of_payment | safe }}</td></tr>
-                      <tr><td>{{ contributor_assignment_agreement | safe }}</td></tr>
-                      <tr><td>{{ authority_to_act | safe }}</td></tr>
-                      <tr><td>{{ termination | safe }}</td></tr>
-                      <tr><td>{{ governing_laws | safe }}</td></tr>
-                      <tr><td>{{ period_of_agreement | safe }}</td></tr>
-                      <tr><td>{{ confidentiality | safe }}</td></tr>
-                      <tr><td>{{ taxes | safe }}</td></tr>
-                      <tr><td>{{ limited_warranty | safe }}</td></tr>
-                      <tr><td>{{ complete_agreement | safe }}</td></tr>
+                      <tr><td>{{ item.parties | safe }}</td></tr>
+                      <tr><td>{{ item.scope_of_work | safe }}</td></tr>
+                      <tr><td>{{ item.payment_terms | safe }}</td></tr>
+                      <tr><td>{{ item.timing_of_payment | safe }}</td></tr>
+                      <tr><td>{{ item.contributor_assignment_agreement | safe }}</td></tr>
+                      <tr><td>{{ item.authority_to_act | safe }}</td></tr>
+                      <tr><td>{{ item.termination | safe }}</td></tr>
+                      <tr><td>{{ item.governing_laws | safe }}</td></tr>
+                      <tr><td>{{ item.period_of_agreement | safe }}</td></tr>
+                      <tr><td>{{ item.confidentiality | safe }}</td></tr>
+                      <tr><td>{{ item.taxes | safe }}</td></tr>
+                      <tr><td>{{ item.limited_warranty | safe }}</td></tr>
+                      <tr><td>{{ item.complete_agreement | safe }}</td></tr>
                     </tbody>
                   </table>
                 </div>
