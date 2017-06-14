@@ -103,7 +103,10 @@ class Contract(models.Model):
     limited_warranty = models.TextField(blank=True, null=True)
     complete_agreement = models.TextField(blank=True, null=True)
     statement_of_work = models.ForeignKey(
-        'Estimate', blank=True, null=True, limit_choices_to={'accepted_date': None})
+        'Estimate',
+        blank=True,
+        null=True,
+        limit_choices_to={'accepted_date': None})
     project = models.ForeignKey(
         "Project",
         blank=True,

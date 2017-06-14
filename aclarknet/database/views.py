@@ -277,7 +277,8 @@ def contract(request, pk=None):
     context['edit_url'] = 'contract_edit'
     context['item'] = contract
     context['pdf'] = pdf
-    # XXX In hindsight, this is terrible. Maybe some OneToOnes could clean this up.
+    # XXX In hindsight, this is terrible. Maybe some OneToOne fields
+    # could clean this up.
     times_client = Time.objects.filter(
         client=contract.client,
         estimate=None,
