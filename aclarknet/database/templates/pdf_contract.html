@@ -11,6 +11,8 @@
                   }
                   .logo h1 {
                     font-size: 400%;
+                    margin: 0;
+                    padding: 0;
                   }
                   h2 {
                     font-family: "Times New Roman", Georgia, Serif;
@@ -34,7 +36,7 @@
                   }
                 </style>
                 <div class="contract">
-                  <div class="row"><div class="col-md-12 center logo">{{ company.name }}</div></div>
+                  <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name }}</h1></div></div>
                   <br>
                   <div class="row"><div class="col-md-12 center"><h2>{{ company.name }} {{ item.task|upper }} AGREEMENT<br>PREPARED FOR:</h2></div></div>
                   <div class="row"><div class="col-md-12 center client"><h1>{{ item.client }}</h1></div></div>
