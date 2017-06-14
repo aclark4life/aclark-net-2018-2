@@ -49,6 +49,10 @@
                   .sow {
                     font-weight: bold;
                   }
+                  .sow-title h1 {
+                    font-family: "Times New Roman", Georgia, Serif;
+                    font-weight: bold;
+                  }
                 </style>
                 <div class="contract">
                   <br>
@@ -126,7 +130,7 @@
                   <!-- Text -->
                   <div class="row"><div class="col-md-12 section"><p>Date Signed (Company)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date Signed (Client)</p></div></div>
                   <br>
-                  <div class="row"><div class="col-md-12 center page-break"><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statement of Work &mdash;"Exhibit A"</h2></div></div>
+                  <div class="row"><div class="col-md-12 center page-break sow-title"><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statement of Work &mdash;"Exhibit A"</h1></div></div>
                   <div class="row"><div class="col-md-12 section sow"><p>{{ item.statement_of_work.subject }}</p></div></div>
                   <ul>
                     {% for entry in times %}
