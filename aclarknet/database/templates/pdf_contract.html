@@ -122,4 +122,9 @@
                   <br>
                   <div class="row"><div class="col-md-12 center"><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statement of Work &mdash;"Exhibit A"</h1></div></div>
                   <div class="row"><div class="col-md-12 section sow">{{ item.statement_of_work.subject }}</div></div>
+                  <ul>
+                    {% for entry in times %}
+                    <li>{{ entry }}</li>
+                    {% endfor %}
+                  </ul>
                 </div>
