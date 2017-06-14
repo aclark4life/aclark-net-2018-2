@@ -13,9 +13,12 @@
                     font-family: "Times New Roman", Georgia, Serif;
                     font-weight: bold;
                   }
+                  h3 {
+                    font-family: "Times New Roman", Georgia, Serif;
+                  }
                   .client h1 {
                     font-family: "Times New Roman", Georgia, Serif;
-                    font-size: 400%;
+                    font-size: 300%;
                   }
                   .section p {
                     font-family: "Times New Roman", Georgia, Serif;
@@ -29,7 +32,7 @@
                   <br>
                   <div class="row"><div class="col-md-12 center"><h2>{{ company.name }} {{ item.task|upper }} AGREEMENT<br>PREPARED FOR:</h2></div></div>
                   <div class="row"><div class="col-md-12 center client"><h1>{{ item.client }}</h1></div></div>
-                  <div class="row"><div class="col-md-12 center"><h2>{{ item.client.address }}</h2></div></div>
+                  <div class="row"><div class="col-md-12 center"><h3>{{ item.client.address }}</h3></div></div>
                   <div class="row"><div class="col-md-12 underline"><h2>1. Parties</h2></div></div>
                   <div class="row"><div class="col-md-12 section">{{ item.parties|safe }}</div></div>
                   <div class="row"><div class="col-md-12 underline"><h2>2. Scope of Work</h2></div></div>
