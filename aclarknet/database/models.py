@@ -104,6 +104,11 @@ class Contract(models.Model):
     complete_agreement = models.TextField(blank=True, null=True)
     statement_of_work = models.ForeignKey(
         'Estimate', blank=True, null=True, limit_choices_to={'accepted_date': None})
+    project = models.ForeignKey(
+        "Project",
+        blank=True,
+        null=True,
+        limit_choices_to={'active': True}, )
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
