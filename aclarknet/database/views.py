@@ -285,7 +285,7 @@ def contract(request, pk=None):
         project=None,
         invoiced=False,
         invoice=None)
-    times_estimate = Time.objects.filter(estimate=estimate)
+    times_estimate = Time.objects.filter(estimate=contract.statement_of_work)
     times = times_client | times_estimate
     times = times.order_by('-date')
     context['times'] = times
