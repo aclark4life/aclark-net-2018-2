@@ -56,6 +56,13 @@
                   }
                   @page {
                       size: a4 portrait;
+                      @frame header_frame {           /* Static Frame */
+                          -pdf-frame-content: header_content;
+                          left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+                      }
+                      @frame content_frame {          /* Content Frame */
+                          left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+                      }
                       @frame footer_frame {           /* Another static Frame */
                           -pdf-frame-content: footer_content;
                           left: 50pt; width: 512pt; top: 772pt; height: 20pt;
@@ -154,6 +161,6 @@
                   </ul>
                   <!-- Content for Static Frame 'footer_frame' -->
                   <!-- https://github.com/xhtml2pdf/xhtml2pdf/issues/106 -->
-                  <div class="row"><div class="col-md-12 center client"><div id="footer_content"><pdf:pagenumber> <!-- Space following pagenumber is important here to workaround bug. -->
-                  </div></div></div>
+                  <div id="footer_content"><pdf:pagenumber> <!-- Space following pagenumber is important here to workaround bug. -->
+                  </div>
                 </div>
