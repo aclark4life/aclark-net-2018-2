@@ -3,9 +3,12 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
+from faker import Faker
 from uuid import uuid4
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
+
+fake = Faker()
 
 # Create your models here.
 
@@ -120,19 +123,19 @@ class Contract(models.Model):
 class ContractSettings(SingletonModel):
     """
     """
-    parties = models.TextField(blank=True, null=True)
-    scope_of_work = models.TextField(blank=True, null=True)
-    payment_terms = models.TextField(blank=True, null=True)
-    timing_of_payment = models.TextField(blank=True, null=True)
-    contributor_assignment_agreement = models.TextField(blank=True, null=True)
-    authority_to_act = models.TextField(blank=True, null=True)
-    termination = models.TextField(blank=True, null=True)
-    governing_laws = models.TextField(blank=True, null=True)
-    period_of_agreement = models.TextField(blank=True, null=True)
-    confidentiality = models.TextField(blank=True, null=True)
-    taxes = models.TextField(blank=True, null=True)
-    limited_warranty = models.TextField(blank=True, null=True)
-    complete_agreement = models.TextField(blank=True, null=True)
+    parties = models.TextField(blank=True, null=True, default=fake.text)
+    scope_of_work = models.TextField(blank=True, null=True, default=fake.text)
+    payment_terms = models.TextField(blank=True, null=True, default=fake.text)
+    timing_of_payment = models.TextField(blank=True, null=True, default=fake.text)
+    contributor_assignment_agreement = models.TextField(blank=True, null=True, default=fake.text)
+    authority_to_act = models.TextField(blank=True, null=True, default=fake.text)
+    termination = models.TextField(blank=True, null=True, default=fake.text)
+    governing_laws = models.TextField(blank=True, null=True, default=fake.text)
+    period_of_agreement = models.TextField(blank=True, null=True, default=fake.text)
+    confidentiality = models.TextField(blank=True, null=True, default=fake.text)
+    taxes = models.TextField(blank=True, null=True, default=fake.text)
+    limited_warranty = models.TextField(blank=True, null=True, default=fake.text)
+    complete_agreement = models.TextField(blank=True, null=True, default=fake.text)
 
 
 class Estimate(models.Model):
