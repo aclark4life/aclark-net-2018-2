@@ -73,9 +73,9 @@
                   <br>
                   <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name }}</h1></div></div>
                   <br>
-                  <div class="row"><div class="col-md-12 center"><h2>{{ company.name }} {{ item.task|upper|default:'NOTHING' }} AGREEMENT<br>PREPARED FOR:</h2></div></div>
+                  <div class="row"><div class="col-md-12 center"><h2>{{ company.name }} {{ item.task|default:'Nothing'|upper }} AGREEMENT<br>PREPARED FOR:</h2></div></div>
                   <br>
-                  <div class="row"><div class="col-md-12 center client"><h1>{{ item.client }}</h1><h3>{{ item.client.address|default:'No One' }}</h3></div></div>
+                  <div class="row"><div class="col-md-12 center client"><h1>{{ item.client|default:'No One' }}</h1><h3>{{ item.client.address|default:'Nowhere ' }}</h3></div></div>
                   <br>
                   <div class="row"><div class="col-md-12 "><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span class="underline">Parties</span></h2></div></div>
                   <div class="row"><div class="col-md-12 section">{{ item.parties|safe }}</div></div>
