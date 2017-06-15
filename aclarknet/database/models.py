@@ -117,6 +117,24 @@ class Contract(models.Model):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
+class ContractSettings(SingletonModel):
+    """
+    """
+    parties = models.TextField(blank=True, null=True)
+    scope_of_work = models.TextField(blank=True, null=True)
+    payment_terms = models.TextField(blank=True, null=True)
+    timing_of_payment = models.TextField(blank=True, null=True)
+    contributor_assignment_agreement = models.TextField(blank=True, null=True)
+    authority_to_act = models.TextField(blank=True, null=True)
+    termination = models.TextField(blank=True, null=True)
+    governing_laws = models.TextField(blank=True, null=True)
+    period_of_agreement = models.TextField(blank=True, null=True)
+    confidentiality = models.TextField(blank=True, null=True)
+    taxes = models.TextField(blank=True, null=True)
+    limited_warranty = models.TextField(blank=True, null=True)
+    complete_agreement = models.TextField(blank=True, null=True)
+
+
 class Estimate(models.Model):
     """
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
