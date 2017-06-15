@@ -2,6 +2,7 @@ from .models import Client
 from .models import Company
 from .models import Contact
 from .models import Contract
+from .models import ContractSettings
 from .models import Estimate
 from .models import Invoice
 from .models import Newsletter
@@ -66,6 +67,12 @@ class ContractForm(forms.ModelForm):
             'complete_agreement':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
+
+
+class ContractSettingsForm(forms.ModelForm):
+    class Meta:
+        model = ContractSettings
+        fields = '__all__'
 
 
 class EstimateForm(forms.ModelForm):

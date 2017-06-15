@@ -2,6 +2,7 @@ from .forms import ClientForm
 from .forms import CompanyForm
 from .forms import ContactForm
 from .forms import ContractForm
+from .forms import ContractSettingsForm
 from .forms import EstimateForm
 from .forms import InvoiceForm
 from .forms import MailForm
@@ -16,6 +17,7 @@ from .models import Client
 from .models import Company
 from .models import Contact
 from .models import Contract
+from .models import ContractSettings
 from .models import Estimate
 from .models import Invoice
 from .models import Log
@@ -333,6 +335,25 @@ def contract_index(request):
         app_settings=settings,
         order_by=('-created', ))
     return render(request, 'contract_index.html', context)
+
+
+@staff_member_required
+def contract_settings(request):
+    context = {}
+    contract_settings = ContractSettings.get_solo()
+    context['contract_settings'] = contract_settings
+    return render(request, 'contract_settings.html', context)
+
+
+@staff_member_required
+def contract_settings_edit(request, pk=None):
+    return edit(
+        request,
+        ContractSettingsForm,
+        ContractSettings,
+        'contract/settings',
+        'contract/settings_edit.html',
+        pk=1)
 
 
 @staff_member_required
