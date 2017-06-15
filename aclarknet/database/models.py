@@ -92,6 +92,16 @@ class Contract(models.Model):
         'Client', blank=True, null=True, limit_choices_to={'active': True})
     task = models.ForeignKey(
         'Task', blank=True, null=True, limit_choices_to={'active': True})
+    statement_of_work = models.ForeignKey(
+        'Estimate',
+        blank=True,
+        null=True,
+        limit_choices_to={'accepted_date': None})
+    project = models.ForeignKey(
+        "Project",
+        blank=True,
+        null=True,
+        limit_choices_to={'active': True}, )
     parties = models.TextField(blank=True, null=True)
     scope_of_work = models.TextField(blank=True, null=True)
     payment_terms = models.TextField(blank=True, null=True)
@@ -105,16 +115,6 @@ class Contract(models.Model):
     taxes = models.TextField(blank=True, null=True)
     limited_warranty = models.TextField(blank=True, null=True)
     complete_agreement = models.TextField(blank=True, null=True)
-    statement_of_work = models.ForeignKey(
-        'Estimate',
-        blank=True,
-        null=True,
-        limit_choices_to={'accepted_date': None})
-    project = models.ForeignKey(
-        "Project",
-        blank=True,
-        null=True,
-        limit_choices_to={'active': True}, )
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
