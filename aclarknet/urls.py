@@ -57,8 +57,8 @@ urlpatterns = [
     url(r'^contract/add$', views.contract_edit, name='contract_edit'),
     url(r'^contract$', views.contract_index, name='contract_index'),
     # Contract Settings
-    url(r'^settings/contract/edit$', views.contract_settings_edit, name='contract_settings_edit'),
-    url(r'^settings/contract$', views.contract_settings, name='contract_settings'),
+    url(r'^contract-settings/edit$', views.contract_settings_edit, name='contract_settings_edit'),
+    url(r'^contract-settings$', views.contract_settings, name='contract_settings'),
     # Estimate
     url(r'^estimate/(?P<pk>\d+)$', views.estimate, name='estimate'),
     url(r'^estimate/(?P<pk>\d+)/edit$',
