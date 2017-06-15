@@ -61,7 +61,7 @@
                   <br>
                   <div class="row"><div class="col-md-12 center"><h2>{{ company.name }} {{ item.task|upper }} AGREEMENT<br>PREPARED FOR:</h2></div></div>
                   <br>
-                  <div class="row"><div class="col-md-12 center client"><h1>{{ item.client }}</h1><h3>{{ item.client.address|linebreaksbr }}</h3></div></div>
+                  <div class="row"><div class="col-md-12 center client"><h1>{{ item.client }}</h1><h3>{{ item.client.address }}</h3></div></div>
                   <br>
                   <div class="row"><div class="col-md-12 "><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span class="underline">Parties</span></h2></div></div>
                   <div class="row"><div class="col-md-12 section">{{ item.parties|safe }}</div></div>
@@ -133,7 +133,7 @@
                   <br>
                   <div class="row"><div class="col-md-12 center page-break sow-title"><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statement of Work &mdash;"Exhibit A"</h1></div></div>
                   <br>
-                  <div class="row"><div class="col-md-12 center client"><h2>{{ item.client|linebreaksbr }}</h2></div></div>
+                  <div class="row"><div class="col-md-12 center client"><h2>{{ item.client }}</h2></div></div>
                   <br>
                   <div class="row"><div class="col-md-12"><h2>Company will perform the following tasks for Client:</h2></div></div>
                   <br>
