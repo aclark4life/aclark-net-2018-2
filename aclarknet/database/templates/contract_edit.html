@@ -3,10 +3,12 @@
 {% block content %}
        <h1>Contract</h1>
        <form action="" method="post">{% csrf_token %}
-       <input class="btn btn-lg btn-success" type="submit" value="Save">
-       <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
-       {{ form|crispy }}
-       <input class="btn btn-lg btn-success" type="submit" value="Save">
-       <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
+         <div class="float-right">
+           <input class="btn btn-lg btn-success" type="submit" value="Save">
+           <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
+         </div>
+         {{ form|crispy }}
+         <input class="btn btn-lg btn-success" type="submit" value="Save">
+         <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
        </form>
 {% endblock %}
