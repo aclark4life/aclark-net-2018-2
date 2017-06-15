@@ -28,7 +28,7 @@
                     margin: 0;
                     padding: 0;
                   }
-                  li {
+                  .entry li {
                     font-family: "Times New Roman", Georgia, Serif;
                   }
                   .client h1 {
@@ -138,7 +138,7 @@
                   <div class="row"><div class="col-md-12 section sow"><p>{{ item.statement_of_work.subject }}</p></div></div>
                   <ul>
                     {% for entry in times %}
-                    <li>{{ entry.notes }}</li>
+                    <li class="entry">{{ entry.notes }}</li>
                     {% endfor %}
                   </ul>
                 </div>
