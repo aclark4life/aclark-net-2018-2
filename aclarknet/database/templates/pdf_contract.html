@@ -54,13 +54,6 @@
                     font-weight: bold;
                     font-size: 200%;
                   }
-                  @page {
-                    size: a4 portrait;
-                    @frame footer_frame {           /* Another static Frame */
-                        -pdf-frame-content: footer_content;
-                        left: 50pt; width: 512pt; top: 772pt; height: 20pt;
-                    }
-                  }
                 </style>
                 <div class="contract">
                   <br>
@@ -147,6 +140,4 @@
                     <li>{{ entry.notes }}</li>
                     {% endfor %}
                   </ul>
-                  <!-- Content for Static Frame 'footer_frame' -->
-                  <div id="footer_content"><pdf:pagecount></div>
                 </div>
