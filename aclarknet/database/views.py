@@ -291,6 +291,7 @@ def contract(request, pk=None):
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-date')
+    context['times'] = times
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         filename = get_filename(company)
