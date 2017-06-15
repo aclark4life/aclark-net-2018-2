@@ -281,16 +281,9 @@ def contract(request, pk=None):
     context['pdf'] = pdf
     # XXX In hindsight, this is terrible. Maybe some OneToOne fields
     # could clean this up.
-    times_client = Time.objects.filter(
-        client=contract.client,
-        estimate=None,
-        project=None,
-        invoiced=False,
-        invoice=None)
     times_estimate = Time.objects.filter(estimate=contract.statement_of_work)
-    times = times_client | times_estimate
-    times = times.order_by('-date')
-    context['times'] = times
+    times_estimate = times_estimate.order_by('-date')
+    context['times'] = times_estimate
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         filename = get_filename(company)
