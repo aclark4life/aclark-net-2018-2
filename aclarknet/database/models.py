@@ -126,16 +126,23 @@ class ContractSettings(SingletonModel):
     parties = models.TextField(blank=True, null=True, default=fake.text)
     scope_of_work = models.TextField(blank=True, null=True, default=fake.text)
     payment_terms = models.TextField(blank=True, null=True, default=fake.text)
-    timing_of_payment = models.TextField(blank=True, null=True, default=fake.text)
-    contributor_assignment_agreement = models.TextField(blank=True, null=True, default=fake.text)
-    authority_to_act = models.TextField(blank=True, null=True, default=fake.text)
+    timing_of_payment = models.TextField(
+        blank=True, null=True, default=fake.text)
+    contributor_assignment_agreement = models.TextField(
+        blank=True, null=True, default=fake.text)
+    authority_to_act = models.TextField(
+        blank=True, null=True, default=fake.text)
     termination = models.TextField(blank=True, null=True, default=fake.text)
     governing_laws = models.TextField(blank=True, null=True, default=fake.text)
-    period_of_agreement = models.TextField(blank=True, null=True, default=fake.text)
-    confidentiality = models.TextField(blank=True, null=True, default=fake.text)
+    period_of_agreement = models.TextField(
+        blank=True, null=True, default=fake.text)
+    confidentiality = models.TextField(
+        blank=True, null=True, default=fake.text)
     taxes = models.TextField(blank=True, null=True, default=fake.text)
-    limited_warranty = models.TextField(blank=True, null=True, default=fake.text)
-    complete_agreement = models.TextField(blank=True, null=True, default=fake.text)
+    limited_warranty = models.TextField(
+        blank=True, null=True, default=fake.text)
+    complete_agreement = models.TextField(
+        blank=True, null=True, default=fake.text)
 
 
 class Estimate(models.Model):
