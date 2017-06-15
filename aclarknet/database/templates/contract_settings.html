@@ -5,20 +5,23 @@
                   <h1>Settings</h1>
                 </div>
                 <div class="col-md-2 offset-md-6">
-                  <a class="btn btn-lg btn-block btn-success" href="{% url 'settings_edit' %}">Edit <i class="fa fa-cog"></i></a>
+                  <a class="btn btn-lg btn-block btn-success" href="{% url 'contract_settings_edit' %}">Edit <i class="fa fa-cog"></i></a>
                 </div>
               </div>
               <div class="table-responsive">
                 <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Icon Size</th>
-                    </tr>
-                  </thead>
                   <tbody>
-                  <tr>
-                    <td>{{ settings.icon_size|default:'' }}</td>
-                  </tr>
+                    <tr><td>{{ item.parties|safe }}</td></tr>
+                    <tr><td>{{ item.scope_of_work|safe }}</td></tr>
+                    <tr><td>{{ item.payment_terms|safe }}</td></tr>
+                    <tr><td>{{ item.timing_of_payment|safe }}</td></tr>
+                    <tr><td>{{ item.contributor_assignment_agreement|safe }}</td></tr>
+                    <tr><td>{{ item.authority_to_act|safe }}</td></tr>
+                    <tr><td>{{ item.termination|safe }}</td></tr>
+                    <tr><td>{{ item.governing_laws|safe }}</td></tr>
+                    <tr><td>{{ item.period_of_agreement|safe }}</td></tr>
+                    <tr><td>{{ item.confidentiality|safe }}</td></tr>
+                    <tr><td>{{ item.taxes|safe }}</td></tr>
                   </tbody>
                 </table>
               </div>

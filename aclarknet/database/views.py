@@ -351,8 +351,8 @@ def contract_settings_edit(request, pk=None):
         request,
         ContractSettingsForm,
         ContractSettings,
-        'contract/settings',
-        'contract/settings_edit.html',
+        'contract_settings',
+        'contract_settings_edit.html',
         pk=1)
 
 
