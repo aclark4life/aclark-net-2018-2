@@ -5,10 +5,10 @@
        <form action="" method="post">{% csrf_token %}
          <div class="row">
            <div class="offset-md-8 col-md-2">
-             <input class="btn btn-lg btn-block btn-success" type="submit" value="Save">
+             <a class="btn btn-lg btn-block btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
            </div>
            <div class="col-md-2">
-             <a class="btn btn-lg btn-block btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
+             <input class="btn btn-lg btn-block btn-success" type="submit" value="Save">
            </div>
          </div>
          {{ form|crispy }}
