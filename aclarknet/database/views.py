@@ -285,7 +285,7 @@ def contract(request, pk=None):
     if estimate:
         times = Time.objects.filter(estimate=estimate)
     else:
-        times = None
+        times = []
     times = times.order_by('-date')
     context['times'] = times
     if pdf:
