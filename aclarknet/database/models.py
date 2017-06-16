@@ -178,7 +178,8 @@ class Estimate(models.Model):
 
     def __str__(self):
         if self.client and self.document_id:
-            return ' '.join([self.client.name, 'Estimate', str(self.document_id)])
+            return ' '.join(
+                [self.client.name, 'Estimate #', str(self.document_id)])
         else:
             return 'estimate-%s' % self.document_id
 
