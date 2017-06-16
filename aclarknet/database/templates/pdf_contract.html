@@ -78,7 +78,8 @@
                   <div class="row"><div class="col-md-12 center client"><h1>{{ item.client|default:'No One' }}</h1><h3>{{ item.client.address|default:'Nowhere ' }}</h3></div></div>
                   <br>
                   <div class="row"><div class="col-md-12 "><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. <span class="underline">Parties</span></h2></div></div>
-                  <div class="row"><div class="col-md-12 section">{{ item.parties|safe }}</div></div>
+                  <div class="row"><div class="col-md-12 section"><p>This agreement is entered into by and between <strong>{{ company.name }}</strong> (hereinafter referred to as "Company") and <strong>{{ item.client }}</strong> (hereinafter referred to as "Client").
+</div></div>
                   <div class="row"><div class="col-md-12 "><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. <span class="underline">Scope of Work</span></h2></div></div>
                   <div class="row"><div class="col-md-12 section">{{ item.scope_of_work|safe }}</div></div>
                   <div class="row"><div class="col-md-12 "><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. <span class="underline">Payment Terms</span></h2></div></div>

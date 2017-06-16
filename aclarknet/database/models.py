@@ -102,7 +102,6 @@ class Contract(models.Model):
         limit_choices_to={'accepted_date': None})
     task = models.ForeignKey(
         'Task', blank=True, null=True, limit_choices_to={'active': True})
-    parties = models.TextField(blank=True, null=True)
     scope_of_work = models.TextField(blank=True, null=True)
     payment_terms = models.TextField(blank=True, null=True)
     timing_of_payment = models.TextField(blank=True, null=True)
@@ -123,7 +122,6 @@ class Contract(models.Model):
 class ContractSettings(SingletonModel):
     """
     """
-    parties = models.TextField(blank=True, null=True, default=fake.text)
     scope_of_work = models.TextField(blank=True, null=True, default=fake.text)
     payment_terms = models.TextField(blank=True, null=True, default=fake.text)
     timing_of_payment = models.TextField(
