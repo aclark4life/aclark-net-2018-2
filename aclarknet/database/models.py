@@ -109,7 +109,6 @@ class Contract(models.Model):
     authority_to_act = models.TextField(blank=True, null=True)
     termination = models.TextField(blank=True, null=True)
     governing_laws = models.TextField(blank=True, null=True)
-    period_of_agreement = models.TextField(blank=True, null=True)
     confidentiality = models.TextField(blank=True, null=True)
     taxes = models.TextField(blank=True, null=True)
     limited_warranty = models.TextField(blank=True, null=True)
@@ -132,8 +131,6 @@ class ContractSettings(SingletonModel):
         blank=True, null=True, default=fake.text)
     termination = models.TextField(blank=True, null=True, default=fake.text)
     governing_laws = models.TextField(blank=True, null=True, default=fake.text)
-    period_of_agreement = models.TextField(
-        blank=True, null=True, default=fake.text)
     confidentiality = models.TextField(
         blank=True, null=True, default=fake.text)
     taxes = models.TextField(blank=True, null=True, default=fake.text)
