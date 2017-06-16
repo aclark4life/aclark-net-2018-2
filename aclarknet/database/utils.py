@@ -218,6 +218,7 @@ def edit(request,
          client=None,
          clients=[],
          company=None,
+         contract_settings=None,
          context={},
          gross=None,
          kwargs={},
@@ -232,7 +233,6 @@ def edit(request,
          task=None,
          tasks=[]):
     obj = None
-    ref = request.META['HTTP_REFERER']
     if pk is None:
         form = create_form(
             model,
@@ -265,6 +265,7 @@ def edit(request,
             if (checkbox == 'on' or checkbox == 'off' or
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
+                ref = request.META['HTTP_REFERER']
                 return check_boxes(obj, checkbox, checkbox_subscribed, ref)
             # Edit amounts
             if amount or subtotal or paid_amount or paid:
@@ -282,6 +283,7 @@ def edit(request,
             return obj_misc(
                 obj,
                 company,
+                contract_settings,
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
@@ -534,7 +536,13 @@ def obj_delete(obj, company, request=None):
     return HttpResponseRedirect(reverse(url_name))
 
 
-def obj_misc(obj, company, request=None, pk=None, kwargs={}, url_name=''):
+def obj_misc(obj,
+             company,
+             contract_settings,
+             request=None,
+             pk=None,
+             kwargs={},
+             url_name=''):
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
         # Assign user to time entry on creation
@@ -570,6 +578,10 @@ def obj_misc(obj, company, request=None, pk=None, kwargs={}, url_name=''):
     # Redir to appropriate location
     if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
         url_name = 'home'
+    # Assign default contract parties field
+    if obj._meta.verbose_name == 'contract' and pk is None:
+        obj.parties = contract_settings.parties
+        obj.save()
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 

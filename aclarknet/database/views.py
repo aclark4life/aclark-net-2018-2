@@ -309,6 +309,7 @@ def contract(request, pk=None):
 def contract_edit(request, pk=None):
     """
     """
+    contract_settings = ContractSettings.get_solo()
     kwargs = {}
     url_name = 'contract_index'
     if pk:
@@ -321,6 +322,7 @@ def contract_edit(request, pk=None):
         url_name,
         'contract_edit.html',
         active_nav='contract',
+        contract_settings=contract_settings,
         kwargs=kwargs,
         pk=pk)
 
