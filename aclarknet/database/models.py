@@ -106,7 +106,6 @@ class Contract(models.Model):
     payment_terms = models.TextField(blank=True, null=True)
     timing_of_payment = models.TextField(blank=True, null=True)
     contributor_assignment_agreement = models.TextField(blank=True, null=True)
-    authority_to_act = models.TextField(blank=True, null=True)
     termination = models.TextField(blank=True, null=True)
     governing_laws = models.TextField(blank=True, null=True)
     confidentiality = models.TextField(blank=True, null=True)
@@ -126,8 +125,6 @@ class ContractSettings(SingletonModel):
     timing_of_payment = models.TextField(
         blank=True, null=True, default=fake.text)
     contributor_assignment_agreement = models.TextField(
-        blank=True, null=True, default=fake.text)
-    authority_to_act = models.TextField(
         blank=True, null=True, default=fake.text)
     termination = models.TextField(blank=True, null=True, default=fake.text)
     governing_laws = models.TextField(blank=True, null=True, default=fake.text)
