@@ -580,8 +580,9 @@ def obj_misc(obj,
         url_name = 'home'
     # Assign default contract parties field
     if obj._meta.verbose_name == 'contract' and pk is None:
-        obj.parties = contract_settings.parties
-        obj.save()
+        for field in obj._meta.fields:
+            setattr(obj, field, getattr(contract_settings, field))
+            obj.save()
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
