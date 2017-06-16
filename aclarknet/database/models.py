@@ -177,7 +177,10 @@ class Estimate(models.Model):
     declined_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return 'estimate-%s' % self.document_id
+        if self.client and self.document_id:
+            return '-'.join([self.client, self.document_id])
+        else:
+            return 'estimate-%s' % self.document_id
 
 
 class Invoice(models.Model):

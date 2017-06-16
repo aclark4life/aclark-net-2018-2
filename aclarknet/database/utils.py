@@ -581,8 +581,9 @@ def obj_misc(obj,
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         for field in obj._meta.fields:
-            if not field.auto_created and not field.description == 'Date (with time)' and not field.is_relation:
-                setattr(obj, field.name, getattr(contract_settings, field.name))
+            if field.description == 'Text':
+                setattr(obj, field.name, getattr(contract_settings,
+                                                 field.name))
                 obj.save()
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
