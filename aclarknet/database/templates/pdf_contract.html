@@ -151,6 +151,7 @@
                   <br>
                   <div class="row"><div class="col-md-12 center client"><h2>Task List Term: {{ item.project.start_date|default:'No beginning' }} &mdash; {{ item.project.end_date|default:'No end' }}</h2></div></div>
                   <br>
+                  {% if times %}
                   <div class="row"><div class="col-md-12"><h2>Company will perform the following tasks for Client:</h2></div></div>
                   <br>
                   <div class="row"><div class="col-md-12 section sow"><p>{{ item.statement_of_work.subject }}</p></div></div>
@@ -159,6 +160,9 @@
                     <li class="entry">{{ entry.notes }}</li>
                     {% endfor %}
                   </ul>
+                  {% else %}
+                  <div class="row"><div class="col-md-12"><h2>Company will not perform any tasks for anyone.</h2></div></div>
+                  {% endif %}
                   <!-- Content for Static Frame 'footer_frame' -->
                   <!-- https://github.com/xhtml2pdf/xhtml2pdf/issues/106 -->
                   <div id="footer_content"><pdf:pagenumber> <!-- Space following pagenumber is important here to workaround bug. -->
