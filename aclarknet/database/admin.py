@@ -101,7 +101,7 @@ class ContractAdmin(admin.ModelAdmin):
     """
 
 
-@admin.register(Contract)
+@admin.register(ContractSettings)
 class ContractSettingsAdmin(admin.ModelAdmin):
     """
     """
