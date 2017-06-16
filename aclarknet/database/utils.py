@@ -578,14 +578,12 @@ def obj_misc(obj,
     # Redir to appropriate location
     if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
         url_name = 'home'
-    # Assign default contract parties field
+    # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         for field in obj._meta.fields:
-            try:
-                setattr(obj, field, getattr(contract_settings, field))
+            if not field.auto_created and not field.description == 'Date (with time)' and not field.is_relation:
+                setattr(obj, field.name, getattr(contract_settings, field.name))
                 obj.save()
-            except:
-                pass
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
