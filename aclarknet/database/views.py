@@ -282,15 +282,18 @@ def contract(request, pk=None):
     # XXX In hindsight, this is terrible. Maybe some OneToOne fields
     # could clean this up.
     estimate = contract.statement_of_work
-    times_client = Time.objects.filter(
-        client=estimate.client,
-        estimate=None,
-        project=None,
-        invoiced=False,
-        invoice=None)
-    times_estimate = Time.objects.filter(estimate=estimate)
-    times = times_client | times_estimate
-    times = times.order_by('-date')
+    if estimate:
+        times_client = Time.objects.filter(
+            client=estimate.client,
+            estimate=None,
+            project=None,
+            invoiced=False,
+            invoice=None)
+        times_estimate = Time.objects.filter(estimate=estimate)
+        times = times_client | times_estimate
+        times = times.order_by('-date')
+    else:
+        times = None
     context['times'] = times
     if pdf:
         response = HttpResponse(content_type='application/pdf')
