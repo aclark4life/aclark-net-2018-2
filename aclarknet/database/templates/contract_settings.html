@@ -8,17 +8,46 @@
                   <a class="btn btn-lg btn-block btn-success" href="{% url 'contract_settings_edit' %}">Edit <i class="fa fa-cog"></i></a>
                 </div>
               </div>
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr><td>{{ contract_settings.timing_of_payment|safe }}</td></tr>
-                    <tr><td>{{ contract_settings.authority_to_act|safe }}</td></tr>
-                    <tr><td>{{ contract_settings.termination|safe }}</td></tr>
-                    <tr><td>{{ contract_settings.governing_laws|safe }}</td></tr>
-                    <tr><td>{{ contract_settings.period_of_agreement|safe }}</td></tr>
-                    <tr><td>{{ contract_settings.confidentiality|safe }}</td></tr>
-                    <tr><td>{{ contract_settings.taxes|safe }}</td></tr>
-                  </tbody>
-                </table>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Timing of Payment</h2>
+                  {{ contract_settings.timing_of_payment|safe }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Authority to Act</h2>
+                  {{ contract_settings.authority_to_act|safe }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Termination</h2>
+                  {{ contract_settings.termination|safe }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Governing Laws</h2>
+                  {{ contract_settings.governing_laws|safe }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Period of Agreement</h2>
+                  {{ contract_settings.period_of_agreement|safe }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Confidentiality</h2>
+                  {{ contract_settings.confidentiality|safe }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Taxes</h2>
+                  {{ contract_settings.taxes|safe }}
+                </div>
               </div>
 {% endblock %}
