@@ -354,7 +354,7 @@ def generate_doc():
     document = Document()
     docx_title="TEST_DOCUMENT.docx"
     # ---- Cover Letter ----
-    document.add_picture((r'%s/static/images/my-header.png' % (settings.PROJECT_PATH)), width=Inches(4))
+    # document.add_picture((r'%s/static/images/my-header.png' % (settings.PROJECT_PATH)), width=Inches(4))
     document.add_paragraph()
     document.add_paragraph("%s" % date.today().strftime('%B %d, %Y'))
     document.add_paragraph('Dear Sir or Madam:')
