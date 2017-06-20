@@ -19,6 +19,7 @@ from django.utils import timezone
 from docx import Document
 from functools import reduce
 from import_export import widgets
+from io import StringIO
 from hashlib import md5
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
