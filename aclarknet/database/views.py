@@ -40,6 +40,7 @@ from .utils import index_items
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
+from .utils import generate_doc
 from .utils import get_filename
 from .utils import get_query
 from .utils import send_mail
@@ -270,6 +271,7 @@ def contact_unsubscribe(request, pk=None):
 def contract(request, pk=None):
     """
     """
+    doc = get_query(request, 'doc')
     pdf = get_query(request, 'pdf')
     company = Company.get_solo()
     context = {}
@@ -301,6 +303,11 @@ def contract(request, pk=None):
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_contract.html', context=context, file_object=response)
+    if doc:
+        response = HttpResponse(content_type='application/docx')
+        filename = get_filename(company)
+        response['Content-Disposition'] = 'filename=%s.docx' % filename
+        return generate_doc()
     else:
         return render(request, 'contract.html', context)
 
