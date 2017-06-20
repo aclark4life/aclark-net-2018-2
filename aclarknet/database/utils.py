@@ -19,7 +19,7 @@ from django.utils import timezone
 from docx import Document
 from functools import reduce
 from import_export import widgets
-from io import StringIO
+from io import BytesIO
 from hashlib import md5
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
@@ -368,7 +368,7 @@ def generate_doc():
     document.add_page_break()
     # Prepare document for download        
     # -----------------------------
-    f = StringIO()
+    f = BytesIO()
     document.save(f)
     length = f.tell()
     f.seek(0)
