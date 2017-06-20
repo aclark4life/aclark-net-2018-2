@@ -12,7 +12,6 @@ from django.db.models import Q
 from django.db.models import F
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -373,7 +372,7 @@ def generate_doc():
     document.save(f)
     length = f.tell()
     f.seek(0)
-    response = HttpResponse(
+    response = HttpResponseRedirect(
         f.getvalue(),
         content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
