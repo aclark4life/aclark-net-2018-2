@@ -356,7 +356,7 @@ def generate_doc():
     # ---- Cover Letter ----
     # document.add_picture((r'%s/static/images/my-header.png' % (settings.PROJECT_PATH)), width=Inches(4))
     document.add_paragraph()
-    document.add_paragraph("%s" % date.today().strftime('%B %d, %Y'))
+    document.add_paragraph("%s" % timezone.now().strftime('%B %d, %Y'))
     document.add_paragraph('Dear Sir or Madam:')
     document.add_paragraph('We are pleased to help you with your widgets.')
     document.add_paragraph('Please feel free to contact me for any additional information.')
