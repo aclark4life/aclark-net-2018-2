@@ -24,4 +24,21 @@ module.exports = {
           'window.jQuery': 'jquery' 
       })
   ],
+  module: {
+      loaders: [
+          //a regexp that tells webpack use the following loaders on all 
+          //.js and .jsx files
+          {test: /\.jsx?$/, 
+              //we definitely don't want babel to transpile all the files in 
+              //node_modules. That would take a long time.
+              exclude: /node_modules/, 
+              //use the babel loader 
+              loader: 'babel-loader', 
+              query: {
+                  //specify that we will be dealing with React code
+                  presets: ['react'] 
+              }
+          }
+      ]
+  },
 }
