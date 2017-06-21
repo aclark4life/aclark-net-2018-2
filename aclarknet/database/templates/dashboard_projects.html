@@ -17,13 +17,13 @@
                   </thead>
                   <tbody>
                     {% for project in projects %}
-                    <tr class="table-{{ item.task.color }}">
-                      <td>{% if item.client %}<a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-{{ icon_size }}" style="vertical-align: middle;"></i> {{ item.client }}</a>{% endif %}</td>
-                      <td>{{ item.client|default:'' }}</td>
-                      <td>{% if item.name %}<a href="{% url 'project' item.pk %}"><i class="fa fa-folder-open fa-{{ icon_size }}" style="vertical-align: middle;"></i> {{ item.name }}</a>{% endif %}</td>
-                      <td>{{ item.name|default:'' }}</td>
-                      <td>{{ item.task.color|default:'' }}</td>
-                      <td><a href="{% url 'project' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
+                    <tr class="table-{{ project.task.color }}">
+                      <td>{% if project.client %}<a href="{% url 'client' project.client.pk %}"><i class="fa fa-building fa-{{ icon_size }}" style="vertical-align: middle;"></i> {{ project.client }}</a>{% endif %}</td>
+                      <td>{{ project.client|default:'' }}</td>
+                      <td>{% if project.name %}<a href="{% url 'project' project.pk %}"><i class="fa fa-folder-open fa-{{ icon_size }}" style="vertical-align: middle;"></i> {{ project.name }}</a>{% endif %}</td>
+                      <td>{{ project.name|default:'' }}</td>
+                      <td>{{ project.task.color|default:'' }}</td>
+                      <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
