@@ -1,0 +1,25 @@
+{
+  "name": "aclarknet-database",
+  "version": "1.0.0",
+  "description": "ACLARK.NET, LLC Database Application",
+  "main": "index.js",
+  "directories": {
+    "man": "man"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ACLARKNET/aclarknet-database.git"
+  },
+  "keywords": [
+    "postgresql"
+  ],
+  "author": "Alex Clark",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ACLARKNET/aclarknet-database/issues"
+  },
+  "homepage": "https://github.com/ACLARKNET/aclarknet-database#readme"
+}
