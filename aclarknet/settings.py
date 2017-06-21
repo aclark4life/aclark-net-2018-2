@@ -170,3 +170,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':
     ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', ),
 }
+
+# http://geezhawk.github.io/using-react-with-django-rest-framework
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'aclarknet/static/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
