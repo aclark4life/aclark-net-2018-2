@@ -12,7 +12,7 @@
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contract' %}active{% endif %}"><a class="nav-link" href="{% url 'contract_index' %}">Contracts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'estimate' %}active{% endif %}"><a class="nav-link" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'invoice' %}active{% endif %}"><a class="nav-link" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'newsletter' %}active{% endif %}"><a class="nav-link" href="{% url 'newsletter_index' %}">Newsletters</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'note' %}active{% endif %}"><a class="nav-link" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'project' %}active{% endif %}"><a class="nav-link" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'task' %}active{% endif %}"><a class="nav-link" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'time' %}active{% endif %}"><a class="nav-link" href="{% url 'entry_index' %}">Times</a></li>{% endif %}
