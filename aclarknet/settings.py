@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'aclarknet.database',
     'rest_framework',
     'social_django',
-    'webpack_loader',
+#    'webpack_loader',
 ]
 
 MIDDLEWARE_CLASSES = (
