@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,7 +41,6 @@
         <div class="col-md-12" id="content">
 {% include 'messages.html' %}
 {% include 'banner.html' %}
-{% render_bundle ‘main’ %}
         {% else %}
         <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main" id="content">
 {% include 'messages.html' %}
