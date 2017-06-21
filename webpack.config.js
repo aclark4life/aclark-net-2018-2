@@ -13,5 +13,15 @@ module.exports = {
   output: {
     path: path.resolve('./aclarknet/static/'), 
     filename: 'aclarknet-bundle-[name]-[hash].js'
-  }
+  },
+  plugins: [
+      //tells webpack where to store data about your bundles.
+      new BundleTracker({filename: './webpack-stats.json'}), 
+      //makes jQuery available in every module
+      new webpack.ProvidePlugin({ 
+          $: 'jquery',
+          jQuery: 'jquery',
+          'window.jQuery': 'jquery' 
+      })
+  ],
 }
