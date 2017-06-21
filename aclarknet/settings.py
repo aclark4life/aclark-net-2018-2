@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'aclarknet.database',
     'rest_framework',
     'social_django',
-#    'webpack_loader',
+    'webpack_loader',
 ]
 
 MIDDLEWARE_CLASSES = (
@@ -173,9 +173,14 @@ REST_FRAMEWORK = {
 }
 
 # http://geezhawk.github.io/using-react-with-django-rest-framework
+# https://github.com/ezhome/django-webpack-loader
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'aclarknet/static/',
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/', # must end with slash
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
     }
 }
