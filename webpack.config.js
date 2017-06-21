@@ -8,8 +8,10 @@ var webpack = require('webpack')
 var BundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
+  context: __dirname,
   entry: './aclarknet/static/app.js',
   output: {
-    filename: 'aclarknet/static/aclarknet-bundle.js'
+    path: path.resolve('./aclarknet/static/'), 
+    filename: 'aclarknet-bundle.js'
   }
 }
