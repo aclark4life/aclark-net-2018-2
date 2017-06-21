@@ -12,6 +12,6 @@ module.exports = {
   entry: './aclarknet/static/app.js',
   output: {
     path: path.resolve('./aclarknet/static/'), 
-    filename: 'aclarknet-bundle.js'
+    filename: 'aclarknet-bundle-[name]-[hash].js'
   }
 }
