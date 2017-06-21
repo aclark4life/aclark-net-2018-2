@@ -473,6 +473,7 @@ def home(request):
     settings = Settings.get_solo()
     gross, net = dashboard_totals(Invoice)
     fields = ('active', 'hidden')
+    context = {}
     # context = index_items(
     #     request,
     #     Project,
