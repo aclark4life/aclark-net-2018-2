@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './app.js',
+  entry: './aclarknet/static/app.js',
   output: {
     filename: 'aclarknet/static/aclarknet-bundle.js'
   }
