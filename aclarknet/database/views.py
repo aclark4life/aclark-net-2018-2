@@ -472,8 +472,8 @@ def home(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     gross, net = dashboard_totals(Invoice)
-    fields = ('active', 'hidden')
     context = {}
+    # fields = ('active', 'hidden')
     # context = index_items(
     #     request,
     #     Project,
@@ -484,7 +484,7 @@ def home(request):
         last_payment_date=None).order_by('amount')
     notes = Note.objects.filter(active=True).order_by('-created', 'note',
                                                       'due_date', 'priority')
-    projects = Project.objects.filter(active=True).order_by=('client__name')
+    projects = Project.objects.filter(active=True)
     context['edit_url'] = 'project_edit'  # Delete modal
     context['company'] = company
     context['invoices'] = invoices
