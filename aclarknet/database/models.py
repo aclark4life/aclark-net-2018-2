@@ -160,6 +160,11 @@ class Estimate(models.Model):
         null=True, )
     accepted_date = models.DateField(blank=True, null=True)
     declined_date = models.DateField(blank=True, null=True)
+    project = models.ForeignKey(
+        "Project",
+        blank=True,
+        null=True,
+        limit_choices_to={'active': True}, )
 
     def __str__(self):
         if self.client and self.document_id:
