@@ -761,11 +761,13 @@ def project(request, pk=None):
     project = get_object_or_404(Project, pk=pk)
     times = Time.objects.filter(
         project=project, invoiced=False).order_by('-date')
+    estimates = Estimate.objects.filter(project=project)
     invoices = Invoice.objects.filter(project=project)
     context['active_nav'] = 'project'
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete modal
     context['icon_size'] = settings.icon_size
+    context['estimates'] = estimates
     context['invoices'] = invoices
     context['item'] = project
     context['times'] = times
