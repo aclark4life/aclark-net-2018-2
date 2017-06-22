@@ -316,7 +316,7 @@ class Project(models.Model):
         null=True,
         limit_choices_to={'active': True}, )
     name = models.CharField(
-        "Project Name", max_length=300, blank=True, null=True, unique=True)
+        "Project Name", max_length=300, blank=True, null=True)
     code = models.IntegerField("Project Code", blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
