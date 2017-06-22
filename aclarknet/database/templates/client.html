@@ -95,6 +95,7 @@
                   <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
                   <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">Stop</th>
                   <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
+                  <th>View</th>
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -106,6 +107,7 @@
                 <td>{{ project.start_date|date:'U' }}</td>
                 <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                 <td>{{ project.end_date|date:'U' }}</td>
+                <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                 <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
               </tr>
               {% endfor %} 
