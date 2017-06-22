@@ -553,6 +553,8 @@ def obj_copy(obj, url_name):
         url_name = 'newsletter_edit'
     elif obj._meta.verbose_name == 'contract':
         url_name = 'contract_edit'
+    elif obj._meta.verbose_name == 'project':
+        url_name = 'project_edit'
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
