@@ -310,7 +310,7 @@ def contract(request, pk=None):
         document.save(f)
         length = f.tell()
         f.seek(0)
-        response = HttpResponset(
+        response = HttpResponse(
             f.getvalue(),
             content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         )
