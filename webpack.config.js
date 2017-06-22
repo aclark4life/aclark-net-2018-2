@@ -12,7 +12,8 @@ module.exports = {
   entry: './aclarknet/static/app.js',
   output: {
     path: path.resolve('./aclarknet/static/'), 
-    filename: 'aclarknet-bundle-[name]-[hash].js'
+    // filename: 'aclarknet-bundle-[name]-[hash].js'
+    filename: 'aclarknet-bundle.js'
   },
   plugins: [
       //tells webpack where to store data about your bundles.
