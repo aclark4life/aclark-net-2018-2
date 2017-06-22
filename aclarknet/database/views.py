@@ -304,10 +304,19 @@ def contract(request, pk=None):
         return generate_pdf(
             'pdf_contract.html', context=context, file_object=response)
     if doc:
-        response = HttpResponse(content_type='application/docx')
-        filename = get_filename(company)
+        # https://stackoverflow.com/a/24122313/185820
+        document = generate_doc()
+        f = BytesIO()
+        document.save(f)
+        length = f.tell()
+        f.seek(0)
+        response = HttpResponset(
+            f.getvalue(),
+            content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        )
         response['Content-Disposition'] = 'filename=%s.docx' % filename
-        return generate_doc()
+        response['Content-Length'] = length
+        return response
     else:
         return render(request, 'contract.html', context)
 

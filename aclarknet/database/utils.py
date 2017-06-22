@@ -366,19 +366,7 @@ def generate_doc():
     document.add_paragraph('Best regards,')
     document.add_paragraph('Acme Specialist 1]')
     document.add_page_break()
-    # Prepare document for download        
-    # -----------------------------
-    f = BytesIO()
-    document.save(f)
-    length = f.tell()
-    f.seek(0)
-    response = HttpResponseRedirect(
-        f.getvalue(),
-        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    )
-    response['Content-Disposition'] = 'attachment; filename=' + docx_title
-    response['Content-Length'] = length
-    return response
+    return document
 
 
 def get_active_kwarg(model, active=False, user=None):
