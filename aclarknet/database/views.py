@@ -306,6 +306,7 @@ def contract(request, pk=None):
     if doc:
         # https://stackoverflow.com/a/24122313/185820
         document = generate_doc()
+        filename = get_filename(company)
         f = BytesIO()
         document.save(f)
         length = f.tell()
