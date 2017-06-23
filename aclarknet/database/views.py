@@ -46,6 +46,8 @@ from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
 from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
@@ -623,6 +625,16 @@ def invoice_index(request):
 def login(request):
     context = {}
     context['login'] = True
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.add_message(request, messages.WARNING, 'Login failed.')
+            return HttpResponseRedirect(reverse('home'))
     return render(request, 'login.html', context)
 
 
