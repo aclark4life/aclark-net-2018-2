@@ -37,7 +37,7 @@
           </ul>
         </div>
         {% endif %}
-        {% if request.user.is_anonymous %}
+        {% if request.user.is_anonymous and not login %}
         <div class="col-md-12" id="content">
 {% include 'messages.html' %}
 {% include 'banner.html' %}

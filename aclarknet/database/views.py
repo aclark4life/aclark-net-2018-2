@@ -622,6 +622,7 @@ def invoice_index(request):
 
 def login(request):
     context = {}
+    context['login'] = True
     return render(request, 'login.html', context)
 
 
