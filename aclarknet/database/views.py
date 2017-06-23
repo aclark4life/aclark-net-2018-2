@@ -621,6 +621,11 @@ def invoice_index(request):
 
 
 @staff_member_required
+def login(request):
+    return render(request, 'login.html', context)
+
+
+@staff_member_required
 def log_index(request):
     settings = Settings.get_solo()
     fields = ('entry', )
