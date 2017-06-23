@@ -47,7 +47,7 @@ from .utils import send_mail
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from django.contrib.auth import login
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
@@ -630,7 +630,8 @@ def login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
+            # https://stackoverflow.com/a/39316967/185820
+            auth_login(request, user)
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.add_message(request, messages.WARNING, 'Login failed.')
