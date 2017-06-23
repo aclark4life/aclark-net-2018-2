@@ -622,6 +622,7 @@ def invoice_index(request):
 
 @staff_member_required
 def login(request):
+    context = {}
     return render(request, 'login.html', context)
 
 
