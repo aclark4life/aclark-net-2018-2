@@ -617,7 +617,7 @@ def obj_misc(obj,
 def paginate(items, page):
     """
     """
-    paginator = Paginator(items, 10, orphans=5)
+    paginator = Paginator(items, 5, orphans=5)
     try:
         items = paginator.page(page)
     except PageNotAnInteger:
