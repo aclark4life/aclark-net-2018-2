@@ -10,24 +10,16 @@
               </div>
               <!-- Table header on left side in Bootstrap? -->
               <!-- https://stackoverflow.com/a/28612922/185820 -->
-              <table class="table">
+              <table class="table table-responsive">
                   <tbody>
-                      <tr>
-                        <th>Icon Size</th>
-                        <td>{{ settings.icon_size|default:'' }}</td>
-                      </tr>
-                      <tr>
-                        <th>First Name</th>
-                        <td>John</td>
-                      </tr>
-                      <tr>
-                        <th>Last Name</th>
-                        <td>Carter</td>
-                      </tr>
                     <tr>
-                        <th>Email</th>
-                          <td>johncarter@mail.com</td>
-                      </tr>
+                      <th>Icon Size</th>
+                      <td>{{ settings.icon_size|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Page Size</th>
+                      <td>{{ settings.page_size|default:'' }}</td>
+                    </tr>
                   </tbody>
               </table>
 {% endblock %}
