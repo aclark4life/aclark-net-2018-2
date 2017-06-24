@@ -44,9 +44,6 @@
 .table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
     vertical-align: top;
 }
-.table tbody>tr>td>a {  /* http://stackoverflow.com/a/13771448/185820 */
-    vertical-align: top;
-}
 .table-responsive {
     margin: 1em 0 1em 0;
 }
