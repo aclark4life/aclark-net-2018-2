@@ -42,6 +42,7 @@ from .utils import edit
 from .utils import entries_total
 from .utils import generate_doc
 from .utils import get_filename
+from .utils import get_icon_size
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
