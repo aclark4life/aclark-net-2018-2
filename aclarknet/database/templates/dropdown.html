@@ -1,5 +1,5 @@
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-2x"></i></a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API Root</a>
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> Company Profile</a>{% endif %}
