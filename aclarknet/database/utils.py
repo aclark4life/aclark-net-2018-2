@@ -524,7 +524,7 @@ def index_items(request,
         items = paginate(items, page)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
-    context['icon_size'] = app_settings.icon_size
+    context['icon_size'] = get_icon_size(request, app_settings)
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
