@@ -291,6 +291,7 @@ class Profile(models.Model):
     avatar_url = models.URLField(blank=True, null=True)
     notify = models.BooleanField(default=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
+    page_size = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -387,6 +388,7 @@ class Settings(SingletonModel):
     """
     """
     icon_size = models.CharField(max_length=255, blank=True, null=True)
+    page_size = models.PositiveIntegerField(blank=True, null=True)
 
 
 class Testimonial(models.Model):
