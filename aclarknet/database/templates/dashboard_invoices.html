@@ -18,7 +18,7 @@
                     <tr>
                       {% if invoice.client %}<td><a href="{% url 'client' invoice.client.pk %}"><i class="fa fa-building fa-{{ icon_size }} valign-middle"></i>{{ invoice.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                       <td>{{ invoice.client }}</td>
-                      <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
+                      <td><a href="{% url 'invoice' invoice.pk %}">View item <i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                       <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
                       <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
                     </tr>
