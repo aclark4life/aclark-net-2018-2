@@ -446,7 +446,8 @@ def get_search_results(model,
                        search,
                        active_nav='',
                        app_settings=None,
-                       edit_url=''):
+                       edit_url='',
+                       request=None):
     context = {}
     query = []
     for field in fields:
@@ -454,7 +455,7 @@ def get_search_results(model,
     items = model.objects.filter(reduce(OR, query))
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
-    context['icon_size'] = app_settings.icon_size
+    context['icon_size'] = get_icon_size(request, app_settings)
     context['items'] = items
     return context
 
@@ -492,7 +493,8 @@ def index_items(request,
                 search,
                 active_nav=active_nav,
                 app_settings=app_settings,
-                edit_url=edit_url)
+                edit_url=edit_url,
+                request=request)
     # Not a search
     if filters:
         items = model.objects.filter(**filters)
