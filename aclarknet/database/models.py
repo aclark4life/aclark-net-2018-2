@@ -290,6 +290,7 @@ class Profile(models.Model):
         decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
     notify = models.BooleanField(default=True)
+    icon_size = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
