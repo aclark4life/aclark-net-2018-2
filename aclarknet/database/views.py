@@ -1131,8 +1131,6 @@ def user_edit(request, pk=None):
     context = {}
     kwargs = {}
     user = get_object_or_404(User, pk=pk)
-    profile = Profile.objects.get_or_create(user=user)[0]
-    profile.save()
     context['user'] = user
     url_name = 'user_index'
     if pk:
