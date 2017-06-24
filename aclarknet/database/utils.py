@@ -486,7 +486,8 @@ def index_items(request,
     # Search is easy
     if request.method == 'POST':
         if search == u'':  # Empty search returns none
-            return {}
+            context['show_search'] = True
+            return context
         else:
             return get_search_results(
                 model,
