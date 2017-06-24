@@ -42,7 +42,7 @@
                   {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-{{ icon_size }} valign-middle"></i>{{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                   <td>{{ item.client|default:'' }}</td>
                   {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"><i class="fa fa-tasks fa-{{ icon_size }} valign-middle"></i>{{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
-                  <td><a href="{% url 'project' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
+                  <td><a href="{% url 'project' item.pk %}">View item <i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                   <td><a href="{% url 'entry_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle fa-{{ icon_size }}"></i></a></td>
                   <td><a href="{% url 'project_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                   <td>
