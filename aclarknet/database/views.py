@@ -314,10 +314,9 @@ def contract(request, pk=None):
         document.save(f)
         length = f.tell()
         f.seek(0)
-        response = HttpResponse(
-            f.getvalue(),
-            content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        )
+        content_type = 'application/vnd.openxmlformats-'
+        content_type += 'officedocument.wordprocessingml.document'
+        response = HttpResponse(f.getvalue(), content_type=content_type)
         response['Content-Disposition'] = 'filename=%s.docx' % filename
         response['Content-Length'] = length
         return response

@@ -103,8 +103,8 @@ class ContractSettingsForm(forms.ModelForm):
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
-        fields = ('document_id', 'issue_date', 'client', 'subject',
-                  'project', 'accepted_date')
+        fields = ('document_id', 'issue_date', 'client', 'subject', 'project',
+                  'accepted_date')
 
 
 class InvoiceForm(forms.ModelForm):

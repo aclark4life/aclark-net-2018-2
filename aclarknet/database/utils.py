@@ -19,11 +19,9 @@ from django.utils import timezone
 from docx import Document
 from functools import reduce
 from import_export import widgets
-from io import BytesIO
 from hashlib import md5
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
-
 
 
 class BooleanWidget(widgets.Widget):
@@ -353,14 +351,12 @@ def generate_doc():
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
-    docx_title="TEST_DOCUMENT.docx"
-    # ---- Cover Letter ----
-    # document.add_picture((r'%s/static/images/my-header.png' % (settings.PROJECT_PATH)), width=Inches(4))
     document.add_paragraph()
     document.add_paragraph("%s" % timezone.now().strftime('%B %d, %Y'))
     document.add_paragraph('Dear Sir or Madam:')
-    document.add_paragraph('We are pleased to help you with your widgets.')
-    document.add_paragraph('Please feel free to contact me for any additional information.')
+    document.add_paragraph('We are pleased to help you.')
+    document.add_paragraph(
+        'Please feel free to contact me for any additional information.')
     document.add_paragraph('I look forward to assisting you in this project.')
     document.add_paragraph()
     document.add_paragraph('Best regards,')
@@ -422,7 +418,7 @@ def get_setting(request, settings, setting):
             return user_pref
         else:
             return settings.page_size
-        
+
 
 def get_query(request, query):
     """
