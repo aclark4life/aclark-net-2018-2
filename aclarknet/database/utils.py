@@ -457,6 +457,7 @@ def get_search_results(model,
     context['edit_url'] = edit_url
     context['icon_size'] = get_icon_size(request, app_settings)
     context['items'] = items
+    context['show_search'] = True
     return context
 
 
