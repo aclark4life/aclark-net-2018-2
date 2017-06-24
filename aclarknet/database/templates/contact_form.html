@@ -9,10 +9,10 @@
                             <h4 class="modal-title">Are you sure?</h4>
                           </div>
                           <div class="modal-body">
-                              You are about to add a contact!
+                              You are about to add {{ user }} to contacts!
                           </div>
                           <div class="modal-footer">
-                            <form action="{% url 'user_contact' item.pk %}" method="post">
+                            <form action="{% url 'user_contact' user.pk %}" method="post">
                               {% csrf_token %}
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                               <button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()">Add</button>
