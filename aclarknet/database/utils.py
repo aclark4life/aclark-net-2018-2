@@ -406,15 +406,22 @@ def get_filename(company):
     return company_name
 
 
-def get_icon_size(request, settings):
+def get_setting(request, settings, setting):
     """
-    Allow user to override global icon size
+    Allow user to override global setting
     """
-    user_pref = request.user.profile.icon_size
-    if user_pref:
-        return user_pref
-    else:
-        return settings.icon_size
+    if setting == 'icon_size':
+        user_pref = request.user.profile.icon_size
+        if user_pref:
+            return user_pref
+        else:
+            return settings.icon_size
+    if setting == 'page_size':
+        user_pref = request.user.profile.page_size
+        if user_pref:
+            return user_pref
+        else:
+            return settings.page_size
         
 
 def get_query(request, query):
@@ -455,7 +462,7 @@ def get_search_results(model,
     items = model.objects.filter(reduce(OR, query))
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
-    context['icon_size'] = get_icon_size(request, app_settings)
+    context['icon_size'] = get_setting(request, app_settings, 'icon_size')
     context['items'] = items
     context['show_search'] = True
     return context
@@ -525,10 +532,11 @@ def index_items(request,
         items = []
     # Paginate if paginated
     if paginated:
-        items = paginate(items, page)
+        page_size = get_setting(request, app_settings, 'page_size')
+        items = paginate(items, page, page_size)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
-    context['icon_size'] = get_icon_size(request, app_settings)
+    context['icon_size'] = get_setting(request, app_settings, 'icon_size')
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
@@ -629,10 +637,10 @@ def obj_misc(obj,
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
-def paginate(items, page):
+def paginate(items, page, page_size):
     """
     """
-    paginator = Paginator(items, 3, orphans=5)
+    paginator = Paginator(items, page_size, orphans=5)
     try:
         items = paginator.page(page)
     except PageNotAnInteger:

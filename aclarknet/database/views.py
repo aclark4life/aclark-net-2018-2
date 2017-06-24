@@ -42,7 +42,7 @@ from .utils import edit
 from .utils import entries_total
 from .utils import generate_doc
 from .utils import get_filename
-from .utils import get_icon_size
+from .utils import get_setting
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -111,7 +111,7 @@ def client(request, pk=None):
     projects = projects.order_by('-start_date')
     context['active_nav'] = 'client'
     context['edit_url'] = 'client_edit'
-    context['icon_size'] = get_icon_size(request, settings)
+    context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['item'] = client
     context['contacts'] = contacts
     context['projects'] = projects
@@ -494,7 +494,7 @@ def home(request):
     context['edit_url'] = 'project_edit'  # Delete modal
     context['company'] = company
     context['invoices'] = invoices
-    context['icon_size'] = get_icon_size(request, settings)
+    context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['gross'] = gross
     context['net'] = net
     context['notes'] = notes
@@ -796,7 +796,7 @@ def project(request, pk=None):
     context['active_nav'] = 'project'
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete modal
-    context['icon_size'] = get_icon_size(request, settings)
+    context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['estimates'] = estimates
     context['invoices'] = invoices
     context['item'] = project
@@ -1111,7 +1111,7 @@ def user(request, pk=None):
     context['active_nav'] = 'user'
     context['company'] = company
     context['edit_url'] = 'user_edit'  # Delete modal
-    context['icon_size'] = get_icon_size(request, settings)
+    context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['item'] = user
     context['profile'] = profile
     context['request'] = request
