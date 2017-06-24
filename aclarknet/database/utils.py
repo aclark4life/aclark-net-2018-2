@@ -406,11 +406,16 @@ def get_filename(company):
     return company_name
 
 
-def get_icon_size(app_settings, user):
+def get_icon_size(request, settings):
     """
     Allow user to override global icon size
     """
-
+    user_pref = request.user.profile.icon_size
+    if user_pref:
+        return user_pref
+    else:
+        return settings.icon_size
+        
 
 def get_query(request, query):
     """

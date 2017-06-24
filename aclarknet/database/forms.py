@@ -168,7 +168,7 @@ class NoteForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('active', 'published', 'bio', 'rate')
+        fields = ('active', 'published', 'bio', 'rate', 'icon_size')
 
 
 class ProjectForm(forms.ModelForm):
