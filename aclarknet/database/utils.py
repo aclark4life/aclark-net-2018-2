@@ -70,8 +70,9 @@ def add_user_to_contacts(request, model, pk=None):
                 return HttpResponseRedirect(reverse('user_index'))
             contact = model.objects.filter(email=user.email)
             if contact:
+                contact = contact[0].email
                 messages.add_message(request, messages.WARNING,
-                                     'No duplicate contacts: %s!' % contact)
+                                     'Found duplicate: %s!' % contact)
                 return HttpResponseRedirect(reverse('user_index'))
             contact = model(
                 email=user.email,
