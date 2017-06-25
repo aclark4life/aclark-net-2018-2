@@ -409,6 +409,7 @@ def get_setting(request, settings, setting):
     """
     if not request.user.is_authenticated:
         return
+    user_pref = None
     if setting == 'icon_size':
         user_pref = request.user.profile.icon_size
         if user_pref:
