@@ -28,9 +28,11 @@
 .nav-sidebar a:hover {
   text-decoration: underline; 
 }
+/*
 .note {
     margin: 0 0 2em 0;
 }
+*/
 .page-nav, .page-nav a, .page-nav a:hover {
     color: #CDCDCE;
 }
