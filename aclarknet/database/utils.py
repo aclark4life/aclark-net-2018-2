@@ -409,7 +409,6 @@ def get_setting(request, settings, setting):
     """
     if not request.user.is_authenticated:
         return
-    user_pref = None
     if setting == 'icon_size':
         user_pref = request.user.profile.icon_size
         if user_pref:
@@ -423,9 +422,9 @@ def get_setting(request, settings, setting):
         else:
             return settings.page_size
     if setting == 'dashboard_choices':
-        if request.user.profile.override_dashboard:
-            user_pref = request.user.profile.dashboard_choices
-        if user_pref:
+        user_pref = request.user.profile.dashboard_choices
+        override = request.user.profile.override_dashboard
+        if override:
             return user_pref
         else:
             return settings.dashboard_choices
