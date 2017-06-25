@@ -7,7 +7,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">  <!-- http://stackoverflow.com/a/25044880/185820 -->
 {% include 'dropdown.html' %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}active{% endif %}"><a class="nav-link text-white {% if active_nav == 'client' %}bg-inverse text-white{% endif %}" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}bg-info{% endif %}"><a class="nav-link text-white {% if active_nav == 'client' %}text-white{% endif %}" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contact' %}active{% endif %}"><a class="nav-link text-white" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contract' %}active{% endif %}"><a class="nav-link text-white" href="{% url 'contract_index' %}">Contracts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'estimate' %}active{% endif %}"><a class="nav-link text-white" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
