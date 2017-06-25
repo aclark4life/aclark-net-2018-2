@@ -13,6 +13,8 @@ fake = Faker()
 
 # https://github.com/goinnn/django-multiselectfield
 DASHBOARD_CHOICES = (
+    ('data', 'Data'),
+    ('invoices', 'Invoices'),
     ('notes', 'Notes'),
     ('projects', 'Projects'),
     ('totals', 'Totals'),
