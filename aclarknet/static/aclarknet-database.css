@@ -110,6 +110,6 @@ img:hover {
 .modal-body img:hover {
   cursor: default;
 }
-html body nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top div#navbarsExampleDefault.collapse.navbar-collapse ul.navbar-nav.mr-auto li.nav-item a.nav-link.text-white {
+html body nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top div#navbarsExampleDefault.collapse.navbar-collapse ul.navbar-nav.mr-auto li.nav-item a.nav-link:hover {
     background: #449D44;
 }
