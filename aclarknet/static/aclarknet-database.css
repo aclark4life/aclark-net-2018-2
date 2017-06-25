@@ -106,7 +106,7 @@ img:hover {
   cursor: pointer;
 }   
 .nav-link:hover {
-  cursor: pointer;
+  cursor: hand;
 }   
 .modal-body img:hover {
   cursor: default;
