@@ -421,6 +421,13 @@ def get_setting(request, settings, setting):
             return user_pref
         else:
             return settings.page_size
+    if setting == 'dashboard_choices':
+        if request.user.profile.override_dashboard:
+            user_pref = request.user.profile.dashboard_choices
+        if user_pref:
+            return user_pref
+        else:
+            return settings.dashboard_choices
 
 
 def get_query(request, query):
