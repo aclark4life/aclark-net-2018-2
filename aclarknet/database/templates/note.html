@@ -34,7 +34,9 @@
 {% include 'delete_form.html' %}
             <div class="row">
               <div class="col-md-12">
-                <p class="note">{{ item.note|safe }}</p>
+                <div class="card-block">
+                  <p class="card-text note">{{ item.note|safe }}</p>
+                </div>
               </div>
             </div> 
 {% endblock %}
