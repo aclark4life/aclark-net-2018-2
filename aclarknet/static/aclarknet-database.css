@@ -91,7 +91,7 @@ ul.dropdown-menu li a {
     color: black !important;
 }
 ul.nav.navbar-nav li a {
-    color: white;
+    color: white !important;
 }
 ul#project-invoices {
     list-style-type:none;
