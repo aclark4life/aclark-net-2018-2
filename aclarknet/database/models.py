@@ -11,6 +11,7 @@ from solo.models import SingletonModel
 
 fake = Faker()
 
+# https://github.com/goinnn/django-multiselectfield
 DASHBOARD_CHOICES = (
     ('notes', 'Notes'),
     ('projects', 'Projects'),
