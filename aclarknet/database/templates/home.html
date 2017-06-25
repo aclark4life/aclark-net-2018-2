@@ -19,8 +19,9 @@
           <hr>
           {% endif %}
           {% if request.user.is_staff %}
-          {{ settings.dashboard_choices }}
+          {% if 'notes' in settings.dashboard_choices %}
 {% include 'dashboard_notes.html' %}
+          {% endif %}
 {% include 'dashboard_projects.html' %}
 {% include 'dashboard_totals.html' %}
           {% endif %}
