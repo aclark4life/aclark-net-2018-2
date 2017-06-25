@@ -407,6 +407,8 @@ def get_setting(request, settings, setting):
     """
     Allow user to override global setting
     """
+    if not request.user.is_authenticated:
+        return
     if setting == 'icon_size':
         user_pref = request.user.profile.icon_size
         if user_pref:
