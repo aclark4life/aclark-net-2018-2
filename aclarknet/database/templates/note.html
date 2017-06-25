@@ -29,15 +29,12 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </div> 
 {% include 'delete_form.html' %}
-                <div class="table-responsive">
-                  <table data-toggle="table" data-classes="table table-no-bordered">
-                    <tbody>
-                      <tr>
-                        <td class="note">{{ item.note|safe }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div> </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="note">{{ item.note|safe }}</p>
+              </div>
+            </div> 
 {% endblock %}
