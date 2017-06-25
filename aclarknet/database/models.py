@@ -4,11 +4,18 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from faker import Faker
+from multiselectfield import MultiSelectField
 from uuid import uuid4
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
 
 fake = Faker()
+
+DASHBOARD_CHOICES = (
+    ('notes', 'Notes'),
+    ('projects', 'Projects'),
+    ('totals', 'Totals'),
+)
 
 # Create your models here.
 
@@ -389,6 +396,8 @@ class Settings(SingletonModel):
     """
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
+    dashboard_choices = MultiSelectField(choices=DASHBOARD_CHOICES,
+        null=True, blank=True)
 
 
 class Testimonial(models.Model):
