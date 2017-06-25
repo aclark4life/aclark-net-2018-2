@@ -20,33 +20,47 @@
 {% include 'delete_form.html' %}
               <div class="table-responsive">
                 <table data-toggle="table" data-classes="table table-no-bordered">
-                  <thead>
+                  <tbody>
                     <tr>
                       <th>Active</th>
-                      <th>Subscribed</th>
-                      <th>Title</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Email</th>
-                      <th>Mobile Phone</th>
-                      <th>Office Phone</th>
-                      <th>Fax</th>
-                      <th>Client</th>
+                      <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-subscribed"><input type="checkbox" value="on" name="checkbox-subscribed"{% if item.subscribed %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ item.title|default:'' }}</td>
-                    <td>{{ item.first_name }}</td>
-                    <td>{{ item.last_name }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.mobile_phone|default:'' }}</td>
-                    <td>{{ item.office_phone|default:'' }}</td>
-                    <td>{{ item.fax|default:'' }}</td>
-                    {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
-                  </tr>
+                    <tr>
+                      <th>Subscribed</th>
+                      <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-subscribed"><input type="checkbox" value="on" name="checkbox-subscribed"{% if item.subscribed %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    </tr>
+                    <tr>
+                      <th>Title</th>
+                      <td>{{ item.title|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <th>First Name</th>
+                      <td>{{ item.first_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Last Name</th>
+                      <td>{{ item.last_name }}</td>
+                    </tr>
+                    <tr>
+                      <th>Email</th>
+                      <td>{{ item.email }}</td>
+                    </tr>
+                    <tr>
+                      <th>Mobile Phone</th>
+                      <td>{{ item.mobile_phone|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Office Phone</th>
+                      <td>{{ item.office_phone|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Fax</th>
+                      <td>{{ item.fax|default:'' }}</td>
+                    </tr>
+                    <tr>
+                      <th>Client</th>
+                      {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
+                    </tr>
                   </tbody>
                 </table>
               </div>
