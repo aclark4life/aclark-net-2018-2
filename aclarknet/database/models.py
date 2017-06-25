@@ -17,8 +17,7 @@ DASHBOARD_CHOICES = (
     ('invoices', 'Invoices'),
     ('notes', 'Notes'),
     ('projects', 'Projects'),
-    ('totals', 'Totals'),
-)
+    ('totals', 'Totals'), )
 
 # Create your models here.
 
@@ -302,8 +301,8 @@ class Profile(models.Model):
     notify = models.BooleanField(default=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    dashboard_choices = MultiSelectField(choices=DASHBOARD_CHOICES,
-        null=True, blank=True)
+    dashboard_choices = MultiSelectField(
+        choices=DASHBOARD_CHOICES, null=True, blank=True)
     override_dashboard = models.BooleanField(default=False)
 
     def __str__(self):
@@ -402,8 +401,8 @@ class Settings(SingletonModel):
     """
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    dashboard_choices = MultiSelectField(choices=DASHBOARD_CHOICES,
-        null=True, blank=True)
+    dashboard_choices = MultiSelectField(
+        choices=DASHBOARD_CHOICES, null=True, blank=True)
 
 
 class Testimonial(models.Model):
