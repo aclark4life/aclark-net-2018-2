@@ -22,7 +22,11 @@
           {% if 'notes' in settings.dashboard_choices %}
 {% include 'dashboard_notes.html' %}
           {% endif %}
+          {% if 'projects' in settings.dashboard_choices %}
 {% include 'dashboard_projects.html' %}
+          {% endif %}
+          {% if 'totals' in settings.dashboard_choices %}
 {% include 'dashboard_totals.html' %}
+          {% endif %}
           {% endif %}
 {% endblock %}
