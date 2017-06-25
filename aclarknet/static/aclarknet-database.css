@@ -26,7 +26,7 @@
     color: lightgray;
 }
 .nav-sidebar a:hover {
-  text-decoration: underline; 
+    text-decoration: underline; 
 }
 /*
 .note {
@@ -83,7 +83,6 @@ td a:hover {
     width: 100%;
 }
 */
-
 tbody tr:hover a {
     text-decoration: none;
 }
@@ -105,11 +104,8 @@ ul#project-invoices {
     vertical-align: middle;
 }
 img:hover {
-  cursor: pointer;
+    cursor: pointer;
 }   
 .modal-body img:hover {
-  cursor: default;
-}
-html body nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top div#navbarsExampleDefault.collapse.navbar-collapse ul.navbar-nav.mr-auto li.nav-item:hover { 
-    background: #449D44 !important;
+    cursor: default;
 }
