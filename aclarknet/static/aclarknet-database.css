@@ -105,6 +105,9 @@ ul#project-invoices {
 img:hover {
   cursor: pointer;
 }   
+.nav-link:hover {
+  cursor: pointer;
+}   
 .modal-body img:hover {
   cursor: default;
 }
