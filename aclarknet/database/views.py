@@ -490,6 +490,7 @@ def home(request):
     notes = Note.objects.filter(active=True).order_by('-created', 'note',
                                                       'due_date', 'priority')
     projects = Project.objects.filter(active=True)
+    plot_items = Report.objects.filter(active=True)
     context['edit_url'] = 'project_edit'  # Delete modal
     context['company'] = company
     context['dashboard_choices'] = get_setting(request, settings,
@@ -502,6 +503,7 @@ def home(request):
     context['nav_status'] = 'active'
     context['projects'] = projects
     context['settings'] = settings
+    context['plot_items'] = plot_items
     return render(request, 'home.html', context)
 
 
