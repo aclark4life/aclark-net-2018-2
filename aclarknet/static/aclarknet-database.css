@@ -105,5 +105,5 @@ img:hover {
   cursor: default;
 }
 .text-color-hover {
-    color: black;
+    color: black !important;
 }
