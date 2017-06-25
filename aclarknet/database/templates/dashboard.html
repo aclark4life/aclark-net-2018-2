@@ -1,0 +1,15 @@
+          {% if 'data' in settings.dashboard_choices %}
+{% include 'dashboard_data.html' %}
+          {% endif %}
+          {% if 'invoices' in settings.dashboard_choices %}
+{% include 'dashboard_invoices.html' %}
+          {% endif %}
+          {% if 'notes' in settings.dashboard_choices %}
+{% include 'dashboard_notes.html' %}
+          {% endif %}
+          {% if 'projects' in settings.dashboard_choices %}
+{% include 'dashboard_projects.html' %}
+          {% endif %}
+          {% if 'totals' in settings.dashboard_choices %}
+{% include 'dashboard_totals.html' %}
+          {% endif %}
