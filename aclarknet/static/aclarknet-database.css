@@ -87,9 +87,11 @@ td a:hover {
 tbody tr:hover a {
     text-decoration: none;
 }
+/*
 ul.dropdown-menu li a {
     color: black !important;
 }
+*/
 /*
 ul.nav.navbar-nav li a {
     color: white; 
@@ -108,7 +110,7 @@ img:hover {
 .modal-body img:hover {
   cursor: default;
 }
-.nav-item:hover {
-    background: #449D44 !important;
-    border-radius: 2px !important;
+li.nav-item:hover {
+    background: #449D44; 
+    border-radius: 2px; 
 }
