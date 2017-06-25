@@ -379,7 +379,8 @@ def contract_settings_edit(request, pk=None):
         ContractSettings,
         'contract_settings',
         'contract_settings_edit.html',
-        pk=1)
+        pk=1,
+        active_nav='contract')
 
 
 @staff_member_required
