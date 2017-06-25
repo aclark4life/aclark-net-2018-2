@@ -19,7 +19,9 @@
           <hr>
           {% endif %}
           {% if request.user.is_staff %}
+          {% if settings.dashboard_choices.notes %}
 {% include 'dashboard_notes.html' %}
+          {% endif %}
 {% include 'dashboard_projects.html' %}
 {% include 'dashboard_totals.html' %}
           {% endif %}

@@ -499,6 +499,7 @@ def home(request):
     context['notes'] = notes
     context['nav_status'] = 'active'
     context['projects'] = projects
+    context['settings'] = settings
     return render(request, 'home.html', context)
 
 
