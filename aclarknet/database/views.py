@@ -492,7 +492,8 @@ def home(request):
     projects = Project.objects.filter(active=True)
     context['edit_url'] = 'project_edit'  # Delete modal
     context['company'] = company
-    context['dashboard_choices'] = get_setting(request, settings, 'dashboard_choices')
+    context['dashboard_choices'] = get_setting(request, settings,
+                                               'dashboard_choices')
     context['invoices'] = invoices
     context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['gross'] = gross
