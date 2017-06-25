@@ -104,3 +104,6 @@ img:hover {
 .modal-body img:hover {
   cursor: default;
 }
+.text-color-hover {
+    color: black;
+}
