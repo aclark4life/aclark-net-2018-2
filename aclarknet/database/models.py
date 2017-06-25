@@ -299,6 +299,8 @@ class Profile(models.Model):
     notify = models.BooleanField(default=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
+    dashboard_choices = MultiSelectField(choices=DASHBOARD_CHOICES,
+        null=True, blank=True)
 
     def __str__(self):
         return self.user.username
