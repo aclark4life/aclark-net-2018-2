@@ -304,6 +304,7 @@ class Profile(models.Model):
     page_size = models.PositiveIntegerField(blank=True, null=True)
     dashboard_choices = MultiSelectField(choices=DASHBOARD_CHOICES,
         null=True, blank=True)
+    override_dashboard = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
