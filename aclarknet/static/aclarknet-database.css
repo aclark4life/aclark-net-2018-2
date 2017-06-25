@@ -94,10 +94,13 @@ ul.nav.navbar-nav li a {
 ul#project-invoices {
     list-style-type:none;
 }
-.valign-middle {  /* http://stackoverflow.com/a/18541484 */
+/* http://stackoverflow.com/a/18541484 */
+/*
+.valign-middle {  
     vertical-align: middle;
     margin-right: 8px;
 }
+*/
 img:hover {
   cursor: pointer;
 }   
