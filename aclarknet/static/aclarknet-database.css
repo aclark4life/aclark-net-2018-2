@@ -111,5 +111,5 @@ img:hover {
   cursor: default;
 }
 html body nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top div#navbarsExampleDefault.collapse.navbar-collapse ul.navbar-nav.mr-auto li.nav-item:hover { 
-    background: #449D44;
+    background: #449D44 !important;
 }
