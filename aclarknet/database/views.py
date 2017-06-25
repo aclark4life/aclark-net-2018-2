@@ -367,6 +367,7 @@ def contract_settings(request):
     context = {}
     contract_settings = ContractSettings.get_solo()
     context['contract_settings'] = contract_settings
+    context['active_nav'] = 'contract'
     return render(request, 'contract_settings.html', context)
 
 
