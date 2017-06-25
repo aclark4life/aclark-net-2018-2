@@ -99,7 +99,7 @@ ul#project-invoices {
 }
 /* http://stackoverflow.com/a/18541484 */
 .valign-middle {  
-    vertical-align: middle !important;
+    vertical-align: middle; 
 }
 img:hover {
     cursor: pointer;
