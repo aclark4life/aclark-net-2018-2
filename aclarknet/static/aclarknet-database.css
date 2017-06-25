@@ -41,9 +41,12 @@
 .sidebar {
     opacity: 0.9;
 }
-.table tbody>tr>td {  /* http://stackoverflow.com/a/13771448/185820 */
+/* http://stackoverflow.com/a/13771448/185820 */
+/* 
+.table tbody>tr>td {  
     vertical-align: top;
 }
+*/
 .table-responsive {
     margin: 1em 0 1em 0;
 }
