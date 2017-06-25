@@ -108,3 +108,7 @@ img:hover {
 .modal-body img:hover {
   cursor: default;
 }
+.nav-item:hover {
+    background: #449D44;
+    border-radius: 2px;
+}
