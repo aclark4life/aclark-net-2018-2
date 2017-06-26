@@ -18,8 +18,7 @@
               </div>
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
-              <div class="table-responsive">
-              <table class="table table-bordered"> 
+              <table class="table table-no-bordered"> 
                 <thead>
                   <tr>
                     {% if request.user.is_staff %}
@@ -64,7 +63,6 @@
                   </tr>
                 </tbody>
               </table>
-              </div>
               {% if item.notes %}
               <div class="card note">
                 <div class="card-block">

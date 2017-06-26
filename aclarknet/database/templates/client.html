@@ -18,26 +18,24 @@
               </div>
             </div>
           </div>
-          <div class="table-responsive">
-            <table data-toggle="table" data-classes="table table-no-bordered">
-              <thead>
-                <tr>
-                  <th data-sort-name="hidden-active" data-sortable="false" {% if active %} data-visible="false" {% endif %}>Active</th> 
-                  <th data-field="hidden-active" data-sortable="false" data-visible="false">Hidden Active</th> 
-                  <th data-sort-name="hidden-name" data-sortable="false">Name</th>
-                  <th data-sortable="false">Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                  <td>{{ item.active }}</td>
-                  <td>{% if item.url %}<a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link fa-{{ icon_size }} valign-middle"></i> {{ item.name }}</a>{% else %}<i class="fa fa-building fa-{{ icon_size }} valign-middle"></i>{{ item.name }}{% endif %}</td>
-                  <td>{{ item.address }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table data-toggle="table" data-classes="table table-no-bordered">
+            <thead>
+              <tr>
+                <th data-sort-name="hidden-active" data-sortable="false" {% if active %} data-visible="false" {% endif %}>Active</th> 
+                <th data-field="hidden-active" data-sortable="false" data-visible="false">Hidden Active</th> 
+                <th data-sort-name="hidden-name" data-sortable="false">Name</th>
+                <th data-sortable="false">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                <td>{{ item.active }}</td>
+                <td>{% if item.url %}<a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link fa-{{ icon_size }} valign-middle"></i> {{ item.name }}</a>{% else %}<i class="fa fa-building fa-{{ icon_size }} valign-middle"></i>{{ item.name }}{% endif %}</td>
+                <td>{{ item.address }}</td>
+              </tr>
+            </tbody>
+          </table>
           {% if item.description %}
           <div class="row">
             <div class="col-md-12">
@@ -59,59 +57,55 @@
               <h2>Contacts</h2>
             </div>
           </div>
-          <div class="table-responsive">
-            <table data-toggle="table" data-classes="table table-no-bordered">
-              <thead>
-                <tr>
-                  <th data-sortable="true">First Name</th>
-                  <th data-sortable="true">Last Name</th>
-                  <th>View</th>
-                  <th>Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for contact in contacts %}
-                <tr>
-                  <td>{{ contact.first_name }}</td>
-                  <td>{{ contact.last_name }}</td>
-                  <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
-                  <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+          <table data-toggle="table" data-classes="table table-no-bordered">
+            <thead>
+              <tr>
+                <th data-sortable="true">First Name</th>
+                <th data-sortable="true">Last Name</th>
+                <th>View</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for contact in contacts %}
+              <tr>
+                <td>{{ contact.first_name }}</td>
+                <td>{{ contact.last_name }}</td>
+                <td><a href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
+                <td><a href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
           <div class="row">
             <div class="col-md-12">
               <h2>Projects</h2>
             </div>
           </div>
-          <div class="table-responsive">
-            <table data-toggle="table" data-classes="table table-no-bordered">
-              <thead>
-                <tr>
-                  <th data-sortable="true">Name</th>
-                  <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start</th>
-                  <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
-                  <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">Stop</th>
-                  <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
-                  <th>View</th>
-                  <th>Edit</th>
-                </tr>
-              </thead>
-              <tbody> 
-              {% for project in projects %}
+          <table data-toggle="table" data-classes="table table-no-bordered">
+            <thead>
               <tr>
-                <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
-                <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
-                <td>{{ project.start_date|date:'U' }}</td>
-                <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
-                <td>{{ project.end_date|date:'U' }}</td>
-                <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
-                <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+                <th data-sortable="true">Name</th>
+                <th data-field="start-date" data-sort-name="hidden-start-date" data-sortable="true">Start</th>
+                <th data-field="hidden-start-date" data-sortable="true" data-visible="false">Hidden Start Date</th>
+                <th data-field="end-date" data-sort-name="hidden-end-date" data-sortable="true">Stop</th>
+                <th data-field="hidden-end-date" data-sortable="true" data-visible="false">Hidden End Date</th>
+                <th>View</th>
+                <th>Edit</th>
               </tr>
-              {% endfor %} 
-              </tbody>
-            </table>
-          </div>
+            </thead>
+            <tbody> 
+            {% for project in projects %}
+            <tr>
+              <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+              <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
+              <td>{{ project.start_date|date:'U' }}</td>
+              <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
+              <td>{{ project.end_date|date:'U' }}</td>
+              <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
+              <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+            </tr>
+            {% endfor %} 
+            </tbody>
+          </table>
 {% endblock %}
