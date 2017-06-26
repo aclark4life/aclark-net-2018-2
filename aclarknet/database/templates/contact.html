@@ -38,11 +38,11 @@
                   </tr>
                   <tr>
                     <th>First Name</th>
-                    <td>{{ item.first_name }}</td>
+                    <td>{{ item.first_name|default:'' }}</td>
                   </tr>
                   <tr>
                     <th>Last Name</th>
-                    <td>{{ item.last_name }}</td>
+                    <td>{{ item.last_name|default:'' }}</td>
                   </tr>
                   <tr>
                     <th>Email</th>
