@@ -338,11 +338,14 @@ aclarknet-pg-restore:
 aclarknet-deploy:
 	@$(MAKE) git-commit-auto-push
 	@$(MAKE) aclarknet-remote-git-pull
+aclarknet-remote-static:
+	@$(MAKE) aclarknet-deploy
+	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
+	ssh db "sudo systemctl start gunicorn.socket"
 aclarknet-remote-git-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
 	ssh db "sudo systemctl stop gunicorn.socket"
 #	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
-#	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 	ssh db "sudo systemctl start gunicorn.socket"
 pack:
 	./node_modules/.bin/webpack --config webpack.config.js
