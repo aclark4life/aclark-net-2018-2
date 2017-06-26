@@ -38,7 +38,7 @@
                 <td><a href="{% url 'task_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                 <td>
                   <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o fa-{{ icon_size }}"></i></a>
-{% includedelete_form.html' %}
+{% include 'delete_form.html' %}
                 </td>
               </tr>
             {% endfor %}
