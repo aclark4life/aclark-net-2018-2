@@ -5,3 +5,6 @@ tbody tr:hover a {
     background: white;
     padding: 45px 0 15px 0;
 }
+.table-responsive {
+    margin: 1em 0 1em 0;
+}
