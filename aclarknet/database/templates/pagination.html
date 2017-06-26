@@ -1,11 +1,13 @@
           {% if items.paginator %}
-          <div class="offset-md-4 col-md-8 paginator"> <!-- Paginated -->
-            <span>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</span>
-            {% if items.has_previous %} <a class="btn btn-secondary" href="?page=1"><i class="fa fa-step-backward"></i></a> <a class="btn btn-secondary" href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left"></i></a> {% else %} <button class="btn btn-secondary" disabled><i class="fa fa-step-backward"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-left"></i></button> {% endif %}
-            <span>Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
-            {% if items.has_next %} <a class="btn btn-secondary" href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right"></i></a> <a class="btn btn-secondary" href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward"></i></a> {% else %} <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-right"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-step-forward"></i></button>
-            {% endif %}
-            <span><a class="btn btn-secondary" href="?paginated=false">Show all</a></span>
+          <div class="row">
+            <div class="offset-md-4 col-md-8 paginator"> <!-- Paginated -->
+              <span>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</span>
+              {% if items.has_previous %} <a class="btn btn-secondary" href="?page=1"><i class="fa fa-step-backward"></i></a> <a class="btn btn-secondary" href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left"></i></a> {% else %} <button class="btn btn-secondary" disabled><i class="fa fa-step-backward"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-left"></i></button> {% endif %}
+              <span>Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+              {% if items.has_next %} <a class="btn btn-secondary" href="?page={{ items.next_page_number }}"><i class="fa fa-chevron-circle-right"></i></a> <a class="btn btn-secondary" href="?page={{ items.paginator.num_pages }}"><i class="fa fa-step-forward"></i></a> {% else %} <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-right"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-step-forward"></i></button>
+              {% endif %}
+              <span><a class="btn btn-secondary" href="?paginated=false">Show all</a></span>
+            </div>
           </div>
           {% else %}
           <div class="row">
