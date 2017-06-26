@@ -1,3 +1,6 @@
+table {
+    margin: 15px 0 15px 0;
+}
 tbody tr:hover a {
     text-decoration: none;
 }
