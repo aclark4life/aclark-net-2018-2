@@ -21,6 +21,9 @@ class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = '__all__'
+        widgets = {
+            'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class CompanyForm(forms.ModelForm):
