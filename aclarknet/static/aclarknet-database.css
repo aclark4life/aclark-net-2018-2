@@ -5,3 +5,9 @@ tbody tr:hover a {
     background: white;
     padding: 45px 0 15px 0;
 }
+.banner {
+    text-align: center;padding: 10% 0 10% 0;
+}
+.banner div, .banner h3 {
+    font-size: 400%;
+}
