@@ -44,14 +44,6 @@
             </div>
           </div>
           {% endif %}
-          {% if item.notes %}
-          <div class="card note">
-            <div class="card-block">
-              <h2 class="card-title">Notes</h2>
-              <p class="card-text">{{ item.notes|safe|default:'' }}</p>
-            </div>
-          </div>
-          {% endif %}
           <div class="row">
             <div class="col-md-12">
               <h2>Contacts</h2>
@@ -108,4 +100,12 @@
             {% endfor %} 
             </tbody>
           </table>
+          {% if item.notes %}
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Notes</h2>
+              <p>{{ item.notes|safe|default:'' }}</p>
+            </div>
+          </div>
+          {% endif %}
 {% endblock %}
