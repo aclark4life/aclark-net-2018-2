@@ -10,6 +10,9 @@ tbody tr:hover a {
 .banner div, .banner h3 {
     font-size: 400%;
 }
+.paginator {
+    margin: 15px 0 15px 0;
+}
 .sidebar {
     opacity: 0.9;
 }
