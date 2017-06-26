@@ -14,3 +14,6 @@ tbody tr:hover a {
 .sidebar {
     opacity: 0.9;
 }
+.table-responsive {
+    margin: 1em 0 1em 0;
+}
