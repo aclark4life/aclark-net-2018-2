@@ -1,3 +1,6 @@
+h2 {
+    margin: 1em 0 1em 0;
+}
 tbody tr:hover a {
     text-decoration: none;
 }
