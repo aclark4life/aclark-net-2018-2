@@ -57,34 +57,6 @@
           <!------------------------------------------------------------------------------------>
           <div class="row">
             <div class="col-md-12">
-              <h2>Times</h2>
-            </div>
-          </div> 
-          <table data-toggle="table" data-classes="table table-no-bordered">
-            <thead>
-              <tr>
-                <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
-                <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                <th data-field="hours" data-sortable="true">Hours</th>
-                <th data-field="notes" data-sortable="true">Notes</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for entry in times %}
-            <tr>
-              <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
-              <td>{{ entry.date|date:'U' }}</td>
-              <td>{{ entry.hours|default:'' }}</td>
-              <td>{{ entry.notes|default:'' }}</td>
-              <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-          <!------------------------------------------------------------------------------------>
-          <div class="row">
-            <div class="col-md-12">
               <h2>Estimates</h2>
             </div>
           </div>
@@ -144,6 +116,34 @@
                 <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
               </tr>
               {% endfor %}
+            </tbody>
+          </table>
+          <!------------------------------------------------------------------------------------>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Times</h2>
+            </div>
+          </div> 
+          <table data-toggle="table" data-classes="table table-no-bordered">
+            <thead>
+              <tr>
+                <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                <th data-field="hours" data-sortable="true">Hours</th>
+                <th data-field="notes" data-sortable="true">Notes</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for entry in times %}
+            <tr>
+              <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
+              <td>{{ entry.date|date:'U' }}</td>
+              <td>{{ entry.hours|default:'' }}</td>
+              <td>{{ entry.notes|default:'' }}</td>
+              <td><a href="{% url 'entry_edit' entry.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+            </tr>
+            {% endfor %}
             </tbody>
           </table>
 {% endblock %}
