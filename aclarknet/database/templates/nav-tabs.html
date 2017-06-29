@@ -1,0 +1,12 @@
+              <div class="row">
+                <div class="col-md-12">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link {% if active_tab == 'system' %}active{% endif %}" href="{% url tab_url %} ">System</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link {% if active_tab == 'contract' %}active{% endif %}" href="{% url tab_url %}">Contract</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
