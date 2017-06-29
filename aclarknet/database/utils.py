@@ -460,12 +460,13 @@ def get_search_results(model,
                        active_nav='',
                        app_settings=None,
                        edit_url='',
+                       order_by='-date',
                        request=None):
     context = {}
     query = []
     for field in fields:
         query.append(Q(**{field + '__icontains': search}))
-    items = model.objects.filter(reduce(OR, query))
+    items = model.objects.filter(reduce(OR, query)).order_by(order_by)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings, 'icon_size')
