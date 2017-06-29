@@ -403,7 +403,7 @@ def get_filename(company):
     return company_name
 
 
-def get_setting(request, settings, setting):
+def get_setting(request, settings, setting, page_size=None):
     """
     Allow user to override global setting
     """
@@ -490,6 +490,7 @@ def index_items(request,
                 app_settings=None,
                 active_nav='',
                 edit_url='',
+                page_size=None,
                 show_search=False):
     """
     """
@@ -539,7 +540,7 @@ def index_items(request,
         items = []
     # Paginate if paginated
     if paginated:
-        page_size = get_setting(request, app_settings, 'page_size')
+        page_size = get_setting(request, app_settings, 'page_size', page_size=page_size)
         items = paginate(items, page, page_size)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url

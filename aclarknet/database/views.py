@@ -1083,6 +1083,7 @@ def time_index(request):
         active_nav='time',
         app_settings=settings,
         edit_url='entry_edit',  # Delete modal
+        page_size=5,
         order_by=('-date', ),
         show_search=True)
     if not request.user.is_staff:
