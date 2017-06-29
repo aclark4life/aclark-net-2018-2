@@ -460,7 +460,7 @@ def get_search_results(model,
                        active_nav='',
                        app_settings=None,
                        edit_url='',
-                       order_by='-date',
+                       order_by='-updated',
                        request=None):
     context = {}
     query = []
