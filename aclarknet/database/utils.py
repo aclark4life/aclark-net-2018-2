@@ -419,6 +419,8 @@ def get_setting(request, settings, setting, page_size=None):
         user_pref = request.user.profile.page_size
         if user_pref:
             return user_pref
+        elif page_size:  # View's page_size preference
+            return page_size
         else:
             return settings.page_size
     if setting == 'dashboard_choices':
