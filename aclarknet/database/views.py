@@ -947,7 +947,7 @@ def settings(request):
     context = {}
     settings = Settings.get_solo()
     context['settings'] = settings
-    context['active_tab'] = 'settings'
+    context['active_tab'] = 'system'
     context['tab_url'] = 'settings'
     return render(request, 'settings.html', context)
 
