@@ -542,7 +542,8 @@ def index_items(request,
         items = []
     # Paginate if paginated
     if paginated:
-        page_size = get_setting(request, app_settings, 'page_size', page_size=page_size)
+        page_size = get_setting(
+            request, app_settings, 'page_size', page_size=page_size)
         items = paginate(items, page, page_size)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
