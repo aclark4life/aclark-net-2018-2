@@ -646,7 +646,6 @@ def obj_misc(obj,
     if obj._meta.verbose_name == 'contract' and pk is None:
         text = ''
         for field in obj._meta.fields:
-            import pdb ; pdb.set_trace()
             if field.description == 'Text' and field.name != 'body':
                 text = text + '\n' + getattr(contract_settings, field.name)
             setattr(obj, 'body', text)
