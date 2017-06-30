@@ -2,28 +2,33 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-4">
-                  <h1>Company</h1>
+                  <h1>Settings</h1>
                 </div>
                 <div class="col-md-2 offset-md-6">
                   <a class="btn btn-lg btn-block btn-success" href="{% url 'company_edit' %}">Edit <i class="fa fa-cog"></i></a>
                 </div>
               </div>
+{% include 'nav-tabs.html' %}
               {% if company.name %}
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>{{ company.name|default:'' }}</td>
-                  <td>{{ company.address|default:'' }}</td>
-                </tr>
-                </tbody>
-              </table>
-              <h2>Notes</h2>
-              <div class="note">{{ company.notes|safe|default:'' }}</div>
-              {% endif %}
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>{{ company.name|default:'' }}</td>
+                      <td>{{ company.address|default:'' }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <h2>Notes</h2>
+                  <div class="note">{{ company.notes|safe|default:'' }}</div>
+                  {% endif %}
+                </div>
+              </div>
 {% endblock %}
