@@ -111,13 +111,7 @@ class Contract(models.Model):
         limit_choices_to={'accepted_date': None})
     task = models.ForeignKey(
         'Task', blank=True, null=True, limit_choices_to={'active': True})
-    timing_of_payment = models.TextField(blank=True, null=True)
-    termination = models.TextField(blank=True, null=True)
-    governing_laws = models.TextField(blank=True, null=True)
-    confidentiality = models.TextField(blank=True, null=True)
-    taxes = models.TextField(blank=True, null=True)
-    limited_warranty = models.TextField(blank=True, null=True)
-    complete_agreement = models.TextField(blank=True, null=True)
+    body = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
