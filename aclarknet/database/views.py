@@ -163,6 +163,7 @@ def company(request):
     context = {}
     company = Company.get_solo()
     context['company'] = company
+    context['active_tab'] = 'company'
     return render(request, 'company.html', context)
 
 
@@ -368,7 +369,6 @@ def contract_settings(request):
     contract_settings = ContractSettings.get_solo()
     context['contract_settings'] = contract_settings
     context['active_tab'] = 'contract'
-    context['tab_url'] = 'settings'
     return render(request, 'contract_settings.html', context)
 
 
@@ -949,7 +949,6 @@ def settings(request):
     settings = Settings.get_solo()
     context['settings'] = settings
     context['active_tab'] = 'system'
-    context['tab_url'] = 'contract_settings'
     return render(request, 'settings.html', context)
 
 
