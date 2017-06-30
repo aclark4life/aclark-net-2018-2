@@ -2,7 +2,6 @@
             <a class="nav-link dropdown-toggle text-white" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API Root</a>
-              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> Company Profile</a>{% endif %}
               <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Django Admin</a>
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-file-o"></i> Logs</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-file-o"></i> Newsletters</a>{% endif %}
