@@ -35,9 +35,6 @@ urlpatterns = [
     url(r'^client/(?P<pk>\d+)/edit$', views.client_edit, name='client_edit'),
     url(r'^client/add$', views.client_edit, name='client_edit'),
     url(r'^client$', views.client_index, name='client_index'),
-    # Company
-    url(r'^company/edit$', views.company_edit, name='company_edit'),
-    url(r'^company$', views.company, name='company'),
     # Contact
     url(r'^contact/(?P<pk>\d+)$', views.contact, name='contact'),
     url(r'^contact/(?P<pk>\d+)/edit$', views.contact_edit,
@@ -56,13 +53,6 @@ urlpatterns = [
         name='contract_edit'),
     url(r'^contract/add$', views.contract_edit, name='contract_edit'),
     url(r'^contract$', views.contract_index, name='contract_index'),
-    # Contract Settings
-    url(r'^contract/settings/edit$',
-        views.contract_settings_edit,
-        name='contract_settings_edit'),
-    url(r'^contract/settings$',
-        views.contract_settings,
-        name='contract_settings'),
     # Estimate
     url(r'^estimate/(?P<pk>\d+)$', views.estimate, name='estimate'),
     url(r'^estimate/(?P<pk>\d+)/edit$',
@@ -108,8 +98,19 @@ urlpatterns = [
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
     url(r'^report_plot$', views.report_plot, name='report_plot'),
     # Settings
-    url(r'^settings/edit$', views.settings_edit, name='settings_edit'),
-    url(r'^settings$', views.settings, name='settings'),
+    ## System
+    url(r'^settings/system/edit$', views.settings_edit, name='settings_edit'),
+    url(r'^settings/system$', views.settings, name='settings'),
+    ## Company
+    url(r'^settings/company/edit$', views.company_edit, name='company_edit'),
+    url(r'^settings/company$', views.company, name='company'),
+    ## Contract
+    url(r'^settings/contract/edit$',
+        views.contract_settings_edit,
+        name='contract_settings_edit'),
+    url(r'^settings/contract$',
+        views.contract_settings,
+        name='contract_settings'),
     # Social
     url('', include(
         'django.contrib.auth.urls', namespace='auth')),
