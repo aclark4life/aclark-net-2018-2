@@ -424,8 +424,10 @@ def get_setting(request, settings, setting, page_size=None):
         else:
             return settings.page_size
     if setting == 'dashboard_choices':
-        user_pref = request.user.profile.dashboard_choices
-        override = request.user.profile.override_dashboard
+        override = user_pref = None
+        if request.user.profile:
+            user_pref = request.user.profile.dashboard_choices
+            override = request.user.profile.override_dashboard
         if override:
             return user_pref
         else:
@@ -642,6 +644,7 @@ def obj_misc(obj,
     if obj._meta.verbose_name == 'contract' and pk is None:
         text = ''
         for field in obj._meta.fields:
+            import pdb ; pdb.set_trace()
             if field.description == 'Text' and field.name != 'body':
                 text = text + '\n' + getattr(contract_settings, field.name)
             setattr(obj, 'body', text)
