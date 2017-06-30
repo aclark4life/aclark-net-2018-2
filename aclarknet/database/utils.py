@@ -640,11 +640,12 @@ def obj_misc(obj,
         url_name = 'home'
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
+        text = ''
         for field in obj._meta.fields:
             if field.description == 'Text' and field.name != 'body':
-                setattr(obj, field.name, getattr(contract_settings,
-                                                 field.name))
-                obj.save()
+                text = text + '\n' + getattr(contract_settings, field.name)
+            setattr(obj, 'body', text)
+            obj.save()
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
