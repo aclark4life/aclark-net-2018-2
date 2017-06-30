@@ -641,7 +641,7 @@ def obj_misc(obj,
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         for field in obj._meta.fields:
-            if field.description == 'Text':
+            if field.description == 'Text' and field.name != 'body':
                 setattr(obj, field.name, getattr(contract_settings,
                                                  field.name))
                 obj.save()
