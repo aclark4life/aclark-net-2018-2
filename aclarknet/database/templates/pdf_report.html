@@ -1,3 +1,15 @@
+              <style>
+                  .logo h1 {
+                    font-size: 400%;
+                    font-weight: normal;
+                    margin: 0;
+                    padding: 0;
+                    color: orange;
+                  }
+              </style>
+              {% if pdf %}
+              <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name }}</h1></div></div>
+              {% endif %}
               <table data-toggle="table" data-classes="table table-no-bordered">
                 <thead>
                   <tr>
@@ -32,15 +44,15 @@
                   <table data-toggle="table" data-classes="table table-no-bordered">
                     <thead>
                       <tr>
-                        <th>Amount</th>
                         <th>Client</th>
+                        <th>Amount</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for invoice in item.invoices.all %}
                       <tr>
-                        <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                         <td>{{ invoice.client }}</td>
+                        <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                        </tr>
                       {% endfor %}
                     </tbody>
