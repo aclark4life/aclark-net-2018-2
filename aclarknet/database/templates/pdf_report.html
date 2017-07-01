@@ -1,0 +1,49 @@
+              <table data-toggle="table" data-classes="table table-no-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Gross</th>
+                    <th>Net</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.date }}</td>
+                  <td>{{ item.gross }}</td>
+                  <td>{{ item.net }}</td>
+                  <td>{{ cost }}</td>
+                </tr>
+                </tbody>
+              </table>
+              {% if item.notes %}
+              <div class="row"> 
+                <div class="col-md-12">
+                  <h2>Notes</h2>
+                  <div class="note">{{ item.notes|linebreaks|default:'' }}</div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="row"> 
+                <div class="col-md-12">
+                  <h2>Invoices</h2>
+                  <table data-toggle="table" data-classes="table table-no-bordered">
+                    <thead>
+                      <tr>
+                        <th>Amount</th>
+                        <th>Client</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for invoice in item.invoices.all %}
+                      <tr>
+                        <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
+                        <td>{{ invoice.client }}</td>
+                       </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
