@@ -861,11 +861,13 @@ def report(request, pk=None):
     pdf = get_query(request, 'pdf')
     context['pdf'] = pdf
     report = get_object_or_404(Report, pk=pk)
+    reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     context['active_nav'] = 'report'
     context['company'] = company
     context['cost'] = report.gross - report.net
     context['edit_url'] = 'report_edit'  # Delete modal
     context['item'] = report
+    context['reports'] = reports
     if pdf:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
