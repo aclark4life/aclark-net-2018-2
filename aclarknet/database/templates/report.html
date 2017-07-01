@@ -53,7 +53,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {% for invoice in item.invoices %}
+                      {% for invoice in item.invoices.all %}
                       <tr><td>{{ invoice }}</td></tr>
                       {% endfor %}
                     </tbody>
