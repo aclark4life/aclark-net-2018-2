@@ -392,7 +392,7 @@ class Settings(SingletonModel):
     """
     """
     icon_size = models.CharField(max_length=255, blank=True, null=True)
-    page_size = models.PositiveIntegerField(blank=True, default=0, null=True)
+    page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         choices=DASHBOARD_CHOICES, null=True, blank=True)
 
