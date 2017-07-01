@@ -861,6 +861,7 @@ def report(request, pk=None):
     pdf = get_query(request, 'pdf')
     context['pdf'] = pdf
     report = get_object_or_404(Report, pk=pk)
+    reports = Report.objects.filter(active=True)
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     context['active_nav'] = 'report'
     context['company'] = company
