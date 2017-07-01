@@ -856,9 +856,11 @@ def project_index(request, pk=None):
 
 @staff_member_required
 def report(request, pk=None):
+    company = Company.get_solo()
     context = {}
     report = get_object_or_404(Report, pk=pk)
     context['active_nav'] = 'report'
+    context['company'] = company
     context['cost'] = report.gross - report.net
     context['edit_url'] = 'report_edit'  # Delete modal
     context['item'] = report
