@@ -858,13 +858,21 @@ def project_index(request, pk=None):
 def report(request, pk=None):
     company = Company.get_solo()
     context = {}
+    pdf = get_query(request, 'pdf')
+    context['pdf'] = pdf
     report = get_object_or_404(Report, pk=pk)
     context['active_nav'] = 'report'
     context['company'] = company
     context['cost'] = report.gross - report.net
     context['edit_url'] = 'report_edit'  # Delete modal
     context['item'] = report
-    return render(request, 'report.html', context)
+    if pdf:
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
+        return generate_pdf(
+            'pdf_report.html', context=context, file_object=response)
+    else:
+        return render(request, 'report.html', context)
 
 
 @staff_member_required
