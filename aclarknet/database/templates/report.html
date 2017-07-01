@@ -58,7 +58,7 @@
                       {% for invoice in item.invoices.all %}
                       <tr>
                         <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
-                        <td>{{ company.currency_symbol }}{{ invoice.client }}</td>
+                        <td>{{ invoice.client }}</td>
                        </tr>
                       {% endfor %}
                     </tbody>
