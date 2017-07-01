@@ -486,7 +486,7 @@ def estimate_index(request):
 def home(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
-    gross, net = dashboard_totals(Invoice)
+    gross, net, invoices_active = dashboard_totals(Invoice)
     context = {}
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
@@ -869,7 +869,7 @@ def report(request, pk=None):
 def report_edit(request, pk=None):
     kwargs = {}
     url_name = 'report_index'
-    gross, net = dashboard_totals(Invoice)
+    gross, net, invoices_active = dashboard_totals(Invoice)
     if pk:
         kwargs['pk'] = pk
         url_name = 'report'
@@ -881,6 +881,7 @@ def report_edit(request, pk=None):
         'report_edit.html',
         active_nav='report',
         gross=gross,
+        invoices_active=invoices_active,
         kwargs=kwargs,
         net=net,
         pk=pk)

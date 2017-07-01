@@ -177,7 +177,7 @@ def dashboard_totals(model):
             gross += invoice.subtotal
         if invoice.amount:
             net += invoice.amount
-    return gross, net
+    return gross, net, invoices_active
 
 
 def edit_amounts(obj,
@@ -223,6 +223,7 @@ def edit(request,
          contract_settings=None,
          context={},
          gross=None,
+         invoices_active=None,  # for reporting
          kwargs={},
          active_nav=None,
          net=None,
