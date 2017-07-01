@@ -46,15 +46,20 @@
               {% endif %}
               <div class="row"> 
                 <div class="col-md-12">
+                  <h2>Invoices</h2>
                   <table data-toggle="table" data-sort-name="id" data-sort-order="desc" data-classes="table table-no-bordered">
                     <thead>
                       <tr>
-                        <th>Invoice</th>
+                        <th>Amount</th>
+                        <th>Client</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for invoice in item.invoices.all %}
-                      <tr><td>{{ invoice }}</td></tr>
+                      <tr>
+                        <td>{{ invoice.amount }}</td>
+                        <td>{{ invoice.client }}</td>
+                       </tr>
                       {% endfor %}
                     </tbody>
                   </table>
