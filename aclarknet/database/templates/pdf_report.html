@@ -51,14 +51,14 @@
                   <table data-toggle="table" data-classes="table table-no-bordered" {% if pdf %}border=1 {% endif %}>
                     <thead>
                       <tr>
-                        <th><strong>Client</strong></th>
+                        <th>Client</th>
                         <th>Amount</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for invoice in item.invoices.all %}
                       <tr>
-                        <td>{{ invoice.client }}</td>
+                        <td><strong>{{ invoice.client }}</strong></td>
                         <td>{{ company.currency_symbol }}{{ invoice.amount }}</td>
                        </tr>
                       {% endfor %}
