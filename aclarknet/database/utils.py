@@ -409,8 +409,8 @@ def get_setting(request, settings, setting, page_size=None):
     """
     if not request.user.is_authenticated:
         return
+    override = user_pref = None
     if setting == 'icon_size':
-        user_pref = None
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.icon_size
         if user_pref:
@@ -418,7 +418,8 @@ def get_setting(request, settings, setting, page_size=None):
         else:
             return settings.icon_size
     if setting == 'page_size':
-        user_pref = request.user.profile.page_size
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.page_size
         if user_pref:
             return user_pref
         elif page_size:  # View's page_size preference
@@ -426,7 +427,6 @@ def get_setting(request, settings, setting, page_size=None):
         else:
             return settings.page_size
     if setting == 'dashboard_choices':
-        override = user_pref = None
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.dashboard_choices
             override = request.user.profile.override_dashboard
