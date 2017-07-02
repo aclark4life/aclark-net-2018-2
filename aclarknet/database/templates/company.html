@@ -32,7 +32,7 @@
                   {% for note in company.note.all %}
                   <div class="card">
                     <div class="card-block">
-                      <p class="card-text">{{ note|linebreaks|default:'' }}</p>
+                      <p class="card-text">{{ note.note|linebreaks|default:'' }}</p>
                     </div>
                   </div>
                   {% endfor %}
