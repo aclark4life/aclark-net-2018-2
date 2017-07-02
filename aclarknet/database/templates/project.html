@@ -126,7 +126,7 @@
           </div> 
           <ol>
             {% for team_member in item.team.all %}
-            <li><a href="{% url 'user' team_member.pk %}">{{ team_member.first_name }} {{ team_member.last_name }}</a></li>
+            <li><a href="{% url 'user' team_member.pk %}">{{ team_member.first_name }} {{ team_member.last_name }} ({{ team_member }})</a></li>
             {% endfor %}
           </ol>
           <!------------------------------------------------------------------------------------>
