@@ -29,7 +29,7 @@
                   <h2>Notes</h2>
                   <div>{{ company.notes|safe|default:'' }}</div>
                   {% endif %}
-                  {% for note in item.note.all %}
+                  {% for note in company.note.all %}
                   <div class="card">
                     <div class="card-block">
                       <p class="card-text">{{ note|linebreaks|default:'' }}</p>
