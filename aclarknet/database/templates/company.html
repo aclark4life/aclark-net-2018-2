@@ -27,8 +27,17 @@
                     </tbody>
                   </table>
                   <h2>Notes</h2>
-                  <div class="note">{{ company.notes|safe|default:'' }}</div>
+                  <div>{{ company.notes|safe|default:'' }}</div>
                   {% endif %}
+                  {% for note in item.note.all %}
+                  <div class="card">
+                    <div class="card-block">
+                      <p class="card-text">{{ note|linebreaks|default:'' }}</p>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+
                 </div>
               </div>
 {% endblock %}
