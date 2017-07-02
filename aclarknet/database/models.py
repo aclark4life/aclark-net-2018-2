@@ -280,6 +280,9 @@ class Note(models.Model):
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
+    class Meta:
+        ordering = ('pk',)
+
 
 class Profile(models.Model):
     """
