@@ -779,12 +779,16 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('note', )
+    filters = {
+        'hidden': False,
+    }
     context = index_items(
         request,
         Note,
         fields,
         active_nav='note',
         app_settings=settings,
+        filters=filters,
         order_by=('-active', '-created', 'note', 'due_date', 'priority'),
         show_search=True)
     context['edit_url'] = 'note_edit'  # Delete modal
