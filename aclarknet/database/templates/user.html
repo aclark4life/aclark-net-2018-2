@@ -37,6 +37,12 @@
                   </tr>
                 </tbody>
               </table>
+              <h2>Projects</h2>
+              <ul>
+                {% for project in projects %}
+                <li>{{ project }}</li>
+                {% endfor %}
+              </ul>
               <h2>Times</h2>
 {% include 'pagination.html' %}
               <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-classes="table table-no-bordered">

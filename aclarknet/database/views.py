@@ -1149,8 +1149,8 @@ def user(request, pk=None):
     #     times = index_items()
     #     context['projects'] = projects
     #     context['times'] = times
-    # projects = Project.objects.filter(team__in=user)
-    # context['projects'] = projects
+    projects = Project.objects.filter(team__in=[user,])
+    context['projects'] = projects
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
     else:
