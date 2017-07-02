@@ -126,7 +126,7 @@
           </div> 
           <ul>
             {% for team_member in item.team.all %}
-            <li>{{ team_member }}
+            <li><a href="{% url 'user' team_member.pk %}">{{ team_member }}</a></li>
             {% endfor %}
           </ul>
           <!------------------------------------------------------------------------------------>
