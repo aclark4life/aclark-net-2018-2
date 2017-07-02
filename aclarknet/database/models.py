@@ -25,6 +25,8 @@ DASHBOARD_CHOICES = (
 class Client(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
@@ -42,6 +44,8 @@ class Client(models.Model):
 class Company(SingletonModel):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     estimate_counter = models.IntegerField(
@@ -64,6 +68,8 @@ class Contact(models.Model):
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     subscribed = models.BooleanField(default=True)
     client = models.ForeignKey(
@@ -274,6 +280,8 @@ class Note(models.Model):
 class Profile(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
     bio = models.TextField(blank=True, null=True)
@@ -319,6 +327,8 @@ class Project(models.Model):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
     client = models.ForeignKey(
@@ -362,6 +372,8 @@ class Project(models.Model):
 class Report(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     date = models.DateField(default=timezone.now)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -383,6 +395,8 @@ class Report(models.Model):
 class Service(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -396,6 +410,8 @@ class Service(models.Model):
 class Settings(SingletonModel):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
@@ -405,6 +421,8 @@ class Settings(SingletonModel):
 class Testimonial(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -421,6 +439,8 @@ class Testimonial(models.Model):
 class Task(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     billable = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -446,6 +466,8 @@ class Time(models.Model):
     Rate, Billable Amount, Cost Rate, Cost Amount, Currency,
     External Reference URL
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     date = models.DateField(default=timezone.now)
     client = models.ForeignKey(
         Client,
