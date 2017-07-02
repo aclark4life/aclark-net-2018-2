@@ -121,6 +121,17 @@
           <!------------------------------------------------------------------------------------>
           <div class="row">
             <div class="col-md-12">
+              <h2>Team</h2>
+            </div>
+          </div> 
+          <ul>
+            {% for team_member in item.team.all %}
+            <li>{{ team_member }}
+            {% endfor %}
+          </ul>
+          <!------------------------------------------------------------------------------------>
+          <div class="row">
+            <div class="col-md-12">
               <h2>Times</h2>
             </div>
           </div> 
@@ -146,15 +157,4 @@
             {% endfor %}
             </tbody>
           </table>
-          <!------------------------------------------------------------------------------------>
-          <div class="row">
-            <div class="col-md-12">
-              <h2>Team</h2>
-            </div>
-          </div> 
-          <ul>
-            {% for team_member in item.team.all %}
-            <li>{{ team_member }}
-            {% endfor %}
-          </ul>
 {% endblock %}
