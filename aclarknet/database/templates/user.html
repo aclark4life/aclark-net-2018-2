@@ -53,6 +53,7 @@
                     <th data-field="hours" data-sortable="true">Hours</th>
                     <th data-field="project" data-sort-name="hidden-project" data-sortable="true">Project</th>
                     <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
+                    <th>Notes</th>
                     <th>Edit</th>
                   </tr>
                 </thead>
@@ -64,6 +65,7 @@
                   <td>{{ item.hours|default:'' }}</td>
                   <td>{% if item.project %}<a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a>{% endif %}</td>
                   <td>{{ item.project }}</td>
+                  <td>{{ item.notes }}</td>
                   <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                 </tr>
                 {% endfor %}
