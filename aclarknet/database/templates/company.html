@@ -26,15 +26,22 @@
                     </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+              {% endif %}
+              <div class="row">
+                <div class="col-md-12">
                   <h2>Notes</h2>
-                  {% endif %}
-                  {% for note in company.note.all %}
-                  <div class="card">
-                    <div class="card-block">
-                      <p class="card-text">{{ note.note|safe|default:'' }}</p>
+                    <div class="row">
+                      {% for note in company.note.all %}
+                      <div class="card col-md-6">
+                        <div class="card-block">
+                          <p class="card-text">{{ note.note|safe|default:'' }}</p>
+                        </div>
+                      </div>
+                      {% endfor %}
                     </div>
                   </div>
-                  {% endfor %}
                 </div>
               </div>
 {% endblock %}
