@@ -280,7 +280,7 @@ class Note(models.Model):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
     class Meta:
-        ordering = ('pk',)
+        ordering = ('pk', )
 
 
 class Profile(models.Model):
