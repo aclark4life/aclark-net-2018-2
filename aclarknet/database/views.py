@@ -1143,6 +1143,14 @@ def user(request, pk=None):
     context['profile'] = profile
     context['request'] = request
     context['total_dollars'] = '%.2f' % total_dollars
+    # XXX One off to list projects, maybe refactor index_items to return
+    # multiple listings e.g. 
+    #     projects = index_items()
+    #     times = index_items()
+    #     context['projects'] = projects
+    #     context['times'] = times
+    projects = Project.objects.filter(user=user)
+    context['projects'] = projects
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
     else:
