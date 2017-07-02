@@ -34,7 +34,7 @@
                   <h2>Notes</h2>
                     <div class="row">
                       {% for note in company.note.all %}
-                      <div class="card col-md-6">
+                      <div class="card offset-md-1 col-md-5">
                         <div class="card-block">
                           <p class="card-text">{{ note.note|safe|default:'' }}</p>
                         </div>
