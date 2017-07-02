@@ -144,6 +144,8 @@ class Estimate(models.Model):
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
     Discount, Tax, Tax2, Currency, Accepted Date, Declined Date
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, null=True, default=timezone.now)
     client = models.ForeignKey(
