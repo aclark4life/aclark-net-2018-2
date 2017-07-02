@@ -779,9 +779,7 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     settings = Settings.get_solo()
     fields = ('note', )
-    filters = {
-        'hidden': False,
-    }
+    filters = {'hidden': False, }
     context = index_items(
         request,
         Note,
@@ -1149,7 +1147,7 @@ def user(request, pk=None):
     #     times = index_items()
     #     context['projects'] = projects
     #     context['times'] = times
-    projects = Project.objects.filter(team__in=[user,]).order_by('-updated')
+    projects = Project.objects.filter(team__in=[user, ]).order_by('-updated')
     context['projects'] = projects
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)

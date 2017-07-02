@@ -97,14 +97,13 @@ urlpatterns = [
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
     url(r'^report_plot$', views.report_plot, name='report_plot'),
-    # Settings
-    ## System
+    # Settings -> System
     url(r'^settings/system/edit$', views.settings_edit, name='settings_edit'),
     url(r'^settings/system$', views.settings, name='settings'),
-    ## Company
+    # Settings -> Company
     url(r'^settings/company/edit$', views.company_edit, name='company_edit'),
     url(r'^settings/company$', views.company, name='company'),
-    ## Contract
+    # Settings -> Contract
     url(r'^settings/contract/edit$',
         views.contract_settings_edit,
         name='contract_settings_edit'),

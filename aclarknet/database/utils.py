@@ -211,30 +211,31 @@ def edit_amounts(obj,
         return HttpResponseRedirect(reverse(url_name))
 
 
-def edit(request,
-         form_model,
-         model,
-         url_name,
-         template,
-         amount=None,
-         client=None,
-         clients=[],
-         company=None,
-         contract_settings=None,
-         context={},
-         gross=None,
-         invoices_active=None,  # for reporting
-         kwargs={},
-         active_nav=None,
-         net=None,
-         pk=None,
-         paid_amount=None,
-         paid=None,
-         project=None,
-         projects=[],
-         subtotal=None,
-         task=None,
-         tasks=[]):
+def edit(
+        request,
+        form_model,
+        model,
+        url_name,
+        template,
+        amount=None,
+        client=None,
+        clients=[],
+        company=None,
+        contract_settings=None,
+        context={},
+        gross=None,
+        invoices_active=None,  # for reporting
+        kwargs={},
+        active_nav=None,
+        net=None,
+        pk=None,
+        paid_amount=None,
+        paid=None,
+        project=None,
+        projects=[],
+        subtotal=None,
+        task=None,
+        tasks=[]):
     obj = None
     if pk is None:
         form = create_form(
