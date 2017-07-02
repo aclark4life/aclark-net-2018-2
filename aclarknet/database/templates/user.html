@@ -38,11 +38,11 @@
                 </tbody>
               </table>
               <h2>Projects</h2>
-              <ul>
+              <ol>
                 {% for project in projects %}
                 <li><a href="{% url 'project' project.pk %}">{{ project }}</a></li>
                 {% endfor %}
-              </ul>
+              </ol>
               <h2>Times</h2>
 {% include 'pagination.html' %}
               <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-classes="table table-no-bordered">

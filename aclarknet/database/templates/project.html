@@ -124,11 +124,11 @@
               <h2>Team</h2>
             </div>
           </div> 
-          <ul>
+          <ol>
             {% for team_member in item.team.all %}
             <li><a href="{% url 'user' team_member.pk %}">{{ team_member }}</a></li>
             {% endfor %}
-          </ul>
+          </ol>
           <!------------------------------------------------------------------------------------>
           <div class="row">
             <div class="col-md-12">
