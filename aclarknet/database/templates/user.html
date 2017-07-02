@@ -15,61 +15,73 @@
                 </div>
               </div>
 {% include 'contact_form.html' %}
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Rate</th>
-                    <th>Username</th>
-                    <th>Total Hours</th>
-                    <th>Total Income</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.get_full_name|default:'' }}</td>
-                    <td>{{ item.profile.rate|default:'' }}</td>
-                    <td>{{ item.username|default:'' }}</td>
-                    <td>{{ total_hours|default:'' }}</td>
-                    <td>{{ company.currency_symbol }}{{ total_dollars }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h2>Projects</h2>
-              <ol>
-                {% for project in projects %}
-                <li><a href="{% url 'project' project.pk %}">{{ project }}</a></li>
-                {% endfor %}
-              </ol>
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Rate</th>
+                        <th>Username</th>
+                        <th>Total Hours</th>
+                        <th>Total Income</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.get_full_name|default:'' }}</td>
+                        <td>{{ item.profile.rate|default:'' }}</td>
+                        <td>{{ item.username|default:'' }}</td>
+                        <td>{{ total_hours|default:'' }}</td>
+                        <td>{{ company.currency_symbol }}{{ total_dollars }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>Projects</h2>
+                  <ol>
+                    {% for project in projects %}
+                    <li><a href="{% url 'project' project.pk %}">{{ project }}</a></li>
+                    {% endfor %}
+                  </ol>
+                </div>
+              </div>
               <h2>Times</h2>
+              <div class="row">
+                <div class="col-md-12">
 {% include 'pagination.html' %}
-              <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-classes="table table-no-bordered">
-                <thead>
-                  <tr>
-                    <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
-                    <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                    <th data-field="hours" data-sortable="true">Hours</th>
-                    <th data-field="project" data-sort-name="hidden-project" data-sortable="true">Project</th>
-                    <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
-                    <th>Notes</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for item in items %}
-                <tr>
-                  <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
-                  <td>{{ item.date|date:'U' }}</td>
-                  <td>{{ item.hours|default:'' }}</td>
-                  <td>{% if item.project %}<a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a>{% endif %}</td>
-                  <td>{{ item.project }}</td>
-                  <td>{{ item.notes }}</td>
-                  <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
-                </tr>
-                {% endfor %}
-                </tbody>
-              </table>
+                  <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-classes="table table-no-bordered">
+                    <thead>
+                      <tr>
+                        <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                        <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                        <th data-field="hours" data-sortable="true">Hours</th>
+                        <th data-field="project" data-sort-name="hidden-project" data-sortable="true">Project</th>
+                        <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
+                        <th>Notes</th>
+                        <th>Edit</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                    <tr>
+                      <td><a href="{% url 'entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
+                      <td>{{ item.date|date:'U' }}</td>
+                      <td>{{ item.hours|default:'' }}</td>
+                      <td>{% if item.project %}<a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a>{% endif %}</td>
+                      <td>{{ item.project }}</td>
+                      <td>{{ item.notes }}</td>
+                      <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
 {% include 'pagination.html' %}
+                </div>
+              </div>
 {% endblock %}
