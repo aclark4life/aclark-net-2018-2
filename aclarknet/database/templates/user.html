@@ -40,7 +40,7 @@
               <h2>Projects</h2>
               <ul>
                 {% for project in projects %}
-                <li>{{ project }}</li>
+                <li><a href="{% url 'project' project.pk %}">{{ project }}</a></li>
                 {% endfor %}
               </ul>
               <h2>Times</h2>
