@@ -269,9 +269,9 @@ class Note(models.Model):
     """
     """
     active = models.BooleanField(default=True)
+    hidden = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     due_date = models.DateField(blank=True, null=True)
-    hidden = models.BooleanField(default=False)
     note = models.TextField(blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
     updated = models.DateTimeField(auto_now=True)
