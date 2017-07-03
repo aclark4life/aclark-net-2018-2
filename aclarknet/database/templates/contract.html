@@ -8,9 +8,9 @@
               <div class="col-md-4">
                 <div class="card">
                   <div class="card-block">
-                    <p class="card-text text-muted">Created: <span class="float-right">{{ item.created }}</span></p>
-                    <p class="card-text text-muted">Updated: <span class="float-right">{{ item.updated }}</span></p>
-                    {% if item.due_date %}<p class="card-text text-muted">Due: <span class="float-right">{{ item.due_date }}</span></p>{% endif %}
+                    <p class="card-text text-muted">Created: {{ item.created }}</p>
+                    <p class="card-text text-muted">Updated: {{ item.updated }}</p>
+                    {% if item.due_date %}<p class="card-text text-muted">Due: {{ item.due_date }}</p>{% endif %}
                   </div>
                 </div>
               </div>
