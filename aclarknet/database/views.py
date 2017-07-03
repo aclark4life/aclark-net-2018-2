@@ -887,6 +887,11 @@ def proposal(request, pk=None):
         return render(request, 'proposal.html', context)
 
 
+def proposal_edit(request, pk=None):
+    """
+    """
+
+
 @staff_member_required
 def report(request, pk=None):
     company = Company.get_solo()
