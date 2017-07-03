@@ -364,7 +364,10 @@ def generate_doc(doc):
     parser = etree.HTMLParser()
     tree = etree.parse(StringIO(doc.body), parser)
     for element in tree.iter():
-        document.add_paragraph(element.text)
+        if element.tag == 'h2':
+            document.add_heading(element.text, level=2)
+        elif element.tag == 'p':
+            document.add_paragraph(element.text)
     return document
 
 
