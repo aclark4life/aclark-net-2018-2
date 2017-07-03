@@ -25,6 +25,7 @@ from .models import Newsletter
 from .models import Note
 from .models import Profile
 from .models import Project
+from .models import Proposal
 from .models import Report
 from .models import Service
 from .models import Settings
@@ -866,6 +867,24 @@ def project_index(request, pk=None):
         order_by=('-active', ),
         show_search=True)
     return render(request, 'project_index.html', context)
+
+
+@staff_member_required
+def proposal(request, pk=None):
+    context = {}
+    pdf = get_query(request, 'pdf')
+    context['pdf'] = pdf
+    proposal = get_object_or_404(Proposal, pk=pk)
+    context['active_nav'] = 'proposal'
+    context['edit_url'] = 'proposal_edit'
+    context['item'] = proposal
+    if pdf:
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
+        return generate_pdf(
+            'pdf_proposal.html', context=context, file_object=response)
+    else:
+        return render(request, 'proposal.html', context)
 
 
 @staff_member_required
