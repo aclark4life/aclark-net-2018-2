@@ -2,33 +2,29 @@
 {% load l10n %}
 {% block content %}
             <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-4">
-                    <h1>Contracts &raquo; Contract</h1>
+              <div class="col-md-4">
+                <h1>Contracts &raquo; Contract</h1>
+              </div>
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-block">
+                    <p class="card-text text-muted">Created: <span class="float-right">{{ item.created }}</span></p>
+                    <p class="card-text text-muted">Updated: <span class="float-right">{{ item.updated }}</span></p>
+                    {% if item.due_date %}<p class="card-text text-muted">Due: <span class="float-right">{{ item.due_date }}</span></p>{% endif %}
                   </div>
-                  <div class="col-md-4">
-                    <div class="card">
-                      <div class="card-block">
-                        <p class="card-text text-muted">Created: <span class="float-right">{{ item.created }}</span></p>
-                        <p class="card-text text-muted">Updated: <span class="float-right">{{ item.updated }}</span></p>
-                        {% if item.due_date %}<p class="card-text text-muted">Due: <span class="float-right">{{ item.due_date }}</span></p>{% endif %}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 float-right">
-                    <div class="dropdown">
-                      <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                      <ul class="dropdown-menu btn-block">
-                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle fa-{{ icon_size }}"></i> Copy</a></li>
-                        <li><a class="dropdown-item" href="{% url 'contract_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                        <li><a class="dropdown-item" href="{% url 'contract' pk=item.pk %}?doc=true" target="_blank"><i class="fa fa-file-word-o"></i> Export DocX</a></li>
-                        <li><a class="dropdown-item" href="{% url 'contract' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
+                </div>
+              </div>
+              <div class="col-md-4 float-right">
+                <div class="dropdown">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                  <ul class="dropdown-menu btn-block">
+                    <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle fa-{{ icon_size }}"></i> Copy</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contract_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contract' pk=item.pk %}?doc=true" target="_blank"><i class="fa fa-file-word-o"></i> Export DocX</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contract' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
 
-                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                      </ul>
-                    </div>
-                  </div>
+                    <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+                  </ul>
                 </div>
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
