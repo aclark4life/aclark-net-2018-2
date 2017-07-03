@@ -40,6 +40,7 @@
               </table>
             </div>
           </div>
+          <!-------------------------------------------------------------------------------->
           {% if item.description %}
           <div class="row">
             <div class="col-md-12">
@@ -48,6 +49,8 @@
             </div>
           </div>
           {% endif %}
+          <!-------------------------------------------------------------------------------->
+          {% if contacts %}
           <div class="row">
             <div class="col-md-12">
               <h2>Contacts</h2>
@@ -77,6 +80,37 @@
               </table>
             </div>
           </div>
+          <!-------------------------------------------------------------------------------->
+          {% if contracts %}
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Contracts</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table data-toggle="table" data-classes="table table-no-bordered">
+                <thead>
+                  <tr>
+                    <th data-sortable="true">Contract</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for contract in contracts %}
+                  <tr>
+                    <td>{{ contract }}</td>
+                    <td><a href="{% url 'contract' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
+                    <td><a href="{% url 'contract_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% endif %}
+          <!-------------------------------------------------------------------------------->
           {% if item.notes %}
           <div class="row">
             <div class="col-md-12">
