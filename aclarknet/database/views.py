@@ -312,7 +312,7 @@ def contract(request, pk=None):
             'pdf_contract.html', context=context, file_object=response)
     if doc:
         # https://stackoverflow.com/a/24122313/185820
-        document = generate_doc()
+        document = generate_doc(contract)
         filename = get_filename(company)
         f = BytesIO()
         document.save(f)

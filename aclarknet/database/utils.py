@@ -352,21 +352,12 @@ def entries_total(queryset):
             total)
 
 
-def generate_doc():
+def generate_doc(doc):
     """
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
-    document.add_paragraph()
-    document.add_paragraph("%s" % timezone.now().strftime('%B %d, %Y'))
-    document.add_paragraph('Dear Sir or Madam:')
-    document.add_paragraph('We are pleased to help you.')
-    document.add_paragraph(
-        'Please feel free to contact me for any additional information.')
-    document.add_paragraph('I look forward to assisting you in this project.')
-    document.add_paragraph()
-    document.add_paragraph('Best regards,')
-    document.add_paragraph('Acme Specialist 1]')
+    document.add_paragraph(doc.body)
     document.add_page_break()
     return document
 
