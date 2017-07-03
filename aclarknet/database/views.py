@@ -1142,7 +1142,7 @@ def user(request, pk=None):
     context['request'] = request
     context['total_dollars'] = '%.2f' % total_dollars
     # XXX One off to list projects, maybe refactor index_items to return
-    # multiple listings e.g. 
+    # multiple listings e.g.
     #     projects = index_items()
     #     times = index_items()
     #     context['projects'] = projects

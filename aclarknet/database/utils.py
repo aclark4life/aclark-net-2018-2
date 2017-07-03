@@ -575,19 +575,13 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    if obj._meta.verbose_name == 'time':
-        url_name = 'entry_edit'
-    elif obj._meta.verbose_name == 'newsletter':
-        url_name = 'newsletter_edit'
-    elif obj._meta.verbose_name == 'contract':
-        url_name = 'contract_edit'
-    elif obj._meta.verbose_name == 'project':
-        url_name = 'project_edit'
+    url_name = url_name_from(obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj, company, request=None):
-    url_name = url_name_from(obj._meta.verbose_name)  # Redir to index
+    url_name = url_name_from(
+        obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
         company.invoice_counter -= 1
@@ -703,20 +697,24 @@ def send_mail(request,
         return False
 
 
-def url_name_from(verbose_name):
+def url_name_from(verbose_name, page_type=None):
     """
     """
     url_name = {
-        'client': 'client_index',
-        'contact': 'contact_index',
-        'contract': 'contract_index',
-        'estimate': 'estimate_index',
-        'invoice': 'invoice_index',
-        'newsletter': 'newsletter_index',
-        'note': 'note_index',
-        'project': 'project_index',
-        'report': 'report_index',
-        'task': 'task_index',
-        'time': 'entry_index',
+        'client': ('client_edit', 'client_index'),
+        'contact': ('contact_edit', 'contact_index'),
+        'contract': ('contract_edit', 'contract_index'),
+        'estimate': ('estimate_edit', 'estimate_index'),
+        'invoice': ('invoice_edit', 'invoice_index'),
+        'newsletter': ('newsletter_edit', 'newsletter_index'),
+        'note': ('note_edit', 'note_index'),
+        'project': ('project_edit', 'project_index'),
+        'report': ('report_edit', 'report_index'),
+        'task': ('task_edit', 'task_index'),
+        'time': ('entry_edit', 'entry_index'),
     }
-    return url_name[verbose_name]
+
+    if page_type == 'index':
+        return url_name[verbose_name]
+    elif page_type == 'edit':
+        return url_name[verbose_name]
