@@ -16,6 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.html import strip_tags
 from docx import Document
 from functools import reduce
 from import_export import widgets
@@ -357,7 +358,7 @@ def generate_doc(doc):
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
-    document.add_paragraph(doc.body)
+    document.add_paragraph(strip_tags(doc.body))
     document.add_page_break()
     return document
 
