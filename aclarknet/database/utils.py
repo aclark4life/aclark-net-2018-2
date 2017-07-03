@@ -21,6 +21,8 @@ from docx import Document
 from functools import reduce
 from import_export import widgets
 from hashlib import md5
+from io import StringIO
+from lxml import etree
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
 
@@ -358,7 +360,11 @@ def generate_doc(doc):
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
-    document.add_paragraph(doc.body)
+    # http://lxml.de/parsing.html
+    parser = etree.HTMLParser()
+    tree = etree.parse(StringIO(doc.body), parser)
+    for element in tree.iter():
+        document.add_paragraph(element.txt)
     return document
 
 
