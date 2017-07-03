@@ -358,8 +358,7 @@ def generate_doc(doc):
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
-    document.add_paragraph(strip_tags(doc.body))
-    document.add_page_break()
+    document.add_paragraph(doc.body)
     return document
 
 
