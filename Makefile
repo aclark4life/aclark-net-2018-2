@@ -290,7 +290,7 @@ package-release-test:
 # Review
 review:
 ifeq ($(UNAME), Darwin)
-	@open -a "$(PROJECT_EDITOR)" `find $(PROJECT) -name \*.py | grep -v __init__.py | grep -v 00`\
+	@open -a "$(PROJECT_EDITOR)" `find $(PROJECT) -name \*.py | grep -v __init__.py | grep -v 00` \
 		`find $(PROJECT) -name \*.html`
 else
 	@echo "Unsupported"
