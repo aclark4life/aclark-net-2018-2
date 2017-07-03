@@ -17,7 +17,12 @@
               {% for field in fields %}
               <div class="row">
                 <div class="col-md-12">
-                  {{ field|safe }}
+                  <h3>{{ field.verbose_name }}</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  {{ field.get_default|safe }}
                 </div>
               </div>
               {% endfor %}
