@@ -713,8 +713,7 @@ def url_name_from(verbose_name, page_type=None):
         'task': ('task_edit', 'task_index'),
         'time': ('entry_edit', 'entry_index'),
     }
-
-    if page_type == 'index':
-        return url_name[verbose_name]
-    elif page_type == 'edit':
-        return url_name[verbose_name]
+    if page_type == 'edit':
+        return url_name[verbose_name][0]
+    elif page_type == 'index':
+        return url_name[verbose_name][1]
