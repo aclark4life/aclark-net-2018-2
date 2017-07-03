@@ -265,7 +265,8 @@ def edit(
             if copy:
                 return obj_copy(obj, url_name)
             if company_note:
-                return obj_edit(obj, company, company_note=True)
+                ref = request.META['HTTP_REFERER']
+                return obj_edit(obj, company, company_note=True, ref=ref)
             if delete:
                 return obj_delete(obj, company, request=request)
             # Check boxes
@@ -603,9 +604,10 @@ def obj_edit(obj,
              company,
              contract_settings,
              company_note=1,
+             ref=None,
              request=None,
-             pk=None,
              kwargs={},
+             pk=None,
              url_name=''):
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
@@ -653,7 +655,10 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+    if ref:
+        return HttpResponseRedirect(ref)
+    else:
+        return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def paginate(items, page, page_size):
