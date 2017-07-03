@@ -377,7 +377,6 @@ def contract_settings(request):
     for field in contract_settings._meta.fields:
         if field.description == 'Text' and field.name != 'body':
             fields.append(field)
-    context['contract_settings'] = contract_settings
     context['fields'] = fields
     context['active_tab'] = 'contract'
     return render(request, 'contract_settings.html', context)
