@@ -18,6 +18,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 # from django.utils.html import strip_tags
 from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from functools import reduce
 from import_export import widgets
 from hashlib import md5
@@ -360,11 +361,15 @@ def generate_doc(contract):
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
-    document.add_heading(
-        'ACLARK.NET, LLC %s AGREEMENT PREPARED FOR' % contract.task, level=1)
-    # http://lxml.de/parsing.html
-    parser = etree.HTMLParser()
+    # Head
+    heading = document.add_heading(
+        'ACLARK.NET, LLC %s AGREEMENT PREPARED FOR:' % contract.task, level=1)
+    heading.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    subheading = document.add_heading(contract.client, level=1)
+    subheading.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    parser = etree.HTMLParser()  # http://lxml.de/parsing.html
     tree = etree.parse(StringIO(contract.body), parser)
+    # Body
     for element in tree.iter():
         if element.tag == 'h2':
             document.add_heading(element.text, level=2)
