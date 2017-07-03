@@ -640,6 +640,7 @@ def obj_edit(obj,
         text = ''
         for field in contract_settings._meta.fields:
             if field.description == 'Text' and field.name != 'body':
+                text = ''.join([text, '<h2>', field.verbose_name, '</h2>'])
                 text = ''.join([text, '<p>', field.get_default(), '</p>'])
         setattr(obj, 'body', text)
         obj.save()
