@@ -265,7 +265,7 @@ def edit(
             if copy:
                 return obj_copy(obj, url_name)
             if company_note:
-                return obj_edit(obj, url_name, company_note=True)
+                return obj_edit(obj, company, company_note=True)
             if delete:
                 return obj_delete(obj, company, request=request)
             # Check boxes
