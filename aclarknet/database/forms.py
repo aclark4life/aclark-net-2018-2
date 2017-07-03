@@ -9,6 +9,7 @@ from .models import Newsletter
 from .models import Note
 from .models import Profile
 from .models import Project
+from .models import Proposal
 from .models import Report
 from .models import Service
 from .models import Settings
@@ -159,6 +160,15 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ('active', 'hidden', 'budget', 'client', 'name', 'notes',
                   'start_date', 'end_date', 'task', 'team')
+
+
+class ProposalForm(forms.ModelForm):
+    class Meta:
+        model = Proposal
+        fields = '__all__'
+        widgets = {
+            'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class ReportForm(forms.ModelForm):
