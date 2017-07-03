@@ -25,8 +25,13 @@
 
                     <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                   </ul>
-                </div>
+              </div>
+            </div>
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
+            <div class="row">
+              <div class="col-md-12">
 {% include 'pdf_contract.html' %}
+              </div>
+            </div>
 {% endblock %}
