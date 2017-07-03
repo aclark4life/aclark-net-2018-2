@@ -107,6 +107,8 @@ def client(request, pk=None):
     client = get_object_or_404(Client, pk=pk)
     contacts = Contact.objects.filter(client=client)
     contacts = contacts.order_by('-pk')
+    contracts = Contract.objects.filter(client=client)
+    contracts = contracts.order_by('-updated')
     projects = Project.objects.filter(client=client)
     projects = projects.order_by('-start_date')
     context['active_nav'] = 'client'
@@ -114,6 +116,7 @@ def client(request, pk=None):
     context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['item'] = client
     context['contacts'] = contacts
+    context['contracts'] = contracts
     context['projects'] = projects
     return render(request, 'client.html', context)
 
