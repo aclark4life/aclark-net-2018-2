@@ -256,13 +256,16 @@ def edit(
         if pk is None:
             form = form_model(request.POST)
         else:
-            copy = request.POST.get('copy')
             checkbox = request.POST.get('checkbox')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
+            company_note = request.GET.get('company')
+            copy = request.POST.get('copy')
             delete = request.POST.get('delete')
             # Copy or delete
             if copy:
                 return obj_copy(obj, url_name)
+            if company_note:
+                return obj_edit(obj, url_name, company_note=True)
             if delete:
                 return obj_delete(obj, company, request=request)
             # Check boxes
@@ -284,7 +287,7 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            return obj_misc(
+            return obj_edit(
                 obj,
                 company,
                 contract_settings,
@@ -596,9 +599,10 @@ def obj_delete(obj, company, request=None):
     return HttpResponseRedirect(reverse(url_name))
 
 
-def obj_misc(obj,
+def obj_edit(obj,
              company,
              contract_settings,
+             company_note=True,
              request=None,
              pk=None,
              kwargs={},
@@ -646,6 +650,9 @@ def obj_misc(obj,
                 text = text + '\n' + getattr(contract_settings, field.name)
         setattr(obj, 'body', text)
         obj.save()
+    if obj._meta.verbose_name == 'note' and company_note:
+        company.note = obj
+        company.save()
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
