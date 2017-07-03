@@ -35,6 +35,9 @@
                     <div class="row">
                       {% for note in company.note.all %}
                       <div class="card col-md-5" style="margin: 0 1em 1em 0">
+                        <div class="card-title">
+                          <span class="float-right"><a href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog"></i></a></span>
+                        </div>
                         <div class="card-block">
                           <p class="card-text">{{ note.note|safe|default:'' }}</p>
                         </div>
