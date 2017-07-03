@@ -14,35 +14,11 @@
                   <h2>Defaults</h2>
                 </div>
               </div>
+              {% for field in fields %}
               <div class="row">
                 <div class="col-md-12">
-                  <hr>
-                  <h3>Timing of Payment</h3>
-                  {{ contract_settings.timing_of_payment|safe }}
+                  {{ contract_settings.field|safe }}
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <h3>Termination</h3>
-                  {{ contract_settings.termination|safe }}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <h3>Governing Laws</h3>
-                  {{ contract_settings.governing_laws|safe }}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <h3>Confidentiality</h3>
-                  {{ contract_settings.confidentiality|safe }}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <h3>Taxes</h3>
-                  {{ contract_settings.taxes|safe }}
-                </div>
-              </div>
+              {% endfor %}
 {% endblock %}
