@@ -364,7 +364,7 @@ def generate_doc(doc):
     parser = etree.HTMLParser()
     tree = etree.parse(StringIO(doc.body), parser)
     for element in tree.iter():
-        document.add_paragraph(element.txt)
+        document.add_paragraph(element.text)
     return document
 
 
