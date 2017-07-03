@@ -37,8 +37,8 @@
                       <div class="card col-md-5" style="margin: 0 1em 1em 0">
                         <div class="card-block">
                           <div class="card-title">
-                            <span class="pull-right"><a href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog"></i></a></span>
-                            <span class="pull-right"><a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right"></i></a></span>
+                            <span class="float-right"><a href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog"></i></a></span>
+                            <span class="float-right"><a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right"></i></a></span>
                           </div>
                           <p class="card-text">{{ note.note|safe|default:'' }}</p>
                         </div>
