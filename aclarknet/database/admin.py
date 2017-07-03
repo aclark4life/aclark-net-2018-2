@@ -10,6 +10,7 @@ from .models import Newsletter
 from .models import Note
 from .models import Profile
 from .models import Project
+from .models import Proposal
 from .models import Report
 from .models import Service
 from .models import Settings
@@ -269,6 +270,12 @@ class ProjectAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = ProjectResource
+
+
+@admin.register(Proposal)
+class ProposalAdmin(admin.ModelAdmin):
+    """
+    """
 
 
 @admin.register(Report)

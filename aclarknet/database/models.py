@@ -392,6 +392,31 @@ class Project(models.Model):
         return self.name
 
 
+class Proposal(models.Model):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    client = models.ForeignKey(
+        'Client', blank=True, null=True, limit_choices_to={'active': True})
+    project = models.ForeignKey(
+        "Project",
+        blank=True,
+        null=True,
+        limit_choices_to={'active': True}, )
+    statement_of_work = models.ForeignKey(
+        'Estimate',
+        blank=True,
+        null=True,
+        limit_choices_to={'accepted_date': None})
+    task = models.ForeignKey(
+        'Task', blank=True, null=True, limit_choices_to={'active': True})
+    body = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
+
+
 class Report(models.Model):
     """
     """
