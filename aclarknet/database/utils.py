@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.html import strip_tags
+# from django.utils.html import strip_tags
 from docx import Document
 from functools import reduce
 from import_export import widgets
@@ -355,14 +355,16 @@ def entries_total(queryset):
             total)
 
 
-def generate_doc(doc):
+def generate_doc(contract):
     """
     https://stackoverflow.com/a/24122313/185820
     """
     document = Document()
+    document.add_heading(
+        'ACLARK.NET, LLC %s AGREEMENT PREPARED FOR' % contract.task, level=1)
     # http://lxml.de/parsing.html
     parser = etree.HTMLParser()
-    tree = etree.parse(StringIO(doc.body), parser)
+    tree = etree.parse(StringIO(contract.body), parser)
     for element in tree.iter():
         if element.tag == 'h2':
             document.add_heading(element.text, level=2)
