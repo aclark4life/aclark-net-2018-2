@@ -602,7 +602,7 @@ def obj_delete(obj, company, request=None):
 def obj_edit(obj,
              company,
              contract_settings,
-             company_note=True,
+             company_note=1,
              request=None,
              pk=None,
              kwargs={},
