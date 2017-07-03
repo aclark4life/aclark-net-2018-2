@@ -651,7 +651,7 @@ def obj_edit(obj,
         setattr(obj, 'body', text)
         obj.save()
     if obj._meta.verbose_name == 'note' and company_note:
-        company.note = obj
+        company.note.add(obj)
         company.save()
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 

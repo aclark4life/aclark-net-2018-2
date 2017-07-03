@@ -759,6 +759,7 @@ def note(request, pk=None):
 
 @staff_member_required
 def note_edit(request, pk=None):
+    company = Company.get_solo()
     kwargs = {}
     url_name = 'note_index'
     if pk:
@@ -771,6 +772,7 @@ def note_edit(request, pk=None):
         url_name,
         'note_edit.html',
         active_nav='note',
+        company=company,
         kwargs=kwargs,
         pk=pk)
 
