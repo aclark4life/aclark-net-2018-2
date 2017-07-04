@@ -365,10 +365,11 @@ def generate_doc(contract):
     title = document.add_heading(
         'ACLARK.NET, LLC %s AGREEMENT PREPARED FOR:' % contract.task, level=1)
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    client_name = document.add_heading(contract.client.name, level=1)
-    client_name.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    client_address = document.add_heading(contract.client.address, level=1)
-    client_address.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    if contract.client:
+        client_name = document.add_heading(contract.client.name, level=1)
+        client_name.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        client_address = document.add_heading(contract.client.address, level=1)
+        client_address.alignment = WD_ALIGN_PARAGRAPH.CENTER
     parser = etree.HTMLParser()  # http://lxml.de/parsing.html
     tree = etree.parse(StringIO(contract.body), parser)
     # Body
