@@ -375,7 +375,7 @@ def contract_index(request):
 def contract_settings(request):
     context = {}
     contract_settings = ContractSettings.get_solo()
-    fields = [] 
+    fields = []
     for field in contract_settings._meta.fields:
         if field.description == 'Text' and field.name != 'body':
             fields.append(field)
@@ -664,7 +664,11 @@ def log_index(request):
     settings = Settings.get_solo()
     search_fields = ('entry', )
     context = index_items(
-        request, Log, search_fields, order_by=('-created', ), app_settings=settings)
+        request,
+        Log,
+        search_fields,
+        order_by=('-created', ),
+        app_settings=settings)
     return render(request, 'log_index.html', context)
 
 
@@ -1160,7 +1164,7 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     search_fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
-              'invoice__document_id', 'user__username')
+                     'invoice__document_id', 'user__username')
     settings = Settings.get_solo()
     context = index_items(
         request,
