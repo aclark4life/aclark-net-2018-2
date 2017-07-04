@@ -915,7 +915,7 @@ def proposal_index(request, pk=None):
     search_fields = ()
     context = index_items(
         request,
-        Note,
+        Proposal,
         search_fields,
         active_nav='proposal',
         app_settings=settings,
