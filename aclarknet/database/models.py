@@ -208,6 +208,8 @@ class Invoice(models.Model):
     Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
     Currency, Currency Symbol, Document Type
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, default=timezone.now, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
