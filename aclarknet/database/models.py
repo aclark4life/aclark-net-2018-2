@@ -117,6 +117,7 @@ class Contract(models.Model):
         limit_choices_to={'accepted_date': None})
     task = models.ForeignKey(
         'Task', blank=True, null=True, limit_choices_to={'active': True})
+    title = models.CharField(max_length=300, blank=True, null=True)
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -413,6 +414,7 @@ class Proposal(models.Model):
         limit_choices_to={'accepted_date': None})
     task = models.ForeignKey(
         'Task', blank=True, null=True, limit_choices_to={'active': True})
+    title = models.CharField(max_length=300, blank=True, null=True)
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
