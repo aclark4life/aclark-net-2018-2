@@ -167,6 +167,7 @@ class ProposalForm(forms.ModelForm):
         model = Proposal
         fields = (
             'client',
+            'title',
             'body', )
         widgets = {
             'body': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
