@@ -881,7 +881,7 @@ def proposal(request, pk=None):
     context['item'] = proposal
     if pdf:
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
+        response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
         return generate_pdf(
             'pdf_proposal.html', context=context, file_object=response)
     else:
