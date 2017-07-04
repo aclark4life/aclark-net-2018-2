@@ -10,6 +10,7 @@ from .forms import NewsletterForm
 from .forms import NoteForm
 from .forms import ProfileForm
 from .forms import ProjectForm
+from .forms import ProposalForm
 from .forms import ReportForm
 from .forms import SettingsForm
 from .forms import TaskForm
@@ -890,6 +891,22 @@ def proposal(request, pk=None):
 def proposal_edit(request, pk=None):
     """
     """
+    company = Company.get_solo()
+    kwargs = {}
+    url_name = 'proposal_index'
+    if pk:
+        kwargs['pk'] = pk
+        url_name = 'proposal'
+    return edit(
+        request,
+        ProposalForm,
+        Proposal,
+        url_name,
+        'proposal_edit.html',
+        active_nav='proposal',
+        company=company,
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required
