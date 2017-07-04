@@ -475,7 +475,7 @@ def get_query(request, query):
 
 
 def get_search_results(model,
-                       fields,
+                       search_fields,
                        search,
                        active_nav='',
                        app_settings=None,
@@ -484,7 +484,7 @@ def get_search_results(model,
                        request=None):
     context = {}
     query = []
-    for field in fields:
+    for field in search_fields:
         query.append(Q(**{field + '__icontains': search}))
     items = model.objects.filter(reduce(OR, query)).order_by(order_by)
     context['active_nav'] = active_nav
@@ -504,7 +504,7 @@ def gravatar_url(email):
 
 def index_items(request,
                 model,
-                fields,
+                search_fields,
                 filters={},
                 order_by=(),
                 app_settings=None,
@@ -526,7 +526,7 @@ def index_items(request,
         else:
             return get_search_results(
                 model,
-                fields,
+                search_fields,
                 search,
                 active_nav=active_nav,
                 app_settings=app_settings,

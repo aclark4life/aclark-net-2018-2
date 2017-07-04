@@ -143,12 +143,12 @@ def client_edit(request, pk=None):
 
 @staff_member_required
 def client_index(request):
-    fields = ('address', 'name')
+    search_fields = ('address', 'name')
     settings = Settings.get_solo()
     context = index_items(
         request,
         Client,
-        fields,
+        search_fields,
         active_nav='client',
         app_settings=settings,
         edit_url='client_edit',  # Delete modal
@@ -208,11 +208,11 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     settings = Settings.get_solo()
-    fields = ('first_name', 'last_name', 'email', 'notes')
+    search_fields = ('first_name', 'last_name', 'email', 'notes')
     context = index_items(
         request,
         Contact,
-        fields,
+        search_fields,
         active_nav='contact',
         app_settings=settings,
         edit_url='contact_edit',  # Delete modal
@@ -360,11 +360,11 @@ def contract_index(request):
     """
     """
     settings = Settings.get_solo()
-    fields = ()
+    search_fields = ()
     context = index_items(
         request,
         Contract,
-        fields,
+        search_fields,
         active_nav='contract',
         app_settings=settings,
         order_by=('-created', ))
@@ -375,7 +375,7 @@ def contract_index(request):
 def contract_settings(request):
     context = {}
     contract_settings = ContractSettings.get_solo()
-    fields = ()
+    fields = [] 
     for field in contract_settings._meta.fields:
         if field.description == 'Text' and field.name != 'body':
             fields.append(field)
@@ -481,11 +481,11 @@ def estimate_edit(request, pk=None):
 def estimate_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
-    fields = ('subject', )
+    search_fields = ('subject', )
     context = index_items(
         request,
         Estimate,
-        fields,
+        search_fields,
         active_nav='estimate',
         app_settings=settings,
         edit_url='estimate_edit',  # Delete modal
@@ -623,7 +623,7 @@ def invoice_edit(request, pk=None):
 def invoice_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
-    fields = (
+    search_fields = (
         'client__name',
         'document_id',
         'issue_date',
@@ -632,7 +632,7 @@ def invoice_index(request):
     context = index_items(
         request,
         Invoice,
-        fields,
+        search_fields,
         active_nav='invoice',
         app_settings=settings,
         edit_url='invoice_edit',  # Delete modal
@@ -662,9 +662,9 @@ def login(request):
 @staff_member_required
 def log_index(request):
     settings = Settings.get_solo()
-    fields = ('entry', )
+    search_fields = ('entry', )
     context = index_items(
-        request, Log, fields, order_by=('-created', ), app_settings=settings)
+        request, Log, search_fields, order_by=('-created', ), app_settings=settings)
     return render(request, 'log_index.html', context)
 
 
@@ -706,11 +706,11 @@ def newsletter_index(request, pk=None):
     """
     """
     settings = Settings.get_solo()
-    fields = ('text', )
+    search_fields = ('text', )
     context = index_items(
         request,
         Newsletter,
-        fields,
+        search_fields,
         active_nav='newsletter',
         app_settings=settings,
         order_by=('-created', ))
@@ -792,12 +792,12 @@ def note_edit(request, pk=None):
 @staff_member_required
 def note_index(request, pk=None):
     settings = Settings.get_solo()
-    fields = ('note', )
+    search_fields = ('note', )
     filters = {'hidden': False, }
     context = index_items(
         request,
         Note,
-        fields,
+        search_fields,
         active_nav='note',
         app_settings=settings,
         filters=filters,
@@ -857,11 +857,11 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     settings = Settings.get_solo()
-    fields = ('id', 'name')
+    search_fields = ('id', 'name')
     context = index_items(
         request,
         Project,
-        fields,
+        search_fields,
         active_nav='project',
         app_settings=settings,
         edit_url='project_edit',  # Delete modal
@@ -912,11 +912,11 @@ def proposal_edit(request, pk=None):
 @staff_member_required
 def proposal_index(request, pk=None):
     settings = Settings.get_solo()
-    fields = ()
+    search_fields = ()
     context = index_items(
         request,
         Note,
-        fields,
+        search_fields,
         active_nav='proposal',
         app_settings=settings,
         show_search=True)
@@ -978,11 +978,11 @@ def report_index(request):
     plot_items = reports  # Save for plotting
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
-    fields = ('id', 'name', 'gross', 'net')
+    search_fields = ('id', 'name', 'gross', 'net')
     context = index_items(
         request,
         Report,
-        fields,
+        search_fields,
         active_nav='report',
         app_settings=settings,
         edit_url='report_edit',  # Delete modal
@@ -1078,11 +1078,11 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     settings = Settings.get_solo()
-    fields = ('name', )
+    search_fields = ('name', )
     context = index_items(
         request,
         Task,
-        fields,
+        search_fields,
         active_nav='task',
         app_settings=settings,
         edit_url='task_edit',  # Delete modal
@@ -1159,13 +1159,13 @@ def time_edit(request, pk=None):
 
 @login_required
 def time_index(request):
-    fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
+    search_fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
               'invoice__document_id', 'user__username')
     settings = Settings.get_solo()
     context = index_items(
         request,
         Time,
-        fields,
+        search_fields,
         active_nav='time',
         app_settings=settings,
         edit_url='entry_edit',  # Delete modal
@@ -1188,11 +1188,11 @@ def user(request, pk=None):
         'estimate': None,
         'user': user,
     }
-    fields = ()
+    search_fields = ()
     context = index_items(
         request,
         Time,
-        fields=fields,
+        search_fields,
         order_by=('-date', ),
         filters=filters,
         app_settings=settings)
@@ -1254,11 +1254,11 @@ def user_edit(request, pk=None):
 def user_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
-    fields = ('first_name', 'last_name', 'email')
+    search_fields = ('first_name', 'last_name', 'email')
     context = index_items(
         request,
         User,
-        fields,
+        search_fields,
         active_nav='user',
         app_settings=settings,
         order_by=('-profile__active', ),
