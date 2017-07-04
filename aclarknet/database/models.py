@@ -103,6 +103,7 @@ class Contract(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=300, blank=True, null=True)
     client = models.ForeignKey(
         'Client', blank=True, null=True, limit_choices_to={'active': True})
     project = models.ForeignKey(
@@ -117,7 +118,6 @@ class Contract(models.Model):
         limit_choices_to={'accepted_date': None})
     task = models.ForeignKey(
         'Task', blank=True, null=True, limit_choices_to={'active': True})
-    title = models.CharField(max_length=300, blank=True, null=True)
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
