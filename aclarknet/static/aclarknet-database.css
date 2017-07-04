@@ -10,11 +10,9 @@ tbody tr:hover a {
 .banner div, .banner h3 {
     font-size: 400%;
 }
-/*
 .row {
-    margin: 2em 0 1em 0;
+    padding: 2em 0 1em 0;
 }
-*/
 .sidebar {
     opacity: 0.9;
 }
