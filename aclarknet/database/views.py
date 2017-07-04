@@ -1257,6 +1257,7 @@ def user_index(request):
     # XXX FieldError at /user
     # Cannot resolve keyword 'updated' into field. 
     # search_fields = ('first_name', 'last_name', 'email')
+    search_fields = ()
     context = index_items(
         request,
         User,
