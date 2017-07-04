@@ -165,7 +165,9 @@ class ProjectForm(forms.ModelForm):
 class ProposalForm(forms.ModelForm):
     class Meta:
         model = Proposal
-        fields = '__all__'
+        fields = (
+            'client',
+            'body', )
         widgets = {
             'body': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
