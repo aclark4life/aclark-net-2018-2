@@ -1254,7 +1254,9 @@ def user_edit(request, pk=None):
 def user_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
-    search_fields = ('first_name', 'last_name', 'email')
+    # XXX FieldError at /user
+    # Cannot resolve keyword 'updated' into field. 
+    # search_fields = ('first_name', 'last_name', 'email')
     context = index_items(
         request,
         User,
@@ -1262,6 +1264,6 @@ def user_index(request):
         active_nav='user',
         app_settings=settings,
         order_by=('-profile__active', ),
-        show_search=True)
+        show_search=False)
     context['company'] = company
     return render(request, 'user_index.html', context)
