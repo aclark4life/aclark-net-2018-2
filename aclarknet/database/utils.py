@@ -362,8 +362,11 @@ def generate_doc(contract):
     """
     document = Document()
     # Head
+    task = ''
+    if contract.task:
+        task = contract.task
     title = document.add_heading(
-        'ACLARK.NET, LLC %s AGREEMENT PREPARED FOR:' % contract.task, level=1)
+        'ACLARK.NET, LLC %s AGREEMENT PREPARED FOR:' % task, level=1)
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     if contract.client:
         client_name = document.add_heading(contract.client.name, level=1)
