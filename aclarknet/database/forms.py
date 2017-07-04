@@ -167,7 +167,7 @@ class ProposalForm(forms.ModelForm):
         model = Proposal
         fields = '__all__'
         widgets = {
-            'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'body': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
 
