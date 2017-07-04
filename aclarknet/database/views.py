@@ -375,7 +375,7 @@ def contract_index(request):
 def contract_settings(request):
     context = {}
     contract_settings = ContractSettings.get_solo()
-    fields = []
+    fields = ()
     for field in contract_settings._meta.fields:
         if field.description == 'Text' and field.name != 'body':
             fields.append(field)
@@ -912,6 +912,7 @@ def proposal_edit(request, pk=None):
 @staff_member_required
 def proposal_index(request, pk=None):
     settings = Settings.get_solo()
+    fields = ()
     context = index_items(
         request,
         Note,
