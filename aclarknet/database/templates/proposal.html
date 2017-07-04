@@ -34,14 +34,5 @@
             </div> 
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
-            <br>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-block">
-                    <div class="card-text">{{ item.body|safe }}</div>
-                  </div>
-                </div>
-              </div>
-            </div> 
+{% include 'pdf_proposal.html' %}
 {% endblock %}
