@@ -919,7 +919,6 @@ def proposal_index(request, pk=None):
         fields,
         active_nav='proposal',
         app_settings=settings,
-        filters=filters,
         show_search=True)
     context['edit_url'] = 'proposal_edit'  # Delete modal
     return render(request, 'proposal_index.html', context)
