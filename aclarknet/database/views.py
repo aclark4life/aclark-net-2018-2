@@ -292,7 +292,7 @@ def contract(request, pk=None):
     context['pdf'] = pdf
     # XXX In hindsight, this[1] is terrible. Maybe some OneToOne fields
     # could clean this up.
-    # [1] The current implementation of time entry association with
+    # [1] i.e. The current implementation of time entry association with
     # estimates & invoices for the purpose of "populating" those
     # documents with line items.
     estimate = contract.statement_of_work
@@ -907,6 +907,21 @@ def proposal_edit(request, pk=None):
         company=company,
         kwargs=kwargs,
         pk=pk)
+
+
+@staff_member_required
+def proposal_index(request, pk=None):
+    settings = Settings.get_solo()
+    context = index_items(
+        request,
+        Note,
+        fields,
+        active_nav='proposal',
+        app_settings=settings,
+        filters=filters,
+        show_search=True)
+    context['edit_url'] = 'proposal_edit'  # Delete modal
+    return render(request, 'proposal_index.html', context)
 
 
 @staff_member_required
