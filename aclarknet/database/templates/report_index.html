@@ -27,7 +27,6 @@
                 <th data-field="cost" data-sortable="true">Cost</th>
                 <th>View</th>
                 <th>Edit</th>
-                <th>Remove</th>
               </tr>
             </thead>
             <tbody>
@@ -46,10 +45,6 @@
                 <td>{{ item.cost|default:'' }}</td>
                 <td><a href="{% url 'report' item.pk %}">View item <i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i></a></td>
                 <td><a href="{% url 'report_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
-                <td>
-                  <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o fa-{{ icon_size }}"></i></a>
-{% include 'delete_form.html' %}
-                </td>
               </tr>
             {% endfor %}
             </tbody>

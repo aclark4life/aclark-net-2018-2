@@ -49,16 +49,12 @@
                 <td><a href="{% url 'entry' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View item</a></td>
                 <td><a href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle fa-{{ icon_size }}"></i></a></td>
                 <td><a href="{% url 'entry_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
-                <td>
-                  <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk|unlocalize }}"><i class="fa fa-times-circle-o fa-{{ icon_size }}"></i></a>
-{% include 'copy_form.html' %}
-{% include 'delete_form.html' %}
-                </td>
                 {% if request.user.is_staff %}{% if item.invoice %}<td><a href="{% url 'invoice' item.invoice.pk %}">{{ item.invoice.document_id|default:'' }}</a></td>{% else %}<td></td>{% endif %}{% endif %}
                 {% if request.user.is_staff %}{% if item.estimate %}<td><a href="{% url 'estimate' item.estimate.pk %}">{{ item.estimate.document_id|default:'' }}</a></td>{% else %}<td>{{ item.estimate|default:'' }}</td>{% endif %}{% endif %}
               </tr>
               {% endfor %}
             </tbody>
           </table>
+{% include 'copy_form.html' %}
 {% include 'pagination.html' %}
 {% endblock %}
