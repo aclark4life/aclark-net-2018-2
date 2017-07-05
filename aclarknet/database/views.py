@@ -365,6 +365,7 @@ def contract_settings(request):
     fields = {}
     for field in contract_settings._meta.fields:
         if field.description == 'Text' and field.name != 'body':
+            fields['name'] = {}
             fields['name']['name'] = field.verbose_name
             fields['name']['value'] = getattr(contract_settings, field.name)
     context['fields'] = fields
