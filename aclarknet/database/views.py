@@ -489,7 +489,10 @@ def estimate_mail(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     notes = '<ul><li>'
     for entry in estimate.time_set.all():
-        notes += '</li><li>'.join(['\n', entry.notes])
+        if forloop.counter0 != 0:
+            notes += '</li><li>'.join(['\n', entry.notes])
+        else:
+            notes += ''.join(['\n', entry.notes])
     notes += '</li></ul>'
     if send_mail(
             request,
