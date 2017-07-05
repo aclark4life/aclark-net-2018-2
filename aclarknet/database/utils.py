@@ -36,6 +36,7 @@ URL_NAMES = {
     'newsletter': ('newsletter_edit', 'newsletter_index', 'newsletter'),
     'note': ('note_edit', 'note_index', 'note'),
     'project': ('project_edit', 'project_index', 'project'),
+    'proposal': ('proposal_edit', 'proposal_index', 'proposal'),
     'report': ('report_edit', 'report_index', 'report'),
     'task': ('task_edit', 'task_index', 'task'),
     'time': ('entry_edit', 'entry_index', 'entry'),
