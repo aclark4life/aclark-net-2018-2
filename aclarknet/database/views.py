@@ -1065,7 +1065,7 @@ def time_edit(request, pk=None):
     client = request.GET.get('client')
     project = request.GET.get('project')
     task = None
-    kwargs, url_name = get_url_name('task', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name('time', page_type='index_or_edit', pk=pk)
     if pk is not None:
         entry = get_object_or_404(Time, pk=pk)
         if entry.user:
