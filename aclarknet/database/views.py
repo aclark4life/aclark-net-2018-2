@@ -496,7 +496,7 @@ def estimate_mail(request, pk=None):
                     'Estimate',
                     'Here is the estimate',
                     settings.EMAIL_FROM,
-                    url=url)
+                    url=url):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
                 log = Log(entry='Estimate sent to %s.' % to)
                 log.save()
