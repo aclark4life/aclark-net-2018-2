@@ -485,11 +485,12 @@ def estimate_index(request):
 @staff_member_required
 def estimate_mail(request, pk=None):
     context = {}
+    to = settings.EMAIL_FROM
     if send_mail(
             request,
             'Estimate',
             'Here is the estimate',
-            django_settings.EMAIL_FROM):
+            to):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
