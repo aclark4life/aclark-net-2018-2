@@ -496,10 +496,11 @@ def estimate_mail(request, pk=None):
             notes += ''.join(['\n', entry.notes])
         counter += 1
     notes += '</li></ul>'
+    message = ''.join(['<h1>Statement of work</h1>', notes])
     if send_mail(
             request,
             'Estimate',
-            notes,
+            message,
             to):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
