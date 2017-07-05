@@ -694,7 +694,9 @@ def obj_edit(obj,
         for field in contract_settings._meta.fields:
             if field.description == 'Text' and field.name != 'body':
                 text = ''.join([text, '<h2>', field.verbose_name, '</h2>'])
-                text = ''.join([text, '<p>', getattr(contract_settings, field.name), '</p>'])
+                text = ''.join([
+                    text, '<p>', getattr(contract_settings, field.name), '</p>'
+                ])
         setattr(obj, 'body', text)
         obj.save()
     if obj._meta.verbose_name == 'note' and company_note:

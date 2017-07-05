@@ -368,7 +368,8 @@ def contract_settings(request):
         if field.description == 'Text' and field.name != 'body':
             fields[field.name] = {}
             fields[field.name]['name'] = field.verbose_name
-            fields[field.name]['value'] = getattr(contract_settings, field.name)
+            fields[field.name]['value'] = getattr(contract_settings,
+                                                  field.name)
     context['fields'] = fields
     context['active_tab'] = 'contract'
     return render(request, 'contract_settings.html', context)
@@ -484,7 +485,6 @@ def estimate_index(request):
 
 @staff_member_required
 def estimate_mail(request, pk=None):
-    context = {}
     to = django_settings.EMAIL_FROM
     estimate = get_object_or_404(Estimate, pk=pk)
     notes = '<ul><li>'
@@ -502,12 +502,13 @@ def estimate_mail(request, pk=None):
         hours += entry.hours
     notes += '</li></ul>'
     cost = hours * rate
-    message = ''.join(['<h1 style="text-align: center">Statement of Work</h1><h2>%s hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>' % (hours, estimate.subject, rate, estimate.client.name, cost, start_date, end_date), notes])
-    if send_mail(
-            request,
-            'Estimate',
-            message,
-            to):
+    message = ''.join([
+        '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
+        'hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>'
+        % (hours, estimate.subject, rate, estimate.client.name, cost,
+           start_date, end_date), notes
+    ])
+    if send_mail(request, 'Estimate', message, to):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
