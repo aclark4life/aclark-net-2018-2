@@ -389,7 +389,7 @@ class Project(models.Model):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    team = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
+    team = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, limit_choices_to={'profile__active': True})
 
     def __str__(self):
         return self.name
