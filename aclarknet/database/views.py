@@ -488,7 +488,8 @@ def estimate_mail(request, pk=None):
     to = django_settings.EMAIL_FROM
     estimate = get_object_or_404(Estimate, pk=pk)
     notes = ''
-    notes = notes + [i.notes for i in estimate.time_set.all()]
+    for note in estimate.time_set.all():
+        notes = notes + note
     if send_mail(
             request,
             'Estimate',
