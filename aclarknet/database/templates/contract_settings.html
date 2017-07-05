@@ -15,10 +15,12 @@
                 </div>
               </div>
               {% for field in fields %}
-              <div class="row">
-                <div class="col-md-12">
+              <div class="card">
+                <div class="card-heading">
                   <h3>{{ field.verbose_name }}</h3>
-                  {{ field.get_default|safe }}
+                </div>
+                <div class="card-block">
+                  <div class="card-text">{{ field.get_default|safe }}</div>
                 </div>
               </div>
               {% endfor %}
