@@ -362,10 +362,11 @@ def contract_index(request):
 def contract_settings(request):
     context = {}
     contract_settings = ContractSettings.get_solo()
-    fields = []
+    fields = {}
     for field in contract_settings._meta.fields:
         if field.description == 'Text' and field.name != 'body':
-            fields.append(field)
+            fields['name'] = field.verbose_name
+            fields['value'] = getattr(contract_settings, field.name)
     context['fields'] = fields
     context['active_tab'] = 'contract'
     return render(request, 'contract_settings.html', context)
