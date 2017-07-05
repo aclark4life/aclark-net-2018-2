@@ -499,6 +499,33 @@ def get_search_results(model,
     return context
 
 
+def get_url_name(verbose_name, page_type=None, pk=None):
+    """
+    """
+    URL_NAME = {
+        'client': ('client_edit', 'client_index', 'client'),
+        'contact': ('contact_edit', 'contact_index', 'contact'),
+        'contract': ('contract_edit', 'contract_index', 'contract'),
+        'estimate': ('estimate_edit', 'estimate_index', 'estimate'),
+        'invoice': ('invoice_edit', 'invoice_index', 'invoice'),
+        'newsletter': ('newsletter_edit', 'newsletter_index', 'newsletter'),
+        'note': ('note_edit', 'note_index', 'note'),
+        'project': ('project_edit', 'project_index', 'project'),
+        'report': ('report_edit', 'report_index', 'report'),
+        'task': ('task_edit', 'task_index', 'task'),
+        'time': ('entry_edit', 'entry_index', 'entry'),
+    }
+    if page_type == 'edit':
+        return URL_NAME[verbose_name][0]
+    elif page_type == 'index':
+        return URL_NAME[verbose_name][1]
+    elif page_type == 'index_or_edit':
+        if pk:
+            return URL_NAME[verbose_name][2]
+        else:
+            return URL_NAME[verbose_name][1]
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
@@ -591,12 +618,12 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    url_name = url_name_from(obj._meta.verbose_name, page_type='edit')
+    url_name = get_url_name(obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj, company, request=None):
-    url_name = url_name_from(
+    url_name = get_url_name(
         obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
@@ -718,25 +745,3 @@ def send_mail(request,
     except SMTPSenderRefused:
         messages.add_message(request, messages.WARNING, 'SMTPSenderRefused!')
         return False
-
-
-def url_name_from(verbose_name, page_type=None):
-    """
-    """
-    url_name = {
-        'client': ('client_edit', 'client_index'),
-        'contact': ('contact_edit', 'contact_index'),
-        'contract': ('contract_edit', 'contract_index'),
-        'estimate': ('estimate_edit', 'estimate_index'),
-        'invoice': ('invoice_edit', 'invoice_index'),
-        'newsletter': ('newsletter_edit', 'newsletter_index'),
-        'note': ('note_edit', 'note_index'),
-        'project': ('project_edit', 'project_index'),
-        'report': ('report_edit', 'report_index'),
-        'task': ('task_edit', 'task_index'),
-        'time': ('entry_edit', 'entry_index'),
-    }
-    if page_type == 'edit':
-        return url_name[verbose_name][0]
-    elif page_type == 'index':
-        return url_name[verbose_name][1]

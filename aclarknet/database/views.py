@@ -46,6 +46,7 @@ from .utils import generate_doc
 from .utils import get_filename
 from .utils import get_setting
 from .utils import get_query
+from .utils import get_url_name
 from .utils import send_mail
 from datetime import datetime
 from django.contrib import messages
@@ -126,10 +127,7 @@ def client(request, pk=None):
 @staff_member_required
 def client_edit(request, pk=None):
     kwargs = {}
-    url_name = 'client_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'client'
+    url_name = get_url_name('client', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ClientForm,
