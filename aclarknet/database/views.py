@@ -49,6 +49,7 @@ from .utils import get_query
 from .utils import get_url_name
 from .utils import send_mail
 from datetime import datetime
+from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -488,7 +489,7 @@ def estimate_mail(request, pk=None):
             request,
             'Estimate',
             'Here is the estimate',
-            settings.EMAIL_FROM,
+            django_settings.EMAIL_FROM,
             url=url):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
