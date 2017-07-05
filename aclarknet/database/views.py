@@ -840,9 +840,9 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    client = request.GET.get('client')
-    client = get_object_or_404(Client, pk=client)
-    clients = Client.objects.filter(active=True)
+    # client = request.GET.get('client')
+    # client = get_object_or_404(Client, pk=client)
+    # clients = Client.objects.filter(active=True)
     kwargs, url_name = get_url_name(
         'project', page_type='index_or_edit', pk=pk)
     return edit(
@@ -852,8 +852,8 @@ def project_edit(request, pk=None):
         url_name,
         'project_edit.html',
         active_nav='project',
-        client=client,
-        clients=clients,
+        # client=client,
+        # clients=clients,
         kwargs=kwargs,
         pk=pk)
 
