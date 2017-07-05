@@ -15,7 +15,7 @@
               </style>
               {% if pdf %}
               <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name }}</h1></div></div>
-              <div class="row"><div class="col-md-12 center"><h1>{{ item.name }} Revenue Report</h1></div></div>
+              <div class="row"><div class="col-md-12 center"><h1>{{ item.name|default:'' }} Revenue Report</h1></div></div>
               {% endif %}
               <h2>Overview</h2>
               <table data-toggle="table" data-classes="table table-no-bordered" {% if pdf %}border=1 {% endif %}>
@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td><strong>{{ item.name }}</strong></td>
+                  <td><strong>{{ item.name|default:'' }}</strong></td>
                   <td>{{ item.date }}</td>
                   <td align="right">{{ item.gross }}</td>
                   <td align="right">{{ item.net }}</td>
