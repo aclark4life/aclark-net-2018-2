@@ -495,9 +495,9 @@ def estimate_mail(request, pk=None):
     end_date = estimate.project.end_date
     for entry in estimate.time_set.all():
         if counter != 0:
-            notes += '</li><li>'.join(['%s\n' % entry.hours, entry.notes])
+            notes += '</li><li>'.join([entry.notes, '%s hours.\n' % entry.hours])
         else:
-            notes += ''.join(['%s hours total .\n' % entry.hours, entry.notes])
+            notes += ''.join([entry.notes, '%s hours.\n' % entry.hours])
         counter += 1
         hours += entry.hours
     notes += '</li></ul>'
