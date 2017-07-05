@@ -484,25 +484,16 @@ def estimate_index(request):
 @staff_member_required
 def estimate_mail(request, pk=None):
     context = {}
-    contact = get_object_or_404(Estimate, pk=pk)
-    if request.method == 'POST':
-        form = MailForm(request.POST)
-        if form.is_valid():
-            if send_mail(
-                    request,
-                    'Estimate',
-                    'Here is the estimate',
-                    settings.EMAIL_FROM,
-                    url=url):
-                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-                log = Log(entry='Estimate sent to %s.' % to)
-                log.save()
-            return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
-    else:
-        form = MailForm()
-    context['active_nav'] = 'estimate'
-    context['form'] = form
-    return render(request, 'estimate.html', context)
+    if send_mail(
+            request,
+            'Estimate',
+            'Here is the estimate',
+            settings.EMAIL_FROM,
+            url=url):
+        messages.add_message(request, messages.SUCCESS, 'Mail sent!')
+        log = Log(entry='Estimate sent to %s.' % to)
+        log.save()
+    return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
 
 
 def home(request):
