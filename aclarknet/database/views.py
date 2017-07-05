@@ -489,6 +489,9 @@ def estimate_mail(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     notes = '<ul><li>'
     counter = 0
+    hours = 0
+    for entry in estimate.time_set.all():
+        hours += entry.hours
     for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>'.join(['\n', entry.notes])
@@ -496,7 +499,7 @@ def estimate_mail(request, pk=None):
             notes += ''.join(['\n', entry.notes])
         counter += 1
     notes += '</li></ul>'
-    message = ''.join(['<h1>Statement of work</h1>', notes])
+    message = ''.join(['<h1>Statement of Work</h1><h2>%s hours @</h2>' % hours, notes])
     if send_mail(
             request,
             'Estimate',
