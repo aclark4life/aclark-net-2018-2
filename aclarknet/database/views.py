@@ -489,7 +489,7 @@ def estimate_mail(request, pk=None):
             request,
             'Estimate',
             'Here is the estimate',
-            django_settings.EMAIL_FROM)
+            django_settings.EMAIL_FROM):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
