@@ -181,15 +181,7 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    url_name = 'contact_index'
-    kwargs = {}
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'contact'
-    client = request.GET.get('client')
-    if client:
-        client = get_object_or_404(Client, pk=client)
-        url_name = 'contact_index'
+    kwargs, url_name = get_url_name('contact', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ContactForm,
@@ -335,11 +327,7 @@ def contract_edit(request, pk=None):
     """
     """
     contract_settings = ContractSettings.get_solo()
-    kwargs = {}
-    url_name = 'contract_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'contract'
+    kwargs, url_name = get_url_name('contract', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ContractForm,
@@ -443,16 +431,12 @@ def estimate(request, pk=None):
 
 @staff_member_required
 def estimate_edit(request, pk=None):
-    kwargs = {}
-    url_name = 'estimate_index'
     amount = request.GET.get('amount')
     paid_amount = request.GET.get('paid_amount')
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'estimate'
+    kwargs, url_name = get_url_name('estimate', page_type='index_or_edit', pk=pk)
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
@@ -569,7 +553,6 @@ def invoice(request, pk=None):
 
 @staff_member_required
 def invoice_edit(request, pk=None):
-    kwargs = {}
     amount = request.GET.get('amount')
     paid_amount = request.GET.get('paid_amount')
     subtotal = request.GET.get('subtotal')
@@ -578,16 +561,13 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     project = request.GET.get('project')
     url_name = 'invoice_index'
-    if project:
-        project = get_object_or_404(Project, pk=project)
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'invoice'
-        invoice = get_object_or_404(Invoice, pk=pk)
-        if invoice.project:
-            if invoice.project.client and not invoice.client:
-                invoice.client = invoice.project.client
-                invoice.save()
+    kwargs, url_name = get_url_name('invoice', page_type='index_or_edit', pk=pk)
+    invoice = get_object_or_404(Invoice, pk=pk)
+    project = get_object_or_404(Project, pk=project)
+    if invoice.project:
+        if invoice.project.client and not invoice.client:
+            invoice.client = invoice.project.client
+            invoice.save()
     if paid and times:
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
         for entry in times:
@@ -686,11 +666,7 @@ def newsletter(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
-    kwargs = {}
-    url_name = 'newsletter_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'newsletter'
+    kwargs, url_name = get_url_name('newsletter', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         NewsletterForm,
@@ -773,11 +749,7 @@ def note(request, pk=None):
 @staff_member_required
 def note_edit(request, pk=None):
     company = Company.get_solo()
-    kwargs = {}
-    url_name = 'note_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'note'
+    kwargs, url_name = get_url_name('note', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         NoteForm,
@@ -830,18 +802,10 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    url_name = 'project_index'
-    kwargs = {}
-    clients = []
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'project'
-    else:
-        clients = Client.objects.filter(active=True)
     client = request.GET.get('client')
-    if client:
-        client = get_object_or_404(Client, pk=client)
-        url_name = 'client_index'
+    client = get_object_or_404(Client, pk=client)
+    clients = Client.objects.filter(active=True)
+    kwargs, url_name = get_url_name('project', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ProjectForm,
@@ -893,11 +857,7 @@ def proposal_edit(request, pk=None):
     """
     """
     company = Company.get_solo()
-    kwargs = {}
-    url_name = 'proposal_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'proposal'
+    kwargs, url_name = get_url_name('proposal', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ProposalForm,
@@ -951,12 +911,8 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_edit(request, pk=None):
-    kwargs = {}
-    url_name = 'report_index'
     gross, net, invoices_active = dashboard_totals(Invoice)
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'report'
+    kwargs, url_name = get_url_name('report', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ReportForm,
@@ -1060,11 +1016,7 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    kwargs = {}
-    url_name = 'task_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'task'
+    kwargs, url_name = get_url_name('task', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         TaskForm,
@@ -1110,8 +1062,10 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
-    kwargs = {}
-    url_name = 'entry_index'
+    client = request.GET.get('client')
+    project = request.GET.get('project')
+    task = None
+    kwargs, url_name = get_url_name('task', page_type='index_or_edit', pk=pk)
     if pk is not None:
         entry = get_object_or_404(Time, pk=pk)
         if entry.user:
@@ -1121,12 +1075,6 @@ def time_edit(request, pk=None):
         else:
             if not request.user.is_staff:
                 return HttpResponseRedirect(reverse('admin:index'))
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'entry'
-    client = request.GET.get('client')
-    project = request.GET.get('project')
-    task = None
     if client:
         client = get_object_or_404(Client, pk=client)
     if project:
@@ -1234,13 +1182,9 @@ def user_contact(request, pk=None):
 @login_required
 def user_edit(request, pk=None):
     context = {}
-    kwargs = {}
-    user = get_object_or_404(User, pk=pk)
     context['user'] = user
-    url_name = 'user_index'
-    if pk:
-        kwargs['pk'] = pk
-        url_name = 'user'
+    user = get_object_or_404(User, pk=pk)
+    kwargs, url_name = get_url_name('user', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ProfileForm,
