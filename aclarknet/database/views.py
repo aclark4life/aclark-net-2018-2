@@ -504,9 +504,9 @@ def estimate_mail(request, pk=None):
     cost = hours * rate
     message = ''.join([
         '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
-        'hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>'
-        % (hours, estimate.subject, rate, estimate.client.name, cost,
-           start_date, end_date), notes
+        'hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>' %
+        (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
+         end_date), notes
     ])
     if send_mail(request, 'Estimate', message, to):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
