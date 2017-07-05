@@ -488,9 +488,6 @@ def estimate_mail(request, pk=None):
     if request.method == 'POST':
         form = MailForm(request.POST)
         if form.is_valid():
-            url = reverse('estimate', kwargs={'pk': pk})
-            url = ''.join([request.get_host(), url])
-            first_name = contact.first_name
             if send_mail(
                     request,
                     'Estimate',
@@ -500,7 +497,7 @@ def estimate_mail(request, pk=None):
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
                 log = Log(entry='Estimate sent to %s.' % to)
                 log.save()
-            return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
+            return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
     else:
         form = MailForm()
     context['active_nav'] = 'estimate'
