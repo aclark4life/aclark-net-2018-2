@@ -27,6 +27,20 @@ from lxml import etree
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
 
+URL_NAMES = {
+    'client': ('client_edit', 'client_index', 'client'),
+    'contact': ('contact_edit', 'contact_index', 'contact'),
+    'contract': ('contract_edit', 'contract_index', 'contract'),
+    'estimate': ('estimate_edit', 'estimate_index', 'estimate'),
+    'invoice': ('invoice_edit', 'invoice_index', 'invoice'),
+    'newsletter': ('newsletter_edit', 'newsletter_index', 'newsletter'),
+    'note': ('note_edit', 'note_index', 'note'),
+    'project': ('project_edit', 'project_index', 'project'),
+    'report': ('report_edit', 'report_index', 'report'),
+    'task': ('task_edit', 'task_index', 'task'),
+    'time': ('entry_edit', 'entry_index', 'entry'),
+}
+
 
 class BooleanWidget(widgets.Widget):
     """
@@ -502,30 +516,17 @@ def get_search_results(model,
 def get_url_name(verbose_name, page_type=None, pk=None):
     """
     """
-    URL_NAME = {
-        'client': ('client_edit', 'client_index', 'client'),
-        'contact': ('contact_edit', 'contact_index', 'contact'),
-        'contract': ('contract_edit', 'contract_index', 'contract'),
-        'estimate': ('estimate_edit', 'estimate_index', 'estimate'),
-        'invoice': ('invoice_edit', 'invoice_index', 'invoice'),
-        'newsletter': ('newsletter_edit', 'newsletter_index', 'newsletter'),
-        'note': ('note_edit', 'note_index', 'note'),
-        'project': ('project_edit', 'project_index', 'project'),
-        'report': ('report_edit', 'report_index', 'report'),
-        'task': ('task_edit', 'task_index', 'task'),
-        'time': ('entry_edit', 'entry_index', 'entry'),
-    }
     if page_type == 'edit':
-        return URL_NAME[verbose_name][0]
+        return URL_NAMES[verbose_name][0]
     elif page_type == 'index':
-        return URL_NAME[verbose_name][1]
+        return URL_NAMES[verbose_name][1]
     elif page_type == 'index_or_edit':
         kwargs = {}
         if pk:
             kwargs['pk'] = pk
-            return kwargs, URL_NAME[verbose_name][2]
+            return kwargs, URL_NAMES[verbose_name][2]
         else:
-            return kwargs, URL_NAME[verbose_name][1]
+            return kwargs, URL_NAMES[verbose_name][1]
 
 
 def gravatar_url(email):
