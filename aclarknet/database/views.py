@@ -487,9 +487,10 @@ def estimate_mail(request, pk=None):
     context = {}
     to = django_settings.EMAIL_FROM
     estimate = get_object_or_404(Estimate, pk=pk)
-    notes = ''
+    notes = '<ul><li>'
     for entry in estimate.time_set.all():
-        notes += ''.join(['\n', entry.notes])
+        notes += '</li><li>'.join(['\n', entry.notes])
+    notes += '</li></ul>'
     if send_mail(
             request,
             'Estimate',
