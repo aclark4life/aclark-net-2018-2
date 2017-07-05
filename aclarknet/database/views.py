@@ -495,7 +495,7 @@ def estimate_mail(request, pk=None):
     end_date = estimate.project.end_date
     for entry in estimate.time_set.all():
         if counter != 0:
-            notes += '</li><li>%s' % entry.notes
+            notes += '</li><li>%s %s.' % (entry.notes, start_date)
         else:
             notes += entry.notes
         counter += 1
