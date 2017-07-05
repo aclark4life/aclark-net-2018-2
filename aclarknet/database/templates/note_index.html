@@ -37,7 +37,7 @@
                 <td><a href="{% url 'note' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View item</a></td>
                 <td><a href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                 <td>
-                  <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm-{{ item.pk }}"><i class="fa fa-times-circle-o fa-{{ icon_size }}"></i></a>
+                  <a href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o fa-{{ icon_size }}"></i></a>
 {% include 'delete_form.html' %}
                 </td>
               </tr>
