@@ -491,6 +491,8 @@ def estimate_mail(request, pk=None):
     counter = 0
     hours = 0
     rate = estimate.project.task.rate
+    start_date = estimate.project.start_date
+    end_date = estimate.project.end_date
     for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>'.join(['%s\n' % entry.hours, entry.notes])
@@ -500,7 +502,7 @@ def estimate_mail(request, pk=None):
         hours += entry.hours
     notes += '</li></ul>'
     cost = hours * rate
-    message = ''.join(['<h1 style="text-align: center">Statement of Work</h1><h2>%s hours of %s @ $%s/hour for %s = $%.2f</h2>' % (hours, estimate.subject, rate, estimate.client.name, cost), notes])
+    message = ''.join(['<h1 style="text-align: center">Statement of Work</h1><h2>%s hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>' % (hours, estimate.subject, rate, estimate.client.name, cost, start_date, end_date), notes])
     if send_mail(
             request,
             'Estimate',
