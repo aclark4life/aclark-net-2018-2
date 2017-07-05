@@ -508,7 +508,7 @@ def estimate_mail(request, pk=None):
         (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
          end_date), notes
     ])
-    if send_mail(request, 'Statement of Work for %s' % estimate.description, message, to):
+    if send_mail(request, 'Statement of Work for %s' % estimate.subject, message, to):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
