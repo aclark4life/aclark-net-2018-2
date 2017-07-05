@@ -20,7 +20,7 @@
                   <h3>{{ field.verbose_name }}</h3>
                 </div>
                 <div class="card-block">
-                  <div class="card-text">{{ field.get_default|safe }}</div>
+                  <div class="card-text">{{ field|safe }}</div>
                 </div>
               </div>
               {% endfor %}
