@@ -489,7 +489,7 @@ def estimate_mail(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
     notes = ''
     for entry in estimate.time_set.all():
-        notes = ''.join([entry.notes, '\n'])
+        notes += ''.join(['\n', entry.notes])
     if send_mail(
             request,
             'Estimate',
