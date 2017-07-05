@@ -126,8 +126,7 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    kwargs = {}
-    url_name = get_url_name('client', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name('client', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ClientForm,

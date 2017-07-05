@@ -520,10 +520,12 @@ def get_url_name(verbose_name, page_type=None, pk=None):
     elif page_type == 'index':
         return URL_NAME[verbose_name][1]
     elif page_type == 'index_or_edit':
+        kwargs = {}
         if pk:
-            return URL_NAME[verbose_name][2]
+            kwargs['pk'] = pk
+            return kwargs, URL_NAME[verbose_name][2]
         else:
-            return URL_NAME[verbose_name][1]
+            return kwargs, URL_NAME[verbose_name][1]
 
 
 def gravatar_url(email):
