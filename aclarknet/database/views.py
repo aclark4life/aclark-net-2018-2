@@ -493,9 +493,9 @@ def estimate_mail(request, pk=None):
             first_name = contact.first_name
             if send_mail(
                     request,
-                    'Estimate'
-                    'Here is the estimate'
-                    settings.EMAIL_FROM
+                    'Estimate',
+                    'Here is the estimate',
+                    settings.EMAIL_FROM,
                     url=url)
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
                 log = Log(entry='Estimate sent to %s.' % to)
