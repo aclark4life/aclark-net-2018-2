@@ -14,13 +14,13 @@
                   <h2>Default Field Values</h2>
                 </div>
               </div>
-              {% for name, value in fields %}
+              {% for field in fields %}
               <div class="card">
                 <div class="card-header">
-                  <h3>{{ name }}</h3>
+                  <h3>{{ field.name }}</h3>
                 </div>
                 <div class="card-block">
-                  <div class="card-text">{{ value|safe }}</div>
+                  <div class="card-text">{{ field.value|safe }}</div>
                 </div>
               </div>
               {% endfor %}
