@@ -1185,6 +1185,7 @@ def time_index(request):
 @login_required
 def user(request, pk=None):
     company = Company.get_solo()
+    contacts = Contact.objects.all()
     settings = Settings.get_solo()
     user = get_object_or_404(User, pk=pk)
     profile = Profile.objects.get_or_create(user=user)[0]
@@ -1213,6 +1214,7 @@ def user(request, pk=None):
     context['profile'] = profile
     context['request'] = request
     context['total_dollars'] = '%.2f' % total_dollars
+    context['is_contact'] = user.email in [i.email for i in contacts]
     # XXX One off to list projects, maybe refactor index_items to return
     # multiple listings e.g.
     #     projects = index_items()
