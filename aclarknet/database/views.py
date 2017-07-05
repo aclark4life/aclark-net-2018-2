@@ -497,7 +497,7 @@ def estimate_mail(request, pk=None):
         if counter != 0:
             notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes, entry.hours)
         else:
-            notes += entry.notes
+            notes += '%s <strong>%s hours</strong>.' % (entry.notes, entry.hours)
         counter += 1
         hours += entry.hours
     notes += '</li></ul>'
