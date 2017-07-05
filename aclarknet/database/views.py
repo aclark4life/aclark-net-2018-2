@@ -499,7 +499,7 @@ def estimate_mail(request, pk=None):
             notes += ''.join(['\n', entry.notes])
         counter += 1
     notes += '</li></ul>'
-    message = ''.join(['<h1>Statement of Work</h1><h2>%s hours @ %s/hour for %s</h2>' % (hours, estimate.project.task.rate, estimate.client.name), notes])
+    message = ''.join(['<h1>Statement of Work</h1><h2>%s hours of %s @ %s/hour for %s</h2>' % (hours, estimate.description, estimate.project.task.rate, estimate.client.name), notes])
     if send_mail(
             request,
             'Estimate',
