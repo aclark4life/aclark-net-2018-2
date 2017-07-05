@@ -181,7 +181,8 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    kwargs, url_name = get_url_name('contact', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'contact', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ContactForm,
@@ -327,7 +328,8 @@ def contract_edit(request, pk=None):
     """
     """
     contract_settings = ContractSettings.get_solo()
-    kwargs, url_name = get_url_name('contract', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'contract', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ContractForm,
@@ -436,7 +438,8 @@ def estimate_edit(request, pk=None):
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
-    kwargs, url_name = get_url_name('estimate', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'estimate', page_type='index_or_edit', pk=pk)
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
@@ -561,7 +564,8 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     project = request.GET.get('project')
     url_name = 'invoice_index'
-    kwargs, url_name = get_url_name('invoice', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'invoice', page_type='index_or_edit', pk=pk)
     invoice = get_object_or_404(Invoice, pk=pk)
     project = get_object_or_404(Project, pk=project)
     if invoice.project:
@@ -666,7 +670,8 @@ def newsletter(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
-    kwargs, url_name = get_url_name('newsletter', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'newsletter', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         NewsletterForm,
@@ -805,7 +810,8 @@ def project_edit(request, pk=None):
     client = request.GET.get('client')
     client = get_object_or_404(Client, pk=client)
     clients = Client.objects.filter(active=True)
-    kwargs, url_name = get_url_name('project', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'project', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ProjectForm,
@@ -857,7 +863,8 @@ def proposal_edit(request, pk=None):
     """
     """
     company = Company.get_solo()
-    kwargs, url_name = get_url_name('proposal', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'proposal', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ProposalForm,
@@ -1182,8 +1189,6 @@ def user_contact(request, pk=None):
 @login_required
 def user_edit(request, pk=None):
     context = {}
-    context['user'] = user
-    user = get_object_or_404(User, pk=pk)
     kwargs, url_name = get_url_name('user', page_type='index_or_edit', pk=pk)
     return edit(
         request,
@@ -1202,7 +1207,7 @@ def user_index(request):
     company = Company.get_solo()
     settings = Settings.get_solo()
     # XXX FieldError at /user
-    # Cannot resolve keyword 'updated' into field. 
+    # Cannot resolve keyword 'updated' into field.
     # search_fields = ('first_name', 'last_name', 'email')
     search_fields = ()
     context = index_items(
