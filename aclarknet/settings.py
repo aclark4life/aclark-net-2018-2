@@ -174,3 +174,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':
     ('rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', ),
 }
+
+# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/geoip2/
+GEOIP_PATH = '/data'
