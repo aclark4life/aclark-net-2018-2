@@ -867,7 +867,7 @@ def proposal_edit(request, pk=None):
         Proposal,
         url_name,
         'proposal_edit.html',
-        active_nav='proposal',
+        active_nav='dropdown',
         company=company,
         kwargs=kwargs,
         pk=pk)
@@ -881,7 +881,7 @@ def proposal_index(request, pk=None):
         request,
         Proposal,
         search_fields,
-        active_nav='proposal',
+        active_nav='dropdown',
         app_settings=settings,
         show_search=True)
     context['edit_url'] = 'proposal_edit'  # Delete modal
