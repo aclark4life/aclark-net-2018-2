@@ -581,4 +581,4 @@ class Zipcode(models.Model):
 
 class Elevation(models.Model):
     name = models.CharField(max_length=100)
-    rast = models.RasterField()
+    # rast = models.RasterField()

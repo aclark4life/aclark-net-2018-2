@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-                ('rast', django.contrib.gis.db.models.fields.RasterField(srid=4326)),
+                # ('rast', django.contrib.gis.db.models.fields.RasterField(srid=4326)),
             ],
         ),
         migrations.CreateModel(
