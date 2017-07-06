@@ -411,10 +411,10 @@ def estimate(request, pk=None):
         estimate=None,
         project=None,
         invoiced=False,
-        invoice=None).order_by('-pk')
+        invoice=None)
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
-    times = times.order_by('-date')
+    times = times.order_by('-updated')
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['entries'] = entries
     context['amount'] = amount
