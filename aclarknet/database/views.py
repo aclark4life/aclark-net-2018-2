@@ -1144,6 +1144,7 @@ def user(request, pk=None):
         request,
         Time,
         search_fields,
+        active_nav='user',
         order_by=('-date', ),
         filters=filters,
         app_settings=settings)
