@@ -507,6 +507,7 @@ def estimate_mail(request, pk=None):
         hours += entry.hours
     notes += '</li></ul>'
     cost = hours * rate
+    url = reverse('estimate', kwargs={'pk': estimate.pk})
     message = ''.join([
         '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
         'total hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>' %
@@ -515,7 +516,7 @@ def estimate_mail(request, pk=None):
     ])
 
     if send_mail(request, 'Statement of Work for %s sent %s.' %
-                 (subject, now), message, to):
+                 (subject, now), message, to, url=url):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
