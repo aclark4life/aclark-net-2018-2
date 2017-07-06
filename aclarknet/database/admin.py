@@ -97,13 +97,13 @@ class ContactAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Contract)
-class ContractAdmin(admin.ModelAdmin):
+class ContractAdmin(ImportExportModelAdmin):
     """
     """
 
 
 @admin.register(ContractSettings)
-class ContractSettingsAdmin(admin.ModelAdmin):
+class ContractSettingsAdmin(ImportExportModelAdmin):
     """
     """
 
@@ -198,19 +198,19 @@ class InvoiceAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Log)
-class LogAdmin(admin.ModelAdmin):
+class LogAdmin(ImportExportModelAdmin):
     """
     """
 
 
 @admin.register(Newsletter)
-class NewsletterAdmin(admin.ModelAdmin):
+class NewsletterAdmin(ImportExportModelAdmin):
     """
     """
 
 
 @admin.register(Note)
-class NoteAdmin(admin.ModelAdmin):
+class NoteAdmin(ImportExportModelAdmin):
     """
     """
 
@@ -260,7 +260,7 @@ class ProjectResource(ImportExportModelResource):
 
 
 @admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
+class ProfileAdmin(ImportExportModelAdmin):
     """
     """
 
@@ -273,19 +273,19 @@ class ProjectAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Proposal)
-class ProposalAdmin(admin.ModelAdmin):
+class ProposalAdmin(ImportExportModelAdmin):
     """
     """
 
 
 @admin.register(Report)
-class ReportAdmin(admin.ModelAdmin):
+class ReportAdmin(ImportExportModelAdmin):
     """
     """
 
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(ImportExportModelAdmin):
     """
     """
 
@@ -297,7 +297,7 @@ class SettingsAdmin(SingletonModelAdmin):
 
 
 @admin.register(Testimonial)
-class TestimonialAdmin(admin.ModelAdmin):
+class TestimonialAdmin(ImportExportModelAdmin):
     """
     """
     prepopulated_fields = {"slug": ("name", )}
