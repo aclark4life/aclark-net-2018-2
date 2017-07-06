@@ -486,7 +486,6 @@ def estimate_index(request):
 
 @staff_member_required
 def estimate_mail(request, pk=None):
-    to = django_settings.EMAIL_FROM
     estimate = get_object_or_404(Estimate, pk=pk)
     notes = '<ol><li>'
     counter = 0
@@ -496,6 +495,7 @@ def estimate_mail(request, pk=None):
     end_date = estimate.project.end_date
     subject = estimate.subject
     now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
+    app_admins = Profile.objects.all(app_admin=True)
     for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
@@ -515,15 +515,16 @@ def estimate_mail(request, pk=None):
         (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
          end_date), notes
     ])
-    if send_mail(
-            request,
-            'Statement of Work for %s sent on %s.' % (subject, now),
-            message,
-            to,
-            url=url):
-        messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-        log = Log(entry='Estimate sent to %s.' % to)
-        log.save()
+    for app_admin in app_admins:
+        if send_mail(
+                request,
+                'Statement of Work for %s sent on %s.' % (subject, now),
+                message,
+                to,
+                url=url):
+            log = Log(entry='Statement of Work for %s sent on %s to %s.' % (subject, now, app_admin))
+            log.save()
+    messages.add_message(request, messages.SUCCESS, 'Sent to app_admins.')
     return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
 
 
