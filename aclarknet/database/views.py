@@ -44,6 +44,7 @@ from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
 from .utils import generate_doc
+from .utils import get_client_ip
 from .utils import get_filename
 from .utils import get_setting
 from .utils import get_query
@@ -628,6 +629,8 @@ def login(request):
         if user is not None:
             # https://stackoverflow.com/a/39316967/185820
             auth_login(request, user)
+            ip_address = get_client_ip(request)
+            log = Log(entry='%s logged in from %s' % (user, ip_address))
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.add_message(request, messages.WARNING, 'Login failed.')

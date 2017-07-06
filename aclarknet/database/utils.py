@@ -518,6 +518,16 @@ def get_active_kwarg(model, active=False, user=None):
     return kwargs
 
 
+# https://stackoverflow.com/a/4581997/185820
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def get_filename(company):
     company_name = company.name.replace('.', '_')
     company_name = company_name.replace(', ', '_')
