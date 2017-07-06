@@ -235,3 +235,14 @@ PostGIS
 
     SET search_path=public,tiger;         
       
+::
+
+    select na.address, na.streetname, na.streettypeabbrev, na.zip
+    from normalize_address('1 Devonshire Place, Boston, MA 02109') as na;
+
+::
+
+    address | streetname | streettypeabbrev |  zip
+    ---------+------------+------------------+-------
+           1 | Devonshire | Pl               | 02109
+    (1 row) 
