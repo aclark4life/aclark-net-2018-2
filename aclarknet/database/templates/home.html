@@ -18,6 +18,8 @@
           </div>
           {% endif %}
           {% if request.user.is_staff %}
-{% include 'dashboard.html' %}
+{% include 'dashboard_admin.html' %}
+          {% else %}
+{% include 'dashboard_user.html' %}
           {% endif %}
 {% endblock %}
