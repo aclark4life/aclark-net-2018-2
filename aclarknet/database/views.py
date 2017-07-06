@@ -488,7 +488,7 @@ def estimate_index(request):
 def estimate_mail(request, pk=None):
     to = django_settings.EMAIL_FROM
     estimate = get_object_or_404(Estimate, pk=pk)
-    notes = '<ul><li>'
+    notes = '<ol><li>'
     counter = 0
     hours = 0
     rate = estimate.project.task.rate
@@ -505,7 +505,7 @@ def estimate_mail(request, pk=None):
                                                         entry.hours)
         counter += 1
         hours += entry.hours
-    notes += '</li></ul>'
+    notes += '</li></ol>'
     cost = hours * rate
     url = reverse('estimate', kwargs={'pk': estimate.pk})
     url = ''.join([request.get_host(), url])
@@ -516,8 +516,12 @@ def estimate_mail(request, pk=None):
          end_date), notes
     ])
 
-    if send_mail(request, 'Statement of Work for %s sent %s.' %
-                 (subject, now), message, to, url=url):
+    if send_mail(
+            request,
+            'Statement of Work for %s sent %s.' % (subject, now),
+            message,
+            to,
+            url=url):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
