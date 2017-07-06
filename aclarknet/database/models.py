@@ -570,3 +570,15 @@ class Time(models.Model):
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):
         return '%s/%s' % (hostname, reverse('entry', args=[str(self.id)]))
+
+
+# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
+from django.contrib.gis.db import models
+
+class Zipcode(models.Model):
+    code = models.CharField(max_length=5)
+    poly = models.PolygonField()
+
+class Elevation(models.Model):
+    name = models.CharField(max_length=100)
+    rast = models.RasterField()
