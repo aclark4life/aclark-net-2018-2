@@ -520,7 +520,7 @@ def estimate_mail(request, pk=None):
                 request,
                 'Statement of Work for %s sent on %s.' % (subject, now),
                 message,
-                to,
+                app_admin.email,
                 url=url):
             log = Log(entry='Statement of Work for %s sent on %s to %s.' % (subject, now, app_admin))
             log.save()
