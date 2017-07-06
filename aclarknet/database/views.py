@@ -495,7 +495,7 @@ def estimate_mail(request, pk=None):
     start_date = estimate.project.start_date
     end_date = estimate.project.end_date
     subject = estimate.subject
-    now = timezone.datetime.now().strftime('%m/%d/%Y @ %H:%M:%S')
+    now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
     for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
@@ -511,7 +511,7 @@ def estimate_mail(request, pk=None):
     url = ''.join([request.get_host(), url])
     message = ''.join([
         '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
-        'total hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>' %
+        'total hours of %s at rate of $%s/hour for %s = $%.2f from %s to %s.</h2>' %
         (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
          end_date), notes
     ])
