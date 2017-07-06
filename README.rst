@@ -186,6 +186,9 @@ PostGIS
     create extension fuzzystrmatch;
     create extension postgis_tiger_geocoder;
     create extension postgis_topology;
+
+::
+
     postgres=> \dn
          List of schemas
          Name     |   Owner
@@ -194,4 +197,22 @@ PostGIS
      tiger        | rdsadmin
      tiger_data   | rdsadmin
      topology     | rdsadmin
+    (4 rows) 
+
+::
+
+    alter schema tiger owner to rds_superuser;
+    alter schema tiger_data owner to rds_superuser;
+    alter schema topology owner to rds_superuser;
+
+::
+
+    postgres=> \dn
+           List of schemas
+         Name     |     Owner
+    --------------+---------------
+     public       | myawsuser
+     tiger        | rds_superuser
+    tiger_data    | rds_superuser
+     topology     | rds_superuser
     (4 rows) 
