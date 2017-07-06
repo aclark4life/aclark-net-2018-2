@@ -655,7 +655,7 @@ def newsletter(request, pk=None):
     """
     context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
-    context['active_nav'] = 'newsletter'
+    context['active_nav'] = 'dropdown'
     context['contacts'] = newsletter.contacts.all().order_by('first_name')
     context['edit_url'] = 'newsletter_edit'
     context['item'] = newsletter
