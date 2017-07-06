@@ -1264,7 +1264,7 @@ def user_index(request):
         search_fields,
         active_nav='user',
         app_settings=settings,
-        order_by=('-profile__active', ),
+        order_by=('-profile__active', '-update'),
         show_search=False)
     context['company'] = company
     # Check if user is contact
