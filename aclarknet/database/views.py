@@ -411,7 +411,7 @@ def estimate(request, pk=None):
         estimate=None,
         project=None,
         invoiced=False,
-        invoice=None).order_by('-updated')
+        invoice=None).order_by('-pk')
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-date')
