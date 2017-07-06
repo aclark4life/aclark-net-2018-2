@@ -306,7 +306,7 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    app_admin = models.BooleanField(default=True)
+    app_admin = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     bio = models.TextField(blank=True, null=True)
     user = models.OneToOneField(
