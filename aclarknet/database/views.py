@@ -62,6 +62,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.utils import timezone
 from django_xhtml2pdf.utils import generate_pdf
 from faker import Faker
 from io import BytesIO
@@ -493,11 +494,15 @@ def estimate_mail(request, pk=None):
     rate = estimate.project.task.rate
     start_date = estimate.project.start_date
     end_date = estimate.project.end_date
+    subject = estimate.subject
+    now = timezone.datetime.now().strftime('%m/%d/%Y %H:%M:%S')
     for entry in estimate.time_set.all():
         if counter != 0:
-            notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes, entry.hours)
+            notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
+                                                                 entry.hours)
         else:
-            notes += '%s <strong>%s hours</strong>.' % (entry.notes, entry.hours)
+            notes += '%s <strong>%s hours</strong>.' % (entry.notes,
+                                                        entry.hours)
         counter += 1
         hours += entry.hours
     notes += '</li></ul>'
@@ -508,7 +513,9 @@ def estimate_mail(request, pk=None):
         (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
          end_date), notes
     ])
-    if send_mail(request, 'Statement of Work for %s' % estimate.subject, message, to):
+
+    if send_mail(request, 'Statement of Work for %s sent %s.' %
+                 (subject, now), message, to):
         messages.add_message(request, messages.SUCCESS, 'Mail sent!')
         log = Log(entry='Estimate sent to %s.' % to)
         log.save()
