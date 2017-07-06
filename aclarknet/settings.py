@@ -89,6 +89,9 @@ DATABASES = {
          os.environ.get('DB_NAME', 'aclarknet'))))
 }
 
+# https://stackoverflow.com/a/21317596
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
