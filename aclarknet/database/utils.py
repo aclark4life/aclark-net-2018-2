@@ -520,16 +520,7 @@ def get_active_kwarg(model, active=False, user=None):
 
 # https://stackoverflow.com/a/4581997/185820
 def get_client_ip(request):
-    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    x_forwarded_for = request.META
-    if x_forwarded_for:
-        # ip = x_forwarded_for.split(',')[0]
-        # https://stackoverflow.com/a/5976065/185820
-        # ip = x_forwarded_for.split(',')[-1].strip()
-        ip = x_forwarded_for
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+    return request.META.get('HTTP_X_REAL_IP')
 
 
 def get_filename(company):
