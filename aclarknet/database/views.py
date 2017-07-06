@@ -897,7 +897,7 @@ def report(request, pk=None):
     report = get_object_or_404(Report, pk=pk)
     reports = Report.objects.filter(active=True)
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
-    context['active_nav'] = 'report'
+    context['active_nav'] = 'dropdown'
     context['company'] = company
     context['cost'] = report.gross - report.net
     context['edit_url'] = 'report_edit'  # Delete modal
