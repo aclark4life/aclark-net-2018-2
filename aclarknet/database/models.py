@@ -1,7 +1,9 @@
 from .utils import gravatar_url
 from django.conf import settings
+# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
+from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
-from django.db import models
+# from django.db import models
 from django.utils import timezone
 from faker import Faker
 from multiselectfield import MultiSelectField
@@ -155,6 +157,12 @@ class ContractSettings(SingletonModel):
         'Limited Warranty', blank=True, null=True, default=fake.text)
     complete_agreement = models.TextField(
         'Complete Agreement', blank=True, null=True, default=fake.text)
+
+
+# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
+class Elevation(models.Model):
+    name = models.CharField(max_length=100)
+    rast = models.RasterField()
 
 
 class Estimate(models.Model):
@@ -573,14 +581,6 @@ class Time(models.Model):
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
-from django.contrib.gis.db import models
-
-
 class Zipcode(models.Model):
     code = models.CharField(max_length=5)
     poly = models.PolygonField()
-
-
-class Elevation(models.Model):
-    name = models.CharField(max_length=100)
-    rast = models.RasterField()
