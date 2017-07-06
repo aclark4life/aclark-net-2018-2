@@ -631,6 +631,7 @@ def login(request):
             auth_login(request, user)
             ip_address = get_client_ip(request)
             log = Log(entry='%s logged in from %s' % (user, ip_address))
+            log.save()
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.add_message(request, messages.WARNING, 'Login failed.')
