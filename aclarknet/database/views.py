@@ -510,9 +510,9 @@ def estimate_mail(request, pk=None):
     url = ''.join([request.get_host(), url])
     message = ''.join([
         '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
-        'total hours of %s at rate of $%s/hour for %s = $%.2f from %s to %s.</h2>' %
-        (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
-         end_date), notes
+        'total hours of %s at rate of $%s/hour for %s = $%.2f from %s to %s.</h2>'
+        % (hours, estimate.subject, rate, estimate.client.name, cost,
+           start_date, end_date), notes
     ])
     profiles = Profile.objects.filter(app_admin=True)
     for profile in profiles:
@@ -523,7 +523,8 @@ def estimate_mail(request, pk=None):
                 message,
                 email,
                 url=url):
-            log = Log(entry='Statement of Work for %s sent on %s to %s.' % (subject, now, email))
+            log = Log(entry='Statement of Work for %s sent on %s to %s.' %
+                      (subject, now, email))
             log.save()
     messages.add_message(request, messages.SUCCESS, 'Sent to app_admins.')
     return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
