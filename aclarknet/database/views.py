@@ -64,7 +64,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils import timezone
 from django_xhtml2pdf.utils import generate_pdf
-from faker import Faker
+# from faker import Faker
 from io import BytesIO
 from matplotlib.dates import DateFormatter
 from matplotlib.dates import MonthLocator
@@ -217,33 +217,36 @@ def contact_index(request):
 def contact_mail(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST':
-        form = MailForm(request.POST)
-        if form.is_valid():
-            test = form.cleaned_data['test']
-            if test:
-                fake = Faker()
-                subject = fake.text()
-                message = fake.text()
-            else:
-                subject = form.cleaned_data['subject']
-                message = form.cleaned_data['message']
-            url = reverse('contact_unsubscribe', kwargs={'pk': pk})
-            url = ''.join([request.get_host(), url])
-            to = contact.email
-            first_name = contact.first_name
-            if send_mail(
-                    request,
-                    subject,
-                    message,
-                    to,
-                    url=url,
-                    uuid=contact.uuid,
-                    first_name=first_name):
-                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-                log = Log(entry='Mail sent to %s.' % to)
-                log.save()
-            return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
+    if request.method == 'POST' and create_and_send_mail(request, Log, contact=contact):
+        return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
+
+#        form = MailForm(request.POST)
+#        if form.is_valid():
+#            test = form.cleaned_data['test']
+#            if test:
+#                fake = Faker()
+#                subject = fake.text()
+#                message = fake.text()
+#            else:
+#                subject = form.cleaned_data['subject']
+#                message = form.cleaned_data['message']
+#            url = reverse('contact_unsubscribe', kwargs={'pk': pk})
+#            url = ''.join([request.get_host(), url])
+#            to = contact.email
+#            first_name = contact.first_name
+#            if send_mail(
+#                    request,
+#                    subject,
+#                    message,
+#                    to,
+#                    url=url,
+#                    uuid=contact.uuid,
+#                    first_name=first_name):
+#                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
+#                log = Log(entry='Mail sent to %s.' % to)
+#                log.save()
+#            return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
+
     else:
         form = MailForm()
     context['active_nav'] = 'contact'

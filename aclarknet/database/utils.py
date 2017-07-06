@@ -19,6 +19,7 @@ from django.utils import timezone
 # from django.utils.html import strip_tags
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from faker import Faker
 from functools import reduce
 from import_export import widgets
 from hashlib import md5
@@ -120,6 +121,39 @@ def check_boxes(obj, checkbox, checkbox_subscribed, ref):
             obj.subscribed = False
         obj.save()
         return HttpResponseRedirect(ref)
+
+
+def create_and_send_mail(request, log_model, contact=None):
+    """
+    """
+    if contact:
+        form = MailForm(request.POST)
+        if form.is_valid():
+            test = form.cleaned_data['test']
+            if test:
+                fake = Faker()
+                subject = fake.text()
+                message = fake.text()
+            else:
+                subject = form.cleaned_data['subject']
+                message = form.cleaned_data['message']
+            url = reverse('contact_unsubscribe', kwargs={'pk': pk})
+            url = ''.join([request.get_host(), url])
+            to = contact.email
+            first_name = contact.first_name
+            if send_mail(
+                    request,
+                    subject,
+                    message,
+                    to,
+                    url=url,
+                    uuid=contact.uuid,
+                    first_name=first_name):
+                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
+                log = log_model(entry='Mail sent to %s.' % to)
+                log.save()
+                return True
+    return False
 
 
 def create_form(model,
