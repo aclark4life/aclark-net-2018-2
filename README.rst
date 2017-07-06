@@ -174,3 +174,28 @@ Then:
     bin/pip install -r requirements.txt
 
 .. [1] http://stackoverflow.com/a/26762938/185820
+
+PostGIS
+~~~~~~~
+
+(Via http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html#Appendix.PostgreSQL.CommonDBATasks.PostGIS)
+
+::
+
+    postgres=> create extension postgis;
+    CREATE EXTENSION
+    postgres=> create extension fuzzystrmatch;
+    CREATE EXTENSION
+    postgres=> create extension postgis_tiger_geocoder;
+    CREATE EXTENSION
+    postgres=> create extension postgis_topology;
+    CREATE EXTENSION
+    postgres=> \dn
+         List of schemas
+         Name     |   Owner
+    --------------+-----------
+     public       | myawsuser
+     tiger        | rdsadmin
+     tiger_data   | rdsadmin
+     topology     | rdsadmin
+    (4 rows) 
