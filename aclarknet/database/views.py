@@ -630,7 +630,10 @@ def login(request):
             # https://stackoverflow.com/a/39316967/185820
             auth_login(request, user)
             ip_address = get_client_ip(request)
-            log = Log(entry='%s logged in from %s' % (user, ip_address))
+            from django.contrib.gis.geoip2 import GeoIP2
+            geo = GeoIP2()
+            city_data = geo.city(ip_address)
+            log = Log(entry='%s logged in from %s' % (user, city_data['city']))
             log.save()
             return HttpResponseRedirect(reverse('home'))
         else:
