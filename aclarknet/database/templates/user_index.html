@@ -14,6 +14,7 @@
               <tr>
                 <th data-field="active" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %} >Active</th>
                 <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                <th>Admin</th> 
                 <th data-field="hidden-id" data-sortable="true" data-visible="false">Hidden Id</th>
                 <th data-field="fullname" data-sortable="true">Full Name</th>
                 <th data-field="email-address" data-sortable="true">Email</th>
@@ -28,6 +29,7 @@
               <tr>
                 <td><form action="{% url 'user_edit' user.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if user.profile.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ user.profile.active }}</td>
+                <td>{{ user.profile.app_admin }}</td>
                 <td>{{ user.pk }}</td>
                 <td data-toggle="tooltip" title="Rate: {% if user.profile.rate %}{{ company.currency_symbol }}{% endif %}{{ user.profile.rate|default:''}}">{{ user.get_full_name }}</td>
                 <td>{{ user.email }}</td>
