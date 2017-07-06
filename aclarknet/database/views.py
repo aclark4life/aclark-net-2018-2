@@ -553,9 +553,9 @@ def invoice_edit(request, pk=None):
     paid = request.GET.get('paid')
     company = Company.get_solo()
     project = request.GET.get('project')
-    url_name = 'invoice_index'
     kwargs, url_name = get_url_name(
         'invoice', page_type='index_or_edit', pk=pk)
+    invoice = None
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
     if project:
