@@ -516,13 +516,14 @@ def estimate_mail(request, pk=None):
     ])
     profiles = Profile.objects.filter(app_admin=True)
     for profile in profiles:
+        email = profile.user.email
         if send_mail(
                 request,
                 'Statement of Work for %s sent on %s.' % (subject, now),
                 message,
-                profile.user.email,
+                email,
                 url=url):
-            log = Log(entry='Statement of Work for %s sent on %s to %s.' % (subject, now, app_admin))
+            log = Log(entry='Statement of Work for %s sent on %s to %s.' % (subject, now, email))
             log.save()
     messages.add_message(request, messages.SUCCESS, 'Sent to app_admins.')
     return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
