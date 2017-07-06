@@ -1213,7 +1213,7 @@ def user_index(request):
         request,
         User,
         search_fields,
-        active_nav='user',
+        active_nav='dropdown',
         app_settings=settings,
         order_by=('-profile__active', '-profile__updated'),
         show_search=False)
