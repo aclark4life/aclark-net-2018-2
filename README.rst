@@ -231,4 +231,7 @@ PostGIS
         relkind IN ('r','S','v') ORDER BY relkind = 'S')
     s;
       
+::
+
+    SET search_path=public,tiger;         
       
