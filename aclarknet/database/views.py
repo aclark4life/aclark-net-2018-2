@@ -160,7 +160,7 @@ def client_index(request):
 @staff_member_required
 def company_edit(request, pk=None):
     return edit(
-        request, CompanyForm, Company, 'company', 'company_edit.html', pk=1)
+        request, CompanyForm, Company, 'company', 'company_edit.html', active_nav='dropdown', pk=1)
 
 
 @staff_member_required
@@ -364,7 +364,7 @@ def contract_settings_edit(request, pk=None):
         'contract_settings',
         'contract_settings_edit.html',
         pk=1,
-        active_nav='contract')
+        active_nav='dropdown')
 
 
 @staff_member_required
@@ -674,7 +674,7 @@ def newsletter_edit(request, pk=None):
         Newsletter,
         url_name,
         'newsletter_edit.html',
-        active_nav='newsletter',
+        active_nav='dropdown',
         kwargs=kwargs,
         pk=pk)
 
@@ -922,7 +922,7 @@ def report_edit(request, pk=None):
         Report,
         url_name,
         'report_edit.html',
-        active_nav='report',
+        active_nav='dropdown',
         gross=gross,
         invoices_active=invoices_active,
         kwargs=kwargs,
@@ -1005,6 +1005,7 @@ def settings_edit(request, pk=None):
         Settings,
         'settings',
         'settings_edit.html',
+        active_nav='dropdown',
         pk=1)
 
 
@@ -1195,7 +1196,7 @@ def user_edit(request, pk=None):
         Profile,
         url_name,
         'user_edit.html',
-        active_nav='user',
+        active_nav='dropdown',
         context=context,
         kwargs=kwargs,
         pk=pk)
