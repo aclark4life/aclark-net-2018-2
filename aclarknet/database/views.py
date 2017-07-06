@@ -1095,6 +1095,7 @@ def time_edit(request, pk=None):
         active_nav='time',
         client=client,
         clients=clients,
+        log_model=Log,
         pk=pk,
         project=project,
         projects=projects,

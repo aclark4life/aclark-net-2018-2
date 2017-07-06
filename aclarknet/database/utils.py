@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from boto.exception import BotoServerError
 from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
@@ -321,6 +322,7 @@ def edit(
         model,
         url_name,
         template,
+        active_nav=None,
         amount=None,
         client=None,
         clients=[],
@@ -330,7 +332,7 @@ def edit(
         gross=None,
         invoices_active=None,  # for reporting
         kwargs={},
-        active_nav=None,
+        log_model=None,
         net=None,
         pk=None,
         paid_amount=None,
@@ -369,7 +371,7 @@ def edit(
             if copy:
                 return obj_copy(obj, url_name)
             if company_note:
-                return obj_edit(obj, company, company_note=True)
+                return obj_edit(obj, company, company_note=True, log_model=log_model)
             if delete:
                 return obj_delete(obj, company, request=request)
             # Check boxes
@@ -398,6 +400,7 @@ def edit(
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
+                log_model=log_model,
                 url_name=url_name)
     context['active_nav'] = active_nav
     context['form'] = form
@@ -732,6 +735,7 @@ def obj_edit(obj,
              company,
              contract_settings,
              company_note=None,
+             log_model=None,
              ref=None,
              request=None,
              kwargs={},
@@ -749,7 +753,11 @@ def obj_edit(obj,
                 message = '%s entered time! %s' % (
                     obj.user.username,
                     obj.get_absolute_url(request.get_host()))
-                send_mail(request, subject, message, settings.EMAIL_FROM)
+                try:
+                    send_mail(request, subject, message, settings.EMAIL_FROM)
+                except BotoServerError:
+                    log = log_model(entry='Could not send mail.')
+                    log.save()
     # Assign and increment invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter and
             pk is None):
