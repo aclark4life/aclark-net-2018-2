@@ -508,6 +508,7 @@ def estimate_mail(request, pk=None):
     notes += '</li></ul>'
     cost = hours * rate
     url = reverse('estimate', kwargs={'pk': estimate.pk})
+    url = ''.join([request.get_host(), url])
     message = ''.join([
         '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
         'total hours of %s @ $%s/hour for %s = $%.2f from %s to %s.</h2>' %
