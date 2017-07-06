@@ -11,14 +11,14 @@
 {% include 'pagination.html' %}
           <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc" data-classes="table table-no-bordered">
             <thead>
-              <tr class="row">
-                <th class="col-md-1" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th> 
+              <tr>
+                <th data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th> 
                 <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th> 
-                <th class="col-md-4" data-sort-name="hidden-name" data-sortable="true">Name</th>
+                <th data-sort-name="hidden-name" data-sortable="true">Name</th>
                 <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
-                <th class="col-md-4" data-sortable="true">Address</th>
-                <th class="col-md-1">View</th>
-                <th class="col-md-1">Edit</th> 
+                <th data-sortable="true">Address</th>
+                <th>View</th>
+                <th>Edit</th> 
               </tr>
             </thead>
             <tbody>
