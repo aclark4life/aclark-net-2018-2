@@ -807,7 +807,7 @@ def note_index(request, pk=None):
         active_nav='note',
         app_settings=settings,
         filters=filters,
-        order_by=('-active', '-created', 'note', 'due_date', 'priority'),
+        order_by=('-updated', '-active', 'note', 'due_date', 'priority'),
         show_search=True)
     context['edit_url'] = 'note_edit'  # Delete modal
     return render(request, 'note_index.html', context)
