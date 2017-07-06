@@ -299,9 +299,6 @@ class Note(models.Model):
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
 
-    class Meta:
-        ordering = ('pk', )
-
 
 class Profile(models.Model):
     """
@@ -572,6 +569,3 @@ class Time(models.Model):
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):
         return '%s/%s' % (hostname, reverse('entry', args=[str(self.id)]))
-
-    class Meta:
-        ordering = ('-updated', )
