@@ -169,6 +169,7 @@ def company(request):
     company = Company.get_solo()
     context['company'] = company
     context['active_tab'] = 'company'
+    context['active_nav'] = 'dropdown'
     return render(request, 'company.html', context)
 
 
@@ -350,6 +351,7 @@ def contract_settings(request):
                                                   field.name)
     context['fields'] = fields
     context['active_tab'] = 'contract'
+    context['active_nav'] = 'dropdown'
     return render(request, 'contract_settings.html', context)
 
 
@@ -990,6 +992,7 @@ def settings(request):
     settings = Settings.get_solo()
     context['settings'] = settings
     context['active_tab'] = 'system'
+    context['active_nav'] = 'dropdown'
     return render(request, 'settings.html', context)
 
 
@@ -1153,7 +1156,7 @@ def user(request, pk=None):
         total_dollars = profile.rate * total_hours
     else:
         total_dollars = 0
-    context['active_nav'] = 'user'
+    context['active_nav'] = 'dropdown'
     context['company'] = company
     context['edit_url'] = 'user_edit'  # Delete modal
     context['icon_size'] = get_setting(request, settings, 'icon_size')
