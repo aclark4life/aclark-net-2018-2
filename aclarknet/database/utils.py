@@ -123,7 +123,13 @@ def check_boxes(obj, checkbox, checkbox_subscribed, ref):
         return HttpResponseRedirect(ref)
 
 
-def create_and_send_mail(request, log_model, mail_form, contact=None, pk=None):
+def create_and_send_mail(request,
+                         log_model,
+                         mail_form=None,
+                         contact=None,
+                         estimate=None,
+                         profile_model=None,
+                         pk=None):
     """
     """
     if contact:
@@ -153,6 +159,50 @@ def create_and_send_mail(request, log_model, mail_form, contact=None, pk=None):
                 log = log_model(entry='Mail sent to %s.' % to)
                 log.save()
                 return True
+    if estimate:
+        notes = '<ol><li>'
+        counter = 0
+        hours = 0
+        rate = estimate.project.task.rate
+        start_date = estimate.project.start_date.strftime('%m/%d/%Y')
+        end_date = estimate.project.end_date.strftime('%m/%d/%Y')
+        subject = estimate.subject
+        now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
+        for entry in estimate.time_set.all():
+            if counter != 0:
+                notes += '</li><li>%s <strong>%s hours</strong>.' % (
+                    entry.notes, entry.hours)
+            else:
+                notes += '%s <strong>%s hours</strong>.' % (entry.notes,
+                                                            entry.hours)
+            counter += 1
+            hours += entry.hours
+        notes += '</li></ol>'
+        cost = hours * rate
+        url = reverse('estimate', kwargs={'pk': estimate.pk})
+        url = ''.join([request.get_host(), url])
+        message = ''.join([
+            '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
+            'total hours of %s at rate of $%s/hour for %s = $%.2f from %s'
+            ' to %s.</h2>' %
+            (hours, estimate.subject, rate, estimate.client.name, cost,
+             start_date, end_date), notes
+        ])
+        profiles = profile_model.objects.filter(app_admin=True)
+        for profile in profiles:
+            email = profile.user.email
+            if send_mail(
+                    request,
+                    'Statement of Work for %s sent on %s.' % (subject, now),
+                    message,
+                    email,
+                    url=url):
+                log = log_model(
+                    entry='Statement of Work for %s sent on %s to %s.' %
+                    (subject, now, email))
+                log.save()
+        messages.add_message(request, messages.SUCCESS, 'Sent to app_admins.')
+        return True
     return False
 
 

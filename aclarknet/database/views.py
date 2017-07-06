@@ -50,7 +50,7 @@ from .utils import get_query
 from .utils import get_url_name
 from .utils import send_mail
 from datetime import datetime
-from django.conf import settings as django_settings
+# from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -63,7 +63,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.utils import timezone
+# from django.utils import timezone
 from django_xhtml2pdf.utils import generate_pdf
 # from faker import Faker
 from io import BytesIO
@@ -219,7 +219,7 @@ def contact_mail(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
     if request.method == 'POST' and create_and_send_mail(
-            request, Log, MailForm, contact=contact, pk=pk):
+            request, Log, mail_form=MailForm, contact=contact, pk=pk):
         return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
     else:
         form = MailForm()
@@ -464,47 +464,52 @@ def estimate_index(request):
 @staff_member_required
 def estimate_mail(request, pk=None):
     estimate = get_object_or_404(Estimate, pk=pk)
-    notes = '<ol><li>'
-    counter = 0
-    hours = 0
-    rate = estimate.project.task.rate
-    start_date = estimate.project.start_date.strftime('%m/%d/%Y')
-    end_date = estimate.project.end_date.strftime('%m/%d/%Y')
-    subject = estimate.subject
-    now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
-    for entry in estimate.time_set.all():
-        if counter != 0:
-            notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
-                                                                 entry.hours)
-        else:
-            notes += '%s <strong>%s hours</strong>.' % (entry.notes,
-                                                        entry.hours)
-        counter += 1
-        hours += entry.hours
-    notes += '</li></ol>'
-    cost = hours * rate
-    url = reverse('estimate', kwargs={'pk': estimate.pk})
-    url = ''.join([request.get_host(), url])
-    message = ''.join([
-        '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
-        'total hours of %s at rate of $%s/hour for %s = $%.2f from %s to %s.</h2>'
-        % (hours, estimate.subject, rate, estimate.client.name, cost,
-           start_date, end_date), notes
-    ])
-    profiles = Profile.objects.filter(app_admin=True)
-    for profile in profiles:
-        email = profile.user.email
-        if send_mail(
-                request,
-                'Statement of Work for %s sent on %s.' % (subject, now),
-                message,
-                email,
-                url=url):
-            log = Log(entry='Statement of Work for %s sent on %s to %s.' %
-                      (subject, now, email))
-            log.save()
-    messages.add_message(request, messages.SUCCESS, 'Sent to app_admins.')
-    return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
+    if create_and_send_mail(
+            request, Log, estimate=estimate, profile_model=Profile):
+        return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
+
+
+#    notes = '<ol><li>'
+#    counter = 0
+#    hours = 0
+#    rate = estimate.project.task.rate
+#    start_date = estimate.project.start_date.strftime('%m/%d/%Y')
+#    end_date = estimate.project.end_date.strftime('%m/%d/%Y')
+#    subject = estimate.subject
+#    now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
+#    for entry in estimate.time_set.all():
+#        if counter != 0:
+#            notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
+#                                                                 entry.hours)
+#        else:
+#            notes += '%s <strong>%s hours</strong>.' % (entry.notes,
+#                                                        entry.hours)
+#        counter += 1
+#        hours += entry.hours
+#    notes += '</li></ol>'
+#    cost = hours * rate
+#    url = reverse('estimate', kwargs={'pk': estimate.pk})
+#    url = ''.join([request.get_host(), url])
+#    message = ''.join([
+#        '<h1 style="text-align: center">Statement of Work</h1><h2>%s '
+#        'total hours of %s at rate of $%s/hour for %s = $%.2f from %s to %s.</h2>'
+#        % (hours, estimate.subject, rate, estimate.client.name, cost,
+#           start_date, end_date), notes
+#    ])
+#    profiles = Profile.objects.filter(app_admin=True)
+#    for profile in profiles:
+#        email = profile.user.email
+#        if send_mail(
+#                request,
+#                'Statement of Work for %s sent on %s.' % (subject, now),
+#                message,
+#                email,
+#                url=url):
+#            log = Log(entry='Statement of Work for %s sent on %s to %s.' %
+#                      (subject, now, email))
+#            log.save()
+#    messages.add_message(request, messages.SUCCESS, 'Sent to app_admins.')
+#    return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
 
 
 def home(request):
