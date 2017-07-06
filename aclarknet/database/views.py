@@ -560,7 +560,7 @@ def invoice_edit(request, pk=None):
         invoice = get_object_or_404(Invoice, pk=pk)
     if project:
         project = get_object_or_404(Project, pk=project)
-    if invoice.project:
+    if hasattr(invoice, 'project'):
         if invoice.project.client and not invoice.client:
             invoice.client = invoice.project.client
             invoice.save()
