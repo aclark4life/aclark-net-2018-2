@@ -182,14 +182,10 @@ PostGIS
 
 ::
 
-    postgres=> create extension postgis;
-    CREATE EXTENSION
-    postgres=> create extension fuzzystrmatch;
-    CREATE EXTENSION
-    postgres=> create extension postgis_tiger_geocoder;
-    CREATE EXTENSION
-    postgres=> create extension postgis_topology;
-    CREATE EXTENSION
+    create extension postgis;
+    create extension fuzzystrmatch;
+    create extension postgis_tiger_geocoder;
+    create extension postgis_topology;
     postgres=> \dn
          List of schemas
          Name     |   Owner
