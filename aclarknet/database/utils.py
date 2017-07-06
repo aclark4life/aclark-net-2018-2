@@ -123,7 +123,7 @@ def check_boxes(obj, checkbox, checkbox_subscribed, ref):
         return HttpResponseRedirect(ref)
 
 
-def create_and_send_mail(request, log_model, mail_form, contact=None):
+def create_and_send_mail(request, log_model, mail_form, contact=None, pk=None):
     """
     """
     if contact:
