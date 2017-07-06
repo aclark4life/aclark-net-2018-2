@@ -11,10 +11,10 @@ class Migration(migrations.Migration):
     """
     """
 
-#    dependencies = [
-#        ('database', '0036_auto_20170605_1803'),
-#    ]
-#
+    dependencies = [
+        ('database', '0036_auto_20170605_1803'),
+    ]
+
 #    operations = [
 #        migrations.AlterField(
 #            model_name='note',
