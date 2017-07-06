@@ -496,7 +496,7 @@ def estimate_mail(request, pk=None):
     end_date = estimate.project.end_date
     subject = estimate.subject
     now = timezone.datetime.now().strftime('%m/%d/%Y @ %H:%M:%S')
-    for entry in estimate.time_set.all().order_by('-updated'):
+    for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
                                                                  entry.hours)
