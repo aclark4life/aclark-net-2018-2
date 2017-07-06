@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.gis.geoip2 import GeoIP2
 from django.core.mail import send_mail as django_send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -516,6 +517,12 @@ def get_active_kwarg(model, active=False, user=None):
         # All other models check active field
         kwargs['active'] = active
     return kwargs
+
+
+def get_client_city(request):
+    ip_address = get_client_ip(request)
+    geo = GeoIP2()
+    return geo.city(ip_address)
 
 
 # https://stackoverflow.com/a/4581997/185820

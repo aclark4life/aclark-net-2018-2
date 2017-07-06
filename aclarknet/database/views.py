@@ -44,7 +44,7 @@ from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
 from .utils import generate_doc
-from .utils import get_client_ip
+from .utils import get_client_city
 from .utils import get_filename
 from .utils import get_setting
 from .utils import get_query
@@ -629,10 +629,7 @@ def login(request):
         if user is not None:
             # https://stackoverflow.com/a/39316967/185820
             auth_login(request, user)
-            ip_address = get_client_ip(request)
-            from django.contrib.gis.geoip2 import GeoIP2
-            geo = GeoIP2()
-            city_data = geo.city(ip_address)
+            city_data = get_client_city(request)
             log = Log(entry='%s logged in from %s' % (user, city_data['city']))
             log.save()
             return HttpResponseRedirect(reverse('home'))
