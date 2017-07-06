@@ -218,7 +218,7 @@ def contact_index(request):
 def contact_mail(request, pk=None):
     context = {}
     contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST' and create_and_send_mail(request, Log, contact=contact):
+    if request.method == 'POST' and create_and_send_mail(request, Log, MailForm, contact=contact):
         return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
 
 #        form = MailForm(request.POST)

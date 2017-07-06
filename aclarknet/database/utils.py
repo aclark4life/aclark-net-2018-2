@@ -123,11 +123,11 @@ def check_boxes(obj, checkbox, checkbox_subscribed, ref):
         return HttpResponseRedirect(ref)
 
 
-def create_and_send_mail(request, log_model, contact=None):
+def create_and_send_mail(request, log_model, mail_form, contact=None):
     """
     """
     if contact:
-        form = MailForm(request.POST)
+        form = mail_form(request.POST)
         if form.is_valid():
             test = form.cleaned_data['test']
             if test:
