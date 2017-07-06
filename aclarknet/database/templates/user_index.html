@@ -29,7 +29,7 @@
               <tr>
                 <td><form action="{% url 'user_edit' user.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if user.profile.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ user.profile.active }}</td>
-                <td>{{ user.profile.app_admin }}</td>
+                <td>{% if user.profile.app_admin %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
                 <td>{{ user.pk }}</td>
                 <td data-toggle="tooltip" title="Rate: {% if user.profile.rate %}{{ company.currency_symbol }}{% endif %}{{ user.profile.rate|default:''}}">{{ user.get_full_name }}</td>
                 <td>{{ user.email }}</td>
