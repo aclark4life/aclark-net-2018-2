@@ -495,7 +495,7 @@ def estimate_mail(request, pk=None):
     end_date = estimate.project.end_date
     subject = estimate.subject
     now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
-    app_admins = Profile.objects.all(app_admin=True)
+    app_admins = Profile.objects.filter(app_admin=True)
     for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
