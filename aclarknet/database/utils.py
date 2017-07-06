@@ -520,7 +520,8 @@ def get_active_kwarg(model, active=False, user=None):
 
 # https://stackoverflow.com/a/4581997/185820
 def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    x_forwarded_for = request.META
     if x_forwarded_for:
         # ip = x_forwarded_for.split(',')[0]
         # https://stackoverflow.com/a/5976065/185820
