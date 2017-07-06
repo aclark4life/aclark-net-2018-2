@@ -843,7 +843,7 @@ def proposal(request, pk=None):
     pdf = get_query(request, 'pdf')
     context['pdf'] = pdf
     proposal = get_object_or_404(Proposal, pk=pk)
-    context['active_nav'] = 'proposal'
+    context['active_nav'] = 'dropdown'
     context['edit_url'] = 'proposal_edit'
     context['item'] = proposal
     if pdf:
