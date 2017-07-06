@@ -515,7 +515,6 @@ def estimate_mail(request, pk=None):
         (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
          end_date), notes
     ])
-
     if send_mail(
             request,
             'Statement of Work for %s sent on %s.' % (subject, now),
