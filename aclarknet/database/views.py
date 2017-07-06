@@ -558,7 +558,7 @@ def invoice_edit(request, pk=None):
         'invoice', page_type='index_or_edit', pk=pk)
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
-    if project
+    if project:
         project = get_object_or_404(Project, pk=project)
     if invoice.project:
         if invoice.project.client and not invoice.client:
