@@ -943,7 +943,7 @@ def report_index(request):
         request,
         Report,
         search_fields,
-        active_nav='report',
+        active_nav='dropdown',
         app_settings=settings,
         edit_url='report_edit',  # Delete modal
         order_by=('-date', ),
