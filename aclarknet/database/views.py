@@ -514,7 +514,7 @@ def home(request):
     context = {}
     invoices = Invoice.objects.filter(
         last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True).order_by('-created', 'note',
+    notes = Note.objects.filter(active=True).order_by('-updated', 'note',
                                                       'due_date', 'priority')
     projects = Project.objects.filter(active=True)
     plot_items = Report.objects.filter(active=True)
