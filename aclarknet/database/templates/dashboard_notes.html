@@ -6,9 +6,7 @@
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                     <th data-field="name" data-sortable="true">Note</th>
                     <th>View</th>
-                    <th data-sort-name="hidden-due" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Due</th>
-                    <th data-field="hidden-due" data-sortable="true" data-visible="false">Hidden Due</th>
-                    <th data-field="priority" data-sortable="true">Priority</th>
+                    <th>Edit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -19,9 +17,7 @@
 
                     <td>{{ note.note|safe }}</a></td>
                     <td><a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View item</a></td>
-                    <td>{{ note.due_date|date:'Y-m-d' }}</td>
-                    <td>{{ note.due_date|date:'U' }}</td>
-                    <td>{{ note.priority|default:'' }}</td>
+                    <td><a href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog fa-{ icon_size }}"></i> Edit</a></td>
                   </tr>
                 {% endfor %}
                 </tbody>
