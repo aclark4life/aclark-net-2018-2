@@ -246,3 +246,14 @@ PostGIS
     ---------+------------+------------------+-------
            1 | Devonshire | Pl               | 02109
     (1 row) 
+
+::
+
+    select topology.createtopology('my_new_topo',26986,0.5);
+
+::
+
+    createtopology
+    ----------------
+                  1
+    (1 row) 
