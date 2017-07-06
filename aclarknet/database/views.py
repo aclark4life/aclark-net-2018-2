@@ -643,6 +643,7 @@ def log_index(request):
         request,
         Log,
         search_fields,
+        active_nav='dropdown',
         order_by=('-created', ),
         app_settings=settings)
     return render(request, 'log_index.html', context)
