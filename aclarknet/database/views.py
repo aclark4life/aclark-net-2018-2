@@ -561,9 +561,10 @@ def invoice_edit(request, pk=None):
     if project:
         project = get_object_or_404(Project, pk=project)
     if hasattr(invoice, 'project'):
-        if invoice.project.client and not invoice.client:
-            invoice.client = invoice.project.client
-            invoice.save()
+        if hasattr(invoice.project, 'client'):
+            if invoice.project.client and not invoice.client:
+                invoice.client = invoice.project.client
+                invoice.save()
     if paid and times:
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
         for entry in times:
