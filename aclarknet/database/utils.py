@@ -524,7 +524,8 @@ def get_client_ip(request):
     if x_forwarded_for:
         # ip = x_forwarded_for.split(',')[0]
         # https://stackoverflow.com/a/5976065/185820
-        ip = x_forwarded_for.split(',')[-1].strip()
+        # ip = x_forwarded_for.split(',')[-1].strip()
+        ip = x_forwarded_for
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
