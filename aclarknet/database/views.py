@@ -689,7 +689,7 @@ def newsletter_index(request, pk=None):
         request,
         Newsletter,
         search_fields,
-        active_nav='newsletter',
+        active_nav='dropdown',
         app_settings=settings,
         order_by=('-created', ))
     return render(request, 'newsletter_index.html', context)
