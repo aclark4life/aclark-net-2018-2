@@ -495,7 +495,6 @@ def estimate_mail(request, pk=None):
     end_date = estimate.project.end_date
     subject = estimate.subject
     now = timezone.datetime.now().strftime('%m/%d/%Y at %H:%M:%S')
-    app_admins = Profile.objects.filter(app_admin=True)
     for entry in estimate.time_set.all():
         if counter != 0:
             notes += '</li><li>%s <strong>%s hours</strong>.' % (entry.notes,
@@ -515,12 +514,13 @@ def estimate_mail(request, pk=None):
         (hours, estimate.subject, rate, estimate.client.name, cost, start_date,
          end_date), notes
     ])
-    for app_admin in app_admins:
+    profiles = Profile.objects.filter(app_admin=True)
+    for profile in profiles:
         if send_mail(
                 request,
                 'Statement of Work for %s sent on %s.' % (subject, now),
                 message,
-                app_admin.email,
+                profile.user.email,
                 url=url):
             log = Log(entry='Statement of Work for %s sent on %s to %s.' % (subject, now, app_admin))
             log.save()
