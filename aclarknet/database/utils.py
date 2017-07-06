@@ -522,7 +522,9 @@ def get_active_kwarg(model, active=False, user=None):
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
+        # ip = x_forwarded_for.split(',')[0]
+        # https://stackoverflow.com/a/5976065/185820
+        ip = x_forwarded_for.split(',')[-1].strip()
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
