@@ -556,8 +556,10 @@ def invoice_edit(request, pk=None):
     url_name = 'invoice_index'
     kwargs, url_name = get_url_name(
         'invoice', page_type='index_or_edit', pk=pk)
-    invoice = get_object_or_404(Invoice, pk=pk)
-    project = get_object_or_404(Project, pk=project)
+    if pk:
+        invoice = get_object_or_404(Invoice, pk=pk)
+    if project
+        project = get_object_or_404(Project, pk=project)
     if invoice.project:
         if invoice.project.client and not invoice.client:
             invoice.client = invoice.project.client
