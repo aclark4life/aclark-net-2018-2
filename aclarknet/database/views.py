@@ -39,6 +39,7 @@ from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
 from .utils import index_items
+from .utils import create_and_send_mail
 from .utils import dashboard_totals
 from .utils import edit
 from .utils import entries_total
