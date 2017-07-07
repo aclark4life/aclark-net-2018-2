@@ -632,7 +632,7 @@ def login(request):
             # https://stackoverflow.com/a/39316967/185820
             auth_login(request, user)
             city_data = get_client_city(request)
-            log = Log(entry='%s logged in from %s' % (user, city_data['city']))
+            log = Log(entry='%s logged in from %s' % (user, city_data))
             log.save()
             return HttpResponseRedirect(reverse('home'))
         else:
