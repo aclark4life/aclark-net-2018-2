@@ -16,10 +16,9 @@
               </div>
             </div>
           </div>
-          {% endif %}
           {% if request.user.is_staff %}
 {% include 'dashboard_admin.html' %}
-          {% else %}
+          {% endif %}
 {% include 'dashboard_user.html' %}
           {% endif %}
 {% endblock %}
