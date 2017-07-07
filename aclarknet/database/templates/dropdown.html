@@ -11,7 +11,7 @@
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'report_index' %}"><i class="fa fa-file-o"></i> Reports</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'settings' %}"><i class="fa fa-cog"></i> Settings</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'user_index' %}"><i class="fa fa-user-o"></i> Users</a>{% endif %}
-              {% if not request.user.is_anonymous %}<div class="dropdown-divider"></div>{% endif %}
+              {% if request.user.is_staff %}<div class="dropdown-divider"></div>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'login'  %}"><i class="fa fa-sign-in"></i> Login</a>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-sign-in"></i> Login with Google</a>{% endif %}
               {% if not request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a>{% endif %}
