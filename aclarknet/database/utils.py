@@ -791,8 +791,8 @@ def obj_edit(obj,
             obj.client = obj.project.client
             obj.save()
     # Redir to appropriate location
-    # if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
-    #    url_name = 'home'
+    if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
+        url_name = 'home'
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         text = ''
