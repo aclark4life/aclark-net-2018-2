@@ -496,6 +496,7 @@ def home(request):
     context['projects'] = projects
     context['settings'] = settings
     context['plot_items'] = plot_items
+    context['city_data'] = get_client_city(request)
     return render(request, 'home.html', context)
 
 
