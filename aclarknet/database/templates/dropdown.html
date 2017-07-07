@@ -7,7 +7,7 @@
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Django Admin</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-file-o"></i> Logs</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-file-o"></i> Newsletters</a>{% endif %}
-              {% if request.user.is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new"><i class="fa fa-github"></i> New Issue</a>{% endif %}
+              {% if request.user.is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new" target="_blank"><i class="fa fa-github"></i> New Issue</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'proposal_index' %}"><i class="fa fa-file-o"></i> Proposals</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'report_index' %}"><i class="fa fa-file-o"></i> Reports</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'settings' %}"><i class="fa fa-cog"></i> Settings</a>{% endif %}
