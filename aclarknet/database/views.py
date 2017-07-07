@@ -162,7 +162,13 @@ def client_index(request):
 @staff_member_required
 def company_edit(request, pk=None):
     return edit(
-        request, CompanyForm, Company, 'company', 'company_edit.html', active_nav='dropdown', pk=1)
+        request,
+        CompanyForm,
+        Company,
+        'company',
+        'company_edit.html',
+        active_nav='dropdown',
+        pk=1)
 
 
 @staff_member_required
