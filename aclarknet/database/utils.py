@@ -522,7 +522,8 @@ def get_active_kwarg(model, active=False, user=None):
 def get_client_city(request):
     ip_address = get_client_ip(request)
     geo = GeoIP2()
-    return geo.city(ip_address)
+    if ip_address:
+        return geo.city(ip_address)
 
 
 # https://stackoverflow.com/a/4581997/185820
@@ -753,7 +754,7 @@ def obj_edit(obj,
              request=None,
              kwargs={},
              pk=None,
-             url_name=''):
+             url_name=None):
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
         # Assign user to time entry on creation
@@ -792,7 +793,10 @@ def obj_edit(obj,
             obj.save()
     # Redir to appropriate location
     if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
-        url_name = 'home'
+        if pk is None:
+            url_name = 'home'
+        else:
+            url_name = 'entry'
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         text = ''
