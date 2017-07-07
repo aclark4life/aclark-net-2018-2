@@ -73,6 +73,7 @@ from matplotlib.dates import MonthLocator
 from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
+from pprint import pprint
 from rest_framework import viewsets
 
 # Create your views here.
@@ -496,7 +497,7 @@ def home(request):
     context['projects'] = projects
     context['settings'] = settings
     context['plot_items'] = plot_items
-    context['city_data'] = get_client_city(request)
+    context['city_data'] = pprint(get_client_city(request))
     return render(request, 'home.html', context)
 
 
