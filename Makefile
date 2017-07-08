@@ -340,7 +340,6 @@ aclarknet-deploy:
 	@$(MAKE) aclarknet-remote-git-pull
 aclarknet-remote-static:
 	ssh db2 "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
-	ssh db2 "sudo systemctl start gunicorn.socket"
 aclarknet-remote-git-pull:
 	ssh db2 "cd /srv/aclarknet-database; git pull"
 	ssh db2 "sudo systemctl stop db.socket"
