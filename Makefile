@@ -357,3 +357,5 @@ aclarknet-remote-nginx-start:
 	ssh db2 "sudo systemctl start nginx"
 aclarknet-remote-nginx-restart:
 	ssh db2 "sudo systemctl restart nginx"
+aclarknet-remote-update:
+	ssh db2 "sudo aptitude update; sudo aptitude upgrade -y"
