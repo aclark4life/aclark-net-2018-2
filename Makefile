@@ -328,3 +328,40 @@ vagrant-up:
 	vagrant up --provider virtualbox
 vagrant-update:
 	vagrant box update
+
+# aclarknet-database
+APP=database
+PROJECT=aclarknet
+.DEFAULT_GOAL=aclarknet-remote-app-update
+aclarknet-pg-restore:
+	psql -d aclarknet < latest.dump
+aclarknet-remote-app-update:
+	@$(MAKE) git-commit-auto-push
+	@$(MAKE) aclarknet-remote-git-pull
+	@$(MAKE) aclarknet-remote-gunicorn-restart
+	@$(MAKE) aclarknet-remote-nginx-restart
+aclarknet-remote-static:
+	ssh db2 "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
+aclarknet-remote-git-pull:
+	ssh db2 "cd /srv/aclarknet-database; git pull"
+aclarknet-remote-status:
+	ssh db2 "sudo systemctl status db.service"
+aclarknet-remote-nginx-stop:
+	ssh db2 "sudo systemctl stop nginx"
+aclarknet-remote-nginx-start:
+	ssh db2 "sudo systemctl start nginx"
+aclarknet-remote-nginx-restart:
+	ssh db2 "sudo systemctl restart nginx"
+aclarknet-remote-package-update:
+	ssh db2 "sudo aptitude update; sudo aptitude upgrade -y"
+aclarknet-remote-nginx-symlink:
+	ssh db2 "cd /etc/nginx/sites-enabled; sudo ln -s /srv/aclarknet-database/nginx/db"
+aclarknet-remote-gunicorn-start:
+	ssh db2 "sudo systemctl start db"
+aclarknet-remote-gunicorn-stop:
+	ssh db2 "sudo systemctl stop db.service"
+aclarknet-remote-gunicorn-restart:
+	ssh db2 "sudo systemctl daemon-reload"
+	ssh db2 "sudo systemctl restart db"
+aclarknet-webpack-pack:
+	./node_modules/.bin/webpack --config webpack.config.js
