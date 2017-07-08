@@ -359,3 +359,6 @@ aclarknet-remote-nginx-restart:
 	ssh db2 "sudo systemctl restart nginx"
 aclarknet-remote-update:
 	ssh db2 "sudo aptitude update; sudo aptitude upgrade -y"
+aclarknet-remote-nginx-symlink:
+	ssh db2 "cd /etc/nginx/sites-enabled"
+	ssh db2 "sudo ln -s /srv/aclarknet-database/nginx/db"
