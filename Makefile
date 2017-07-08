@@ -351,3 +351,9 @@ pack:
 aclarknet-remote-status:
 	ssh db2 "sudo systemctl status db.socket"
 	ssh db2 "sudo systemctl status db.service"
+aclarknet-remote-nginx-stop:
+	ssh db2 "sudo systemctl stop nginx"
+aclarknet-remote-nginx-start:
+	ssh db2 "sudo systemctl start nginx"
+aclarknet-remote-nginx-restart:
+	ssh db2 "sudo systemctl restart nginx"

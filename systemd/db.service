@@ -4,7 +4,7 @@ Requires=db.socket
 After=network.target
 
 [Service]
-EnvironmentFile=/home/ubuntu/.profile
+EnvironmentFile=/srv/aclarknet-env/db
 
 PIDFile=/run/db/pid
 User=ubuntu
