@@ -5,12 +5,12 @@ After=network.target
 
 [Service]
 EnvironmentFile=/srv/aclarknet-env/db
-#PIDFile=/srv/aclarknet-database/run/db/pid
+PIDFile=/srv/aclarknet-database/run/db/pid
 User=ubuntu
 Group=ubuntu
 RuntimeDirectory=db
 WorkingDirectory=/srv/aclarknet-database
-ExecStart=/srv/aclarknet-database/bin/gunicorn --pid /srv/aclarknet-database/run/db/pid --bind unix:/srv/aclarknet-database/run/db/socket aclarknet.wsgi
+ExecStart=/srv/aclarknet-database/bin/gunicorn -t 1 --bind unix:/srv/aclarknet-database/run/db/socket aclarknet.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
