@@ -350,3 +350,4 @@ pack:
 	./node_modules/.bin/webpack --config webpack.config.js
 aclarknet-remote-status:
 	ssh db2 "sudo systemctl status db.socket"
+	ssh db2 "sudo systemctl status db.service"
