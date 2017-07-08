@@ -363,8 +363,8 @@ aclarknet-remote-nginx-symlink:
 	ssh db2 "cd /etc/nginx/sites-enabled"
 	ssh db2 "sudo ln -s /srv/aclarknet-database/nginx/db"
 aclarknet-remote-gunicorn-start:
-	ssh db2 "sudo systemctl start gunicorn"
+	ssh db2 "sudo systemctl start db"
 aclarknet-remote-gunicorn-stop:
-	ssh db2 "sudo systemctl stop gunicorn"
+	ssh db2 "sudo systemctl stop db"
 aclarknet-remote-gunicorn-restart:
-	ssh db2 "sudo systemctl restart gunicorn"
+	ssh db2 "sudo systemctl restart db"
