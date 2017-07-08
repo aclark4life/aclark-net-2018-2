@@ -60,7 +60,7 @@ Letsencrypt
 
 ::
 
-    sudo certbot
+    sudo certbot certonly
 
 Django
 ~~~~~~
