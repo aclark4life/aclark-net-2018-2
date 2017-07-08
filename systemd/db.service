@@ -1,18 +1,11 @@
-[Unit]
-Description=gunicorn daemon
-Requires=db.socket
-After=network.target
-
 [Service]
 EnvironmentFile=/srv/aclarknet-env/db
 User=ubuntu
 Group=ubuntu
-RuntimeDirectory=/srv/aclarknet-database/run/db
 WorkingDirectory=/srv/aclarknet-database
 ExecStart=/srv/aclarknet-database/bin/gunicorn aclarknet.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
-PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
