@@ -365,3 +365,4 @@ aclarknet-remote-gunicorn-restart:
 	ssh db2 "sudo systemctl restart db"
 aclarknet-webpack-pack:
 	./node_modules/.bin/webpack --config webpack.config.js
+restart: aclarknet-remote-gunicorn-restart
