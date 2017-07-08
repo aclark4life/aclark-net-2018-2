@@ -1,17 +1,17 @@
 [Unit]
 Description=gunicorn daemon
-Requires=gunicorn.socket
+Requires=db.socket
 After=network.target
 
 [Service]
 EnvironmentFile=/home/ubuntu/.bashrc
 
-PIDFile=/run/gunicorn/pid
+PIDFile=/run/db/pid
 User=ubuntu
 Group=ubuntu
-RuntimeDirectory=gunicorn
+RuntimeDirectory=db
 WorkingDirectory=/srv/aclarknet-database
-ExecStart=/srv/aclarknet-database/bin/gunicorn --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket aclarknet.wsgi
+ExecStart=/srv/aclarknet-database/bin/gunicorn --pid /run/db/pid --bind unix:/run/db/socket aclarknet.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
