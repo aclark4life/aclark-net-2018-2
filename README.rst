@@ -41,51 +41,8 @@ systemd
 
 ::
 
-    # sudo mkdir /run/gunicorn
-    # sudo chown ubuntu:ubuntu /run/gunicorn/
     sudo systemctl enable gunicorn.socket
     sudo systemctl start gunicorn.socket
-
-gunicorn.service
-++++++++++++++++
-
-::
-
-    [Unit]
-    Description=gunicorn daemon
-    Requires=gunicorn.socket
-    After=network.target
-
-    [Service]
-    # env | sort > /srv/aclarknet-database/env
-    EnvironmentFile=/srv/aclarknet-database/env
-
-    PIDFile=/run/gunicorn/pid
-    User=ubuntu
-    Group=ubuntu
-    RuntimeDirectory=gunicorn
-    WorkingDirectory=/srv/aclarknet-database
-    ExecStart=/srv/aclarknet-database/bin/gunicorn -c /srv/aclarknet-database/logging.conf --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket aclarknet.wsgi
-    ExecReload=/bin/kill -s HUP $MAINPID
-    ExecStop=/bin/kill -s TERM $MAINPID
-    PrivateTmp=true
-
-    [Install]
-    WantedBy=multi-user.target
-
-gunicorn.socket
-+++++++++++++++
-
-::
-
-    [Unit]
-    Description=gunicorn socket
-
-    [Socket]
-    ListenStream=/run/gunicorn/socket
-
-    [Install]
-    WantedBy=sockets.target
 
 NGINX
 ~~~~~

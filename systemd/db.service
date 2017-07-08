@@ -1,0 +1,20 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+EnvironmentFile=/home/ubuntu/.bashrc
+
+PIDFile=/run/gunicorn/pid
+User=ubuntu
+Group=ubuntu
+RuntimeDirectory=gunicorn
+WorkingDirectory=/srv/aclarknet-database
+ExecStart=/srv/aclarknet-database/bin/gunicorn --pid /run/gunicorn/pid --bind unix:/run/gunicorn/socket aclarknet.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
