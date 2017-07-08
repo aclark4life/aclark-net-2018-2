@@ -343,7 +343,7 @@ aclarknet-remote-static:
 	ssh db2 "sudo systemctl start gunicorn.socket"
 aclarknet-remote-git-pull:
 	ssh db2 "cd /srv/aclarknet-database; git pull"
-	ssh db2 "sudo systemctl stop gunicorn.socket"
+	-ssh db2 "sudo systemctl stop gunicorn.socket"
 #	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
 	ssh db2 "sudo systemctl start gunicorn.socket"
 pack:
