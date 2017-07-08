@@ -2,7 +2,7 @@
 Description=gunicorn socket
 
 [Socket]
-ListenStream=/run/gunicorn/socket
+ListenStream=/run/db/socket
 
 [Install]
 WantedBy=sockets.target
