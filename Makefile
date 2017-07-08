@@ -338,13 +338,12 @@ aclarknet-pg-restore:
 aclarknet-deploy:
 	@$(MAKE) git-commit-auto-push
 	@$(MAKE) aclarknet-remote-git-pull
+	@$(MAKE) aclarknet-remote-gunicorn-restart
+	@$(MAKE) aclarknet-remote-nginx-restart
 aclarknet-remote-static:
 	ssh db2 "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 aclarknet-remote-git-pull:
 	ssh db2 "cd /srv/aclarknet-database; git pull"
-	ssh db2 "sudo systemctl stop db.socket"
-#	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
-	ssh db2 "sudo systemctl start db.socket"
 pack:
 	./node_modules/.bin/webpack --config webpack.config.js
 aclarknet-remote-status:
@@ -366,4 +365,5 @@ aclarknet-remote-gunicorn-stop:
 	ssh db2 "sudo systemctl stop db.socket"
 	ssh db2 "sudo systemctl stop db.service"
 aclarknet-remote-gunicorn-restart:
+	ssh db2 "sudo systemctl daemon-reload"
 	ssh db2 "sudo systemctl restart db"
