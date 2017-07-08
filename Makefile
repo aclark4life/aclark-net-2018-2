@@ -360,8 +360,7 @@ aclarknet-remote-nginx-restart:
 aclarknet-remote-update:
 	ssh db2 "sudo aptitude update; sudo aptitude upgrade -y"
 aclarknet-remote-nginx-symlink:
-	ssh db2 "cd /etc/nginx/sites-enabled"
-	ssh db2 "sudo ln -s /srv/aclarknet-database/nginx/db"
+	ssh db2 "cd /etc/nginx/sites-enabled; sudo ln -s /srv/aclarknet-database/nginx/db"
 aclarknet-remote-gunicorn-start:
 	ssh db2 "sudo systemctl start db"
 aclarknet-remote-gunicorn-stop:
