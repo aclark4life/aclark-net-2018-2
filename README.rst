@@ -62,6 +62,37 @@ Letsencrypt
 
     sudo certbot certonly
 
+::
+
+    Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+    How would you like to authenticate with the ACME CA?
+    -------------------------------------------------------------------------------
+    1: Spin up a temporary webserver (standalone)
+    2: Place files in webroot directory (webroot)
+    -------------------------------------------------------------------------------
+    Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 1
+    Starting new HTTPS connection (1): acme-v01.api.letsencrypt.org
+    Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'
+    to cancel):db.aclark.net
+    Obtaining a new certificate
+    Performing the following challenges:
+    tls-sni-01 challenge for db.aclark.net
+    Waiting for verification...
+    Cleaning up challenges
+
+    IMPORTANT NOTES:
+     - Congratulations! Your certificate and chain have been saved at
+       /etc/letsencrypt/live/db.aclark.net/fullchain.pem. Your cert will
+       expire on 2017-10-06. To obtain a new or tweaked version of this
+       certificate in the future, simply run certbot again. To
+       non-interactively renew *all* of your certificates, run "certbot
+       renew"
+     - If you like Certbot, please consider supporting our work by:
+
+       Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+       Donating to EFF:                    https://eff.org/donate-le
+
 Django
 ~~~~~~
 
