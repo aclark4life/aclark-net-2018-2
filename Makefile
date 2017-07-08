@@ -348,3 +348,5 @@ aclarknet-remote-git-pull:
 	ssh db2 "sudo systemctl start db.socket"
 pack:
 	./node_modules/.bin/webpack --config webpack.config.js
+aclarknet-remote-status:
+	ssh db2 "sudo systemctl status db.socket"
