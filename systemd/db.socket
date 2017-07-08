@@ -2,7 +2,7 @@
 Description=gunicorn socket
 
 [Socket]
-ListenStream=/run/db/socket
+ListenStream=/srv/aclarknet-database/run/db/socket
 
 [Install]
 WantedBy=sockets.target
