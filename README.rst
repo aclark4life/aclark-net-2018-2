@@ -33,6 +33,7 @@ AWS
     sudo apt-get update
     sudo apt-get install aptitude awscli graphviz graphviz-dev jq letsencrypt \
         libpq-dev libxml2 libxml2-dev libxslt-dev make nginx pkg-config       \
+        libgdal-dev \
         postgresql python python-pip python3 python3-pip python-virtualenv    \
         python3-virtualenv python-dev -y
     sudo aptitude upgrade -y
