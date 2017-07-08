@@ -41,12 +41,10 @@ systemd
 
 ::
 
-
-    cd /etc/systemd/system
-    sudo ln -s /srv/aclarknet-database/systemd/db.service 
-    sudo ln -s /srv/aclarknet-database/systemd/db.socket
-    sudo systemctl enable db.socket
-    sudo systemctl start db.socket
+    sudo systemctl enable /srv/aclarknet-database/systemd/db.service 
+    sudo systemctl enable /srv/aclarknet-database/systemd/db.socket
+    sudo systemctl start /srv/aclarknet-database/systemd/db.service 
+    sudo systemctl start /srv/aclarknet-database/systemd/db.socket
 
 NGINX
 ~~~~~
