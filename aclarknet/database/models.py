@@ -9,7 +9,9 @@ from faker import Faker
 from multiselectfield import MultiSelectField
 from uuid import uuid4
 from phonenumber_field.modelfields import PhoneNumberField
+from relativedeltafield import RelativeDeltaField
 from solo.models import SingletonModel
+
 
 fake = Faker()
 
@@ -373,6 +375,8 @@ class Project(models.Model):
     code = models.IntegerField("Project Code", blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
+    # Testing https://github.com/CodeYellowBV/django-relativedelta.git
+    flex_date = RelativeDeltaField()
     notes = models.TextField(blank=True, null=True)
     total_hours = models.FloatField(blank=True, null=True)
     billable_hours = models.FloatField(blank=True, null=True)
