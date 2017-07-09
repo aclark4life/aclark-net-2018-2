@@ -117,7 +117,7 @@
                 <tbody>
                  {% for invoice in invoices %}
                   <tr>
-                    <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject }}</a></td>
+                    <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject|default:'' }}</a></td>
                     <td>{{ invoice.subject|default:'' }}</td>
                     <td>{{ invoice.issue_date|default:'' }}</td>
                     <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
