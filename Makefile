@@ -340,30 +340,30 @@ aclarknet-remote-app-update:
 	@$(MAKE) aclarknet-remote-git-pull
 	@$(MAKE) aclarknet-remote-gunicorn-restart
 aclarknet-remote-static:
-	ssh db2 "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
+	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 aclarknet-remote-git-pull:
-	ssh db2 "cd /srv/aclarknet-database; git pull"
+	ssh db "cd /srv/aclarknet-database; git pull"
 aclarknet-remote-pip-install:
-	ssh db2 "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
+	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
 aclarknet-remote-status:
-	ssh db2 "sudo systemctl status db.service"
+	ssh db "sudo systemctl status db.service"
 aclarknet-remote-nginx-stop:
-	ssh db2 "sudo systemctl stop nginx"
+	ssh db "sudo systemctl stop nginx"
 aclarknet-remote-nginx-start:
-	ssh db2 "sudo systemctl start nginx"
+	ssh db "sudo systemctl start nginx"
 aclarknet-remote-nginx-restart:
-	ssh db2 "sudo systemctl restart nginx"
+	ssh db "sudo systemctl restart nginx"
 aclarknet-remote-package-update:
-	ssh db2 "sudo aptitude update; sudo aptitude upgrade -y"
+	ssh db "sudo aptitude update; sudo aptitude upgrade -y"
 aclarknet-remote-nginx-symlink:
-	ssh db2 "cd /etc/nginx/sites-enabled; sudo ln -s /srv/aclarknet-database/nginx/db"
+	ssh db "cd /etc/nginx/sites-enabled; sudo ln -s /srv/aclarknet-database/nginx/db"
 aclarknet-remote-gunicorn-start:
-	ssh db2 "sudo systemctl start db"
+	ssh db "sudo systemctl start db"
 aclarknet-remote-gunicorn-stop:
-	ssh db2 "sudo systemctl stop db.service"
+	ssh db "sudo systemctl stop db.service"
 aclarknet-remote-gunicorn-restart:
-	ssh db2 "sudo systemctl daemon-reload"
-	ssh db2 "sudo systemctl restart db"
+	ssh db "sudo systemctl daemon-reload"
+	ssh db "sudo systemctl restart db"
 aclarknet-webpack-pack:
 	./node_modules/.bin/webpack --config webpack.config.js
 restart: aclarknet-remote-gunicorn-restart
