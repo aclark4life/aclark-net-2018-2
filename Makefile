@@ -341,7 +341,7 @@ aclarknet-remote-app-update:
 	@$(MAKE) aclarknet-remote-git-pull
 	@$(MAKE) aclarknet-remote-gunicorn-restart
 aclarknet-remote-django-migrate:
-	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py migrate"
+	ssh db "source /srv/aclarknet-env/db; cd /srv/aclarknet-database; bin/python3 manage.py migrate"
 aclarknet-remote-static:
 	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 aclarknet-remote-git-pull:
