@@ -344,6 +344,8 @@ aclarknet-remote-static:
 	ssh db2 "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 aclarknet-remote-git-pull:
 	ssh db2 "cd /srv/aclarknet-database; git pull"
+aclarknet-remote-pip-install:
+	ssh db2 "cd /srv/aclarknet-database; bin/pip3 manage.py install"
 aclarknet-remote-status:
 	ssh db2 "sudo systemctl status db.service"
 aclarknet-remote-nginx-stop:
