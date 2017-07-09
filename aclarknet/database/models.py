@@ -376,7 +376,7 @@ class Project(models.Model):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     # Testing https://github.com/CodeYellowBV/django-relativedelta.git
-    flex_date = RelativeDeltaField()
+    flex_date = RelativeDeltaField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     total_hours = models.FloatField(blank=True, null=True)
     billable_hours = models.FloatField(blank=True, null=True)
