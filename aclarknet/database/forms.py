@@ -187,7 +187,8 @@ class ServiceForm(forms.ModelForm):
         # fields = '__all__'
         fields = (
             'name',
-            'description', )
+            'description',
+            'icon', )
         widgets = {
             'description': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
