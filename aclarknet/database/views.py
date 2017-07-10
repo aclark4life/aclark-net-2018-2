@@ -1066,11 +1066,11 @@ def time(request, pk=None):
     context = {}
     entry = get_object_or_404(Time, pk=pk)
     if not entry.user and not request.user.is_staff:
-        return HttpResponseRedirect(reverse('admin:index'))
+        return HttpResponseRedirect(reverse('login'))
     if entry.user:
         if (not entry.user.username == request.user.username and
                 not request.user.is_staff):
-            return HttpResponseRedirect(reverse('admin:index'))
+            return HttpResponseRedirect(reverse('login'))
     context['active_nav'] = 'time'
     context['edit_url'] = 'entry_edit'  # Delete modal
     context['item'] = entry
@@ -1088,10 +1088,10 @@ def time_edit(request, pk=None):
         if entry.user:
             if (entry.user.username != request.user.username and
                     not request.user.is_staff):
-                return HttpResponseRedirect(reverse('admin:index'))
+                return HttpResponseRedirect(reverse('login'))
         else:
             if not request.user.is_staff:
-                return HttpResponseRedirect(reverse('admin:index'))
+                return HttpResponseRedirect(reverse('login'))
     if client:
         client = get_object_or_404(Client, pk=client)
     if project:
@@ -1140,7 +1140,7 @@ def time_index(request):
         order_by=('-date', ),
         show_search=True)
     if not request.user.is_staff:
-        return HttpResponseRedirect(reverse('admin:index'))
+        return HttpResponseRedirect(reverse('login'))
     else:
         return render(request, 'time_index.html', context)
 
