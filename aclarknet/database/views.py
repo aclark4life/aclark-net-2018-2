@@ -739,6 +739,7 @@ def newsletter_send(request, pk=None):
     return render(request, 'newsletter.html', context)
 
 
+# https://stackoverflow.com/a/42038839/185820
 @staff_member_required(login_url='login')
 def note(request, pk=None):
     context = {}
