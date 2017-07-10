@@ -13,6 +13,7 @@ from .forms import ProjectForm
 from .forms import ProposalForm
 from .forms import ReportForm
 from .forms import SettingsForm
+from .forms import ServiceForm
 from .forms import TaskForm
 from .models import Client
 from .models import Company
@@ -998,6 +999,23 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     data = buf.getvalue()
     # write image bytes back to the browser
     return HttpResponse(data, content_type="image/png")
+
+
+# https://stackoverflow.com/a/42038839/185820
+@staff_member_required(login_url='login')
+def service_edit(request, pk=None):
+    company = Company.get_solo()
+    kwargs, url_name = get_url_name('service', page_type='index_or_edit', pk=pk)
+    return edit(
+        request,
+        ServiceForm,
+        Service,
+        url_name,
+        'note_edit.html',
+        active_nav='dropdown',
+        company=company,
+        kwargs=kwargs,
+        pk=pk)
 
 
 @staff_member_required

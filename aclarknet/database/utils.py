@@ -41,6 +41,7 @@ URL_NAMES = {
     'project': ('project_edit', 'project_index', 'project'),
     'proposal': ('proposal_edit', 'proposal_index', 'proposal'),
     'report': ('report_edit', 'report_index', 'report'),
+    'service': ('service_edit', '', ''),
     'task': ('task_edit', 'task_index', 'task'),
     'time': ('entry_edit', 'entry_index', 'entry'),
     'user': ('user_edit', 'user_index', 'user'),
