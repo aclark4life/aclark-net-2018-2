@@ -739,8 +739,7 @@ def newsletter_send(request, pk=None):
     return render(request, 'newsletter.html', context)
 
 
-# https://stackoverflow.com/a/42038839/185820
-@staff_member_required(login_url='login')
+@staff_member_required
 def note(request, pk=None):
     context = {}
     pdf = get_query(request, 'pdf')
@@ -760,7 +759,8 @@ def note(request, pk=None):
         return render(request, 'note.html', context)
 
 
-@staff_member_required
+# https://stackoverflow.com/a/42038839/185820
+@staff_member_required(login_url='login')
 def note_edit(request, pk=None):
     company = Company.get_solo()
     kwargs, url_name = get_url_name('note', page_type='index_or_edit', pk=pk)
