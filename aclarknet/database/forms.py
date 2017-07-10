@@ -184,7 +184,13 @@ class ReportForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        fields = '__all__'
+        # fields = '__all__'
+        fields = (
+            'name',
+            'description', )
+        widgets = {
+            'description': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class SettingsForm(forms.ModelForm):

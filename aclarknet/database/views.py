@@ -1011,7 +1011,7 @@ def service_edit(request, pk=None):
         ServiceForm,
         Service,
         url_name,
-        'note_edit.html',
+        'service_edit.html',
         active_nav='dropdown',
         company=company,
         kwargs=kwargs,
