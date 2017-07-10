@@ -176,9 +176,11 @@ def company_edit(request, pk=None):
 def company(request):
     context = {}
     company = Company.get_solo()
-    context['company'] = company
-    context['active_tab'] = 'company'
+    services = company.service_set.all().order_by('-updated')
     context['active_nav'] = 'dropdown'
+    context['active_tab'] = 'company'
+    context['company'] = company
+    context['services'] = services
     return render(request, 'company.html', context)
 
 
