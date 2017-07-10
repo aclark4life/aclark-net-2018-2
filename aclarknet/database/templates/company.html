@@ -54,7 +54,7 @@
                 <div class="col-md-12">
                   <h2>Services <a href="{% url 'service_edit' %}?company=1"><i class="fa fa-plus-circle"></i></a></h2>
                     <div class="row">
-                      {% for service in company.service.all %}
+                      {% for service in company.service_set.all %}
                       <div class="col-md-5" style="margin: 0 1em 1em 0">
                         <div class="card"> 
                           <div class="card-header">
