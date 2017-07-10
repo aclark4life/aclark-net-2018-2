@@ -18,7 +18,7 @@
 {% include 'delete_form.html' %}
               <table class="table table-bordered">
                 <thead>
-                  <tr class="table-{{ item.color }}">
+                  <tr>
                     <th>Active</th>
                     <th>Name</th>
                     <th>Rate</th>
@@ -26,7 +26,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr class="table-{{ item.color }}">
                     <td><form action="{% url 'task_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ item.name|default:'' }}</td>
                     <td>{{ item.rate|default:'' }}</td>
