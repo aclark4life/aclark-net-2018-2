@@ -626,7 +626,7 @@ def get_url_name(verbose_name, page_type=None, pk=None):
         return URL_NAMES[verbose_name][1]
     elif page_type == 'index_or_edit':
         kwargs = {}
-        if pk and not verbose_name == 'service':  # Special case for service
+        if pk and verbose_name == 'service':  # Special case for service
             return kwargs, URL_NAMES[verbose_name][2]
         elif pk:
             kwargs['pk'] = pk
