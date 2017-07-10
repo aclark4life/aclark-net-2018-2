@@ -739,7 +739,7 @@ def newsletter_send(request, pk=None):
     return render(request, 'newsletter.html', context)
 
 
-@staff_member_required
+@staff_member_required(login_url='login')
 def note(request, pk=None):
     context = {}
     pdf = get_query(request, 'pdf')
