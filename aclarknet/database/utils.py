@@ -570,6 +570,8 @@ def get_setting(request, settings, setting, page_size=None):
             return user_pref
         else:
             return settings.dashboard_choices
+    if setting == 'dashboard_order':
+        return settings.dashboard_order
 
 
 def get_query(request, query):
