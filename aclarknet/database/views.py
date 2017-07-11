@@ -497,6 +497,8 @@ def home(request):
     context['company'] = company
     context['dashboard_choices'] = get_setting(request, settings,
                                                'dashboard_choices')
+    context['dashboard_order'] = get_setting(request, settings,
+                                               'dashboard_order')
     context['invoices'] = invoices
     context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['gross'] = gross

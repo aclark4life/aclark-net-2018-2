@@ -1,10 +1,12 @@
-          {% for dashboard in dashboard_choices %}
-          <div class="row">
-            <div class="col-md-12">
-              <!-- https://stackoverflow.com/a/4524851/185820 -->
-              {% with "dashboard_"|add:dashboard|add:".html" as dashboard_html %}
-{% include dashboard_html %}
-              {% endwith %}
+          {% for dashboard in dashboard_order %}
+            {% if dashboard in dashboard_choices %}
+            <div class="row">
+              <div class="col-md-12">
+                <!-- https://stackoverflow.com/a/4524851/185820 -->
+                {% with "dashboard_"|add:dashboard|add:".html" as dashboard_html %}
+{% include   dashboard_html %}
+                {% endwith %}
+              </div>
             </div>
-          </div>
+            {% endif %}
           {% endfor %}
