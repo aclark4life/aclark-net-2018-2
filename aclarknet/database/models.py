@@ -23,7 +23,7 @@ DASHBOARD_CHOICES = (
     ('projects', 'Projects'),
     ('totals', 'Totals'), )
 
-DASHBOARD_ORDER = 'data,invoices,notes,projects,totals'
+DASHBOARD_ORDER = 'data, invoices, notes, projects, totals'
 
 # Create your models here.
 
