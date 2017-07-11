@@ -575,7 +575,7 @@ def get_setting(request, settings_model, setting, page_size=None):
         if settings.dashboard_order:
             return settings.dashboard_order
         else:
-            return settings_model.dashboard_order.get_default().split(', ')
+            return settings_model.fields.dashboard_order.get_default().split(', ')
 
 
 def get_query(request, query):
