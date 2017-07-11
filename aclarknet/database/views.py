@@ -496,7 +496,8 @@ def home(request):
     context['company'] = company
     context['dashboard_choices'] = get_setting(request, settings,
                                                'dashboard_choices')
-    context['dashboard_order'] = get_setting(request, settings, 'dashboard_order')
+    context['dashboard_order'] = get_setting(request, settings,
+                                             'dashboard_order')
     context['invoices'] = invoices
     context['icon_size'] = get_setting(request, settings, 'icon_size')
     context['gross'] = gross
@@ -1007,7 +1008,8 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 @staff_member_required(login_url='login')
 def service_edit(request, pk=None):
     company = Company.get_solo()
-    kwargs, url_name = get_url_name('service', page_type='index_or_edit', pk=pk)
+    kwargs, url_name = get_url_name(
+        'service', page_type='index_or_edit', pk=pk)
     return edit(
         request,
         ServiceForm,

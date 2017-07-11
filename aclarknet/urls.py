@@ -108,7 +108,8 @@ urlpatterns = [
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
     url(r'^report_plot$', views.report_plot, name='report_plot'),
     # Services
-    url(r'^service/(?P<pk>\d+)/edit$', views.service_edit, name='service_edit'),
+    url(r'^service/(?P<pk>\d+)/edit$', views.service_edit,
+        name='service_edit'),
     # Settings -> System
     url(r'^settings/system/edit$', views.settings_edit, name='settings_edit'),
     url(r'^settings/system$', views.settings, name='settings'),

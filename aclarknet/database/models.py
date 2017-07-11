@@ -12,7 +12,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from relativedeltafield import RelativeDeltaField
 from solo.models import SingletonModel
 
-
 fake = Faker()
 
 # https://github.com/goinnn/django-multiselectfield
@@ -468,7 +467,11 @@ class Service(models.Model):
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    icon = models.CharField("Font Awesome Icon (without 'fa-')", max_length=25, blank=True, null=True)
+    icon = models.CharField(
+        "Font Awesome Icon (without 'fa-')",
+        max_length=25,
+        blank=True,
+        null=True)
 
     def __str__(self):
         return self.name
@@ -483,8 +486,8 @@ class Settings(SingletonModel):
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         choices=DASHBOARD_CHOICES, null=True, blank=True)
-    dashboard_order = models.CharField(max_length=255, blank=True, null=True,
-        default=DASHBOARD_ORDER)
+    dashboard_order = models.CharField(
+        max_length=255, blank=True, null=True, default=DASHBOARD_ORDER)
 
 
 class Testimonial(models.Model):
