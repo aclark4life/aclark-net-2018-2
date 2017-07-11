@@ -575,7 +575,8 @@ def get_setting(request, settings_model, setting, page_size=None):
         if settings.dashboard_order:
             return settings.dashboard_order
         else:
-            return settings_model.fields.dashboard_order.get_default().split(', ')
+            # XXX How to get default field value with knowing index?
+            return settings._meta.fields[6].get_default()
 
 
 def get_query(request, query):
