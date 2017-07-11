@@ -539,13 +539,14 @@ def get_filename(company):
     return company_name
 
 
-def get_setting(request, settings, setting, page_size=None):
+def get_setting(request, settings_model, setting, page_size=None):
     """
     Allow user to override global setting
     """
     if not request.user.is_authenticated:
         return
     override = user_pref = None
+    settings = settings_model.get_solo()
     if setting == 'icon_size':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.icon_size
@@ -574,7 +575,7 @@ def get_setting(request, settings, setting, page_size=None):
         if settings.dashboard_order:
             return settings.dashboard_order
         else:
-            return settings.dashboard_order.get_default().split(', ')
+            return settings_model.dashboard_order.get_default().split(', ')
 
 
 def get_query(request, query):

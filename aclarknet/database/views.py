@@ -112,7 +112,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
 @staff_member_required
 def client(request, pk=None):
     context = {}
-    settings = Settings.get_solo()
     client = get_object_or_404(Client, pk=pk)
     contacts = Contact.objects.filter(client=client)
     contacts = contacts.order_by('-pk')
@@ -122,7 +121,7 @@ def client(request, pk=None):
     projects = projects.order_by('-start_date')
     context['active_nav'] = 'client'
     context['edit_url'] = 'client_edit'
-    context['icon_size'] = get_setting(request, settings, 'icon_size')
+    context['icon_size'] = get_setting(request, Settings, 'icon_size')
     context['item'] = client
     context['contacts'] = contacts
     context['contracts'] = contracts
