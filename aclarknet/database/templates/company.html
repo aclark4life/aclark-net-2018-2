@@ -62,23 +62,25 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <h2>Notes</h2>
-                  <div class="row">
-                    {% for note in company.note.all %}
-                    <div class="col-md-5" style="margin: 0 1em 1em 0">
-                      <div class="card"> 
-                        <div class="card-header">
-                          <a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right"></i></a>
-                          <a href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog"></i></a>
-                        </div>
-                        <div class="card-block">
-                          <p class="card-text">{{ note.note|safe|default:'' }}</p>
-                        </div>
+                {% for note in company.note.all %}
+                <div class="col-md-5" style="margin: 0 1em 1em 0">
+                  <div class="card"> 
+                    <div class="card-header">
+                      <div class="col-md-6">
+                        <h3>Notes</h3>
+                      </div>
+                      <div class="col-md-3">
+                        <a class="btn btn-secondary pull-right" href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right"></i></a>
+                      </div>
+                      <div class="col-md-3">
+                        <a class="btn btn-secondary pull-right" href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog"></i></a>
                       </div>
                     </div>
-                    {% endfor %}
+                    <div class="card-block">
+                      <p class="card-text">{{ note.note|safe|default:'' }}</p>
+                    </div>
                   </div>
                 </div>
+                {% endfor %}
               </div>
 {% endblock %}
