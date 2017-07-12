@@ -393,23 +393,16 @@ def edit(
         if form.is_valid():
             obj = form.save()
             company_note = request.GET.get('company')
-            if company_note:
-                return obj_edit(
-                    obj,
-                    company,
-                    contract_settings,
-                    company_note=True,
-                    log_model=log_model)
-            else:
-                return obj_edit(
-                    obj,
-                    company,
-                    contract_settings,
-                    request=request,
-                    pk=pk,
-                    kwargs=kwargs,
-                    log_model=log_model,
-                    url_name=url_name)
+            return obj_edit(
+                obj,
+                company,
+                contract_settings,
+                company_note=company_note,
+                request=request,
+                pk=pk,
+                kwargs=kwargs,
+                log_model=log_model,
+                url_name=url_name)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
