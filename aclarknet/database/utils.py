@@ -829,6 +829,7 @@ def obj_edit(obj,
         company.note.add(obj)
         company.save()
         url_name = 'company'
+        return HttpResponseRedirect(ref)
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
