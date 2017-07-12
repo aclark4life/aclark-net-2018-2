@@ -392,8 +392,8 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            company_note = request.GET.get('company')
-            if company_note:
+            company_note = request.GET.get('company_note')
+            if company_note == u'true'
                 company_note = True
             return obj_edit(
                 obj,
