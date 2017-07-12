@@ -176,4 +176,5 @@ REST_FRAMEWORK = {
 }
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/geoip2/
-GEOIP_PATH = '/srv/aclarknet-database/data'
+# GEOIP_PATH = '/srv/aclarknet-database/data'
+GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')

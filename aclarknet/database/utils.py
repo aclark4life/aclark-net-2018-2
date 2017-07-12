@@ -824,6 +824,7 @@ def obj_edit(obj,
         setattr(obj, 'body', text)
         obj.save()
     if obj._meta.verbose_name == 'note' and company_note:
+        import pdb ; pdb.set_trace()
         company.note.add(obj)
         company.save()
         url_name = 'company'
