@@ -393,6 +393,7 @@ def edit(
         if form.is_valid():
             obj = form.save()
             company_note = request.GET.get('company_note')
+            ref = request.META['HTTP_REFERER']
             if company_note == u'true':
                 company_note = True
             return obj_edit(
@@ -400,6 +401,7 @@ def edit(
                 company,
                 contract_settings,
                 company_note=company_note,
+                ref=ref,
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
