@@ -46,7 +46,7 @@ from .utils import edit
 from .utils import entries_total
 from .utils import generate_doc
 from .utils import get_client_city
-from .utils import get_filename
+from .utils import get_company_name
 from .utils import get_setting
 from .utils import get_query
 from .utils import get_url_name
@@ -67,7 +67,6 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 # from django.utils import timezone
 from django_xhtml2pdf.utils import generate_pdf
-# from faker import Faker
 from io import BytesIO
 from matplotlib.dates import DateFormatter
 from matplotlib.dates import MonthLocator
@@ -291,14 +290,14 @@ def contract(request, pk=None):
     context['times'] = times
     if pdf:
         response = HttpResponse(content_type='application/pdf')
-        filename = get_filename(company)
+        filename = get_company_name(company)
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_contract.html', context=context, file_object=response)
     if doc:
         # https://stackoverflow.com/a/24122313/185820
         document = generate_doc(contract)
-        filename = get_filename(company)
+        filename = get_company_name(company)
         f = BytesIO()
         document.save(f)
         length = f.tell()
@@ -411,11 +410,7 @@ def estimate(request, pk=None):
     context['subtotal'] = subtotal
     context['hours'] = hours
     if pdf:
-        company_name = ''
-        if company.name:
-            company_name = company.name.replace('.', '_')
-            company_name = company_name.replace(', ', '_')
-            company_name = company_name.upper()
+        company_name = get_company_name(company)
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
@@ -545,12 +540,7 @@ def invoice(request, pk=None):
     context['subtotal'] = subtotal
     if pdf:
         response = HttpResponse(content_type='application/pdf')
-        if company.name:
-            company_name = company.name.replace('.', '_')
-            company_name = company_name.replace(', ', '_')
-            company_name = company_name.upper()
-        else:
-            company_name = 'COMPANY'
+        company_name = get_company_name(company)
         filename = '_'.join([document_type_upper, document_id, company_name])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(

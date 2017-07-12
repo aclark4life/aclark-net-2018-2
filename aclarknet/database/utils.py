@@ -532,11 +532,15 @@ def get_client_ip(request):
     return request.META.get('HTTP_X_REAL_IP')
 
 
-def get_filename(company):
-    company_name = company.name.replace('.', '_')
-    company_name = company_name.replace(', ', '_')
-    company_name = company_name.upper()
-    return company_name
+def get_company_name(company):
+    if company.name:
+        company_name = company.name.replace('.', '_')
+        company_name = company_name.replace(', ', '_')
+        company_name = company_name.upper()
+        return company_name
+    else:
+        fake = Faker()
+        return fake.text()
 
 
 def get_setting(request, settings_model, setting, page_size=None):
