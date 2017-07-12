@@ -23,3 +23,10 @@ a:hover.mute-url, a.mute-url {
 .sidebar {
     opacity: 0.9;
 }
+
+/* https://stackoverflow.com/questions/26378785/how-can-i-speed-up-the-mobile-dropdown-in-the-bootstrap-navbar */
+.collapsing {
+  -webkit-transition: height .35s ease;
+       -o-transition: height .35s ease;
+          transition: height .35s ease;
+}
