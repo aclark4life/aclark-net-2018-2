@@ -366,15 +366,11 @@ def edit(
         else:
             checkbox = request.POST.get('checkbox')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
-            company_note = request.GET.get('company')
             copy = request.POST.get('copy')
             delete = request.POST.get('delete')
             # Copy or delete
             if copy:
                 return obj_copy(obj, url_name)
-            if company_note:
-                return obj_edit(
-                    obj, company, company_note=True, log_model=log_model)
             if delete:
                 return obj_delete(obj, company, request=request)
             # Check boxes
@@ -396,15 +392,24 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            return obj_edit(
-                obj,
-                company,
-                contract_settings,
-                request=request,
-                pk=pk,
-                kwargs=kwargs,
-                log_model=log_model,
-                url_name=url_name)
+            company_note = request.GET.get('company')
+            if company_note:
+                return obj_edit(
+                    obj,
+                    company,
+                    contract_settings,
+                    company_note=True,
+                    log_model=log_model)
+            else:
+                return obj_edit(
+                    obj,
+                    company,
+                    contract_settings,
+                    request=request,
+                    pk=pk,
+                    kwargs=kwargs,
+                    log_model=log_model,
+                    url_name=url_name)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -824,7 +829,6 @@ def obj_edit(obj,
         setattr(obj, 'body', text)
         obj.save()
     if obj._meta.verbose_name == 'note' and company_note:
-        import pdb ; pdb.set_trace()
         company.note.add(obj)
         company.save()
         url_name = 'company'
