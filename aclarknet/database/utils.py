@@ -393,6 +393,8 @@ def edit(
         if form.is_valid():
             obj = form.save()
             company_note = request.GET.get('company')
+            if company_note:
+                company_note = True
             return obj_edit(
                 obj,
                 company,
