@@ -109,21 +109,21 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def check_boxes(obj, checkbox, checkbox_subscribed, ref):
+def check_boxes(obj, checkbox, checkbox_subscribed, referer):
     if checkbox == 'on' or checkbox == 'off':
         if checkbox == 'on':
             obj.active = True
         else:
             obj.active = False
         obj.save()
-        return HttpResponseRedirect(ref)
+        return HttpResponseRedirect(referer)
     if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
         if checkbox_subscribed == 'on':
             obj.subscribed = True
         else:
             obj.subscribed = False
         obj.save()
-        return HttpResponseRedirect(ref)
+        return HttpResponseRedirect(referer)
 
 
 def create_and_send_mail(request,
@@ -346,6 +346,7 @@ def edit(
         task=None,
         tasks=[]):
     obj = None
+    referer = request.META['HTTP_REFERER']
     if pk is None:
         form = create_form(
             model,
@@ -378,8 +379,7 @@ def edit(
             if (checkbox == 'on' or checkbox == 'off' or
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
-                ref = request.META['HTTP_REFERER']
-                return check_boxes(obj, checkbox, checkbox_subscribed, ref)
+                return check_boxes(obj, checkbox, checkbox_subscribed, referer)
             # Edit amounts
             if amount or subtotal or paid_amount or paid:
                 return edit_amounts(
@@ -398,6 +398,7 @@ def edit(
                 company,
                 contract_settings,
                 company_note=company_note,
+                referer=referer,
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
@@ -763,6 +764,7 @@ def obj_edit(obj,
              contract_settings,
              company_note=None,
              log_model=None,
+             referer=None,
              request=None,
              kwargs={},
              pk=None,
@@ -825,8 +827,7 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-        ref = request.META['HTTP_REFERER']
-        return HttpResponseRedirect(ref)
+        return HttpResponseRedirect(referer)
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
