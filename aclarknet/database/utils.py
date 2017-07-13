@@ -761,7 +761,7 @@ def obj_delete(obj, company, request=None):
 def obj_edit(obj,
              company,
              contract_settings,
-             company_note=company_note,
+             company_note=None,
              log_model=None,
              request=None,
              kwargs={},
