@@ -329,6 +329,7 @@ def edit(
         client=None,
         clients=[],
         company=None,
+        company_note=None,
         contract_settings=None,
         context={},
         gross=None,
