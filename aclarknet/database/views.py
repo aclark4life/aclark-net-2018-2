@@ -203,7 +203,6 @@ def contact_edit(request, pk=None):
         url_name,
         'contact_edit.html',
         active_nav='contact',
-        client=client,
         kwargs=kwargs,
         pk=pk)
 
