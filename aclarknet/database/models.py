@@ -41,6 +41,7 @@ class Client(models.Model):
     description = models.TextField(blank=True, null=True)
     url = models.URLField("Website", blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
+    note = models.ManyToManyField('Note', blank=True)
 
     def __str__(self):
         return self.name
