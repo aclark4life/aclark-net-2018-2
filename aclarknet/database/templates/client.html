@@ -142,7 +142,7 @@
                 <tbody> 
                 {% for project in projects %}
                 <tr>
-                  <td><a href="{% url 'project' project.pk %}">{{ project.name }}</a></td>
+                  <td><a href="{% url 'project' project.pk %}">{{ project.name|default:'' }}</a></td>
                   <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.start_date|date:'U' }}</td>
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
