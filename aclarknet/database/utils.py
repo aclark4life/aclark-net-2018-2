@@ -392,16 +392,11 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            company_note = request.GET.get('company_note')
-            ref = request.META['HTTP_REFERER']
-            if company_note == u'true':
-                company_note = True
+            company = request.GET.get('company')
             return obj_edit(
                 obj,
                 company,
                 contract_settings,
-                company_note=company_note,
-                ref=ref,
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
