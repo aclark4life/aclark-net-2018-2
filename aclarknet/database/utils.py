@@ -392,7 +392,6 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            company = request.GET.get('company')
             return obj_edit(
                 obj,
                 company,
@@ -760,9 +759,7 @@ def obj_delete(obj, company, request=None):
 def obj_edit(obj,
              company,
              contract_settings,
-             company_note=None,
              log_model=None,
-             ref=None,
              request=None,
              kwargs={},
              pk=None,
@@ -803,12 +800,14 @@ def obj_edit(obj,
         if obj.project.client and not obj.client:
             obj.client = obj.project.client
             obj.save()
+
     # Redir to appropriate location
-    if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
-        if pk is None:
-            url_name = 'home'
-        else:
-            url_name = 'entry'
+    # if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
+    #     if pk is None:
+    #         url_name = 'home'
+    #     else:
+    #         url_name = 'entry'
+
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         text = ''
@@ -823,7 +822,7 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-        url_name = 'company'
+        ref = request.META['HTTP_REFERER']
         return HttpResponseRedirect(ref)
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 

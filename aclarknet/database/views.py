@@ -756,6 +756,7 @@ def note(request, pk=None):
 @staff_member_required(login_url='login')
 def note_edit(request, pk=None):
     company = Company.get_solo()
+    company_note = request.GET.get('company')
     kwargs, url_name = get_url_name('note', page_type='index_or_edit', pk=pk)
     return edit(
         request,
@@ -765,6 +766,7 @@ def note_edit(request, pk=None):
         'note_edit.html',
         active_nav='note',
         company=company,
+        company_note=company_note,
         kwargs=kwargs,
         pk=pk)
 
