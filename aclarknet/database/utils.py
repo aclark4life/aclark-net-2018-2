@@ -397,6 +397,7 @@ def edit(
                 obj,
                 company,
                 contract_settings,
+                company_note=company_note,
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
