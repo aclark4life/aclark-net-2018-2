@@ -63,9 +63,11 @@
             <div class="col-md-12">
               <h2>Team</h2>
               <ol>
-                {% for team_member in item.team.all %}
-                <li><a href="{% url 'user' team_member.pk %}">{{ team_member.first_name }} {{ team_member.last_name }} ({{ team_member }})</a></li>
-                {% endfor %}
+                {% if item.team %}
+                  {% for team_member in item.team.all %}
+                  <li><a href="{% url 'user' team_member.pk %}">{{ team_member.first_name }} {{ team_member.last_name }} ({{ team_member }})</a></li>
+                  {% endfor %}
+                {% endif %}
               </ol>
             </div>
           </div> 
