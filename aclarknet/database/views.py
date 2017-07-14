@@ -139,7 +139,6 @@ def client_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='client',
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -204,7 +203,6 @@ def contact_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='contact',
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -327,7 +325,6 @@ def contract_edit(request, pk=None):
         template_name,
         active_nav='contract',
         contract_settings=contract_settings,
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -444,7 +441,6 @@ def estimate_edit(request, pk=None):
         active_nav='estimate',
         amount=amount,
         company=company,
-        kwargs=kwargs,
         paid_amount=paid_amount,
         pk=pk,
         subtotal=subtotal)
@@ -590,7 +586,6 @@ def invoice_edit(request, pk=None):
         active_nav='invoice',
         amount=amount,
         company=company,
-        kwargs=kwargs,
         paid_amount=paid_amount,
         paid=paid,
         pk=pk,
@@ -681,7 +676,6 @@ def newsletter_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='dropdown',
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -769,7 +763,6 @@ def note_edit(request, pk=None):
         active_nav='note',
         company=company,
         company_note=company_note,
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -828,7 +821,6 @@ def project_edit(request, pk=None):
         active_nav='project',
         client=client,
         # clients=clients,
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -880,7 +872,6 @@ def proposal_edit(request, pk=None):
         template_name,
         active_nav='dropdown',
         company=company,
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -937,7 +928,6 @@ def report_edit(request, pk=None):
         active_nav='dropdown',
         gross=gross,
         invoices_active=invoices_active,
-        kwargs=kwargs,
         net=net,
         pk=pk)
 
@@ -1013,7 +1003,6 @@ def service_edit(request, pk=None):
         template_name,
         active_nav='dropdown',
         company=company,
-        kwargs=kwargs,
         pk=pk)
 
 
@@ -1060,8 +1049,7 @@ def task_edit(request, pk=None):
         url_name,
         'task_edit.html',
         active_nav='task',
-        pk=pk,
-        kwargs=kwargs)
+        pk=pk)
 
 
 @staff_member_required
@@ -1140,8 +1128,7 @@ def time_edit(request, pk=None):
         project=project,
         projects=projects,
         task=task,
-        tasks=tasks,
-        kwargs=kwargs)
+        tasks=tasks)
 
 
 @login_required
@@ -1231,7 +1218,6 @@ def user_edit(request, pk=None):
         template_name,
         active_nav='dropdown',
         context=context,
-        kwargs=kwargs,
         pk=pk)
 
 

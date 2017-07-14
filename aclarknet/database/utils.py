@@ -292,8 +292,8 @@ def edit_amounts(obj,
                  subtotal,
                  paid_amount,
                  paid,
-                 kwargs={},
                  url_name=''):
+    kwargs = {}
     if amount and subtotal and paid_amount and paid:
         obj.amount = amount
         obj.last_payment_date = timezone.now()
@@ -334,7 +334,6 @@ def edit(
         context={},
         gross=None,
         invoices_active=None,  # for reporting
-        kwargs={},
         log_model=None,
         net=None,
         pk=None,
@@ -388,7 +387,6 @@ def edit(
                     subtotal,
                     paid_amount,
                     paid,
-                    kwargs=kwargs,
                     url_name=url_name)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
@@ -401,7 +399,6 @@ def edit(
                 company_note=company_note,
                 request=request,
                 pk=pk,
-                kwargs=kwargs,
                 log_model=log_model)
     context['active_nav'] = active_nav
     context['form'] = form
@@ -764,7 +761,6 @@ def obj_edit(obj,
              company_note=None,
              log_model=None,
              request=None,
-             kwargs={},
              pk=None):
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
