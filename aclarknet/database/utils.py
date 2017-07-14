@@ -627,18 +627,17 @@ def get_search_results(model,
     return context
 
 
-def get_kwargs_template_url(verbose_name, page_type=None, pk=None):
+def get_template_and_url_names(verbose_name, page_type=None, pk=None):
     """
     """
-    kwargs = {}
     if page_type == 'view':
         url_name = URL_NAMES[verbose_name][0]
         template_name = '%s.html' % url_name
-        return kwargs, template_name, url_name
+        return template_name, url_name
     elif page_type == 'edit':
         url_name = URL_NAMES[verbose_name][1]
         template_name = '%s.html' % url_name
-        return kwargs, template_name, url_name
+        return template_name, url_name
     elif page_type == 'index':
         url_name = URL_NAMES[verbose_name][2]
         return url_name
@@ -736,13 +735,13 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    url_name = get_kwargs_template_url(
+    url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj, company, request=None):
-    url_name = get_kwargs_template_url(
+    url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):

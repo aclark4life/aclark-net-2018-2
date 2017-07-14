@@ -47,8 +47,8 @@ from .utils import entries_total
 from .utils import generate_doc
 from .utils import get_client_city
 from .utils import get_company_name
-from .utils import get_kwargs_template_url
 from .utils import get_setting
+from .utils import get_template_and_url_names
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -130,7 +130,7 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'client', page_type='edit', pk=pk)
     return edit(
         request,
@@ -195,7 +195,7 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'contact', page_type='edit', pk=pk)
     return edit(
         request,
@@ -317,7 +317,7 @@ def contract_edit(request, pk=None):
     """
     """
     contract_settings = ContractSettings.get_solo()
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'contract', page_type='edit', pk=pk)
     return edit(
         request,
@@ -427,7 +427,7 @@ def estimate_edit(request, pk=None):
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'estimate', page_type='edit', pk=pk)
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
@@ -558,7 +558,7 @@ def invoice_edit(request, pk=None):
     paid = request.GET.get('paid')
     company = Company.get_solo()
     project = request.GET.get('project')
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'invoice', page_type='edit', pk=pk)
     invoice = None
     if pk:
@@ -672,7 +672,7 @@ def newsletter(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'newsletter', page_type='edit', pk=pk)
     return edit(
         request,
@@ -758,7 +758,7 @@ def note(request, pk=None):
 def note_edit(request, pk=None):
     company = Company.get_solo()
     company_note = request.GET.get('company')
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'note', page_type='edit', pk=pk)
     return edit(
         request,
@@ -817,7 +817,7 @@ def project_edit(request, pk=None):
     if client:
         client = get_object_or_404(Client, pk=client)
     # clients = Client.objects.filter(active=True)
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'project', page_type='edit', pk=pk)
     return edit(
         request,
@@ -870,7 +870,7 @@ def proposal_edit(request, pk=None):
     """
     """
     company = Company.get_solo()
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'proposal', page_type='edit', pk=pk)
     return edit(
         request,
@@ -926,7 +926,7 @@ def report(request, pk=None):
 @staff_member_required
 def report_edit(request, pk=None):
     gross, net, invoices_active = dashboard_totals(Invoice)
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'report', page_type='edit', pk=pk)
     return edit(
         request,
@@ -1003,7 +1003,7 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 @staff_member_required(login_url='login')
 def service_edit(request, pk=None):
     company = Company.get_solo()
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'service', page_type='edit', pk=pk)
     return edit(
         request,
@@ -1051,7 +1051,7 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'task', page_type='edit', pk=pk)
     return edit(
         request,
@@ -1101,7 +1101,7 @@ def time_edit(request, pk=None):
     client = request.GET.get('client')
     project = request.GET.get('project')
     task = None
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'time', page_type='edit', pk=pk)
     if pk is not None:
         entry = get_object_or_404(Time, pk=pk)
@@ -1221,7 +1221,7 @@ def user_contact(request, pk=None):
 @login_required
 def user_edit(request, pk=None):
     context = {}
-    kwargs, template_name, url_name = get_kwargs_template_url(
+    template_name, url_name = get_template_and_url_names(
         'user', page_type='edit', pk=pk)
     return edit(
         request,
