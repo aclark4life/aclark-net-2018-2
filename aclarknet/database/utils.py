@@ -627,26 +627,21 @@ def get_search_results(model,
     return context
 
 
-def get_url_name(verbose_name, page_type=None, pk=None):
+def get_url_and_template(verbose_name, page_type=None, pk=None):
     """
     """
-    if page_type == 'edit':
+    kwargs = {}
+    if page_type == 'view':
+        return URL_NAMES[verbose_name][0]
+    elif page_type == 'edit':
         return URL_NAMES[verbose_name][1]
     elif page_type == 'index':
         return URL_NAMES[verbose_name][2]
-    elif page_type == 'index_or_edit':
-        kwargs = {}
-        if pk and verbose_name == 'service':  # Special case for service
-            return kwargs, URL_NAMES[verbose_name][0]
-        elif pk:
-            kwargs['pk'] = pk
-            url_name = URL_NAMES[verbose_name][2]
-            template_name = '%s.html' % url_name
-            return kwargs, url_name, template_name
-        else:
-            url_name = URL_NAMES[verbose_name][1]
-            template_name = '%s.html' % url_name
-            return kwargs, url_name, template_name
+
+    # elif page_type == 'index_or_edit':
+    #    kwargs = {}
+    #    if pk and verbose_name == 'service':  # Special case for service
+    #        return kwargs, URL_NAMES[verbose_name][0]
 
 
 def gravatar_url(email):
@@ -741,12 +736,12 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    url_name = get_url_name(obj._meta.verbose_name, page_type='edit')
+    url_name = get_url_and_template(obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj, company, request=None):
-    url_name = get_url_name(
+    url_name = get_url_and_template(
         obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
