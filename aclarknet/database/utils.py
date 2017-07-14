@@ -742,7 +742,8 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    url_name = get_kwargs_template_url(obj._meta.verbose_name, page_type='edit')
+    url_name = get_kwargs_template_url(
+        obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
