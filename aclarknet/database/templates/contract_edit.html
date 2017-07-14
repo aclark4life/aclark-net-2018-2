@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-       <h1>Contract</h1>
-       <form action="" method="post">{% csrf_token %}
-         <div class="row">
-           <div class="offset-md-8 col-md-2">
-             <a class="btn btn-lg btn-block btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
-           </div>
-           <div class="col-md-2">
-             <input class="btn btn-lg btn-block btn-success" type="submit" value="Save">
-           </div>
-         </div>
-         {{ form|crispy }}
-         <input class="btn btn-lg btn-success" type="submit" value="Save">
-         <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
-       </form>
+              <h1>Contract</h1>
+              <form action="" method="post">{% csrf_token %}
+                <div class="row">
+                  <div class="offset-md-8 col-md-2">
+                    <a class="btn btn-lg btn-block btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
+                  </div>
+                  <div class="col-md-2">
+                    <input class="btn btn-lg btn-block btn-success" type="submit" value="Save">
+                  </div>
+                </div>
+                {{ form|crispy }}
+                <input class="btn btn-lg btn-success" type="submit" value="Save">
+                <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
+              </form>
 {% endblock %}
 {% block js %}
 {% include 'tinymce.html' %}
