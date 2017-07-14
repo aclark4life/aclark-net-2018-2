@@ -811,7 +811,7 @@ def project_edit(request, pk=None):
         client = get_object_or_404(Client, pk=client)
     # clients = Client.objects.filter(active=True)
     template_name, url_name = get_template_and_url_names(
-        'project', page_type='edit', pk=pk)
+        'project', page_type='edit')
     return edit(
         request,
         ProjectForm,

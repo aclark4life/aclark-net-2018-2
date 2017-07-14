@@ -624,7 +624,7 @@ def get_search_results(model,
     return context
 
 
-def get_template_and_url_names(verbose_name, page_type=None, pk=None):
+def get_template_and_url_names(verbose_name, page_type=None):
     """
     """
     if page_type == 'view':
