@@ -41,7 +41,7 @@ URL_NAMES = {
     'project': ('project', 'project_edit', 'project_index'),
     'proposal': ('proposal', 'proposal_edit', 'proposal_index'),
     'report': ('report', 'report_edit', 'report_index'),
-    'service': ('service', '', 'company'),
+    'service': ('company', 'service_edit', ''),
     'task': ('task', 'task_edit', 'task_index'),
     'time': ('entry', 'entry_edit', 'entry_index'),
     'user': ('user', 'user_edit', 'user_index'),
@@ -641,13 +641,7 @@ def get_kwargs_template_url(verbose_name, page_type=None, pk=None):
         return kwargs, template_name, url_name
     elif page_type == 'index':
         url_name = URL_NAMES[verbose_name][2]
-        # template_name = '%s.html' % url_name
         return url_name
-
-    # elif page_type == 'index_or_edit':
-    #    kwargs = {}
-    #    if pk and verbose_name == 'service':  # Special case for service
-    #        return kwargs, URL_NAMES[verbose_name][0]
 
 
 def gravatar_url(email):
