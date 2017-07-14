@@ -2,6 +2,7 @@
               <table data-toggle="table" data-classes="table table-no-bordered">
                 <thead>
                   <tr>
+                    <th data-field="name" data-sortable="true">#</th>
                     <th data-field="name" data-sortable="true">Note</th>
                     <th data-valign="top" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th>
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
@@ -12,7 +13,7 @@
                 <tbody>
                 {% for note in notes %}
                   <tr>
-
+                    <td>{{ forloop.counter }}</a></td>
                     <td>{{ note.note|safe }}</a></td>
                     <td><form action="{% url 'note_edit' note.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if note.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ note.active }}</td>
