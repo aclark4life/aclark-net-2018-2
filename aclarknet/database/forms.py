@@ -186,6 +186,7 @@ class ServiceForm(forms.ModelForm):
         model = Service
         # fields = '__all__'
         fields = (
+            'active',
             'name',
             'description',
             'icon', )
