@@ -45,7 +45,7 @@
 {% include 'messages.html' %}
         {% endif %}
 {% if show_search %}{% include 'search.html' %}{% endif %}
-<h1>REF: {{ request.META.HTTP_REFERER }}</h1>
+<div class="bg-warning"><h1>request.META.HTTP_REFERER: {{ request.META.HTTP_REFERER }}</h1></div>
 {% block content %}
 {% endblock %}
         </div>
