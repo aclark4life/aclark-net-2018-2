@@ -627,7 +627,7 @@ def get_search_results(model,
     return context
 
 
-def get_kwargs_template_and_url(verbose_name, page_type=None, pk=None):
+def get_kwargs_template_url(verbose_name, page_type=None, pk=None):
     """
     """
     kwargs = {}
