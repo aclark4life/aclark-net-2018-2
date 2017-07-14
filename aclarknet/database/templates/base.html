@@ -38,9 +38,6 @@
         {% endif %}
         {% if request.user.is_anonymous and not login %}
         <div class="col-md-12" id="content">
-
-<h1>REF: {{ request.META.HTTP_REFERER }}</h1>
-
 {% include 'messages.html' %}
 {% include 'banner.html' %}
         {% else %}
@@ -48,6 +45,7 @@
 {% include 'messages.html' %}
         {% endif %}
 {% if show_search %}{% include 'search.html' %}{% endif %}
+<h1>REF: {{ request.META.HTTP_REFERER }}</h1>
 {% block content %}
 {% endblock %}
         </div>
