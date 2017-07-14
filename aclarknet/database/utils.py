@@ -646,7 +646,7 @@ def get_url_name(verbose_name, page_type=None, pk=None):
             return kwargs, url_name, template_name
         else:
             url_name = URL_NAMES[verbose_name][1]  # index
-            template_name = '%s_index.html' % url_name
+            template_name = '%s.html' % url_name
             return kwargs, url_name, template_name
 
 
