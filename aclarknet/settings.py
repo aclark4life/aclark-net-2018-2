@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
+    INTERNAL_IPS = ['34.203.238.227',]
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
