@@ -109,21 +109,21 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def check_boxes(obj, checkbox, checkbox_subscribed, ref):
+def check_boxes(obj, checkbox, checkbox_subscribed, refer):
     if checkbox == 'on' or checkbox == 'off':
         if checkbox == 'on':
             obj.active = True
         else:
             obj.active = False
         obj.save()
-        return HttpResponseRedirect(ref)
+        return HttpResponseRedirect(refer)
     if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
         if checkbox_subscribed == 'on':
             obj.subscribed = True
         else:
             obj.subscribed = False
         obj.save()
-        return HttpResponseRedirect(ref)
+        return HttpResponseRedirect(refer)
 
 
 def create_and_send_mail(request,
@@ -346,7 +346,7 @@ def edit(
         task=None,
         tasks=[]):
     obj = None
-    ref = request.META['HTTP_REFERER']
+    refer = request.META['HTTP_REFERER']
     if pk is None:
         form = create_form(
             model,
@@ -379,7 +379,7 @@ def edit(
             if (checkbox == 'on' or checkbox == 'off' or
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
-                return check_boxes(obj, checkbox, checkbox_subscribed, ref)
+                return check_boxes(obj, checkbox, checkbox_subscribed, refer)
             # Edit amounts
             if amount or subtotal or paid_amount or paid:
                 return edit_amounts(
@@ -395,8 +395,9 @@ def edit(
             obj = form.save()
             return obj_edit(
                 obj,
-                company,
-                contract_settings,
+                refer,
+                company=company,
+                contract_settings=contract_settings,
                 company_note=company_note,
                 request=request,
                 pk=pk,
@@ -762,8 +763,9 @@ def obj_delete(obj, company, request=None):
 
 
 def obj_edit(obj,
-             company,
-             contract_settings,
+             refer,
+             company=None,
+             contract_settings=None,
              company_note=None,
              log_model=None,
              request=None,
@@ -827,7 +829,7 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-    return HttpResponseRedirect(ref)
+    return HttpResponseRedirect(refer)
 
 
 def paginate(items, page, page_size):
