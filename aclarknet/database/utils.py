@@ -31,20 +31,20 @@ from operator import or_ as OR
 from smtplib import SMTPSenderRefused
 
 URL_NAMES = {
-    'client': ('client_edit', 'client_index', 'client'),
-    'contact': ('contact_edit', 'contact_index', 'contact'),
-    'contract': ('contract_edit', 'contract_index', 'contract'),
-    'estimate': ('estimate_edit', 'estimate_index', 'estimate'),
-    'invoice': ('invoice_edit', 'invoice_index', 'invoice'),
-    'newsletter': ('newsletter_edit', 'newsletter_index', 'newsletter'),
-    'note': ('note_edit', 'note_index', 'note'),
-    'project': ('project_edit', 'project_index', 'project'),
-    'proposal': ('proposal_edit', 'proposal_index', 'proposal'),
-    'report': ('report_edit', 'report_index', 'report'),
-    'service': ('service_edit', '', 'company'),
-    'task': ('task_edit', 'task_index', 'task'),
-    'time': ('entry_edit', 'entry_index', 'entry'),
-    'user': ('user_edit', 'user_index', 'user'),
+    'client': ('client', 'client_edit', 'client_index'),
+    'contact': ('contact', 'contact_edit', 'contact_index'),
+    'contract': ('contract', 'contract_edit', 'contract_index'),
+    'estimate': ('estimate', 'estimate_edit', 'estimate_index'),
+    'invoice': ('invoice', 'invoice_edit', 'invoice_index'),
+    'newsletter': ('newsletter', 'newsletter_edit', 'newsletter_index'),
+    'note': ('note', 'note_edit', 'note_index'),
+    'project': ('project', 'project_edit', 'project_index'),
+    'proposal': ('proposal', 'proposal_edit', 'proposal_index'),
+    'report': ('report', 'report_edit', 'report_index'),
+    'service': ('service', '', 'company'),
+    'task': ('task', 'task_edit', 'task_index'),
+    'time': ('entry', 'entry_edit', 'entry_index'),
+    'user': ('user', 'user_edit', 'user_index'),
 }
 
 
@@ -632,20 +632,20 @@ def get_url_name(verbose_name, page_type=None, pk=None):
     """
     """
     if page_type == 'edit':
-        return URL_NAMES[verbose_name][0]  # edit
+        return URL_NAMES[verbose_name][1]  # edit
     elif page_type == 'index':
-        return URL_NAMES[verbose_name][1]  # index
-    elif page_type == 'index_or_view':
+        return URL_NAMES[verbose_name][2]  # index
+    elif page_type == 'index_or_edit':
         kwargs = {}
         if pk and verbose_name == 'service':  # Special case for service
-            return kwargs, URL_NAMES[verbose_name][2]  # view
-        elif pk:
+            return kwargs, URL_NAMES[verbose_name][0]  # view
+        elif pk:  # edit
             kwargs['pk'] = pk
-            url_name = URL_NAMES[verbose_name][2]  # view
+            url_name = URL_NAMES[verbose_name][1]  # edit
             template_name = '%s.html' % url_name
             return kwargs, url_name, template_name
-        else:
-            url_name = URL_NAMES[verbose_name][1]  # index
+        else:  # index
+            url_name = URL_NAMES[verbose_name][2]  # index
             template_name = '%s.html' % url_name
             return kwargs, url_name, template_name
 
