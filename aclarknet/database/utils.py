@@ -323,7 +323,7 @@ def edit(
         form_model,
         model,
         url_name,
-        template,
+        template_name,
         active_nav=None,
         amount=None,
         client=None,
@@ -408,7 +408,7 @@ def edit(
     context['form'] = form
     context['item'] = obj
     context['pk'] = pk
-    return render(request, template, context)
+    return render(request, template_name, context)
 
 
 def entries_total(queryset):
