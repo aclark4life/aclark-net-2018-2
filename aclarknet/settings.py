@@ -59,6 +59,7 @@ if DEBUG:
         'django.middleware.security.SecurityMiddleware',
         'debug_toolbar.middleware.DebugToolbarMiddleware', )
 else:
+    MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
