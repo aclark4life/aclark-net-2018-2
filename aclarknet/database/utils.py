@@ -287,12 +287,7 @@ def dashboard_totals(model):
     return gross, net, invoices_active
 
 
-def edit_amounts(obj,
-                 amount,
-                 subtotal,
-                 paid_amount,
-                 paid,
-                 url_name=''):
+def edit_amounts(obj, amount, subtotal, paid_amount, paid, url_name=''):
     kwargs = {}
     if amount and subtotal and paid_amount and paid:
         obj.amount = amount
