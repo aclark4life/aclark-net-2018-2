@@ -1063,7 +1063,7 @@ def task_index(request):
         active_nav='task',
         app_settings=settings,
         edit_url='task_edit',  # Delete modal
-        order_by=('-active', ),
+        order_by=('-updated', '-active'),
         show_search=True)
     return render(request, 'task_index.html', context)
 
