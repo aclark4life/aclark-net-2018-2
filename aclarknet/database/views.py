@@ -131,7 +131,7 @@ def client(request, pk=None):
 @staff_member_required
 def client_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
-        'client', page_type='edit', pk=pk)
+        'client', page_type='edit')
     return edit(
         request,
         ClientForm,
@@ -195,7 +195,7 @@ def contact(request, pk=None):
 @staff_member_required
 def contact_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
-        'contact', page_type='edit', pk=pk)
+        'contact', page_type='edit')
     return edit(
         request,
         ContactForm,
@@ -316,7 +316,7 @@ def contract_edit(request, pk=None):
     """
     contract_settings = ContractSettings.get_solo()
     template_name, url_name = get_template_and_url_names(
-        'contract', page_type='edit', pk=pk)
+        'contract', page_type='edit')
     return edit(
         request,
         ContractForm,
@@ -425,7 +425,7 @@ def estimate_edit(request, pk=None):
     times = request.GET.get('times')
     company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
-        'estimate', page_type='edit', pk=pk)
+        'estimate', page_type='edit')
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
@@ -555,7 +555,7 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     project = request.GET.get('project')
     template_name, url_name = get_template_and_url_names(
-        'invoice', page_type='edit', pk=pk)
+        'invoice', page_type='edit')
     invoice = None
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
@@ -668,7 +668,7 @@ def newsletter_edit(request, pk=None):
     """
     """
     template_name, url_name = get_template_and_url_names(
-        'newsletter', page_type='edit', pk=pk)
+        'newsletter', page_type='edit')
     return edit(
         request,
         NewsletterForm,
@@ -753,7 +753,7 @@ def note_edit(request, pk=None):
     company = Company.get_solo()
     company_note = request.GET.get('company')
     template_name, url_name = get_template_and_url_names(
-        'note', page_type='edit', pk=pk)
+        'note', page_type='edit')
     return edit(
         request,
         NoteForm,
@@ -863,7 +863,7 @@ def proposal_edit(request, pk=None):
     """
     company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
-        'proposal', page_type='edit', pk=pk)
+        'proposal', page_type='edit')
     return edit(
         request,
         ProposalForm,
@@ -918,7 +918,7 @@ def report(request, pk=None):
 def report_edit(request, pk=None):
     gross, net, invoices_active = dashboard_totals(Invoice)
     template_name, url_name = get_template_and_url_names(
-        'report', page_type='edit', pk=pk)
+        'report', page_type='edit')
     return edit(
         request,
         ReportForm,
@@ -994,7 +994,7 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 def service_edit(request, pk=None):
     company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
-        'service', page_type='edit', pk=pk)
+        'service', page_type='edit')
     return edit(
         request,
         ServiceForm,
@@ -1041,7 +1041,7 @@ def task(request, pk=None):
 @staff_member_required
 def task_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
-        'task', page_type='edit', pk=pk)
+        'task', page_type='edit')
     return edit(
         request,
         TaskForm,
@@ -1090,7 +1090,7 @@ def time_edit(request, pk=None):
     project = request.GET.get('project')
     task = None
     template_name, url_name = get_template_and_url_names(
-        'time', page_type='edit', pk=pk)
+        'time', page_type='edit')
     if pk is not None:
         entry = get_object_or_404(Time, pk=pk)
         if entry.user:
@@ -1209,7 +1209,7 @@ def user_contact(request, pk=None):
 def user_edit(request, pk=None):
     context = {}
     template_name, url_name = get_template_and_url_names(
-        'user', page_type='edit', pk=pk)
+        'user', page_type='edit')
     return edit(
         request,
         ProfileForm,
