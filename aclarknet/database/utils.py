@@ -768,7 +768,7 @@ def obj_edit(obj,
              log_model=None,
              request=None,
              kwargs={},
-             pk=None)
+             pk=None):
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
         # Assign user to time entry on creation
