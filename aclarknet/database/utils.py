@@ -401,8 +401,7 @@ def edit(
                 request=request,
                 pk=pk,
                 kwargs=kwargs,
-                log_model=log_model,
-                url_name=url_name)
+                log_model=log_model)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -769,8 +768,7 @@ def obj_edit(obj,
              log_model=None,
              request=None,
              kwargs={},
-             pk=None,
-             url_name=None):
+             pk=None)
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
         # Assign user to time entry on creation
@@ -829,8 +827,7 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-        return HttpResponseRedirect(ref)
-    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+    return HttpResponseRedirect(ref)
 
 
 def paginate(items, page, page_size):
