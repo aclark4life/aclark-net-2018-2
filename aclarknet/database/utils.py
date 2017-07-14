@@ -633,15 +633,15 @@ def get_kwargs_template_url(verbose_name, page_type=None, pk=None):
     kwargs = {}
     if page_type == 'view':
         url_name = URL_NAMES[verbose_name][0]
-        template_name = '%s.html'
+        template_name = '%s.html' % url_name
         return kwargs, template_name, url_name
     elif page_type == 'edit':
         url_name = URL_NAMES[verbose_name][1]
-        template_name = '%s.html'
+        template_name = '%s.html' % url_name
         return kwargs, template_name, url_name
     elif page_type == 'index':
         url_name = URL_NAMES[verbose_name][2]
-        template_name = '%s.html'
+        template_name = '%s.html' % url_name
         return kwargs, template_name, url_name
 
     # elif page_type == 'index_or_edit':
