@@ -632,18 +632,18 @@ def get_url_name(verbose_name, page_type=None, pk=None):
     """
     """
     if page_type == 'edit':
-        return URL_NAMES[verbose_name][0]
+        return URL_NAMES[verbose_name][0]  # edit
     elif page_type == 'index':
-        return URL_NAMES[verbose_name][1]
-    elif page_type == 'index_or_edit':
+        return URL_NAMES[verbose_name][1]  # index
+    elif page_type == 'index_or_view':
         kwargs = {}
         if pk and verbose_name == 'service':  # Special case for service
-            return kwargs, URL_NAMES[verbose_name][2]
+            return kwargs, URL_NAMES[verbose_name][2]  # view
         elif pk:
             kwargs['pk'] = pk
-            return kwargs, URL_NAMES[verbose_name][2]
+            return kwargs, URL_NAMES[verbose_name][2]  # view
         else:
-            return kwargs, URL_NAMES[verbose_name][1]
+            return kwargs, URL_NAMES[verbose_name][1]  # index
 
 
 def gravatar_url(email):

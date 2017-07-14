@@ -130,13 +130,13 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    kwargs, url_name = get_url_name('client', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('client', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ClientForm,
         Client,
         url_name,
-        'client_edit.html',
+        template_name,
         active_nav='client',
         kwargs=kwargs,
         pk=pk)
@@ -194,14 +194,13 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    kwargs, url_name = get_url_name(
-        'contact', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('contact', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ContactForm,
         Contact,
         url_name,
-        'contact_edit.html',
+        template_name,
         active_nav='contact',
         kwargs=kwargs,
         pk=pk)
@@ -316,14 +315,13 @@ def contract_edit(request, pk=None):
     """
     """
     contract_settings = ContractSettings.get_solo()
-    kwargs, url_name = get_url_name(
-        'contract', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('contract', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ContractForm,
         Contract,
         url_name,
-        'contract_edit.html',
+        template_name,
         active_nav='contract',
         contract_settings=contract_settings,
         kwargs=kwargs,
@@ -426,8 +424,7 @@ def estimate_edit(request, pk=None):
     subtotal = request.GET.get('subtotal')
     times = request.GET.get('times')
     company = Company.get_solo()
-    kwargs, url_name = get_url_name(
-        'estimate', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('estimate', page_type='index_or_view', pk=pk)
     if times:
         estimate = get_object_or_404(Estimate, pk=pk)
         times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
@@ -439,7 +436,7 @@ def estimate_edit(request, pk=None):
         EstimateForm,
         Estimate,
         url_name,
-        'estimate_edit.html',
+        template_name,
         active_nav='estimate',
         amount=amount,
         company=company,
@@ -557,8 +554,7 @@ def invoice_edit(request, pk=None):
     paid = request.GET.get('paid')
     company = Company.get_solo()
     project = request.GET.get('project')
-    kwargs, url_name = get_url_name(
-        'invoice', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('invoice', page_type='index_or_view', pk=pk)
     invoice = None
     if pk:
         invoice = get_object_or_404(Invoice, pk=pk)
@@ -585,7 +581,7 @@ def invoice_edit(request, pk=None):
         InvoiceForm,
         Invoice,
         url_name,
-        'invoice_edit.html',
+        template_name,
         active_nav='invoice',
         amount=amount,
         company=company,
@@ -671,14 +667,13 @@ def newsletter(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
-    kwargs, url_name = get_url_name(
-        'newsletter', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('newsletter', page_type='index_or_view', pk=pk)
     return edit(
         request,
         NewsletterForm,
         Newsletter,
         url_name,
-        'newsletter_edit.html',
+        template_name,
         active_nav='dropdown',
         kwargs=kwargs,
         pk=pk)
@@ -757,13 +752,13 @@ def note(request, pk=None):
 def note_edit(request, pk=None):
     company = Company.get_solo()
     company_note = request.GET.get('company')
-    kwargs, url_name = get_url_name('note', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('note', page_type='index_or_view', pk=pk)
     return edit(
         request,
         NoteForm,
         Note,
         url_name,
-        'note_edit.html',
+        template_name,
         active_nav='note',
         company=company,
         company_note=company_note,
@@ -815,14 +810,13 @@ def project_edit(request, pk=None):
     if client:
         client = get_object_or_404(Client, pk=client)
     # clients = Client.objects.filter(active=True)
-    kwargs, url_name = get_url_name(
-        'project', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('project', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ProjectForm,
         Project,
         url_name,
-        'project_edit.html',
+        template_name,
         active_nav='project',
         client=client,
         # clients=clients,
@@ -868,14 +862,13 @@ def proposal_edit(request, pk=None):
     """
     """
     company = Company.get_solo()
-    kwargs, url_name = get_url_name(
-        'proposal', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('proposal', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ProposalForm,
         Proposal,
         url_name,
-        'proposal_edit.html',
+        template_name,
         active_nav='dropdown',
         company=company,
         kwargs=kwargs,
@@ -924,13 +917,13 @@ def report(request, pk=None):
 @staff_member_required
 def report_edit(request, pk=None):
     gross, net, invoices_active = dashboard_totals(Invoice)
-    kwargs, url_name = get_url_name('report', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('report', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ReportForm,
         Report,
         url_name,
-        'report_edit.html',
+        template_name,
         active_nav='dropdown',
         gross=gross,
         invoices_active=invoices_active,
@@ -1000,14 +993,13 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 @staff_member_required(login_url='login')
 def service_edit(request, pk=None):
     company = Company.get_solo()
-    kwargs, url_name = get_url_name(
-        'service', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('service', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ServiceForm,
         Service,
         url_name,
-        'service_edit.html',
+        template_name,
         active_nav='dropdown',
         company=company,
         kwargs=kwargs,
@@ -1048,7 +1040,7 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    kwargs, url_name = get_url_name('task', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('task', page_type='index_or_view', pk=pk)
     return edit(
         request,
         TaskForm,
@@ -1097,7 +1089,7 @@ def time_edit(request, pk=None):
     client = request.GET.get('client')
     project = request.GET.get('project')
     task = None
-    kwargs, url_name = get_url_name('time', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('time', page_type='index_or_view', pk=pk)
     if pk is not None:
         entry = get_object_or_404(Time, pk=pk)
         if entry.user:
@@ -1126,7 +1118,7 @@ def time_edit(request, pk=None):
         TimeForm,
         Time,
         url_name,
-        'time_edit.html',
+        template_name,
         active_nav='time',
         client=client,
         clients=clients,
@@ -1216,13 +1208,13 @@ def user_contact(request, pk=None):
 @login_required
 def user_edit(request, pk=None):
     context = {}
-    kwargs, url_name = get_url_name('user', page_type='index_or_edit', pk=pk)
+    kwargs, url_name, template_name = get_url_name('user', page_type='index_or_view', pk=pk)
     return edit(
         request,
         ProfileForm,
         Profile,
         url_name,
-        'user_edit.html',
+        template_name,
         active_nav='dropdown',
         context=context,
         kwargs=kwargs,
