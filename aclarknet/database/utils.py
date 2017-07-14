@@ -641,9 +641,13 @@ def get_url_name(verbose_name, page_type=None, pk=None):
             return kwargs, URL_NAMES[verbose_name][2]  # view
         elif pk:
             kwargs['pk'] = pk
-            return kwargs, URL_NAMES[verbose_name][2]  # view
+            url_name = URL_NAMES[verbose_name][2]  # view
+            template_name = '%s.html' % url_name
+            return kwargs, url_name, template_name
         else:
-            return kwargs, URL_NAMES[verbose_name][1]  # index
+            url_name = URL_NAMES[verbose_name][1]  # index
+            template_name = '%s_index.html' % url_name
+            return kwargs, url_name, template_name
 
 
 def gravatar_url(email):
