@@ -627,16 +627,22 @@ def get_search_results(model,
     return context
 
 
-def get_url_and_template(verbose_name, page_type=None, pk=None):
+def get_kwargs_template_and_url(verbose_name, page_type=None, pk=None):
     """
     """
     kwargs = {}
     if page_type == 'view':
-        return URL_NAMES[verbose_name][0]
+        url_name = URL_NAMES[verbose_name][0]
+        template_name = '%s.html'
+        return kwargs, template_name, url_name
     elif page_type == 'edit':
-        return URL_NAMES[verbose_name][1]
+        url_name = URL_NAMES[verbose_name][1]
+        template_name = '%s.html'
+        return kwargs, template_name, url_name
     elif page_type == 'index':
-        return URL_NAMES[verbose_name][2]
+        url_name = URL_NAMES[verbose_name][2]
+        template_name = '%s.html'
+        return kwargs, template_name, url_name
 
     # elif page_type == 'index_or_edit':
     #    kwargs = {}
@@ -736,12 +742,12 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    url_name = get_url_and_template(obj._meta.verbose_name, page_type='edit')
+    url_name = get_kwargs_template_url(obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj, company, request=None):
-    url_name = get_url_and_template(
+    url_name = get_kwargs_template_url(
         obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
