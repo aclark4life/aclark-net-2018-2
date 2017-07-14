@@ -632,20 +632,20 @@ def get_url_name(verbose_name, page_type=None, pk=None):
     """
     """
     if page_type == 'edit':
-        return URL_NAMES[verbose_name][1]  # edit
+        return URL_NAMES[verbose_name][1]
     elif page_type == 'index':
-        return URL_NAMES[verbose_name][2]  # index
+        return URL_NAMES[verbose_name][2]
     elif page_type == 'index_or_edit':
         kwargs = {}
         if pk and verbose_name == 'service':  # Special case for service
-            return kwargs, URL_NAMES[verbose_name][0]  # view
-        elif pk:  # edit
+            return kwargs, URL_NAMES[verbose_name][0]
+        elif pk:
             kwargs['pk'] = pk
-            url_name = URL_NAMES[verbose_name][1]  # edit
+            url_name = URL_NAMES[verbose_name][2]
             template_name = '%s.html' % url_name
             return kwargs, url_name, template_name
-        else:  # index
-            url_name = URL_NAMES[verbose_name][2]  # index
+        else:
+            url_name = URL_NAMES[verbose_name][1]
             template_name = '%s.html' % url_name
             return kwargs, url_name, template_name
 
