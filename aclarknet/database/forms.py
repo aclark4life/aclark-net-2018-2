@@ -85,8 +85,7 @@ class ContractSettingsForm(forms.ModelForm):
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
-        fields = ('document_id', 'issue_date', 'client', 'subject', 'project',
-                  'accepted_date')
+        fields = '__all__'
 
 
 class InvoiceForm(forms.ModelForm):
@@ -98,13 +97,7 @@ class InvoiceForm(forms.ModelForm):
 
     class Meta:
         model = Invoice
-        fields = (
-            'document_id',
-            'po_number',
-            # 'project',
-            'issue_date',
-            'last_payment_date',
-            'subject', )
+        fields = '__all__'
 
 
 class MailForm(forms.Form):
@@ -116,9 +109,7 @@ class MailForm(forms.Form):
 class NewsletterForm(forms.ModelForm):
     class Meta:
         model = Newsletter
-        fields = (
-            'text',
-            'contacts', )
+        fields = '__all__'
         widgets = {
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -132,8 +123,7 @@ class NewsletterForm(forms.ModelForm):
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ('active', 'hidden', 'note')
-        # fields = '__all__'
+        fields = '__all__'
         widgets = {
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -142,25 +132,19 @@ class NoteForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('active', 'app_admin', 'published', 'bio', 'rate',
-                  'icon_size', 'page_size', 'override_dashboard',
-                  'dashboard_choices')
+        fields = '__all__'
 
 
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('active', 'hidden', 'name', 'start_date', 'end_date',
-                  'budget', 'team', 'notes')
+        fields = '__all__'
 
 
 class ProposalForm(forms.ModelForm):
     class Meta:
         model = Proposal
-        fields = (
-            'client',
-            'title',
-            'body', )
+        fields = '__all__'
         widgets = {
             'body': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -175,11 +159,7 @@ class ReportForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        fields = (
-            'active',
-            'name',
-            'description',
-            'icon', )
+        fields = '__all__'
         widgets = {
             'description': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -194,10 +174,10 @@ class SettingsForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('active', 'name', 'rate', 'unit', 'color')
+        fields = '__all__'
 
 
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = ('date', 'hours', 'log')
+        fields = '__all__'
