@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'crispy_forms',
     'django_extensions',
     'import_export',
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
     INTERNAL_IPS = ['34.203.238.227', '172.30.2.6', '127.0.0.1']
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
