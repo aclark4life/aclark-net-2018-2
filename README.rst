@@ -239,3 +239,5 @@ Features
     - Project
     - Settings
     - Zipcode
+
+- Time entry and invoice generation
