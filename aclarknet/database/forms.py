@@ -101,7 +101,7 @@ class InvoiceForm(forms.ModelForm):
         fields = (
             'document_id',
             'po_number',
-            'project',
+            # 'project',
             'issue_date',
             'last_payment_date',
             'subject', )

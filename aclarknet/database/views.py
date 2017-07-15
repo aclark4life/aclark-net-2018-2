@@ -52,6 +52,7 @@ from .utils import get_template_and_url_names
 from .utils import get_times_for_invoice
 from .utils import get_query
 from .utils import send_mail
+from .utils import update_invoice_amount
 from datetime import datetime
 # from django.conf import settings as django_settings
 from django.contrib import messages
@@ -539,36 +540,10 @@ def invoice(request, pk=None):
 
 @staff_member_required
 def invoice_edit(request, pk=None):
-    amount = request.GET.get('amount')
-    paid_amount = request.GET.get('paid_amount')
-    subtotal = request.GET.get('subtotal')
-    times = request.GET.get('times')
-    paid = request.GET.get('paid')
     company = Company.get_solo()
-    project = request.GET.get('project')
     template_name, url_name = get_template_and_url_names(
         'invoice', page_type='edit')
-    invoice = None
-    if pk:
-        invoice = get_object_or_404(Invoice, pk=pk)
-    if project:
-        project = get_object_or_404(Project, pk=project)
-    if hasattr(invoice, 'project'):
-        if hasattr(invoice.project, 'client'):
-            if invoice.project.client and not invoice.client:
-                invoice.client = invoice.project.client
-                invoice.save()
-    if paid and times:
-        times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
-        for entry in times:
-            entry.invoiced = True
-            entry.save()
-    elif times:
-        invoice = get_object_or_404(Invoice, pk=pk)
-        times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
-        for entry in times:
-            entry.invoice = invoice
-            entry.save()
+    # amount, paid, paid_amount, subtotal = update_invoice_amount(request, invoice=invoice, project=project, time_model=Time, project_model=Project, invoice_model=Invoice, pk=pk)
     return edit(
         request,
         InvoiceForm,
@@ -576,13 +551,14 @@ def invoice_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='invoice',
-        amount=amount,
+        #        amount=amount,
         company=company,
-        paid_amount=paid_amount,
-        paid=paid,
+        #        paid_amount=paid_amount,
+        #        paid=paid,
         pk=pk,
-        project=project,
-        subtotal=subtotal)
+        #        project=project,
+        #        subtotal=subtotal)
+    )
 
 
 @staff_member_required

@@ -341,23 +341,24 @@ def edit(
         task=None,
         tasks=[]):
     obj = None
-    refer = request.META['HTTP_REFERER']
     if pk is None:
         form = create_form(
             model,
             form_model,
-            projects=projects,
-            project=project,
-            clients=clients,
-            client=client,
-            gross=gross,
-            net=net,
-            tasks=tasks,
-            task=task)
+            # projects=projects,
+            # project=project,
+            # clients=clients,
+            # client=client,
+            # gross=gross,
+            # net=net,
+            # tasks=tasks,
+            # task=task)
+        )
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
     if request.method == 'POST':
+        refer = request.META['HTTP_REFERER']
         if pk is None:
             form = form_model(request.POST)
         else:
@@ -879,3 +880,41 @@ def send_mail(request,
     except SMTPSenderRefused:
         messages.add_message(request, messages.WARNING, 'SMTPSenderRefused!')
         return False
+
+
+def update_invoice_amount(request,
+                          invoice=None,
+                          project=None,
+                          time_model=None,
+                          invoice_model=None,
+                          project_model=None,
+                          pk=None):
+    amount = request.GET.get('amount')
+    paid_amount = request.GET.get('paid_amount')
+    subtotal = request.GET.get('subtotal')
+    times = request.GET.get('times')
+    paid = request.GET.get('paid')
+    project = request.GET.get('project')
+    if pk:
+        invoice = get_object_or_404(invoice_model, pk=pk)
+    if project:
+        project = get_object_or_404(project_model, pk=project)
+    if hasattr(invoice, 'project'):
+        if hasattr(invoice.project, 'client'):
+            if invoice.project.client and not invoice.client:
+                invoice.client = invoice.project.client
+                invoice.save()
+    if paid and times:
+        times = time_model.objects.filter(
+            pk__in=[int(i) for i in times.split(',')])
+        for entry in times:
+            entry.invoiced = True
+            entry.save()
+    elif times:
+        # invoice = get_object_or_404(Invoice, pk=pk)
+        times = time_model.objects.filter(
+            pk__in=[int(i) for i in times.split(',')])
+        for entry in times:
+            entry.invoice = invoice
+            entry.save()
+    return amount, paid, paid_amount, subtotal
