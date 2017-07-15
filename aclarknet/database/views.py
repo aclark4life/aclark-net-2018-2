@@ -1079,7 +1079,7 @@ def time(request, pk=None):
                 not request.user.is_staff):
             return HttpResponseRedirect(reverse('login'))
     context['active_nav'] = 'time'
-    context['edit_url'] = 'entry_edit'  # Delete modal
+    context['edit_url'] = 'time_edit'  # Delete modal
     context['item'] = entry
     return render(request, 'time.html', context)
 
@@ -1142,7 +1142,7 @@ def time_index(request):
         search_fields,
         active_nav='time',
         app_settings=settings,
-        edit_url='entry_edit',  # Delete modal
+        edit_url='time_edit',  # Delete modal
         page_size=3,
         order_by=('-date', ),
         show_search=True)
