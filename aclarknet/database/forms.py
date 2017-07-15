@@ -159,8 +159,9 @@ class ProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('active', 'hidden', 'budget', 'client', 'name', 'notes',
-                  'start_date', 'end_date', 'task', 'team')
+        # fields = ('active', 'hidden', 'budget', 'client', 'name', 'notes',
+        #           'start_date', 'end_date', 'task', 'team')
+        fields = ('name', )
 
 
 class ProposalForm(forms.ModelForm):

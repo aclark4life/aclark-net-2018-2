@@ -232,8 +232,8 @@ def create_form(model,
         form.fields['client'].queryset = clients
         form.fields['task'].queryset = tasks
     # Limit project client choices
-    if form._meta.model._meta.verbose_name == 'project':
-        form.fields['client'].queryset = clients
+    # if form._meta.model._meta.verbose_name == 'project':
+    #     form.fields['client'].queryset = clients
     # Populate time entry form fields with project, client
     # and task values
     if project and model._meta.verbose_name == 'time':
