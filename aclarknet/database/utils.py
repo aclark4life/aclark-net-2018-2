@@ -225,17 +225,6 @@ def create_form(model,
     if form._meta.model._meta.verbose_name == 'report':
         obj = model(gross=gross, net=net)
         form = form_model(instance=obj)
-    # Limit time entry project, client
-    # and task choices
-    # if form._meta.model._meta.verbose_name == 'time':
-    #     form.fields['project'].queryset = projects
-    #     form.fields['client'].queryset = clients
-    #     form.fields['task'].queryset = tasks
-    # Limit project client choices
-    # if form._meta.model._meta.verbose_name == 'project':
-    #     form.fields['client'].queryset = clients
-    # Populate time entry form fields with project, client
-    # and task values
     if project and model._meta.verbose_name == 'time':
         entry = model(
             project=project, client=project.client, task=project.task)
@@ -344,14 +333,6 @@ def edit(
         form = create_form(
             model,
             form_model,
-            # projects=projects,
-            # project=project,
-            # clients=clients,
-            # client=client,
-            # gross=gross,
-            # net=net,
-            # tasks=tasks,
-            # task=task)
         )
     else:
         obj = get_object_or_404(model, pk=pk)
@@ -390,12 +371,6 @@ def edit(
         if form.is_valid():
             obj = form.save()
             return obj_edit(obj)
-            #company=company,
-            #contract_settings=contract_settings,
-            #company_note=company_note,
-            #log_model=log_model,
-            #pk=pk,
-            #request=request)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -746,101 +721,19 @@ def obj_copy(obj):
 def obj_delete(obj):
     url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='index')  # Redir to index
-
-    ## Decrement invoice counter
-    #if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
-    #    company.invoice_counter -= 1
-    #    company.save()
-    ## Decrement estimate counter
-    #if (obj._meta.verbose_name == 'estimate' and company.estimate_counter):
-    #    company.estimate_counter -= 1
-    #    company.save()
-    #if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
-    #    url_name = 'home'  # Redir to home
-
     obj.delete()
-
     return HttpResponseRedirect(reverse(url_name))
 
 
 def obj_edit(obj, pk=None):
-
-    #             company=None,
-    #             contract_settings=None,
-    #             company_note=None,
-    #             log_model=None,
-    #             request=None,
-    #             pk=None):
-
     template_name, url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='view')  # Redir to view
-
-    #    # Time entry
-    #    if obj._meta.verbose_name == 'time' and pk is None:
-    #        # Assign user to time entry on creation
-    #        obj.user = User.objects.get(username=request.user)
-    #        obj.save()
-    #        # Send mail when time entry created
-    #        if hasattr(obj.user, 'profile'):
-    #            if obj.user.profile.notify:
-    #                subject = 'Time entry'
-    #                message = '%s entered time! %s' % (
-    #                    obj.user.username,
-    #                    obj.get_absolute_url(request.get_host()))
-    #                try:
-    #                    send_mail(request, subject, message,
-    #                              django_settings.EMAIL_FROM)
-    #                except BotoServerError:
-    #                    log = log_model(entry='Could not send mail.')
-    #                    log.save()
-    #    # Assign and increment invoice counter
-    #    if (obj._meta.verbose_name == 'invoice' and company.invoice_counter and
-    #            pk is None):
-    #        company.invoice_counter += 1
-    #        company.save()
-    #        obj.document_id = company.invoice_counter
-    #        obj.save()
-    #    # Assign and increment estimate counter
-    #    if (obj._meta.verbose_name == 'estimate' and company.estimate_counter and
-    #            pk is None):
-    #        company.estimate_counter += 1
-    #        company.save()
-    #        obj.document_id = company.estimate_counter
-    #        obj.save()
-    #    # Assign client to invoice
-    #    if obj._meta.verbose_name == 'invoice' and obj.project:
-    #        if obj.project.client and not obj.client:
-    #            obj.client = obj.project.client
-    #            obj.save()
-    #    # Assign default contract fields
-    #    if obj._meta.verbose_name == 'contract' and pk is None:
-    #        text = ''
-    #        for field in contract_settings._meta.fields:
-    #            if field.description == 'Text' and field.name != 'body':
-    #                text = ''.join([text, '<h2>', field.verbose_name, '</h2>'])
-    #                text = ''.join([
-    #                    text, '<p>', getattr(contract_settings, field.name), '</p>'
-    #                ])
-    #        setattr(obj, 'body', text)
-    #        obj.save()
-    #    if obj._meta.verbose_name == 'note' and company_note:
-    #        company.note.add(obj)
-    #        company.save()
-
     # New or existing object
     kwargs = {}
     if pk:  # Existing
         kwargs['pk'] = pk
     else:  # New
         kwargs['pk'] = obj.pk
-
-#    # Special cases
-#    if company_note:  # company_note
-#        kwargs = {}
-#        url_name = 'company'
-#    if obj._meta.verbose_name == 'settings':  # app_settings
-#        kwargs = {}
-
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
