@@ -388,13 +388,12 @@ def edit(
             obj = form.save()
             return obj_edit(
                 obj,
-                refer,
                 company=company,
                 contract_settings=contract_settings,
                 company_note=company_note,
-                request=request,
+                log_model=log_model,
                 pk=pk,
-                log_model=log_model)
+                request=request)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -750,7 +749,6 @@ def obj_delete(obj, company, request=None):
 
 
 def obj_edit(obj,
-             refer,
              company=None,
              contract_settings=None,
              company_note=None,
