@@ -812,7 +812,7 @@ def obj_edit(obj,
         kwargs['pk'] = pk
     else:
         if company_note:  # Special case for company_note
-            url_name = 'company' 
+            url_name = 'company'
         else:  # New object
             kwargs['pk'] = obj.pk
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
