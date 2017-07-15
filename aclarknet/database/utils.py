@@ -765,10 +765,10 @@ def update_invoice_amount(request,
                           invoice_model=None,
                           project_model=None,
                           pk=None):
-    amount = request.GET.get('amount')
-    invoices = request.GET.get('invoices')
-    paid = request.GET.get('paid')
-    paid_amount = request.GET.get('paid_amount')
-    project = request.GET.get('project')
-    subtotal = request.GET.get('subtotal')
-    times = request.GET.get('times')
+    query_string_amount = request.GET.get('amount')
+    query_string_invoices = request.GET.get('invoices')
+    query_string_paid = request.GET.get('paid')
+    query_string_paid_amount = request.GET.get('paid_amount')
+    query_string_project = request.GET.get('project')
+    query_string_subtotal = request.GET.get('subtotal')
+    query_string_times = request.GET.get('times')
