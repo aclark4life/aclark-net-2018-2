@@ -53,7 +53,6 @@ from .utils import get_template_and_url_names
 from .utils import get_times_for_invoice
 from .utils import get_query
 from .utils import send_mail
-from .utils import update_invoice_amount
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -721,7 +720,7 @@ def project(request, pk=None):
         project=project, invoiced=False).order_by('-date')
     estimates = Estimate.objects.filter(project=project)
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
-    entries, subtotal, paid_amount, hours, amount = entries_total(times)
+    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
     context['active_nav'] = 'project'
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete modal

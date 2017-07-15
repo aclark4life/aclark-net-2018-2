@@ -282,11 +282,12 @@ def edit(
         if form.is_valid():
             obj = form.save()
             if model._meta.verbose_name == 'time':
-                update_invoice_amount(obj,
-                        request,
-                        time_model=time_model,
-                        invoice_model=invoice_model,
-                        project_model=project_model)
+                update_invoice_amount(
+                    obj,
+                    request,
+                    time_model=time_model,
+                    invoice_model=invoice_model,
+                    project_model=project_model)
             return obj_edit(obj)
     context['active_nav'] = active_nav
     context['form'] = form
