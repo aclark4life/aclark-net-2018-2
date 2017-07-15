@@ -835,7 +835,7 @@ def project_index(request, pk=None):
         active_nav='project',
         app_settings=settings,
         edit_url='project_edit',  # Delete modal
-        order_by=('-update', '-active', ),
+        order_by=('-updated', '-active', ),
         show_search=True)
     return render(request, 'project_index.html', context)
 
