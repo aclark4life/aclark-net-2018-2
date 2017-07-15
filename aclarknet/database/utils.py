@@ -732,7 +732,7 @@ def obj_copy(obj, url_name):
 
 
 def obj_delete(obj, company, request=None):
-    template_name, url_name = get_template_and_url_names(
+    url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
