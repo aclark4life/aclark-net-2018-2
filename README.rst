@@ -241,3 +241,4 @@ Features
     - Zipcode
 
 - Time entry and invoice generation
+- Activate and deactive objects
