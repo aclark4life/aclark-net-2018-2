@@ -285,6 +285,9 @@ def edit(
         active_nav=None,
         company_model=None,
         company_note=None,
+        invoice_model=None,
+        project_model=None,
+        time_model=None,
         pk=None, ):
     context = {}
     obj = None
@@ -319,6 +322,12 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
+            if model._meta.verbose_name == 'time':
+                update_invoice_amount(obj,
+                        request,
+                        time_model=time_model,
+                        invoice_model=invoice_model,
+                        project_model=project_model)
             return obj_edit(obj)
     context['active_nav'] = active_nav
     context['form'] = form
@@ -735,11 +744,11 @@ def send_mail(request,
         return False
 
 
-def update_invoice_amount(request,
+def update_invoice_amount(obj,
+                          request,
                           time_model=None,
                           invoice_model=None,
-                          project_model=None,
-                          pk=None):
+                          project_model=None):
     query_string_amount = request.GET.get('amount')
     query_string_invoices = request.GET.get('invoices')
     query_string_paid = request.GET.get('paid')
@@ -751,7 +760,8 @@ def update_invoice_amount(request,
         invoices = query_string_invoices.split(',')
         if len(invoices) > 1:
             return False
-
-
-
+        else:
+            invoice = invoices[0]
+            invoice = get_object_or_404(invoice_model, pk=invoice)
+            time_entry = get_object_or_404(time_model, pk=obj.pk)
     return True

@@ -1027,23 +1027,17 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
         'time', page_type='edit')
-    if update_invoice_amount(
-            request,
-            time_model=Time,
-            invoice_model=Invoice,
-            project_model=Project,
-            pk=pk):
-        return edit(
-            request,
-            TimeForm,
-            Time,
-            url_name,
-            template_name,
-            active_nav='time',
-            pk=pk, )
-    else:
-        messages.add_message(request, messages.WARNING, 'Too many invoices.')
-        return HttpResponseRedirect(reverse(url_name))
+    return edit(
+        request,
+        TimeForm,
+        Time,
+        url_name,
+        template_name,
+        active_nav='time',
+        invoice_model=Invoice,
+        project_model=Project,
+        time_model=Time,
+        pk=pk, )
 
 
 @login_required
