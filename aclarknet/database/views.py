@@ -12,7 +12,7 @@ from .forms import ProfileForm
 from .forms import ProjectForm
 from .forms import ProposalForm
 from .forms import ReportForm
-from .forms import SettingsForm
+from .forms import SettingsForm as AppSettingsForm
 from .forms import ServiceForm
 from .forms import TaskForm
 from .forms import TimeForm
@@ -960,8 +960,8 @@ def settings(request):
 def settings_edit(request, pk=None):
     return edit(
         request,
-        SettingsForm,
-        Settings,
+        AppSettingsForm,
+        AppSettings,
         'settings',
         'settings_edit.html',
         active_nav='dropdown',
