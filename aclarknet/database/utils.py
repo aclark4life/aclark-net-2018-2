@@ -757,6 +757,10 @@ def obj_edit(obj,
              log_model=None,
              request=None,
              pk=None):
+    kwargs = {}
+    kwargs['pk'] = pk
+    url_name = get_template_and_url_names(
+        obj._meta.verbose_name, page_type='view')  # Redir to view
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
         # Assign user to time entry on creation
@@ -793,14 +797,6 @@ def obj_edit(obj,
         if obj.project.client and not obj.client:
             obj.client = obj.project.client
             obj.save()
-
-    # Redir to appropriate location
-    # if (obj._meta.verbose_name == 'time' and not request.user.is_staff):
-    #     if pk is None:
-    #         url_name = 'home'
-    #     else:
-    #         url_name = 'entry'
-
     # Assign default contract fields
     if obj._meta.verbose_name == 'contract' and pk is None:
         text = ''
@@ -815,7 +811,7 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-    return HttpResponseRedirect(refer)
+    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def paginate(items, page, page_size):
