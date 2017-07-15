@@ -18,7 +18,6 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
-# from django.utils.html import strip_tags
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from faker import Faker
@@ -772,8 +771,10 @@ def obj_edit(obj, pk=None):
     #             log_model=None,
     #             request=None,
     #             pk=None):
+
     template_name, url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='view')  # Redir to view
+
     #    # Time entry
     #    if obj._meta.verbose_name == 'time' and pk is None:
     #        # Assign user to time entry on creation
@@ -920,7 +921,6 @@ def update_invoice_amount(request,
             entry.invoiced = True
             entry.save()
     elif times:
-        # invoice = get_object_or_404(Invoice, pk=pk)
         times = time_model.objects.filter(
             pk__in=[int(i) for i in times.split(',')])
         for entry in times:

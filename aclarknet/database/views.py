@@ -55,7 +55,6 @@ from .utils import get_query
 from .utils import send_mail
 from .utils import update_invoice_amount
 from datetime import datetime
-# from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -68,7 +67,6 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-# from django.utils import timezone
 from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
 from matplotlib.dates import DateFormatter
@@ -76,7 +74,6 @@ from matplotlib.dates import MonthLocator
 from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-# from pprint import pprint
 from rest_framework import viewsets
 
 # Create your views here.
