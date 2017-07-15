@@ -821,6 +821,7 @@ def project_edit(request, pk=None):
         active_nav='project',
         # client=client,
         # clients=clients,
+        show_search=False,
         pk=pk)
 
 
