@@ -726,13 +726,13 @@ def obj_copy(obj, url_name):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    url_name = get_template_and_url_names(
+    template_name, url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj, company, request=None):
-    url_name = get_template_and_url_names(
+    template_name, url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='index')  # Redir to index
     # Decrement invoice counter
     if (obj._meta.verbose_name == 'invoice' and company.invoice_counter):
@@ -757,7 +757,7 @@ def obj_edit(obj,
              pk=None):
     kwargs = {}
     kwargs['pk'] = pk
-    url_name = get_template_and_url_names(
+    template_name, url_name = get_template_and_url_names(
         obj._meta.verbose_name, page_type='view')  # Redir to view
     # Time entry
     if obj._meta.verbose_name == 'time' and pk is None:
