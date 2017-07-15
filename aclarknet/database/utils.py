@@ -807,12 +807,9 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
-    if pk is not None:
-        kwargs = {}
-        kwargs['pk'] = pk
-        return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-    else:
-        return HttpResponseRedirect(reverse(url_name))
+    kwargs = {}
+    kwargs['pk'] = pk
+    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def paginate(items, page, page_size):
