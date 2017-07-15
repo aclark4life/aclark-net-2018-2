@@ -174,9 +174,9 @@ def create_and_send_mail(request,
         for entry in estimate.time_set.all():
             if counter != 0:
                 notes += '</li><li>%s <strong>%s hours</strong>.' % (
-                    entry.notes, entry.hours)
+                    entry.log, entry.hours)
             else:
-                notes += '%s <strong>%s hours</strong>.' % (entry.notes,
+                notes += '%s <strong>%s hours</strong>.' % (entry.log,
                                                             entry.hours)
             counter += 1
             hours += entry.hours
@@ -420,7 +420,7 @@ def entries_total(queryset):
             running_total_hours += hours
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = hours
-        entries[entry]['notes'] = entry.notes
+        entries[entry]['notes'] = entry.log
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
         entries[entry]['task'] = entry.task

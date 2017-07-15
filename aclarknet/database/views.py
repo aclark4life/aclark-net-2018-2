@@ -541,7 +541,9 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
         'invoice', page_type='edit')
-    # amount, paid, paid_amount, subtotal = update_invoice_amount(request, invoice=invoice, project=project, time_model=Time, project_model=Project, invoice_model=Invoice, pk=pk)
+
+    amount, paid, paid_amount, subtotal = update_invoice_amount(request, invoice=invoice, project=project, time_model=Time, project_model=Project, invoice_model=Invoice, pk=pk)
+
     return edit(
         request,
         InvoiceForm,
@@ -1104,7 +1106,7 @@ def time_edit(request, pk=None):
 
 @login_required
 def time_index(request):
-    search_fields = ('client__name', 'date', 'notes', 'pk', 'project__name',
+    search_fields = ('client__name', 'date', 'log', 'pk', 'project__name',
                      'invoice__document_id', 'user__username')
     settings = Settings.get_solo()
     context = index_items(
