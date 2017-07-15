@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from boto.exception import BotoServerError
 from decimal import Decimal
-from django.conf import settings
+from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
@@ -539,14 +539,14 @@ def get_setting(request, settings_model, setting, page_size=None):
     if not request.user.is_authenticated:
         return
     override = user_pref = None
-    settings = settings_model.get_solo()
+    app_settings = settings_model.get_solo()
     if setting == 'icon_size':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.icon_size
         if user_pref:
             return user_pref
         else:
-            return settings.icon_size
+            return app_settings.icon_size
     if setting == 'page_size':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.page_size
@@ -555,7 +555,7 @@ def get_setting(request, settings_model, setting, page_size=None):
         elif page_size:  # View's page_size preference
             return page_size
         else:
-            return settings.page_size
+            return app_settings.page_size
     if setting == 'dashboard_choices':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.dashboard_choices
@@ -563,14 +563,14 @@ def get_setting(request, settings_model, setting, page_size=None):
         if override:
             return user_pref
         else:
-            return settings.dashboard_choices
+            return app_settings.dashboard_choices
     if setting == 'dashboard_order':
-        if settings.dashboard_order:
-            return settings.dashboard_order
+        if app_settings.dashboard_order:
+            return app_settings.dashboard_order
         else:
-            # XXX How to get default field value with knowing index?
-            # Also don't like splitting on ', '.
-            return settings._meta.fields[6].get_default().split(', ')
+            # XXX How to get default field value without knowing index?
+            # Also don't like splitting on comma space.
+            return app_settings._meta.fields[6].get_default().split(', ')
 
 
 def get_query(request, query):
@@ -638,7 +638,7 @@ def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
     """
-    return settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+    return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
 def index_items(request,
@@ -770,7 +770,8 @@ def obj_edit(obj,
                     obj.user.username,
                     obj.get_absolute_url(request.get_host()))
                 try:
-                    send_mail(request, subject, message, settings.EMAIL_FROM)
+                    send_mail(request, subject, message,
+                              django_settings.EMAIL_FROM)
                 except BotoServerError:
                     log = log_model(entry='Could not send mail.')
                     log.save()
@@ -839,7 +840,7 @@ def send_mail(request,
               uuid=None,
               first_name=None):
     recipients = []
-    sender = settings.EMAIL_FROM
+    sender = django_settings.EMAIL_FROM
     recipients.append(to)
     # http://stackoverflow.com/a/28476681/185820
     if first_name:
