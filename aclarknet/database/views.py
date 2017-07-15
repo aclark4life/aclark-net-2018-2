@@ -53,7 +53,6 @@ from .utils import get_template_and_url_names
 from .utils import get_times_for_invoice
 from .utils import get_query
 from .utils import send_mail
-from .utils import update_invoice_amount
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -541,16 +540,6 @@ def invoice_edit(request, pk=None):
     company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
         'invoice', page_type='edit')
-
-    amount, paid, paid_amount, subtotal = update_invoice_amount(
-        request,
-        invoice=invoice,
-        project=project,
-        time_model=Time,
-        project_model=Project,
-        invoice_model=Invoice,
-        pk=pk)
-
     return edit(
         request,
         InvoiceForm,
