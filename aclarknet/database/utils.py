@@ -342,15 +342,6 @@ def edit(
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
                 return check_boxes(obj, checkbox, checkbox_subscribed, refer)
-            # Edit amounts
-            if amount or subtotal or paid_amount or paid:
-                return edit_amounts(
-                    obj,
-                    amount,
-                    subtotal,
-                    paid_amount,
-                    paid,
-                    url_name=url_name)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
