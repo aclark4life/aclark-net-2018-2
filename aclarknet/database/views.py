@@ -49,7 +49,7 @@ from .utils import get_client_city
 from .utils import get_company_name
 from .utils import get_setting
 from .utils import get_template_and_url_names
-from .utils import get_times
+from .utils import get_times_for_invoice
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -516,7 +516,7 @@ def invoice(request, pk=None):
     context['document_type_title'] = document_type_title
     context['edit_url'] = 'invoice_edit'  # Delete modal
     context['item'] = invoice
-    times = get_times(invoice)
+    times = get_times(invoice, Time)
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     last_payment_date = invoice.last_payment_date
     context['amount'] = amount
