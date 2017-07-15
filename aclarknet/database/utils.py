@@ -276,32 +276,6 @@ def dashboard_totals(model):
     return gross, net, invoices_active
 
 
-def edit_amounts(obj, amount, subtotal, paid_amount, paid, url_name=''):
-    kwargs = {}
-    if amount and subtotal and paid_amount and paid:
-        obj.amount = amount
-        obj.last_payment_date = timezone.now()
-        obj.subtotal = subtotal
-        obj.paid_amount = paid_amount
-        obj.save()
-        return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-    elif amount and subtotal and paid_amount:
-        obj.amount = amount
-        obj.subtotal = subtotal
-        obj.paid_amount = paid_amount
-        obj.save()
-        return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-    elif amount and subtotal:
-        obj.amount = amount
-        obj.subtotal = subtotal
-        obj.save()
-        return HttpResponseRedirect(reverse(url_name))
-    elif amount:
-        obj.amount = amount
-        obj.save()
-        return HttpResponseRedirect(reverse(url_name))
-
-
 def edit(
         request,
         form_model,
@@ -777,4 +751,7 @@ def update_invoice_amount(request,
         invoices = query_string_invoices.split(',')
         if len(invoices) > 1:
             return False
+
+
+
     return True

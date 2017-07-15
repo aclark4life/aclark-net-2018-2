@@ -1028,11 +1028,11 @@ def time_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
         'time', page_type='edit')
     if update_invoice_amount(
-        request,
-        time_model=Time,
-        invoice_model=Invoice,
-        project_model=Project,
-        pk=pk):
+            request,
+            time_model=Time,
+            invoice_model=Invoice,
+            project_model=Project,
+            pk=pk):
         return edit(
             request,
             TimeForm,
