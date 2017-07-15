@@ -125,11 +125,15 @@ class NewsletterForm(forms.ModelForm):
 
     # - https://stackoverflow.com/questions/40543272/\
     #   django-queryset-in-modelform
+
     # - https://stackoverflow.com/questions/2216974/\
     #   django-modelform-for-many-to-many-fields
+
     # - https://stackoverflow.com/a/844572/185820
+
     # - https://stackoverflow.com/questions/844556/\
     #   filtering-for-empty-or-null-names-in-a-queryset
+
     # - https://stackoverflow.com/questions/7621184/\
     #   django-form-multiple-select-box-size-in-template
     contacts = forms.ModelMultipleChoiceField(
@@ -159,8 +163,6 @@ class ProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        # fields = ('active', 'hidden', 'budget', 'client', 'name', 'notes',
-        #           'start_date', 'end_date', 'task', 'team')
         fields = ('active', 'hidden', 'name', 'start_date', 'end_date', 'task',
                   'budget', 'team', 'notes')
 
@@ -186,7 +188,6 @@ class ReportForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        # fields = '__all__'
         fields = (
             'active',
             'name',
