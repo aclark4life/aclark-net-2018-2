@@ -817,6 +817,10 @@ def obj_edit(obj,
             url_name = 'company'
         else:  # New object
             kwargs['pk'] = obj.pk
+
+    if obj._meta.verbose_name == 'settings': 
+        kwargs = {}
+
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
