@@ -53,6 +53,7 @@ from .utils import get_template_and_url_names
 from .utils import get_times_for_invoice
 from .utils import get_query
 from .utils import send_mail
+from .utils import update_invoice_amount
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -1048,6 +1049,12 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
         'time', page_type='edit')
+
+    update_invoice_amount(request,
+                          time_model=Time,
+                          invoice_model=Invoice,
+                          project_model=Project,
+                          pk=pk)
     return edit(
         request,
         TimeForm,
