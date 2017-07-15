@@ -267,11 +267,6 @@ def contract(request, pk=None):
     context['edit_url'] = 'contract_edit'
     context['item'] = contract
     context['pdf'] = pdf
-    # XXX In hindsight, this[1] is terrible. Maybe some OneToOne fields
-    # could clean this up.
-    # [1] i.e. The current implementation of time entry association with
-    # estimates & invoices for the purpose of "populating" those
-    # documents with line items.
     estimate = contract.statement_of_work
     if estimate:
         times_client = Time.objects.filter(
