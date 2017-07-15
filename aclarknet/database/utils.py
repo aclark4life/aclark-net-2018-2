@@ -671,6 +671,7 @@ def index_items(request,
     # Search is easy
     if request.method == 'POST':
         if search == u'':  # Empty search returns none
+            context['active_nav'] = active_nav
             context['show_search'] = True
             return context
         else:
