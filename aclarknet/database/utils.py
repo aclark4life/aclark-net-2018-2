@@ -287,6 +287,7 @@ def edit(
         company_note=None,
         invoice_model=None,
         project_model=None,
+        task_model=None,
         time_model=None,
         pk=None, ):
     context = {}

@@ -1036,6 +1036,7 @@ def time_edit(request, pk=None):
         active_nav='time',
         invoice_model=Invoice,
         project_model=Project,
+        task_model=Task,
         time_model=Time,
         pk=pk, )
 
