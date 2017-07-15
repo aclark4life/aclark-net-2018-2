@@ -808,10 +808,14 @@ def obj_edit(obj,
         company.note.add(obj)
         company.save()
     kwargs = {}
-    if pk:
+    if pk:  # Existing object
         kwargs['pk'] = pk
     else:
-        kwargs['pk'] = obj.pk
+        if company_note:  # Special case for company_note
+            url_name = 'company' 
+            kwargs['pk'] = company.pk
+        else:  # New object
+            kwargs['pk'] = obj.pk
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
