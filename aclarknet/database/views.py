@@ -730,7 +730,7 @@ def note_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='note',
-        company=company,
+        company_model=company,
         company_note=company_note,
         pk=pk)
 

@@ -309,25 +309,27 @@ def edit(
         url_name,
         template_name,
         active_nav=None,
-        amount=None,
-        client=None,
-        clients=[],
-        company=None,
+        company_model=None,
         company_note=None,
-        contract_settings=None,
-        context={},
-        gross=None,
-        invoices_active=None,  # for reporting
-        log_model=None,
-        net=None,
         pk=None,
-        paid_amount=None,
-        paid=None,
-        project=None,
-        projects=[],
-        subtotal=None,
-        task=None,
-        tasks=[]):
+#        amount=None,
+#        client=None,
+#        clients=[],
+#        contract_settings=None,
+#        context={},
+#        gross=None,
+#        invoices_active=None,  # for reporting
+#        log_model=None,
+#        net=None,
+#        paid_amount=None,
+#        paid=None,
+#        project=None,
+#        projects=[],
+#        subtotal=None,
+#        task=None,
+#        tasks=[]):
+        ):
+    context = {}
     obj = None
     if pk is None:
         form = create_form(
