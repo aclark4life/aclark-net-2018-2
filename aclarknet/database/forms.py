@@ -122,6 +122,7 @@ class NewsletterForm(forms.ModelForm):
         widgets = {
             'text': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
+
     contacts = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.filter(
             subscribed=True).exclude(email='').order_by('first_name'),

@@ -542,7 +542,14 @@ def invoice_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
         'invoice', page_type='edit')
 
-    amount, paid, paid_amount, subtotal = update_invoice_amount(request, invoice=invoice, project=project, time_model=Time, project_model=Project, invoice_model=Invoice, pk=pk)
+    amount, paid, paid_amount, subtotal = update_invoice_amount(
+        request,
+        invoice=invoice,
+        project=project,
+        time_model=Time,
+        project_model=Project,
+        invoice_model=Invoice,
+        pk=pk)
 
     return edit(
         request,
@@ -552,8 +559,7 @@ def invoice_edit(request, pk=None):
         template_name,
         active_nav='invoice',
         company=company,
-        pk=pk,
-    )
+        pk=pk, )
 
 
 @staff_member_required
@@ -1060,8 +1066,7 @@ def time_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='time',
-        pk=pk,
-    )
+        pk=pk, )
 
 
 @login_required

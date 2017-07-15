@@ -332,8 +332,7 @@ def edit(
     if pk is None:
         form = create_form(
             model,
-            form_model,
-        )
+            form_model, )
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
