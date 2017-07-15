@@ -90,7 +90,7 @@
                 <tbody>
                 {% for entry in times %}
                 <tr>
-                  <td><a href="{% url 'entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
+                  <td><a href="{% url 'time_entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
                   <td>{{ entry.date|date:'U' }}</td>
                   <td>{{ entry.hours|default:'' }}</td>
                   <td>{{ entry.notes|default:'' }}</td>
