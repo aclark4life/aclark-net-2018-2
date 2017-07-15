@@ -43,7 +43,7 @@ URL_NAMES = {
     'report': ('report', 'report_edit', 'report_index'),
     'service': ('company', 'service_edit', ''),
     'task': ('task', 'task_edit', 'task_index'),
-    'time': ('entry', 'entry_edit', 'entry_index'),
+    'time': ('time_entry', 'time_edit', 'time_index'),
     'user': ('user', 'user_edit', 'user_index'),
 }
 
