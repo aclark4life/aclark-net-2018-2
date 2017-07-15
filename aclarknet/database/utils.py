@@ -774,3 +774,5 @@ def update_invoice_amount(request,
     query_string_subtotal = request.GET.get('subtotal')
     query_string_times = request.GET.get('times')
     invoices = query_string_invoices.split(',')
+    if len(invoices) > 1:
+        return False
