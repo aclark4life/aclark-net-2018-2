@@ -1177,12 +1177,6 @@ def user(request, pk=None):
     context['request'] = request
     context['total_dollars'] = '%.2f' % total_dollars
     context['is_contact'] = user.email in [i.email for i in contacts]
-    # XXX One off to list projects, maybe refactor index_items to return
-    # multiple listings e.g.
-    #     projects = index_items()
-    #     times = index_items()
-    #     context['projects'] = projects
-    #     context['times'] = times
     projects = Project.objects.filter(team__in=[user, ]).order_by('-updated')
     context['projects'] = projects
     if request.user.pk == int(pk) or request.user.is_staff:
