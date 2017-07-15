@@ -1058,34 +1058,34 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
-#    client = request.GET.get('client')
-#    project = request.GET.get('project')
-#    task = None
+    #    client = request.GET.get('client')
+    #    project = request.GET.get('project')
+    #    task = None
     template_name, url_name = get_template_and_url_names(
         'time', page_type='edit')
-#    if pk is not None:
-#        entry = get_object_or_404(Time, pk=pk)
-#        if entry.user:
-#            if (entry.user.username != request.user.username and
-#                    not request.user.is_staff):
-#                return HttpResponseRedirect(reverse('login'))
-#        else:
-#            if not request.user.is_staff:
-#                return HttpResponseRedirect(reverse('login'))
-#    if client:
-#        client = get_object_or_404(Client, pk=client)
-#    if project:
-#        project = get_object_or_404(Project, pk=project)
-#        if project.task:
-#            task = get_object_or_404(Task, pk=project.task.pk)
-#    projects = Project.objects.filter(team=request.user.pk)
-#    clients = Client.objects.filter(
-#        pk__in=[i.client.pk for i in projects if i.client])
-#    tasks = Task.objects.filter(pk__in=[i.task.pk for i in projects if i.task])
-#    if request.user.is_staff:
-#        from .forms import TimeAdminForm as TimeForm
-#    else:
-#        from .forms import TimeForm
+    #    if pk is not None:
+    #        entry = get_object_or_404(Time, pk=pk)
+    #        if entry.user:
+    #            if (entry.user.username != request.user.username and
+    #                    not request.user.is_staff):
+    #                return HttpResponseRedirect(reverse('login'))
+    #        else:
+    #            if not request.user.is_staff:
+    #                return HttpResponseRedirect(reverse('login'))
+    #    if client:
+    #        client = get_object_or_404(Client, pk=client)
+    #    if project:
+    #        project = get_object_or_404(Project, pk=project)
+    #        if project.task:
+    #            task = get_object_or_404(Task, pk=project.task.pk)
+    #    projects = Project.objects.filter(team=request.user.pk)
+    #    clients = Client.objects.filter(
+    #        pk__in=[i.client.pk for i in projects if i.client])
+    #    tasks = Task.objects.filter(pk__in=[i.task.pk for i in projects if i.task])
+    #    if request.user.is_staff:
+    #        from .forms import TimeAdminForm as TimeForm
+    #    else:
+    #        from .forms import TimeForm
     return edit(
         request,
         TimeForm,
@@ -1093,15 +1093,15 @@ def time_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='time',
-#        client=client,
-#        clients=clients,
-#        log_model=Log,
-#        pk=pk,
-#        project=project,
-#        projects=projects,
-#        task=task,
-#        tasks=tasks)
-        )
+        #        client=client,
+        #        clients=clients,
+        #        log_model=Log,
+        #        pk=pk,
+        #        project=project,
+        #        projects=projects,
+        #        task=task,
+        #        tasks=tasks)
+    )
 
 
 @login_required
