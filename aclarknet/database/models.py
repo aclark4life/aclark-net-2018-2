@@ -24,6 +24,12 @@ DASHBOARD_CHOICES = (
 
 DASHBOARD_ORDER = 'data, invoices, notes, projects, totals'
 
+COLOR_CHOICES = (
+    ('success', 'Success'),
+    ('info', 'Info'),
+    ('warning', 'Warning'),
+    ('danger', 'Danger'), )
+
 # Create your models here.
 
 
@@ -517,7 +523,8 @@ class Task(models.Model):
     active = models.BooleanField(default=True)
     billable = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
-    color = models.CharField(max_length=7, blank=True, null=True)
+    # https://stackoverflow.com/a/31131029
+    color = models.CharField(blank=True, choices=COLOR_CHOICES, max_length=7, null=True)
     rate = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     unit = models.DecimalField(
