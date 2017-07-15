@@ -196,14 +196,7 @@ class TaskForm(forms.ModelForm):
         fields = ('active', 'name', 'rate', 'unit', 'color')
 
 
-class TimeAdminForm(forms.ModelForm):
-    class Meta:
-        model = Time
-        fields = ('date', 'hours', 'notes', 'client', 'project', 'task',
-                  'user', 'estimate', 'invoice', 'invoiced')
-
-
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = ('date', 'hours', 'notes')
+        fields = ('date', 'hours', 'log')

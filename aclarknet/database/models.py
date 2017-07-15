@@ -566,7 +566,7 @@ class Time(models.Model):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    notes = models.TextField(blank=True, null=True)
+    log = models.TextField(blank=True, null=True)
     hours = models.DecimalField(
         "Hours",
         default=1.0,
