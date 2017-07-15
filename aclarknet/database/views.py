@@ -801,10 +801,6 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    # client = request.GET.get('client')
-    # if client:
-    #     client = get_object_or_404(Client, pk=client)
-    # clients = Client.objects.filter(active=True)
     template_name, url_name = get_template_and_url_names(
         'project', page_type='edit')
     return edit(
@@ -814,8 +810,6 @@ def project_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='project',
-        # client=client,
-        # clients=clients,
         pk=pk)
 
 
