@@ -161,7 +161,7 @@ class ProjectForm(forms.ModelForm):
         model = Project
         # fields = ('active', 'hidden', 'budget', 'client', 'name', 'notes',
         #           'start_date', 'end_date', 'task', 'team')
-        fields = ('active', 'name', 'start_date', 'end_date')
+        fields = ('active', 'hidden', 'name', 'start_date', 'end_date', 'task', 'team')
 
 
 class ProposalForm(forms.ModelForm):
