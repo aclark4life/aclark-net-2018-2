@@ -763,5 +763,6 @@ def update_invoice_amount(obj,
         else:
             invoice = invoices[0]
             invoice = get_object_or_404(invoice_model, pk=invoice)
-            time_entry = get_object_or_404(time_model, pk=obj.pk)
+            obj.invoice = invoice
+            obj.save()
     return True
