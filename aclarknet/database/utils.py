@@ -484,14 +484,14 @@ def get_company_name(company):
         return fake.text()
 
 
-def get_setting(request, settings_model, setting, page_size=None):
+def get_setting(request, app_settings_model, setting, page_size=None):
     """
     Allow user to override global setting
     """
     if not request.user.is_authenticated:
         return
     override = user_pref = None
-    app_settings = settings_model.get_solo()
+    app_settings = app_settings_model.get_solo()
     if setting == 'icon_size':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.icon_size
@@ -607,7 +607,7 @@ def index_items(request,
                 search_fields,
                 filters={},
                 order_by=(),
-                app_settings=None,
+                app_settings_model=None,
                 active_nav='',
                 edit_url='',
                 page_size=None,
@@ -630,7 +630,7 @@ def index_items(request,
                 search_fields,
                 search,
                 active_nav=active_nav,
-                app_settings=app_settings,
+                app_settings_model=app_settings_model,
                 edit_url=edit_url,
                 request=request)
     # Not a search
@@ -662,11 +662,12 @@ def index_items(request,
     # Paginate if paginated
     if paginated:
         page_size = get_setting(
-            request, app_settings, 'page_size', page_size=page_size)
+            request, app_settings_model, 'page_size', page_size=page_size)
         items = paginate(items, page, page_size)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
-    context['icon_size'] = get_setting(request, app_settings, 'icon_size')
+    context['icon_size'] = get_setting(request, app_settings_model,
+                                       'icon_size')
     context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
@@ -772,3 +773,4 @@ def update_invoice_amount(request,
     query_string_project = request.GET.get('project')
     query_string_subtotal = request.GET.get('subtotal')
     query_string_times = request.GET.get('times')
+    invoices = query_string_invoices.split(',')
