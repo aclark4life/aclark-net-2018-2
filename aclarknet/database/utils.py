@@ -635,6 +635,15 @@ def get_template_and_url_names(verbose_name, page_type=None):
         return url_name
 
 
+def get_times(invoice):
+    times_project = time_model.objects.filter(
+        invoiced=False, project=invoice.project, estimate=None, invoice=None)
+    times_invoice = time_model.objects.filter(invoice=invoice)
+    times = times_project | times_invoice
+    times = times.order_by('-date')
+    return times
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar

@@ -49,6 +49,7 @@ from .utils import get_client_city
 from .utils import get_company_name
 from .utils import get_setting
 from .utils import get_template_and_url_names
+from .utils import get_times
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -515,11 +516,7 @@ def invoice(request, pk=None):
     context['document_type_title'] = document_type_title
     context['edit_url'] = 'invoice_edit'  # Delete modal
     context['item'] = invoice
-    times_project = Time.objects.filter(
-        invoiced=False, project=invoice.project, estimate=None, invoice=None)
-    times_invoice = Time.objects.filter(invoice=invoice)
-    times = times_project | times_invoice
-    times = times.order_by('-date')
+    times = get_times(invoice)
     entries, subtotal, paid_amount, hours, amount = entries_total(times)
     last_payment_date = invoice.last_payment_date
     context['amount'] = amount
@@ -788,6 +785,8 @@ def project(request, pk=None):
         project=project, invoiced=False).order_by('-date')
     estimates = Estimate.objects.filter(project=project)
     invoices = Invoice.objects.filter(project=project)
+    # times = get_times(invoice)
+    entries, subtotal, paid_amount, hours, amount = entries_total(times)
     context['active_nav'] = 'project'
     context['company'] = Company.get_solo()
     context['edit_url'] = 'project_edit'  # Delete modal
@@ -796,6 +795,11 @@ def project(request, pk=None):
     context['invoices'] = invoices
     context['item'] = project
     context['times'] = times
+    context['entries'] = entries
+    context['subtotal'] = subtotal
+    context['paid_amount'] = paid_amount
+    context['hours'] = hours
+    context['amount'] = amount
     return render(request, 'project.html', context)
 
 
