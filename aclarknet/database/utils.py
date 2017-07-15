@@ -209,46 +209,6 @@ def create_and_send_mail(request,
     return False
 
 
-def create_form(model,
-                form_model,
-                projects=[],
-                project=None,
-                clients=[],
-                client=None,
-                gross=None,
-                net=None,
-                tasks=[],
-                task=None):
-    form = form_model()
-    # Populate new report with gross and net calculated
-    # from active invoices
-    if form._meta.model._meta.verbose_name == 'report':
-        obj = model(gross=gross, net=net)
-        form = form_model(instance=obj)
-    if project and model._meta.verbose_name == 'time':
-        entry = model(
-            project=project, client=project.client, task=project.task)
-        form = form_model(instance=entry)
-    # Populate invoice with project
-    elif project and model._meta.verbose_name == 'invoice':
-        entry = model(project=project, client=project.client)
-        form = form_model(instance=entry)
-    # Populate time entry form fields with client and
-    # task values
-    elif client and task:
-        entry = model(client=client, task=task)
-        form = form_model(instance=entry)
-    # Populate project entry form fields with client value
-    elif client:
-        entry = model(client=client)
-        form = form_model(instance=entry)
-    # Populate time entry form fields with task value
-    elif task:
-        entry = model(task=task)
-        form = form_model(instance=entry)
-    return form
-
-
 def daily_burn(project):
     try:
         days = (project.end_date - project.start_date).days
@@ -293,9 +253,7 @@ def edit(
     context = {}
     obj = None
     if pk is None:
-        form = create_form(
-            model,
-            form_model, )
+        form = form_model()
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
