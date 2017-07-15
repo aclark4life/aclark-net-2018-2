@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from boto.exception import BotoServerError
+# from boto.exception import BotoServerError
 from decimal import Decimal
 from django.conf import settings as django_settings
 from django.contrib import messages
