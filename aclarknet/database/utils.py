@@ -295,56 +295,6 @@ def edit(
     return render(request, template_name, context)
 
 
-def entries_total(queryset):
-    """
-    Add estimate and invoice time entries, could be an aggregate
-    (https://docs.djangoproject.com/en/1.9/topics/db/aggregation/)
-    """
-    entries = OrderedDict()
-    total = 0
-    running_total_co = 0
-    running_total_dev = 0
-    running_total_hours = 0
-    for entry in queryset:
-        entries[entry] = {}
-        hours = entry.hours
-        if hours:
-            running_total_hours += hours
-        entries[entry]['date'] = entry.date
-        entries[entry]['hours'] = hours
-        entries[entry]['notes'] = entry.log
-        entries[entry]['pk'] = entry.pk
-        entries[entry]['user'] = entry.user
-        entries[entry]['task'] = entry.task
-        line_total = 0
-        line_total_co = 0
-        line_total_dev = 0
-        line_total_client = 0
-        if entry.task:
-            rate = entry.task.rate
-            entries[entry]['rate'] = rate
-            if rate:
-                line_total_co = rate * hours
-            entries[entry]['line_total_co'] = line_total_co
-            running_total_co += line_total_co
-        if entry.user and entry.project:
-            if hasattr(entry.user, 'profile'):
-                if entry.user.profile.rate:
-                    line_total_dev = entry.user.profile.rate * hours
-                entries[entry]['line_total_dev'] = line_total_dev
-                running_total_dev += line_total_dev
-        if entry.project:
-            line_total = line_total_co - line_total_dev
-            line_total_client = line_total_co
-            entries[entry]['line_total_client'] = '%.2f' % line_total_client
-        else:
-            line_total = line_total_co
-        entries[entry]['line_total'] = '%.2f' % line_total
-    total = running_total_co - running_total_dev
-    return (entries, running_total_co, running_total_dev, running_total_hours,
-            total)
-
-
 def generate_doc(contract):
     """
     https://stackoverflow.com/a/24122313/185820
@@ -465,6 +415,56 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             # XXX How to get default field value without knowing index?
             # Also don't like splitting on comma space.
             return app_settings._meta.fields[6].get_default().split(', ')
+
+
+def get_entries_total(queryset):
+    """
+    Add estimate and invoice time entries, could be an aggregate
+    (https://docs.djangoproject.com/en/1.9/topics/db/aggregation/)
+    """
+    entries = OrderedDict()
+    total = 0
+    running_total_co = 0
+    running_total_dev = 0
+    running_total_hours = 0
+    for entry in queryset:
+        entries[entry] = {}
+        hours = entry.hours
+        if hours:
+            running_total_hours += hours
+        entries[entry]['date'] = entry.date
+        entries[entry]['hours'] = hours
+        entries[entry]['notes'] = entry.log
+        entries[entry]['pk'] = entry.pk
+        entries[entry]['user'] = entry.user
+        entries[entry]['task'] = entry.task
+        line_total = 0
+        line_total_co = 0
+        line_total_dev = 0
+        line_total_client = 0
+        if entry.task:
+            rate = entry.task.rate
+            entries[entry]['rate'] = rate
+            if rate:
+                line_total_co = rate * hours
+            entries[entry]['line_total_co'] = line_total_co
+            running_total_co += line_total_co
+        if entry.user and entry.project:
+            if hasattr(entry.user, 'profile'):
+                if entry.user.profile.rate:
+                    line_total_dev = entry.user.profile.rate * hours
+                entries[entry]['line_total_dev'] = line_total_dev
+                running_total_dev += line_total_dev
+        if entry.project:
+            line_total = line_total_co - line_total_dev
+            line_total_client = line_total_co
+            entries[entry]['line_total_client'] = '%.2f' % line_total_client
+        else:
+            line_total = line_total_co
+        entries[entry]['line_total'] = '%.2f' % line_total
+    total = running_total_co - running_total_dev
+    return (entries, running_total_co, running_total_dev, running_total_hours,
+            total)
 
 
 def get_query(request, query):

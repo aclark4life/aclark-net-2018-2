@@ -44,10 +44,10 @@ from .utils import index_items
 from .utils import create_and_send_mail
 from .utils import dashboard_totals
 from .utils import edit
-from .utils import entries_total
 from .utils import generate_doc
 from .utils import get_client_city
 from .utils import get_company_name
+from .utils import get_entries_total
 from .utils import get_setting
 from .utils import get_template_and_url_names
 from .utils import get_times_for_invoice
@@ -390,7 +390,7 @@ def estimate(request, pk=None):
     times_estimate = Time.objects.filter(estimate=estimate)
     times = times_client | times_estimate
     times = times.order_by('-updated')
-    entries, subtotal, paid_amount, hours, amount = entries_total(times)
+    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
     context['entries'] = entries
     context['amount'] = amount
     context['paid_amount'] = paid_amount
@@ -409,19 +409,8 @@ def estimate(request, pk=None):
 
 @staff_member_required
 def estimate_edit(request, pk=None):
-    amount = request.GET.get('amount')
-    paid_amount = request.GET.get('paid_amount')
-    subtotal = request.GET.get('subtotal')
-    times = request.GET.get('times')
-    company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
         'estimate', page_type='edit')
-    if times:
-        estimate = get_object_or_404(Estimate, pk=pk)
-        times = Time.objects.filter(pk__in=[int(i) for i in times.split(',')])
-        for entry in times:
-            entry.estimate = estimate
-            entry.save()
     return edit(
         request,
         EstimateForm,
@@ -429,11 +418,8 @@ def estimate_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='estimate',
-        amount=amount,
-        company=company,
-        paid_amount=paid_amount,
-        pk=pk,
-        subtotal=subtotal)
+        company_model=Company,
+        pk=pk)
 
 
 @staff_member_required
@@ -507,7 +493,7 @@ def invoice(request, pk=None):
     context['edit_url'] = 'invoice_edit'  # Delete modal
     context['item'] = invoice
     times = get_times_for_invoice(invoice, Time)
-    entries, subtotal, paid_amount, hours, amount = entries_total(times)
+    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
     last_payment_date = invoice.last_payment_date
     context['amount'] = amount
     context['entries'] = entries
