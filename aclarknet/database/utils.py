@@ -312,23 +312,23 @@ def edit(
         company_model=None,
         company_note=None,
         pk=None,
-#        amount=None,
-#        client=None,
-#        clients=[],
-#        contract_settings=None,
-#        context={},
-#        gross=None,
-#        invoices_active=None,  # for reporting
-#        log_model=None,
-#        net=None,
-#        paid_amount=None,
-#        paid=None,
-#        project=None,
-#        projects=[],
-#        subtotal=None,
-#        task=None,
-#        tasks=[]):
-        ):
+        #        amount=None,
+        #        client=None,
+        #        clients=[],
+        #        contract_settings=None,
+        #        context={},
+        #        gross=None,
+        #        invoices_active=None,  # for reporting
+        #        log_model=None,
+        #        net=None,
+        #        paid_amount=None,
+        #        paid=None,
+        #        project=None,
+        #        projects=[],
+        #        subtotal=None,
+        #        task=None,
+        #        tasks=[]):
+):
     context = {}
     obj = None
     if pk is None:
