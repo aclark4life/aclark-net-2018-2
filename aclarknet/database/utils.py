@@ -809,18 +809,18 @@ def obj_edit(obj,
     if obj._meta.verbose_name == 'note' and company_note:
         company.note.add(obj)
         company.save()
+    # New or existing object
     kwargs = {}
-    if pk:  # Existing object
+    if pk:  # Existing
         kwargs['pk'] = pk
-    else:
-        if company_note:  # Special case for company_note
-            url_name = 'company'
-        else:  # New object
-            kwargs['pk'] = obj.pk
-
-    if obj._meta.verbose_name == 'settings': 
+    else:  # New
+        kwargs['pk'] = obj.pk
+    # Special cases
+    if company_note:  # company_note
         kwargs = {}
-
+        url_name = 'company'
+    if obj._meta.verbose_name == 'settings':  # app_settings
+        kwargs = {}
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
