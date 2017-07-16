@@ -253,9 +253,6 @@ def edit(
         time_model=None,
         pk=None, ):
     context = {}
-    if company_model:
-        company = company_model.get_solo()
-    gross, net, invoices_active = dashboard_totals(invoice_model)
     obj = None
     if pk is None:
         form = form_model()
@@ -296,14 +293,17 @@ def edit(
                     project_model=project_model)
             return obj_edit(obj, pk=pk)
     context['active_nav'] = active_nav
-    context['company'] = company
     context['form'] = form
     context['item'] = obj
     context['pk'] = pk
-    # Dashboard totals for reporting
-    context['gross'] = gross
-    context['net'] = net
-    context['invoices_active'] = invoices_active
+    if company_model:
+        company = company_model.get_solo()
+        context['company'] = company
+    if invoice_model:  # Dashboard totals for reporting
+        gross, net, invoices_active = dashboard_totals(invoice_model)
+        context['gross'] = gross
+        context['net'] = net
+        context['invoices_active'] = invoices_active
     return render(request, template_name, context)
 
 
