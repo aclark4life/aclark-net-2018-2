@@ -593,7 +593,7 @@ def note_edit(request, pk=None):
 
 @staff_member_required
 def note_index(request, pk=None):
-    search_fields = ('note', )
+    search_fields = ('note', 'title')
     filters = {'hidden': False, }
     context = get_index_items(
         request,
