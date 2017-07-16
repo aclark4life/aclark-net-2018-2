@@ -321,16 +321,20 @@ class Newsletter(models.Model):
 class Note(models.Model):
     """
     """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=300, blank=True, null=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
     priority = models.IntegerField(blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.title:
+            return self.title
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Profile(models.Model):
