@@ -978,7 +978,7 @@ def time_index(request):
         active_nav='time',
         app_settings_model=AppSettings,
         edit_url='time_edit',  # Delete modal
-        page_size=3,
+        # page_size=3,
         order_by=('-date', ),
         show_search=True)
     if not request.user.is_staff:
