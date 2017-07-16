@@ -655,13 +655,13 @@ def get_page_items(request,
         estimate = contract.statement_of_work
         pdf = get_query(request, 'pdf')
         if estimate:
-            times_client = Time.objects.filter(
+            times_client = time_model.objects.filter(
                 client=estimate.client,
                 estimate=None,
                 project=None,
                 invoiced=False,
                 invoice=None)
-            times_estimate = Time.objects.filter(estimate=estimate)
+            times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = times.order_by('-date')
         else:

@@ -248,7 +248,7 @@ def contact_unsubscribe(request, pk=None):
 def contract(request, pk=None):
     """
     """
-    context = get_page_items(request, Contract, company_model=Company, pk=pk)
+    context = get_page_items(request, Contract, company_model=Company, pk=pk, time_model=Time)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(company)
