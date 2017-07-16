@@ -111,10 +111,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
 def client(request, pk=None):
     context = get_page_items(
         request,
-        Client,
         app_settings_model=AppSettings,
         contact_model=Contact,
         contract_model=Contract,
+        model=Client,
         pk=pk,
         project_model=Project)
     return render(request, 'client.html', context)
@@ -248,7 +248,8 @@ def contact_unsubscribe(request, pk=None):
 def contract(request, pk=None):
     """
     """
-    context = get_page_items(request, Contract, company_model=Company, pk=pk, time_model=Time)
+    context = get_page_items(
+        request, company_model=Company, model=Contract, pk=pk, time_model=Time)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(company)
@@ -336,7 +337,7 @@ def contract_settings_edit(request, pk=None):
 @staff_member_required
 def estimate(request, pk=None):
     context = get_page_items(
-        request, Estimate, company_model=Company, pk=pk, time_model=Time)
+        request, company_model=Company, model=Estimate, pk=pk, time_model=Time)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = '-'.join(['estimate', pk])
@@ -387,30 +388,12 @@ def estimate_mail(request, pk=None):
 
 
 def home(request):
-    context = {}
-    gross, net, invoices_active = dashboard_totals(Invoice)
-    invoices = Invoice.objects.filter(
-        last_payment_date=None).order_by('amount')
-    notes = Note.objects.filter(active=True).order_by('-updated', 'note',
-                                                      'due_date', 'priority')
-    projects = Project.objects.filter(active=True).order_by('-updated')
-    plot_items = Report.objects.filter(active=True)
-    context['edit_url'] = 'project_edit'  # Delete modal
-    context['company'] = company
-    context['dashboard_choices'] = get_setting(request, AppSettings,
-                                               'dashboard_choices')
-    context['dashboard_order'] = get_setting(request, AppSettings,
-                                             'dashboard_order')
-    context['invoices'] = invoices
-    context['icon_size'] = get_setting(request, AppSettings, 'icon_size')
-    context['gross'] = gross
-    context['net'] = net
-    context['notes'] = notes
-    context['nav_status'] = 'active'
-    context['projects'] = projects
-    context['app_settings'] = AppSettings.get_solo()
-    context['plot_items'] = plot_items
-    context['city_data'] = get_client_city(request)
+    context = get_page_items(
+        request,
+        app_settings_model=AppSettings,
+        note_model=Note,
+        project_model=Project,
+        report_model=Report)
     return render(request, 'home.html', context)
 
 

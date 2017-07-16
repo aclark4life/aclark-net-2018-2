@@ -622,12 +622,15 @@ def get_index_items(request,
 
 
 def get_page_items(request,
-                   model,
                    app_settings_model=None,
                    company_model=None,
                    contact_model=None,
                    contract_model=None,
+                   invoice_model=None,
+                   model=None,
+                   note_model=None,
                    project_model=None,
+                   report_model=None,
                    pk=None,
                    time_model=None):
     context = {}
@@ -733,6 +736,29 @@ def get_page_items(request,
         context['paid_amount'] = paid_amount
         context['hours'] = hours
         context['amount'] = amount
+    else:  # home
+        invoices = invoice_model.objects.filter(
+            last_payment_date=None).order_by('amount')
+        notes = note_model.objects.filter(active=True).order_by(
+            '-updated', 'note', 'due_date', 'priority')
+        projects = project_model.objects.filter(
+            active=True).order_by('-updated')
+        plot_items = report_model.objects.filter(active=True)
+        gross, net, invoices_active = dashboard_totals(invoice_model)
+        context['city_data'] = get_client_city(request)
+        context['dashboard_choices'] = get_setting(request, app_settings_model,
+                                                   'dashboard_choices')
+        context['dashboard_order'] = get_setting(request, app_settings_model,
+                                                 'dashboard_order')
+        context['gross'] = gross
+        context['invoices'] = invoices
+        context['icon_size'] = get_setting(request, app_settings_model,
+                                           'icon_size')
+        context['nav_status'] = 'active'
+        context['net'] = net
+        context['notes'] = notes
+        context['plot_items'] = plot_items
+        context['projects'] = projects
     return context
 
 
