@@ -245,6 +245,7 @@ def edit(
         active_nav=None,
         company_model=None,
         company_note=None,
+        estimate_model=None,
         invoice_model=None,
         project_model=None,
         task_model=None,
@@ -286,6 +287,7 @@ def edit(
                     obj,
                     request,
                     time_model=time_model,
+                    estimate_model=estimate_model,
                     invoice_model=invoice_model,
                     project_model=project_model)
             return obj_edit(obj)
@@ -706,9 +708,10 @@ def send_mail(request,
 
 def update_invoice_amount(obj,
                           request,
-                          time_model=None,
+                          estimate_model=None,
                           invoice_model=None,
-                          project_model=None):
+                          project_model=None,
+                          time_model=None):
     query_string_amount = request.GET.get('amount')
     query_string_invoices = request.GET.get('invoices')
     query_string_paid = request.GET.get('paid')

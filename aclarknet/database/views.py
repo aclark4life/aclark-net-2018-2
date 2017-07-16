@@ -1020,6 +1020,7 @@ def time_edit(request, pk=None):
         template_name,
         active_nav='time',
         invoice_model=Invoice,
+        estimate_model=Estimate,
         project_model=Project,
         task_model=Task,
         time_model=Time,
