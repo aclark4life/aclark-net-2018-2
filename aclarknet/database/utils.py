@@ -33,6 +33,7 @@ URL_NAMES = {
     'client': ('client', 'client_edit', 'client_index'),
     'contact': ('contact', 'contact_edit', 'contact_index'),
     'contract': ('contract', 'contract_edit', 'contract_index'),
+    'Company': ('company', 'company_edit', ''),
     'estimate': ('estimate', 'estimate_edit', 'estimate_index'),
     'invoice': ('invoice', 'invoice_edit', 'invoice_index'),
     'newsletter': ('newsletter', 'newsletter_edit', 'newsletter_index'),
@@ -290,7 +291,7 @@ def edit(
                     estimate_model=estimate_model,
                     invoice_model=invoice_model,
                     project_model=project_model)
-            return obj_edit(obj)
+            return obj_edit(obj, pk=pk)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -647,11 +648,14 @@ def obj_delete(obj):
 
 
 def obj_edit(obj, pk=None):
+    verbose_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        obj._meta.verbose_name, page_type='view')  # Redir to view
+        verbose_name, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
     if pk:  # Existing
+        if verbose_name == 'Company':  # Special case for company
+            return HttpResponseRedirect(reverse(url_name))
         kwargs['pk'] = pk
     else:  # New
         kwargs['pk'] = obj.pk
