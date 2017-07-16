@@ -631,9 +631,6 @@ def get_page_items(request,
                    pk=None,
                    time_model=None):
     context = {}
-    company = company_model.get_solo()
-    if company:
-        context['company'] = company
     if model._meta.verbose_name == 'client':
         client = get_object_or_404(model, pk=pk)
         contacts = contact_model.objects.filter(client=client)
@@ -652,12 +649,15 @@ def get_page_items(request,
         context['notes'] = client.note.all()
         context['projects'] = projects
     elif model._meta.verbose_name == 'estimate':
+        company = company_model.get_solo()
         estimate = get_object_or_404(model, pk=pk)
         document_type = estimate._meta.verbose_name
         document_type_upper = document_type.upper()
         document_type_title = document_type.title()
         pdf = get_query(request, 'pdf')
         context['active_nav'] = 'estimate'
+        if company:
+            context['company'] = company
         context['document_type_upper'] = document_type_upper
         context['document_type_title'] = document_type_title
         context['edit_url'] = 'estimate_edit'
@@ -683,6 +683,8 @@ def get_page_items(request,
         last_payment_date = invoice.last_payment_date
         pdf = get_query(request, 'pdf')
         context['active_nav'] = 'invoice'
+        if company:
+            context['company'] = company
         context['document_type_upper'] = document_type_upper
         context['document_type_title'] = document_type_title
         context['edit_url'] = 'invoice_edit'  # Delete modal
