@@ -396,11 +396,18 @@ class Project(models.Model):
         limit_choices_to={'active': True}, )
     name = models.CharField(
         "Project Name", max_length=300, blank=True, null=True)
-    code = models.IntegerField("Project Code", blank=True, null=True)
+    task = models.ForeignKey(
+        "Task",
+        blank=True,
+        null=True,
+        limit_choices_to={'active': True}, )
+    team = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        limit_choices_to={'profile__active': True})
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
-    # Testing https://github.com/CodeYellowBV/django-relativedelta.git
-    # flex_date = RelativeDeltaField(blank=True, null=True)
+    code = models.IntegerField("Project Code", blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     total_hours = models.FloatField(blank=True, null=True)
     billable_hours = models.FloatField(blank=True, null=True)
@@ -418,15 +425,6 @@ class Project(models.Model):
         blank=True, null=True, max_digits=12, decimal_places=2)
     expenses = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
-    task = models.ForeignKey(
-        "Task",
-        blank=True,
-        null=True,
-        limit_choices_to={'active': True}, )
-    team = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        blank=True,
-        limit_choices_to={'profile__active': True})
 
     def __str__(self):
         if self.name:
