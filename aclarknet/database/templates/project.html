@@ -84,6 +84,7 @@
                     <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                     <th data-field="hours" data-sortable="true">Hours</th>
                     <th data-field="notes" data-sortable="true">Log</th>
+                    <th>View</th>
                     <th>Edit</th>
                   </tr>
                 </thead>
@@ -94,6 +95,7 @@
                   <td>{{ entry.date|date:'U' }}</td>
                   <td>{{ entry.hours|default:'' }}</td>
                   <td>{{ entry.log|default:'' }}</td>
+                  <td><a href="{% url 'time_entry' entry.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"></i> View</a></td>
                   <td><a href="{% url 'time_edit' entry.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
                 </tr>
                 {% endfor %}
