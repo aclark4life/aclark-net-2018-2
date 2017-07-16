@@ -134,7 +134,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'
         widgets = {
-            'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
 
