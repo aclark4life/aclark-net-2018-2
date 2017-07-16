@@ -653,7 +653,6 @@ def get_page_items(request,
         if company:
             context['company'] = company
         estimate = get_object_or_404(model, pk=pk)
-        document_id = str(estimate.document_id)
         document_type = estimate._meta.verbose_name
         document_type_upper = document_type.upper()
         document_type_title = document_type.title()
