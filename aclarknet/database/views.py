@@ -48,7 +48,6 @@ from .utils import edit
 from .utils import generate_doc
 from .utils import get_client_city
 from .utils import get_company_name
-from .utils import get_entries_total
 from .utils import get_setting
 from .utils import get_template_and_url_names
 from .utils import get_query
