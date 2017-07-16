@@ -51,7 +51,6 @@ from .utils import get_company_name
 from .utils import get_entries_total
 from .utils import get_setting
 from .utils import get_template_and_url_names
-from .utils import get_times_for_invoice
 from .utils import get_query
 from .utils import send_mail
 from datetime import datetime
@@ -1034,7 +1033,6 @@ def user_contact(request, pk=None):
 
 @login_required
 def user_edit(request, pk=None):
-    context = {}
     template_name, url_name = get_template_and_url_names(
         'user', page_type='edit')
     return edit(

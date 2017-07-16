@@ -631,6 +631,9 @@ def get_page_items(request,
                    pk=None,
                    time_model=None):
     context = {}
+    company = company_model.get_solo()
+    if company:
+        context['company'] = company
     if model._meta.verbose_name == 'client':
         client = get_object_or_404(model, pk=pk)
         contacts = contact_model.objects.filter(client=client)
@@ -640,27 +643,26 @@ def get_page_items(request,
         projects = project_model.objects.filter(client=client)
         projects = projects.order_by('-start_date')
         context['active_nav'] = 'client'
+        context['contacts'] = contacts
+        context['contracts'] = contracts
         context['edit_url'] = 'client_edit'
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
         context['item'] = client
-        context['contacts'] = contacts
-        context['contracts'] = contracts
-        context['projects'] = projects
         context['notes'] = client.note.all()
+        context['projects'] = projects
     elif model._meta.verbose_name == 'estimate':
-        company = company_model.get_solo()
-        if company:
-            context['company'] = company
         estimate = get_object_or_404(model, pk=pk)
         document_type = estimate._meta.verbose_name
         document_type_upper = document_type.upper()
         document_type_title = document_type.title()
+        pdf = get_query(request, 'pdf')
         context['active_nav'] = 'estimate'
         context['document_type_upper'] = document_type_upper
         context['document_type_title'] = document_type_title
         context['edit_url'] = 'estimate_edit'
         context['item'] = estimate
+        context['pdf'] = pdf
         times_client = time_model.objects.filter(
             client=estimate.client,
             estimate=None,
@@ -670,15 +672,6 @@ def get_page_items(request,
         times_estimate = time_model.objects.filter(estimate=estimate)
         times = times_client | times_estimate
         times = times.order_by('-updated')
-        entries, subtotal, paid_amount, hours, amount = get_entries_total(
-            times)
-        context['entries'] = entries
-        context['amount'] = amount
-        context['paid_amount'] = paid_amount
-        context['subtotal'] = subtotal
-        context['hours'] = hours
-        pdf = get_query(request, 'pdf')
-        context['pdf'] = pdf
     elif model._meta.verbose_name == 'invoice':
         company = company_model.get_solo()
         invoice = get_object_or_404(model, pk=pk)
@@ -686,23 +679,23 @@ def get_page_items(request,
         document_type = invoice._meta.verbose_name
         document_type_upper = document_type.upper()
         document_type_title = document_type.title()
+        times = get_times_for_invoice(invoice, time_model)
+        last_payment_date = invoice.last_payment_date
+        pdf = get_query(request, 'pdf')
         context['active_nav'] = 'invoice'
         context['document_type_upper'] = document_type_upper
         context['document_type_title'] = document_type_title
         context['edit_url'] = 'invoice_edit'  # Delete modal
         context['item'] = invoice
-        times = get_times_for_invoice(invoice, time_model)
-        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
-        last_payment_date = invoice.last_payment_date
-        context['amount'] = amount
-        context['entries'] = entries
-        context['hours'] = hours
         context['invoice'] = True
         context['last_payment_date'] = last_payment_date
-        context['paid_amount'] = paid_amount
-        context['subtotal'] = subtotal
-        pdf = get_query(request, 'pdf')
         context['pdf'] = pdf
+    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
+    context['entries'] = entries
+    context['subtotal'] = subtotal
+    context['paid_amount'] = paid_amount
+    context['hours'] = hours
+    context['amount'] = amount
     return context
 
 
