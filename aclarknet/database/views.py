@@ -359,18 +359,11 @@ def contract_settings_edit(request, pk=None):
 
 @staff_member_required
 def estimate(request, pk=None):
-    pdf = get_query(request, 'pdf')
     context = get_page_items(
-        request,
-        Estimate,
-        company_model=Company,
-        pk=pk,
-        time_model=Time)
-    context['pdf'] = pdf
-    if pdf:
-        company_name = get_company_name(company)
+        request, Estimate, company_model=Company, pk=pk, time_model=Time)
+    if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
-        filename = '_'.join([document_type_upper, document_id, company_name])
+        filename = '-'.join(['estimate', pk])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)

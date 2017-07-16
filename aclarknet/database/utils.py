@@ -671,12 +671,15 @@ def get_page_items(request,
         times_estimate = time_model.objects.filter(estimate=estimate)
         times = times_client | times_estimate
         times = times.order_by('-updated')
-        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(
+            times)
         context['entries'] = entries
         context['amount'] = amount
         context['paid_amount'] = paid_amount
         context['subtotal'] = subtotal
         context['hours'] = hours
+        pdf = get_query(request, 'pdf')
+        context['pdf'] = pdf
     return context
 
 
