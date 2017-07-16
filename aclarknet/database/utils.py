@@ -741,6 +741,7 @@ def get_page_items(request,
         context['nav_status'] = 'active'
         context['net'] = net
         context['notes'] = notes
+        context['num_notes'] = len(notes)
         context['plot_items'] = plot_items
         context['projects'] = projects
     return context
