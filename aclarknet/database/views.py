@@ -720,7 +720,7 @@ def project(request, pk=None):
     project = get_object_or_404(Project, pk=pk)
     times = Time.objects.filter(
         project=project, invoiced=False).order_by('-date')
-    estimates = Estimate.objects.filter(project=project)
+    estimates = Estimate.objects.filter(project=project, accepted_date=None)
     invoices = Invoice.objects.filter(project=project, last_payment_date=None)
     entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
     context['active_nav'] = 'project'
