@@ -490,7 +490,7 @@ def get_search_results(model,
     items = model.objects.filter(reduce(OR, query)).order_by(order_by)
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
-    context['icon_size'] = get_setting(request, app_settings, 'icon_size')
+    context['icon_size'] = get_setting(request, app_settings_model, 'icon_size')
     context['items'] = items
     context['show_search'] = True
     return context
