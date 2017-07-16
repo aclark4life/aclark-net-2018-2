@@ -441,7 +441,7 @@ def get_entries(queryset):
         #     running_total_hours += hours
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = entry.hours
-        entries[entry]['notes'] = entry.log
+        entries[entry]['log'] = entry.log
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
         entries[entry]['task'] = entry.task
