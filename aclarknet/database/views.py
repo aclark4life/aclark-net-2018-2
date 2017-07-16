@@ -440,36 +440,11 @@ def home(request):
 
 @staff_member_required
 def invoice(request, pk=None):
-    context = {}
-    company = Company.get_solo()
-    if company:
-        context['company'] = company
-    pdf = get_query(request, 'pdf')
-    context['pdf'] = pdf
-    invoice = get_object_or_404(Invoice, pk=pk)
-    document_id = str(invoice.document_id)
-    document_type = invoice._meta.verbose_name
-    document_type_upper = document_type.upper()
-    document_type_title = document_type.title()
-    context['active_nav'] = 'invoice'
-    context['document_type_upper'] = document_type_upper
-    context['document_type_title'] = document_type_title
-    context['edit_url'] = 'invoice_edit'  # Delete modal
-    context['item'] = invoice
-    times = get_times_for_invoice(invoice, Time)
-    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
-    last_payment_date = invoice.last_payment_date
-    context['amount'] = amount
-    context['entries'] = entries
-    context['hours'] = hours
-    context['invoice'] = True
-    context['last_payment_date'] = last_payment_date
-    context['paid_amount'] = paid_amount
-    context['subtotal'] = subtotal
-    if pdf:
+    context = get_page_items(
+        request, Invoice, company_model=Company, pk=pk, time_model=Time)
+    if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
-        company_name = get_company_name(company)
-        filename = '_'.join([document_type_upper, document_id, company_name])
+        filename = '_'.join(['invoice', pk])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)

@@ -679,6 +679,30 @@ def get_page_items(request,
         context['hours'] = hours
         pdf = get_query(request, 'pdf')
         context['pdf'] = pdf
+    elif model._meta.verbose_name == 'invoice':
+        company = company_model.get_solo()
+        invoice = get_object_or_404(model, pk=pk)
+        document_id = str(invoice.document_id)
+        document_type = invoice._meta.verbose_name
+        document_type_upper = document_type.upper()
+        document_type_title = document_type.title()
+        context['active_nav'] = 'invoice'
+        context['document_type_upper'] = document_type_upper
+        context['document_type_title'] = document_type_title
+        context['edit_url'] = 'invoice_edit'  # Delete modal
+        context['item'] = invoice
+        times = get_times_for_invoice(invoice, time_model)
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
+        last_payment_date = invoice.last_payment_date
+        context['amount'] = amount
+        context['entries'] = entries
+        context['hours'] = hours
+        context['invoice'] = True
+        context['last_payment_date'] = last_payment_date
+        context['paid_amount'] = paid_amount
+        context['subtotal'] = subtotal
+        pdf = get_query(request, 'pdf')
+        context['pdf'] = pdf
     return context
 
 
