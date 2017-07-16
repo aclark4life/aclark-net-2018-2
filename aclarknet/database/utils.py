@@ -244,6 +244,7 @@ def edit(
         url_name,
         template_name,
         active_nav=None,
+        client_model=None,
         company_model=None,
         company_note=None,
         estimate_model=None,
@@ -283,13 +284,13 @@ def edit(
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
-            if model._meta.verbose_name == 'time':
-                update_invoice_amount(
-                    obj,
-                    request,
-                    estimate_model=estimate_model,
-                    invoice_model=invoice_model,
-                    project_model=project_model)
+            set_relationship(
+                obj,
+                request,
+                client_model=client_model,
+                estimate_model=estimate_model,
+                invoice_model=invoice_model,
+                project_model=project_model)
             return obj_edit(obj, pk=pk)
     context['active_nav'] = active_nav
     context['form'] = form
@@ -834,30 +835,34 @@ def send_mail(request,
         return False
 
 
-def update_invoice_amount(
+def set_relationship(
         obj,  # time
         request,
+        client_model=None,
         estimate_model=None,
         invoice_model=None,
         project_model=None):
-    query_string_amount = request.GET.get('amount')
-    query_string_invoices = request.GET.get('invoices')
-    query_string_paid = request.GET.get('paid')
-    query_string_paid_amount = request.GET.get('paid_amount')
-    query_string_project = request.GET.get('project')
-    query_string_subtotal = request.GET.get('subtotal')
-    query_string_times = request.GET.get('times')
-    if query_string_invoices:
-        invoices = query_string_invoices.split(',')
-        if len(invoices) > 1:
-            return False
-        else:
-            invoice = invoices[0]
-            invoice = get_object_or_404(invoice_model, pk=invoice)
-            obj.invoice = invoice
+    if obj._meta.verbose_name == 'time':
+        query_string_invoices = get_query(request, 'invoices')
+        query_string_project = get_query(request, 'project')
+        if query_string_invoices:
+            invoices = query_string_invoices.split(',')
+            if len(invoices) > 1:
+                return False
+            else:
+                invoice = invoices[0]
+                invoice = get_object_or_404(invoice_model, pk=invoice)
+                obj.invoice = invoice
+                obj.save()
+        if query_string_project:
+            project = get_object_or_404(project_model, pk=query_string_project)
+            obj.task = project.task
             obj.save()
-    if query_string_project:
-        project = get_object_or_404(project_model, pk=query_string_project)
-        obj.task = project.task
-        obj.save()
-    return True
+        return True
+    elif obj._meta.verbose_name == 'note':
+        query_string_client = get_query(request, 'client')
+        if query_string_client:
+            client = get_object_or_404(client_model, pk=query_string_client)
+            client.note.add(obj)
+            client.save()
+            return True
