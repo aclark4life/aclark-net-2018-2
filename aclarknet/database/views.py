@@ -814,7 +814,8 @@ def service_edit(request, pk=None):
 @staff_member_required
 def settings(request):
     context = {}
-    context['settings'] = settings
+    app_settings = AppSettings.get_solo()
+    context['settings'] = app_settings
     context['active_tab'] = 'system'
     context['active_nav'] = 'dropdown'
     return render(request, 'settings.html', context)
