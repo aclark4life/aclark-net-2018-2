@@ -549,15 +549,15 @@ def gravatar_url(email):
 
 
 def get_index_items(request,
-                model,
-                search_fields,
-                filters={},
-                order_by=(),
-                app_settings_model=None,
-                active_nav='',
-                edit_url='',
-                page_size=None,
-                show_search=False):
+                    model,
+                    search_fields,
+                    filters={},
+                    order_by=(),
+                    app_settings_model=None,
+                    active_nav='',
+                    edit_url='',
+                    page_size=None,
+                    show_search=False):
     """
     """
     context = {}
@@ -622,12 +622,12 @@ def get_index_items(request,
 
 
 def get_page_items(request,
-                model,
-                app_settings_model=None,
-                contact_model=None,
-                contract_model=None,
-                project_model=None,
-                pk=None):
+                   model,
+                   app_settings_model=None,
+                   contact_model=None,
+                   contract_model=None,
+                   project_model=None,
+                   pk=None):
     context = {}
     client = get_object_or_404(model, pk=pk)
     contacts = contact_model.objects.filter(client=client)
@@ -638,7 +638,8 @@ def get_page_items(request,
     projects = projects.order_by('-start_date')
     context['active_nav'] = 'client'
     context['edit_url'] = 'client_edit'
-    context['icon_size'] = get_setting(request, app_settings_model, 'icon_size')
+    context['icon_size'] = get_setting(request, app_settings_model,
+                                       'icon_size')
     context['item'] = client
     context['contacts'] = contacts
     context['contracts'] = contracts
