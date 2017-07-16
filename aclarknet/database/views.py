@@ -248,37 +248,14 @@ def contact_unsubscribe(request, pk=None):
 def contract(request, pk=None):
     """
     """
-    doc = get_query(request, 'doc')
-    pdf = get_query(request, 'pdf')
-    company = Company.get_solo()
-    context = {}
-    contract = get_object_or_404(Contract, pk=pk)
-    context['active_nav'] = 'contract'
-    context['company'] = company
-    context['edit_url'] = 'contract_edit'
-    context['item'] = contract
-    context['pdf'] = pdf
-    estimate = contract.statement_of_work
-    if estimate:
-        times_client = Time.objects.filter(
-            client=estimate.client,
-            estimate=None,
-            project=None,
-            invoiced=False,
-            invoice=None)
-        times_estimate = Time.objects.filter(estimate=estimate)
-        times = times_client | times_estimate
-        times = times.order_by('-date')
-    else:
-        times = None
-    context['times'] = times
-    if pdf:
+    context = get_page_items(request, Contract, company_model=Company, pk=pk)
+    if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(company)
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_contract.html', context=context, file_object=response)
-    if doc:
+    if context['doc']:
         # https://stackoverflow.com/a/24122313/185820
         document = generate_doc(contract)
         filename = get_company_name(company)

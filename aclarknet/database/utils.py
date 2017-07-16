@@ -648,6 +648,31 @@ def get_page_items(request,
         context['item'] = client
         context['notes'] = client.note.all()
         context['projects'] = projects
+    elif model._meta.verbose_name == 'contract':
+        company = company_model.get_solo()
+        contract = get_object_or_404(model, pk=pk)
+        doc = get_query(request, 'doc')
+        estimate = contract.statement_of_work
+        pdf = get_query(request, 'pdf')
+        if estimate:
+            times_client = Time.objects.filter(
+                client=estimate.client,
+                estimate=None,
+                project=None,
+                invoiced=False,
+                invoice=None)
+            times_estimate = Time.objects.filter(estimate=estimate)
+            times = times_client | times_estimate
+            times = times.order_by('-date')
+        else:
+            times = None
+        context['active_nav'] = 'contract'
+        context['doc'] = doc
+        context['company'] = company
+        context['edit_url'] = 'contract_edit'
+        context['item'] = contract
+        context['pdf'] = pdf
+        context['times'] = times
     elif model._meta.verbose_name == 'estimate':
         company = company_model.get_solo()
         estimate = get_object_or_404(model, pk=pk)
@@ -664,7 +689,8 @@ def get_page_items(request,
         times_estimate = time_model.objects.filter(estimate=estimate)
         times = times_client | times_estimate
         times = times.order_by('-updated')
-        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(
+            times)
         context['active_nav'] = 'estimate'
         if company:
             context['company'] = company
@@ -682,14 +708,15 @@ def get_page_items(request,
     elif model._meta.verbose_name == 'invoice':
         company = company_model.get_solo()
         invoice = get_object_or_404(model, pk=pk)
-        document_id = str(invoice.document_id)
+        # document_id = str(invoice.document_id)
         document_type = invoice._meta.verbose_name
         document_type_upper = document_type.upper()
         document_type_title = document_type.title()
         times = get_times_for_invoice(invoice, time_model)
         last_payment_date = invoice.last_payment_date
         pdf = get_query(request, 'pdf')
-        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(
+            times)
         context['active_nav'] = 'invoice'
         if company:
             context['company'] = company
