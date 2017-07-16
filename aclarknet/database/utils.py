@@ -46,6 +46,7 @@ URL_NAMES = {
     'settings': ('settings', 'settings_edit', ''),
     'task': ('task', 'task_edit', 'task_index'),
     'time': ('time_entry', 'time_edit', 'time_index'),
+    'user': ('user', 'user_edit', 'user_index'),
 }
 
 
