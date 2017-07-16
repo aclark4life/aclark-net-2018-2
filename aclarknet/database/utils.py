@@ -655,14 +655,6 @@ def get_page_items(request,
         document_type_upper = document_type.upper()
         document_type_title = document_type.title()
         pdf = get_query(request, 'pdf')
-        context['active_nav'] = 'estimate'
-        if company:
-            context['company'] = company
-        context['document_type_upper'] = document_type_upper
-        context['document_type_title'] = document_type_title
-        context['edit_url'] = 'estimate_edit'
-        context['item'] = estimate
-        context['pdf'] = pdf
         times_client = time_model.objects.filter(
             client=estimate.client,
             estimate=None,
@@ -672,6 +664,20 @@ def get_page_items(request,
         times_estimate = time_model.objects.filter(estimate=estimate)
         times = times_client | times_estimate
         times = times.order_by('-updated')
+        context['active_nav'] = 'estimate'
+        if company:
+            context['company'] = company
+        context['document_type_upper'] = document_type_upper
+        context['document_type_title'] = document_type_title
+        context['edit_url'] = 'estimate_edit'
+        context['item'] = estimate
+        context['pdf'] = pdf
+        # Entries totals
+        context['entries'] = entries
+        context['subtotal'] = subtotal
+        context['paid_amount'] = paid_amount
+        context['hours'] = hours
+        context['amount'] = amount
     elif model._meta.verbose_name == 'invoice':
         company = company_model.get_solo()
         invoice = get_object_or_404(model, pk=pk)
@@ -682,6 +688,7 @@ def get_page_items(request,
         times = get_times_for_invoice(invoice, time_model)
         last_payment_date = invoice.last_payment_date
         pdf = get_query(request, 'pdf')
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
         context['active_nav'] = 'invoice'
         if company:
             context['company'] = company
@@ -692,12 +699,12 @@ def get_page_items(request,
         context['invoice'] = True
         context['last_payment_date'] = last_payment_date
         context['pdf'] = pdf
-    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
-    context['entries'] = entries
-    context['subtotal'] = subtotal
-    context['paid_amount'] = paid_amount
-    context['hours'] = hours
-    context['amount'] = amount
+        # Entries totals
+        context['entries'] = entries
+        context['subtotal'] = subtotal
+        context['paid_amount'] = paid_amount
+        context['hours'] = hours
+        context['amount'] = amount
     return context
 
 
