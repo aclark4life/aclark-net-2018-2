@@ -139,8 +139,8 @@ class Contract(models.Model):
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        if self.name:
-            return self.name
+        if self.title:
+            return self.title
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
