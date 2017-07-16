@@ -124,6 +124,7 @@ def client(request, pk=None):
     context['contacts'] = contacts
     context['contracts'] = contracts
     context['projects'] = projects
+    context['notes'] = client.note.all()
     return render(request, 'client.html', context)
 
 
