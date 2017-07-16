@@ -544,7 +544,7 @@ def get_times_for_invoice(invoice, time_model):
         invoiced=False, project=invoice.project, estimate=None, invoice=None)
     times_invoice = time_model.objects.filter(invoice=invoice)
     times = times_project | times_invoice
-    times = times.order_by('-date')
+    times = times.order_by('updated')
     return times
 
 
