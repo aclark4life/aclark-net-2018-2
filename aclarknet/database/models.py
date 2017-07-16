@@ -330,10 +330,7 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        if self.name:
-            return self.name
-        else:
-            return '-'.join([self._meta.verbose_name, str(self.pk)])
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Profile(models.Model):
