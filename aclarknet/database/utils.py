@@ -626,6 +626,7 @@ def get_page_items(request,
                    company_model=None,
                    contact_model=None,
                    contract_model=None,
+                   estimate_model=None,
                    invoice_model=None,
                    model=None,
                    note_model=None,
@@ -737,6 +738,35 @@ def get_page_items(request,
             context['paid_amount'] = paid_amount
             context['hours'] = hours
             context['amount'] = amount
+        elif model._meta.verbose_name == 'project':
+            company = company_model.get_solo()
+            project = get_object_or_404(model, pk=pk)
+            times = time_model.objects.filter(
+                project=project, invoiced=False,
+                estimate=None).order_by('-date')
+            estimates = estimate_model.objects.filter(
+                project=project, accepted_date=None)
+            invoices = invoice_model.objects.filter(
+                project=project, last_payment_date=None)
+            entries, subtotal, paid_amount, hours, amount = get_entries_total(
+                times)
+            context['active_nav'] = 'project'
+            if company:
+                context['company'] = company
+            context['edit_url'] = 'project_edit'  # Delete modal
+            context['icon_size'] = get_setting(request, app_settings_model,
+                                               'icon_size')
+            context['estimates'] = estimates
+            context['invoices'] = invoices
+            context['item'] = project
+            context['times'] = times
+            # Entries totals
+            context['entries'] = entries
+            context['subtotal'] = subtotal
+            context['paid_amount'] = paid_amount
+            context['hours'] = hours
+            context['amount'] = amount
+
     else:  # home
         invoices = invoice_model.objects.filter(
             last_payment_date=None).order_by('amount')

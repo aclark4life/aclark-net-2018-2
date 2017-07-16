@@ -614,26 +614,14 @@ def note_index(request, pk=None):
 
 @staff_member_required
 def project(request, pk=None):
-    context = {}
-    project = get_object_or_404(Project, pk=pk)
-    times = Time.objects.filter(
-        project=project, invoiced=False, estimate=None).order_by('-date')
-    estimates = Estimate.objects.filter(project=project, accepted_date=None)
-    invoices = Invoice.objects.filter(project=project, last_payment_date=None)
-    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
-    context['active_nav'] = 'project'
-    context['company'] = Company.get_solo()
-    context['edit_url'] = 'project_edit'  # Delete modal
-    context['icon_size'] = get_setting(request, AppSettings, 'icon_size')
-    context['estimates'] = estimates
-    context['invoices'] = invoices
-    context['item'] = project
-    context['times'] = times
-    context['entries'] = entries
-    context['subtotal'] = subtotal
-    context['paid_amount'] = paid_amount
-    context['hours'] = hours
-    context['amount'] = amount
+    context = get_page_items(
+        request,
+        app_settings_model=AppSettings,
+        model=Project,
+        estimate_model=Estimate,
+        invoice_model=Invoice,
+        time_model=Time,
+        pk=pk)
     return render(request, 'project.html', context)
 
 
