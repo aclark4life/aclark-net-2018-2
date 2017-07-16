@@ -253,7 +253,8 @@ def edit(
         time_model=None,
         pk=None, ):
     context = {}
-    company = company_model.get_solo()
+    if company_model:
+        company = company_model.get_solo()
     gross, net, invoices_active = dashboard_totals(invoice_model)
     obj = None
     if pk is None:
