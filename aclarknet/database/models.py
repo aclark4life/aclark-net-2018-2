@@ -191,6 +191,7 @@ class Estimate(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    subject = models.CharField(max_length=300, blank=True, null=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, null=True, default=timezone.now)
     client = models.ForeignKey(
@@ -198,7 +199,6 @@ class Estimate(models.Model):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    subject = models.CharField(max_length=300, blank=True, null=True)
     amount = models.DecimalField(
         "Estimate Amount",
         blank=True,
@@ -238,6 +238,7 @@ class Invoice(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    subject = models.CharField(max_length=300, blank=True, null=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, default=timezone.now, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
@@ -249,7 +250,6 @@ class Invoice(models.Model):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    subject = models.CharField(max_length=300, blank=True, null=True)
     amount = models.DecimalField(
         "Invoice Amount",
         blank=True,
