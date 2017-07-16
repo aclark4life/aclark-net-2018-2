@@ -176,6 +176,7 @@ def company(request):
     context['active_nav'] = 'dropdown'
     context['active_tab'] = 'company'
     context['company'] = company
+    context['notes'] = company.note.all()
     context['services'] = services
     return render(request, 'company.html', context)
 
