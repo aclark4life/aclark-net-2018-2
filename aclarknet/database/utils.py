@@ -643,6 +643,9 @@ def get_page_items(request,
                    pk=None,
                    time_model=None):
     context = {}
+    if company_model:
+        company = company_model.get_solo()
+        context['company'] = company
     if model:
         if model._meta.verbose_name == 'client':
             client = get_object_or_404(model, pk=pk)
@@ -662,7 +665,6 @@ def get_page_items(request,
             context['notes'] = client.note.all()
             context['projects'] = projects
         elif model._meta.verbose_name == 'contract':
-            company = company_model.get_solo()
             contract = get_object_or_404(model, pk=pk)
             doc = get_query(request, 'doc')
             estimate = contract.statement_of_work
@@ -681,13 +683,11 @@ def get_page_items(request,
                 times = None
             context['active_nav'] = 'contract'
             context['doc'] = doc
-            context['company'] = company
             context['edit_url'] = 'contract_edit'
             context['item'] = contract
             context['pdf'] = pdf
             context['times'] = times
         elif model._meta.verbose_name == 'estimate':
-            company = company_model.get_solo()
             estimate = get_object_or_404(model, pk=pk)
             document_type = estimate._meta.verbose_name
             document_type_upper = document_type.upper()
@@ -705,8 +705,6 @@ def get_page_items(request,
             entries, subtotal, paid_amount, hours, amount = get_entries_total(
                 times)
             context['active_nav'] = 'estimate'
-            if company:
-                context['company'] = company
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
             context['edit_url'] = 'estimate_edit'
@@ -719,7 +717,6 @@ def get_page_items(request,
             context['hours'] = hours
             context['amount'] = amount
         elif model._meta.verbose_name == 'invoice':
-            company = company_model.get_solo()
             invoice = get_object_or_404(model, pk=pk)
             # document_id = str(invoice.document_id)
             document_type = invoice._meta.verbose_name
@@ -731,8 +728,6 @@ def get_page_items(request,
             entries, subtotal, paid_amount, hours, amount = get_entries_total(
                 times)
             context['active_nav'] = 'invoice'
-            if company:
-                context['company'] = company
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
             context['edit_url'] = 'invoice_edit'  # Delete modal
@@ -747,7 +742,6 @@ def get_page_items(request,
             context['hours'] = hours
             context['amount'] = amount
         elif model._meta.verbose_name == 'project':
-            company = company_model.get_solo()
             project = get_object_or_404(model, pk=pk)
             times = time_model.objects.filter(
                 project=project, invoiced=False,
@@ -759,8 +753,6 @@ def get_page_items(request,
             entries, subtotal, paid_amount, hours, amount = get_entries_total(
                 times)
             context['active_nav'] = 'project'
-            if company:
-                context['company'] = company
             context['edit_url'] = 'project_edit'  # Delete modal
             context['icon_size'] = get_setting(request, app_settings_model,
                                                'icon_size')
