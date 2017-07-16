@@ -1,15 +1,12 @@
 from .utils import gravatar_url
 from django.conf import settings
-# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
 from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
-# from django.db import models
 from django.utils import timezone
 from faker import Faker
 from multiselectfield import MultiSelectField
 from uuid import uuid4
 from phonenumber_field.modelfields import PhoneNumberField
-# from relativedeltafield import RelativeDeltaField
 from solo.models import SingletonModel
 
 fake = Faker()
@@ -323,11 +320,11 @@ class Note(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=300, blank=True, null=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
-    priority = models.IntegerField(blank=True, null=True)
+    title = models.CharField(max_length=300, blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
+    priority = models.IntegerField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
     def __str__(self):
