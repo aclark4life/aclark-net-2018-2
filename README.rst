@@ -97,7 +97,7 @@ Letsencrypt
 Django
 ~~~~~~
 
-If memory < 1G, increase swap before installing. [1]_
+If memory < 1G, add the following to ``rc.local``. [1]_
 
 ::
 
