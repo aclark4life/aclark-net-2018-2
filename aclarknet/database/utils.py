@@ -678,18 +678,12 @@ def get_page_items(request,
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
+            context['entries'] = entries
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
             context['pdf'] = pdf
-            # Entries
-            context['entries'] = entries
-            # context['subtotal'] = subtotal
-            # context['paid_amount'] = paid_amount
-            # context['hours'] = hours
-            # context['amount'] = amount
         elif model._meta.verbose_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
-            # document_id = str(invoice.document_id)
             document_type = invoice._meta.verbose_name
             document_type_upper = document_type.upper()
             document_type_title = document_type.title()
@@ -701,16 +695,11 @@ def get_page_items(request,
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
             context['edit_url'] = 'invoice_edit'  # Delete modal
+            context['entries'] = entries
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
             context['pdf'] = pdf
-            # Entries
-            context['entries'] = entries
-            # context['subtotal'] = subtotal
-            # context['paid_amount'] = paid_amount
-            # context['hours'] = hours
-            # context['amount'] = amount
         elif model._meta.verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
             times = time_model.objects.filter(
@@ -723,19 +712,13 @@ def get_page_items(request,
             entries = get_entries(times)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
+            context['entries'] = entries
             context['icon_size'] = get_setting(request, app_settings_model,
                                                'icon_size')
             context['estimates'] = estimates
             context['invoices'] = invoices
             context['item'] = project
             context['times'] = times
-            # Entries
-            context['entries'] = entries
-            # context['subtotal'] = subtotal
-            # context['paid_amount'] = paid_amount
-            # context['hours'] = hours
-            # context['amount'] = amount
-
     else:  # home
         invoices = invoice_model.objects.filter(
             last_payment_date=None).order_by('amount')
