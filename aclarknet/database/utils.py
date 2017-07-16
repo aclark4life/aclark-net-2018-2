@@ -548,7 +548,7 @@ def gravatar_url(email):
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def index_items(request,
+def get_index_items(request,
                 model,
                 search_fields,
                 filters={},
@@ -618,6 +618,32 @@ def index_items(request,
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
+    return context
+
+
+def get_page_items(request,
+                model,
+                app_settings_model=None,
+                contact_model=None,
+                contract_model=None,
+                project_model=None,
+                pk=None):
+    context = {}
+    client = get_object_or_404(model, pk=pk)
+    contacts = contact_model.objects.filter(client=client)
+    contacts = contacts.order_by('-pk')
+    contracts = contract_model.objects.filter(client=client)
+    contracts = contracts.order_by('-updated')
+    projects = project_model.objects.filter(client=client)
+    projects = projects.order_by('-start_date')
+    context['active_nav'] = 'client'
+    context['edit_url'] = 'client_edit'
+    context['icon_size'] = get_setting(request, app_settings_model, 'icon_size')
+    context['item'] = client
+    context['contacts'] = contacts
+    context['contracts'] = contracts
+    context['projects'] = projects
+    context['notes'] = client.note.all()
     return context
 
 

@@ -40,7 +40,8 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
-from .utils import index_items
+from .utils import get_index_items
+from .utils import get_page_items
 from .utils import create_and_send_mail
 from .utils import dashboard_totals
 from .utils import edit
@@ -109,22 +110,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 @staff_member_required
 def client(request, pk=None):
-    context = {}
-    client = get_object_or_404(Client, pk=pk)
-    contacts = Contact.objects.filter(client=client)
-    contacts = contacts.order_by('-pk')
-    contracts = Contract.objects.filter(client=client)
-    contracts = contracts.order_by('-updated')
-    projects = Project.objects.filter(client=client)
-    projects = projects.order_by('-start_date')
-    context['active_nav'] = 'client'
-    context['edit_url'] = 'client_edit'
-    context['icon_size'] = get_setting(request, AppSettings, 'icon_size')
-    context['item'] = client
-    context['contacts'] = contacts
-    context['contracts'] = contracts
-    context['projects'] = projects
-    context['notes'] = client.note.all()
+    context = get_page_items(request, Client, pk=pk, app_settings_model=AppSettings, contact_model=Contact, contract_model=Contract, project_model=Project)
     return render(request, 'client.html', context)
 
 
@@ -145,7 +131,7 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     search_fields = ('address', 'name')
-    context = index_items(
+    context = get_index_items(
         request,
         Client,
         search_fields,
@@ -209,7 +195,7 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     search_fields = ('first_name', 'last_name', 'email', 'notes')
-    context = index_items(
+    context = get_index_items(
         request,
         Contact,
         search_fields,
@@ -325,7 +311,7 @@ def contract_index(request):
     """
     """
     search_fields = ()
-    context = index_items(
+    context = get_index_items(
         request,
         Contract,
         search_fields,
@@ -426,7 +412,7 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     search_fields = ('subject', )
-    context = index_items(
+    context = get_index_items(
         request,
         Estimate,
         search_fields,
@@ -537,7 +523,7 @@ def invoice_index(request):
         'issue_date',
         'project__name',
         'subject', )
-    context = index_items(
+    context = get_index_items(
         request,
         Invoice,
         search_fields,
@@ -572,7 +558,7 @@ def login(request):
 @staff_member_required
 def log_index(request):
     search_fields = ('entry', )
-    context = index_items(
+    context = get_index_items(
         request,
         Log,
         search_fields,
@@ -616,7 +602,7 @@ def newsletter_index(request, pk=None):
     """
     """
     search_fields = ('text', )
-    context = index_items(
+    context = get_index_items(
         request,
         Newsletter,
         search_fields,
@@ -701,7 +687,7 @@ def note_edit(request, pk=None):
 def note_index(request, pk=None):
     search_fields = ('note', )
     filters = {'hidden': False, }
-    context = index_items(
+    context = get_index_items(
         request,
         Note,
         search_fields,
@@ -756,7 +742,7 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     search_fields = ('id', 'name')
-    context = index_items(
+    context = get_index_items(
         request,
         Project,
         search_fields,
@@ -808,7 +794,7 @@ def proposal_edit(request, pk=None):
 @staff_member_required
 def proposal_index(request, pk=None):
     search_fields = ()
-    context = index_items(
+    context = get_index_items(
         request,
         Proposal,
         search_fields,
@@ -869,7 +855,7 @@ def report_index(request):
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
     search_fields = ('id', 'name', 'gross', 'net')
-    context = index_items(
+    context = get_index_items(
         request,
         Report,
         search_fields,
@@ -982,7 +968,7 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     search_fields = ('name', )
-    context = index_items(
+    context = get_index_items(
         request,
         Task,
         search_fields,
@@ -1033,7 +1019,7 @@ def time_edit(request, pk=None):
 def time_index(request):
     search_fields = ('client__name', 'date', 'log', 'pk', 'project__name',
                      'invoice__document_id', 'user__username')
-    context = index_items(
+    context = get_index_items(
         request,
         Time,
         search_fields,
@@ -1059,7 +1045,7 @@ def user(request, pk=None):
         'user': user,
     }
     search_fields = ()
-    context = index_items(
+    context = get_index_items(
         request,
         Time,
         search_fields,
@@ -1113,7 +1099,7 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     search_fields = ()
-    context = index_items(
+    context = get_index_items(
         request,
         User,
         search_fields,
