@@ -417,7 +417,7 @@ def home(request):
         last_payment_date=None).order_by('amount')
     notes = Note.objects.filter(active=True).order_by('-updated', 'note',
                                                       'due_date', 'priority')
-    projects = Project.objects.filter(active=True)
+    projects = Project.objects.filter(active=True).order_by('-updated')
     plot_items = Report.objects.filter(active=True)
     context['edit_url'] = 'project_edit'  # Delete modal
     context['company'] = company
