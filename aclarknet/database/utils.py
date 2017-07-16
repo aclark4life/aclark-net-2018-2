@@ -479,7 +479,7 @@ def get_search_results(model,
                        search_fields,
                        search,
                        active_nav='',
-                       app_settings=None,
+                       app_settings_model=None,
                        edit_url='',
                        order_by='-updated',
                        request=None):
