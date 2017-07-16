@@ -391,6 +391,7 @@ def home(request):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
+        invoice_model=Invoice,
         note_model=Note,
         project_model=Project,
         report_model=Report)
