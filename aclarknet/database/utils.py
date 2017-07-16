@@ -38,6 +38,7 @@ URL_NAMES = {
     'invoice': ('invoice', 'invoice_edit', 'invoice_index'),
     'newsletter': ('newsletter', 'newsletter_edit', 'newsletter_index'),
     'note': ('note', 'note_edit', 'note_index'),
+    'profile': ('user', 'user_edit', 'user_index'),
     'project': ('project', 'project_edit', 'project_index'),
     'proposal': ('proposal', 'proposal_edit', 'proposal_index'),
     'report': ('report', 'report_edit', 'report_index'),
@@ -45,7 +46,6 @@ URL_NAMES = {
     'settings': ('settings', 'settings_edit', ''),
     'task': ('task', 'task_edit', 'task_index'),
     'time': ('time_entry', 'time_edit', 'time_index'),
-    'user': ('user', 'user_edit', 'user_index'),
 }
 
 
