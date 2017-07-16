@@ -31,6 +31,7 @@
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
             <br>
+            {% if item.title %}<h2>{{ item.title }}</h2>{% endif %}
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
