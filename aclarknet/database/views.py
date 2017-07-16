@@ -1044,7 +1044,6 @@ def user_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='dropdown',
-        context=context,
         pk=pk)
 
 
