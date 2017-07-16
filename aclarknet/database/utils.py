@@ -428,54 +428,53 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return app_settings._meta.fields[6].get_default().split(', ')
 
 
-def get_entries_total(queryset):
+def get_entries(queryset):
     """
     Add estimate and invoice time entries, could be an aggregate
-    (https://docs.djangoproject.com/en/1.9/topics/db/aggregation/)
+    (https://docs.djangoproject.com/en/1.11/topics/db/aggregation/)
     """
     entries = OrderedDict()
-    total = 0
-    running_total_co = 0
-    running_total_dev = 0
-    running_total_hours = 0
     for entry in queryset:
         entries[entry] = {}
-        hours = entry.hours
-        if hours:
-            running_total_hours += hours
+        # hours = entry.hours
+        # if hours:
+        #     running_total_hours += hours
         entries[entry]['date'] = entry.date
-        entries[entry]['hours'] = hours
+        entries[entry]['hours'] = entry.hours
         entries[entry]['notes'] = entry.log
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
         entries[entry]['task'] = entry.task
-        line_total = 0
-        line_total_co = 0
-        line_total_dev = 0
-        line_total_client = 0
-        if entry.task:
-            rate = entry.task.rate
-            entries[entry]['rate'] = rate
-            if rate:
-                line_total_co = rate * hours
-            entries[entry]['line_total_co'] = line_total_co
-            running_total_co += line_total_co
-        if entry.user and entry.project:
-            if hasattr(entry.user, 'profile'):
-                if entry.user.profile.rate:
-                    line_total_dev = entry.user.profile.rate * hours
-                entries[entry]['line_total_dev'] = line_total_dev
-                running_total_dev += line_total_dev
-        if entry.project:
-            line_total = line_total_co - line_total_dev
-            line_total_client = line_total_co
-            entries[entry]['line_total_client'] = '%.2f' % line_total_client
-        else:
-            line_total = line_total_co
-        entries[entry]['line_total'] = '%.2f' % line_total
-    total = running_total_co - running_total_dev
-    return (entries, running_total_co, running_total_dev, running_total_hours,
-            total)
+        entries[entry]['line_total'] = '%.2f' % get_line_total(entries, entry)
+    return entries
+
+
+def get_line_total(entries, entry):
+    line_total = 0
+    line_total_co = 0
+    line_total_dev = 0
+    line_total_client = 0
+    if entry.task:
+        hours = entry.hours
+        rate = entry.task.rate
+        if rate:
+            line_total_co = rate * hours
+        entries[entry]['rate'] = rate
+        entries[entry]['line_total_co'] = line_total_co
+        # running_total_co += line_total_co
+    if entry.user and entry.project:
+        if hasattr(entry.user, 'profile'):
+            if entry.user.profile.rate:
+                line_total_dev = entry.user.profile.rate * hours
+            entries[entry]['line_total_dev'] = line_total_dev
+            # running_total_dev += line_total_dev
+    if entry.project:
+        line_total = line_total_co - line_total_dev
+        line_total_client = line_total_co
+        entries[entry]['line_total_client'] = '%.2f' % line_total_client
+    else:
+        line_total = line_total_co
+    return line_total
 
 
 def get_query(request, query):
@@ -701,20 +700,19 @@ def get_page_items(request,
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = times.order_by('-updated')
-            entries, subtotal, paid_amount, hours, amount = get_entries_total(
-                times)
+            entries = get_entries(times)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
             context['pdf'] = pdf
-            # Entries totals
+            # Entries
             context['entries'] = entries
-            context['subtotal'] = subtotal
-            context['paid_amount'] = paid_amount
-            context['hours'] = hours
-            context['amount'] = amount
+            # context['subtotal'] = subtotal
+            # context['paid_amount'] = paid_amount
+            # context['hours'] = hours
+            # context['amount'] = amount
         elif model._meta.verbose_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
             # document_id = str(invoice.document_id)
@@ -724,8 +722,7 @@ def get_page_items(request,
             times = get_times_for_invoice(invoice, time_model)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
-            entries, subtotal, paid_amount, hours, amount = get_entries_total(
-                times)
+            entries = get_entries(times)
             context['active_nav'] = 'invoice'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
@@ -734,12 +731,12 @@ def get_page_items(request,
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
             context['pdf'] = pdf
-            # Entries totals
+            # Entries
             context['entries'] = entries
-            context['subtotal'] = subtotal
-            context['paid_amount'] = paid_amount
-            context['hours'] = hours
-            context['amount'] = amount
+            # context['subtotal'] = subtotal
+            # context['paid_amount'] = paid_amount
+            # context['hours'] = hours
+            # context['amount'] = amount
         elif model._meta.verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
             times = time_model.objects.filter(
@@ -749,8 +746,7 @@ def get_page_items(request,
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
                 project=project, last_payment_date=None)
-            entries, subtotal, paid_amount, hours, amount = get_entries_total(
-                times)
+            entries = get_entries(times)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
             context['icon_size'] = get_setting(request, app_settings_model,
@@ -759,12 +755,12 @@ def get_page_items(request,
             context['invoices'] = invoices
             context['item'] = project
             context['times'] = times
-            # Entries totals
+            # Entries
             context['entries'] = entries
-            context['subtotal'] = subtotal
-            context['paid_amount'] = paid_amount
-            context['hours'] = hours
-            context['amount'] = amount
+            # context['subtotal'] = subtotal
+            # context['paid_amount'] = paid_amount
+            # context['hours'] = hours
+            # context['amount'] = amount
 
     else:  # home
         invoices = invoice_model.objects.filter(
@@ -881,11 +877,12 @@ def send_mail(request,
         return False
 
 
-def update_invoice_amount(obj,  # time
-                          request,
-                          estimate_model=None,
-                          invoice_model=None,
-                          project_model=None):
+def update_invoice_amount(
+        obj,  # time
+        request,
+        estimate_model=None,
+        invoice_model=None,
+        project_model=None):
     query_string_amount = request.GET.get('amount')
     query_string_invoices = request.GET.get('invoices')
     query_string_paid = request.GET.get('paid')
