@@ -664,6 +664,7 @@ def get_page_items(request,
         times_estimate = time_model.objects.filter(estimate=estimate)
         times = times_client | times_estimate
         times = times.order_by('-updated')
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
         context['active_nav'] = 'estimate'
         if company:
             context['company'] = company
