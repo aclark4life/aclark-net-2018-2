@@ -43,7 +43,6 @@ from .utils import add_user_to_contacts
 from .utils import get_index_items
 from .utils import get_page_items
 from .utils import create_and_send_mail
-from .utils import dashboard_totals
 from .utils import edit
 from .utils import generate_doc
 from .utils import get_client_city
@@ -578,8 +577,6 @@ def note(request, pk=None):
 # https://stackoverflow.com/a/42038839/185820
 @staff_member_required(login_url='login')
 def note_edit(request, pk=None):
-    company = Company.get_solo()
-    company_note = request.GET.get('company')
     template_name, url_name = get_template_and_url_names(
         'note', page_type='edit')
     return edit(
@@ -589,8 +586,7 @@ def note_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='note',
-        company_model=company,
-        company_note=company_note,
+        company_model=Company,
         pk=pk)
 
 
@@ -676,7 +672,6 @@ def proposal(request, pk=None):
 def proposal_edit(request, pk=None):
     """
     """
-    company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
         'proposal', page_type='edit')
     return edit(
@@ -686,7 +681,7 @@ def proposal_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='dropdown',
-        company=company,
+        company_model=Company,
         pk=pk)
 
 
@@ -730,7 +725,6 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_edit(request, pk=None):
-    gross, net, invoices_active = dashboard_totals(Invoice)
     template_name, url_name = get_template_and_url_names(
         'report', page_type='edit')
     return edit(
@@ -740,9 +734,7 @@ def report_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='dropdown',
-        gross=gross,
-        invoices_active=invoices_active,
-        net=net,
+        invoice_model=Invoice,
         pk=pk)
 
 
@@ -805,7 +797,6 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 # https://stackoverflow.com/a/42038839/185820
 @staff_member_required(login_url='login')
 def service_edit(request, pk=None):
-    company = Company.get_solo()
     template_name, url_name = get_template_and_url_names(
         'service', page_type='edit')
     return edit(
@@ -815,7 +806,7 @@ def service_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='dropdown',
-        company=company,
+        company_model=Company,
         pk=pk)
 
 
