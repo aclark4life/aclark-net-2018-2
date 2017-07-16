@@ -287,7 +287,6 @@ def edit(
                 update_invoice_amount(
                     obj,
                     request,
-                    time_model=time_model,
                     estimate_model=estimate_model,
                     invoice_model=invoice_model,
                     project_model=project_model)
@@ -882,12 +881,11 @@ def send_mail(request,
         return False
 
 
-def update_invoice_amount(obj,
+def update_invoice_amount(obj,  # time
                           request,
                           estimate_model=None,
                           invoice_model=None,
-                          project_model=None,
-                          time_model=None):
+                          project_model=None):
     query_string_amount = request.GET.get('amount')
     query_string_invoices = request.GET.get('invoices')
     query_string_paid = request.GET.get('paid')
@@ -904,4 +902,8 @@ def update_invoice_amount(obj,
             invoice = get_object_or_404(invoice_model, pk=invoice)
             obj.invoice = invoice
             obj.save()
+    if query_string_project:
+        project = get_object_or_404(project_model, pk=query_string_project)
+        obj.task = project.task
+        obj.save()
     return True
