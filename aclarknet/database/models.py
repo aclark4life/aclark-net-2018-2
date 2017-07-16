@@ -50,7 +50,10 @@ class Client(models.Model):
     note = models.ManyToManyField('Note', blank=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Company(SingletonModel):
@@ -69,7 +72,10 @@ class Company(SingletonModel):
     note = models.ManyToManyField('Note', blank=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
     class Meta:
         verbose_name = u'Company'
@@ -133,7 +139,10 @@ class Contract(models.Model):
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class ContractSettings(SingletonModel):
@@ -283,7 +292,10 @@ class Log(models.Model):
     entry = models.CharField(max_length=3000, blank=True, null=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Newsletter(models.Model):
@@ -300,7 +312,10 @@ class Newsletter(models.Model):
         limit_choices_to={'subscribed': True})
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Note(models.Model):
@@ -315,7 +330,10 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Profile(models.Model):
@@ -413,7 +431,10 @@ class Project(models.Model):
         limit_choices_to={'profile__active': True})
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Proposal(models.Model):
@@ -439,7 +460,10 @@ class Proposal(models.Model):
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Report(models.Model):
@@ -481,7 +505,10 @@ class Service(models.Model):
         null=True)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Settings(SingletonModel):
@@ -512,7 +539,10 @@ class Testimonial(models.Model):
         "Issue Date", blank=True, null=True, default=timezone.now)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Task(models.Model):
@@ -537,7 +567,10 @@ class Task(models.Model):
         decimal_places=2)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Time(models.Model):
@@ -593,7 +626,10 @@ class Time(models.Model):
         Invoice, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return '-'.join([self._meta.verbose_name, str(self.pk)])
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):
