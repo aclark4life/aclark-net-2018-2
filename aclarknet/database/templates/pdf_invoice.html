@@ -97,8 +97,8 @@
                 {% endif %}
                 <td valign="top" align="left" class="border-right" style="width: 100%">{{ entry.log|linebreaks|default:'' }}</td>
                 <td valign="top" align="right" class="border-right" style="width: 20%">{% if not pdf %}<a href="{% url 'time_entry' entry.pk %}">{{ entry.hours|default:'0' }}</a> <a href="{% url 'time_edit' entry.pk %}"><i class="fa fa-cog"></i></a>{% else %}{{ entry.hours|default:'0' }}{% endif %}</td>
-                <td valign="top" align="right" class="border-right" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.rate|default:'' }}</td>
-                <td valign="top" align="right" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'' }}{% endif %}</strong></td>
+                <td valign="top" align="right" class="border-right" style="width: 20%">{% if invoice %}{{ item.currency_symbol }}{% else %}{{ company.currency_symbol }}{% endif %}{{ entry.task.rate|default:'' }}</td>
+                <td valign="top" align="right" style="width: 20%"><strong>{% if invoice %}{{ item.currency_symbol }}{{ entry.line_total_client|default:'0' }}{% else %}{{ company.currency_symbol }}{{ entry.line_total|default:'0' }}{% endif %}</strong></td>
               </tr>
               {% endfor %}
               </tbody>

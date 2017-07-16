@@ -451,29 +451,29 @@ def get_entries(queryset):
 
 def get_line_total(entries, entry):
     line_total = 0
-    line_total_co = 0
-    line_total_dev = 0
-    line_total_client = 0
-    if entry.task:
-        hours = entry.hours
-        rate = entry.task.rate
-        if rate:
-            line_total_co = rate * hours
-        entries[entry]['rate'] = rate
-        entries[entry]['line_total_co'] = line_total_co
-        # running_total_co += line_total_co
-    if entry.user and entry.project:
-        if hasattr(entry.user, 'profile'):
-            if entry.user.profile.rate:
-                line_total_dev = entry.user.profile.rate * hours
-            entries[entry]['line_total_dev'] = line_total_dev
-            # running_total_dev += line_total_dev
-    if entry.project:
-        line_total = line_total_co - line_total_dev
-        line_total_client = line_total_co
-        entries[entry]['line_total_client'] = '%.2f' % line_total_client
-    else:
-        line_total = line_total_co
+#    line_total_co = 0
+#    line_total_dev = 0
+#    line_total_client = 0
+#    if entry.task:
+#        hours = entry.hours
+#        rate = entry.task.rate
+#        if rate:
+#            line_total_co = rate * hours
+#        entries[entry]['rate'] = rate
+#        entries[entry]['line_total_co'] = line_total_co
+#        # running_total_co += line_total_co
+#    if entry.user and entry.project:
+#        if hasattr(entry.user, 'profile'):
+#            if entry.user.profile.rate:
+#                line_total_dev = entry.user.profile.rate * hours
+#            entries[entry]['line_total_dev'] = line_total_dev
+#            # running_total_dev += line_total_dev
+#    if entry.project:
+#        line_total = line_total_co - line_total_dev
+#        line_total_client = line_total_co
+#        entries[entry]['line_total_client'] = '%.2f' % line_total_client
+#    else:
+#        line_total = line_total_co
     return line_total
 
 
