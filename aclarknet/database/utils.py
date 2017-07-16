@@ -624,27 +624,59 @@ def get_index_items(request,
 def get_page_items(request,
                    model,
                    app_settings_model=None,
+                   company_model=None,
                    contact_model=None,
                    contract_model=None,
                    project_model=None,
-                   pk=None):
+                   pk=None,
+                   time_model=None):
     context = {}
-    client = get_object_or_404(model, pk=pk)
-    contacts = contact_model.objects.filter(client=client)
-    contacts = contacts.order_by('-pk')
-    contracts = contract_model.objects.filter(client=client)
-    contracts = contracts.order_by('-updated')
-    projects = project_model.objects.filter(client=client)
-    projects = projects.order_by('-start_date')
-    context['active_nav'] = 'client'
-    context['edit_url'] = 'client_edit'
-    context['icon_size'] = get_setting(request, app_settings_model,
-                                       'icon_size')
-    context['item'] = client
-    context['contacts'] = contacts
-    context['contracts'] = contracts
-    context['projects'] = projects
-    context['notes'] = client.note.all()
+    if model._meta.verbose_name == 'client':
+        client = get_object_or_404(model, pk=pk)
+        contacts = contact_model.objects.filter(client=client)
+        contacts = contacts.order_by('-pk')
+        contracts = contract_model.objects.filter(client=client)
+        contracts = contracts.order_by('-updated')
+        projects = project_model.objects.filter(client=client)
+        projects = projects.order_by('-start_date')
+        context['active_nav'] = 'client'
+        context['edit_url'] = 'client_edit'
+        context['icon_size'] = get_setting(request, app_settings_model,
+                                           'icon_size')
+        context['item'] = client
+        context['contacts'] = contacts
+        context['contracts'] = contracts
+        context['projects'] = projects
+        context['notes'] = client.note.all()
+    elif model._meta.verbose_name == 'estimate':
+        company = company_model.get_solo()
+        if company:
+            context['company'] = company
+        estimate = get_object_or_404(model, pk=pk)
+        document_id = str(estimate.document_id)
+        document_type = estimate._meta.verbose_name
+        document_type_upper = document_type.upper()
+        document_type_title = document_type.title()
+        context['active_nav'] = 'estimate'
+        context['document_type_upper'] = document_type_upper
+        context['document_type_title'] = document_type_title
+        context['edit_url'] = 'estimate_edit'
+        context['item'] = estimate
+        times_client = time_model.objects.filter(
+            client=estimate.client,
+            estimate=None,
+            project=None,
+            invoiced=False,
+            invoice=None)
+        times_estimate = time_model.objects.filter(estimate=estimate)
+        times = times_client | times_estimate
+        times = times.order_by('-updated')
+        entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
+        context['entries'] = entries
+        context['amount'] = amount
+        context['paid_amount'] = paid_amount
+        context['subtotal'] = subtotal
+        context['hours'] = hours
     return context
 
 

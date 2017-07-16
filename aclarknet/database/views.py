@@ -113,10 +113,10 @@ def client(request, pk=None):
     context = get_page_items(
         request,
         Client,
-        pk=pk,
         app_settings_model=AppSettings,
         contact_model=Contact,
         contract_model=Contract,
+        pk=pk,
         project_model=Project)
     return render(request, 'client.html', context)
 
@@ -359,37 +359,14 @@ def contract_settings_edit(request, pk=None):
 
 @staff_member_required
 def estimate(request, pk=None):
-    context = {}
-    company = Company.get_solo()
-    if company:
-        context['company'] = company
     pdf = get_query(request, 'pdf')
+    context = get_page_items(
+        request,
+        Estimate,
+        company_model=Company,
+        pk=pk,
+        time_model=Time)
     context['pdf'] = pdf
-    estimate = get_object_or_404(Estimate, pk=pk)
-    document_id = str(estimate.document_id)
-    document_type = estimate._meta.verbose_name
-    document_type_upper = document_type.upper()
-    document_type_title = document_type.title()
-    context['active_nav'] = 'estimate'
-    context['document_type_upper'] = document_type_upper
-    context['document_type_title'] = document_type_title
-    context['edit_url'] = 'estimate_edit'
-    context['item'] = estimate
-    times_client = Time.objects.filter(
-        client=estimate.client,
-        estimate=None,
-        project=None,
-        invoiced=False,
-        invoice=None)
-    times_estimate = Time.objects.filter(estimate=estimate)
-    times = times_client | times_estimate
-    times = times.order_by('-updated')
-    entries, subtotal, paid_amount, hours, amount = get_entries_total(times)
-    context['entries'] = entries
-    context['amount'] = amount
-    context['paid_amount'] = paid_amount
-    context['subtotal'] = subtotal
-    context['hours'] = hours
     if pdf:
         company_name = get_company_name(company)
         response = HttpResponse(content_type='application/pdf')
