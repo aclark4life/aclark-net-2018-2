@@ -12,6 +12,7 @@
           <table data-toggle="table" data-classes="table table-no-bordered">
             <thead>
               <tr>
+                <th>#</th>
                 <th data-sort-name="hidden-note" data-sortable="true">Note</th>
                 <th data-field="hidden-note" data-sortable="true" data-visible="false">Hidden Note</th>
                 <th data-sort-name="hidden-due" data-sortable="true" data-visible="false">Due</th>
@@ -26,6 +27,7 @@
             <tbody>
             {% for item in items %}
               <tr>
+                <td>{{ forloop.counter }}</a></td>
                 <td>{{ item.note|safe }}</td>
                 <td>{{ item.note|striptags|truncatechars:8 }}</td>
                 <td>{{ item.due_date|date:'Y-m-d' }}</td>
