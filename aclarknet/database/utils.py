@@ -516,8 +516,8 @@ def gravatar_url(email):
 def get_amount(times, invoice=None):
     total = 0
     for entry in times:
-        amount = '%.2f' % (entry.task.rate * entry.hours)
-        entry.amount = amount
+        amount = entry.task.rate * entry.hours
+        entry.amount = '%.2f' % amount
         total += amount
     if invoice:
         invoice.amount = amount
