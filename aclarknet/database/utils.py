@@ -436,14 +436,6 @@ def get_entries(queryset):
     (https://docs.djangoproject.com/en/1.11/topics/db/aggregation/)
     """
     entries = OrderedDict()
-    for entry in queryset:
-        entries[entry] = {}
-        entries[entry]['date'] = entry.date
-        entries[entry]['hours'] = entry.hours
-        entries[entry]['log'] = entry.log
-        entries[entry]['pk'] = entry.pk
-        entries[entry]['user'] = entry.user
-        entries[entry]['task'] = entry.task
     return entries
 
 
