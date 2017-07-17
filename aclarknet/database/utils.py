@@ -595,6 +595,9 @@ def get_index_items(request,
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
+    # Provide number of active notes to note_index
+    if model._meta.verbose_name == 'note':
+        context['active_note_count'] = model.objects.len(active=True)
     return context
 
 
@@ -725,6 +728,7 @@ def get_page_items(request,
             active=True).order_by('-updated')
         plot_items = report_model.objects.filter(active=True)
         gross, net, invoices_active = dashboard_totals(invoice_model)
+        context['active_note_count'] = len(notes)
         context['city_data'] = get_client_city(request)
         context['dashboard_choices'] = get_setting(request, app_settings_model,
                                                    'dashboard_choices')
@@ -737,7 +741,6 @@ def get_page_items(request,
         context['nav_status'] = 'active'
         context['net'] = net
         context['notes'] = notes
-        context['num_notes'] = len(notes)
         context['plot_items'] = plot_items
         context['projects'] = projects
     return context
