@@ -430,14 +430,6 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return app_settings._meta.fields[6].get_default().split(', ')
 
 
-def get_entries(queryset):
-    """
-    Add estimate and invoice time entries, could be an aggregate
-    (https://docs.djangoproject.com/en/1.11/topics/db/aggregation/)
-    """
-    return queryset
-
-
 def get_line_total(entries, entry):
     line_total = 0
     return line_total
@@ -667,11 +659,10 @@ def get_page_items(request,
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = times.order_by('-updated')
-            entries = get_entries(times)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
-            context['entries'] = entries
+            context['entries'] = times
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
             context['pdf'] = pdf
@@ -683,12 +674,11 @@ def get_page_items(request,
             times = get_times_for_invoice(invoice, time_model)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
-            entries = get_entries(times)
             context['active_nav'] = 'invoice'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
             context['edit_url'] = 'invoice_edit'  # Delete modal
-            context['entries'] = entries
+            context['entries'] = times
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
@@ -702,10 +692,9 @@ def get_page_items(request,
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
                 project=project, last_payment_date=None)
-            entries = get_entries(times)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
-            context['entries'] = entries
+            context['entries'] = times
             context['icon_size'] = get_setting(request, app_settings_model,
                                                'icon_size')
             context['estimates'] = estimates
