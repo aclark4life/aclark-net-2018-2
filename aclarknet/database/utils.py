@@ -704,7 +704,7 @@ def get_page_items(request,
             project = get_object_or_404(model, pk=pk)
             times = time_model.objects.filter(
                 project=project, invoiced=False,
-                estimate=None).order_by('-date')
+                estimate=None).order_by('updated')
             times = get_amount(times)
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
