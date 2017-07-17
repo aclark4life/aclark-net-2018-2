@@ -578,7 +578,9 @@ class Time(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    date = models.DateField(default=timezone.now)
+    billable = models.BooleanField(default=True)
+    employee = models.BooleanField(default=True)
+    invoiced = models.BooleanField(default=False)
     client = models.ForeignKey(
         Client,
         blank=True,
@@ -589,13 +591,17 @@ class Time(models.Model):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    project_code = models.IntegerField(blank=True, null=True)
     task = models.ForeignKey(
         Task,
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    log = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    estimate = models.ForeignKey(
+        Estimate, blank=True, null=True, on_delete=models.SET_NULL)
+    invoice = models.ForeignKey(
+        Invoice, blank=True, null=True, on_delete=models.SET_NULL)
+    date = models.DateField(default=timezone.now)
     hours = models.DecimalField(
         "Hours",
         default=1.0,
@@ -603,23 +609,17 @@ class Time(models.Model):
         null=True,
         max_digits=12,
         decimal_places=2)
-    billable = models.BooleanField(default=True)
-    invoiced = models.BooleanField(default=False)
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
     department = models.CharField(max_length=300, blank=True, null=True)
-    employee = models.BooleanField(default=True)
     cost_rate = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     cost_amount = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     currency = models.CharField(max_length=300, blank=True, null=True)
     external_reference_url = models.URLField(blank=True, null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
-    estimate = models.ForeignKey(
-        Estimate, blank=True, null=True, on_delete=models.SET_NULL)
-    invoice = models.ForeignKey(
-        Invoice, blank=True, null=True, on_delete=models.SET_NULL)
+    project_code = models.IntegerField(blank=True, null=True)
+    log = models.TextField(blank=True, null=True)
 
     def __str__(self):
         if self.name:
