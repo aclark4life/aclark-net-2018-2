@@ -672,6 +672,8 @@ def get_page_items(request,
             document_type_upper = document_type.upper()
             document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
+            for entry in times:
+                entry.amount = entry.task.rate * entry.hours
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
