@@ -435,8 +435,7 @@ def get_entries(queryset):
     Add estimate and invoice time entries, could be an aggregate
     (https://docs.djangoproject.com/en/1.11/topics/db/aggregation/)
     """
-    entries = OrderedDict()
-    return entries
+    return queryset
 
 
 def get_line_total(entries, entry):
