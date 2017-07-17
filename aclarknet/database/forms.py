@@ -183,4 +183,4 @@ class TaskForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = '__all__'
+        fields = ('date', 'log')
