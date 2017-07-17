@@ -513,9 +513,15 @@ def gravatar_url(email):
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def get_amount(times):
+def get_amount(times, invoice=None):
+    total = 0
     for entry in times:
-        entry.amount = '%.2f' % (entry.task.rate * entry.hours)
+        amount = '%.2f' % (entry.task.rate * entry.hours)
+        entry.amount = amount
+        total += amount
+    if invoice:
+        invoice.amount = amount
+        invoice.save()
     return times
 
 
@@ -679,7 +685,7 @@ def get_page_items(request,
             document_type_upper = document_type.upper()
             document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
-            times = get_amount(times)
+            times = get_amount(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
