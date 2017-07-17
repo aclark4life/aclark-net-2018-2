@@ -437,14 +437,18 @@ def get_entries(queryset):
     """
     entries = OrderedDict()
     for entry in queryset:
+        line_total = get_line_total(entries, entry)
+        rate = entry.task.rate
+        amount = line_total * rate
         entries[entry] = {}
+        entries[entry]['amount'] = amount
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = entry.hours
+        entries[entry]['line_total'] = '%.2f' % line_total
         entries[entry]['log'] = entry.log
         entries[entry]['pk'] = entry.pk
         entries[entry]['user'] = entry.user
         entries[entry]['task'] = entry.task
-        entries[entry]['line_total'] = '%.2f' % get_line_total(entries, entry)
     return entries
 
 
