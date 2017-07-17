@@ -515,7 +515,7 @@ def gravatar_url(email):
 
 def get_amount(times):
     for entry in times:
-        entry.amount = '%.2f' % entry.task.rate * entry.hours
+        entry.amount = '%.2f' % (entry.task.rate * entry.hours)
     return times
 
 
