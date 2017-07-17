@@ -513,6 +513,12 @@ def gravatar_url(email):
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
+def get_amount(times):
+    for entry in times:
+        entry.amount = entry.task.rate * entry.hours
+    return times
+
+
 def get_index_items(request,
                     model,
                     search_fields,
@@ -659,6 +665,7 @@ def get_page_items(request,
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = times.order_by('-updated')
+            times = get_amount(times)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
@@ -672,8 +679,7 @@ def get_page_items(request,
             document_type_upper = document_type.upper()
             document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
-            for entry in times:
-                entry.amount = entry.task.rate * entry.hours
+            times = get_amount(times)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
@@ -690,6 +696,7 @@ def get_page_items(request,
             times = time_model.objects.filter(
                 project=project, invoiced=False,
                 estimate=None).order_by('-date')
+            times = get_amount(times)
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
