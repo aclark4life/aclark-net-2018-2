@@ -439,7 +439,7 @@ def get_entries(queryset):
     for entry in queryset:
         line_total = get_line_total(entries, entry)
         entries[entry] = {}
-        entries[entry]['amount'] = 4
+        entries[entry]['amount'] = float(line_total) * float(entry.task.rate)
         entries[entry]['date'] = entry.date
         entries[entry]['hours'] = entry.hours
         entries[entry]['line_total'] = '%.2f' % line_total
