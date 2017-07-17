@@ -242,3 +242,31 @@ Features
 
 - Time entry and invoice generation
 - Activate and deactive objects
+
+
+WhiteNoise
+----------
+
+(Via http://whitenoise.evans.io/en/stable/)
+
+::
+
+    MIDDLEWARE_CLASSES = [
+      # 'django.middleware.security.SecurityMiddleware',
+      'whitenoise.middleware.WhiteNoiseMiddleware',
+      # ...
+    ]
+
+
+::
+
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+::
+    from whitenoise import WhiteNoise
+
+    from my_project import MyWSGIApp
+
+    application = MyWSGIApp()
+    application = WhiteNoise(application, root='/path/to/static/files')
+    application.add_files('/path/to/more/static/files', prefix='more-files/')
