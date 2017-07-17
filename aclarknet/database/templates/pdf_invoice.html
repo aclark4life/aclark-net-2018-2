@@ -87,7 +87,7 @@
                 </tr>
               </thead>
               <tbody>
-              {% for entry in entries.values %}
+              {% for entry in entries %}
               <tr class="border-bottom">
                 <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>
                 <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.task|default:'' }}</td>
