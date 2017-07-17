@@ -520,7 +520,7 @@ def get_amount(times, invoice=None):
         entry.amount = '%.2f' % amount
         total += amount
     if invoice:
-        invoice.amount = amount
+        invoice.subtotal = amount
         invoice.save()
     return times
 
