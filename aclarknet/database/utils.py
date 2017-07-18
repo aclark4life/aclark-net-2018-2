@@ -428,13 +428,6 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return user_pref
         else:
             return app_settings.dashboard_choices
-    if setting == 'dashboard_order':
-        if app_settings.dashboard_order:
-            return app_settings.dashboard_order
-        else:
-            # XXX How to get default field value without knowing index?
-            # Also don't like splitting on comma space.
-            return app_settings._meta.fields[6].get_default().split(', ')
 
 
 def get_line_total(entries, entry):
@@ -727,8 +720,6 @@ def get_page_items(request,
         context['city_data'] = get_client_city(request)
         context['dashboard_choices'] = get_setting(request, app_settings_model,
                                                    'dashboard_choices')
-        context['dashboard_order'] = get_setting(request, app_settings_model,
-                                                 'dashboard_order')
         context['gross'] = gross
         context['invoices'] = invoices
         context['icon_size'] = get_setting(request, app_settings_model,
