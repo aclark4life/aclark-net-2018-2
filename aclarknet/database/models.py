@@ -27,7 +27,7 @@ DASHBOARD_CHOICES = (
 
 EDITOR_CHOICES = (
     ('ckeditor', 'CKEditor'),
-    ('tinymce', 'tinymce'),
+    ('tinymce', 'TinyMCE'),
 )
 
 # Create your models here.
