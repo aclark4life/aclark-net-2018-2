@@ -63,30 +63,14 @@
                     <th>Client</th>
                     {% if item.client %} <td><a href="{% url 'client' item.client.pk %}">{{ item.client }}</a></td> {% else %} <td>{{ item.client|default:'' }}</td> {% endif %}
                   </tr>
+                  <tr>
+                    <th>Address</th>
+                    <td>{{ item.address|linebreaks|default:'' }}</td>
+                  </tr>
+                  <tr>
+                    <th>Notes</th>
+                    <td>{{ item.notes|linebreaks|default:'' }}</td
+                  </tr>
                 </tbody>
-              </table>
-              <div class="row">
-                <div class="col-md-6">
-                  {% if item.address %}
-                  <table data-toggle="table" data-classes="table table-no-bordered">
-                    <thead>
-                      <tr>
-                        <th>Address</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{{ item.address|linebreaks|default:'' }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  {% endif %}
-                </div>
-                <div class="col-md-6">
-                  {% if item.notes %}
-                  <h3>Notes</h3>
-                  <div class="note">{{ item.notes|linebreaks|default:'' }}</div>
-                  {% endif %}
-                </div>
               </div>
 {% endblock %}
