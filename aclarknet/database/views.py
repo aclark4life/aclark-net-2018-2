@@ -142,6 +142,7 @@ def client_index(request):
         active_nav='client',
         app_settings_model=AppSettings,
         edit_url='client_edit',  # Delete modal
+        order_by=('-active', '-updated'),
         show_search=True)
     return render(request, 'client_index.html', context)
 
@@ -205,6 +206,7 @@ def contact_index(request):
         active_nav='contact',
         app_settings_model=AppSettings,
         edit_url='contact_edit',  # Delete modal
+        order_by=('-active', '-updated'),
         show_search=True)
     return render(request, 'contact_index.html', context)
 
@@ -296,6 +298,7 @@ def contract_index(request):
         Contract,
         search_fields,
         active_nav='contract',
+        order_by=('-updated', ),
         app_settings_model=AppSettings)
     return render(request, 'contract_index.html', context)
 
@@ -368,6 +371,7 @@ def estimate_index(request):
         active_nav='estimate',
         app_settings_model=AppSettings,
         edit_url='estimate_edit',  # Delete modal
+        order_by=('-updated', ),
         show_search=True)
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -469,6 +473,7 @@ def log_index(request):
         Log,
         search_fields,
         active_nav='dropdown',
+        order_by=('-updated', ),
         app_settings_model=AppSettings)
     return render(request, 'log_index.html', context)
 
@@ -512,6 +517,7 @@ def newsletter_index(request, pk=None):
         Newsletter,
         search_fields,
         active_nav='dropdown',
+        order_by=('-updated', ),
         app_settings_model=AppSettings)
     return render(request, 'newsletter_index.html', context)
 
@@ -639,6 +645,7 @@ def project_index(request, pk=None):
         active_nav='project',
         app_settings_model=AppSettings,
         edit_url='project_edit',  # Delete modal
+        order_by=('-updated', ),
         show_search=True)
     return render(request, 'project_index.html', context)
 
@@ -686,6 +693,7 @@ def proposal_index(request, pk=None):
         search_fields,
         active_nav='dropdown',
         app_settings_model=AppSettings,
+        order_by=('-updated', ),
         show_search=True)
     context['edit_url'] = 'proposal_edit'  # Delete modal
     return render(request, 'proposal_index.html', context)
@@ -745,6 +753,7 @@ def report_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         edit_url='report_edit',  # Delete modal
+        order_by=('-updated', ),
         show_search=True)
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
@@ -857,6 +866,7 @@ def task_index(request):
         active_nav='task',
         app_settings_model=AppSettings,
         edit_url='task_edit',  # Delete modal
+        order_by=('-updated', ),
         show_search=True)
     return render(request, 'task_index.html', context)
 
@@ -907,7 +917,7 @@ def time_index(request):
         active_nav='time',
         app_settings_model=AppSettings,
         edit_url='time_edit',  # Delete modal
-        # page_size=3,
+        order_by=('-updated', ),
         show_search=True)
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('login'))
@@ -982,6 +992,7 @@ def user_index(request):
         search_fields,
         active_nav='dropdown',
         app_settings_model=AppSettings,
+        order_by=('-updated', ),
         show_search=False)
     context['company'] = company
     # Check if user is contact
