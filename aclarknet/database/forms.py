@@ -191,14 +191,14 @@ class TimeForm(forms.ModelForm):
         model = Time
         fields = ('date', 'hours', 'client', 'project', 'task', 'log')
 
-    def __init__(self, *args, **kwargs):
-        super(TimeForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            TabHolder(
-                Tab('First Tab',
-                    'date',
-                    Div('ddiv_id_date')
-                ),
-            )
-        )
+#    def __init__(self, *args, **kwargs):
+#        super(TimeForm, self).__init__(*args, **kwargs)
+#        self.helper = FormHelper()
+#        self.helper.layout = Layout(
+#            TabHolder(
+#                Tab('First Tab',
+#                    'date',
+#                    Div('ddiv_id_date')
+#                ),
+#            )
+#        )
