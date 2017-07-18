@@ -12,7 +12,7 @@ from .models import Project
 from .models import Proposal
 from .models import Report
 from .models import Service
-from .models import Settings
+from .models import AppSettings
 from .models import Task
 from .models import Time
 from crispy_forms.bootstrap import Tab
@@ -174,9 +174,9 @@ class ServiceForm(forms.ModelForm):
         }
 
 
-class SettingsForm(forms.ModelForm):
+class AppSettingsForm(forms.ModelForm):
     class Meta:
-        model = Settings
+        model = AppSettings
         fields = '__all__'
 
 

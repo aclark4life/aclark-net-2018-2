@@ -507,7 +507,7 @@ class Service(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Settings(SingletonModel):
+class AppSettings(SingletonModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -518,6 +518,7 @@ class Settings(SingletonModel):
         choices=DASHBOARD_CHOICES, null=True, blank=True)
     dashboard_order = models.CharField(
         max_length=255, blank=True, null=True, default=DASHBOARD_ORDER)
+    auto_hide_notes = models.BooleanField(default=True)
 
 
 class Testimonial(models.Model):

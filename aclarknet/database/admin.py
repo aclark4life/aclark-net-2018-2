@@ -1,3 +1,4 @@
+from .models import AppSettings
 from .models import Client
 from .models import Contact
 from .models import Contract
@@ -13,7 +14,6 @@ from .models import Project
 from .models import Proposal
 from .models import Report
 from .models import Service
-from .models import Settings
 from .models import Task
 from .models import Testimonial
 from .models import Time
@@ -290,8 +290,8 @@ class ServiceAdmin(ImportExportModelAdmin):
     """
 
 
-@admin.register(Settings)
-class SettingsAdmin(SingletonModelAdmin):
+@admin.register(AppSettings)
+class AppSettingsAdmin(SingletonModelAdmin):
     """
     """
 
