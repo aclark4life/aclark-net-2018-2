@@ -687,7 +687,7 @@ def get_page_items(request,
             document_type_upper = document_type.upper()
             document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
-            times = times.order_by(*order_by)
+            times = times.order_by(*order_by['time'])
             times = get_amount(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
@@ -705,6 +705,7 @@ def get_page_items(request,
             times = time_model.objects.filter(
                 project=project, invoiced=False, estimate=None)
             times = get_amount(times)
+            times = times.order_by(*order_by['time'])
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(

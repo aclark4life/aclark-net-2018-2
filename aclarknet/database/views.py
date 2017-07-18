@@ -402,7 +402,7 @@ def invoice(request, pk=None):
         request,
         company_model=Company,
         model=Invoice,
-        order_by=('date', ),  # For time entries
+        order_by={'time': ('date', )},  # For time entries
         pk=pk,
         time_model=Time)
     if context['pdf']:
@@ -621,6 +621,7 @@ def project(request, pk=None):
         model=Project,
         estimate_model=Estimate,
         invoice_model=Invoice,
+        order_by={'time': ('date', )},  # For time entries
         time_model=Time,
         pk=pk)
     return render(request, 'project.html', context)
