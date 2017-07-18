@@ -263,6 +263,7 @@ WhiteNoise
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ::
+
     from whitenoise import WhiteNoise
 
     from my_project import MyWSGIApp
