@@ -586,6 +586,7 @@ def note_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='note',
+        app_settings_model=AppSettings,
         client_model=Client,
         company_model=Company,
         pk=pk)

@@ -111,12 +111,17 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def check_boxes(obj, checkbox, checkbox_subscribed, refer):
-    if checkbox == 'on' or checkbox == 'off':
-        if checkbox == 'on':
+def check_boxes(obj, checkbox_active, checkbox_subscribed, refer,
+                app_settings_model):
+    if checkbox_active == 'on' or checkbox_active == 'off':
+        if checkbox_active == 'on':
             obj.active = True
         else:
             obj.active = False
+        if obj._meta.verbose_name == 'note' and app_settings_model:  # Special case for note
+            app_settings = app_settings_model.get_solo()
+            if app_settings.auto_hide_notes:
+                obj.hidden = True
         obj.save()
         return HttpResponseRedirect(refer)
     if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
@@ -245,6 +250,7 @@ def edit(
         url_name,
         template_name,
         active_nav=None,
+        app_settings_model=None,
         client_model=None,
         company_model=None,
         company_note=None,
@@ -266,7 +272,7 @@ def edit(
         if pk is None:
             form = form_model(request.POST)
         else:
-            checkbox = request.POST.get('checkbox')
+            checkbox_active = request.POST.get('checkbox')
             checkbox_subscribed = request.POST.get('checkbox-subscribed')
             copy = request.POST.get('copy')
             delete = request.POST.get('delete')
@@ -278,10 +284,11 @@ def edit(
                 # return obj_delete(obj, company, request=request)
                 return obj_delete(obj)
             # Check boxes
-            if (checkbox == 'on' or checkbox == 'off' or
+            if (checkbox_active == 'on' or checkbox_active == 'off' or
                     checkbox_subscribed == 'on' or
                     checkbox_subscribed == 'off'):
-                return check_boxes(obj, checkbox, checkbox_subscribed, refer)
+                return check_boxes(obj, checkbox_active, checkbox_subscribed,
+                                   refer, app_settings_model)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
