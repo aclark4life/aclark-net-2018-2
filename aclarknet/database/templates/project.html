@@ -80,6 +80,7 @@
               <table data-toggle="table" data-classes="table table-no-bordered">
                 <thead>
                   <tr>
+                    <th data-sortable="true">#</th>
                     <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                     <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                     <th data-field="hours" data-sortable="true">Hours</th>
@@ -91,6 +92,7 @@
                 <tbody>
                 {% for entry in times %}
                 <tr>
+                  <td>{{ forloop.counter }}</td>
                   <td><a href="{% url 'time_entry' entry.pk %}">{{ entry.date|date:'Y-m-d'|default:'' }}</a></td>
                   <td>{{ entry.date|date:'U' }}</td>
                   <td>{{ entry.hours|default:'' }}</td>
