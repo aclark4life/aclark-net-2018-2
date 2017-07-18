@@ -399,7 +399,7 @@ def home(request):
 @staff_member_required
 def invoice(request, pk=None):
     context = get_page_items(
-        request, company_model=Company, model=Invoice, pk=pk, time_model=Time)
+        request, company_model=Company, model=Invoice, order_by=('-date', ), pk=pk, time_model=Time)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join(['invoice', pk])
