@@ -57,8 +57,7 @@ class ContactForm(forms.ModelForm):
             'fax',
             'address',
             'client',
-            'notes',
-        )
+            'notes', )
 
 
 class ContractForm(forms.ModelForm):
