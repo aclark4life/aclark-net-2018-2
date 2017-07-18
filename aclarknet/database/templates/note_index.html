@@ -2,7 +2,7 @@
 {% block content %}
           <div class="row">
             <div class="col-md-9">
-              <h1>Notes ({{ active_note_count }} active)</h1>
+              <h1>Notes {% if not 'search' in request.POST %}({{ active_note_count }} active){% endif %}</h1>
             </div>
             <div class="col-md-3">
               <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a></div>
