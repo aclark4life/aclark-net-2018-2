@@ -670,9 +670,8 @@ def get_page_items(request,
                 project=None,
                 invoiced=False,
                 invoice=None)
-            times_estimate = time_model.objects.filter(estimate=estimate)
+            times_estimate = time_model.objects.filter(estimate=estimate).order_by('date')
             times = times_client | times_estimate
-            times = times.order_by('date')
             times = get_amount(times)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
