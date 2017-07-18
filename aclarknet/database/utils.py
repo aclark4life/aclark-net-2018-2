@@ -788,7 +788,7 @@ def obj_edit(obj, pk=None):
     if pk:  # Existing
         if verbose_name == 'Company':  # Special case for company
             return HttpResponseRedirect(reverse(url_name))
-        if verbose_name == 'settings':  # Special case for settings
+        if verbose_name == 'app settings':  # Special case for settings
             return HttpResponseRedirect(reverse(url_name))
         kwargs['pk'] = pk
     else:  # New
