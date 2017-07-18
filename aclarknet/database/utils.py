@@ -570,7 +570,10 @@ def get_index_items(request,
         items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
     if order_by is not None:
-        items = items.order_by(*order_by)
+        if len(order_by) > 1:
+            items = items.order_by(*order_by)
+        else:
+            items = items.order_by(order_by)
     # Calculate total hours
     if model._meta.verbose_name == 'time':
         total_hours = items.aggregate(hours=Sum(F('hours')))
