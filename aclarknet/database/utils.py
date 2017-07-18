@@ -535,10 +535,11 @@ def get_amount(times, invoice=None):
 def get_index_items(request,
                     model,
                     search_fields,
-                    filters={},
+                    filters=None,
                     app_settings_model=None,
-                    active_nav='',
-                    edit_url='',
+                    active_nav=None,
+                    edit_url=None,
+                    order_by=None,
                     page_size=None,
                     show_search=False):
     """
@@ -568,7 +569,8 @@ def get_index_items(request,
     else:
         items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
-    # XXX
+    if order_by is not None:
+        items.order_by(order_by)
     # Calculate total hours
     if model._meta.verbose_name == 'time':
         total_hours = items.aggregate(hours=Sum(F('hours')))

@@ -595,6 +595,7 @@ def note_index(request, pk=None):
         active_nav='note',
         app_settings_model=AppSettings,
         filters=filters,
+        order_by='-updated',
         show_search=True)
     context['edit_url'] = 'note_edit'  # Delete modal
     return render(request, 'note_index.html', context)
