@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/pell/dist/pell.min.css">
+{% endblock %}
 {% block content %}
               <h1>Note</h1>
               <form action="" method="post">{% csrf_token %}
