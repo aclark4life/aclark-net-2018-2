@@ -19,8 +19,6 @@ DASHBOARD_CHOICES = (
     ('projects', 'Projects'),
     ('totals', 'Totals'), )
 
-DASHBOARD_ORDER = 'data, invoices, notes, projects, totals'
-
 COLOR_CHOICES = (
     ('success', 'Success'),
     ('info', 'Info'),
@@ -516,8 +514,6 @@ class AppSettings(SingletonModel):
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         choices=DASHBOARD_CHOICES, null=True, blank=True)
-    dashboard_order = models.CharField(
-        max_length=255, blank=True, null=True, default=DASHBOARD_ORDER)
     auto_hide_notes = models.BooleanField(default=True)
 
 
