@@ -616,7 +616,7 @@ def get_page_items(request,
                    note_model=None,
                    project_model=None,
                    report_model=None,
-                   order_by='-updated',
+                   order_by=('-updated',),
                    pk=None,
                    time_model=None):
     context = {}
