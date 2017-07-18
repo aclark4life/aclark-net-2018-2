@@ -621,7 +621,7 @@ def project(request, pk=None):
         model=Project,
         estimate_model=Estimate,
         invoice_model=Invoice,
-        order_by={'time': ('date', )},  # For time entries
+        order_by={'time': ('-updated', )},  # For time entries
         time_model=Time,
         pk=pk)
     return render(request, 'project.html', context)
