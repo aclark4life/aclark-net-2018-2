@@ -6,8 +6,8 @@
               <h2>
                 {% if not 'search' in request.POST %}
                     (
-                    {{ active_note_count }} active{% endif %},
-                    {{ hidden_note_count }} hidden{% endif %},
+                    {{ active_note_count }} active,
+                    {{ hidden_note_count }} hidden,
                     {{ total_note_count }} total.
                     )
                 {% endif %}
