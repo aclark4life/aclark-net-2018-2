@@ -11,7 +11,7 @@
 
           // <boolean>, optional, default = false
           // Outputs <span style="font-weight: bold;"></span> instead of <b></b>
-          styleWithCSS: false,
+          // styleWithCSS: false,
 
           // <Array[string | Object]>, string if overwriting, object if customizing/creating
           // action.name<string> (only required if overwriting)
@@ -19,24 +19,24 @@
           // action.title<string> (optional)
           // action.result<Function> (required)
           // Specify the actions you specifically want (in order)
-          actions: [
-            'bold',
-            {
-              name: 'custom',
-              icon: 'C',
-              title: 'Custom Action',
-              result: () => console.log('YOLO')
-            },
-            'underline'
-          ],
+          // actions: [
+          //   'bold',
+          //   {
+          //     name: 'custom',
+          //     icon: 'C',
+          //     title: 'Custom Action',
+          //     result: () => console.log('YOLO')
+          //   },
+          //   'underline'
+          // ],
 
           // classes<Array[string]> (optional)
           // Choose your custom class names
-          classes: {
-            actionbar: 'pell-actionbar',
-            button: 'pell-button',
-            content: 'pell-content'
-          }
+          // classes: {
+          //   actionbar: 'pell-actionbar',
+          //   button: 'pell-button',
+          //   content: 'pell-content'
+          // }
         })
 
         // Execute a document command, see reference:
