@@ -7,15 +7,6 @@
               <input class="btn btn-lg btn-success" type="submit" value="Save">
               <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
               </form>
-
-<div id="pell"></div>
-<div>
-  Text output:
-  <div id="text-output"></div>
-  HTML output:
-  <pre id="html-output"></pre>
-</div>
-
 {% endblock %}
 {% block js %}
 {% include 'tinymce.html' %}
