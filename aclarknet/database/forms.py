@@ -131,7 +131,7 @@ class NoteForm(forms.ModelForm):
         model = Note
         fields = '__all__'
         widgets = {
-            'note': forms.widgets.TextInput(attrs={'id': 'pell-editor'}),
+            'note': forms.widgets.TextInput(attrs={'id': 'tinymce'}),
         }
 
 
