@@ -1,3 +1,4 @@
+from .forms import AppSettingsForm
 from .forms import ClientForm
 from .forms import CompanyForm
 from .forms import ContactForm
@@ -12,10 +13,10 @@ from .forms import ProfileForm
 from .forms import ProjectForm
 from .forms import ProposalForm
 from .forms import ReportForm
-from .forms import AppSettingsForm as AppSettingsForm
 from .forms import ServiceForm
 from .forms import TaskForm
 from .forms import TimeForm
+from .models import AppSettings
 from .models import Client
 from .models import Company
 from .models import Contact
@@ -31,7 +32,6 @@ from .models import Project
 from .models import Proposal
 from .models import Report
 from .models import Service
-from .models import AppSettings
 from .models import Testimonial
 from .models import Task
 from .models import Time
