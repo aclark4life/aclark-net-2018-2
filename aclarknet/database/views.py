@@ -436,7 +436,7 @@ def invoice_index(request):
         active_nav='invoice',
         app_settings_model=AppSettings,
         edit_url='invoice_edit',  # Delete modal
-        order_by=('-active', '-updated'),
+        order_by=('-updated', ),
         show_search=True)
     return render(request, 'invoice_index.html', context)
 
