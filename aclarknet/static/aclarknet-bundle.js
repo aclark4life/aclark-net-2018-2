@@ -9751,7 +9751,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bar__ = __webpack_require__(82);
 
 
-__WEBPACK_IMPORTED_MODULE_0__bar__["a" /* default */]();
+Object(__WEBPACK_IMPORTED_MODULE_0__bar__["a" /* default */])();
 
 var React = __webpack_require__(83);
 var ReactDOM = __webpack_require__(99);
