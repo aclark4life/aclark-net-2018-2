@@ -62,11 +62,11 @@
                   </tr>
                 </tbody>
               </table>
-              {% if item.notes %}
+              {% if item.log %}
               <div class="card note">
                 <div class="card-block">
                   <h2 class="card-title">Notes</h2>
-                  <p class="card-text">{{ item.notes|default:'' }}</p>
+                  <p class="card-text">{{ item.log|default:'' }}</p>
                 </div>
               </div>
               {% endif %}
