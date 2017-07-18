@@ -840,7 +840,7 @@ def set_relationship(
         invoice_model=None,
         project_model=None):
     if obj._meta.verbose_name == 'time':
-        query_string_invoices = get_query(request, 'invoices')
+        query_string_invoices = get_query(request, 'invoice')
         query_string_project = get_query(request, 'project')
         if query_string_invoices:
             invoices = query_string_invoices.split(',')
