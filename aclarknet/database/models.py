@@ -12,6 +12,12 @@ from solo.models import SingletonModel
 fake = Faker()
 
 # https://github.com/goinnn/django-multiselectfield
+COLOR_CHOICES = (
+    ('success', 'Success'),
+    ('info', 'Info'),
+    ('warning', 'Warning'),
+    ('danger', 'Danger'), )
+
 DASHBOARD_CHOICES = (
     ('data', 'Data'),
     ('invoices', 'Invoices'),
@@ -19,11 +25,10 @@ DASHBOARD_CHOICES = (
     ('projects', 'Projects'),
     ('totals', 'Totals'), )
 
-COLOR_CHOICES = (
-    ('success', 'Success'),
-    ('info', 'Info'),
-    ('warning', 'Warning'),
-    ('danger', 'Danger'), )
+EDITOR_CHOICES = (
+    ('ckeditor', 'CKEditor'),
+    ('tinymce', 'tinymce'),
+)
 
 # Create your models here.
 
@@ -359,6 +364,8 @@ class Profile(models.Model):
     page_size = models.PositiveIntegerField(blank=True, null=True)
     dashboard_choices = MultiSelectField(
         choices=DASHBOARD_CHOICES, null=True, blank=True)
+    editor_choices = MultiSelectField(
+        choices=EDITOR_CHOICES, null=True, blank=True)
     override_dashboard = models.BooleanField(default=False)
 
     def __str__(self):
