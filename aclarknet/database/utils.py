@@ -227,10 +227,9 @@ def daily_burn(project):
         return ''
 
 
-def dashboard_totals(model, order_by='-pk'):
+def dashboard_totals(model):
     results = OrderedDict()
     invoices_active = model.objects.filter(last_payment_date=None)
-    invoices_active = invoices_active.order_by(order_by)
     gross = 0
     net = 0
     for invoice in invoices_active:
@@ -473,13 +472,12 @@ def get_search_results(model,
                        active_nav='',
                        app_settings_model=None,
                        edit_url='',
-                       order_by='-updated',
                        request=None):
     context = {}
     query = []
     for field in search_fields:
         query.append(Q(**{field + '__icontains': search}))
-    items = model.objects.filter(reduce(OR, query)).order_by(order_by)
+    items = model.objects.filter(reduce(OR, query))
     context['active_nav'] = active_nav
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
@@ -538,7 +536,6 @@ def get_index_items(request,
                     model,
                     search_fields,
                     filters={},
-                    order_by='-updated',
                     app_settings_model=None,
                     active_nav='',
                     edit_url='',
@@ -571,7 +568,7 @@ def get_index_items(request,
     else:
         items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
-    items = items.order_by(order_by)
+    # XXX
     # Calculate total hours
     if model._meta.verbose_name == 'time':
         total_hours = items.aggregate(hours=Sum(F('hours')))
@@ -616,7 +613,6 @@ def get_page_items(request,
                    note_model=None,
                    project_model=None,
                    report_model=None,
-                   order_by=('-updated',),
                    pk=None,
                    time_model=None):
     context = {}
@@ -627,11 +623,8 @@ def get_page_items(request,
         if model._meta.verbose_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
-            contacts = contacts.order_by('-pk')
             contracts = contract_model.objects.filter(client=client)
-            contracts = contracts.order_by(order_by)
             projects = project_model.objects.filter(client=client)
-            projects = projects.order_by('-start_date')
             context['active_nav'] = 'client'
             context['contacts'] = contacts
             context['contracts'] = contracts
@@ -655,7 +648,6 @@ def get_page_items(request,
                     invoice=None)
                 times_estimate = time_model.objects.filter(estimate=estimate)
                 times = times_client | times_estimate
-                times = times.order_by('-date')
             else:
                 times = None
             context['active_nav'] = 'contract'
@@ -678,7 +670,6 @@ def get_page_items(request,
                 invoice=None)
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
-            times = times.order_by(order_by)
             times = get_amount(times)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
@@ -694,7 +685,6 @@ def get_page_items(request,
             document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
             times = get_amount(times, invoice=invoice)
-            times.order_by('-date')
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
@@ -709,8 +699,7 @@ def get_page_items(request,
         elif model._meta.verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
             times = time_model.objects.filter(
-                project=project, invoiced=False,
-                estimate=None).order_by(order_by)
+                project=project, invoiced=False, estimate=None)
             times = get_amount(times)
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
@@ -726,11 +715,9 @@ def get_page_items(request,
             context['item'] = project
             context['times'] = times
     else:  # home
-        invoices = invoice_model.objects.filter(
-            last_payment_date=None).order_by('amount')
-        notes = note_model.objects.filter(active=True).order_by(
-            order_by, 'note', 'due_date', 'priority')
-        projects = project_model.objects.filter(active=True).order_by(order_by)
+        invoices = invoice_model.objects.filter(last_payment_date=None)
+        notes = note_model.objects.filter(active=True)
+        projects = project_model.objects.filter(active=True)
         plot_items = report_model.objects.filter(active=True)
         gross, net, invoices_active = dashboard_totals(invoice_model)
         context['active_note_count'] = len(notes)

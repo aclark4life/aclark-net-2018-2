@@ -142,7 +142,6 @@ def client_index(request):
         active_nav='client',
         app_settings_model=AppSettings,
         edit_url='client_edit',  # Delete modal
-        order_by=('-updated', '-active', 'name'),
         show_search=True)
     return render(request, 'client_index.html', context)
 
@@ -163,7 +162,7 @@ def company_edit(request, pk=None):
 def company(request):
     context = {}
     company = Company.get_solo()
-    services = company.service_set.all().order_by('-updated')
+    services = company.service_set.all()
     context['active_nav'] = 'dropdown'
     context['active_tab'] = 'company'
     context['company'] = company
@@ -206,7 +205,6 @@ def contact_index(request):
         active_nav='contact',
         app_settings_model=AppSettings,
         edit_url='contact_edit',  # Delete modal
-        order_by=('-updated', '-active', 'first_name'),
         show_search=True)
     return render(request, 'contact_index.html', context)
 
@@ -298,8 +296,7 @@ def contract_index(request):
         Contract,
         search_fields,
         active_nav='contract',
-        app_settings_model=AppSettings,
-        order_by=('-created', ))
+        app_settings_model=AppSettings)
     return render(request, 'contract_index.html', context)
 
 
@@ -371,7 +368,6 @@ def estimate_index(request):
         active_nav='estimate',
         app_settings_model=AppSettings,
         edit_url='estimate_edit',  # Delete modal
-        order_by=('-issue_date', ),
         show_search=True)
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -440,7 +436,6 @@ def invoice_index(request):
         active_nav='invoice',
         app_settings_model=AppSettings,
         edit_url='invoice_edit',  # Delete modal
-        order_by=('-issue_date', ),
         show_search=True)
     return render(request, 'invoice_index.html', context)
 
@@ -473,8 +468,7 @@ def log_index(request):
         Log,
         search_fields,
         active_nav='dropdown',
-        app_settings_model=AppSettings,
-        order_by=('-created', ), )
+        app_settings_model=AppSettings)
     return render(request, 'log_index.html', context)
 
 
@@ -485,7 +479,7 @@ def newsletter(request, pk=None):
     context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
     context['active_nav'] = 'dropdown'
-    context['contacts'] = newsletter.contacts.all().order_by('first_name')
+    context['contacts'] = newsletter.contacts.all()
     context['edit_url'] = 'newsletter_edit'
     context['item'] = newsletter
     return render(request, 'newsletter.html', context)
@@ -517,8 +511,7 @@ def newsletter_index(request, pk=None):
         Newsletter,
         search_fields,
         active_nav='dropdown',
-        app_settings_model=AppSettings,
-        order_by=('-created', ))
+        app_settings_model=AppSettings)
     return render(request, 'newsletter_index.html', context)
 
 
@@ -528,7 +521,7 @@ def newsletter_send(request, pk=None):
     """
     context = {}
     newsletter = get_object_or_404(Newsletter, pk=pk)
-    contacts = newsletter.contacts.all().order_by('first_name')
+    contacts = newsletter.contacts.all()
     for contact in contacts:
         url = reverse('contact_unsubscribe', kwargs={'pk': contact.pk})
         url = ''.join([request.get_host(), url])
@@ -561,7 +554,6 @@ def note(request, pk=None):
     context['pdf'] = pdf
     note = get_object_or_404(Note, pk=pk)
     notes = Note.objects.filter(note=note)
-    notes = notes.order_by('-pk')
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'
     context['item'] = note
@@ -603,7 +595,6 @@ def note_index(request, pk=None):
         active_nav='note',
         app_settings_model=AppSettings,
         filters=filters,
-        order_by=('-active', '-updated', 'note', 'due_date', 'priority'),
         show_search=True)
     context['edit_url'] = 'note_edit'  # Delete modal
     return render(request, 'note_index.html', context)
@@ -646,9 +637,6 @@ def project_index(request, pk=None):
         active_nav='project',
         app_settings_model=AppSettings,
         edit_url='project_edit',  # Delete modal
-        order_by=(
-            '-active',
-            '-updated', ),
         show_search=True)
     return render(request, 'project_index.html', context)
 
@@ -755,7 +743,6 @@ def report_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         edit_url='report_edit',  # Delete modal
-        order_by=('-date', ),
         show_search=True)
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
@@ -868,7 +855,6 @@ def task_index(request):
         active_nav='task',
         app_settings_model=AppSettings,
         edit_url='task_edit',  # Delete modal
-        order_by=('-updated', '-active'),
         show_search=True)
     return render(request, 'task_index.html', context)
 
@@ -920,7 +906,6 @@ def time_index(request):
         app_settings_model=AppSettings,
         edit_url='time_edit',  # Delete modal
         # page_size=3,
-        order_by=('-date', ),
         show_search=True)
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('login'))
@@ -944,7 +929,6 @@ def user(request, pk=None):
         search_fields,
         active_nav='user',
         app_settings_model=AppSettings,
-        order_by=('-date', ),
         filters=filters, )
     total_hours = context['total_hours']
     if profile.rate and total_hours:
@@ -960,7 +944,7 @@ def user(request, pk=None):
     context['request'] = request
     context['total_dollars'] = '%.2f' % total_dollars
     context['is_contact'] = user.email in [i.email for i in contacts]
-    projects = Project.objects.filter(team__in=[user, ]).order_by('-updated')
+    projects = Project.objects.filter(team__in=[user, ])
     context['projects'] = projects
     if request.user.pk == int(pk) or request.user.is_staff:
         return render(request, 'user.html', context)
@@ -996,7 +980,6 @@ def user_index(request):
         search_fields,
         active_nav='dropdown',
         app_settings_model=AppSettings,
-        order_by=('-profile__active', '-profile__updated'),
         show_search=False)
     context['company'] = company
     # Check if user is contact
