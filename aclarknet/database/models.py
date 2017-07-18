@@ -327,7 +327,6 @@ class Note(models.Model):
     hidden = models.BooleanField(default=False)
     title = models.CharField(max_length=300, blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
-    priority = models.IntegerField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
     def __str__(self):
