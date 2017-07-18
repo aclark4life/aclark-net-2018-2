@@ -595,6 +595,7 @@ def get_index_items(request,
     if model._meta.verbose_name == 'note':
         context['active_note_count'] = len(model.objects.filter(active=True))
         context['hidden_note_count'] = len(model.objects.filter(hidden=True))
+        context['inactive_note_count'] = len(model.objects.filter(active=False))
         context['total_note_count'] = len(model.objects.all())
     return context
 
