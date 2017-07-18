@@ -325,7 +325,7 @@ class Note(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
-    due_date = models.DateField(blank=True, null=True)
+    due_date = models.DateField("Due", blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
 
