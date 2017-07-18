@@ -189,7 +189,7 @@ class TaskForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = ('date', 'hours', 'task', 'log')
+        fields = ('date', 'hours', 'client', 'project', 'task', 'log')
 
     def __init__(self, *args, **kwargs):
         super(TimeForm, self).__init__(*args, **kwargs)
