@@ -227,22 +227,6 @@ def daily_burn(project):
         return ''
 
 
-def dashboard_totals(model):
-    results = OrderedDict()
-    invoices_active = model.objects.filter(last_payment_date=None)
-    gross = 0
-    net = 0
-    for invoice in invoices_active:
-        results[invoice] = {}
-        results[invoice]['subtotal'] = invoice.subtotal
-        results[invoice]['amount'] = invoice.amount
-        if invoice.subtotal:
-            gross += invoice.subtotal
-        if invoice.amount:
-            net += invoice.amount
-    return gross, net, invoices_active
-
-
 def edit(
         request,
         form_model,
@@ -308,10 +292,9 @@ def edit(
         company = company_model.get_solo()
         context['company'] = company
     if invoice_model:  # Dashboard totals for reporting
-        gross, net, invoices_active = dashboard_totals(invoice_model)
+        gross, net = get_invoice_totals(invoice_model)
         context['gross'] = gross
         context['net'] = net
-        context['invoices_active'] = invoices_active
     return render(request, template_name, context)
 
 
@@ -396,38 +379,13 @@ def get_company_name(company):
         return fake.text()
 
 
-def get_setting(request, app_settings_model, setting, page_size=None):
-    """
-    Allow user to override global setting
-    """
-    if not request.user.is_authenticated:
-        return
-    override = user_pref = None
-    app_settings = app_settings_model.get_solo()
-    if setting == 'icon_size':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.icon_size
-        if user_pref:
-            return user_pref
-        else:
-            return app_settings.icon_size
-    if setting == 'page_size':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.page_size
-        if user_pref:
-            return user_pref
-        elif page_size:  # View's page_size preference
-            return page_size
-        else:
-            return app_settings.page_size
-    if setting == 'dashboard_choices':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.dashboard_choices
-            override = request.user.profile.override_dashboard
-        if override:
-            return user_pref
-        else:
-            return app_settings.dashboard_choices
+def get_invoice_totals(model):
+    invoices = model.objects.filter(last_payment_date=None)
+    gross = 0
+    net = 0
+    for invoice in invoices
+        gross += invoice.subtotal
+    return gross, net
 
 
 def get_line_total(entries, entry):
@@ -478,6 +436,40 @@ def get_search_results(model,
     context['items'] = items
     context['show_search'] = True
     return context
+
+
+def get_setting(request, app_settings_model, setting, page_size=None):
+    """
+    Allow user to override global setting
+    """
+    if not request.user.is_authenticated:
+        return
+    override = user_pref = None
+    app_settings = app_settings_model.get_solo()
+    if setting == 'icon_size':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.icon_size
+        if user_pref:
+            return user_pref
+        else:
+            return app_settings.icon_size
+    if setting == 'page_size':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.page_size
+        if user_pref:
+            return user_pref
+        elif page_size:  # View's page_size preference
+            return page_size
+        else:
+            return app_settings.page_size
+    if setting == 'dashboard_choices':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.dashboard_choices
+            override = request.user.profile.override_dashboard
+        if override:
+            return user_pref
+        else:
+            return app_settings.dashboard_choices
 
 
 def get_template_and_url_names(verbose_name, page_type=None):
@@ -722,7 +714,7 @@ def get_page_items(request,
         projects = project_model.objects.filter(active=True)
         projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
-        gross, net, invoices_active = dashboard_totals(invoice_model)
+        gross, net = get_invoice_totals(invoice_model)
         context['active_note_count'] = len(notes)
         context['city_data'] = get_client_city(request)
         context['dashboard_choices'] = get_setting(request, app_settings_model,
