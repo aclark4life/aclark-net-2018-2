@@ -383,7 +383,7 @@ def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
     gross = 0
     net = 0
-    for invoice in invoices
+    for invoice in invoices:
         gross += invoice.subtotal
     return gross, net
 
