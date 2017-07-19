@@ -691,7 +691,7 @@ def get_page_items(request,
         elif model._meta.verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
             invoices = project.invoice_set.all()
-            times = None
+            invoice = times = None
             if len(invoices) > 0:
                 invoice = invoice[0]
                 times = get_times_for_invoice(
