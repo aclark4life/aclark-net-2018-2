@@ -65,11 +65,11 @@
                   </tr>
                   <tr>
                     <th>Address</th>
-                    <td>{{ item.address|linebreaks|default:'' }}</td>
+                    <td>{{ item.address|default:''|linebreaks }}</td>
                   </tr>
                   <tr>
                     <th>Notes</th>
-                    <td>{{ item.notes|linebreaks|default:'' }}</td
+                    <td>{{ item.notes|default:''|linebreaks }}</td
                   </tr>
                 </tbody>
               </div>
