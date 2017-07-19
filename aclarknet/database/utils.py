@@ -690,9 +690,13 @@ def get_page_items(request,
             context['pdf'] = pdf
         elif model._meta.verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
-            times = get_times_for_invoice(project.invoice_set.all()[0],
-                                          time_model)
-            times = times.order_by(*order_by['time'])
+            invoices = project.invoice_set.all()
+            times = None
+            if len(invoices) > 0:
+                invoice = invoice[0]
+                times = get_times_for_invoice(
+                                              time_model)
+                times = times.order_by(*order_by['time'])
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
