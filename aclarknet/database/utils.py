@@ -382,11 +382,9 @@ def get_company_name(company):
 def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
     amount = 0
-    subtotal = 0
     for invoice in invoices:
-        amount += invoice.amount
-        subtotal += invoice.subtotal
-    return amount, subtotal
+        total += invoice.amount
+    return amount, amount
 
 
 def get_line_total(entries, entry):
@@ -513,7 +511,7 @@ def get_amount(times, invoice=None):
         entry.amount = '%.2f' % amount
         total += amount
     if invoice:
-        invoice.subtotal = '%.2f' % total
+        invoice.amount = '%.2f' % total
         invoice.save()
     return times
 
