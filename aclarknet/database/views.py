@@ -392,8 +392,8 @@ def home(request):
         invoice_model=Invoice,
         note_model=Note,
         order_by={
-            'note': ('-updated', )
-            'project': ('-updated', )
+            'note': ('-updated', ),
+            'project': ('-updated', ),
             },
         project_model=Project,
         report_model=Report)
