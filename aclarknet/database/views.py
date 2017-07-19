@@ -391,7 +391,10 @@ def home(request):
         app_settings_model=AppSettings,
         invoice_model=Invoice,
         note_model=Note,
-        order_by={'project': ('-updated', )},
+        order_by={
+            'note': ('-updated', )
+            'project': ('-updated', )
+            },
         project_model=Project,
         report_model=Report)
     return render(request, 'home.html', context)

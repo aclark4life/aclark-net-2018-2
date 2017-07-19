@@ -716,8 +716,9 @@ def get_page_items(request,
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
+        notes = notes.order_by(*order_by['note'])
         projects = project_model.objects.filter(active=True)
-        projects = project.order_by(*order_by['project'])
+        projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
         gross, net, invoices_active = dashboard_totals(invoice_model)
         context['active_note_count'] = len(notes)
