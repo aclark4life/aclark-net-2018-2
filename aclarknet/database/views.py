@@ -569,7 +569,6 @@ def note(request, pk=None):
     pdf = get_query(request, 'pdf')
     context['pdf'] = pdf
     note = get_object_or_404(Note, pk=pk)
-    notes = Note.objects.filter(note=note)
     context['active_nav'] = 'note'
     context['edit_url'] = 'note_edit'
     context['item'] = note

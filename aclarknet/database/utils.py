@@ -1,5 +1,3 @@
-from collections import OrderedDict
-# from boto.exception import BotoServerError
 from decimal import Decimal
 from django.conf import settings as django_settings
 from django.contrib import messages
@@ -694,8 +692,7 @@ def get_page_items(request,
             invoice = times = None
             if len(invoices) > 0:
                 invoice = invoices[0]
-                times = get_times_for_invoice(invoice, 
-                                              time_model)
+                times = get_times_for_invoice(invoice, time_model)
                 times = times.order_by(*order_by['time'])
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
