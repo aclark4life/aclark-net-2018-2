@@ -381,11 +381,12 @@ def get_company_name(company):
 
 def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
-    gross = 0
-    net = 0
+    amount = 0
+    subtotal = 0
     for invoice in invoices:
-        gross += invoice.subtotal
-    return gross, net
+        amount += invoice.amount
+        subtotal += invoice.subtotal
+    return amount, subtotal
 
 
 def get_line_total(entries, entry):
