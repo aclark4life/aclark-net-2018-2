@@ -693,8 +693,8 @@ def get_page_items(request,
             invoices = project.invoice_set.all()
             invoice = times = None
             if len(invoices) > 0:
-                invoice = invoice[0]
-                times = get_times_for_invoice(
+                invoice = invoices[0]
+                times = get_times_for_invoice(invoice, 
                                               time_model)
                 times = times.order_by(*order_by['time'])
             estimates = estimate_model.objects.filter(
