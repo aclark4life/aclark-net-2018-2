@@ -926,7 +926,7 @@ def time_index(request):
         active_nav='time',
         app_settings_model=AppSettings,
         edit_url='time_edit',  # Delete modal
-        order_by=('-updated', ),
+        order_by=('-updated', 'name'),
         show_search=True)
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('login'))
