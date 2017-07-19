@@ -15,12 +15,6 @@ from .models import Service
 from .models import AppSettings
 from .models import Task
 from .models import Time
-from crispy_forms.bootstrap import Tab
-from crispy_forms.bootstrap import TabHolder
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Div
-from crispy_forms.layout import Field
-from crispy_forms.layout import Layout
 from django import forms
 
 
@@ -202,16 +196,3 @@ class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
         fields = ('date', 'hours', 'client', 'project', 'task', 'log')
-
-
-#    def __init__(self, *args, **kwargs):
-#        super(TimeForm, self).__init__(*args, **kwargs)
-#        self.helper = FormHelper()
-#        self.helper.layout = Layout(
-#            TabHolder(
-#                Tab('First Tab',
-#                    'date',
-#                    Div('ddiv_id_date')
-#                ),
-#            )
-#        )

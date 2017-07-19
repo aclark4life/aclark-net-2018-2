@@ -595,7 +595,8 @@ def get_index_items(request,
     if model._meta.verbose_name == 'note':
         context['active_note_count'] = len(model.objects.filter(active=True))
         context['hidden_note_count'] = len(model.objects.filter(hidden=True))
-        context['inactive_note_count'] = len(model.objects.filter(active=False))
+        context['inactive_note_count'] = len(
+            model.objects.filter(active=False))
         context['total_note_count'] = len(model.objects.all())
     return context
 
@@ -698,7 +699,8 @@ def get_page_items(request,
             context['pdf'] = pdf
         elif model._meta.verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
-            times = get_times_for_invoice(project.invoice_set.all()[0], time_model)
+            times = get_times_for_invoice(project.invoice_set.all()[0],
+                                          time_model)
             times = times.order_by(*order_by['time'])
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)

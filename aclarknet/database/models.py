@@ -27,8 +27,7 @@ DASHBOARD_CHOICES = (
 
 EDITOR_CHOICES = (
     ('ckeditor', 'CKEditor'),
-    ('tinymce', 'TinyMCE'),
-)
+    ('tinymce', 'TinyMCE'), )
 
 # Create your models here.
 
@@ -363,8 +362,8 @@ class Profile(models.Model):
     page_size = models.PositiveIntegerField(blank=True, null=True)
     dashboard_choices = MultiSelectField(
         choices=DASHBOARD_CHOICES, null=True, blank=True)
-    editor_choices = models.CharField(max_length=8,
-        choices=EDITOR_CHOICES, null=True, blank=True)
+    editor_choices = models.CharField(
+        max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     override_dashboard = models.BooleanField(default=False)
 
     def __str__(self):
