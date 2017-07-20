@@ -12,6 +12,7 @@
             <table data-toggle="table" data-classes="table table-no-bordered">
               <thead>
                 <tr>
+                  <th>Name</th> 
                   <th>Doc</th> 
                   <th>Image</th> 
                 </tr>
@@ -19,6 +20,7 @@
               <tbody>
               {% for item in items %}
                 <tr>
+                  <td><a href="{% url 'file' item.pk %}">{{ item.pk }}</td>
                   <td>{% if item.doc %}{{ item.doc.url }}{% endif %}</td>
                   <td>{% if item.image %}{{ item.image.url }}{% endif %}</td>
                 </tr>
