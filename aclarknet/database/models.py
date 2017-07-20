@@ -329,7 +329,7 @@ class Note(models.Model):
     due_date = models.DateField("Due", blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     def __str__(self):
         if self.title:
