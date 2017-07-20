@@ -198,4 +198,4 @@ REST_FRAMEWORK = {
 GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 
 # AWS S3 storage
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
