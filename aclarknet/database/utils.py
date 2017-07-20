@@ -678,7 +678,7 @@ def get_page_items(request,
         if model._meta.verbose_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
-            context['edit_url'] = 'filet_edit'
+            context['edit_url'] = 'file_edit'
             context['icon_size'] = get_setting(request, app_settings_model,
                                                'icon_size')
             context['item'] = file_obj
