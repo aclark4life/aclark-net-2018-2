@@ -591,8 +591,8 @@ def get_note_stats(note_model):
     note_stats['active_note_count'] = len(note_model.objects.filter(active=True))
     note_stats['hidden_note_count'] = len(note_model.objects.filter(hidden=True))
     note_stats['inactive_note_count'] = len(
-        model.objects.filter(active=False))
-    note_stats['total_note_count'] = len(model.objects.all())
+        note_model.objects.filter(active=False))
+    note_stats['total_note_count'] = len(note_model.objects.all())
     return note_stats
 
 
