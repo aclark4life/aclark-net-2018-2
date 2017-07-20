@@ -37,14 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'aclarknet.database',
     'crispy_forms',
     'django_extensions',
     'import_export',
-    'solo',
-    'aclarknet.database',
+    'multiselectfield',
     'rest_framework',
     'social_django',
-    'multiselectfield',
+    'solo',
+    'taggit',
 ]
 
 if DEBUG:

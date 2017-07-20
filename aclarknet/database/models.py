@@ -8,6 +8,7 @@ from multiselectfield import MultiSelectField
 from uuid import uuid4
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
+from taggit.managers import TaggableManager
 
 fake = Faker()
 
@@ -320,6 +321,7 @@ class Newsletter(models.Model):
 class Note(models.Model):
     """
     """
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -327,6 +329,7 @@ class Note(models.Model):
     due_date = models.DateField("Due", blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
+    tags = TaggableManager()
 
     def __str__(self):
         if self.title:
