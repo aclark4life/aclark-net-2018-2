@@ -475,6 +475,18 @@ def login(request):
 
 
 @staff_member_required
+def file_index(request):
+    search_fields = ()
+    context = get_index_items(
+        request,
+        File,
+        search_fields,
+        active_nav='dropdown',
+        order_by=('-updated', ))
+    return render(request, 'file_index.html', context)
+
+
+@staff_member_required
 def log_index(request):
     search_fields = ('entry', )
     context = get_index_items(
@@ -683,7 +695,7 @@ def proposal_edit(request, pk=None):
         Proposal,
         url_name,
         template_name,
-        active_nav='dropdown',
+        active_nav='proposal',
         company_model=Company,
         pk=pk)
 
@@ -695,7 +707,7 @@ def proposal_index(request, pk=None):
         request,
         Proposal,
         search_fields,
-        active_nav='dropdown',
+        active_nav='proposal',
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         show_search=True)

@@ -72,6 +72,8 @@ urlpatterns = [
     url(r'^invoice$', views.invoice_index, name='invoice_index'),
     # Login
     url(r'^login$', views.login, name='login'),
+    # Files
+    url(r'^file$', views.log_index, name='file_index'),
     # Logs
     url(r'^log$', views.log_index, name='log_index'),
     # Newsletter
