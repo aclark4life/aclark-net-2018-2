@@ -23,6 +23,7 @@ from .models import Contact
 from .models import Contract
 from .models import ContractSettings
 from .models import Estimate
+from .models import File
 from .models import Invoice
 from .models import Log
 from .models import Newsletter
