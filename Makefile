@@ -339,7 +339,7 @@ aclarknet-pg-restore:
 aclarknet-remote-update:
 	@$(MAKE) git-commit-auto-push
 	@$(MAKE) aclarknet-remote-git-pull
-	@$(MAKE) aclarknet-remote-gunicorn-restart
+	@$(MAKE) aclarknet-remote-system-gunicorn-restart
 aclarknet-remote-aptitude-update:
 	ssh db "sudo aptitude update; sudo aptitude upgrade -y"
 aclarknet-remote-django-static:
