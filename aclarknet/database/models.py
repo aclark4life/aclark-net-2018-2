@@ -523,6 +523,7 @@ class AppSettings(SingletonModel):
     dashboard_choices = MultiSelectField(
         choices=DASHBOARD_CHOICES, null=True, blank=True)
     auto_hide_notes = models.BooleanField(default=True)
+    tags = models.CharField(max_length=255, blank=True, null=True)
 
 
 class Testimonial(models.Model):
