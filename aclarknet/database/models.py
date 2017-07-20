@@ -33,7 +33,17 @@ EDITOR_CHOICES = (
 # Create your models here.
 
 
-class Client(models.Model):
+class BaseModel(models.Model):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Client(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -81,7 +91,7 @@ class Company(SingletonModel):
         verbose_name = u'Company'
 
 
-class Contact(models.Model):
+class Contact(BaseModel):
     """
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
@@ -116,7 +126,7 @@ class Contact(models.Model):
             return ' '.join([self.first_name, self.last_name])
 
 
-class Contract(models.Model):
+class Contract(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -179,12 +189,12 @@ class ContractSettings(SingletonModel):
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
-class Elevation(models.Model):
+class Elevation(BaseModel):
     name = models.CharField(max_length=100)
     rast = models.RasterField()
 
 
-class Estimate(models.Model):
+class Estimate(BaseModel):
     """
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
     Discount, Tax, Tax2, Currency, Accepted Date, Declined Date
@@ -230,12 +240,12 @@ class Estimate(models.Model):
             return 'estimate-%s' % self.document_id
 
 
-class File(models.Model):
+class File(BaseModel):
     """
     """
 
 
-class Invoice(models.Model):
+class Invoice(BaseModel):
     """
     Issue Date, Last Payment Date, Invoice ID, PO Number, Client, Subject,
     Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
@@ -288,7 +298,7 @@ class Invoice(models.Model):
         return 'invoice-%s' % self.document_id
 
 
-class Log(models.Model):
+class Log(BaseModel):
     """
     Log sending of marketing emails and other interesting events.
     """
@@ -303,7 +313,7 @@ class Log(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Newsletter(models.Model):
+class Newsletter(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -323,7 +333,7 @@ class Newsletter(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Note(models.Model):
+class Note(BaseModel):
     """
     """
 
@@ -343,7 +353,7 @@ class Note(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Profile(models.Model):
+class Profile(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -390,7 +400,7 @@ class Profile(models.Model):
             return self.user.username
 
 
-class Project(models.Model):
+class Project(BaseModel):
     """
     Client, Project, Project Code, Start Date, End Date, Project Notes,
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
@@ -444,7 +454,7 @@ class Project(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Proposal(models.Model):
+class Proposal(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -473,7 +483,7 @@ class Proposal(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Report(models.Model):
+class Report(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -496,7 +506,7 @@ class Report(models.Model):
         return 'report-%s' % self.date
 
 
-class Service(models.Model):
+class Service(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -531,7 +541,7 @@ class AppSettings(SingletonModel):
     tags = models.CharField(max_length=255, blank=True, null=True)
 
 
-class Testimonial(models.Model):
+class Testimonial(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -552,7 +562,7 @@ class Testimonial(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Task(models.Model):
+class Task(BaseModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -580,7 +590,7 @@ class Task(models.Model):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class Time(models.Model):
+class Time(BaseModel):
     """
     Date, Client, Project, Project Code, Task, Notes, Hours, Billable?,
     Invoiced?, First Name, Last Name, Department, Employee?, Billable
@@ -644,6 +654,6 @@ class Time(models.Model):
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
-class Zipcode(models.Model):
+class Zipcode(BaseModel):
     code = models.CharField(max_length=5)
     poly = models.PolygonField()
