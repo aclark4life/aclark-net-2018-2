@@ -230,6 +230,10 @@ class Estimate(models.Model):
             return 'estimate-%s' % self.document_id
 
 
+class File(models.Model):
+    """
+
+
 class Invoice(models.Model):
     """
     Issue Date, Last Payment Date, Invoice ID, PO Number, Client, Subject,

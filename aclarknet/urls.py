@@ -73,7 +73,7 @@ urlpatterns = [
     # Login
     url(r'^login$', views.login, name='login'),
     # Files
-    url(r'^file$', views.log_index, name='file_index'),
+    url(r'^file$', views.file_index, name='file_index'),
     # Logs
     url(r'^log$', views.log_index, name='log_index'),
     # Newsletter
