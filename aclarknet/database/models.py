@@ -243,6 +243,7 @@ class Estimate(BaseModel):
 class File(BaseModel):
     """
     """
+    name = models.CharField(max_length=300, blank=True, null=True, default=fake.text)
     doc = models.FileField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
 
