@@ -18,6 +18,7 @@
                 <th data-field="hidden-note" data-sortable="true" data-visible="false">Hidden Note</th>
                 <th data-sort-name="hidden-due" data-sortable="true" data-visible="true">Due</th>
                 <th data-field="hidden-due" data-sortable="true" data-visible="false">Hidden Due</th>
+                <th data-sortable="true">Tags</th>
                 <th data-valign="top" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th> 
                 <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                 {% if 'search' in request.POST %}<th data-valign="top" data-sortable="true">Hidden</th>{% endif %}
@@ -33,6 +34,7 @@
                 <td>{{ item.note|striptags|truncatechars:8 }}</td>
                 <td>{{ item.due_date|date:'Y-m-d' }}</td>
                 <td>{{ item.due_date|date:'U' }}</td>
+                <td>{% for tag in item.tags %}<span class="badge badge-default">{{ tag }}{% endfor %}</td>
                 <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ item.active }}</td>
                 {% if 'search' in request.POST %}<td>{% if item.hidden %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>{% endif %}
