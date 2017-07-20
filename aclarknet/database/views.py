@@ -5,6 +5,7 @@ from .forms import ContactForm
 from .forms import ContractForm
 from .forms import ContractSettingsForm
 from .forms import EstimateForm
+from .forms import FileForm
 from .forms import InvoiceForm
 from .forms import MailForm
 from .forms import NewsletterForm

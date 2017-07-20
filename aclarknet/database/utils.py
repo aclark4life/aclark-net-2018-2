@@ -33,6 +33,7 @@ URL_NAMES = {
     'contract': ('contract', 'contract_edit', 'contract_index'),
     'Company': ('company', 'company_edit', ''),
     'estimate': ('estimate', 'estimate_edit', 'estimate_index'),
+    'file': ('file_view', 'file_edit', 'file_index'),
     'invoice': ('invoice', 'invoice_edit', 'invoice_index'),
     'newsletter': ('newsletter', 'newsletter_edit', 'newsletter_index'),
     'note': ('note', 'note_edit', 'note_index'),

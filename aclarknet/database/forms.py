@@ -4,6 +4,7 @@ from .models import Contact
 from .models import Contract
 from .models import ContractSettings
 from .models import Estimate
+from .models import File
 from .models import Invoice
 from .models import Newsletter
 from .models import Note
@@ -97,6 +98,12 @@ class ContractSettingsForm(forms.ModelForm):
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
+        fields = '__all__'
+
+
+class FileForm(forms.ModelForm):
+    class Meta:
+        model = File
         fields = '__all__'
 
 
