@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'solo',
+    'storages',
     'taggit',
 ]
 
@@ -129,7 +130,8 @@ STATIC_URL = '/static/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -194,3 +196,6 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/geoip2/
 # GEOIP_PATH = '/srv/aclarknet-database/data'
 GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
+
+# AWS S3 storage
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
