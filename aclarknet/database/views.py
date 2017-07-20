@@ -391,24 +391,22 @@ def file_view(request, pk=None):
     context = get_page_items(
         request,
         company_model=Company,
-        model=Invoice,
-        order_by={'time': ('date', )},  # For time entries
-        pk=pk,
-        time_model=Time)
+        model=File,
+        pk=pk)
     return render(request, 'file.html', context)
 
 
 @staff_member_required
-def invoice_edit(request, pk=None):
+def file_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
-        'invoice', page_type='edit')
+        'file', page_type='edit')
     return edit(
         request,
-        InvoiceForm,
-        Invoice,
+        FileForm,
+        File,
         url_name,
         template_name,
-        active_nav='invoice',
+        active_nav='dropdown',
         company_model=Company,
         pk=pk, )
 
