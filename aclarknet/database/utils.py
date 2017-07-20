@@ -675,6 +675,13 @@ def get_page_items(request,
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
             context['pdf'] = pdf
+        if model._meta.verbose_name == 'file':
+            file_obj = get_object_or_404(model, pk=pk)
+            context['active_nav'] = 'dropdown'
+            context['edit_url'] = 'filet_edit'
+            context['icon_size'] = get_setting(request, app_settings_model,
+                                               'icon_size')
+            context['item'] = file_obj
         elif model._meta.verbose_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
             document_type = invoice._meta.verbose_name
