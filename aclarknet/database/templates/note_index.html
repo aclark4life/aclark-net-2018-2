@@ -18,8 +18,8 @@
                 <th data-field="hidden-note" data-sortable="true" data-visible="false">Hidden Note</th>
                 <th data-sort-name="hidden-due" data-sortable="true" data-visible="true">Due</th>
                 <th data-field="hidden-due" data-sortable="true" data-visible="false">Hidden Due</th>
-                <th data-sortable="true">Tags</th>
-                <th data-valign="top" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th> 
+                <th data-sortable="true" data-valign="top">Tags</th>
+                <th data-sort-name="hidden-active" data-sortable="true" data-valign="top" {% if active %} data-visible="false" {% endif %}>Active</th> 
                 <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
                 {% if 'search' in request.POST %}<th data-valign="top" data-sortable="true">Hidden</th>{% endif %}
                 <th data-valign="top">View</th>
