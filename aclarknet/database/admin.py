@@ -380,6 +380,6 @@ class TimeAdmin(ImportExportModelAdmin):
 
 
 @admin.register(World)
-class WorldAdmin(BaseModel):
+class WorldAdmin(ImportExportModelAdmin):
     """
     """

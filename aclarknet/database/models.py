@@ -662,7 +662,7 @@ class Zipcode(BaseModel):
     poly = models.PolygonField()
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/tutorial/#defining-a-geographic-model
-class WorldBorder(BaseModel):
+class World(BaseModel):
     # Regular Django fields corresponding to the attributes in the
     # world borders shapefile.
     name = models.CharField(max_length=300, default=fake.text)
