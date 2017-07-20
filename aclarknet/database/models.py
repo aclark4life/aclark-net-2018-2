@@ -232,6 +232,7 @@ class Estimate(models.Model):
 
 class File(models.Model):
     """
+    """
 
 
 class Invoice(models.Model):
