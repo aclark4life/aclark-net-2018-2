@@ -16,8 +16,15 @@
               </div>
 {% include 'delete_form.html' %}
               <div class="row">
-                <div class="col-md-12">
-                  {{ item.url }}
+                <div class="col-md-6">
+                  {% if item.doc %}
+                    {{ item.doc.url }}
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  {% if item.image %}
+                    {{ item.image.url }}
+                  {% endif %}
                 </div>
               </div>
 {% endblock %}

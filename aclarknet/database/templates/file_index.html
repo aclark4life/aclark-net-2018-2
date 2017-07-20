@@ -19,8 +19,8 @@
               <tbody>
               {% for item in items %}
                 <tr>
-                  <td>{{ item.doc.url }}</td>
-                  <td>{{ item.image.url }}</td>
+                  <td>{% if item.doc %}{{ item.doc.url }}{% endif %}</td>
+                  <td>{% if item.image %}{{ item.image.url }}{% endif %}</td>
                 </tr>
               {% endfor %}
               </tbody>
