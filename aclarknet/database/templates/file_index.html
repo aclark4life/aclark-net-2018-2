@@ -12,13 +12,15 @@
             <table data-toggle="table" data-classes="table table-no-bordered">
               <thead>
                 <tr>
-                  <th>URL</th> 
+                  <th>Doc</th> 
+                  <th>Image</th> 
                 </tr>
               </thead>
               <tbody>
               {% for item in items %}
                 <tr>
-                  <td>{{ item.url }}</td>
+                  <td>{{ item.doc.url }}</td>
+                  <td>{{ item.image.url }}</td>
                 </tr>
               {% endfor %}
               </tbody>
