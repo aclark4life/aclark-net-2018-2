@@ -31,6 +31,10 @@
                         <th>Dashboard choices</th>
                         <td>{{ settings.dashboard_choices|default:'' }}</td>
                       </tr>
+                      <tr>
+                        <th>Tags</th>
+                        <td>{{ settings._meta.get_fields|default:'' }}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
