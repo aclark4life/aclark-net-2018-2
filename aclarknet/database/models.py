@@ -243,6 +243,8 @@ class Estimate(BaseModel):
 class File(BaseModel):
     """
     """
+    doc = models.FileField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
 
 
 class Invoice(BaseModel):
