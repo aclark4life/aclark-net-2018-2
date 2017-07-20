@@ -582,12 +582,18 @@ def get_index_items(request,
     context['show_search'] = show_search
     # Provide number of active notes to note_index
     if model._meta.verbose_name == 'note':
-        context['active_note_count'] = len(model.objects.filter(active=True))
-        context['hidden_note_count'] = len(model.objects.filter(hidden=True))
-        context['inactive_note_count'] = len(
-            model.objects.filter(active=False))
-        context['total_note_count'] = len(model.objects.all())
+        context['note_stats'] = get_note_stats(model)
     return context
+
+
+def get_note_stats(note_model):
+    note_stats = {}
+    note_stats['active_note_count'] = len(note_model.objects.filter(active=True))
+    note_stats['hidden_note_count'] = len(note_model.objects.filter(hidden=True))
+    note_stats['inactive_note_count'] = len(
+        model.objects.filter(active=False))
+    note_stats['total_note_count'] = len(model.objects.all())
+    return note_stats
 
 
 def get_page_items(request,
@@ -715,7 +721,7 @@ def get_page_items(request,
         projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
         gross, net = get_invoice_totals(invoice_model)
-        context['active_note_count'] = len(notes)
+        context['note_stats'] = get_note_stats(note_model)
         context['city_data'] = get_client_city(request)
         context['dashboard_choices'] = get_setting(request, app_settings_model,
                                                    'dashboard_choices')

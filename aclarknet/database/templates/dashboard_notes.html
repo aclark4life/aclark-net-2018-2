@@ -1,4 +1,5 @@
-              <h2><a class="mute-url" href="{% url 'note_index' %}">Notes ({{ active_note_count }} active)</a></h2>
+              <h2><a class="mute-url" href="{% url 'note_index' %}">Notes</a></h2>
+              <h3>{% if not 'search' in request.POST %}({{ note_stats.active_note_count }} active, {{ note_stats.hidden_note_count }} hidden, {{ note_stats.inactive_note_count }} inactive, {{ note_stats.total_note_count }} total){% endif %}</h3>
               <table data-toggle="table" data-classes="table table-hover table-no-bordered">
                 <thead>
                   <tr>
@@ -6,6 +7,7 @@
                     <th data-field="name" data-sortable="true">Note</th>
                     <th data-valign="top" data-sort-name="hidden-active" data-sortable="true" {% if active %} data-visible="false" {% endif %}>Active</th>
                     <th data-field="hidden-active" data-sortable="true" data-visible="false">Hidden Active</th>
+                    <th data-valign="top" data-sortable="true">Tags</th>
                     <th data-valign="top">View</th>
                     <th data-valign="top">Edit</th>
                   </tr>
