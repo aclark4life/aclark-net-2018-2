@@ -391,6 +391,7 @@ def estimate_mail(request, pk=None):
 def file_view(request, pk=None):
     context = get_page_items(
         request,
+        app_settings_model=AppSettings,
         company_model=Company,
         model=File,
         pk=pk)
