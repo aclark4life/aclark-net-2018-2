@@ -130,9 +130,10 @@ STATIC_URL = '/static/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+# Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Django social auth
@@ -147,14 +148,6 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
-
-# Send mail with sendgrid
-# DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-# EMAIL_HOST = os.environ.get('EMAIL_HOST')
-# EMAIL_PORT = os.environ.get('EMAIL_PORT')
-# EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
-# EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
-# EMAIL_USE_TLS = True
 
 # Send mail with AWS SES
 EMAIL_BACKEND = 'django_ses.SESBackend'
