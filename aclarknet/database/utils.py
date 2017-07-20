@@ -381,7 +381,8 @@ def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
     total = 0
     for invoice in invoices:
-        total += invoice.amount
+        if invoice.amount:
+            total += invoice.amount
     return total, total
 
 
@@ -713,6 +714,13 @@ def get_page_items(request,
             context['invoices'] = invoices
             context['item'] = project
             context['times'] = times
+        elif model._meta.verbose_name == 'proposal':
+            proposal = get_object_or_404(model, pk=pk)
+            pdf = get_query(request, 'pdf')
+            context['active_nav'] = 'dropdown'
+            context['edit_url'] = 'proposal_edit'  # Delete modal
+            context['item'] = proposal
+            context['pdf'] = pdf
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)

@@ -1,14 +1,80 @@
-            <br>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h1>{{ item.title }}</h1>
-                  </div>
-                  <div class="card-block">
-                    {{ item.body|safe }}
-                  </div>
+{% load staticfiles %}
+                <style>
+                  .border {
+                    border-bottom: 1px solid black;
+                  }
+                  .center {
+                    text-align: center;
+                  }
+                  .contract {
+                    margin: 0 100px 0 100px;
+                  }
+                  .logo h1 {
+                    font-size: 400%;
+                    font-weight: normal;
+                    margin: 0;
+                    padding: 0;
+                    color: orange;
+                  }
+                  h2 {
+                    font-family: "Times New Roman", Georgia, Serif;
+                    font-weight: bold;
+                    margin: 0;
+                    padding: 0;
+                  }
+                  h3 {
+                    font-family: "Times New Roman", Georgia, Serif;
+                    font-weight: normal;
+                    margin: 0;
+                    padding: 0;
+                  }
+                  .entry li {
+                    font-family: "Times New Roman", Georgia, Serif;
+                  }
+                  .client h1 {
+                    font-family: "Times New Roman", Georgia, Serif;
+                    font-size: 300%;
+                    margin: 0;
+                    padding: 0;
+                  }
+                  .section p {
+                    font-family: "Times New Roman", Georgia, Serif;
+                  }
+                  .underline {
+                    text-decoration: underline;
+                  }
+                  .page-break {
+                    page-break-before: always;
+                  }
+                  .sow {
+                    font-weight: bold;
+                  }
+                  .sow-title h1 {
+                    font-family: "Times New Roman", Georgia, Serif;
+                    font-weight: bold;
+                    font-size: 200%;
+                  }
+                  @page {
+                      size: a4 portrait;
+                      @frame header_frame {           /* Static Frame */
+                          -pdf-frame-content: header_content;
+                          left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+                      }
+                      @frame content_frame {          /* Content Frame */
+                          left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+                      }
+                      @frame footer_frame {           /* Another static Frame */
+                          -pdf-frame-content: footer_content;
+                          left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+                      }
+                  }
+                </style>
+                <div class="contract">
+                  <br>
+                  <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name|default:'' }}</h1></div></div>
+                  <br>
+                  <div class="row"><div class="col-md-12 center"><h2>{{ company.name|default:'' }} {{ item.task|default:'Nothing'|upper }} PROPOSAL<br>PREPARED FOR:</h2></div></div>
+                  <br>
+                  <div class="row"><div class="col-md-12 center client"><h1>{{ item.client|default:'No One' }}</h1><h3>{{ item.client.address|linebreaksbr|default:'Nowhere ' }}</h3></div></div>
+                  <div class="row"><div class="col-md-12">{{ item.body|safe }}</div></div>
                 </div>
-              </div>
-            </div> 
-

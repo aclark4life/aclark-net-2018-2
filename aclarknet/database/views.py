@@ -661,14 +661,9 @@ def project_index(request, pk=None):
 
 @staff_member_required
 def proposal(request, pk=None):
-    context = {}
-    pdf = get_query(request, 'pdf')
-    context['pdf'] = pdf
-    proposal = get_object_or_404(Proposal, pk=pk)
-    context['active_nav'] = 'dropdown'
-    context['edit_url'] = 'proposal_edit'
-    context['item'] = proposal
-    if pdf:
+    context = get_page_items(
+        request, company_model=Company, model=Proposal, pk=pk)
+    if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
         return generate_pdf(
