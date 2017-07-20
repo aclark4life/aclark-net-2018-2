@@ -73,6 +73,10 @@ urlpatterns = [
     # Login
     url(r'^login$', views.login, name='login'),
     # Files
+    url(r'^file/(?P<pk>\d+)$', views.file_view, name='file'),
+    url(r'^file/(?P<pk>\d+)/edit$', views.file_edit,
+        name='file_edit'),
+    url(r'^file/add$', views.file_edit, name='file_edit'),
     url(r'^file$', views.file_index, name='file_index'),
     # Logs
     url(r'^log$', views.log_index, name='log_index'),

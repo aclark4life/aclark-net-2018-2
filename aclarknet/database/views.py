@@ -386,6 +386,46 @@ def estimate_mail(request, pk=None):
         return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
 
 
+@staff_member_required
+def file_view(request, pk=None):
+    context = get_page_items(
+        request,
+        company_model=Company,
+        model=Invoice,
+        order_by={'time': ('date', )},  # For time entries
+        pk=pk,
+        time_model=Time)
+    return render(request, 'file.html', context)
+
+
+@staff_member_required
+def invoice_edit(request, pk=None):
+    template_name, url_name = get_template_and_url_names(
+        'invoice', page_type='edit')
+    return edit(
+        request,
+        InvoiceForm,
+        Invoice,
+        url_name,
+        template_name,
+        active_nav='invoice',
+        company_model=Company,
+        pk=pk, )
+
+
+@staff_member_required
+def file_index(request):
+    search_fields = ()
+    context = get_index_items(
+        request,
+        File,
+        search_fields,
+        active_nav='dropdown',
+        app_settings_model=AppSettings,
+        order_by=('-updated', ))
+    return render(request, 'file_index.html', context)
+
+
 def home(request):
     context = get_page_items(
         request,
@@ -473,19 +513,6 @@ def login(request):
             messages.add_message(request, messages.WARNING, 'Login failed.')
             return HttpResponseRedirect(reverse('home'))
     return render(request, 'login.html', context)
-
-
-@staff_member_required
-def file_index(request):
-    search_fields = ()
-    context = get_index_items(
-        request,
-        File,
-        search_fields,
-        active_nav='dropdown',
-        app_settings_model=AppSettings,
-        order_by=('-updated', ))
-    return render(request, 'file_index.html', context)
 
 
 @staff_member_required

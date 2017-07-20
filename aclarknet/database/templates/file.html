@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+              <div class="row">
+                <div class="col-md-10">
+                  <h1><a class="mute-url" href="{% url 'file_index' %}">Files</a> &raquo; File</h1>
+                </div>
+                <div class="col-md-2">
+                  <div class="dropdown pull-right">
+                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'contact_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+{% include 'delete_form.html' %}
+              <div class="row">
+              </div>
+{% endblock %}
