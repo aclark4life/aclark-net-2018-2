@@ -17,6 +17,7 @@ from .models import Service
 from .models import Task
 from .models import Testimonial
 from .models import Time
+from .models import World
 from .utils import BooleanWidget
 from .utils import DecimalWidget
 from .utils import UserWidget
@@ -376,3 +377,9 @@ class TimeAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = TimeResource
+
+
+@admin.register(World)
+class WorldAdmin(BaseModel):
+    """
+    """
