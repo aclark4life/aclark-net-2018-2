@@ -483,6 +483,7 @@ def file_index(request):
         File,
         search_fields,
         active_nav='dropdown',
+        app_settings_model=AppSettings,
         order_by=('-updated', ))
     return render(request, 'file_index.html', context)
 
