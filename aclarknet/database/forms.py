@@ -138,10 +138,10 @@ class NoteForm(forms.ModelForm):
         fields = (
             'active',
             'hidden',
-            'due_date', 
             'title',
             'tags',
             'note',
+            'due_date', 
         )
         widgets = {
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
