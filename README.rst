@@ -271,3 +271,8 @@ WhiteNoise
     application = MyWSGIApp()
     application = WhiteNoise(application, root='/path/to/static/files')
     application.add_files('/path/to/more/static/files', prefix='more-files/')
+
+Webpack
+-------
+
+- http://owaislone.org/blog/webpack-plus-reactjs-and-django/
