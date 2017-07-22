@@ -275,4 +275,5 @@ WhiteNoise
 Webpack
 -------
 
+- http://geezhawk.github.io/using-react-with-django-rest-framework
 - http://owaislone.org/blog/webpack-plus-reactjs-and-django/
