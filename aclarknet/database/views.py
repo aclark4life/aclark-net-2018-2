@@ -959,6 +959,7 @@ def time_index(request):
 @login_required
 def user(request, pk=None):
     filters = {
+        'active': True,
         'estimate': None,
         'user': None,  # fill in later
     }
