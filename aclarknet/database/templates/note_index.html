@@ -31,7 +31,7 @@
             {% for item in items %}
               <tr>
                 <td>{{ forloop.counter }}</a></td>
-                <td>{{ item.title|safe }}</td>
+                <td>{{ item.title|default:'' }}</td>
                 <td>{{ item.note|safe }}</td>
                 <td>{{ item.note|striptags|truncatechars:8 }}</td>
                 <td>{{ item.due_date|date:'Y-m-d' }}</td>
