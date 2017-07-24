@@ -136,15 +136,14 @@ def client_edit(request, pk=None):
 
 @staff_member_required
 def client_index(request):
-    search_fields = ('address', 'name')
     context = get_index_items(
         request,
         Client,
-        search_fields,
         active_nav='client',
         app_settings_model=AppSettings,
         edit_url='client_edit',  # Delete modal
         order_by=('-active', 'name'),
+        search_fields=('address', 'name'),
         show_search=True)
     return render(request, 'client_index.html', context)
 
@@ -200,15 +199,14 @@ def contact_edit(request, pk=None):
 
 @staff_member_required
 def contact_index(request):
-    search_fields = ('first_name', 'last_name', 'email', 'notes')
     context = get_index_items(
         request,
         Contact,
-        search_fields,
         active_nav='contact',
         app_settings_model=AppSettings,
         edit_url='contact_edit',  # Delete modal
         order_by=('-active', 'last_name', 'first_name'),
+        search_fields=('first_name', 'last_name', 'email', 'notes'),
         show_search=True)
     return render(request, 'contact_index.html', context)
 
@@ -294,11 +292,9 @@ def contract_edit(request, pk=None):
 def contract_index(request):
     """
     """
-    search_fields = ()
     context = get_index_items(
         request,
         Contract,
-        search_fields,
         active_nav='contract',
         order_by=('-updated', ),
         app_settings_model=AppSettings)
@@ -365,15 +361,14 @@ def estimate_edit(request, pk=None):
 
 @staff_member_required
 def estimate_index(request):
-    search_fields = ('subject', )
     context = get_index_items(
         request,
         Estimate,
-        search_fields,
         active_nav='estimate',
         app_settings_model=AppSettings,
         edit_url='estimate_edit',  # Delete modal
         order_by=('-updated', ),
+        search_fields=('subject', ),
         show_search=True)
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -415,11 +410,9 @@ def file_edit(request, pk=None):
 
 @staff_member_required
 def file_index(request):
-    search_fields = ()
     context = get_index_items(
         request,
         File,
-        search_fields,
         active_nav='dropdown',
         app_settings_model=AppSettings,
         order_by=('-updated', ))
@@ -486,11 +479,11 @@ def invoice_index(request):
     context = get_index_items(
         request,
         Invoice,
-        search_fields,
         active_nav='invoice',
         app_settings_model=AppSettings,
         edit_url='invoice_edit',  # Delete modal
         order_by=('-updated', ),
+        search_fields=search_fields,
         show_search=True)
     return render(request, 'invoice_index.html', context)
 
@@ -517,14 +510,13 @@ def login(request):
 
 @staff_member_required
 def log_index(request):
-    search_fields = ('entry', )
     context = get_index_items(
         request,
         Log,
-        search_fields,
         active_nav='dropdown',
+        app_settings_model=AppSettings,
         order_by=('-updated', ),
-        app_settings_model=AppSettings)
+        search_fields=('entry', ))
     return render(request, 'log_index.html', context)
 
 
@@ -561,14 +553,13 @@ def newsletter_edit(request, pk=None):
 def newsletter_index(request, pk=None):
     """
     """
-    search_fields = ('text', )
     context = get_index_items(
         request,
         Newsletter,
-        search_fields,
         active_nav='dropdown',
+        app_settings_model=AppSettings
         order_by=('-updated', ),
-        app_settings_model=AppSettings)
+        search_fields=('text', ))
     return render(request, 'newsletter_index.html', context)
 
 
@@ -642,16 +633,15 @@ def note_edit(request, pk=None):
 
 @staff_member_required
 def note_index(request, pk=None):
-    search_fields = ('note', 'title')
     filters = {'hidden': False, }
     context = get_index_items(
         request,
         Note,
-        search_fields,
         active_nav='note',
         app_settings_model=AppSettings,
         filters=filters,
         order_by=('-active', '-updated'),
+        search_fields=('note', 'title'),
         show_search=True)
     context['edit_url'] = 'note_edit'  # Delete modal
     return render(request, 'note_index.html', context)
@@ -687,15 +677,14 @@ def project_edit(request, pk=None):
 
 @staff_member_required
 def project_index(request, pk=None):
-    search_fields = ('id', 'name')
     context = get_index_items(
         request,
         Project,
-        search_fields,
         active_nav='project',
         app_settings_model=AppSettings,
         edit_url='project_edit',  # Delete modal
         order_by=('-updated', ),
+        search_fields=('id', 'name'),
         show_search=True)
     return render(request, 'project_index.html', context)
 
@@ -731,11 +720,9 @@ def proposal_edit(request, pk=None):
 
 @staff_member_required
 def proposal_index(request, pk=None):
-    search_fields = ()
     context = get_index_items(
         request,
         Proposal,
-        search_fields,
         active_nav='proposal',
         app_settings_model=AppSettings,
         order_by=('-updated', ),
@@ -790,7 +777,6 @@ def report_index(request):
     plot_items = reports  # Save for plotting
     reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
     company = Company.get_solo()
-    search_fields = ('id', 'name', 'gross', 'net')
     context = get_index_items(
         request,
         Report,
@@ -799,6 +785,7 @@ def report_index(request):
         app_settings_model=AppSettings,
         edit_url='report_edit',  # Delete modal
         order_by=('-updated', ),
+        search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
     if reports['gross'] is not None and reports['net'] is not None:
         cost = reports['gross'] - reports['net']
@@ -903,15 +890,14 @@ def task_edit(request, pk=None):
 
 @staff_member_required
 def task_index(request):
-    search_fields = ('name', )
     context = get_index_items(
         request,
         Task,
-        search_fields,
         active_nav='task',
         app_settings_model=AppSettings,
         edit_url='task_edit',  # Delete modal
         order_by=('-updated', ),
+        search_fields=('name', ),
         show_search=True)
     return render(request, 'task_index.html', context)
 
@@ -958,11 +944,11 @@ def time_index(request):
     context = get_index_items(
         request,
         Time,
-        search_fields,
         active_nav='time',
         app_settings_model=AppSettings,
         edit_url='time_edit',  # Delete modal
         order_by=('-updated', ),
+        search_fields=search_fields,
         show_search=True)
     if not request.user.is_staff:
         return HttpResponseRedirect(reverse('login'))
@@ -972,41 +958,18 @@ def time_index(request):
 
 @login_required
 def user(request, pk=None):
-    contacts = Contact.objects.all()
-    user = get_object_or_404(User, pk=pk)
-    profile = Profile.objects.get_or_create(user=user)[0]
     filters = {
         'estimate': None,
         'user': user,
     }
-    search_fields = ()
-    context = get_index_items(
+    context = get_page_items(
         request,
-        Time,
-        search_fields,
-        active_nav='user',
         app_settings_model=AppSettings,
-        filters=filters, )
-    total_hours = context['total_hours']
-    if profile.rate and total_hours:
-        total_dollars = profile.rate * total_hours
-    else:
-        total_dollars = 0
-    context['active_nav'] = 'dropdown'
-    context['company'] = company
-    context['edit_url'] = 'user_edit'  # Delete modal
-    context['icon_size'] = get_setting(request, AppSettings, 'icon_size')
-    context['item'] = user
-    context['profile'] = profile
-    context['request'] = request
-    context['total_dollars'] = '%.2f' % total_dollars
-    context['is_contact'] = user.email in [i.email for i in contacts]
-    projects = Project.objects.filter(team__in=[user, ])
-    context['projects'] = projects
-    if request.user.pk == int(pk) or request.user.is_staff:
-        return render(request, 'user.html', context)
-    else:
-        return HttpResponseRedirect(reverse('home'))
+        filters=filters,
+        model=User,
+        profile_model=Profile,
+        pk=pk)
+    return render(request, 'user.html', context)
 
 
 @staff_member_required
@@ -1030,11 +993,9 @@ def user_edit(request, pk=None):
 
 @staff_member_required
 def user_index(request):
-    search_fields = ()
     context = get_index_items(
         request,
         User,
-        search_fields,
         active_nav='dropdown',
         app_settings_model=AppSettings,
         order_by=('-updated', ),

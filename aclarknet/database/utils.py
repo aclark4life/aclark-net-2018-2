@@ -518,13 +518,13 @@ def get_amount(times, invoice=None):
 
 def get_index_items(request,
                     model,
-                    search_fields,
                     filters=None,
                     app_settings_model=None,
                     active_nav=None,
                     edit_url=None,
                     order_by=None,
                     page_size=None,
+                    search_fields=None,
                     show_search=False):
     """
     """
@@ -604,9 +604,11 @@ def get_page_items(request,
                    contact_model=None,
                    contract_model=None,
                    estimate_model=None,
+                   filters=None,
                    invoice_model=None,
                    model=None,
                    note_model=None,
+                   profile_model=None,
                    project_model=None,
                    report_model=None,
                    order_by=None,
@@ -729,6 +731,11 @@ def get_page_items(request,
             context['edit_url'] = 'proposal_edit'  # Delete modal
             context['item'] = proposal
             context['pdf'] = pdf
+        elif model._meta.verbose_name == 'user':
+            user = get_object_or_404(model, pk=pk)
+            context['active_nav'] = 'dropdown'
+            context['item'] = client
+            context['profile'] = profile_model.objects.get_or_create(user=user)[0]
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
