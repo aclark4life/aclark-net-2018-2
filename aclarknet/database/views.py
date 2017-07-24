@@ -964,7 +964,7 @@ def user(request, pk=None):
     }
     order_by={
         'time': ('-updated', ),
-    },
+    }
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
