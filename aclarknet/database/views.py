@@ -959,7 +959,6 @@ def time_index(request):
 @login_required
 def user(request, pk=None):
     filters = {
-        'estimate': None,
         'user': user,
     }
     context = get_page_items(
