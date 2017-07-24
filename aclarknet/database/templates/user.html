@@ -70,7 +70,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    {% for item in items %}
+                    {% for item in times %}
                     <tr>
                       <td><a href="{% url 'time_entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
                       <td>{{ item.date|date:'U' }}</td>
