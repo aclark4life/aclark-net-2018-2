@@ -962,13 +962,16 @@ def user(request, pk=None):
         'estimate': None,
         'user': None,  # fill in later
     }
+    order_by={
+        'time': ('-updated', ),
+    },
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
         contact_model=Contact,
         filters=filters,
         model=User,
-        order_by=('-updated', ),
+        order_by=order_by,
         profile_model=Profile,
         project_model=Project,
         time_model=Time,
