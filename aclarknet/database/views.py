@@ -968,6 +968,7 @@ def user(request, pk=None):
         contact_model=Contact,
         filters=filters,
         model=User,
+        order_by=('-updated', ),
         profile_model=Profile,
         project_model=Project,
         time_model=Time,
