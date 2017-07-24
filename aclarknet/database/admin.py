@@ -200,7 +200,7 @@ class InvoiceAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Location)
-class LocationAdmin(geo_admin.GeoModelAdmin):
+class LocationAdmin(geo_admin.OSMGeoAdmin):
     """
     """
     search_fields = ('name', )
