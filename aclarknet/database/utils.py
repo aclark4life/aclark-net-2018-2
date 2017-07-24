@@ -732,11 +732,9 @@ def get_page_items(request,
             context['item'] = proposal
             context['pdf'] = pdf
         elif model._meta.verbose_name == 'user':
-            if filters:
-                times = model.objects.filter(**filters)
-            else:
-                times = time_model.objects.all()
             user = get_object_or_404(model, pk=pk)
+            filters['user'] = user
+            times = time_model.objects.filter(**filters)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
