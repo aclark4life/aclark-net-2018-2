@@ -738,6 +738,7 @@ def get_page_items(request,
             context['is_contact'] = user.email in [i.email for i in contacts]
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(user=user)[0]
+            context['projects'] = project_model.objects.filter(team__in=[user, ])
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)

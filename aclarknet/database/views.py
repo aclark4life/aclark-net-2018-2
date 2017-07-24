@@ -969,6 +969,7 @@ def user(request, pk=None):
         filters=filters,
         model=User,
         profile_model=Profile,
+        project_model=Project,
         pk=pk)
     return render(request, 'user.html', context)
 
