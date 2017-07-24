@@ -733,12 +733,15 @@ def get_page_items(request,
             context['pdf'] = pdf
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
+            times = time_model.objects.filter(**filters)
+            times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
             context['is_contact'] = user.email in [i.email for i in contacts]
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(user=user)[0]
             context['projects'] = project_model.objects.filter(team__in=[user, ])
+            context['times'] = times
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)

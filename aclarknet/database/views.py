@@ -970,6 +970,7 @@ def user(request, pk=None):
         model=User,
         profile_model=Profile,
         project_model=Project,
+        time_model=Time,
         pk=pk)
     return render(request, 'user.html', context)
 
