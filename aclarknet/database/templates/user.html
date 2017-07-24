@@ -77,7 +77,7 @@
                       <td>{{ item.hours|default:'' }}</td>
                       <td>{% if item.project %}<a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a>{% endif %}</td>
                       <td>{{ item.project }}</td>
-                      <td>{{ item.notes }}</td>
+                      <td>{{ item.log }}</td>
                       <td><a href="{% url 'time_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i></a></td>
                     </tr>
                     {% endfor %}
