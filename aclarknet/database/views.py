@@ -965,6 +965,7 @@ def user(request, pk=None):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
+        contact_model=Contact,
         filters=filters,
         model=User,
         profile_model=Profile,

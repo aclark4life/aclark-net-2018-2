@@ -733,7 +733,9 @@ def get_page_items(request,
             context['pdf'] = pdf
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
+            contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
+            context['is_contact'] = user.email in [i.email for i in contacts]
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(user=user)[0]
     else:  # home
