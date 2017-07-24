@@ -557,7 +557,7 @@ def newsletter_index(request, pk=None):
         request,
         Newsletter,
         active_nav='dropdown',
-        app_settings_model=AppSettings
+        app_settings_model=AppSettings,
         order_by=('-updated', ),
         search_fields=('text', ))
     return render(request, 'newsletter_index.html', context)
