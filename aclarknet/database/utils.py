@@ -734,7 +734,7 @@ def get_page_items(request,
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
-            context['item'] = client
+            context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(user=user)[0]
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
