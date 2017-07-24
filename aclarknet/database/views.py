@@ -960,6 +960,7 @@ def time_index(request):
 def user(request, pk=None):
     filters = {
         'estimate': None,
+        'invoiced': False,
         'user': None,  # fill in later
     }
     order_by={
