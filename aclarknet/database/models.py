@@ -301,6 +301,24 @@ class Invoice(BaseModel):
         return 'invoice-%s' % self.document_id
 
 
+# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/tutorial/#defining-a-geographic-model
+class Location(BaseModel):
+    name = models.CharField(max_length=300, default=fake.text)
+    area = models.IntegerField(blank=True, null=True)
+    pop2005 = models.IntegerField('Population 2005', blank=True, null=True)
+    fips = models.CharField('FIPS Code', max_length=2, blank=True, null=True)
+    iso2 = models.CharField('2 Digit ISO', max_length=2, blank=True, null=True)
+    iso3 = models.CharField('3 Digit ISO', max_length=3, blank=True, null=True)
+    un = models.IntegerField('United Nations Code', blank=True, null=True)
+    region = models.IntegerField('Region Code', blank=True, null=True)
+    subregion = models.IntegerField('Sub-Region Code', blank=True, null=True)
+    lon = models.FloatField(blank=True, null=True)
+    lat = models.FloatField(blank=True, null=True)
+    mpoly = models.MultiPolygonField(blank=True, null=True)
+    def __str__(self):
+        return self.name
+
+
 class Log(BaseModel):
     """
     Log sending of marketing emails and other interesting events.
@@ -660,26 +678,3 @@ class Time(BaseModel):
 class Zipcode(BaseModel):
     code = models.CharField(max_length=5)
     poly = models.PolygonField()
-
-# https://docs.djangoproject.com/en/1.11/ref/contrib/gis/tutorial/#defining-a-geographic-model
-class World(BaseModel):
-    # Regular Django fields corresponding to the attributes in the
-    # world borders shapefile.
-    name = models.CharField(max_length=300, default=fake.text)
-    area = models.IntegerField(blank=True, null=True)
-    pop2005 = models.IntegerField('Population 2005', blank=True, null=True)
-    fips = models.CharField('FIPS Code', max_length=2, blank=True, null=True)
-    iso2 = models.CharField('2 Digit ISO', max_length=2, blank=True, null=True)
-    iso3 = models.CharField('3 Digit ISO', max_length=3, blank=True, null=True)
-    un = models.IntegerField('United Nations Code', blank=True, null=True)
-    region = models.IntegerField('Region Code', blank=True, null=True)
-    subregion = models.IntegerField('Sub-Region Code', blank=True, null=True)
-    lon = models.FloatField(blank=True, null=True)
-    lat = models.FloatField(blank=True, null=True)
-
-    # GeoDjango-specific: a geometry field (MultiPolygonField)
-    mpoly = models.MultiPolygonField(blank=True, null=True)
-
-    # Returns the string representation of the model.
-    def __str__(self):
-        return self.name

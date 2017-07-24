@@ -6,6 +6,7 @@ from .models import ContractSettings
 from .models import Company
 from .models import Estimate
 from .models import Invoice
+from .models import Location
 from .models import Log
 from .models import Newsletter
 from .models import Note
@@ -17,11 +18,11 @@ from .models import Service
 from .models import Task
 from .models import Testimonial
 from .models import Time
-from .models import World
 from .utils import BooleanWidget
 from .utils import DecimalWidget
 from .utils import UserWidget
 from django.contrib import admin
+from django.contrib.gis import admin as geo_admin
 from import_export import fields
 from import_export import widgets
 from import_export.admin import ImportExportModelAdmin
@@ -196,6 +197,12 @@ class InvoiceAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = InvoiceResource
+
+
+@admin.register(Location)
+class LocationAdmin(geo_admin.GeoModelAdmin):
+    """
+    """
 
 
 @admin.register(Log)
@@ -377,9 +384,3 @@ class TimeAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = TimeResource
-
-
-@admin.register(World)
-class WorldAdmin(ImportExportModelAdmin):
-    """
-    """
