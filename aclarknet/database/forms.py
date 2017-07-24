@@ -148,8 +148,7 @@ class NoteForm(forms.ModelForm):
             'title',
             'note',
             'tags',
-            'due_date', 
-        )
+            'due_date', )
         widgets = {
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -209,4 +208,5 @@ class TaskForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = ('date', 'hours', 'client', 'project', 'task', 'log', 'invoiced')
+        fields = ('date', 'hours', 'client', 'project', 'task', 'log',
+                  'invoiced')

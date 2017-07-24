@@ -590,8 +590,10 @@ def get_index_items(request,
 
 def get_note_stats(note_model):
     note_stats = {}
-    note_stats['active_note_count'] = len(note_model.objects.filter(active=True))
-    note_stats['hidden_note_count'] = len(note_model.objects.filter(hidden=True))
+    note_stats['active_note_count'] = len(
+        note_model.objects.filter(active=True))
+    note_stats['hidden_note_count'] = len(
+        note_model.objects.filter(hidden=True))
     note_stats['inactive_note_count'] = len(
         note_model.objects.filter(active=False))
     note_stats['total_note_count'] = len(note_model.objects.all())
@@ -734,7 +736,8 @@ def get_page_items(request,
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
             filters['user'] = user
-            projects = project_model.objects.filter(team__in=[user, ], active=True)
+            projects = project_model.objects.filter(
+                team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
             times = time_model.objects.filter(**filters)
             times = times.order_by(*order_by['time'])
@@ -742,7 +745,8 @@ def get_page_items(request,
             context['active_nav'] = 'dropdown'
             context['is_contact'] = user.email in [i.email for i in contacts]
             context['item'] = user
-            context['profile'] = profile_model.objects.get_or_create(user=user)[0]
+            context['profile'] = profile_model.objects.get_or_create(
+                user=user)[0]
             context['projects'] = projects
             context['times'] = times
     else:  # home

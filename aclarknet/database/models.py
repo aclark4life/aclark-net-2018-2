@@ -243,7 +243,8 @@ class Estimate(BaseModel):
 class File(BaseModel):
     """
     """
-    name = models.CharField(max_length=300, blank=True, null=True, default=fake.text)
+    name = models.CharField(
+        max_length=300, blank=True, null=True, default=fake.text)
     doc = models.FileField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
 
@@ -315,6 +316,7 @@ class Location(BaseModel):
     lon = models.FloatField(blank=True, null=True)
     lat = models.FloatField(blank=True, null=True)
     mpoly = models.MultiPolygonField(blank=True, null=True)
+
     def __str__(self):
         return self.name
 

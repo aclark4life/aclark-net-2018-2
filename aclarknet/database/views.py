@@ -963,7 +963,7 @@ def user(request, pk=None):
         'invoiced': False,
         'user': None,  # fill in later
     }
-    order_by={
+    order_by = {
         'time': ('-updated', ),
         'project': ('-updated', ),
     }
