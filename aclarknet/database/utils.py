@@ -734,6 +734,8 @@ def get_page_items(request,
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
             filters['user'] = user
+            projects = project_model.objects.filter(team__in=[user, ])
+            projects = times.order_by(*order_by['project'])
             times = time_model.objects.filter(**filters)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
@@ -741,7 +743,7 @@ def get_page_items(request,
             context['is_contact'] = user.email in [i.email for i in contacts]
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(user=user)[0]
-            context['projects'] = project_model.objects.filter(team__in=[user, ])
+            context['projects'] = projects
             context['times'] = times
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
