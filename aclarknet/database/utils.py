@@ -734,7 +734,7 @@ def get_page_items(request,
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
             filters['user'] = user
-            projects = project_model.objects.filter(team__in=[user, ])
+            projects = project_model.objects.filter(team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
             times = time_model.objects.filter(**filters)
             times = times.order_by(*order_by['time'])
