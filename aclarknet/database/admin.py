@@ -203,6 +203,7 @@ class InvoiceAdmin(ImportExportModelAdmin):
 class LocationAdmin(geo_admin.GeoModelAdmin):
     """
     """
+    search_fields = ('name', )
 
 
 @admin.register(Log)
