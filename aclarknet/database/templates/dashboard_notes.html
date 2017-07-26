@@ -1,5 +1,5 @@
               <h2><a class="mute-url" href="{% url 'note_index' %}">Notes</a></h2>
-              <h3>{% if not 'search' in request.POST %}({{ note_stats.active_note_count }} active, {{ note_stats.hidden_note_count }} hidden, {{ note_stats.inactive_note_count }} inactive, {{ note_stats.not_hidden_count }} not hidden, {{ note_stats.total_note_count }} total){% endif %}</h3>
+              <h3>{% if not 'search' in request.POST %}({{ note_stats.active_note_count }} active, {{ note_stats.not_hidden_count }} not hidden, {{ note_stats.hidden_note_count }} hidden, {{ note_stats.inactive_note_count }} inactive, {{ note_stats.total_note_count }} total){% endif %}</h3>
               <table data-toggle="table" data-classes="table table-hover table-no-bordered">
                 <thead>
                   <tr>
