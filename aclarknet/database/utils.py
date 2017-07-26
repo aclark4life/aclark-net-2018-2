@@ -521,6 +521,7 @@ def get_index_items(request,
                     app_settings_model=None,
                     active_nav=None,
                     company_model=None,
+                    contact_model=None,
                     edit_url=None,
                     order_by=None,
                     page_size=None,
@@ -566,6 +567,16 @@ def get_index_items(request,
             cost = item.gross - item.net
             item.cost = cost
             item.save()
+    # Check if user is contact
+    if model._meta.verbose_name == 'user':
+        contacts = contact_model.objects.all()
+        items = context['items']
+        for item in items:
+            if item.email in [i.email for i in contacts]:
+                item.is_contact = True
+            else:
+                item.is_contact = False
+        context['items'] = items
     # Don't show items to anon
     if not request.user.is_authenticated:
         items = []

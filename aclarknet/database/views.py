@@ -49,7 +49,6 @@ from .utils import edit
 from .utils import generate_doc
 from .utils import get_client_city
 from .utils import get_company_name
-from .utils import get_setting
 from .utils import get_template_and_url_names
 from .utils import get_query
 from .utils import send_mail
@@ -999,5 +998,6 @@ def user_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         company_model=Company,
+        contact_model=Contact,
         show_search=False)
     return render(request, 'user_index.html', context)
