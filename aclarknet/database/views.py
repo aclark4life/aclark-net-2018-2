@@ -999,6 +999,5 @@ def user_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         company_model=Company,
-        order_by=('active', ),
         show_search=False)
     return render(request, 'user_index.html', context)
