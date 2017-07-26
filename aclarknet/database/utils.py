@@ -520,6 +520,7 @@ def get_index_items(request,
                     model,
                     app_settings_model=None,
                     active_nav=None,
+                    company_model=None,
                     edit_url=None,
                     order_by=None,
                     page_size=None,
@@ -528,6 +529,9 @@ def get_index_items(request,
     """
     """
     context = {}
+    if company_model:
+        company = company_model.get_solo()
+        context['company'] = company
     page = get_query(request, 'page')
     paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
