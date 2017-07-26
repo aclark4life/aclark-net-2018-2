@@ -999,15 +999,6 @@ def user_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         company_model=Company,
+        order_by=('active', ),
         show_search=False)
-    # context['company'] = company
-    # Check if user is contact
-    # contacts = Contact.objects.all()
-    # items = context['items']
-    # for item in items:
-    #     if item.email in [i.email for i in contacts]:
-    #         item.is_contact = True
-    #     else:
-    #         item.is_contact = False
-    # context['items'] = items
     return render(request, 'user_index.html', context)
