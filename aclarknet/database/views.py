@@ -999,6 +999,6 @@ def user_index(request):
         app_settings_model=AppSettings,
         company_model=Company,
         contact_model=Contact,
-        order_by=('-active', ),
+        order_by=('-profile__active', '-profile__updated'),
         show_search=False)
     return render(request, 'user_index.html', context)
