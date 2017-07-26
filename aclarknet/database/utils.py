@@ -590,10 +590,10 @@ def get_index_items(request,
 
 def get_note_stats(note_model):
     note_stats = {}
-    active = len(note_model.objects.filter(active=True)
-    hidden = len(note_model.objects.filter(hidden=True)
-    inactive = len(note_model.objects.filter(active=False)
-    total = len(note_model.objects.all()
+    active = len(note_model.objects.filter(active=True))
+    hidden = len(note_model.objects.filter(hidden=True))
+    inactive = len(note_model.objects.filter(active=False))
+    total = len(note_model.objects.all())
     not_hidden = inactive_note_count - hidden_note_count
     note_stats['active_note_count'] = active
     note_stats['hidden_note_count'] = hidden
