@@ -999,7 +999,6 @@ def user_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         company_model=Company,
-        order_by=('-updated', ),
         show_search=False)
     # context['company'] = company
     # Check if user is contact
