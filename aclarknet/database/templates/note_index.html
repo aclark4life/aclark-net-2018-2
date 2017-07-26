@@ -3,7 +3,7 @@
           <div class="row">
             <div class="col-md-9">
               <h1>Notes</h1>
-              <h3>{% if not 'search' in request.POST %}({{ note_stats.active_note_count }} active, {{ note_stats.hidden_note_count }} hidden, {{ note_stats.inactive_note_count }} inactive, {{ note_stats.total_note_count }} total){% endif %}</h3>
+              <h3>{% if not 'search' in request.POST %}({{ note_stats.active_note_count }} active, {{ note_stats.hidden_note_count }} hidden, {{ note_stats.inactive_note_count }} inactive, {{ note_stats.not_hidden_count }} not hidden, {{ note_stats.total_note_count }} total){% endif %}</h3>
             </div>
             <div class="col-md-3">
               <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a></div>
