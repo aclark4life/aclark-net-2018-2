@@ -518,7 +518,6 @@ def get_amount(times, invoice=None):
 
 def get_index_items(request,
                     model,
-                    filters=None,
                     app_settings_model=None,
                     active_nav=None,
                     edit_url=None,
@@ -548,10 +547,7 @@ def get_index_items(request,
                 edit_url=edit_url,
                 request=request)
     # Not a search
-    if filters:
-        items = model.objects.filter(**filters)
-    else:
-        items = model.objects.all()
+    items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
     if order_by is not None:
         items = items.order_by(*order_by)
@@ -609,7 +605,6 @@ def get_page_items(request,
                    contact_model=None,
                    contract_model=None,
                    estimate_model=None,
-                   filters=None,
                    invoice_model=None,
                    model=None,
                    note_model=None,
@@ -738,7 +733,11 @@ def get_page_items(request,
             context['pdf'] = pdf
         elif model._meta.verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
-            filters['user'] = user
+            filters = {
+                'estimate': None,
+                'invoiced': False,
+                'user': user,
+            }
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])

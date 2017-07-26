@@ -955,11 +955,6 @@ def time_index(request):
 
 @login_required
 def user(request, pk=None):
-    filters = {
-        'estimate': None,
-        'invoiced': False,
-        'user': None,  # fill in later
-    }
     order_by = {
         'time': ('-updated', ),
         'project': ('-updated', ),
@@ -968,7 +963,6 @@ def user(request, pk=None):
         request,
         app_settings_model=AppSettings,
         contact_model=Contact,
-        filters=filters,
         model=User,
         order_by=order_by,
         profile_model=Profile,
