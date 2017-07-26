@@ -778,7 +778,6 @@ def report_index(request):
     context = get_index_items(
         request,
         Report,
-        search_fields,
         active_nav='dropdown',
         app_settings_model=AppSettings,
         edit_url='report_edit',  # Delete modal
