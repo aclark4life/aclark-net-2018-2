@@ -755,7 +755,7 @@ def get_page_items(request,
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
         notes = notes.order_by(*order_by['note'])
-        projects = project_model.objects.filter(active=True)
+        projects = project_model.objects.filter(active=True, hidden=False)
         projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
         gross, net = get_invoice_totals(invoice_model)
