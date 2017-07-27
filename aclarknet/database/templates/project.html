@@ -165,7 +165,7 @@
                 <tbody>
                  {% for estimate in estimates %}
                   <tr>
-                    <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.subject }}</a></td>
+                    <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.subject|default:'' }}</a></td>
                     <td>{{ estimate.subject|default:'' }}</td>
                     <td>{{ estimate.issue_date|default:'' }}</td>
                     <td>{% if estimate.subtotal %}{{ company.currency_symbol }}{% endif %}{{ estimate.subtotal|default:'' }}</td>
