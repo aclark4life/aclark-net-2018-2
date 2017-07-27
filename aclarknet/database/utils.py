@@ -672,7 +672,7 @@ def get_page_items(request,
                 invoice=None)
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
-            times = set_times_amount(times)
+            times = set_times_amount(times, estimate=estimate)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
@@ -928,7 +928,7 @@ def set_relationship(obj,
         return True
 
 
-def set_times_amount(times, invoice=None):
+def set_times_amount(times, estimate=None, invoice=None):
     amount = 0
     total = 0
     for entry in times:
@@ -939,6 +939,9 @@ def set_times_amount(times, invoice=None):
     if invoice:
         invoice.amount = '%.2f' % total
         invoice.save()
+    elif estimate:
+        estimate.amount = '%.2f' % total
+        estimate.save()
     return times
 
 
