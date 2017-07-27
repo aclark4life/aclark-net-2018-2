@@ -141,7 +141,7 @@ def client_index(request):
         active_nav='client',
         app_settings_model=AppSettings,
         edit_url='client_edit',  # Delete modal
-        order_by=('-active', 'name'),
+        order_by=('-active', '-updated', 'name'),
         search_fields=('address', 'name'),
         show_search=True)
     return render(request, 'client_index.html', context)
