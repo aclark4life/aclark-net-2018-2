@@ -673,12 +673,15 @@ def get_page_items(request,
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = set_times_amount(times)
+            gross, net = get_invoice_totals(estimate_model)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
+            context['gross'] = gross
             context['item'] = estimate
+            context['net'] = net
             context['pdf'] = pdf
         if verbose_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
