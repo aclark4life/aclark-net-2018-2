@@ -893,7 +893,7 @@ def set_relationship(
         query_client = get_query(request, 'client')
         if query_client:
             client = get_object_or_404(client_model, pk=query_client)
-            obj.client.add(client)
+            obj.client = client
             obj.save()
             return True
     elif verbose_name == 'note':
