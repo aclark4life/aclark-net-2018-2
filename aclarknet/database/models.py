@@ -233,6 +233,7 @@ class Estimate(BaseModel):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
+    is_sow = models.BooleanField('Use for Statement of Work?', default=False)
 
     def __str__(self):
         if self.client and self.document_id:
