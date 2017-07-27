@@ -943,5 +943,3 @@ def set_times_amount(times, estimate=None, invoice=None):
         estimate.amount = '%.2f' % total
         estimate.save()
     return times
-
-
