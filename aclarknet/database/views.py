@@ -333,7 +333,7 @@ def contract_settings_edit(request, pk=None):
 @staff_member_required
 def estimate(request, pk=None):
     order_by = {
-        'time': ('-date', ),
+        'time': ('date', ),
     }
     context = get_page_items(
         request, company_model=Company, model=Estimate, order_by=order_by,
