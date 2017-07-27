@@ -880,13 +880,20 @@ def send_mail(request,
 
 
 def set_relationship(
-        obj,  # time
+        obj,
         request,
         client_model=None,
         estimate_model=None,
         invoice_model=None,
         project_model=None):
-    if obj._meta.verbose_name == 'time':
+    if obj._meta.verbose_name in ['contact', 'note']:
+        query_string_client = get_query(request, 'client')
+        if query_string_client:
+            client = get_object_or_404(client_model, pk=query_string_client)
+            client.note.add(obj)
+            client.save()
+            return True
+    elif obj._meta.verbose_name == 'time':
         query_string_invoices = get_query(request, 'invoice')
         query_string_project = get_query(request, 'project')
         if query_string_invoices:
@@ -903,10 +910,3 @@ def set_relationship(
             obj.task = project.task
             obj.save()
         return True
-    elif obj._meta.verbose_name == 'note':
-        query_string_client = get_query(request, 'client')
-        if query_string_client:
-            client = get_object_or_404(client_model, pk=query_string_client)
-            client.note.add(obj)
-            client.save()
-            return True
