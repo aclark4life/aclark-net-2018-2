@@ -916,11 +916,11 @@ def set_relationship(obj,
             estimate = get_object_or_404(estimate_model, pk=query_estimate)
             obj.estimate = estimate
             obj.save()
-        if query_invoice:
+        elif query_invoice:
             invoice = get_object_or_404(invoice_model, pk=query_invoice)
             obj.invoice = invoice
             obj.save()
-        if query_project:
+        elif query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.task = project.task
             obj.save()
