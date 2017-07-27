@@ -886,9 +886,7 @@ def set_relationship(obj,
             obj.client = client
             obj.save()
             return True
-    elif verbose_name == 'estimate':
-        pass
-    elif verbose_name == 'invoice':
+    elif verbose_name == 'estimate' or verbose_name == 'invoice':
         query_project = get_query(request, 'project')
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
