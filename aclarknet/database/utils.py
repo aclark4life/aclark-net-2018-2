@@ -892,6 +892,7 @@ def set_relationship(obj,
         query_project = get_query(request, 'project')
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
+            obj.client = project.client
             obj.project = project
             obj.save()
     elif verbose_name == 'note':
