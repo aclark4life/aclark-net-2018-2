@@ -916,7 +916,7 @@ def set_relationship(obj,
             estimate = get_object_or_404(estimate_model, pk=query_estimate)
             obj.estimate = estimate
             obj.save()
-        elif query_invoices:
+        if query_invoices:
             invoices = query_invoices.split(',')
             if len(invoices) > 1:
                 return False
@@ -925,7 +925,7 @@ def set_relationship(obj,
                 invoice = get_object_or_404(invoice_model, pk=invoice)
                 obj.invoice = invoice
                 obj.save()
-        elif query_project:
+        if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.task = project.task
             obj.save()
