@@ -678,9 +678,7 @@ def get_page_items(request,
             context['document_type_title'] = document_type_title
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
-            context['gross'] = gross
             context['item'] = estimate
-            context['net'] = net
             context['pdf'] = pdf
         if verbose_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
