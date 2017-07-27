@@ -13,7 +13,6 @@
                     {% if item.client_set.all %}{% if item.client_set.all.0 %}<p class="card-text text-muted">Client: <span class="float-right"><a href="{% url 'client' item.client_set.all.0.pk %}">{{ item.client_set.all.0 }}</a></span></p>{% endif %}{% endif %}
                     {% if item.company_set.all %}{% if item.company_set.all.0 %}<p class="card-text text-muted">Company: <span class="float-right"><a href="{% url 'company'  %}">{{ item.company_set.all.0 }}</a></span></p>{% endif %}{% endif %}
                   </div>
-                  </div>
                 </div>
               </div>
               <div class="offset-md-1 col-md-3">
