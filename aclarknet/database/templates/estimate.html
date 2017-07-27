@@ -17,14 +17,4 @@
               </div>
               {% include 'pdf_invoice.html' %}
               {% include 'delete_form.html' %}
-<!--
-              <div class="row">
-                <div class="col-md-4">
-                  <form 
-                    action="{% url 'estimate_edit' pk=item.pk %}?times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"
-                    method="post">{% csrf_token %}<input class="btn btn-block btn-lg btn-success" type="submit" value="Update Estimate Total">
-                  </form>
-                </div>
-              </div>
--->
 {% endblock %}
