@@ -122,8 +122,10 @@ class Contact(BaseModel):
         if self.email:
             return ' '.join(
                 [self.first_name, self.last_name, '<%s>' % self.email])
-        else:
+        elif self.first_name and self.last_name:
             return ' '.join([self.first_name, self.last_name])
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Contract(BaseModel):
