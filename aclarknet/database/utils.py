@@ -279,6 +279,7 @@ def edit(
                 obj,
                 request,
                 client_model=client_model,
+                company_model=company_model,
                 estimate_model=estimate_model,
                 invoice_model=invoice_model,
                 project_model=project_model)
