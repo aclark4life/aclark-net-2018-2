@@ -917,7 +917,7 @@ def set_relationship(obj,
             obj.estimate = estimate
             obj.save()
         if query_invoice:
-            invoice = get_object_or_404(invoice_model, pk=invoice)
+            invoice = get_object_or_404(invoice_model, pk=query_invoice)
             obj.invoice = invoice
             obj.save()
         if query_project:
