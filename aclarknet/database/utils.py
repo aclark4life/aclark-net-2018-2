@@ -883,6 +883,7 @@ def set_relationship(
         obj,
         request,
         client_model=None,
+        company_model=None,
         estimate_model=None,
         invoice_model=None,
         project_model=None):
@@ -896,11 +897,16 @@ def set_relationship(
             return True
     elif verbose_name == 'note':
         query_string_client = get_query(request, 'client')
+        query_string_company = get_query(request, 'company')
         if query_string_client:
             client = get_object_or_404(client_model, pk=query_string_client)
             client.note.add(obj)
             client.save()
             return True
+        elif query_string_company:
+            company = company_model.get_solo()
+            company.note.add(obj)
+            company.save()
     elif verbose_name == 'time':
         query_string_invoices = get_query(request, 'invoice')
         query_string_project = get_query(request, 'project')
