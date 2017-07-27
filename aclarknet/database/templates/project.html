@@ -9,8 +9,9 @@
               <div class="dropdown pull-right">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'time_edit' %}?project={{ item.pk }}&invoice={% for invoice in invoices %}{{ invoice.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
+                  <li><a class="dropdown-item" href="{% url 'estimate_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Estimate</a></li>
                   <li><a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Invoice</a></li>
+                  <li><a class="dropdown-item" href="{% url 'time_edit' %}?project={{ item.pk }}&invoice={% for invoice in invoices %}{{ invoice.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&times={% for entry in entries.values %}{{ entry.pk|unlocalize }}{% if not forloop.last %},{% endif %}{% endfor %}&subtotal={{ subtotal|unlocalize }}&paid_amount={{ paid_amount|unlocalize }}&amount={{ amount|unlocalize }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
                   <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a></li>
 
                   <li><a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>

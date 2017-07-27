@@ -886,6 +886,10 @@ def set_relationship(obj,
             obj.client = client
             obj.save()
             return True
+    elif verbose_name == 'estimate':
+        pass
+    elif verbose_name == 'invoice':
+        pass
     elif verbose_name == 'note':
         query_client = get_query(request, 'client')
         query_company = get_query(request, 'company')
