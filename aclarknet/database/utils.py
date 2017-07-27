@@ -660,7 +660,10 @@ def get_page_items(request,
             context['times'] = times
         elif verbose_name == 'estimate':
             estimate = get_object_or_404(model, pk=pk)
-            document_type = estimate._meta.verbose_name
+            if not estimate.is_sow:
+                document_type = estimate._meta.verbose_name
+            else:
+                document_type = 'statement of work'
             document_type_upper = document_type.upper()
             document_type_title = document_type.title()
             pdf = get_query(request, 'pdf')
