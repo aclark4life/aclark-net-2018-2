@@ -465,6 +465,7 @@ def invoice_edit(request, pk=None):
         template_name,
         active_nav='invoice',
         company_model=Company,
+        project_model=Project,
         pk=pk, )
 
 
