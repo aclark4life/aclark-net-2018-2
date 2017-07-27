@@ -669,6 +669,7 @@ def project_edit(request, pk=None):
         Project,
         url_name,
         template_name,
+        client_model=Client,
         active_nav='project',
         pk=pk)
 
