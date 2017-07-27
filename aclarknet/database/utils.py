@@ -910,21 +910,16 @@ def set_relationship(obj,
             obj.save()
     elif verbose_name == 'time':
         query_estimate = get_query(request, 'estimate')
-        query_invoices = get_query(request, 'invoice')
+        query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
         if query_estimate:
             estimate = get_object_or_404(estimate_model, pk=query_estimate)
             obj.estimate = estimate
             obj.save()
-        if query_invoices:
-            invoices = query_invoices.split(',')
-            if len(invoices) > 1:
-                return False
-            else:
-                invoice = invoices[0]
-                invoice = get_object_or_404(invoice_model, pk=invoice)
-                obj.invoice = invoice
-                obj.save()
+        if query_invoice:
+            invoice = get_object_or_404(invoice_model, pk=invoice)
+            obj.invoice = invoice
+            obj.save()
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.task = project.task
