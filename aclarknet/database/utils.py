@@ -664,8 +664,6 @@ def get_page_items(request,
                 document_type = estimate._meta.verbose_name
             else:
                 document_type = 'statement of work'
-            document_type_upper = document_type.upper()
-            document_type_title = document_type.title()
             pdf = get_query(request, 'pdf')
             times_client = time_model.objects.filter(
                 client=estimate.client,
@@ -678,8 +676,7 @@ def get_page_items(request,
             times = times.order_by(*order_by['time'])
             times = set_times_amount(times, estimate=estimate)
             context['active_nav'] = 'estimate'
-            context['document_type_upper'] = document_type_upper
-            context['document_type_title'] = document_type_title
+            context['document_type'] = document_type
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
@@ -694,16 +691,13 @@ def get_page_items(request,
         elif verbose_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
             document_type = invoice._meta.verbose_name
-            document_type_upper = document_type.upper()
-            document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
             times = times.order_by(*order_by['time'])
             times = set_times_amount(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
-            context['document_type_upper'] = document_type_upper
-            context['document_type_title'] = document_type_title
+            context['document_type'] = document_type
             context['edit_url'] = 'invoice_edit'  # Delete modal
             context['entries'] = times
             context['item'] = invoice
