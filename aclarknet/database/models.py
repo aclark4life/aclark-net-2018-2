@@ -104,7 +104,6 @@ class Contact(BaseModel):
         Client,
         blank=True,
         null=True,
-        related_name='client',
         limit_choices_to={'active': True}, )
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
