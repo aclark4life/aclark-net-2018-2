@@ -356,6 +356,7 @@ def estimate_edit(request, pk=None):
         template_name,
         active_nav='estimate',
         company_model=Company,
+        project_model=Project,
         pk=pk)
 
 
