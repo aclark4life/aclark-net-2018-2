@@ -331,15 +331,16 @@ def get_active_kwarg(model, active=False, user=None):
     Kwarg for "active" varies by type
     """
     kwargs = {}
-    if model._meta.verbose_name == 'estimate':
+    verbose_name = model._meta.verbose_name
+    if verbose_name == 'estimate':
         # Unaccepted invoices are "active"
         if active:
             kwargs['accepted_date'] = None
-    elif model._meta.verbose_name == 'invoice':
+    elif verbose_name == 'invoice':
         # Unpaid invoices are "active"
         if active:
             kwargs['last_payment_date'] = None
-    elif model._meta.verbose_name == 'time':
+    elif verbose_name == 'time':
         # Only staff can see all items
         if not user.is_staff:
             kwargs['user'] = user
@@ -347,7 +348,7 @@ def get_active_kwarg(model, active=False, user=None):
         kwargs['invoiced'] = not (active)
         # Estimated times are never "active"
         kwargs['estimate'] = None
-    elif model._meta.verbose_name == 'user':
+    elif verbose_name == 'user':
         # Use related model's active field
         kwargs['profile__active'] = active
     else:
@@ -558,18 +559,19 @@ def get_index_items(request,
     if order_by is not None:
         items = items.order_by(*order_by)
     # Calculate total hours
-    if model._meta.verbose_name == 'time':
+    verbose_name = model._meta.verbose_name
+    if verbose_name == 'time':
         total_hours = items.aggregate(hours=Sum(F('hours')))
         total_hours = total_hours['hours']
         context['total_hours'] = total_hours
     # Calculate cost per report
-    if model._meta.verbose_name == 'report':
+    if verbose_name == 'report':
         for item in items:
             cost = item.gross - item.net
             item.cost = cost
             item.save()
     # Check if user is contact
-    if model._meta.verbose_name == 'user':
+    if verbose_name == 'user':
         contacts = contact_model.objects.all()
         for item in items:
             if item.email in [i.email for i in contacts]:
@@ -593,7 +595,7 @@ def get_index_items(request,
     context['paginated'] = paginated
     context['show_search'] = show_search
     # Provide number of active notes to note_index
-    if model._meta.verbose_name == 'note':
+    if verbose_name == 'note':
         context['note_stats'] = get_note_stats(model)
     return context
 
@@ -633,7 +635,8 @@ def get_page_items(request,
         company = company_model.get_solo()
         context['company'] = company
     if model:
-        if model._meta.verbose_name == 'client':
+        verbose_name = model._meta.verbose_name
+        if verbose_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
             contracts = contract_model.objects.filter(client=client)
@@ -647,7 +650,7 @@ def get_page_items(request,
             context['item'] = client
             context['notes'] = client.note.all()
             context['projects'] = projects
-        elif model._meta.verbose_name == 'contract':
+        elif verbose_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
             doc = get_query(request, 'doc')
             estimate = contract.statement_of_work
@@ -669,7 +672,7 @@ def get_page_items(request,
             context['item'] = contract
             context['pdf'] = pdf
             context['times'] = times
-        elif model._meta.verbose_name == 'estimate':
+        elif verbose_name == 'estimate':
             estimate = get_object_or_404(model, pk=pk)
             document_type = estimate._meta.verbose_name
             document_type_upper = document_type.upper()
@@ -691,14 +694,14 @@ def get_page_items(request,
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
             context['pdf'] = pdf
-        if model._meta.verbose_name == 'file':
+        if verbose_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
             context['edit_url'] = 'file_edit'
             context['icon_size'] = get_setting(request, app_settings_model,
                                                'icon_size')
             context['item'] = file_obj
-        elif model._meta.verbose_name == 'invoice':
+        elif verbose_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
             document_type = invoice._meta.verbose_name
             document_type_upper = document_type.upper()
@@ -717,7 +720,7 @@ def get_page_items(request,
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
             context['pdf'] = pdf
-        elif model._meta.verbose_name == 'project':
+        elif verbose_name == 'project':
             project = get_object_or_404(model, pk=pk)
             invoices = project.invoice_set.all()
             invoice = times = None
@@ -738,14 +741,14 @@ def get_page_items(request,
             context['invoices'] = invoices
             context['item'] = project
             context['times'] = times
-        elif model._meta.verbose_name == 'proposal':
+        elif verbose_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'dropdown'
             context['edit_url'] = 'proposal_edit'  # Delete modal
             context['item'] = proposal
             context['pdf'] = pdf
-        elif model._meta.verbose_name == 'user':
+        elif verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
             filters = {
                 'estimate': None,
@@ -803,14 +806,16 @@ def obj_copy(obj):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
+    verbose_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        obj._meta.verbose_name, page_type='edit')
+        verbose_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_delete(obj):
+    verbose_name = obj._meta.verbose_name
     url_name = get_template_and_url_names(
-        obj._meta.verbose_name, page_type='index')  # Redir to index
+        verbose_name, page_type='index')  # Redir to index
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
