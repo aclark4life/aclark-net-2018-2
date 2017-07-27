@@ -912,6 +912,12 @@ def set_relationship(obj,
             company = company_model.get_solo()
             company.note.add(obj)
             company.save()
+    elif verbose_name == 'project':
+        query_client = get_query(request, 'client')
+        if query_client:
+            client = get_object_or_404(client_model, pk=query_client)
+            obj.client = client
+            obj.save()
     elif verbose_name == 'time':
         query_invoices = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
