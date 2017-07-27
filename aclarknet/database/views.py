@@ -368,7 +368,7 @@ def estimate_index(request):
         active_nav='estimate',
         app_settings_model=AppSettings,
         edit_url='estimate_edit',  # Delete modal
-        order_by=('-updated', ),
+        order_by=('-date', ),
         search_fields=('subject', ),
         show_search=True)
     context['company'] = company
