@@ -193,6 +193,7 @@ def contact_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='contact',
+        client_model=Client,
         pk=pk)
 
 
