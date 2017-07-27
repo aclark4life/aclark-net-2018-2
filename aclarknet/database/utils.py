@@ -886,14 +886,16 @@ def set_relationship(
         estimate_model=None,
         invoice_model=None,
         project_model=None):
-    if obj._meta.verbose_name in ['contact', 'note']:
+    verbose_name = obj._meta.verbose_name
+    if verbose_name in ['contact', 'note']:
         query_string_client = get_query(request, 'client')
         if query_string_client:
             client = get_object_or_404(client_model, pk=query_string_client)
-            client.note.add(obj)
-            client.save()
+            related_obj = getattr(client, verbose_name) 
+            related_obj.add(obj)
+            related_obj.save()
             return True
-    elif obj._meta.verbose_name == 'time':
+    elif verbose_name == 'time':
         query_string_invoices = get_query(request, 'invoice')
         query_string_project = get_query(request, 'project')
         if query_string_invoices:
