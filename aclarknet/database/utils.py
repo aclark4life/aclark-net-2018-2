@@ -880,14 +880,13 @@ def send_mail(request,
         return False
 
 
-def set_relationship(
-        obj,
-        request,
-        client_model=None,
-        company_model=None,
-        estimate_model=None,
-        invoice_model=None,
-        project_model=None):
+def set_relationship(obj,
+                     request,
+                     client_model=None,
+                     company_model=None,
+                     estimate_model=None,
+                     invoice_model=None,
+                     project_model=None):
     verbose_name = obj._meta.verbose_name
     if verbose_name == 'contact':
         query_client = get_query(request, 'client')
