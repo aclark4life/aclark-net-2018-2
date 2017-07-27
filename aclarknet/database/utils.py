@@ -504,20 +504,6 @@ def gravatar_url(email):
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def get_amount(times, invoice=None):
-    amount = 0
-    total = 0
-    for entry in times:
-        if entry.task:
-            amount = entry.task.rate * entry.hours
-        entry.amount = '%.2f' % amount
-        total += amount
-    if invoice:
-        invoice.amount = '%.2f' % total
-        invoice.save()
-    return times
-
-
 def get_index_items(request,
                     model,
                     app_settings_model=None,
@@ -686,7 +672,7 @@ def get_page_items(request,
                 invoice=None)
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
-            times = get_amount(times)
+            times = set_times_amount(times)
             context['active_nav'] = 'estimate'
             context['document_type_upper'] = document_type_upper
             context['document_type_title'] = document_type_title
@@ -708,7 +694,7 @@ def get_page_items(request,
             document_type_title = document_type.title()
             times = get_times_for_invoice(invoice, time_model)
             times = times.order_by(*order_by['time'])
-            times = get_amount(times, invoice=invoice)
+            times = set_times_amount(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
@@ -940,3 +926,19 @@ def set_relationship(obj,
             obj.task = project.task
             obj.save()
         return True
+
+
+def set_times_amount(times, invoice=None):
+    amount = 0
+    total = 0
+    for entry in times:
+        if entry.task:
+            amount = entry.task.rate * entry.hours
+        entry.amount = '%.2f' % amount
+        total += amount
+    if invoice:
+        invoice.amount = '%.2f' % total
+        invoice.save()
+    return times
+
+
