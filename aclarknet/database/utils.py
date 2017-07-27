@@ -890,29 +890,29 @@ def set_relationship(
         project_model=None):
     verbose_name = obj._meta.verbose_name
     if verbose_name == 'contact':
-        query_string_client = get_query(request, 'client')
-        if query_string_client:
-            client = get_object_or_404(client_model, pk=query_string_client)
+        query_client = get_query(request, 'client')
+        if query_client:
+            client = get_object_or_404(client_model, pk=query_client)
             obj.client.add(client)
             obj.save()
             return True
     elif verbose_name == 'note':
-        query_string_client = get_query(request, 'client')
-        query_string_company = get_query(request, 'company')
-        if query_string_client:
-            client = get_object_or_404(client_model, pk=query_string_client)
+        query_client = get_query(request, 'client')
+        query_company = get_query(request, 'company')
+        if query_client:
+            client = get_object_or_404(client_model, pk=query_client)
             client.note.add(obj)
             client.save()
             return True
-        elif query_string_company:
+        elif query_company:
             company = company_model.get_solo()
             company.note.add(obj)
             company.save()
     elif verbose_name == 'time':
-        query_string_invoices = get_query(request, 'invoice')
-        query_string_project = get_query(request, 'project')
-        if query_string_invoices:
-            invoices = query_string_invoices.split(',')
+        query_invoices = get_query(request, 'invoice')
+        query_project = get_query(request, 'project')
+        if query_invoices:
+            invoices = query_invoices.split(',')
             if len(invoices) > 1:
                 return False
             else:
@@ -920,8 +920,8 @@ def set_relationship(
                 invoice = get_object_or_404(invoice_model, pk=invoice)
                 obj.invoice = invoice
                 obj.save()
-        if query_string_project:
-            project = get_object_or_404(project_model, pk=query_string_project)
+        if query_project:
+            project = get_object_or_404(project_model, pk=query_project)
             obj.task = project.task
             obj.save()
         return True
