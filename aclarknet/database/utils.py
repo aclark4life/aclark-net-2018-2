@@ -473,9 +473,14 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return app_settings.dashboard_choices
 
 
-def get_template_and_url_names(verbose_name, page_type=None):
+def get_template_and_url_names(verbose_name, page_type=None, request=None):
     """
     """
+    if request:  # Normal users can't see time entries except their own
+        if not request.user.is_staff:
+            url_name = 'home'
+            template_name = '%s.html' % url_name
+            return template_name, url_name
     if page_type == 'view':
         url_name = URL_NAMES[verbose_name][0]
         template_name = '%s.html' % url_name
