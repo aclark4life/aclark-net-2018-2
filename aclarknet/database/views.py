@@ -992,9 +992,13 @@ def user_contact(request, pk=None):
 def user_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
         'user', page_type='edit')
+    if request.user.is_staff:
+        profile_form = AdminProfileForm
+    else:
+        profile_form = ProfileForm
     return edit(
         request,
-        ProfileForm,
+        profile_form
         Profile,
         url_name,
         template_name,

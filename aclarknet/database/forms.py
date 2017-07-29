@@ -20,6 +20,15 @@ from django import forms
 from taggit.models import Tag
 
 
+class AdminProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', )
+        widgets = {
+            'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
+
+
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
@@ -153,6 +162,7 @@ class NoteForm(forms.ModelForm):
         widgets = {
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
+
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
         widget=forms.SelectMultiple(attrs={'size': '5'}))
