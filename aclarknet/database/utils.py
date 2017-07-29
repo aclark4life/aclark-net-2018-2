@@ -795,11 +795,11 @@ def is_allowed_to_view(model,
     """
     msg = 'Sorry, you are not allowed to view that.'
     time_entry = get_object_or_404(model, pk=pk)
-    if not time_entry.user:
+    if not time_entry.user and not request.user.is_staff:
         messages.add_message(request, messages.WARNING, msg)
         return HttpResponseRedirect(reverse('home'))
     if (not time_entry.user.username == request.user.username and
-        not request.user.is_staff):
+            not request.user.is_staff):
         messages.add_message(request, messages.WARNING, msg)
         return HttpResponseRedirect(reverse('home'))
     else:
