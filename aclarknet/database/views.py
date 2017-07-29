@@ -913,13 +913,12 @@ def task_index(request):
 
 @login_required
 def time(request, pk=None):
-    context = get_page_items(
+    return is_allowed_to_view(
+        Time,
+        pk,
         request,
         app_settings_model=AppSettings,
-        model=Time,
-        profile_model=Profile,
-        pk=pk)
-    return is_allowed_to_view(request, 'time.html', context)
+        profile_model=Profile)
 
 
 @login_required

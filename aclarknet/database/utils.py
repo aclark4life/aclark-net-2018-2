@@ -785,11 +785,26 @@ def get_page_items(request,
     return context
 
 
-def is_allowed_to_view(request, template, context):
+def is_allowed_to_view(model,
+                       pk,
+                       request,
+                       app_settings_model=None,
+                       profile_model=None):
     """
     Normal users can only see their own time entries
     """
-    return render(request, template, context)
+    time_entry = get_object_or_404(model, pk=pk)
+    if (not time_entry.user.username == request.user.username and
+            not request.user.is_staff):
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        context = get_page_items(
+            request,
+            app_settings_model=app_settings_model,
+            model=model,
+            profile_model=profile_model,
+            pk=pk)
+        return render(request, 'time.html', context)
 
 
 def last_month():
