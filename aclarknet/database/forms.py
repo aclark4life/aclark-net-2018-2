@@ -23,7 +23,7 @@ from taggit.models import Tag
 class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', )
+        fields = '__all__'
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -171,7 +171,9 @@ class NoteForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = (
+            'bio',
+        )
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
