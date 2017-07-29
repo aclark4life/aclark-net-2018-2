@@ -576,11 +576,15 @@ def get_index_items(request,
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
-    context['items'] = items
+    # Call notes notes instead of items so we can share table
+    if verbose_name = 'note':
+        context['notes'] = items
+    else:
+        context['items'] = items
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
-    # Provide number of active notes to note_index
+    # Provide number of active notes to note_index and home
     if verbose_name == 'note':
         context['note_stats'] = get_note_stats(model)
     return context
