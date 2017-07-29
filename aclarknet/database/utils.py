@@ -577,7 +577,7 @@ def get_index_items(request,
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     # Call notes notes instead of items so we can share table
-    if verbose_name = 'note':
+    if verbose_name == 'note':
         context['notes'] = items
     else:
         context['items'] = items
