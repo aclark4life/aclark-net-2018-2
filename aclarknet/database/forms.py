@@ -173,7 +173,6 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = (
             'bio',
-            'dashboard_choices',
             'rate', )
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),

@@ -18,7 +18,7 @@
           </div>
           {% if request.user.is_staff %}
 {% include 'dashboard_admin.html' %}
-          {% endif %}
+          {% else %}
 {% include 'dashboard_user.html' %}
           {% endif %}
 {% endblock %}
