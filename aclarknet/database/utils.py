@@ -621,7 +621,8 @@ def get_page_items(request,
                    report_model=None,
                    order_by=None,
                    pk=None,
-                   time_model=None):
+                   time_model=None,
+                   user_model=None):
     context = {}
     if company_model:
         company = company_model.get_solo()
@@ -722,6 +723,7 @@ def get_page_items(request,
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
                 project=project, last_payment_date=None)
+            users = user_model.objects.filter(project=project)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
             context['entries'] = times
@@ -731,6 +733,7 @@ def get_page_items(request,
             context['invoices'] = invoices
             context['item'] = project
             context['times'] = times
+            context['users'] = users
         elif verbose_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             pdf = get_query(request, 'pdf')

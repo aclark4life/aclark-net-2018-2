@@ -16,20 +16,20 @@
               </tr>
             </thead>
             <tbody>
-            {% for note in notes %}
+            {% for item in notes %}
               <tr>
                 <td>{{ forloop.counter }}</a></td>
-                <td>{% for tag in note.tags.all %}<span class="badge badge-default">{{ tag }}</span>{% endfor %}</td>
-                <td>{{ note.title|default:'' }}</td>
-                <td>{{ note.note|safe }}</td>
-                <td>{{ note.note|striptags|truncatechars:8 }}</td>
-                <td>{{ note.due_date|date:'Y-m-d' }}</td>
-                <td>{{ note.due_date|date:'U' }}</td>
-                <td><form action="{% url 'note_edit' note.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if note.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                <td>{{ note.active }}</td>
-                <td>{% if note.hidden %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
-                <td><a href="{% url 'note' note.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
-                <td><a href="{% url 'note_edit' note.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
+                <td>{% for tag in item.tags.all %}<span class="badge badge-default">{{ tag }}</span>{% endfor %}</td>
+                <td>{{ item.title|default:'' }}</td>
+                <td>{{ item.note|safe }}</td>
+                <td>{{ item.note|striptags|truncatechars:8 }}</td>
+                <td>{{ item.due_date|date:'Y-m-d' }}</td>
+                <td>{{ item.due_date|date:'U' }}</td>
+                <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                <td>{{ item.active }}</td>
+                <td>{% if item.hidden %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
+                <td><a href="{% url 'note' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
+                <td><a href="{% url 'note_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
               </tr>
             {% endfor %}
             </tbody>
