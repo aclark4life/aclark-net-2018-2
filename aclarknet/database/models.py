@@ -669,10 +669,7 @@ class Time(BaseModel):
     log = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        if self.name:
-            return self.name
-        else:
-            return '-'.join([self._meta.verbose_name, str(self.pk)])
+        return '-'.join([self._meta.verbose_name, str(self.pk)])
 
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):

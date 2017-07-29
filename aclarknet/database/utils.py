@@ -793,7 +793,9 @@ def is_allowed_to_view(model,
     """
     Normal users can only see their own time entries
     """
-    if not request.user.is_staff:
+    time_entry = get_object_or_404(model, pk=pk)
+    if (not time_entry.user.username == request.user.username and
+        not request.user.is_staff):
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
@@ -939,6 +941,8 @@ def set_relationship(obj,
             obj.client = client
             obj.save()
     elif verbose_name == 'time':
+        obj.user = request.user
+        obj.save()
         query_estimate = get_query(request, 'estimate')
         query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
