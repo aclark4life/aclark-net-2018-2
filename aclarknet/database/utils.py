@@ -738,6 +738,11 @@ def get_page_items(request,
             context['edit_url'] = 'proposal_edit'  # Delete modal
             context['item'] = proposal
             context['pdf'] = pdf
+        elif verbose_name == 'time':
+            time_entry = get_object_or_404(model, pk=pk)
+            context['active_nav'] = 'time'
+            context['edit_url'] = 'time_edit'  # Delete modal
+            context['item'] = time_entry
         elif verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
             filters = {
@@ -758,11 +763,6 @@ def get_page_items(request,
                 user=user)[0]
             context['projects'] = projects
             context['times'] = times
-        elif verbose_name == 'time':
-            time_entry = get_object_or_404(model, pk=pk)
-            context['active_nav'] = 'time'
-            context['edit_url'] = 'time_edit'  # Delete modal
-            context['item'] = time_entry
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
