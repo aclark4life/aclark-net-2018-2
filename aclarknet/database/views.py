@@ -42,15 +42,16 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
-from .utils import get_index_items
-from .utils import get_page_items
 from .utils import create_and_send_mail
 from .utils import edit
 from .utils import generate_doc
 from .utils import get_client_city
 from .utils import get_company_name
+from .utils import get_index_items
+from .utils import get_page_items
 from .utils import get_template_and_url_names
 from .utils import get_query
+from .utils import is_allowed_to_view
 from .utils import send_mail
 from datetime import datetime
 from django.contrib import messages
@@ -918,7 +919,7 @@ def time(request, pk=None):
         model=Time,
         profile_model=Profile,
         pk=pk)
-    return render(request, 'time.html', context)
+    return is_allowed_to_view(request, 'time.html', context)
 
 
 @login_required

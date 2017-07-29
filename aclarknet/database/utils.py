@@ -785,6 +785,13 @@ def get_page_items(request,
     return context
 
 
+def is_allowed_to_view(request, template, context):
+    """
+    Normal users can only see their own time entries
+    """
+    return render(request, template, context)
+
+
 def last_month():
     """
     Returns last day of last month
