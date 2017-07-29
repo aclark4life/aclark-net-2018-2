@@ -173,6 +173,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = (
             'bio',
+            'rate',
         )
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
