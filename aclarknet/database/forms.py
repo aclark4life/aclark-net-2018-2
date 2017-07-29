@@ -17,6 +17,7 @@ from .models import AppSettings
 from .models import Task
 from .models import Time
 from django import forms
+from taggit.models import Tag
 
 
 class ClientForm(forms.ModelForm):
@@ -152,6 +153,9 @@ class NoteForm(forms.ModelForm):
         widgets = {
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.SelectMultiple(attrs={'size': '5'}))
 
 
 class ProfileForm(forms.ModelForm):
