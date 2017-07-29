@@ -998,7 +998,7 @@ def user_edit(request, pk=None):
         profile_form = ProfileForm
     return edit(
         request,
-        profile_form
+        profile_form,
         Profile,
         url_name,
         template_name,
