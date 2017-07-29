@@ -9,7 +9,7 @@
             </div>
           </div>
 {% include 'pagination.html' %}
-          <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-classes="table table-no-bordered">
+          <table data-toggle="table" data-classes="table table-no-bordered">
             <thead>
               <tr>
                 {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" {% if active %} data-visible="false" {% else %} data-visible="true" {% endif %}>Invoiced</th>{% endif %}
