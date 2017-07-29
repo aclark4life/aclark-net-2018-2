@@ -793,9 +793,7 @@ def is_allowed_to_view(model,
     """
     Normal users can only see their own time entries
     """
-    time_entry = get_object_or_404(model, pk=pk)
-    if (not time_entry.user.username == request.user.username and
-            not request.user.is_staff):
+    if not request.user.is_staff:
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
