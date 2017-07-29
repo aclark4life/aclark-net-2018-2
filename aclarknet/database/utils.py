@@ -768,7 +768,6 @@ def get_page_items(request,
         context['city_data'] = get_client_city(request)
         context['dashboard_choices'] = get_setting(request, app_settings_model,
                                                    'dashboard_choices')
-        context['edit_url'] = 'note_edit'
         context['gross'] = gross
         context['invoices'] = invoices
         context['icon_size'] = get_setting(request, app_settings_model,
