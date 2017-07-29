@@ -929,7 +929,7 @@ def time(request, pk=None):
 @login_required
 def time_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
-        'time', page_type='edit', request=request)
+        'time', page_type='edit')
     return edit(
         request,
         TimeForm,
