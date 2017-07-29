@@ -756,6 +756,10 @@ def get_page_items(request,
                 user=user)[0]
             context['projects'] = projects
             context['times'] = times
+        elif verbose_name == 'time':
+            context['active_nav'] = 'time'
+            context['edit_url'] = 'time_edit'  # Delete modal
+            context['item'] = entry
     else:  # home
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)

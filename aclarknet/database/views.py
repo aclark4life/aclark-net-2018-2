@@ -912,17 +912,12 @@ def task_index(request):
 
 @login_required
 def time(request, pk=None):
-    context = {}
-    entry = get_object_or_404(Time, pk=pk)
-    if not entry.user and not request.user.is_staff:
-        return HttpResponseRedirect(reverse('login'))
-    if entry.user:
-        if (not entry.user.username == request.user.username and
-                not request.user.is_staff):
-            return HttpResponseRedirect(reverse('login'))
-    context['active_nav'] = 'time'
-    context['edit_url'] = 'time_edit'  # Delete modal
-    context['item'] = entry
+    context = get_page_items(
+        request,
+        app_settings_model=AppSettings,
+        model=Time,
+        profile_model=Profile,
+        pk=pk)
     return render(request, 'time.html', context)
 
 
