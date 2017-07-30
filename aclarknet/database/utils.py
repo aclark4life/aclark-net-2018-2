@@ -496,6 +496,12 @@ def get_times_for_invoice(invoice, time_model):
     return times
 
 
+def get_total_hours(items):
+    total_hours = items.aggregate(hours=Sum(F('hours')))
+    total_hours = total_hours['hours']
+    return total_hours
+
+
 def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
@@ -546,9 +552,7 @@ def get_index_items(request,
     # Calculate total hours
     verbose_name = model._meta.verbose_name
     if verbose_name == 'time':
-        total_hours = items.aggregate(hours=Sum(F('hours')))
-        total_hours = total_hours['hours']
-        context['total_hours'] = total_hours
+        context['total_hours'] = get_total_hours(items)
     # Calculate cost per report
     if verbose_name == 'report':
         for item in items:
@@ -780,6 +784,7 @@ def get_page_items(request,
             context['plot_items'] = plot_items
             context['projects'] = projects
             context['times'] = times
+            context['total_hours'] = get_total_hours(times)
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
         context['nav_status'] = 'active'

@@ -40,3 +40,10 @@
               {% endfor %}
             </tbody>
           </table>
+          {% if total_hours %}
+          <div class="row">
+            <div class="offset-md-11 col-md-1">
+              <h3>Total Hours: {{ total_hours }}</h3>
+            </div>
+          </div>
+          {% endif %}
