@@ -969,7 +969,9 @@ def set_relationship(obj,
             project = get_object_or_404(project_model, pk=query_project)
             obj.project = project
             obj.task = project.task
-            obj.user.project = project
+            user_projects = project_model.objects.filter(team__in=[user, ])
+            if len(user_projects) > 0:
+                obj.user.project = user_projects[0]
             obj.save()
         return True
 
