@@ -576,7 +576,10 @@ def get_index_items(request,
     context['paginated'] = paginated
     context['show_search'] = show_search
     # Share model index tables
-    if verbose_name == 'note':
+    if verbose_name == 'invoices':
+        context[
+            'invoices'] = items  # Invoices instead of items so we can share
+    elif verbose_name == 'note':
         context['note_stats'] = get_note_stats(model)
         context['notes'] = items  # Notes instead of items so we can share
     elif verbose_name == 'project':
