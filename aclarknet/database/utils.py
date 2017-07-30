@@ -767,7 +767,7 @@ def get_page_items(request,
             projects = project_model.objects.filter(active=True, hidden=False)
             projects = projects.order_by(*order_by['project'])
             times = time_model.objects.filter(
-                invoiced=False, user=request.user)
+                invoiced=False, project__active=True, user=request.user)
             times = times.order_by(*order_by['time'])
             context['city_data'] = get_client_city(request)
             context['dashboard_choices'] = get_setting(
