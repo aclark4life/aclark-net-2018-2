@@ -105,7 +105,7 @@ def add_user_to_contacts(request, model, pk=None):
                 first_name=user.first_name,
                 last_name=user.last_name)
             contact.save()
-            messages.add_message(request, messages.INFO,
+            messages.add_message(request, messages.SUCCESS,
                                  'User added to contacts!')
             return HttpResponseRedirect(reverse('contact_index'))
 
