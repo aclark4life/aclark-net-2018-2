@@ -956,10 +956,11 @@ def set_relationship(obj,
         query_estimate = get_query(request, 'estimate')
         query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
-        user_projects = project_model.objects.filter(team__in=[obj.user, ])
-        if len(user_projects) > 0:
-            obj.project = user_projects[0]
-            obj.task = obj.project.task
+        # XXX Fix me
+        # user_projects = project_model.objects.filter(team__in=[obj.user, ])
+        # if len(user_projects) > 0:
+        #     obj.project = user_projects[0]
+        #     obj.task = obj.project.task
         if query_estimate:
             estimate = get_object_or_404(estimate_model, pk=query_estimate)
             obj.estimate = estimate
