@@ -579,16 +579,13 @@ def get_index_items(request,
     context['show_search'] = show_search
     # Share model index tables
     if verbose_name == 'note':
-        context['note_stats'] = get_note_stats(
-            model)
-        context[
-            'notes'] = items  # Notes instead of items so we can share
+        context['note_stats'] = get_note_stats(model)
+        context['notes'] = items  # Notes instead of items so we can share
     elif verbose_name == 'project':
         context[
             'projects'] = items  # Projects instead of items so we can share
     elif verbose_name == 'time':
-        context[
-            'times'] = items  # Times instead of items so we can share
+        context['times'] = items  # Times instead of items so we can share
     else:  # No shared table
         context['items'] = items
     return context
