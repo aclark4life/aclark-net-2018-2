@@ -819,7 +819,11 @@ def is_contact(contacts, items):
     if len(items) == 1:
         return items[0].email in [contact.email for contact in contacts]
     for item in items:
-        if item.email in [i.email for i in contacts]:
+        if item._meta.verbose_name = 'user':
+            email = item.email
+        elif item._meta.verbose_name = 'time':
+            email = item.user.email
+        if email in [contact.email for contact in contacts]:
             item.is_contact = True
         else:
             item.is_contact = False
