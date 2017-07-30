@@ -675,6 +675,12 @@ class Time(BaseModel):
     external_reference_url = models.URLField(blank=True, null=True)
     project_code = models.IntegerField(blank=True, null=True)
     log = models.TextField(blank=True, null=True)
+    cog = models.DecimalField(
+        "Cost of goods",
+        blank=True,
+        null=True,
+        max_digits=12,
+        decimal_places=2)
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
