@@ -35,7 +35,7 @@
                         <td>{{ item.get_full_name|default:'' }}</td>
                         <td>{{ item.profile.rate|default:'' }}</td>
                         <td>{{ item.username|default:'' }}</td>
-                        <td>{% if is_contact %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
+                        <td>{% if item.profile.is_contact %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
                         <td>{{ total_hours|default:'' }}</td>
                         <td>{{ company.currency_symbol }}{{ total_dollars }}</td>
                       </tr>

@@ -410,6 +410,7 @@ class Profile(BaseModel):
     editor_choices = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     override_dashboard = models.BooleanField(default=False)
+    is_contact = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

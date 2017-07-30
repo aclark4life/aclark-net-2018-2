@@ -107,6 +107,9 @@ def add_user_to_contacts(request, model, pk=None):
             contact.save()
             messages.add_message(request, messages.SUCCESS,
                                  'User added to contacts!')
+            if hasattr(user, 'profile'):
+                user.profile.is_contact = True
+                user.save()
             return HttpResponseRedirect(reverse('contact_index'))
 
 
@@ -552,10 +555,6 @@ def get_index_items(request,
             cost = item.gross - item.net
             item.cost = cost
             item.save()
-    # Check if user is contact
-    if verbose_name == 'user':
-        contacts = contact_model.objects.all()
-        items = is_contact(contacts, users=items)
     # Don't show items to anon
     if not request.user.is_authenticated:
         items = []
@@ -729,7 +728,7 @@ def get_page_items(request,
             context['estimates'] = estimates
             context['invoices'] = invoices
             context['item'] = project
-            context['times'] = is_contact(contacts, times=times)
+            context['times'] = times
             context['users'] = users
         elif verbose_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
@@ -753,7 +752,6 @@ def get_page_items(request,
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
-            context['is_contact'] = is_contact(contacts, user=user)
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(
                 user=user)[0]
@@ -813,27 +811,6 @@ def is_allowed_to_view(model,
             profile_model=profile_model,
             pk=pk)
         return render(request, 'time.html', context)
-
-
-def is_contact(contacts, times=None, user=None, users=None):
-    if times:
-        for time_entry in times:
-            if time_entry.user.email in [
-                    contact.email for contact in contacts
-            ]:
-                time_entry.user.is_contact = True
-            else:
-                time_entry.user.is_contact = False
-            return times
-    elif user:
-        return user.email in [contact.email for contact in contacts]
-    elif users:
-        for user in users:
-            if user.email in [contact.email for contact in contacts]:
-                user.is_contact = True
-            else:
-                user.is_contact = False
-            return times
 
 
 def last_month():
