@@ -577,15 +577,19 @@ def get_index_items(request,
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
+    # Share model index tables
     if verbose_name == 'note':
         context['note_stats'] = get_note_stats(
-            model)  # Provide number ofactive notes to note_index and home
+            model)
         context[
-            'notes'] = items  # Notes instead of items so we can share table
+            'notes'] = items  # Notes instead of items so we can share
     elif verbose_name == 'project':
         context[
             'projects'] = items  # Projects instead of items so we can share
-    else:
+    elif verbose_name == 'time':
+        context[
+            'times'] = items  # Times instead of items so we can share
+    else:  # No shared table
         context['items'] = items
     return context
 
