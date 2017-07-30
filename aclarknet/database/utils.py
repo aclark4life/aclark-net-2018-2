@@ -815,19 +815,25 @@ def is_allowed_to_view(model,
         return render(request, 'time.html', context)
 
 
-def is_contact(contacts, items):
-    if len(items) == 1:
-        return items[0].email in [contact.email for contact in contacts]
-    for item in items:
-        if item._meta.verbose_name == 'user':
-            email = item.email
-        elif item._meta.verbose_name == 'time':
-            email = item.user.email
-        if email in [contact.email for contact in contacts]:
-            item.is_contact = True
-        else:
-            item.is_contact = False
-    return items
+def is_contact(contacts, times=None, user=None, users=None):
+    if times:
+        for time_entry in times:
+            if time_entry.user.email in [
+                    contact.email for contact in contacts
+            ]:
+                time_entry.user.is_contact = True
+            else:
+                time_entry.user.is_contact = False
+            return times
+    elif user:
+        return user.email in [contact.email for contact in contacts]
+    elif users:
+        for user in users:
+            if user.email in [contact.email for contact in contacts]:
+                user.is_contact = True
+            else:
+                user.is_contact = False
+            return times
 
 
 def last_month():
