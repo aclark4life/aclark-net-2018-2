@@ -383,11 +383,13 @@ def get_company_name(company):
 
 def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
-    total = 0
+    invoice_amount = invoice_cog = 0
     for invoice in invoices:
         if invoice.amount:
-            total += invoice.amount
-    return total, total
+            invoice_amount += invoice.amount
+        if invoice.cog:
+            invoice_cog += invoice.cog
+    return invoice_amount, invoice_cog
 
 
 def get_line_total(entries, entry):
@@ -680,7 +682,7 @@ def get_page_items(request,
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = times.order_by(*order_by['time'])
-            times = set_totals(times, estimate=estimate)
+            times = set_invoice_totals(times, estimate=estimate)
             context['active_nav'] = 'estimate'
             context['document_type'] = document_type
             context['entries'] = times
@@ -699,7 +701,7 @@ def get_page_items(request,
             document_type = invoice._meta.verbose_name
             times = get_times_for_invoice(invoice, time_model)
             times = times.order_by(*order_by['time'])
-            times = set_totals(times, invoice=invoice)
+            times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
@@ -975,12 +977,12 @@ def set_relationship(obj,
         return True
 
 
-def set_totals(times, estimate=None, invoice=None):
+def set_invoice_totals(times, estimate=None, invoice=None):
     """
     Set invoice, estimate and time totals
     """
-    invoice_amount = invoice_cost = 0
-    time_entry_amount = time_entry_cost = 0
+    invoice_amount = invoice_cog = 0
+    time_entry_amount = time_entry_cog = 0
     for time_entry in times:
         hours = time_entry.hours
         if time_entry.task:
@@ -988,14 +990,14 @@ def set_totals(times, estimate=None, invoice=None):
             time_entry_amount = rate * hours
         if time_entry.user.profile.rate:
             rate = time_entry.user.profile.rate
-            time_entry_cost = rate * hours
+            time_entry_cog = rate * hours
         time_entry.amount = '%.2f' % time_entry_amount
-        time_entry.cog = '%.2f' % time_entry_cost
+        time_entry.cog = '%.2f' % time_entry_cog
         invoice_amount += time_entry_amount
-        invoice_cost += time_entry_cost
+        invoice_cog += time_entry_cog
     if invoice:
         invoice.amount = '%.2f' % invoice_amount
-        invoice.cog = '%.2f' % invoice_cost
+        invoice.cog = '%.2f' % invoice_cog
         invoice.save()
     elif estimate:
         estimate.amount = '%.2f' % invoice_amount
