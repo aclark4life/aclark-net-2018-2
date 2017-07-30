@@ -765,7 +765,10 @@ def get_page_items(request,
             context['projects'] = projects
             context['times'] = times
     else:  # home
-        filters = {'user': request.user}
+        filters = {
+            'user': request.user,
+            'last_payment_date': None,
+        }
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
         notes = notes.order_by(*order_by['note'])
