@@ -1,8 +1,4 @@
 {% load l10n %}
-          <div class="row">
-            <div class="col-md-12">
-              <h2>Graph</h2>
-              {% if show_plot %}
               <div class="navbar" style="border: 1px solid #ebebeb; margin-bottom: 1em">
                 <div class="col-md-12" style="text-align: center;">
                   <img class="rounded" style="width: 50%" src="{% url 'report_plot' %}?values={% for item in plot_items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
@@ -27,6 +23,3 @@
                   </div>
                 </div>
               </div>
-              {% endif %}
-            </div>
-          </div>

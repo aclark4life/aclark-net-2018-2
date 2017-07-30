@@ -464,13 +464,11 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         else:
             return app_settings.page_size
     if setting == 'dashboard_choices':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.dashboard_choices
-            override = request.user.profile.override_dashboard
-        if override:
-            return user_pref
-        else:
-            return app_settings.dashboard_choices
+        dashboard_choices = app_settings.dashboard_choices
+        override = request.user.profile.override_dashboard
+        if hasattr(request.user, 'profile') and override:
+            dashboard_choices = request.user.profile.dashboard_choices
+        return dashboard_choices
 
 
 def get_template_and_url_names(verbose_name, page_type=None):
