@@ -266,7 +266,7 @@ def edit(
             if copy:
                 return obj_copy(obj)
             if delete:
-                return obj_delete(obj)
+                return obj_remove(obj)
             # Check boxes
             if (checkbox_active == 'on' or checkbox_active == 'off' or
                     checkbox_subscribed == 'on' or
@@ -840,10 +840,14 @@ def obj_copy(obj):
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
-def obj_delete(obj):
+def obj_remove(obj):
     verbose_name = obj._meta.verbose_name
-    url_name = get_template_and_url_names(
-        verbose_name, page_type='index')  # Redir to index
+    if verbose_name == 'time':
+        url_name = get_template_and_url_names(
+            verbose_name, page_type='home')  # Redir to home
+    else:
+        url_name = get_template_and_url_names(
+            verbose_name, page_type='index')  # Redir to index
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
