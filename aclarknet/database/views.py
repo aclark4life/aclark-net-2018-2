@@ -436,8 +436,10 @@ def home(request):
         order_by={
             'note': ('-updated', ),
             'project': ('-updated', ),
+            'time': ('-updated', ),
         },
         project_model=Project,
+        time_model=Time,
         report_model=Report)
     return render(request, 'home.html', context)
 

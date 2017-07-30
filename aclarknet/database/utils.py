@@ -767,6 +767,9 @@ def get_page_items(request,
             context['projects'] = projects
             context['times'] = times
     else:  # home
+        filters = {
+            'user': request.user,
+        }
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
         notes = notes.order_by(*order_by['note'])
@@ -774,6 +777,8 @@ def get_page_items(request,
         projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
         gross, net = get_invoice_totals(invoice_model)
+        times = time_model.objects.filter(**filters)
+        times = times.order_by(*order_by['time'])
         context['note_stats'] = get_note_stats(note_model)
         context['city_data'] = get_client_city(request)
         context['dashboard_choices'] = get_setting(request, app_settings_model,
@@ -787,6 +792,7 @@ def get_page_items(request,
         context['notes'] = notes
         context['plot_items'] = plot_items
         context['projects'] = projects
+        context['times'] = times
     return context
 
 

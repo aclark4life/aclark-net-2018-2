@@ -1,0 +1,42 @@
+          <table data-toggle="table" data-classes="table table-no-bordered">
+            <thead>
+              <tr>
+                {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" {% if active %} data-visible="false" {% else %} data-visible="true" {% endif %}>Invoiced</th>{% endif %}
+                <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
+                <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
+                <th data-field="hours" data-sortable="true">Hours</th>
+                <th data-field="client" data-sortable="true" data-visible="true">Client</th>
+                <th data-field="project" data-sort-name="hidden-project" data-sortable="true" data-visible="true">Project</th>
+                <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
+                <th data-field="notes" data-sortable="true" data-visible="true">Log</th>
+                <th data-field="user" data-sortable="true" data-visible="true">User</th>
+                <th data-field="task" data-sortable="true" data-visible="true">Task</th>
+                {% if request.user.is_staff %}
+                <th data-field="invoice" data-sortable="true" data-visible="true">Invoice</th>
+                <th data-field="estimate" data-sortable="true" data-visible="true">Estimate</th>
+                {% endif %}
+                <th>View</th>
+                <th>Edit</th> 
+              </tr>
+            </thead>
+            <tbody>
+            {% for item in times %}
+              <tr>
+                {% if request.user.is_staff %}<td>{% if item.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="fa fa-check"></i>{% endif %}</td>{% endif %}
+                <td><a href="{% url 'time_entry' item.pk %}">{{ item.date|date:'Y-m-d'|default:'' }}</a></td>
+                <td>{{ item.date|date:'U' }}</td>
+                <td>{{ item.hours|default:'' }}</td>
+                <td>{{ item.client|default:'' }}</td>
+                {% if request.user.is_staff %}{% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}
+                <td>{{ item.project|default:'' }}</td>
+                <td>{{ item.log|linebreaks }}</td>
+                {% if item.user %}<td><a href="{% url 'user' item.user.pk %}">{{ item.user|default:'' }}</a></td>{% else %}<td>{{ item.user|default:'' }}</td>{% endif %}
+                <td>{{ item.task|default:'' }}</td>
+                {% if request.user.is_staff %}{% if item.invoice %}<td><a href="{% url 'invoice' item.invoice.pk %}">{{ item.invoice.document_id|default:'' }}</a></td>{% else %}<td></td>{% endif %}{% endif %}
+                {% if request.user.is_staff %}{% if item.estimate %}<td><a href="{% url 'estimate' item.estimate.pk %}">{{ item.estimate.document_id|default:'' }}</a></td>{% else %}<td>{{ item.estimate|default:'' }}</td>{% endif %}{% endif %}
+                <td><a href="{% url 'time_entry' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
+                <td><a href="{% url 'time_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
