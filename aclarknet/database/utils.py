@@ -760,29 +760,31 @@ def get_page_items(request,
             context['projects'] = projects
             context['times'] = times
     else:  # home
-        invoices = invoice_model.objects.filter(last_payment_date=None)
-        notes = note_model.objects.filter(active=True)
-        notes = notes.order_by(*order_by['note'])
-        projects = project_model.objects.filter(active=True, hidden=False)
-        projects = projects.order_by(*order_by['project'])
-        plot_items = report_model.objects.filter(active=True)
-        gross, net = get_invoice_totals(invoice_model)
-        times = time_model.objects.filter(invoiced=False, user=request.user)
-        times = times.order_by(*order_by['time'])
-        context['note_stats'] = get_note_stats(note_model)
-        context['city_data'] = get_client_city(request)
-        context['dashboard_choices'] = get_setting(request, app_settings_model,
-                                                   'dashboard_choices')
-        context['gross'] = gross
-        context['invoices'] = invoices
+        if request.user.is_authenticated:
+            gross, net = get_invoice_totals(invoice_model)
+            invoices = invoice_model.objects.filter(last_payment_date=None)
+            notes = note_model.objects.filter(active=True)
+            notes = notes.order_by(*order_by['note'])
+            plot_items = report_model.objects.filter(active=True)
+            projects = project_model.objects.filter(active=True, hidden=False)
+            projects = projects.order_by(*order_by['project'])
+            times = time_model.objects.filter(
+                invoiced=False, user=request.user)
+            times = times.order_by(*order_by['time'])
+            context['city_data'] = get_client_city(request)
+            context['dashboard_choices'] = get_setting(
+                request, app_settings_model, 'dashboard_choices')
+            context['gross'] = gross
+            context['invoices'] = invoices
+            context['net'] = net
+            context['notes'] = notes
+            context['note_stats'] = get_note_stats(note_model)
+            context['plot_items'] = plot_items
+            context['projects'] = projects
+            context['times'] = times
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
         context['nav_status'] = 'active'
-        context['net'] = net
-        context['notes'] = notes
-        context['plot_items'] = plot_items
-        context['projects'] = projects
-        context['times'] = times
     return context
 
 

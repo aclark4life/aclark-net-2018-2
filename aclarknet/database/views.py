@@ -1,4 +1,5 @@
 from .forms import AdminProfileForm
+from .forms import AdminTimeForm
 from .forms import AppSettingsForm
 from .forms import ClientForm
 from .forms import CompanyForm
