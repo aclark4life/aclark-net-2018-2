@@ -959,6 +959,7 @@ def set_relationship(obj,
         user_projects = project_model.objects.filter(team__in=[obj.user, ])
         if len(user_projects) > 0:
             obj.project = user_projects[0]
+            obj.task = obj.project.task
         if query_estimate:
             estimate = get_object_or_404(estimate_model, pk=query_estimate)
             obj.estimate = estimate
