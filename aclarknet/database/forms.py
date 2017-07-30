@@ -171,12 +171,7 @@ class NoteForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = (
-            'bio',
-            'rate', )
-        widgets = {
-            'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-        }
+        fields = ('rate', )
 
 
 class ProjectForm(forms.ModelForm):

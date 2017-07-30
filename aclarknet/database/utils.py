@@ -768,8 +768,7 @@ def get_page_items(request,
         projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
         gross, net = get_invoice_totals(invoice_model)
-        times = time_model.objects.filter(
-            user=request.user, invoiced=False)
+        times = time_model.objects.filter(user=request.user, invoiced=False)
         times = times.order_by(*order_by['time'])
         context['note_stats'] = get_note_stats(note_model)
         context['city_data'] = get_client_city(request)
