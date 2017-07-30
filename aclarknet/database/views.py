@@ -929,9 +929,13 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
     template_name, url_name = get_template_and_url_names(
         'time', page_type='edit')
+    if request.user.is_staff:
+        time_form = AdminTimeForm
+    else:
+        time_form = TimeForm
     return edit(
         request,
-        TimeForm,
+        time_form,
         Time,
         url_name,
         template_name,
