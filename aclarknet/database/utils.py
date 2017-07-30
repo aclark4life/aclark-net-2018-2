@@ -969,6 +969,7 @@ def set_relationship(obj,
             project = get_object_or_404(project_model, pk=query_project)
             obj.project = project
             obj.task = project.task
+            obj.user.project = project
             obj.save()
         return True
 
