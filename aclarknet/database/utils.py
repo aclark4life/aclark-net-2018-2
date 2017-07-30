@@ -680,7 +680,7 @@ def get_page_items(request,
             times_estimate = time_model.objects.filter(estimate=estimate)
             times = times_client | times_estimate
             times = times.order_by(*order_by['time'])
-            times = set_times_amount(times, estimate=estimate)
+            times = set_totals(times, estimate=estimate)
             context['active_nav'] = 'estimate'
             context['document_type'] = document_type
             context['entries'] = times
@@ -699,7 +699,7 @@ def get_page_items(request,
             document_type = invoice._meta.verbose_name
             times = get_times_for_invoice(invoice, time_model)
             times = times.order_by(*order_by['time'])
-            times = set_times_amount(times, invoice=invoice)
+            times = set_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
@@ -975,19 +975,22 @@ def set_relationship(obj,
         return True
 
 
-def set_times_amount(times, estimate=None, invoice=None):
-    amount = 0
-    total = 0
+def set_totals(times, estimate=None, invoice=None):
+    """
+    Set invoice, estimate and time totals
+    """
     cog = 0
-    for entry in times:
-        if entry.task:
-            amount = entry.task.rate * entry.hours
-        entry.amount = '%.2f' % amount
-        total += amount
+    invoice_amount = 0
+    time_entry_amount = 0
+    for time_entry in times:
+        if time_entry.task:
+            time_entry_amount = time_entry.task.rate * time_entry.hours
+        time_entry.amount = '%.2f' % time_entry_amount
+        invoice_amount += time_entry_amount
     if invoice:
-        invoice.amount = '%.2f' % total
+        invoice.amount = '%.2f' % invoice_amount
         invoice.save()
     elif estimate:
-        estimate.amount = '%.2f' % total
+        estimate.amount = '%.2f' % invoice_amount
         estimate.save()
     return times
