@@ -555,11 +555,7 @@ def get_index_items(request,
     # Check if user is contact
     if verbose_name == 'user':
         contacts = contact_model.objects.all()
-        for item in items:
-            if item.email in [i.email for i in contacts]:
-                item.is_contact = True
-            else:
-                item.is_contact = False
+        items = is_contact(contacts, items)
     # Don't show items to anon
     if not request.user.is_authenticated:
         items = []
@@ -756,7 +752,7 @@ def get_page_items(request,
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
-            context['is_contact'] = user.email in [i.email for i in contacts]
+            context['is_contact'] = is_contact(contacts, user)
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(
                 user=user)[0]
@@ -816,6 +812,17 @@ def is_allowed_to_view(model,
             profile_model=profile_model,
             pk=pk)
         return render(request, 'time.html', context)
+
+
+def is_contact(contacts, items):
+    if len(items) == 1:
+        return items[0].email in [contact.email for contact in contacts]
+    for item in items:
+        if item.email in [i.email for i in contacts]:
+            item.is_contact = True
+        else:
+            item.is_contact = False
+    return items
 
 
 def last_month():
