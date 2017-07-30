@@ -31,7 +31,7 @@ class AdminProfileForm(forms.ModelForm):
 
 class AdminTimeForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = Time
         fields = '__all__'
 
 
