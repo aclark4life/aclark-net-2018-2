@@ -555,7 +555,7 @@ def get_index_items(request,
     # Check if user is contact
     if verbose_name == 'user':
         contacts = contact_model.objects.all()
-        items = is_contact(contacts, items)
+        items = is_contact(contacts, users=items)
     # Don't show items to anon
     if not request.user.is_authenticated:
         items = []
@@ -729,7 +729,7 @@ def get_page_items(request,
             context['estimates'] = estimates
             context['invoices'] = invoices
             context['item'] = project
-            context['times'] = is_contact(contacts, times)
+            context['times'] = is_contact(contacts, times=times)
             context['users'] = users
         elif verbose_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
@@ -753,7 +753,7 @@ def get_page_items(request,
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
-            context['is_contact'] = is_contact(contacts, user)
+            context['is_contact'] = is_contact(contacts, user=user)
             context['item'] = user
             context['profile'] = profile_model.objects.get_or_create(
                 user=user)[0]
