@@ -24,6 +24,7 @@ DASHBOARD_CHOICES = (
     ('invoices', 'Invoices'),
     ('notes', 'Notes'),
     ('projects', 'Projects'),
+    ('times', 'Times'),
     ('totals', 'Totals'), )
 
 EDITOR_CHOICES = (
