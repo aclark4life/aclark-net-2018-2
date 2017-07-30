@@ -978,6 +978,7 @@ def set_relationship(obj,
 def set_times_amount(times, estimate=None, invoice=None):
     amount = 0
     total = 0
+    cog = 0
     for entry in times:
         if entry.task:
             amount = entry.task.rate * entry.hours
