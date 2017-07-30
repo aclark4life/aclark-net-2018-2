@@ -799,7 +799,7 @@ def is_allowed_to_view(model,
     """
     Normal users can only see their own time entries
     """
-    msg = 'Sorry, you are not allowed to view that.'
+    msg = 'Sorry, you are not allowed to see that.'
     time_entry = get_object_or_404(model, pk=pk)
     if not time_entry.user and not request.user.is_staff:
         messages.add_message(request, messages.WARNING, msg)
