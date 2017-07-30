@@ -485,6 +485,9 @@ def get_template_and_url_names(verbose_name, page_type=None):
         url_name = URL_NAMES[verbose_name][1]
         template_name = '%s.html' % url_name
         return template_name, url_name
+    elif page_type == 'home':
+        url_name = 'home'
+        return url_name
     elif page_type == 'index':
         url_name = URL_NAMES[verbose_name][2]
         return url_name
