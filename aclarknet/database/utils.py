@@ -389,7 +389,7 @@ def get_invoice_totals(model):
             invoice_amount += invoice.amount
         if invoice.cog:
             invoice_cog += invoice.cog
-    return invoice_amount, invoice_cog
+    return invoice_amount, invoice_amount - invoice_cog
 
 
 def get_line_total(entries, entry):
