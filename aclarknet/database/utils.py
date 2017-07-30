@@ -746,15 +746,11 @@ def get_page_items(request,
             context['item'] = time_entry
         elif verbose_name == 'user':
             user = get_object_or_404(model, pk=pk)
-            filters = {
-                'estimate': None,
-                'invoiced': False,
-                'user': user,
-            }
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
-            times = time_model.objects.filter(**filters)
+            times = time_model.objects.filter(
+                estimate=None, invoiced=False, user=user)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
@@ -765,10 +761,6 @@ def get_page_items(request,
             context['projects'] = projects
             context['times'] = times
     else:  # home
-        filters = {
-            'user': request.user,
-            'last_payment_date': None,
-        }
         invoices = invoice_model.objects.filter(last_payment_date=None)
         notes = note_model.objects.filter(active=True)
         notes = notes.order_by(*order_by['note'])
@@ -776,7 +768,8 @@ def get_page_items(request,
         projects = projects.order_by(*order_by['project'])
         plot_items = report_model.objects.filter(active=True)
         gross, net = get_invoice_totals(invoice_model)
-        times = time_model.objects.filter(**filters)
+        times = time_model.objects.filter(
+            user=request.user, last_payment_date=None)
         times = times.order_by(*order_by['time'])
         context['note_stats'] = get_note_stats(note_model)
         context['city_data'] = get_client_city(request)
