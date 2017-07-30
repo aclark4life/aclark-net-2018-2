@@ -979,16 +979,23 @@ def set_totals(times, estimate=None, invoice=None):
     """
     Set invoice, estimate and time totals
     """
-    cog = 0
-    invoice_amount = 0
-    time_entry_amount = 0
+    invoice_amount = invoice_cost = 0
+    time_entry_amount = time_entry_cost = 0
     for time_entry in times:
+        hours = time_entry.hours
         if time_entry.task:
-            time_entry_amount = time_entry.task.rate * time_entry.hours
+            rate = time_entry.task.rate
+            time_entry_amount = rate * hours
+        if time_entry.user.profile.rate:
+            rate = time_entry.user.profile.rate
+            time_entry_cost = rate * hours
         time_entry.amount = '%.2f' % time_entry_amount
+        time_entry.cog = '%.2f' % time_entry_cost
         invoice_amount += time_entry_amount
+        invoice_cost += time_entry_cost
     if invoice:
         invoice.amount = '%.2f' % invoice_amount
+        invoice.cog = '%.2f' % invoice_cost
         invoice.save()
     elif estimate:
         estimate.amount = '%.2f' % invoice_amount
