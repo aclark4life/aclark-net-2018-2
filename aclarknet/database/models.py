@@ -301,6 +301,12 @@ class Invoice(BaseModel):
     currency_symbol = models.CharField(
         default="$", max_length=300, blank=True, null=True)
     document_type = models.CharField(max_length=300, blank=True, null=True)
+    cog = models.DecimalField(
+        "Cost of goods",
+        blank=True,
+        null=True,
+        max_digits=12,
+        decimal_places=2)
 
     def __str__(self):
         return 'invoice-%s' % self.document_id
