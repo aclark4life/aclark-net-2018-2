@@ -664,6 +664,7 @@ def project(request, pk=None):
         request,
         app_settings_model=AppSettings,
         model=Project,
+        contact_model=Contact,
         estimate_model=Estimate,
         invoice_model=Invoice,
         user_model=User,

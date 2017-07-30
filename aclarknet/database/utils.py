@@ -715,6 +715,7 @@ def get_page_items(request,
                 invoice = invoices[0]
                 times = get_times_for_invoice(invoice, time_model)
                 times = times.order_by(*order_by['time'])
+            contacts = contact_model.objects.all()
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
@@ -728,7 +729,7 @@ def get_page_items(request,
             context['estimates'] = estimates
             context['invoices'] = invoices
             context['item'] = project
-            context['times'] = times
+            context['times'] = is_contact(contacts, times)
             context['users'] = users
         elif verbose_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
