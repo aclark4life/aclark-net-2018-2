@@ -261,10 +261,8 @@ def edit(
             delete = request.POST.get('delete')
             # Copy or delete
             if copy:
-                # return obj_copy(obj, url_name)
                 return obj_copy(obj)
             if delete:
-                # return obj_delete(obj, company, request=request)
                 return obj_delete(obj)
             # Check boxes
             if (checkbox_active == 'on' or checkbox_active == 'off' or
