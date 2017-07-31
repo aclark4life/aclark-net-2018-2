@@ -128,6 +128,9 @@ django-yapf:
 	-yapf -i $(PROJECT)/$(APP)/*.py
 migrate: django-migrate  # Alias
 migrations: django-migrations  # Alias
+django-graph:
+	bin/python manage.py graph_models $(APP) -o graph_models_$(PROJECT)_$(APP).png 
+graph: django-graph
 
 # Git
 MESSAGE="Update"

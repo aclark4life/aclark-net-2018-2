@@ -11,7 +11,7 @@ Based on data exported from `Harvest <https://www.getharvest.com/>`_
 Models
 ~~~~~~
 
-.. image:: graph_models.png
+.. image:: graph_models_aclarknet_database.png
 
 
 Social
