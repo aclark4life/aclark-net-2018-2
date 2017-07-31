@@ -1001,7 +1001,7 @@ def set_invoice_totals(times, estimate=None, invoice=None):
         if time_entry.task:
             rate = time_entry.task.rate
             time_entry_amount = rate * hours
-        if time_entry.user.profile.rate:
+        if time_entry.user.profile:
             rate = time_entry.user.profile.rate
             time_entry_cog = rate * hours
         time_entry.amount = '%.2f' % time_entry_amount
