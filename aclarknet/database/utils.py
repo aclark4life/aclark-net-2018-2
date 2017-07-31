@@ -583,7 +583,7 @@ def get_index_items(request,
     if model_name == 'note':
         context['note_stats'] = get_note_stats(model)
     items_name = get_items_name(model)
-    context[items_name] = items_name
+    context[items_name] = items
     return context
 
 
