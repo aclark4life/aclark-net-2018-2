@@ -332,16 +332,16 @@ def get_active_kwarg(model, active=False, user=None):
     Kwarg for "active" varies by type
     """
     kwargs = {}
-    verbose_name = model._meta.verbose_name
-    if verbose_name == 'estimate':
+    model_name = model._meta.verbose_name
+    if model_name == 'estimate':
         # Unaccepted invoices are "active"
         if active:
             kwargs['accepted_date'] = None
-    elif verbose_name == 'invoice':
+    elif model_name == 'invoice':
         # Unpaid invoices are "active"
         if active:
             kwargs['last_payment_date'] = None
-    elif verbose_name == 'time':
+    elif model_name == 'time':
         # Only staff can see all items
         if not user.is_staff:
             kwargs['user'] = user
@@ -349,7 +349,7 @@ def get_active_kwarg(model, active=False, user=None):
         kwargs['invoiced'] = not (active)
         # Estimated times are never "active"
         kwargs['estimate'] = None
-    elif verbose_name == 'user':
+    elif model_name == 'user':
         # Use related model's active field
         kwargs['profile__active'] = active
     else:
@@ -437,8 +437,9 @@ def get_search_results(model,
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
-    context['items'] = items
     context['show_search'] = True
+    items_name = get_items_name(model)
+    context[items_name] = items
     return context
 
 
@@ -474,22 +475,22 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         return dashboard_choices
 
 
-def get_template_and_url_names(verbose_name, page_type=None):
+def get_template_and_url_names(model_name, page_type=None):
     """
     """
     if page_type == 'view':
-        url_name = URL_NAMES[verbose_name][0]
+        url_name = URL_NAMES[model_name][0]
         template_name = '%s.html' % url_name
         return template_name, url_name
     elif page_type == 'edit':
-        url_name = URL_NAMES[verbose_name][1]
+        url_name = URL_NAMES[model_name][1]
         template_name = '%s.html' % url_name
         return template_name, url_name
     elif page_type == 'home':
         url_name = 'home'
         return url_name
     elif page_type == 'index':
-        url_name = URL_NAMES[verbose_name][2]
+        url_name = URL_NAMES[model_name][2]
         return url_name
 
 
@@ -528,6 +529,7 @@ def get_index_items(request,
     """
     """
     context = {}
+    model_name = model._meta.verbose_name
     if company_model:
         company = company_model.get_solo()
         context['company'] = company
@@ -555,11 +557,10 @@ def get_index_items(request,
     if order_by is not None:
         items = items.order_by(*order_by)
     # Calculate total hours
-    verbose_name = model._meta.verbose_name
-    if verbose_name == 'time':
+    if model_name == 'time':
         context['total_hours'] = get_total_hours(items)
     # Calculate cost per report
-    if verbose_name == 'report':
+    if model_name == 'report':
         for item in items:
             cost = item.gross - item.net
             item.cost = cost
@@ -579,21 +580,26 @@ def get_index_items(request,
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
-    # Share model index tables
-    if verbose_name == 'invoices':
-        context[
-            'invoices'] = items  # Invoices instead of items so we can share
-    elif verbose_name == 'note':
+    if model_name == 'note':
         context['note_stats'] = get_note_stats(model)
-        context['notes'] = items  # Notes instead of items so we can share
-    elif verbose_name == 'project':
-        context[
-            'projects'] = items  # Projects instead of items so we can share
-    elif verbose_name == 'time':
-        context['times'] = items  # Times instead of items so we can share
-    else:  # No shared table
-        context['items'] = items
+    items_name = get_items_name(model)
+    context[items_name] = items_name
     return context
+
+
+def get_items_name(model):
+    # Share model index tables
+    model_name = model._meta.verbose_name
+    if model_name == 'invoices':
+        return 'invoices'  # Invoices instead of items so we can share
+    elif model_name == 'note':
+        return 'notes'  # Notes instead of items so we can share
+    elif model_name == 'project':
+        return 'projects'  # Projects instead of items so we can share
+    elif model_name == 'time':
+        return 'times'  # Times instead of items so we can share
+    else:  # No shared table
+        return 'items'
 
 
 def get_note_stats(note_model):
@@ -632,8 +638,8 @@ def get_page_items(request,
         company = company_model.get_solo()
         context['company'] = company
     if model:
-        verbose_name = model._meta.verbose_name
-        if verbose_name == 'client':
+        model_name = model._meta.verbose_name
+        if model_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
             contracts = contract_model.objects.filter(client=client)
@@ -647,7 +653,7 @@ def get_page_items(request,
             context['item'] = client
             context['notes'] = client.note.all()
             context['projects'] = projects
-        elif verbose_name == 'contract':
+        elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
             doc = get_query(request, 'doc')
             estimate = contract.statement_of_work
@@ -669,7 +675,7 @@ def get_page_items(request,
             context['item'] = contract
             context['pdf'] = pdf
             context['times'] = times
-        elif verbose_name == 'estimate':
+        elif model_name == 'estimate':
             estimate = get_object_or_404(model, pk=pk)
             if not estimate.is_sow:
                 document_type = estimate._meta.verbose_name
@@ -692,14 +698,14 @@ def get_page_items(request,
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
             context['pdf'] = pdf
-        if verbose_name == 'file':
+        if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
             context['edit_url'] = 'file_edit'
             context['icon_size'] = get_setting(request, app_settings_model,
                                                'icon_size')
             context['item'] = file_obj
-        elif verbose_name == 'invoice':
+        elif model_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
             document_type = invoice._meta.verbose_name
             times = get_times_for_invoice(invoice, time_model)
@@ -715,7 +721,7 @@ def get_page_items(request,
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
             context['pdf'] = pdf
-        elif verbose_name == 'project':
+        elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
             invoices = project.invoice_set.all()
             invoice = times = None
@@ -739,19 +745,19 @@ def get_page_items(request,
             context['item'] = project
             context['times'] = times
             context['users'] = users
-        elif verbose_name == 'proposal':
+        elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'dropdown'
             context['edit_url'] = 'proposal_edit'  # Delete modal
             context['item'] = proposal
             context['pdf'] = pdf
-        elif verbose_name == 'time':
+        elif model_name == 'time':
             time_entry = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'time'
             context['edit_url'] = 'time_edit'  # Delete modal
             context['item'] = time_entry
-        elif verbose_name == 'user':
+        elif model_name == 'user':
             user = get_object_or_404(model, pk=pk)
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
@@ -837,34 +843,34 @@ def obj_copy(obj):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    verbose_name = obj._meta.verbose_name
+    model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        verbose_name, page_type='edit')
+        model_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_remove(obj):
-    verbose_name = obj._meta.verbose_name
-    if verbose_name == 'time':
+    model_name = obj._meta.verbose_name
+    if model_name == 'time':
         url_name = get_template_and_url_names(
-            verbose_name, page_type='home')  # Redir to home
+            model_name, page_type='home')  # Redir to home
     else:
         url_name = get_template_and_url_names(
-            verbose_name, page_type='index')  # Redir to index
+            model_name, page_type='index')  # Redir to index
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
 
 def obj_edit(obj, pk=None):
-    verbose_name = obj._meta.verbose_name
+    model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        verbose_name, page_type='view')  # Redir to view
+        model_name, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
     if pk:  # Existing
-        if verbose_name == 'Company':  # Special case for company
+        if model_name == 'Company':  # Special case for company
             return HttpResponseRedirect(reverse(url_name))
-        if verbose_name == 'app settings':  # Special case for settings
+        if model_name == 'app settings':  # Special case for settings
             return HttpResponseRedirect(reverse(url_name))
         kwargs['pk'] = pk
     else:  # New
@@ -927,22 +933,22 @@ def set_relationship(obj,
                      estimate_model=None,
                      invoice_model=None,
                      project_model=None):
-    verbose_name = obj._meta.verbose_name
-    if verbose_name == 'contact':
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
         query_client = get_query(request, 'client')
         if query_client:
             client = get_object_or_404(client_model, pk=query_client)
             obj.client = client
             obj.save()
             return True
-    elif verbose_name == 'estimate' or verbose_name == 'invoice':
+    elif model_name == 'estimate' or model_name == 'invoice':
         query_project = get_query(request, 'project')
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.client = project.client
             obj.project = project
             obj.save()
-    elif verbose_name == 'note':
+    elif model_name == 'note':
         query_client = get_query(request, 'client')
         query_company = get_query(request, 'company')
         if query_client:
@@ -954,13 +960,13 @@ def set_relationship(obj,
             company = company_model.get_solo()
             company.note.add(obj)
             company.save()
-    elif verbose_name == 'project':
+    elif model_name == 'project':
         query_client = get_query(request, 'client')
         if query_client:
             client = get_object_or_404(client_model, pk=query_client)
             obj.client = client
             obj.save()
-    elif verbose_name == 'time':
+    elif model_name == 'time':
         obj.user = request.user
         query_estimate = get_query(request, 'estimate')
         query_invoice = get_query(request, 'invoice')
