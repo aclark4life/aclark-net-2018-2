@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'solo',
     'storages',
     'taggit',
+    'django_send_email',
 ]
 
 if DEBUG:
