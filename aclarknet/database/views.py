@@ -456,19 +456,9 @@ def invoice(request, pk=None):
         pk=pk,
         time_model=Time)
     if context['pdf']:
-        company = context['company']
-        company_name = company.name
-        item = context['item']
-        document_id = item.document_id
-        if document_id:
-            document_id = str(document_id)
-        else:
-            document_id = pk
-        model_name = context['model_name']
-        model_name = model_name.upper()
         response = HttpResponse(content_type='application/pdf')
-        filename = '_'.join([company_name, model_name, document_id])
-        response['Content-Disposition'] = 'filename=%s.pdf' % filename
+        filename = get_company_name(context['company'])
+        response['Content-Disposition'] = 'filename=%s.pdf' % 'filename'
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)
     else:

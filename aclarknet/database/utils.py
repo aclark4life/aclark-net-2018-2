@@ -372,13 +372,14 @@ def get_client_ip(request):
 
 def get_company_name(company):
     if company.name:
-        company_name = company.name.replace('.', '_')
-        company_name = company_name.replace(', ', '_')
-        company_name = company_name.upper()
-        return company_name
+        company_name = company.name
     else:
         fake = Faker()
-        return fake.text()
+        company_name = fake.text()
+    company_name = company.name.replace('.', '_')
+    company_name = company_name.replace(', ', '_')
+    company_name = company_name.upper()
+    return company_name
 
 
 def get_invoice_totals(model):
@@ -1006,7 +1007,8 @@ def set_invoice_totals(times, estimate=None, invoice=None):
             time_entry_amount = rate * hours
         if time_entry.user:
             rate = time_entry.user.profile.rate
-            time_entry_cog = rate * hours
+            if rate:
+                time_entry_cog = rate * hours
         time_entry.amount = '%.2f' % time_entry_amount
         time_entry.cog = '%.2f' % time_entry_cog
         invoice_amount += time_entry_amount
