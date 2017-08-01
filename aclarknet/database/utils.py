@@ -641,6 +641,7 @@ def get_page_items(request,
         context['company'] = company
     if model:
         model_name = model._meta.verbose_name
+        context['model_name'] = model_name
         if model_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
