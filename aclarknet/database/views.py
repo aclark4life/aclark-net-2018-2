@@ -460,7 +460,10 @@ def invoice(request, pk=None):
         company_name = company.name
         item = context['item']
         document_id = item.document_id
-        document_id = str(document_id)
+        if document_id:
+            document_id = str(document_id)
+        else:
+            document_id = pk
         model_name = context['model_name']
         model_name = model_name.upper()
         response = HttpResponse(content_type='application/pdf')
