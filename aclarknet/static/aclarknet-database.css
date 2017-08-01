@@ -17,9 +17,11 @@ a:hover.mute-url, a.mute-url {
     text-decoration: none;
     color: black;
 }
+/* 
 .row h2, .row h3 {
     padding: 2em 0 0.25em 0;
 }
+*/
 .sidebar {
     opacity: 0.9;
 }
