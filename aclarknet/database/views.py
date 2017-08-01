@@ -460,7 +460,7 @@ def invoice(request, pk=None):
         company_name = get_company_name(context['company'])
         model_name = context['model_name'].upper()
         doc_id = context['item'].document_id or pk
-        filename = '_'.join([company_name, model_name, doc_id])
+        filename = '_'.join([company_name, model_name, str(doc_id)])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)
