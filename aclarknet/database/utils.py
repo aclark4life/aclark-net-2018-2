@@ -113,8 +113,8 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def check_boxes(obj, checkbox_active, checkbox_subscribed, refer,
-                app_settings_model):
+def set_check_boxes(obj, checkbox_active, checkbox_subscribed, refer,
+                    app_settings_model):
     if checkbox_active == 'on' or checkbox_active == 'off':
         if checkbox_active == 'on':
             obj.active = True
@@ -245,11 +245,21 @@ def edit(
         project_model=None,
         task_model=None,
         time_model=None,
-        pk=None, ):
+        pk=None, ):  # replace w/**kwargs?
     context = {}
     obj = None
     if pk is None:
-        form = form_model()
+        form = get_form(
+            request,
+            form_model,
+            model,
+            client_model=client_model,
+            company_model=company_model,
+            estimate_model=estimate_model,
+            invoice_model=invoice_model,
+            project_model=project_model,
+            task_model=task_model,
+            time_model=time_model)
     else:
         obj = get_object_or_404(model, pk=pk)
         form = form_model(instance=obj)
@@ -258,21 +268,18 @@ def edit(
         if pk is None:
             form = form_model(request.POST)
         else:
-            checkbox_active = request.POST.get('checkbox')
-            checkbox_subscribed = request.POST.get('checkbox-subscribed')
+            # Copy or delete
             copy = request.POST.get('copy')
             delete = request.POST.get('delete')
-            # Copy or delete
             if copy:
                 return obj_copy(obj)
             if delete:
                 return obj_remove(obj)
             # Check boxes
-            if (checkbox_active == 'on' or checkbox_active == 'off' or
-                    checkbox_subscribed == 'on' or
-                    checkbox_subscribed == 'off'):
-                return check_boxes(obj, checkbox_active, checkbox_subscribed,
-                                   refer, app_settings_model)
+            check_boxes = get_query(request, 'checkbox')
+            if check_boxes[1]:  # condition
+                return set_check_boxes(obj, check_boxes[1], check_boxes[2],
+                                       refer, app_settings_model)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
@@ -382,6 +389,10 @@ def get_company_name(company):
     return company_name
 
 
+def get_form(request, form_model, model, **kwargs):
+    return form_model()
+
+
 def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
     invoice_amount = invoice_cog = 0
@@ -418,6 +429,14 @@ def get_query(request, query):
             values = []
         values = [i.split(',') for i in values]
         return values
+    elif query == 'checkbox':
+        checkbox_active = request.POST.get('checkbox')
+        checkbox_subscribe = request.POST.get('checkbox-subscribed')
+        checkbox_condition = (
+            checkbox_active == 'on' or checkbox_active == 'off' or
+            checkbox_subscribe == 'on' or checkbox_subscribe == 'off')
+        return [checkbox_active, checkbox_condition, checkbox_subscribe]
+
     else:  # Normal handling
         return request.GET.get(query, '')
 
