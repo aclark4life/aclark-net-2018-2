@@ -791,11 +791,6 @@ def report_edit(request, pk=None):
 
 @staff_member_required
 def report_index(request):
-    show_plot = False
-    reports = Report.objects.filter(active=True)
-    plot_items = reports  # Save for plotting
-    reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
-    company = Company.get_solo()
     context = get_index_items(
         request,
         Report,
@@ -805,20 +800,6 @@ def report_index(request):
         order_by=('-updated', ),
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
-    if reports['gross'] is not None and reports['net'] is not None:
-        cost = reports['gross'] - reports['net']
-    else:
-        reports['gross'] = 0
-        reports['net'] = 0
-        cost = 0
-    if 'items' in context:
-        if len(context['items']) > 1:
-            show_plot = True
-    context['reports'] = reports
-    context['company'] = company
-    context['cost'] = cost
-    context['show_plot'] = show_plot
-    context['plot_items'] = plot_items
     return render(request, 'report_index.html', context)
 
 

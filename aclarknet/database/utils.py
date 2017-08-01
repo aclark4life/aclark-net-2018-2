@@ -584,18 +584,37 @@ def get_index_items(request,
     # Order items (http://stackoverflow.com/a/20257999/185820)
     if order_by is not None:
         items = items.order_by(*order_by)
+    # Don't show items to anon
+    if not request.user.is_authenticated:
+        items = []
     # Calculate total hours
-    if model_name == 'time':
-        context['total_hours'] = get_total_hours(items)
+    if model_name == 'note':
+        context['note_stats'] = get_note_stats(model)
     # Calculate cost per report
-    if model_name == 'report':
+    elif model_name == 'report':
+        cost = None
+        show_plot = False
+        reports = items.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
+        plot_items = reports  # Save for plotting
         for item in items:
             cost = item.gross - item.net
             item.cost = cost
             item.save()
-    # Don't show items to anon
-    if not request.user.is_authenticated:
-        items = []
+        if reports['gross'] is not None and reports['net'] is not None:
+            cost = reports['gross'] - reports['net']
+        else:
+            reports['gross'] = 0
+            reports['net'] = 0
+            cost = 0
+        if 'items' in context:
+            if len(context['items']) > 1:
+                show_plot = True
+        context['reports'] = reports
+        context['cost'] = cost
+        context['show_plot'] = show_plot
+        context['plot_items'] = plot_items
+    elif model_name == 'time':
+        context['total_hours'] = get_total_hours(items)
     # Paginate if paginated
     if paginated:
         page_size = get_setting(
@@ -608,8 +627,6 @@ def get_index_items(request,
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
-    if model_name == 'note':
-        context['note_stats'] = get_note_stats(model)
     items_name = get_items_name(model)
     context[items_name] = items
     return context
