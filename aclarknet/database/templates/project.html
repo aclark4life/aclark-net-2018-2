@@ -107,8 +107,8 @@
                     <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject|default:'' }}</a></td>
                     <td>{{ invoice.subject|default:'' }}</td>
                     <td>{{ invoice.issue_date|default:'' }}</td>
-                    <td>{% if invoice.subtotal %}{{ company.currency_symbol }}{% endif %}{{ invoice.subtotal|default:'' }}</td>
-                    <td>{{ invoice.subtotal|unlocalize|default:'' }}</td>
+                    <td>{% if invoice.amount %}{{ company.currency_symbol }}{% endif %}{{ invoice.amount|default:'' }}</td>
+                    <td>{{ invoice.amount|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'invoice' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
                     <td><a href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
                   </tr>
@@ -143,8 +143,8 @@
                     <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.subject|default:'' }}</a></td>
                     <td>{{ estimate.subject|default:'' }}</td>
                     <td>{{ estimate.issue_date|default:'' }}</td>
-                    <td>{% if estimate.subtotal %}{{ company.currency_symbol }}{% endif %}{{ estimate.subtotal|default:'' }}</td>
-                    <td>{{ estimate.subtotal|unlocalize|default:'' }}</td>
+                    <td>{% if estimate.amount %}{{ company.currency_symbol }}{% endif %}{{ estimate.amount|default:'' }}</td>
+                    <td>{{ estimate.amount|unlocalize|default:'' }}</td>
                     <td><a href="{% url 'estimate' estimate.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
                     <td><a href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
                   </tr>
