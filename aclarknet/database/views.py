@@ -458,8 +458,11 @@ def invoice(request, pk=None):
     if context['pdf']:
         company = context['company']
         company_name = company.name
-        document_id = str(context['item'].document_id)
+        item = context['item']
+        document_id = item.document_id
+        document_id = str(document_id)
         model_name = context['model_name']
+        model_name = model_name.upper()
         response = HttpResponse(content_type='application/pdf')
         filename = '_'.join([company_name, model_name, document_id])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
