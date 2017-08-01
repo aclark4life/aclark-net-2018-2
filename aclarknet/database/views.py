@@ -458,7 +458,7 @@ def invoice(request, pk=None):
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(context['company'])
-        response['Content-Disposition'] = 'filename=%s.pdf' % 'filename'
+        response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)
     else:
