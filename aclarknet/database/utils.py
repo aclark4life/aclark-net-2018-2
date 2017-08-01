@@ -599,7 +599,7 @@ def get_items_name(model):
     elif model_name == 'time':
         return 'times'  # Times instead of items so we can share
     elif model_name == 'user':
-        return 'user'  # Users instead of items so we can share
+        return 'users'  # Users instead of items so we can share
     else:  # No shared table
         return 'items'
 
