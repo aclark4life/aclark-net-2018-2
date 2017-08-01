@@ -390,7 +390,15 @@ def get_company_name(company):
 
 
 def get_form(request, form_model, model, **kwargs):
-    return form_model()
+    model_name = model._meta.verbose_name
+    if model_name == 'report':  # Populate report with gross, net.
+        invoice_model = kwargs['invoice_model']
+        gross, net = get_invoice_totals(invoice_model)
+        obj = model(gross=gross, net=net)
+        form = form_model(instance=obj)
+    else:
+        form = form_model()
+    return form
 
 
 def get_invoice_totals(model):
