@@ -3,7 +3,6 @@ from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
-from django.core.mail import send_mail as django_send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -14,7 +13,6 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.utils import timezone
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -25,7 +23,6 @@ from hashlib import md5
 from io import StringIO
 from lxml import etree
 from operator import or_ as OR
-from smtplib import SMTPSenderRefused
 
 ITEMS_NAME = {
     'client': 'clients',
@@ -870,41 +867,6 @@ def paginate(items, page, page_size):
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
     return items
-
-
-def send_mail(request,
-              subject,
-              message,
-              to,
-              url=None,
-              uuid=None,
-              first_name=None):
-    recipients = []
-    sender = django_settings.EMAIL_FROM
-    recipients.append(to)
-    # http://stackoverflow.com/a/28476681/185820
-    if first_name:
-        username = first_name
-    else:
-        username = to
-    html_message = render_to_string('cerberus-fluid.html', {
-        'username': username,
-        'message': message,
-        'url': url,
-        'uuid': uuid,
-    })
-    try:
-        django_send_mail(
-            subject,
-            message,
-            sender,
-            recipients,
-            fail_silently=False,
-            html_message=html_message)
-        return True
-    except SMTPSenderRefused:
-        messages.add_message(request, messages.WARNING, 'SMTPSenderRefused!')
-        return False
 
 
 def set_relationship(obj,
