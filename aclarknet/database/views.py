@@ -703,6 +703,9 @@ def project_index(request, pk=None):
         Project,
         active_nav='project',
         app_settings_model=AppSettings,
+        columns_visible={'note': {
+            'notes': 'false',
+        }, },
         edit_url='project_edit',  # Delete modal
         order_by=(
             '-active',
