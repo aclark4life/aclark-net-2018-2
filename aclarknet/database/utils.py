@@ -678,6 +678,7 @@ def get_page_items(request,
                    time_model=None,
                    user_model=None):
     context = {}
+    items = None
     if company_model:
         company = company_model.get_solo()
         context['company'] = company
