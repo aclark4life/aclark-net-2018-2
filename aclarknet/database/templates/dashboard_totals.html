@@ -1,6 +1,17 @@
               <h2>Totals</h2>
               <div class="row">
                 <div class="col-md-12">
-{% include 'report_totals.html' %}
+                  <table>
+                    <thead>
+                      <th>Gross</th>
+                      <th>Net</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ gross }}</td>
+                        <td>{{ net }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
