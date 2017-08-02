@@ -952,9 +952,9 @@ def time_index(request):
         app_settings_model=AppSettings,
         columns_visible={
             'time': {
-                'invoiced': 'false',
-                'invoice': 'false',
-                'estimate': 'false',
+                'invoiced': 'true',
+                'invoice': 'true',
+                'estimate': 'true',
             },
         },
         edit_url='time_edit',  # Delete modal
