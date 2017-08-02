@@ -8,7 +8,9 @@
               <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'contract_edit' %}">Add Contract <i class="fa fa-plus"></i></a></div>
             </div>
           </div>
+{% with items=items.contracts %}     
 {% include 'pagination.html' %}
+{% endwith %}
           <table data-toggle="table" data-classes="table table-no-bordered">
             <thead>
               <tr>
@@ -31,5 +33,7 @@
             {% endfor %}
             </tbody>
           </table>
+{% with items=items.contracts %}     
 {% include 'pagination.html' %}
+{% endwith %}
 {% endblock %}

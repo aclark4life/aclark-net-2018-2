@@ -9,7 +9,11 @@
               <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a></div>
             </div>
           </div>
+{% with items=items.notes %}
 {% include 'pagination.html' %}
+{% endwith %}
 {% include 'table_notes.html' %}
+{% with items=items.notes %}
 {% include 'pagination.html' %}
+{% endwith %}
 {% endblock %}

@@ -8,7 +8,9 @@
               <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'client_edit' %}">Add Client <i class="fa fa-plus"></i></a></div>
             </div>
           </div>
+{% with items=items.clients %}     
 {% include 'pagination.html' %}
+{% endwith %}
           <table data-toggle="table" data-sort-name="hidden-active" data-sort-order="desc" data-classes="table table-no-bordered">
             <thead>
               <tr>
@@ -35,5 +37,7 @@
             {% endfor %}
             </tbody>
           </table>
+{% with items=items.clients %}     
 {% include 'pagination.html' %}
+{% endwith %}
 {% endblock %}

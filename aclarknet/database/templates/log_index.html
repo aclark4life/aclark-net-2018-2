@@ -5,7 +5,9 @@
                   <h1>Logs</h1>
                 </div>
               </div>
+{% with items=items.logs %}
 {% include 'pagination.html' %}
+{% endwith %}
             <table data-toggle="table" data-classes="table table-no-bordered">
               <thead>
                 <tr>
@@ -22,5 +24,7 @@
               {% endfor %}
               </tbody>
             </table>
+{% with items=items.logs %}
 {% include 'pagination.html' %}
+{% endwith %}
 {% endblock %}

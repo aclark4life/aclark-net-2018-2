@@ -9,7 +9,9 @@
               <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'report_edit' %}">Add Report <i class="fa fa-plus"></i></a></div>
             </div>
           </div>
+{% with items=items.reports %}
 {% include 'pagination.html' %}
+{% endwith %}
           <div class="row">
             <div class="col-md-12">
               <table data-toggle="table" data-sort-name="hidden-date" data-sort-order="desc" data-classes="table table-no-bordered">
@@ -52,5 +54,7 @@
               </table>
             </div>
           </div>
+{% with items=items.reports %}
 {% include 'pagination.html' %}
+{% endwith %}
 {% endblock content %}
