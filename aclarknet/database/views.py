@@ -54,7 +54,6 @@ from .utils import get_page_items
 from .utils import get_template_and_url_names
 from .utils import get_query
 from .utils import is_allowed_to_view
-from .utils import send_mail
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate
