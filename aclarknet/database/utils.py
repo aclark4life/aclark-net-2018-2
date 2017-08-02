@@ -519,8 +519,12 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return app_settings.page_size
     if setting == 'dashboard_choices':
         dashboard_choices = app_settings.dashboard_choices
-        override = request.user.profile.override_dashboard
-        if hasattr(request.user, 'profile') and override:
+        override = False
+        if hasattr(request.user, 'profile'):
+            has_profile = True
+        if has_profile:
+            override = request.user.profile.override_dashboard
+        if has_profile and override:
             dashboard_choices = request.user.profile.dashboard_choices
         return dashboard_choices
 
