@@ -429,7 +429,7 @@ def get_query(request, query):
             return True
     elif query == 'search' and request.method == 'POST':
         return request.POST.get('search', '')
-    elif query == 'values':
+    elif query == 'values':  # plot
         values = request.GET.get('values')
         if values:
             values = values.split(' ')
