@@ -154,7 +154,7 @@ LOGIN_URL = '/login/google-oauth2/?next=/'
 # Send mail with AWS SES
 EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_FROM = os.environ.get('EMAIL_FROM')
-EMAIL_FROM = 'aclark.net@aclark.net'
+EMAIL_FROM = 'aclark@aclark.net'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
@@ -196,5 +196,5 @@ GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Errors sent to admins
-SERVER_MAIL = 'db@aclark.net'
+SERVER_MAIL = 'aclark@aclark.net'
 ADMINS = [('Alex Clark', 'aclark@aclark.net')]
