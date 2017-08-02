@@ -703,8 +703,8 @@ def project_index(request, pk=None):
         Project,
         active_nav='project',
         app_settings_model=AppSettings,
-        columns_visible={'note': {
-            'notes': 'false',
+        columns_visible={'project': {
+            'notes': 'true',
         }, },
         edit_url='project_edit',  # Delete modal
         order_by=(
@@ -950,6 +950,13 @@ def time_index(request):
         Time,
         active_nav='time',
         app_settings_model=AppSettings,
+        columns_visible={
+            'time': {
+                'invoiced': 'false',
+                'invoice': 'false',
+                'estimate': 'false',
+            },
+        },
         edit_url='time_edit',  # Delete modal
         order_by=('-updated', ),
         search_fields=search_fields,

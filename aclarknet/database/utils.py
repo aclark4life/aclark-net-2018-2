@@ -547,6 +547,7 @@ def get_index_items(request,
                     model,
                     app_settings_model=None,
                     active_nav=None,
+                    columns_visible=None,
                     company_model=None,
                     contact_model=None,
                     edit_url=None,
@@ -558,6 +559,8 @@ def get_index_items(request,
     """
     context = {}
     model_name = model._meta.verbose_name
+    if columns_visible:
+        context['columns_visible'] = columns_visible
     if company_model:
         company = company_model.get_solo()
         context['company'] = company

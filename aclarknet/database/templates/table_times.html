@@ -1,7 +1,7 @@
           <table data-toggle="table" data-classes="table table-no-bordered">
             <thead>
               <tr>
-                {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" {% if active %} data-visible="false" {% else %} data-visible="true" {% endif %}>Invoiced</th>{% endif %}
+                {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" data-visible="{{ columns_visible.time.invoiced }}">Invoiced</th>{% endif %}
                 <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                 <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                 <th data-field="hours" data-sortable="true">Hours</th>
@@ -11,10 +11,8 @@
                 <th data-field="hidden-project" data-sortable="true" data-visible="false">Hidden Project</th>
                 <th data-field="task" data-sortable="true" data-visible="true">Task</th>
                 <th data-field="user" data-sortable="true" data-visible="true">User</th>
-                {% if request.user.is_staff %}
-                <th data-field="invoice" data-sortable="true" data-visible="true">Invoice</th>
-                <th data-field="estimate" data-sortable="true" data-visible="true">Estimate</th>
-                {% endif %}
+                {% if request.user.is_staff %}<th data-field="invoice" data-sortable="true" data-visible="{{ columns_visible.time.invoice }}">Invoice</th>{% endif %}
+                {% if request.user.is_staff %}<th data-field="estimate" data-sortable="true" data-visible="{{ columns_visible.time.estimate }}">Estimate</th>{% endif %}
                 <th>View</th>
                 <th>Edit</th> 
               </tr>
