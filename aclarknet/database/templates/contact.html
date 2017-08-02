@@ -25,11 +25,11 @@
                   </tr>
                   <tr>
                     <th>Active</th>
-                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   </tr>
                   <tr>
                     <th>Subscribed</th>
-                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-subscribed"><input type="checkbox" value="on" name="checkbox-subscribed"{% if item.subscribed %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                    <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-subscribe"><input type="checkbox-subscribe="on" name="checkbox-subscribe"{% if item.subscribed %} checked {% endif %} onChange="this.form.submit()"></form></td>
                   </tr>
                   <tr>
                     <th>Title</th>

@@ -16,7 +16,7 @@
             <tbody>
             {% for item in users %}
               <tr>
-                <td><form action="{% url 'user_edit' item.profile.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"><input type="checkbox" value="on" name="checkbox" {% if item.profile.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                <td><form action="{% url 'user_edit' item.profile.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active" {% if item.profile.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ item.profile.active }}</td>
                 <td>{% if item.profile.app_admin %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
                 <td>{{ item.profile.pk }}</td>

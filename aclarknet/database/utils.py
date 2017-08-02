@@ -113,27 +113,26 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def set_check_boxes(obj, checkbox_active, checkbox_subscribed, refer,
-                    app_settings_model):
-    if checkbox_active == 'on' or checkbox_active == 'off':
-        if checkbox_active == 'on':
+def set_check_boxes(obj, cb_query, refer, app_settings_model):
+    model_name = obj._meta.verbose_name
+    if cb_query['active'] == 'on' or cb_query['active'] == 'off':  # Active
+        if cb_query['active'] == 'on':
             obj.active = True
         else:
             obj.active = False
-        # Special case for note
-        if obj._meta.verbose_name == 'note' and app_settings_model:
+        # Auto-hide notes
+        if model_name == 'note' and app_settings_model:
             app_settings = app_settings_model.get_solo()
             if app_settings.auto_hide_notes:
                 obj.hidden = True
-        obj.save()
-        return HttpResponseRedirect(refer)
-    if checkbox_subscribed == 'on' or checkbox_subscribed == 'off':
-        if checkbox_subscribed == 'on':
+    elif cb_query['subscribe'] == 'on' or cb_query[
+            'subscribe'] == 'off':  # Subscribe
+        if cb_query['active'] == 'on':
             obj.subscribed = True
         else:
             obj.subscribed = False
-        obj.save()
-        return HttpResponseRedirect(refer)
+    obj.save()
+    return HttpResponseRedirect(refer)
 
 
 def create_and_send_mail(request,
@@ -276,10 +275,10 @@ def edit(
             if delete:
                 return obj_remove(obj)
             # Check boxes
-            check_boxes = get_query(request, 'checkbox')
-            if check_boxes[1]:  # condition
-                return set_check_boxes(obj, check_boxes[1], check_boxes[2],
-                                       refer, app_settings_model)
+            cb_query = get_query(request, 'checkbox')
+            if cb_query['condition']:
+                return set_check_boxes(obj, cb_query, refer,
+                                       app_settings_model)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             obj = form.save()
@@ -438,13 +437,16 @@ def get_query(request, query):
         values = [i.split(',') for i in values]
         return values
     elif query == 'checkbox':
-        checkbox_active = request.POST.get('checkbox')
-        checkbox_subscribe = request.POST.get('checkbox-subscribed')
-        checkbox_condition = (
-            checkbox_active == 'on' or checkbox_active == 'off' or
-            checkbox_subscribe == 'on' or checkbox_subscribe == 'off')
-        return [checkbox_active, checkbox_condition, checkbox_subscribe]
-
+        cb_query = {}
+        cb_active = request.POST.get('checkbox-active')
+        cb_subscribe = request.POST.get('checkbox-subscribe')
+        cb_condition = (  # if any of these exist
+            cb_active == 'on' or cb_active == 'off' or cb_subscribe == 'on' or
+            cb_subscribe == 'off')
+        cb_query['active'] = cb_active
+        cb_query['subscribe'] = cb_subscribe
+        cb_query['condition'] = cb_condition
+        return cb_query
     else:  # Normal handling
         return request.GET.get(query, '')
 

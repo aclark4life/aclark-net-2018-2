@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                   <tr class="table-{{ item.task.color }}"> 
-                    <td><form action="{% url 'project_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox"> <input type="checkbox" value="on" name="checkbox" {% if item.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
+                    <td><form action="{% url 'project_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"> <input type="checkbox" value="on" name="checkbox-active" {% if item.active %} checked {% endif %} onChange="this.form.submit()"> </form></td>
                     <td>{{ item.active }}</td>
                     <td>{{ item.name|default:'' }}</td>
                     <td>{{ item.task.color|default:'' }}</td>
