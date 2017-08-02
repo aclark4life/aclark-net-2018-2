@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in items %}
+            {% for item in items.clients %}
               <tr>
                 <td><a href="{% url 'client' item.pk %}"><i class="fa fa-building fa-{{ icon_size }} valign-middle"></i> {{ item.name|default:'' }}</a></td>
                 <td>{{ item.name|default:'' }}</td>

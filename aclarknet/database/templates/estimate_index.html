@@ -28,7 +28,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in items %}
+            {% for item in items.estimates %}
               <tr>
                 <td>{% if item.accepted_date %}<i class="fa fa-check"></i>{% endif %}</td>
                 <td><a href="{% url 'estimate' item.pk %}">{{ item.subject|default:'' }}</a></td>

@@ -16,7 +16,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in notes %}
+            {% for item in items.notes %}
               <tr>
                 <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ item.active }}</td>

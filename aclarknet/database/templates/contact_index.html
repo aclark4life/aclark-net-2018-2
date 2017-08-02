@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in items %}
+            {% for item in items.contacts %}
               <tr>
                 <td><form action="{% url 'contact_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active" {% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ item.active }}</td>

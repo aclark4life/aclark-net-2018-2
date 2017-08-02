@@ -20,7 +20,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in items %}
+            {% for item in items.contracts %}
               <tr>
                 <td>{{ item.client|default:'' }}</td>
                 <td>{{ item.created }}</td>

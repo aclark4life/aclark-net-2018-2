@@ -27,6 +27,25 @@ from lxml import etree
 from operator import or_ as OR
 from smtplib import SMTPSenderRefused
 
+ITEMS_NAME = {
+    'client': 'clients',
+    'contact': 'contacts',
+    'contract': 'contracts',
+    'estimate': 'estimates',
+    'file': 'files',
+    'invoice': 'invoices',
+    'newsletter': 'newsletters',
+    'note': 'notes',
+    'profile': 'profiles',
+    'project': 'projects',
+    'proposal': 'proposals',
+    'report': 'reports',
+    'service': 'services',
+    'task': 'tasks',
+    'time': 'times',
+    'user': 'users',
+}
+
 URL_NAMES = {
     'client': ('client', 'client_edit', 'client_index'),
     'contact': ('contact', 'contact_edit', 'contact_index'),
@@ -460,6 +479,7 @@ def get_search_results(model,
                        request=None):
     context = {}
     query = []
+    model_name = model._meta.verbose_name
     for field in search_fields:
         query.append(Q(**{field + '__icontains': search}))
     items = model.objects.filter(reduce(OR, query))
@@ -468,8 +488,8 @@ def get_search_results(model,
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['show_search'] = True
-    items_name = get_items_name(model)
-    context[items_name] = items
+    items = set_items_name(model_name, items=items)
+    context['items'] = items
     return context
 
 
@@ -609,27 +629,21 @@ def get_index_items(request,
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
-    # Get items name to share templates
-    items_name = get_items_name(model)
-    context[items_name] = items
+    items = set_items_name(model_name, items=items)
+    context['items'] = items
     return context
 
 
-def get_items_name(model):
-    # Share model index tables
-    model_name = model._meta.verbose_name
-    if model_name == 'invoices':
-        return 'invoices'  # Invoices instead of items so we can share
-    elif model_name == 'note':
-        return 'notes'  # Notes instead of items so we can share
-    elif model_name == 'project':
-        return 'projects'  # Projects instead of items so we can share
-    elif model_name == 'time':
-        return 'times'  # Times instead of items so we can share
-    elif model_name == 'user':
-        return 'users'  # Users instead of items so we can share
-    else:  # No shared table
-        return 'items'
+def set_items_name(model_name, items=None):
+    """
+    Share templates by returning dictionary of items e.g.
+        for item in items.reports
+    instead of:
+        for item in reports
+    """
+    _items = {}
+    _items[ITEMS_NAME[model_name]] = items
+    return _items
 
 
 def get_note_stats(note_model):

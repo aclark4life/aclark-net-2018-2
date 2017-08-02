@@ -16,7 +16,7 @@
                 </tr>
               </thead>
               <tbody>
-              {% for item in items %}
+              {% for item in items.files %}
                 <tr>
                   <td><a href="{% url 'file' item.pk %}">{{ item.name }}</td>
                 </tr>
