@@ -634,14 +634,13 @@ def get_index_items(request,
     return context
 
 
-def set_items_name(model_name, items=None):
+def set_items_name(model_name, items=None, _items={}):
     """
     Share templates by returning dictionary of items e.g.
         for item in items.reports
     instead of:
         for item in reports
     """
-    _items = {}
     _items[ITEMS_NAME[model_name]] = items
     return _items
 
@@ -822,16 +821,27 @@ def get_page_items(request,
             context['times'] = times
     else:  # home
         if request.user.is_authenticated:
-            gross, net = get_invoice_totals(invoice_model)
+            # Items
             invoices = invoice_model.objects.filter(last_payment_date=None)
+            items = set_items_name(
+                invoice_model._meta.verbose_name, items=invoices)
             notes = note_model.objects.filter(active=True)
             notes = notes.order_by(*order_by['note'])
-            plot_items = report_model.objects.filter(active=True)
+            items = set_items_name(
+                note_model._meta.verbose_name, items=notes, _items=items)
             projects = project_model.objects.filter(active=True, hidden=False)
             projects = projects.order_by(*order_by['project'])
+            items = set_items_name(
+                project_model._meta.verbose_name, items=projects, _items=items)
             times = time_model.objects.filter(
                 invoiced=False, project__active=True, user=request.user)
             times = times.order_by(*order_by['time'])
+            items = set_items_name(
+                time_model._meta.verbose_name, items=times, _items=items)
+            # Plot
+            plot_items = report_model.objects.filter(active=True)
+            # Totals
+            gross, net = get_invoice_totals(invoice_model)
             context['city_data'] = get_client_city(request)
             context['dashboard_choices'] = get_setting(
                 request, app_settings_model, 'dashboard_choices')
@@ -847,6 +857,7 @@ def get_page_items(request,
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
         context['nav_status'] = 'active'
+        context['items'] = items
     return context
 
 
