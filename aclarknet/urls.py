@@ -42,11 +42,6 @@ urlpatterns = [
         name='contact_edit'),
     url(r'^contact/add$', views.contact_edit, name='contact_edit'),
     url(r'^contact$', views.contact_index, name='contact_index'),
-    url(r'^contact/(?P<pk>\d+)/mail$', views.contact_mail,
-        name='contact_mail'),
-    url(r'^contact/(?P<pk>\d+)/unsubscribe$',
-        views.contact_unsubscribe,
-        name='contact_unsubscribe'),
     # Contract
     url(r'^contract/(?P<pk>\d+)$', views.contract, name='contract'),
     url(r'^contract/(?P<pk>\d+)/edit$',
@@ -59,9 +54,6 @@ urlpatterns = [
     url(r'^estimate/(?P<pk>\d+)/edit$',
         views.estimate_edit,
         name='estimate_edit'),
-    url(r'^estimate/(?P<pk>\d+)/mail$',
-        views.estimate_mail,
-        name='estimate_mail'),
     url(r'^estimate/add$', views.estimate_edit, name='estimate_edit'),
     url(r'^estimate$', views.estimate_index, name='estimate_index'),
     # Invoice

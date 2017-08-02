@@ -9,7 +9,6 @@ from .forms import ContractSettingsForm
 from .forms import EstimateForm
 from .forms import FileForm
 from .forms import InvoiceForm
-from .forms import MailForm
 from .forms import NewsletterForm
 from .forms import NoteForm
 from .forms import ProfileForm
@@ -44,7 +43,6 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import add_user_to_contacts
-from .utils import create_and_send_mail
 from .utils import edit
 from .utils import generate_doc
 from .utils import get_client_city
@@ -213,21 +211,6 @@ def contact_index(request):
     return render(request, 'contact_index.html', context)
 
 
-@staff_member_required
-def contact_mail(request, pk=None):
-    context = {}
-    contact = get_object_or_404(Contact, pk=pk)
-    if request.method == 'POST' and create_and_send_mail(
-            request, Log, mail_form=MailForm, contact=contact, pk=pk):
-        return HttpResponseRedirect(reverse('contact', kwargs={'pk': pk}))
-    else:
-        form = MailForm()
-    context['active_nav'] = 'contact'
-    context['contact'] = contact
-    context['form'] = form
-    return render(request, 'contact_mail.html', context)
-
-
 def contact_unsubscribe(request, pk=None):
     contact = get_object_or_404(Contact, pk=pk)
     uuid = request.GET.get('id')
@@ -381,14 +364,6 @@ def estimate_index(request):
         show_search=True)
     context['company'] = company
     return render(request, 'estimate_index.html', context)
-
-
-@staff_member_required
-def estimate_mail(request, pk=None):
-    estimate = get_object_or_404(Estimate, pk=pk)
-    if create_and_send_mail(
-            request, Log, estimate=estimate, profile_model=Profile):
-        return HttpResponseRedirect(reverse('estimate', kwargs={'pk': pk}))
 
 
 @staff_member_required
