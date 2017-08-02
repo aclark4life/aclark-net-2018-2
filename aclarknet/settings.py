@@ -194,3 +194,6 @@ GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 
 # AWS S3 storage
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Errors sent to admins
+ADMINS = ('aclark@aclark.net',)
