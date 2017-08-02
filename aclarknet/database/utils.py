@@ -645,6 +645,7 @@ def get_note_stats(note_model):
 def get_page_items(request,
                    app_settings_model=None,
                    company_model=None,
+                   columns_visible=None,
                    contact_model=None,
                    contract_model=None,
                    estimate_model=None,
@@ -662,6 +663,8 @@ def get_page_items(request,
     if company_model:
         company = company_model.get_solo()
         context['company'] = company
+    if columns_visible:
+        context['columns_visible'] = columns_visible
     if model:
         model_name = model._meta.verbose_name
         context['model_name'] = model_name

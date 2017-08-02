@@ -433,6 +433,10 @@ def home(request):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
+        columns_visible={'note': {
+            'due': 'false',
+            'hidden': 'false'
+        }, },
         invoice_model=Invoice,
         note_model=Note,
         order_by={
