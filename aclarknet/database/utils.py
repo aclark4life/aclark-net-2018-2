@@ -344,11 +344,6 @@ def get_invoice_totals(model):
     return invoice_amount, invoice_amount - invoice_cog
 
 
-def get_line_total(entries, entry):
-    line_total = 0
-    return line_total
-
-
 def get_query(request, query):
     """
     """
