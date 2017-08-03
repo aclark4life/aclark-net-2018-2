@@ -215,6 +215,10 @@ class AppSettingsForm(forms.ModelForm):
         model = AppSettings
         fields = '__all__'
 
+    dashboard_choices = forms.ModelMultipleChoiceField(
+        queryset=AppSettings.objects.all(),
+            widget=forms.SelectMultiple(attrs={'size': '50'}))
+
 
 class TaskForm(forms.ModelForm):
     class Meta:
