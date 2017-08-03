@@ -649,6 +649,9 @@ def get_page_items(request,
             context['projects'] = projects
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
+            mail = get_query(request, 'mail')
+            if mail:
+                messages.add_message(request, messages.Success, 'Mail sent!')
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
             context['item'] = contact
