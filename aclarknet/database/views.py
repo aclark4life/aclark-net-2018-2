@@ -174,11 +174,7 @@ def company(request):
 
 @staff_member_required
 def contact(request, pk=None):
-    context = {}
-    contact = get_object_or_404(Contact, pk=pk)
-    context['active_nav'] = 'contact'
-    context['edit_url'] = 'contact_edit'  # Delete modal
-    context['item'] = contact
+    context = get_page_items(request, model=Contact, pk=pk)
     return render(request, 'contact.html', context)
 
 
