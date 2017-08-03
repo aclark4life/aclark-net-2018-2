@@ -624,6 +624,8 @@ def get_page_items(request,
                    time_model=None,
                    user_model=None):
     context = {}
+    context['icon_size'] = get_setting(request, app_settings_model,
+                                       'icon_size')
     items = None
     if company_model:
         company = company_model.get_solo()
@@ -642,11 +644,14 @@ def get_page_items(request,
             context['contacts'] = contacts
             context['contracts'] = contracts
             context['edit_url'] = 'client_edit'
-            context['icon_size'] = get_setting(request, app_settings_model,
-                                               'icon_size')
             context['item'] = client
             context['notes'] = client.note.all()
             context['projects'] = projects
+        elif model_name == 'contact':
+            contact = get_object_or_404(model, pk=pk)
+            context['active_nav'] = 'contact'
+            context['edit_url'] = 'contact_edit'
+            context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
             doc = get_query(request, 'doc')
@@ -696,8 +701,6 @@ def get_page_items(request,
             file_obj = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
             context['edit_url'] = 'file_edit'
-            context['icon_size'] = get_setting(request, app_settings_model,
-                                               'icon_size')
             context['item'] = file_obj
         elif model_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
@@ -732,8 +735,6 @@ def get_page_items(request,
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
             context['entries'] = times
-            context['icon_size'] = get_setting(request, app_settings_model,
-                                               'icon_size')
             context['estimates'] = estimates
             context['invoices'] = invoices
             context['item'] = project
@@ -794,6 +795,7 @@ def get_page_items(request,
                 request, app_settings_model, 'dashboard_choices')
             context['gross'] = gross
             context['invoices'] = invoices
+            context['items'] = items
             context['net'] = net
             context['notes'] = notes
             context['note_stats'] = get_note_stats(note_model)
@@ -801,10 +803,6 @@ def get_page_items(request,
             context['projects'] = projects
             context['times'] = times
             context['total_hours'] = get_total_hours(times)
-        context['icon_size'] = get_setting(request, app_settings_model,
-                                           'icon_size')
-        context['nav_status'] = 'active'
-        context['items'] = items
     return context
 
 
