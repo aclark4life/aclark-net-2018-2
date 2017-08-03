@@ -84,28 +84,26 @@ ablog-serve:
 	bin/ablog serve
 
 # Django
-django: django-dp-clean django-proj-clean django-install django-init django-migrate django-su django-serve  # Chain
-django-debug: django-shell  # Alias
-django-init: django-sq-init django-proj-init  # Chain
-django-pg-clean:  # PostgreSQL
-	-dropdb $(PROJECT)
-django-proj-clean:
+django-app-clean:
 	@-rm -rvf $(PROJECT)
 	@-rm -v manage.py
-django-sq-clean:  # SQLite
-	-rm db.sqlite3
-django-pg-init:  # PostgreSQL
-	-createdb $(PROJECT)
-django-proj-init:
-	-mkdir -p $(PROJECT)/$(APP)
+django-app-init:
+	-mkdir -p $(PROJECT)/$(APP)/templates
+	-touch $(PROJECT)/$(APP)/templates/base.html
 	-django-admin startproject $(PROJECT) .
 	-django-admin startapp $(APP) $(PROJECT)/$(APP)
-django-sq-init:  # SQLite
-	-touch db.sqlite3
+django-db-clean:  # PostgreSQL
+	-dropdb $(PROJECT)
+django-db-init:  # PostgreSQL
+	-createdb $(PROJECT)_$(APP)
+django-debug: django-shell  # Alias
+django-graph:
+	bin/python manage.py graph_models $(APP) -o graph_models_$(PROJECT)_$(APP).png 
+django-init: django-db-init django-app-init django-settings  # Chain
 django-install:
-	@echo "Django\n" > requirements.txt
-	@$(MAKE) python-virtualenv
+	@echo "Django\ndj-database-url\n" > requirements.txt
 	@$(MAKE) python-install
+django-lint: django-yapf  # Alias
 django-migrate:
 	bin/python manage.py migrate
 django-migrations:
@@ -115,6 +113,10 @@ django-serve:
 	bin/python manage.py runserver 0.0.0.0:8000
 django-test:
 	bin/python manage.py test
+django-settings:
+	echo "ALLOWED_HOSTS = ['*']" >> $(PROJECT)/settings.py
+	echo "AUTH_PASSWORD_VALIDATORS = [{'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', }, { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },]" >> $(PROJECT)/settings.py
+	echo "DATABASES = { 'default': dj_database_url.config(default=os.environ.get( 'DATABASE_URL', 'postgres://%s:%s@%s:%s/%s' % (os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''), os.environ.get('DB_HOST', 'localhost'), os.environ.get('DB_PORT', '5432'), os.environ.get('DB_NAME', 'project_app'))))}"
 django-shell:
 	bin/python manage.py shell
 django-static:
@@ -126,11 +128,9 @@ django-yapf:
 	-yapf -i *.py
 	-yapf -i -e $(PROJECT)/urls.py $(PROJECT)/*.py  # Don't format urls.py
 	-yapf -i $(PROJECT)/$(APP)/*.py
+graph: django-graph
 migrate: django-migrate  # Alias
 migrations: django-migrations  # Alias
-django-graph:
-	bin/python manage.py graph_models $(APP) -o graph_models_$(PROJECT)_$(APP).png 
-graph: django-graph
 
 # Git
 MESSAGE="Update"
@@ -180,6 +180,8 @@ help:
         | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
         '{print "    - "$$0}' | less  # http://stackoverflow.com/a/26339924
 	@echo "\n"
+upstream:
+	git push --set-upstream origin master
 
 # Heroku
 heroku: heroku-init
@@ -205,6 +207,11 @@ heroku-web-on:
 	heroku ps:scale web=1
 heroku-web-off:
 	heroku ps:scale web=0
+
+# Makefile
+make:
+	git add Makefile
+	@$(MAKE) git-commit-auto-push
 
 # Misc
 
@@ -264,6 +271,8 @@ package-test:
 	bin/python setup.py test
 python-virtualenv:
 	virtualenv .
+python-virtualenv-3:
+	virtualenv --python=python3 .
 python-yapf:
 	-yapf -i *.py
 	-yapf -i $(PROJECT)/*.py
@@ -294,10 +303,15 @@ package-release:
 package-release-test:
 	bin/python setup.py sdist --format=gztar,zip upload -r test
 
+# Redhat
+redhat-update:
+	sudo yum update
+	sudo yum upgrade -y
+
 # Review
 review:
 ifeq ($(UNAME), Darwin)
-	@open -a $(EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py | grep -v migrations` \
+	@open -a $(EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py`\
 		`find $(PROJECT) -name \*.html`
 else
 	@echo "Unsupported"
@@ -320,6 +334,11 @@ sphinx-serve:
 	bin/python -m SimpleHTTPServer
 	popd
 
+# Ubuntu
+ubuntu-update:
+	sudo aptitude update
+	sudo aptitude upgrade -y
+
 # Vagrant
 vagrant: vagrant-clean vagrant-init vagrant-up  # Chain
 vm: vagrant  # Alias
@@ -334,6 +353,11 @@ vagrant-up:
 	vagrant up --provider virtualbox
 vagrant-update:
 	vagrant box update
+
+# Webpack
+# Requires npm i -g create-webpack-config
+webpack-init:
+	webpack-config
 
 # aclarknet-database
 APP=database

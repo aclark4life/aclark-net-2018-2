@@ -4,7 +4,6 @@ from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from faker import Faker
-from multiselectfield import MultiSelectField
 from uuid import uuid4
 from phonenumber_field.modelfields import PhoneNumberField
 from solo.models import SingletonModel
@@ -411,7 +410,7 @@ class Profile(BaseModel):
     notify = models.BooleanField(default=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    dashboard_choices = MultiSelectField(
+    dashboard_choices = models.CharField(max_length=1000,
         choices=DASHBOARD_CHOICES, null=True, blank=True)
     editor_choices = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
@@ -569,7 +568,7 @@ class AppSettings(SingletonModel):
     updated = models.DateTimeField(auto_now=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
-    dashboard_choices = MultiSelectField(
+    dashboard_choices = models.CharField(max_length=1000,
         choices=DASHBOARD_CHOICES, null=True, blank=True)
     auto_hide_notes = models.BooleanField(default=True)
     tags = models.CharField(max_length=255, blank=True, null=True)
