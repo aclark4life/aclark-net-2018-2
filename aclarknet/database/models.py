@@ -412,11 +412,11 @@ class Profile(BaseModel):
     notify = models.BooleanField(default=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    dashboard_choices = MultiSelectField( 
+    dashboard_choices = MultiSelectField('Dashboard Choices',
         choices=DASHBOARD_CHOICES, null=True, blank=True)
+    dashboard_override = models.BooleanField('Dashboard Override', default=False)
     editor_choices = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
-    override_dashboard = models.BooleanField(default=False)
     is_contact = models.BooleanField(default=False)
 
     def __str__(self):
@@ -570,7 +570,7 @@ class AppSettings(SingletonModel):
     updated = models.DateTimeField(auto_now=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
-    dashboard_choices = MultiSelectField(
+    dashboard_choices = MultiSelectField('Dashboard Choices',
         choices=DASHBOARD_CHOICES, null=True, blank=True)
     auto_hide_notes = models.BooleanField(default=True)
     tags = models.CharField(max_length=255, blank=True, null=True)
