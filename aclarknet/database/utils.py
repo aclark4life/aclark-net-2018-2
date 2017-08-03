@@ -441,7 +441,7 @@ def get_setting(request, app_settings_model, setting, page_size=None):
     """
     if not request.user.is_authenticated:
         return
-    override = user_pref = None
+    dashboard_override = user_pref = None
     app_settings = app_settings_model.get_solo()
     if setting == 'icon_size':
         if hasattr(request.user, 'profile'):
@@ -461,12 +461,12 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return app_settings.page_size
     if setting == 'dashboard_choices':
         dashboard_choices = app_settings.dashboard_choices
-        override = has_profile = False
+        dashboard_override = has_profile = False
         if hasattr(request.user, 'profile'):
             has_profile = True
         if has_profile:
-            override = request.user.profile.override_dashboard
-        if has_profile and override:
+            dashboard_override = request.user.profile.dashboard_override
+        if has_profile and dashboard_override:
             dashboard_choices = request.user.profile.dashboard_choices
         return dashboard_choices
 
