@@ -651,7 +651,7 @@ def get_page_items(request,
             contact = get_object_or_404(model, pk=pk)
             mail = get_query(request, 'mail')
             if mail:
-                messages.add_message(request, messages.Success, 'Mail sent!')
+                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
             context['item'] = contact
