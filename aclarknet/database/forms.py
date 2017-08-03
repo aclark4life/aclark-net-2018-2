@@ -169,9 +169,9 @@ class NoteForm(forms.ModelForm):
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
 
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        widget=forms.SelectMultiple(attrs={'size': '5'}))
+#    tags = forms.ModelMultipleChoiceField(
+#        queryset=Tag.objects.all(),
+#        widget=forms.SelectMultiple(attrs={'size': '5'}))
 
 
 class ProfileForm(forms.ModelForm):
