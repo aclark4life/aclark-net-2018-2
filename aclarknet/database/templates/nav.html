@@ -7,7 +7,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">  <!-- http://stackoverflow.com/a/25044880/185820 -->
 {% include 'dropdown.html' %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}bg-success rounded{% endif %}"><a class="nav-link text-muted underline" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contact' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contract' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'contract_index' %}">Contracts</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'estimate' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
