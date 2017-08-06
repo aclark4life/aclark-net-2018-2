@@ -13,7 +13,7 @@ tbody tr:hover a {
 .banner div, .banner h3 {
     font-size: 400%;
 }
-.nav-link:hover {
+a.nav-link:hover {
     text-decoration: underline;
 }
 a:hover.mute-url, a.mute-url {
