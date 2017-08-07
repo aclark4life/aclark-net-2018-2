@@ -490,11 +490,16 @@ def get_template_and_url_names(model_name, page_type=None):
         return url_name
 
 
-def get_times_for_invoice(invoice, time_model):
-    times_project = time_model.objects.filter(
-        invoiced=False, project=invoice.project, estimate=None, invoice=None)
-    times_invoice = time_model.objects.filter(invoice=invoice)
-    times = times_project | times_invoice
+def get_times_for_obj(obj, time_model):
+    model_name = obj._meta.verbose_name
+    if model_name == 'invoice':
+        times_project = time_model.objects.filter(
+            invoiced=False, project=obj.project, estimate=None, invoice=None)
+        times_invoice = time_model.objects.filter(invoice=obj)
+        times = times_project | times_invoice
+    elif model_name == 'project':
+        times = time_model.objects.filter(
+            invoiced=False, estimate=None, invoice=None)
     return times
 
 
@@ -680,9 +685,9 @@ def get_page_items(request,
         elif model_name == 'estimate':
             estimate = get_object_or_404(model, pk=pk)
             if not estimate.is_sow:
-                document_type = estimate._meta.verbose_name
+                doc_type = model_name
             else:
-                document_type = 'statement of work'
+                doc_type = 'statement of work'
             pdf = get_query(request, 'pdf')
             times_client = time_model.objects.filter(
                 client=estimate.client,
@@ -695,7 +700,7 @@ def get_page_items(request,
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, estimate=estimate)
             context['active_nav'] = 'estimate'
-            context['document_type'] = document_type
+            context['document_type'] = doc_type
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
@@ -707,14 +712,13 @@ def get_page_items(request,
             context['item'] = file_obj
         elif model_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
-            document_type = invoice._meta.verbose_name
-            times = get_times_for_invoice(invoice, time_model)
+            times = get_times_for_obj(invoice, time_model)
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
-            context['document_type'] = document_type
+            context['document_type'] = model_name
             context['edit_url'] = 'invoice_edit'  # Delete modal
             context['entries'] = times
             context['item'] = invoice
@@ -723,17 +727,13 @@ def get_page_items(request,
             context['pdf'] = pdf
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
-            invoices = project.invoice_set.all()
-            invoice = times = None
-            if len(invoices) > 0:
-                invoice = invoices[0]
-                times = get_times_for_invoice(invoice, time_model)
-                times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
             invoices = invoice_model.objects.filter(
                 project=project, last_payment_date=None)
+            times = get_times_for_obj(project, time_model)
+            times = times.order_by(*order_by['time'])
             users = user_model.objects.filter(project=project)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
