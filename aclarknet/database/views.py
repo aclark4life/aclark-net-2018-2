@@ -317,6 +317,7 @@ def estimate(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
         request,
+        app_settings_model=AppSettings,
         company_model=Company,
         model=Estimate,
         order_by=order_by,
