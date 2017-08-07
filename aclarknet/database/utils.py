@@ -728,21 +728,22 @@ def get_page_items(request,
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.all()
+            items = set_items_name(model_name, items=contacts)
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
+            items = set_items_name(model_name, items=estimates, _items=items)
             invoices = invoice_model.objects.filter(
                 project=project, last_payment_date=None)
+            items = set_items_name(model_name, items=invoices, _items=items)
             times = get_times_for_obj(project, time_model)
             times = times.order_by(*order_by['time'])
+            items = set_items_name(model_name, items=times, _items=items)
             users = user_model.objects.filter(project=project)
+            items = set_items_name(model_name, items=users, _items=items)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
-            context['entries'] = times
-            context['estimates'] = estimates
-            context['invoices'] = invoices
             context['item'] = project
-            context['times'] = times
-            context['users'] = users
+            context['item'] = items
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             pdf = get_query(request, 'pdf')

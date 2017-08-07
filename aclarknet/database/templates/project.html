@@ -102,7 +102,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                 {% for invoice in invoices %}
+                 {% for invoice in items.invoices %}
                   <tr>
                     <td><a href="{% url 'invoice' invoice.pk %}">{{ invoice.subject|default:'' }}</a></td>
                     <td>{{ invoice.subject|default:'' }}</td>
@@ -138,7 +138,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                 {% for estimate in estimates %}
+                 {% for estimate in items.estimates %}
                   <tr>
                     <td><a href="{% url 'estimate' estimate.pk %}">{{ estimate.subject|default:'' }}</a></td>
                     <td>{{ estimate.subject|default:'' }}</td>
