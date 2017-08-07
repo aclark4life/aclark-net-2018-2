@@ -405,6 +405,7 @@ def home(request):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
+        company_model=Company,
         columns_visible={'note': {
             'due': 'false',
             'hidden': 'false'
