@@ -124,7 +124,13 @@ class ContractSettingsForm(forms.ModelForm):
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
-        fields = '__all__'
+        fields = (
+            'subject',
+            'client',
+            'project',
+            'accepted_date',
+            'issue_date',
+            'is_sow', )
 
 
 class FileForm(forms.ModelForm):
