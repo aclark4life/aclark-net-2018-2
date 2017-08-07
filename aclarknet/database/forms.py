@@ -36,7 +36,7 @@ class AdminTimeForm(forms.ModelForm):
             'invoiced',
             'date',
             'hours',
-            'log'
+            'log',
             'client',
             'estimate',
             'invoice',
