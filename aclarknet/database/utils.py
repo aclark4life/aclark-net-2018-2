@@ -742,8 +742,8 @@ def get_page_items(request,
             items = set_items_name(model_name, items=users, _items=items)
             context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'  # Delete modal
+            context['items'] = items
             context['item'] = project
-            context['item'] = items
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             pdf = get_query(request, 'pdf')
