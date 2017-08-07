@@ -425,6 +425,7 @@ def home(request):
 def invoice(request, pk=None):
     context = get_page_items(
         request,
+        app_settings_model=AppSettings,
         company_model=Company,
         model=Invoice,
         order_by={'time': ('date', )},  # For time entries
@@ -454,7 +455,6 @@ def invoice_edit(request, pk=None):
         url_name,
         template_name,
         active_nav='invoice',
-        app_settings_model=AppSettings,
         company_model=Company,
         project_model=Project,
         pk=pk, )
