@@ -33,7 +33,6 @@ class AdminTimeForm(forms.ModelForm):
     class Meta:
         model = Time
         fields = (
-            'invoiced',
             'date',
             'hours',
             'log',
@@ -42,7 +41,8 @@ class AdminTimeForm(forms.ModelForm):
             'invoice',
             'project',
             'user',
-            'task', )
+            'task',
+            'invoiced', )
 
 
 class ClientForm(forms.ModelForm):
