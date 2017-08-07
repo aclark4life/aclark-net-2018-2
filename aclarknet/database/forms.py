@@ -143,9 +143,9 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = (
+            'subject',
             'client',
             'project',
-            'subject',
             'issue_date',
             'last_payment_date', )
 
