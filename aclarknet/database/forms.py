@@ -32,7 +32,8 @@ class AdminProfileForm(forms.ModelForm):
 class AdminTimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = '__all__'
+        fields = ('invoiced', 'client', 'estimate', 'invoice', 'project',
+                  'user', 'task', 'date', 'hours', 'log')
 
 
 class ClientForm(forms.ModelForm):

@@ -10,7 +10,6 @@ from solo.models import SingletonModel
 from taggit.managers import TaggableManager
 from uuid import uuid4
 
-
 fake = Faker()
 
 # https://github.com/goinnn/django-multiselectfield
@@ -412,9 +411,10 @@ class Profile(BaseModel):
     notify = models.BooleanField(default=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    dashboard_choices = MultiSelectField('Dashboard Choices',
-        choices=DASHBOARD_CHOICES, null=True, blank=True)
-    dashboard_override = models.BooleanField('Dashboard Override', default=False)
+    dashboard_choices = MultiSelectField(
+        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
+    dashboard_override = models.BooleanField(
+        'Dashboard Override', default=False)
     editor_choices = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     is_contact = models.BooleanField(default=False)
@@ -570,8 +570,8 @@ class AppSettings(SingletonModel):
     updated = models.DateTimeField(auto_now=True)
     icon_size = models.CharField(max_length=255, blank=True, null=True)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
-    dashboard_choices = MultiSelectField('Dashboard Choices',
-        choices=DASHBOARD_CHOICES, null=True, blank=True)
+    dashboard_choices = MultiSelectField(
+        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
     auto_hide_notes = models.BooleanField(default=True)
     tags = models.CharField(max_length=255, blank=True, null=True)
 
