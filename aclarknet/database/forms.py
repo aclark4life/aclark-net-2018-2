@@ -142,7 +142,11 @@ class InvoiceForm(forms.ModelForm):
 
     class Meta:
         model = Invoice
-        fields = '__all__'
+        fields = ('subject'
+                  'issue_date'
+                  'last_payment_date'
+                  'client'
+                  'project', )
 
 
 class MailForm(forms.Form):
