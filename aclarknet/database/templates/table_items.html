@@ -1,8 +1,13 @@
-        <table class="table">
+        <table data-toggle="table">
+          <thead>
+            <th data-sortable="true">Field</th>
+            <th data-sortable="true">Value</th>
+          </thead>
+          <tbody>
           {% for item in items %}
-          <tr><td colspan=2><strong>{{ item }}</strong></td></tr>
             {% for key, value in item.fields.items %}
-          <tr><td>{{ key }} </td><td>{{ value }} </td></tr>
+            <tr><td><strong>{{ key }}</strong></td><td>{{ value|default:'' }} </td></tr>
             {% endfor %}
           {% endfor %}
+          </tbody>
         </table>
