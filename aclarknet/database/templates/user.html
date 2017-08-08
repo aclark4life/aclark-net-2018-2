@@ -15,32 +15,5 @@
                 </div>
               </div>
 {% include 'contact_form.html' %}
-              <div class="row">
-                <div class="col-md-12">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Rate</th>
-                        <th>Username</th>
-                        <th>Contact</th>
-                        <th>Total Hours</th>
-                        <th>Total Income</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{{ item.email }}</td>
-                        <td>{{ item.get_full_name|default:'' }}</td>
-                        <td>{{ item.profile.rate|default:'' }}</td>
-                        <td>{{ item.username|default:'' }}</td>
-                        <td>{% if item.profile.is_contact %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
-                        <td>{{ total_hours|default:'' }}</td>
-                        <td>{{ company.currency_symbol }}{{ total_dollars }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+{% include 'table_items.html' %}
 {% endblock %}

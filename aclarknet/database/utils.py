@@ -669,7 +669,7 @@ def get_page_items(request,
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
-            context['items'] = get_fields([contact, ])  # for table_items.html
+            context['items'] = get_fields([contact, ])  # table_items.html
             context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
@@ -778,6 +778,7 @@ def get_page_items(request,
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
             context['item'] = user
+            context['items'] = get_fields([user.profile, ])  # table_items.html
             context['profile'] = profile_model.objects.get_or_create(
                 user=user)[0]
             context['projects'] = projects

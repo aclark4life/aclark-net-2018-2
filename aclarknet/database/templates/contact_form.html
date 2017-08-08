@@ -12,7 +12,7 @@
                               You are about to add {{ item }} to contacts!
                           </div>
                           <div class="modal-footer">
-                            <form action="{% url 'user_contact' item.pk %}" method="post">
+                            <form action="{% url 'contact_edit' %}?add={{ item.pk }}" method="post">
                               {% csrf_token %}
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                               <button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()">Add</button>
