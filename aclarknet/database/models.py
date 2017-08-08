@@ -16,6 +16,8 @@ fake = Faker()
 COLOR_CHOICES = (
     ('success', 'Success'),
     ('info', 'Info'),
+    ('inverse', 'Inverse'),
+    ('muted', 'Muted'),
     ('warning', 'Warning'),
     ('danger', 'Danger'), )
 
