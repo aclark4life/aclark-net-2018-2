@@ -520,22 +520,20 @@ def gravatar_url(email):
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
 
 
-def get_index_items(request,
-                    model,
-                    app_settings_model=None,
-                    active_nav=None,
-                    columns_visible=None,
-                    company_model=None,
-                    contact_model=None,
-                    edit_url=None,
-                    order_by=None,
-                    page_size=None,
-                    search_fields=None,
-                    show_search=False):
+def get_index_items(request, model, **kwargs):
     """
     """
     context = {}
     model_name = model._meta.verbose_name
+    app_settings_model = kwargs.get('app_settings_model')
+    active_nav = kwargs.get('active_nav')
+    columns_visible = kwargs.get('columns_visible')
+    company_model = kwargs.get('company_model')
+    edit_url = kwargs.get('edit_url')
+    order_by = kwargs.get('order_by')
+    page_size = kwargs.get('page_size')
+    search_fields = kwargs.get('search_fields')
+    show_search = kwargs.get('show_search')
     if columns_visible:
         context['columns_visible'] = columns_visible
     if company_model:
