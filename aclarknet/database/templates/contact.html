@@ -2,7 +2,7 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h1><a class="mute-url" href="{% url 'contact_index' %}">Contacts</a> &raquo; Contact</h1>
+                  <h1><a class="mute-url" href="{% url 'contact_index' %}">Contacts</a> &raquo; Contact &rsaquo; {{ item }}</h1>
                 </div>
                 <div class="col-md-2">
                   <div class="dropdown pull-right">
@@ -17,5 +17,9 @@
                 </div>
               </div>
 {% include 'delete_form.html' %}
+              <div class="row">
+                <div class="col-md-12">
 {% include 'table_items.html' %}
+                </div>
+              </div>
 {% endblock %}
