@@ -42,7 +42,6 @@ from .serializers import ClientSerializer
 from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
-from .utils import add_user_to_contacts
 from .utils import edit
 from .utils import generate_doc
 from .utils import get_client_city
@@ -926,11 +925,6 @@ def user(request, pk=None):
         time_model=Time,
         pk=pk)
     return render(request, 'user.html', context)
-
-
-@staff_member_required
-def user_contact(request, pk=None):
-    return add_user_to_contacts(request, Contact, pk=pk)
 
 
 @login_required

@@ -1,0 +1,8 @@
+        <table class="table">
+          {% for item in items %}
+          <tr><td colspan=2><strong>{{ item }}</strong></td></tr>
+            {% for key, value in item.fields.items %}
+          <tr><td>{{ key }} </td><td>{{ value }} </td></tr>
+            {% endfor %}
+          {% endfor %}
+        </table>

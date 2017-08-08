@@ -136,8 +136,6 @@ urlpatterns = [
     # User
     url(r'^user/(?P<pk>\d+)$', views.user, name='user'),
     url(r'^user/(?P<pk>\d+)/edit$', views.user_edit, name='user_edit'),
-    url(r'^user/(?P<pk>\d+)/contact$', views.user_contact,
-        name='user_contact'),
     url(r'^user$', views.user_index, name='user_index'),
 ]
 

@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from decimal import Decimal
 from django.conf import settings as django_settings
 from django.contrib import messages
@@ -344,6 +345,15 @@ def get_company_name(company):
     return company_name
 
 
+def get_fields(items):
+    for item in items:
+        fields = item._meta._get_fields()
+        item.fields = OrderedDict()
+        for field in fields:
+            item.fields[field.name] = getattr(item, field.name)
+    return items
+
+
 def get_form(request, form_model, model, **kwargs):
     model_name = model._meta.verbose_name
     if model_name == 'report':  # Populate report with gross, net.
@@ -659,6 +669,7 @@ def get_page_items(request,
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
+            context['items'] = get_fields([contact, ])  # for table_items.html
             context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
