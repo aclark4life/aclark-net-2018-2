@@ -185,25 +185,19 @@ def daily_burn(project):
         return ''
 
 
-def edit(
-        request,
-        form_model,
-        model,
-        url_name,
-        template_name,
-        active_nav=None,
-        app_settings_model=None,
-        client_model=None,
-        company_model=None,
-        company_note=None,
-        estimate_model=None,
-        invoice_model=None,
-        project_model=None,
-        task_model=None,
-        time_model=None,
-        pk=None, ):  # replace w/**kwargs?
+def edit(request, form_model, model, url_name, template_name, **kwargs):
     context = {}
     obj = None
+    active_nav = kwargs.get('active_nav')
+    app_settings_model = kwargs.get('app_settings_model')
+    client_model = kwargs.get('client_model')
+    company_model = kwargs.get('company_model')
+    estimate_model = kwargs.get('estimate_model')
+    invoice_model = kwargs.get('invoice_model')
+    pk = kwargs.get('pk')
+    project_model = kwargs.get('project_model')
+    task_model = kwargs.get('task_model')
+    time_model = kwargs.get('time_model')
     if pk is None:
         form = get_form(
             request,
