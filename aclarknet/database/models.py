@@ -14,12 +14,12 @@ fake = Faker()
 
 # https://github.com/goinnn/django-multiselectfield
 COLOR_CHOICES = (
-    ('success', 'Success'),
+    ('danger', 'Danger'),
+    ('faded', 'Faded'),
     ('info', 'Info'),
     ('inverse', 'Inverse'),
-    ('muted', 'Muted'),
-    ('warning', 'Warning'),
-    ('danger', 'Danger'), )
+    ('success', 'Success'),
+    ('warning', 'Warning'), )
 
 DASHBOARD_CHOICES = (
     ('data', 'Data'),
