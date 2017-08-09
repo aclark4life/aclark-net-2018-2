@@ -35,6 +35,7 @@ ITEMS_NAME = {
     'estimate': 'estimates',
     'file': 'files',
     'invoice': 'invoices',
+    'log': 'logs',
     'newsletter': 'newsletters',
     'note': 'notes',
     'profile': 'profiles',
