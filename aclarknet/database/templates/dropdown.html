@@ -6,7 +6,6 @@
               {% if request.user.is_staff %}<a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API Root</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new" target="_blank"><i class="fa fa-github"></i> Add Issue</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Admin</a>{% endif %}
-              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'company' %}"><i class="fa fa-building-o"></i> Company</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'file_index' %}"><i class="fa fa-file-o"></i> Files</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-file-o"></i> Logs</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-file-o"></i> Newsletters</a>{% endif %}
