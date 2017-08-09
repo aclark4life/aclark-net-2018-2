@@ -747,7 +747,7 @@ def report_index(request):
         active_nav='dropdown',
         app_settings_model=AppSettings,
         edit_url='report_edit',  # Delete modal
-        order_by=('-updated', ),
+        order_by=('-updated', 'active'),
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
     return render(request, 'report_index.html', context)
