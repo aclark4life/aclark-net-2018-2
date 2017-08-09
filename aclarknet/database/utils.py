@@ -613,23 +613,23 @@ def get_note_stats(note_model):
     return note_stats
 
 
-def get_page_items(request,
-                   app_settings_model=None,
-                   company_model=None,
-                   columns_visible=None,
-                   contact_model=None,
-                   contract_model=None,
-                   estimate_model=None,
-                   invoice_model=None,
-                   model=None,
-                   note_model=None,
-                   profile_model=None,
-                   project_model=None,
-                   report_model=None,
-                   order_by=None,
-                   pk=None,
-                   time_model=None,
-                   user_model=None):
+def get_page_items(request, **kwargs):
+    app_settings_model = kwargs.get('app_settings_model')
+    company_model = kwargs.get('company_model')
+    columns_visible = kwargs.get('columns_visible')
+    contact_model = kwargs.get('contact_model')
+    contract_model = kwargs.get('contract_model')
+    estimate_model = kwargs.get('estimate_model')
+    invoice_model = kwargs.get('invoice_model')
+    model = kwargs.get('model')
+    note_model = kwargs.get('note_model')
+    profile_model = kwargs.get('profile_model')
+    project_model = kwargs.get('project_model')
+    report_model = kwargs.get('report_model')
+    order_by = kwargs.get('order_by')
+    pk = kwargs.get('pk')
+    time_model = kwargs.get('time_model')
+    user_model = kwargs.get('user_model')
     context = {}
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
