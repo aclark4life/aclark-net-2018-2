@@ -11,7 +11,7 @@
                     <p class="card-text text-muted">Updated: <span class="float-right">{{ item.updated }}</span></p>
                     {% if item.due_date %}<p class="card-text text-muted">Due: <span class="float-right">{{ item.due_date }}</span></p>{% endif %}
                     {% if item.client_set.all %}{% if item.client_set.all.0 %}<p class="card-text text-muted">Client: <span class="float-right"><a href="{% url 'client' item.client_set.all.0.pk %}">{{ item.client_set.all.0 }}</a></span></p>{% endif %}{% endif %}
-                    {% if item.company_set.all %}{% if item.company_set.all.0 %}<p class="card-text text-muted">Company: <span class="float-right"><a href="{% url 'company'  %}">{{ item.company_set.all.0 }}</a></span></p>{% endif %}{% endif %}
+                    {% if item.company_set.all %}{% if item.company_set.all.0 %}<p class="card-text text-muted">Company: <span class="float-right"><a href="{% url 'settings_company'  %}">{{ item.company_set.all.0 }}</a></span></p>{% endif %}{% endif %}
                   </div>
                 </div>
               </div>
