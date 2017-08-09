@@ -212,7 +212,7 @@ def edit(request, form_model, model, url_name, template_name, **kwargs):
             time_model=time_model)
     else:
         obj = get_object_or_404(model, pk=pk)
-        form = form_model(instance=obj)
+        form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
     if request.method == 'POST':
         refer = request.META['HTTP_REFERER']
         if pk is None:

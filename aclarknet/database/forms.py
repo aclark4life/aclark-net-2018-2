@@ -192,6 +192,7 @@ class NoteForm(forms.ModelForm):
 
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
+        required=False,
         widget=forms.SelectMultiple(attrs={'size': '5'}))
 
 
