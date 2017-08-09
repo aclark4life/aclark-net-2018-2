@@ -55,6 +55,7 @@ URL_NAMES = {
     'estimate': ('estimate', 'estimate_edit', 'estimate_index'),
     'file': ('file', 'file_edit', 'file_index'),
     'invoice': ('invoice', 'invoice_edit', 'invoice_index'),
+    'log': ('log', 'log_edit', 'log_index'),
     'newsletter': ('newsletter', 'newsletter_edit', 'newsletter_index'),
     'note': ('note', 'note_edit', 'note_index'),
     'profile': ('user', 'user_edit', 'user_index'),
