@@ -105,19 +105,22 @@ urlpatterns = [
     # Services
     url(r'^service/(?P<pk>\d+)/edit$', views.service_edit,
         name='service_edit'),
-    # Settings -> System
-    url(r'^settings/system/edit$', views.settings_edit, name='settings_edit'),
-    url(r'^settings/system$', views.settings, name='settings'),
-    # Settings -> Company
-    url(r'^settings/company/edit$', views.company_edit, name='company_edit'),
-    url(r'^settings/company$', views.company, name='company'),
-    # Settings -> Contract
+    # Settings
+    url(r'^settings/app/edit$',
+        views.settings_app_edit,
+        name='settings_app_edit'),
+    url(r'^settings/app$', views.settings_app, name='settings_app'),
+    url(r'^settings/company/edit$',
+        views.settings_company_edit,
+        name='settings_company_edit'),
+    url(r'^settings/company$', views.settings_company,
+        name='settings_company'),
     url(r'^settings/contract/edit$',
-        views.contract_settings_edit,
-        name='contract_settings_edit'),
+        views.settings_contract_edit,
+        name='settings_contract_edit'),
     url(r'^settings/contract$',
-        views.contract_settings,
-        name='contract_settings'),
+        views.settings_contract,
+        name='settings_contract'),
     # Social
     url('', include(
         'django.contrib.auth.urls', namespace='auth')),

@@ -9,12 +9,12 @@
                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'note_edit' %}?company=1"><i class="fa fa-plus-circle"></i> Add Note</a></li>
-                      <li><a class="dropdown-item" href="{% url 'company_edit' %}"><i class="fa fa-cog"></i> Edit</a></li>
+                      <li><a class="dropdown-item" href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i> Edit</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
-{% include 'nav-tabs.html' %}
+{% include 'settings-nav.html' %}
               {% if company.name %}
               <div class="row">
                 <div class="col-md-12">

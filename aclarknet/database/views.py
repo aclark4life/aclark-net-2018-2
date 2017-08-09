@@ -147,7 +147,7 @@ def client_index(request):
 
 
 @staff_member_required
-def company_edit(request, pk=None):
+def settings_company_edit(request, pk=None):
     return edit(
         request,
         CompanyForm,
@@ -159,7 +159,7 @@ def company_edit(request, pk=None):
 
 
 @staff_member_required
-def company(request):
+def settings_company(request):
     context = {}
     company = Company.get_solo()
     services = company.service_set.all()
@@ -227,6 +227,7 @@ def contact_unsubscribe(request, pk=None):
 def contract(request, pk=None):
     """
     """
+    company = Company.get_solo()
     context = get_page_items(
         request, company_model=Company, model=Contract, pk=pk, time_model=Time)
     if context['pdf']:
@@ -283,7 +284,7 @@ def contract_index(request):
 
 
 @staff_member_required
-def contract_settings(request):
+def settings_contract(request):
     context = {}
     fields = {}
     contract_settings = ContractSettings.get_solo()
@@ -300,7 +301,7 @@ def contract_settings(request):
 
 
 @staff_member_required
-def contract_settings_edit(request, pk=None):
+def settings_contract_edit(request, pk=None):
     return edit(
         request,
         ContractSettingsForm,
@@ -350,6 +351,7 @@ def estimate_edit(request, pk=None):
 
 @staff_member_required
 def estimate_index(request):
+    company = Company.get_solo()
     context = get_index_items(
         request,
         Estimate,
@@ -790,7 +792,7 @@ def service_edit(request, pk=None):
 
 
 @staff_member_required
-def settings(request):
+def settings_app(request):
     context = {}
     app_settings = AppSettings.get_solo()
     context['settings'] = app_settings
@@ -800,7 +802,7 @@ def settings(request):
 
 
 @staff_member_required
-def settings_edit(request, pk=None):
+def settings_app_edit(request, pk=None):
     return edit(
         request,
         AppSettingsForm,
