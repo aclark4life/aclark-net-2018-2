@@ -786,18 +786,8 @@ def settings_app_edit(request, pk=None):
 
 @staff_member_required
 def settings_contract(request):
-    context = {}
-    fields = {}
-    contract_settings = ContractSettings.get_solo()
-    for field in contract_settings._meta.fields:
-        if field.description == 'Text' and field.name != 'body':
-            fields[field.name] = {}
-            fields[field.name]['name'] = field.verbose_name
-            fields[field.name]['value'] = getattr(contract_settings,
-                                                  field.name)
-    context['fields'] = fields
-    context['active_tab'] = 'contract'
-    context['active_nav'] = 'dropdown'
+    context = get_page_items(
+        request, model=ContractSettings, app_settings_model=AppSettings)
     return render(request, 'contract_settings.html', context)
 
 

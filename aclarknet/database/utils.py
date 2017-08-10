@@ -49,9 +49,11 @@ ITEMS_NAME = {
 }
 
 URL_NAMES = {
+    'app settings': ('settings_app', 'settings_app_edit', ''),
     'client': ('client', 'client_edit', 'client_index'),
     'contact': ('contact', 'contact_edit', 'contact_index'),
     'contract': ('contract', 'contract_edit', 'contract_index'),
+    'contract settings': ('settings_contract', 'settings_contract_edit', ''),
     'Company': ('settings_company', 'settings_company_edit', ''),
     'estimate': ('estimate', 'estimate_edit', 'estimate_index'),
     'file': ('file', 'file_edit', 'file_index'),
@@ -64,7 +66,6 @@ URL_NAMES = {
     'proposal': ('proposal', 'proposal_edit', 'proposal_index'),
     'report': ('report', 'report_edit', 'report_index'),
     'service': ('company', 'service_edit', ''),
-    'app settings': ('settings_app', 'settings_app_edit', ''),
     'task': ('task', 'task_edit', 'task_index'),
     'time': ('time_entry', 'time_edit', 'time_index'),
     'user': ('user', 'user_edit', 'user_index'),
@@ -657,6 +658,11 @@ def get_page_items(request, **kwargs):
             context['items'] = get_fields([app_settings, ])  # table_items.html
             context['active_tab'] = 'system'
             context['active_nav'] = 'dropdown'
+        elif model_name == 'contract settings':
+            contract_settings = model.get_solo()
+            context['items'] = get_fields([contract_settings, ])  # table_items.html
+            context['active_tab'] = 'contract'
+            context['active_nav'] = 'dropdown'
         elif model_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
@@ -890,10 +896,12 @@ def obj_edit(obj, pk=None):
         model_name, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
-    if pk:  # Existing
-        if model_name == 'Company':  # Special case for company
+    if pk:  # Special cases for settings
+        if model_name == 'Company':
             return HttpResponseRedirect(reverse(url_name))
-        if model_name == 'app settings':  # Special case for settings
+        elif model_name == 'app settings':
+            return HttpResponseRedirect(reverse(url_name))
+        elif model_name == 'contract settings':
             return HttpResponseRedirect(reverse(url_name))
         kwargs['pk'] = pk
     else:  # New

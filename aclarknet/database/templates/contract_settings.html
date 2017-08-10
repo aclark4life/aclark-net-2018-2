@@ -9,19 +9,5 @@
                 </div>
               </div>
 {% include 'settings-nav.html' %}
-              <div class="row">
-                <div class="col-md-12">
-                  <h2>Default Field Values</h2>
-                </div>
-              </div>
-              {% for field in fields.values %}
-              <div class="card">
-                <div class="card-header">
-                  <h3>{{ field.name }}</h3>
-                </div>
-                <div class="card-block">
-                  <div class="card-text">{{ field.value|safe }}</div>
-                </div>
-              </div>
-              {% endfor %}
+{% include 'table_items.html' %}
 {% endblock %}
