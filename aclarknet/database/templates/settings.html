@@ -9,34 +9,5 @@
                 </div>
               </div>
 {% include 'settings-nav.html' %}
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- Table header on left side in Bootstrap -->
-                  <!-- https://stackoverflow.com/a/28612922/185820 -->
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <th><h2>Name</h2></th>
-                        <th><h2>Value</h2></th>
-                      </tr>
-                      <tr>
-                        <th>Icon Size</th>
-                        <td>{{ settings.icon_size|default:'' }}</td>
-                      </tr>
-                      <tr>
-                        <th>Page Size</th>
-                        <td>{{ settings.page_size|default:'' }}</td>
-                      </tr>
-                      <tr>
-                        <th>Dashboard choices</th>
-                        <td>{{ settings.dashboard_choices|default:'' }}</td>
-                      </tr>
-                      <tr>
-                        <th>Tags</th>
-                        <td>{{ settings.tags|default:'' }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+{% include 'table_items.html' %}
 {% endblock %}

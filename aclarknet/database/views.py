@@ -796,11 +796,10 @@ def service_edit(request, pk=None):
 
 @staff_member_required
 def settings_app(request):
-    context = {}
-    app_settings = AppSettings.get_solo()
-    context['settings'] = app_settings
-    context['active_tab'] = 'system'
-    context['active_nav'] = 'dropdown'
+    context = get_page_items(
+        request,
+        model=AppSettings,
+        app_settings_model=AppSettings)
     return render(request, 'settings.html', context)
 
 

@@ -652,7 +652,12 @@ def get_page_items(request, **kwargs):
     if model:
         model_name = model._meta.verbose_name
         context['model_name'] = model_name
-        if model_name == 'client':
+        if model_name == 'app settings':
+            app_settings = app_settings_model.get_solo()
+            context['items'] = get_fields([app_settings, ])  # table_items.html
+            context['active_tab'] = 'system'
+            context['active_nav'] = 'dropdown'
+        elif model_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
             contracts = contract_model.objects.filter(client=client)
