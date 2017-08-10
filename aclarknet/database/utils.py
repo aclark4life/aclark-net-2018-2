@@ -388,7 +388,6 @@ def get_index_items(request, model, **kwargs):
     columns_visible = kwargs.get('columns_visible')
     company_model = kwargs.get('company_model')
     edit_url = kwargs.get('edit_url')
-    filters = kwargs.get('filters')
     order_by = kwargs.get('order_by')
     page_size = kwargs.get('page_size')
     search_fields = kwargs.get('search_fields')
@@ -417,7 +416,11 @@ def get_index_items(request, model, **kwargs):
                 edit_url=edit_url,
                 request=request)
     # Not a search
-    items = model.objects.all()
+    if model_name == 'note' and not get_setting(request, app_settings_model,
+                                                'show_hidden_notes'):
+        items = model.objects.filter(hidden=True)
+    else:
+        items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
     if order_by is not None:
         items = items.order_by(*order_by)
@@ -530,7 +533,7 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return user_pref
         else:
             return app_settings.icon_size
-    if setting == 'page_size':
+    elif setting == 'page_size':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.page_size
         if user_pref:
@@ -539,7 +542,7 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return page_size
         else:
             return app_settings.page_size
-    if setting == 'dashboard_choices':
+    elif setting == 'dashboard_choices':
         dashboard_choices = app_settings.dashboard_choices
         dashboard_override = has_profile = False
         if hasattr(request.user, 'profile'):
@@ -549,6 +552,8 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         if has_profile and dashboard_override:
             dashboard_choices = request.user.profile.dashboard_choices
         return dashboard_choices
+    elif setting == 'show_hidden_notes':
+        return app_settings.show_hidden_notes
 
 
 def get_template_and_url_names(model_name, page_type=None):
