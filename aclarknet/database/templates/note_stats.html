@@ -1,9 +1,28 @@
 {% if not 'search' in request.POST %}
-<h3>
-({{ note_stats.active_note_count }} active,
-{{ note_stats.inactive_note_count }} not active;
-{{ note_stats.hidden_note_count }} hidden,
-{{ note_stats.not_hidden_count }} not hidden;
-{{ note_stats.total_note_count }} total)
-</h3>
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <span class="navbar-brand" href="#">Statistics</span>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <span class="nav-link"><strong>Active</strong> {{ note_stats.active_note_count }}</span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link"><strong>Inactive</strong> {{ note_stats.inactive_note_count }}</span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link"><strong>Hidden</strong> {{ note_stats.hidden_note_count }}</span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link"><strong>Visible</strong> {{ note_stats.not_hidden_count }}</span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link"><strong>Total</strong> {{ note_stats.total_note_count }}</span>
+      </li>
+    </ul>
+  </div>
+</nav>
 {% endif %}
