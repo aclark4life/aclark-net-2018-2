@@ -577,6 +577,7 @@ class AppSettings(SingletonModel):
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
     auto_hide_notes = models.BooleanField(default=True)
     tags = models.CharField(max_length=255, blank=True, null=True)
+    show_hidden_notes = models.BooleanField(default=True)
 
 
 class Testimonial(BaseModel):
