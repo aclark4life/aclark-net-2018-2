@@ -417,10 +417,7 @@ def get_index_items(request, model, **kwargs):
                 edit_url=edit_url,
                 request=request)
     # Not a search
-    if filters:
-        items = model.objects.filter(**filters[model_name])
-    else:
-        items = model.objects.all()
+    items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
     if order_by is not None:
         items = items.order_by(*order_by)

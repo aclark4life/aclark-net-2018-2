@@ -547,9 +547,6 @@ def note_index(request, pk=None):
         Note,
         active_nav='note',
         app_settings_model=AppSettings,
-        filters={'note': {
-            'hidden': False
-        }},
         order_by=('-active', '-updated'),
         search_fields=('note', 'title'),
         show_search=True)
