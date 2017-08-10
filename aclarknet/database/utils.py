@@ -351,7 +351,8 @@ def get_fields(items):
         fields = item._meta._get_fields()
         item.fields = OrderedDict()
         for field in fields:
-            item.fields[field.name] = getattr(item, field.name)
+            if not field.is_relation:
+                item.fields[field.name] = getattr(item, field.name)
     return items
 
 
@@ -676,6 +677,12 @@ def get_page_items(request, **kwargs):
             context['item'] = client
             context['notes'] = client.note.all()
             context['projects'] = projects
+        elif model_name == 'Company':
+            company_settings = model.get_solo()
+            context['items'] = get_fields(
+                [company_settings, ])  # table_items.html
+            context['active_nav'] = 'dropdown'
+            context['active_tab'] = 'company'
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
             mail = get_query(request, 'mail')

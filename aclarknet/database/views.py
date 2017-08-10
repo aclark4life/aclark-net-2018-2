@@ -147,31 +147,6 @@ def client_index(request):
 
 
 @staff_member_required
-def settings_company_edit(request, pk=None):
-    return edit(
-        request,
-        CompanyForm,
-        Company,
-        'company',
-        'company_edit.html',
-        active_nav='dropdown',
-        pk=1)
-
-
-@staff_member_required
-def settings_company(request):
-    context = {}
-    company = Company.get_solo()
-    services = company.service_set.all()
-    context['active_nav'] = 'dropdown'
-    context['active_tab'] = 'company'
-    context['company'] = company
-    context['notes'] = company.note.all()
-    context['services'] = services
-    return render(request, 'company.html', context)
-
-
-@staff_member_required
 def contact(request, pk=None):
     context = get_page_items(
         request, app_settings_model=AppSettings, model=Contact, pk=pk)
@@ -782,6 +757,25 @@ def settings_app_edit(request, pk=None):
         'settings_edit.html',
         active_nav='dropdown',
         pk=1)
+
+
+@staff_member_required
+def settings_company_edit(request, pk=None):
+    return edit(
+        request,
+        CompanyForm,
+        Company,
+        'company',
+        'company_edit.html',
+        active_nav='dropdown',
+        pk=1)
+
+
+@staff_member_required
+def settings_company(request):
+    context = get_page_items(
+        request, app_settings_model=AppSettings, model=Company)
+    return render(request, 'company.html', context)
 
 
 @staff_member_required
