@@ -4,14 +4,8 @@
                 <div class="col-md-3">
                   <h1>Settings</h1>
                 </div>
-                <div class="offset-md-6 col-md-3">
-                  <div class="dropdown pull-right">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'note_edit' %}"><i class="fa fa-plus-circle"></i> Add Note</a></li>
-                      <li><a class="dropdown-item" href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i> Edit</a></li>
-                    </ul>
-                  </div>
+                <div class="col-md-2 offset-md-6">
+                  <a class="btn btn-lg btn-block btn-success" href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i> Edit</a>
                 </div>
               </div>
 {% include 'settings-nav.html' %}
