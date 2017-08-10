@@ -376,6 +376,77 @@ def get_html_message(message, url, user):
     })
 
 
+def get_index_items(request, model, **kwargs):
+    """
+    """
+    context = {}
+    model_name = model._meta.verbose_name
+    app_settings_model = kwargs.get('app_settings_model')
+    active_nav = kwargs.get('active_nav')
+    columns_visible = kwargs.get('columns_visible')
+    company_model = kwargs.get('company_model')
+    edit_url = kwargs.get('edit_url')
+    filters = kwargs.get('filters')
+    order_by = kwargs.get('order_by')
+    page_size = kwargs.get('page_size')
+    search_fields = kwargs.get('search_fields')
+    show_search = kwargs.get('show_search')
+    if columns_visible:
+        context['columns_visible'] = columns_visible
+    if company_model:
+        company = company_model.get_solo()
+        context['company'] = company
+    page = get_query(request, 'page')
+    paginated = get_query(request, 'paginated')
+    search = get_query(request, 'search')
+    # Search is easy
+    if request.method == 'POST':
+        if search == u'':  # Empty search returns none
+            context['active_nav'] = active_nav
+            context['show_search'] = True
+            return context
+        else:
+            return get_search_results(
+                model,
+                search_fields,
+                search,
+                active_nav=active_nav,
+                app_settings_model=app_settings_model,
+                edit_url=edit_url,
+                request=request)
+    # Not a search
+    if filters:
+        items = model.objects.filter(**filters[model_name])
+    else:
+        items = model.objects.all()
+    # Order items (http://stackoverflow.com/a/20257999/185820)
+    if order_by is not None:
+        items = items.order_by(*order_by)
+    # Don't show items to anon
+    if not request.user.is_authenticated:
+        items = []
+    # Per model extras
+    if model_name == 'note':
+        context['note_stats'] = get_note_stats(model)
+    elif model_name == 'time':
+        context['total_hours'] = get_total_hours(items)
+    # Paginate if paginated
+    if paginated:
+        page_size = get_setting(
+            request, app_settings_model, 'page_size', page_size=page_size)
+        items = paginate(items, page, page_size)
+    context['active_nav'] = active_nav
+    context['edit_url'] = edit_url
+    context['icon_size'] = get_setting(request, app_settings_model,
+                                       'icon_size')
+    context['page'] = page
+    context['paginated'] = paginated
+    context['show_search'] = show_search
+    items = set_items_name(model_name, items=items)
+    context['items'] = items
+    return context
+
+
 def get_invoice_totals(model):
     invoices = model.objects.filter(last_payment_date=None)
     invoice_amount = invoice_cog = 0
@@ -524,73 +595,6 @@ def gravatar_url(email):
     MD5 hash of email address for use with Gravatar
     """
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
-
-
-def get_index_items(request, model, **kwargs):
-    """
-    """
-    context = {}
-    model_name = model._meta.verbose_name
-    app_settings_model = kwargs.get('app_settings_model')
-    active_nav = kwargs.get('active_nav')
-    columns_visible = kwargs.get('columns_visible')
-    company_model = kwargs.get('company_model')
-    edit_url = kwargs.get('edit_url')
-    order_by = kwargs.get('order_by')
-    page_size = kwargs.get('page_size')
-    search_fields = kwargs.get('search_fields')
-    show_search = kwargs.get('show_search')
-    if columns_visible:
-        context['columns_visible'] = columns_visible
-    if company_model:
-        company = company_model.get_solo()
-        context['company'] = company
-    page = get_query(request, 'page')
-    paginated = get_query(request, 'paginated')
-    search = get_query(request, 'search')
-    # Search is easy
-    if request.method == 'POST':
-        if search == u'':  # Empty search returns none
-            context['active_nav'] = active_nav
-            context['show_search'] = True
-            return context
-        else:
-            return get_search_results(
-                model,
-                search_fields,
-                search,
-                active_nav=active_nav,
-                app_settings_model=app_settings_model,
-                edit_url=edit_url,
-                request=request)
-    # Not a search
-    items = model.objects.all()
-    # Order items (http://stackoverflow.com/a/20257999/185820)
-    if order_by is not None:
-        items = items.order_by(*order_by)
-    # Don't show items to anon
-    if not request.user.is_authenticated:
-        items = []
-    # Per model extras
-    if model_name == 'note':
-        context['note_stats'] = get_note_stats(model)
-    elif model_name == 'time':
-        context['total_hours'] = get_total_hours(items)
-    # Paginate if paginated
-    if paginated:
-        page_size = get_setting(
-            request, app_settings_model, 'page_size', page_size=page_size)
-        items = paginate(items, page, page_size)
-    context['active_nav'] = active_nav
-    context['edit_url'] = edit_url
-    context['icon_size'] = get_setting(request, app_settings_model,
-                                       'icon_size')
-    context['page'] = page
-    context['paginated'] = paginated
-    context['show_search'] = show_search
-    items = set_items_name(model_name, items=items)
-    context['items'] = items
-    return context
 
 
 def set_items_name(model_name, items=None, _items={}):
