@@ -417,7 +417,7 @@ def get_index_items(request, model, **kwargs):
                 request=request)
     # Not a search
     if model_name == 'note' and get_setting(request, app_settings_model,
-                                            'show_hidden_notes'):
+                                            'exclude_hidden_notes'):
         items = model.objects.exclude(hidden=True)
     else:
         items = model.objects.all()
@@ -552,8 +552,8 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         if has_profile and dashboard_override:
             dashboard_choices = request.user.profile.dashboard_choices
         return dashboard_choices
-    elif setting == 'show_hidden_notes':
-        return app_settings.show_hidden_notes
+    elif setting == 'exclude_hidden_notes':
+        return app_settings.exclude_hidden_notes
 
 
 def get_template_and_url_names(model_name, page_type=None):
