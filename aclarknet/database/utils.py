@@ -660,7 +660,8 @@ def get_page_items(request, **kwargs):
             context['active_nav'] = 'dropdown'
         elif model_name == 'contract settings':
             contract_settings = model.get_solo()
-            context['items'] = get_fields([contract_settings, ])  # table_items.html
+            context['items'] = get_fields(
+                [contract_settings, ])  # table_items.html
             context['active_tab'] = 'contract'
             context['active_nav'] = 'dropdown'
         elif model_name == 'client':
