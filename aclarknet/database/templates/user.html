@@ -15,5 +15,20 @@
                 </div>
               </div>
 {% include 'contact_form.html' %}
+{% if request.user.is_staff %}
 {% include 'table_items.html' %}
+{% else %}
+              <table class="table">
+                <thead>
+                  <th>Field</th>
+                  <th>Value</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Rate</strong></th>
+                    <td>{{ item.profile.rate }}</th>
+                  </tr>
+                </tbody>
+              </table>
+{% endif %}
 {% endblock %}
