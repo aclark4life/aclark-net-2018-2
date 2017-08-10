@@ -416,9 +416,9 @@ def get_index_items(request, model, **kwargs):
                 edit_url=edit_url,
                 request=request)
     # Not a search
-    if model_name == 'note' and not get_setting(request, app_settings_model,
-                                                'show_hidden_notes'):
-        items = model.objects.filter(hidden=True)
+    if model_name == 'note' and get_setting(request, app_settings_model,
+                                            'show_hidden_notes'):
+        items = model.objects.exclude(hidden=True)
     else:
         items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
