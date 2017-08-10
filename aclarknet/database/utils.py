@@ -200,6 +200,7 @@ def edit(request, form_model, model, url_name, template_name, **kwargs):
     project_model = kwargs.get('project_model')
     task_model = kwargs.get('task_model')
     time_model = kwargs.get('time_model')
+    model_name = model._meta.verbose_name
     if pk is None:
         form = get_form(
             request,
@@ -214,7 +215,10 @@ def edit(request, form_model, model, url_name, template_name, **kwargs):
             time_model=time_model)
     else:
         obj = get_object_or_404(model, pk=pk)
-        form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
+        if model_name == 'note':  # Populate form with tags already set
+            form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
+        else:
+            form = form_model(instance=obj)
     if request.method == 'POST':
         refer = request.META['HTTP_REFERER']
         if pk is None:
