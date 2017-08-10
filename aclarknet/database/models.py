@@ -23,12 +23,12 @@ COLOR_CHOICES = (
     ('warning', 'Warning'), )
 
 DASHBOARD_CHOICES = (
+    ('data', 'Data'),
     ('invoices', 'Invoices'),
     ('notes', 'Notes'),
     ('projects', 'Projects'),
     ('times', 'Times'),
-    ('totals', 'Totals'),
-    ('data', 'Data'), )
+    ('totals', 'Totals'), )
 
 EDITOR_CHOICES = (
     ('ckeditor', 'CKEditor'),
