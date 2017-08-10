@@ -596,13 +596,14 @@ def note_edit(request, pk=None):
 
 @staff_member_required
 def note_index(request, pk=None):
-    filters = {'note': {'hidden': False}}
     context = get_index_items(
         request,
         Note,
         active_nav='note',
         app_settings_model=AppSettings,
-        filters=filters,
+        filters={'note': {
+            'hidden': False
+        }},
         order_by=('-active', '-updated'),
         search_fields=('note', 'title'),
         show_search=True)
