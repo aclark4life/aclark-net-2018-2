@@ -284,35 +284,6 @@ def contract_index(request):
 
 
 @staff_member_required
-def settings_contract(request):
-    context = {}
-    fields = {}
-    contract_settings = ContractSettings.get_solo()
-    for field in contract_settings._meta.fields:
-        if field.description == 'Text' and field.name != 'body':
-            fields[field.name] = {}
-            fields[field.name]['name'] = field.verbose_name
-            fields[field.name]['value'] = getattr(contract_settings,
-                                                  field.name)
-    context['fields'] = fields
-    context['active_tab'] = 'contract'
-    context['active_nav'] = 'dropdown'
-    return render(request, 'contract_settings.html', context)
-
-
-@staff_member_required
-def settings_contract_edit(request, pk=None):
-    return edit(
-        request,
-        ContractSettingsForm,
-        ContractSettings,
-        'contract_settings',
-        'contract_settings_edit.html',
-        pk=1,
-        active_nav='dropdown')
-
-
-@staff_member_required
 def estimate(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
@@ -797,9 +768,7 @@ def service_edit(request, pk=None):
 @staff_member_required
 def settings_app(request):
     context = get_page_items(
-        request,
-        model=AppSettings,
-        app_settings_model=AppSettings)
+        request, model=AppSettings, app_settings_model=AppSettings)
     return render(request, 'settings.html', context)
 
 
@@ -813,6 +782,35 @@ def settings_app_edit(request, pk=None):
         'settings_edit.html',
         active_nav='dropdown',
         pk=1)
+
+
+@staff_member_required
+def settings_contract(request):
+    context = {}
+    fields = {}
+    contract_settings = ContractSettings.get_solo()
+    for field in contract_settings._meta.fields:
+        if field.description == 'Text' and field.name != 'body':
+            fields[field.name] = {}
+            fields[field.name]['name'] = field.verbose_name
+            fields[field.name]['value'] = getattr(contract_settings,
+                                                  field.name)
+    context['fields'] = fields
+    context['active_tab'] = 'contract'
+    context['active_nav'] = 'dropdown'
+    return render(request, 'contract_settings.html', context)
+
+
+@staff_member_required
+def settings_contract_edit(request, pk=None):
+    return edit(
+        request,
+        ContractSettingsForm,
+        ContractSettings,
+        'contract_settings',
+        'contract_settings_edit.html',
+        pk=1,
+        active_nav='dropdown')
 
 
 @staff_member_required
