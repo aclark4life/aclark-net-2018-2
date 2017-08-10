@@ -1,9 +1,9 @@
 {% if not 'search' in request.POST %}
 <h3>
 ({{ note_stats.active_note_count }} active,
-<!-- {{ note_stats.inactive_note_count }} not active; -->
+{{ note_stats.inactive_note_count }} not active;
 {{ note_stats.hidden_note_count }} hidden,
-<!-- {{ note_stats.not_hidden_count }} not hidden; -->
+{{ note_stats.not_hidden_count }} not hidden;
 {{ note_stats.total_note_count }} total)
 </h3>
 {% endif %}
