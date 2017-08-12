@@ -900,7 +900,7 @@ def obj_copy(obj):
 
 
 def obj_mail(model, request):
-    qs_contact = request.POST.get('contact')
+    qs_contact = request.GET.get('contact')
     kwargs = {}
     kwargs['pk'] = qs_contact
     model_name = model._meta.verbose_name
