@@ -1,3 +1,4 @@
+from boto.exception import BotoServerError
 from collections import OrderedDict
 from decimal import Decimal
 from django.conf import settings as django_settings
@@ -157,12 +158,16 @@ def mail_send(**kwargs):
     message = kwargs.get('message')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
-    send_mail(
-        subject,
-        message,
-        sender, (sender, ),
-        fail_silently=fail_silently,
-        html_message=html_message)
+    try:
+        send_mail(
+            subject,
+            message,
+            sender, (sender, ),
+            fail_silently=fail_silently,
+            html_message=html_message)
+        return True
+    except BotoServerError:
+        return False
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -262,9 +267,13 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                mail_send(**mail_compose())
-                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-                return obj_mail(model, pk)
+                if mail_send(**mail_compose()):
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Mail sent!')
+                else:
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Mail not sent!')
+                return obj_mail(model, request)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -890,9 +899,10 @@ def obj_copy(obj):
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
-def obj_mail(model, pk):
+def obj_mail(model, request):
+    qs_contact = request.POST.get('contact')
     kwargs = {}
-    kwargs['pk'] = pk
+    kwargs['pk'] = qs_contact
     model_name = model._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
         model_name, page_type='view')
