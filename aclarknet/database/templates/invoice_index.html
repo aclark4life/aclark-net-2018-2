@@ -42,8 +42,8 @@
                 {% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                 <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                 <td>{{ item.issue_date|date:'U'|default:'' }}</td>
-                <td>{% if item.subtotal %}{{ company.currency_symbol }}{% endif %}{{ item.subtotal|default:'' }}</td>
-                <td>{{ item.subtotal|unlocalize|default:'' }}</td>
+                <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
+                <td>{{ item.amount|unlocalize|default:'' }}</td>
                 <td><a href="{% url 'invoice' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
                 <td><a href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
               </tr>
