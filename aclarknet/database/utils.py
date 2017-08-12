@@ -27,6 +27,8 @@ from io import StringIO
 from lxml import etree
 from operator import or_ as OR
 
+fake = Faker()
+
 ITEMS_NAME = {
     'client': 'clients',
     'contact': 'contacts',
@@ -137,12 +139,20 @@ def add_user_to_contacts(request, model, pk=None):
 
 def mail_compose():
     kwargs = {}
-    fake = Faker()
-    kwargs['message'] = fake.text()
+    message = fake.text()
+    kwargs['message'] = message
+    kwargs['html_message'] = mail_html(message)
+
     kwargs['sender'] = django_settings.EMAIL_FROM
     kwargs['recipients'] = django_settings.ADMINS
     kwargs['subject'] = fake.text()
     return kwargs
+
+
+def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
+    return render_to_string('cerberus-fluid.html', {
+        'message': message,
+    })
 
 
 def mail_send(**kwargs):
@@ -348,7 +358,6 @@ def get_company_name(company):
     if company.name:
         company_name = company.name
     else:
-        fake = Faker()
         company_name = fake.text()
     company_name = company.name.replace('.', '_')
     company_name = company_name.replace(', ', '_')
@@ -376,14 +385,6 @@ def get_form(request, form_model, model, **kwargs):
     else:
         form = form_model()
     return form
-
-
-def get_html_message(message, user):
-    # http://stackoverflow.com/a/28476681/185820
-    return render_to_string('cerberus-fluid.html', {
-        'username': user.username,
-        'message': message,
-    })
 
 
 def get_index_items(request, model, **kwargs):
