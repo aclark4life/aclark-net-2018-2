@@ -139,7 +139,7 @@ def add_user_to_contacts(request, model, pk=None):
 
 
 def mail_compose(contact_model, pk=None, request=None):
-    if request: 
+    if request:
         query_contact = get_query(request, 'contact')
         if query_contact:
             contact = get_object_or_404(contact_model, pk=query_contact)
