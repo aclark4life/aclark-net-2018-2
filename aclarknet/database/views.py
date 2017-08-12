@@ -9,6 +9,7 @@ from .forms import ContractSettingsForm
 from .forms import EstimateForm
 from .forms import FileForm
 from .forms import InvoiceForm
+from .forms import MailForm
 from .forms import NewsletterForm
 from .forms import NoteForm
 from .forms import ProfileForm
@@ -721,9 +722,16 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     return HttpResponse(data, content_type="image/png")
 
 
-def send_mail(request, pk=None):
+@staff_member_required(login_url='login')
+def mail(request):
     """
     """
+    qs_contact = request.GET.get('contact')
+    template_name, url_name = get_template_and_url_names(
+        'contact', page_type='edit')
+    if qs_contact:
+        # 'form_model', 'model', 'url_name', and 'template_name'
+        return edit(request, MailForm, Contact, url_name, template_name)
 
 
 # https://stackoverflow.com/a/42038839/185820
