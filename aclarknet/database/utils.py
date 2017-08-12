@@ -264,8 +264,7 @@ def edit(request, **kwargs):
             except AttributeError:
                 mail_send(**mail_compose())
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
-                obj = get_object_or_404(model, pk=pk)
-                return obj_mail(obj)
+                return obj_mail(model, pk)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -891,10 +890,10 @@ def obj_copy(obj):
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
-def obj_mail(obj):
+def obj_mail(model, pk):
     kwargs = {}
-    kwargs['pk'] = obj.pk
-    model_name = obj._meta.verbose_name
+    kwargs['pk'] = pk
+    model_name = model._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
         model_name, page_type='view')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
