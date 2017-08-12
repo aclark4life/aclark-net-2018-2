@@ -49,7 +49,6 @@ from .utils import get_client_city
 from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
-from .utils import get_template_and_url_names
 from .utils import get_query
 from .utils import is_allowed_to_view
 from datetime import datetime
@@ -121,16 +120,7 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'client', page_type='edit')
-    return edit(
-        request,
-        ClientForm,
-        Client,
-        url_name,
-        template_name,
-        active_nav='client',
-        pk=pk)
+    return edit(request, ClientForm, Client, active_nav='client', pk=pk)
 
 
 @staff_member_required
@@ -156,14 +146,10 @@ def contact(request, pk=None):
 
 @staff_member_required
 def contact_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'contact', page_type='edit')
     return edit(
         request,
         ContactForm,
         Contact,
-        url_name,
-        template_name,
         active_nav='contact',
         client_model=Client,
         pk=pk)
@@ -234,16 +220,7 @@ def contract(request, pk=None):
 def contract_edit(request, pk=None):
     """
     """
-    template_name, url_name = get_template_and_url_names(
-        'contract', page_type='edit')
-    return edit(
-        request,
-        ContractForm,
-        Contract,
-        url_name,
-        template_name,
-        active_nav='contract',
-        pk=pk)
+    return edit(request, ContractForm, Contract, active_nav='contract', pk=pk)
 
 
 @staff_member_required
@@ -282,14 +259,10 @@ def estimate(request, pk=None):
 
 @staff_member_required
 def estimate_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'estimate', page_type='edit')
     return edit(
         request,
         EstimateForm,
         Estimate,
-        url_name,
-        template_name,
         active_nav='estimate',
         company_model=Company,
         project_model=Project,
@@ -325,14 +298,10 @@ def file_view(request, pk=None):
 
 @staff_member_required
 def file_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'file', page_type='edit')
     return edit(
         request,
         FileForm,
         File,
-        url_name,
-        template_name,
         active_nav='dropdown',
         company_model=Company,
         pk=pk, )
@@ -396,14 +365,10 @@ def invoice(request, pk=None):
 
 @staff_member_required
 def invoice_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'invoice', page_type='edit')
     return edit(
         request,
         InvoiceForm,
         Invoice,
-        url_name,
-        template_name,
         active_nav='invoice',
         company_model=Company,
         project_model=Project,
@@ -479,16 +444,8 @@ def newsletter(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
-    template_name, url_name = get_template_and_url_names(
-        'newsletter', page_type='edit')
     return edit(
-        request,
-        NewsletterForm,
-        Newsletter,
-        url_name,
-        template_name,
-        active_nav='dropdown',
-        pk=pk)
+        request, NewsletterForm, Newsletter, active_nav='dropdown', pk=pk)
 
 
 @staff_member_required
@@ -526,14 +483,10 @@ def note(request, pk=None):
 # https://stackoverflow.com/a/42038839/185820
 @staff_member_required(login_url='login')
 def note_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'note', page_type='edit')
     return edit(
         request,
         NoteForm,
         Note,
-        url_name,
-        template_name,
         active_nav='note',
         app_settings_model=AppSettings,
         client_model=Client,
@@ -573,14 +526,10 @@ def project(request, pk=None):
 
 @staff_member_required
 def project_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'project', page_type='edit')
     return edit(
         request,
         ProjectForm,
         Project,
-        url_name,
-        template_name,
         client_model=Client,
         active_nav='project',
         pk=pk)
@@ -621,14 +570,10 @@ def proposal(request, pk=None):
 def proposal_edit(request, pk=None):
     """
     """
-    template_name, url_name = get_template_and_url_names(
-        'proposal', page_type='edit')
     return edit(
         request,
         ProposalForm,
         Proposal,
-        url_name,
-        template_name,
         active_nav='proposal',
         company_model=Company,
         pk=pk)
@@ -673,14 +618,10 @@ def report(request, pk=None):
 
 @staff_member_required
 def report_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'report', page_type='edit')
     return edit(
         request,
         ReportForm,
         Report,
-        url_name,
-        template_name,
         active_nav='dropdown',
         invoice_model=Invoice,
         pk=pk)
@@ -727,24 +668,17 @@ def mail(request):
     """
     """
     qs_contact = request.GET.get('contact')
-    template_name, url_name = get_template_and_url_names(
-        'contact', page_type='edit')
     if qs_contact:
-        # 'form_model', 'model', 'url_name', and 'template_name'
-        return edit(request, MailForm, Contact, url_name, template_name)
+        return edit(request, MailForm, Contact)
 
 
 # https://stackoverflow.com/a/42038839/185820
 @staff_member_required(login_url='login')
 def service_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'service', page_type='edit')
     return edit(
         request,
         ServiceForm,
         Service,
-        url_name,
-        template_name,
         active_nav='dropdown',
         company_model=Company,
         pk=pk)
@@ -819,16 +753,7 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'task', page_type='edit')
-    return edit(
-        request,
-        TaskForm,
-        Task,
-        url_name,
-        'task_edit.html',
-        active_nav='task',
-        pk=pk)
+    return edit(request, TaskForm, Task, active_nav='task', pk=pk)
 
 
 @staff_member_required
@@ -857,8 +782,6 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'time', page_type='edit')
     if request.user.is_staff:
         time_form = AdminTimeForm
     else:
@@ -867,8 +790,6 @@ def time_edit(request, pk=None):
         request,
         time_form,
         Time,
-        url_name,
-        template_name,
         active_nav='time',
         invoice_model=Invoice,
         estimate_model=Estimate,
@@ -925,20 +846,11 @@ def user(request, pk=None):
 
 @login_required
 def user_edit(request, pk=None):
-    template_name, url_name = get_template_and_url_names(
-        'user', page_type='edit')
     if request.user.is_staff:
         profile_form = AdminProfileForm
     else:
         profile_form = ProfileForm
-    return edit(
-        request,
-        profile_form,
-        Profile,
-        url_name,
-        template_name,
-        active_nav='dropdown',
-        pk=pk)
+    return edit(request, profile_form, Profile, active_nav='dropdown', pk=pk)
 
 
 @staff_member_required

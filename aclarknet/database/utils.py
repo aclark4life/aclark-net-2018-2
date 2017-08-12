@@ -188,7 +188,7 @@ def daily_burn(project):
         return ''
 
 
-def edit(request, form_model, model, url_name, template_name, **kwargs):
+def edit(request, form_model, model, **kwargs):
     context = {}
     obj = None
     active_nav = kwargs.get('active_nav')
@@ -260,6 +260,7 @@ def edit(request, form_model, model, url_name, template_name, **kwargs):
         gross, net = get_invoice_totals(invoice_model)
         context['gross'] = gross
         context['net'] = net
+    template_name = get_template_and_url_names(model_name, page_type='edit')
     return render(request, template_name, context)
 
 
@@ -564,9 +565,8 @@ def get_template_and_url_names(model_name, page_type=None):
         template_name = '%s.html' % url_name
         return template_name, url_name
     elif page_type == 'edit':
-        url_name = URL_NAMES[model_name][1]
-        template_name = '%s.html' % url_name
-        return template_name, url_name
+        template_name = '%s.html' % URL_NAMES[model_name][1]
+        return template_name
     elif page_type == 'home':
         url_name = 'home'
         return url_name
