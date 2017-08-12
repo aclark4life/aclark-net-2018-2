@@ -11,4 +11,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         contact_id = options.get('contact_id')[0]
         contact = Contact.objects.get(pk=contact_id)
-        self.stdout.write(self.style.SUCCESS('Got contact "%s"' % contact_id))
+        self.stdout.write(self.style.SUCCESS('Got contact: "%s"' % contact.email))

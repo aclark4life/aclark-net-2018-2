@@ -139,9 +139,9 @@ def add_user_to_contacts(request, model, pk=None):
 
 
 def mail_compose(model, request):
-    qs_contact = request.GET.get('contact')
-    if qs_contact:
-        contact = get_object_or_404(model, pk=qs_contact)
+    query_contact = get_query('contact')
+    if query_contact:
+        contact = get_object_or_404(model, pk=query_contact)
     kwargs = {}
     message = fake.text()
     kwargs['message'] = message
@@ -904,9 +904,9 @@ def obj_copy(obj):
 
 
 def obj_mail(model, request):
-    qs_contact = request.GET.get('contact')
+    query_contact = get_query('contact')
     kwargs = {}
-    kwargs['pk'] = qs_contact
+    kwargs['pk'] = query_contact
     model_name = model._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
         model_name, page_type='view')
