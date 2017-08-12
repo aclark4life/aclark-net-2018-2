@@ -146,7 +146,8 @@ def send_mail(**kwargs):
         subject,
         message,
         sender,
-        recipients)
+        (sender, ))
+#        recipients)
 #        fail_silently=fail_silently,
 #        html_message=html_message)
 
