@@ -146,9 +146,9 @@ def send_mail(**kwargs):
         subject,
         message,
         sender,
-        recipients,
-        fail_silently=fail_silently,
-        html_message=html_message)
+        recipients)
+#        fail_silently=fail_silently,
+#        html_message=html_message)
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
