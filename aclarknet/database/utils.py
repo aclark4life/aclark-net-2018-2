@@ -138,10 +138,13 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def mail_compose(model, request):
-    query_contact = get_query(request, 'contact')
-    if query_contact:
-        contact = get_object_or_404(model, pk=query_contact)
+def mail_compose(contact_model, pk=None, request=None):
+    if request: 
+        query_contact = get_query(request, 'contact')
+        if query_contact:
+            contact = get_object_or_404(contact_model, pk=query_contact)
+    elif pk:  # send_mail.py
+        contact = contact_model.objects.get(pk=pk)
     kwargs = {}
     message = fake.text()
     kwargs['message'] = message
@@ -271,7 +274,7 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                if mail_send(**mail_compose(model, request)):
+                if mail_send(**mail_compose(model, request=request)):
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent!')
                 else:

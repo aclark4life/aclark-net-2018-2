@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from aclarknet.database.models import Contact
 from aclarknet.database.utils import mail_compose
+from aclarknet.database.utils import mail_send
+
 
 class Command(BaseCommand):
     help = 'Sends mail'
@@ -10,5 +12,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         contact_id = options.get('contact_id')[0]
-        contact = Contact.objects.get(pk=contact_id)
-        self.stdout.write(self.style.SUCCESS('Got contact: "%s"' % contact.email))
+        mail_send(**mail_compose(Contact, pk=contact_id))
+        self.stdout.write(self.style.SUCCESS('Mail sent!'))
