@@ -163,7 +163,6 @@ def mail_send(**kwargs):
         sender, (sender, ),
         fail_silently=fail_silently,
         html_message=html_message)
-    messages.add_message(request, messages.SUCCESS, 'Mail sent!')
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -264,6 +263,7 @@ def edit(request, **kwargs):
                 return obj_edit(obj, pk=pk)
             except AttributeError:
                 mail_send(**mail_compose())
+                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
