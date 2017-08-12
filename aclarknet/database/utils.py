@@ -142,12 +142,9 @@ def send_mail(**kwargs):
     recipients = kwargs.get('recipients')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
-    django_send_mail(subject, message, sender, (sender, ))
-
-
-#        recipients)
-#        fail_silently=fail_silently,
-#        html_message=html_message)
+    django_send_mail(subject, message, sender, (sender, ),
+        fail_silently=fail_silently,
+        html_message=html_message)
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
