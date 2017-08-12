@@ -188,7 +188,7 @@ def daily_burn(project):
         return ''
 
 
-def edit(request, form_model, model, **kwargs):
+def edit(request, **kwargs):
     context = {}
     obj = None
     active_nav = kwargs.get('active_nav')
@@ -196,7 +196,9 @@ def edit(request, form_model, model, **kwargs):
     client_model = kwargs.get('client_model')
     company_model = kwargs.get('company_model')
     estimate_model = kwargs.get('estimate_model')
+    form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
+    model = kwargs.get('model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
     task_model = kwargs.get('task_model')

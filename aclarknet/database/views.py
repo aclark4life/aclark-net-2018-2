@@ -120,7 +120,12 @@ def client(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    return edit(request, ClientForm, Client, active_nav='client', pk=pk)
+    return edit(
+        request,
+        form_model=ClientForm,
+        model=Client,
+        active_nav='client',
+        pk=pk)
 
 
 @staff_member_required
@@ -148,8 +153,8 @@ def contact(request, pk=None):
 def contact_edit(request, pk=None):
     return edit(
         request,
-        ContactForm,
-        Contact,
+        form_model=ContactForm,
+        model=Contact,
         active_nav='contact',
         client_model=Client,
         pk=pk)
@@ -220,7 +225,12 @@ def contract(request, pk=None):
 def contract_edit(request, pk=None):
     """
     """
-    return edit(request, ContractForm, Contract, active_nav='contract', pk=pk)
+    return edit(
+        request,
+        form_model=ContractForm,
+        model=Contract,
+        active_nav='contract',
+        pk=pk)
 
 
 @staff_member_required
@@ -261,8 +271,8 @@ def estimate(request, pk=None):
 def estimate_edit(request, pk=None):
     return edit(
         request,
-        EstimateForm,
-        Estimate,
+        form_model=EstimateForm,
+        model=Estimate,
         active_nav='estimate',
         company_model=Company,
         project_model=Project,
@@ -300,8 +310,8 @@ def file_view(request, pk=None):
 def file_edit(request, pk=None):
     return edit(
         request,
-        FileForm,
-        File,
+        form_model=FileForm,
+        model=File,
         active_nav='dropdown',
         company_model=Company,
         pk=pk, )
@@ -367,8 +377,8 @@ def invoice(request, pk=None):
 def invoice_edit(request, pk=None):
     return edit(
         request,
-        InvoiceForm,
-        Invoice,
+        form_model=InvoiceForm,
+        model=Invoice,
         active_nav='invoice',
         company_model=Company,
         project_model=Project,
@@ -445,7 +455,11 @@ def newsletter_edit(request, pk=None):
     """
     """
     return edit(
-        request, NewsletterForm, Newsletter, active_nav='dropdown', pk=pk)
+        request,
+        form_model=NewsletterForm,
+        model=Newsletter,
+        active_nav='dropdown',
+        pk=pk)
 
 
 @staff_member_required
@@ -485,8 +499,8 @@ def note(request, pk=None):
 def note_edit(request, pk=None):
     return edit(
         request,
-        NoteForm,
-        Note,
+        form_model=NoteForm,
+        model=Note,
         active_nav='note',
         app_settings_model=AppSettings,
         client_model=Client,
@@ -528,8 +542,8 @@ def project(request, pk=None):
 def project_edit(request, pk=None):
     return edit(
         request,
-        ProjectForm,
-        Project,
+        form_model=ProjectForm,
+        model=Project,
         client_model=Client,
         active_nav='project',
         pk=pk)
@@ -572,8 +586,8 @@ def proposal_edit(request, pk=None):
     """
     return edit(
         request,
-        ProposalForm,
-        Proposal,
+        form_model=ProposalForm,
+        model=Proposal,
         active_nav='proposal',
         company_model=Company,
         pk=pk)
@@ -620,8 +634,8 @@ def report(request, pk=None):
 def report_edit(request, pk=None):
     return edit(
         request,
-        ReportForm,
-        Report,
+        form_model=ReportForm,
+        model=Report,
         active_nav='dropdown',
         invoice_model=Invoice,
         pk=pk)
@@ -669,7 +683,7 @@ def mail(request):
     """
     qs_contact = request.GET.get('contact')
     if qs_contact:
-        return edit(request, MailForm, Contact)
+        return edit(request, form_model=MailForm, model=Contact)
 
 
 # https://stackoverflow.com/a/42038839/185820
@@ -677,8 +691,8 @@ def mail(request):
 def service_edit(request, pk=None):
     return edit(
         request,
-        ServiceForm,
-        Service,
+        form_model=ServiceForm,
+        model=Service,
         active_nav='dropdown',
         company_model=Company,
         pk=pk)
@@ -695,10 +709,8 @@ def settings_app(request):
 def settings_app_edit(request, pk=None):
     return edit(
         request,
-        AppSettingsForm,
-        AppSettings,
-        'settings',
-        'settings_edit.html',
+        form_model=AppSettingsForm,
+        model=AppSettings,
         active_nav='dropdown',
         pk=1)
 
@@ -707,10 +719,8 @@ def settings_app_edit(request, pk=None):
 def settings_company_edit(request, pk=None):
     return edit(
         request,
-        CompanyForm,
-        Company,
-        'company',
-        'company_edit.html',
+        form_model=CompanyForm,
+        model=Company,
         active_nav='dropdown',
         pk=1)
 
@@ -733,10 +743,8 @@ def settings_contract(request):
 def settings_contract_edit(request, pk=None):
     return edit(
         request,
-        ContractSettingsForm,
-        ContractSettings,
-        'contract_settings',
-        'contract_settings_edit.html',
+        form_model=ContractSettingsForm,
+        model=ContractSettings,
         pk=1,
         active_nav='dropdown')
 
@@ -753,7 +761,8 @@ def task(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    return edit(request, TaskForm, Task, active_nav='task', pk=pk)
+    return edit(
+        request, form_model=TaskForm, model=Task, active_nav='task', pk=pk)
 
 
 @staff_member_required
@@ -788,8 +797,8 @@ def time_edit(request, pk=None):
         time_form = TimeForm
     return edit(
         request,
-        time_form,
-        Time,
+        form_model=time_form,
+        model=Time,
         active_nav='time',
         invoice_model=Invoice,
         estimate_model=Estimate,
@@ -850,7 +859,12 @@ def user_edit(request, pk=None):
         profile_form = AdminProfileForm
     else:
         profile_form = ProfileForm
-    return edit(request, profile_form, Profile, active_nav='dropdown', pk=pk)
+    return edit(
+        request,
+        form_model=profile_form,
+        model=Profile,
+        active_nav='dropdown',
+        pk=pk)
 
 
 @staff_member_required
