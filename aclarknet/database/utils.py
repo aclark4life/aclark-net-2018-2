@@ -256,7 +256,7 @@ def edit(request, **kwargs):
                 return obj_edit(obj, pk=pk)
             except AttributeError:  # 'MailForm' object has no attribute 'save'
                 # send_mail(compose_mail(form=form, model=model, request=request))
-                send_mail()
+                send_mail(fail_silently=False)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
