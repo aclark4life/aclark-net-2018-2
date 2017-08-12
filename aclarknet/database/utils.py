@@ -26,7 +26,6 @@ from hashlib import md5
 from io import StringIO
 from lxml import etree
 from operator import or_ as OR
-from smtplib import SMTPSenderRefused
 
 ITEMS_NAME = {
     'client': 'clients',
