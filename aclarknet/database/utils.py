@@ -136,10 +136,14 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def send_mail(subject, message, sender, recipients, **kwargs):
+def send_mail(**kwargs):
     fail_silently = kwargs.get('fail_silently')
     html_message = kwargs.get('html_message')
+    message = kwargs.get('message')
+    recipients = kwargs.get('recipients')
     request = kwargs.get('request')
+    sender = kwargs.get('sender')
+    subject = kwargs.get('subject')
     try:
         django_send_mail(
             subject,
@@ -239,19 +243,16 @@ def edit(request, **kwargs):
                                        app_settings_model)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
-            if not form_model:
-                obj = form.save()
-                set_relationship(
-                    obj,
-                    request,
-                    client_model=client_model,
-                    company_model=company_model,
-                    estimate_model=estimate_model,
-                    invoice_model=invoice_model,
-                    project_model=project_model)
-                return obj_edit(obj, pk=pk)
-            else:
-                send_mail()
+            obj = form.save()
+            set_relationship(
+                obj,
+                request,
+                client_model=client_model,
+                company_model=company_model,
+                estimate_model=estimate_model,
+                invoice_model=invoice_model,
+                project_model=project_model)
+            return obj_edit(obj, pk=pk)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -611,6 +612,18 @@ def set_items_name(model_name, items=None, _items={}):
     """
     _items[ITEMS_NAME[model_name]] = items
     return _items
+
+
+def compose_message(form, model, request):
+    kwargs = {}
+    qs_contact = request.GET.get('contact')
+    test = form.data.get('test')
+    if qs_contact:
+        contact = get_object_or_404(model, pk=qs_contact)
+    if test:
+        fake = Faker()
+        message = fake.text()
+    return kwargs
 
 
 def get_note_stats(note_model):
