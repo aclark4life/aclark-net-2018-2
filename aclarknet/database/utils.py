@@ -141,21 +141,15 @@ def send_mail(**kwargs):
     html_message = kwargs.get('html_message')
     message = kwargs.get('message')
     recipients = kwargs.get('recipients')
-    request = kwargs.get('request')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
-    try:
-        django_send_mail(
-            subject,
-            message,
-            sender,
-            recipients,
-            fail_silently=fail_silently,
-            html_message=html_message)
-        return True
-    except SMTPSenderRefused:
-        messages.add_message(request, messages.WARNING, 'SMTPSenderRefused!')
-        return False
+    django_send_mail(
+        subject,
+        message,
+        sender,
+        recipients,
+        fail_silently=fail_silently,
+        html_message=html_message)
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -255,8 +249,7 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:  # 'MailForm' object has no attribute 'save'
-                # send_mail(compose_mail(form=form, model=model, request=request))
-                send_mail(fail_silently=False)
+                send_mail(**compose_mail())
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -618,17 +611,13 @@ def set_items_name(model_name, items=None, _items={}):
     return _items
 
 
-def compose_mail(**kwargs):
-    form = kwargs.get('form')
-    model = kwargs.get('model')
-    request = kwargs.get('request')
-    qs_contact = request.GET.get('contact')
-    test = form.data.get('test')
-    if qs_contact:
-        contact = get_object_or_404(model, pk=qs_contact)
-    if test:
-        fake = Faker()
-        message = fake.text()
+def compose_mail():
+    kwargs = {}
+    fake = Faker()
+    kwargs['message'] = fake.text()
+    kwargs['sender'] = django_settings.EMAIL_FROM
+    kwargs['recipients'] = django_settings.ADMINS
+    kwargs['subject'] = fake.text()
     return kwargs
 
 
