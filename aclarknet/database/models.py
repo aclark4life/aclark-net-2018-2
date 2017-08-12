@@ -123,7 +123,7 @@ class Contact(BaseModel):
     uuid = models.CharField('UUID', max_length=300, default=uuid4)
 
     def __str__(self):
-        if self.email:
+        if self.email and self.first_name and self.last_name:
             return ' '.join(
                 [self.first_name, self.last_name, '<%s>' % self.email])
         elif self.first_name and self.last_name:
