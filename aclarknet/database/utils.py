@@ -142,24 +142,19 @@ def mail_compose():
     message = fake.text()
     kwargs['message'] = message
     kwargs['html_message'] = mail_html(message)
-
     kwargs['sender'] = django_settings.EMAIL_FROM
-    kwargs['recipients'] = django_settings.ADMINS
     kwargs['subject'] = fake.text()
     return kwargs
 
 
 def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
-    return render_to_string('cerberus-fluid.html', {
-        'message': message,
-    })
+    return render_to_string('cerberus-fluid.html', {'message': message, })
 
 
 def mail_send(**kwargs):
     fail_silently = kwargs.get('fail_silently')
     html_message = kwargs.get('html_message')
     message = kwargs.get('message')
-    # recipients = kwargs.get('recipients')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
     send_mail(
