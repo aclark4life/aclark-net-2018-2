@@ -721,6 +721,11 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     return HttpResponse(data, content_type="image/png")
 
 
+def send_mail(request, pk=None):
+    """
+    """
+
+
 # https://stackoverflow.com/a/42038839/185820
 @staff_member_required(login_url='login')
 def service_edit(request, pk=None):

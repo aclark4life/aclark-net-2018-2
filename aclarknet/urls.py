@@ -102,6 +102,8 @@ urlpatterns = [
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
     url(r'^report_plot$', views.report_plot, name='report_plot'),
+    # Send mail
+    url(r'^send-mail$', views.send_mail, name='send_mail'),
     # Services
     url(r'^service/(?P<pk>\d+)/edit$', views.service_edit,
         name='service_edit'),
