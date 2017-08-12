@@ -137,11 +137,6 @@ def add_user_to_contacts(request, model, pk=None):
 
 
 def send_mail(subject, message, sender, recipients, **kwargs):
-    message = kwargs['message']
-    request = kwargs['request']
-    user = kwargs['user']
-    url = kwargs['url']
-    html_message = get_html_message(message, url, user)
     try:
         django_send_mail(
             subject,
@@ -374,13 +369,11 @@ def get_form(request, form_model, model, **kwargs):
     return form
 
 
-def get_html_message(message, url, user):
+def get_html_message(message, user):
     # http://stackoverflow.com/a/28476681/185820
     return render_to_string('cerberus-fluid.html', {
         'username': user.username,
         'message': message,
-        'url': url,
-        'uuid': user.profile.uuid,
     })
 
 
