@@ -163,6 +163,7 @@ def mail_send(**kwargs):
         sender, (sender, ),
         fail_silently=fail_silently,
         html_message=html_message)
+    messages.add_message(request, messages.SUCCESS, 'Mail sent!')
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -690,9 +691,6 @@ def get_page_items(request, **kwargs):
             context['active_tab'] = 'company'
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
-            mail = get_query(request, 'mail')
-            if mail:
-                messages.add_message(request, messages.SUCCESS, 'Mail sent!')
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
             context['items'] = get_fields([contact, ])  # table_items.html
