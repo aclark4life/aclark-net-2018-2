@@ -264,6 +264,7 @@ def edit(request, **kwargs):
             except AttributeError:
                 mail_send(**mail_compose())
                 messages.add_message(request, messages.SUCCESS, 'Mail sent!')
+                obj = get_object_or_404(model, pk=pk)
                 return obj_mail(obj)
     context['active_nav'] = active_nav
     context['form'] = form
