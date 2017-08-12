@@ -241,16 +241,19 @@ def edit(request, **kwargs):
                                        app_settings_model)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
-            obj = form.save()
-            set_relationship(
-                obj,
-                request,
-                client_model=client_model,
-                company_model=company_model,
-                estimate_model=estimate_model,
-                invoice_model=invoice_model,
-                project_model=project_model)
-            return obj_edit(obj, pk=pk)
+            if not form_model:
+                obj = form.save()
+                set_relationship(
+                    obj,
+                    request,
+                    client_model=client_model,
+                    company_model=company_model,
+                    estimate_model=estimate_model,
+                    invoice_model=invoice_model,
+                    project_model=project_model)
+                return obj_edit(obj, pk=pk)
+            else:
+                send_mail()
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
