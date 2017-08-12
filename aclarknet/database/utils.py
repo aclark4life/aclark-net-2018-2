@@ -144,7 +144,6 @@ def send_mail(**kwargs):
     request = kwargs.get('request')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
-    import pdb ; pdb.set_trace()
     try:
         django_send_mail(
             subject,
@@ -256,7 +255,8 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:  # 'MailForm' object has no attribute 'save'
-                send_mail(compose_mail(form=form, model=model, request=request))
+                # send_mail(compose_mail(form=form, model=model, request=request))
+                send_mail()
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
