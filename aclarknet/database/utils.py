@@ -137,13 +137,16 @@ def add_user_to_contacts(request, model, pk=None):
 
 
 def send_mail(subject, message, sender, recipients, **kwargs):
+    fail_silently = kwargs.get('fail_silently')
+    html_message = kwargs.get('html_message')
+    request = kwargs.get('request')
     try:
         django_send_mail(
             subject,
             message,
             sender,
             recipients,
-            fail_silently=False,
+            fail_silently=fail_silently,
             html_message=html_message)
         return True
     except SMTPSenderRefused:
