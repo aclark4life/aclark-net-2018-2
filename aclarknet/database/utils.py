@@ -139,7 +139,7 @@ def add_user_to_contacts(request, model, pk=None):
 
 
 def mail_compose(model, request):
-    query_contact = get_query('contact')
+    query_contact = get_query(request, 'contact')
     if query_contact:
         contact = get_object_or_404(model, pk=query_contact)
     kwargs = {}
@@ -904,7 +904,7 @@ def obj_copy(obj):
 
 
 def obj_mail(model, request):
-    query_contact = get_query('contact')
+    query_contact = get_query(request, 'contact')
     kwargs = {}
     kwargs['pk'] = query_contact
     model_name = model._meta.verbose_name
