@@ -4,7 +4,7 @@ from django.conf import settings as django_settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
-from django.core.mail import send_mail as django_send_mail
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -135,14 +135,24 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def send_mail(**kwargs):
+def mail_compose():
+    kwargs = {}
+    fake = Faker()
+    kwargs['message'] = fake.text()
+    kwargs['sender'] = django_settings.EMAIL_FROM
+    kwargs['recipients'] = django_settings.ADMINS
+    kwargs['subject'] = fake.text()
+    return kwargs
+
+
+def mail_send(**kwargs):
     fail_silently = kwargs.get('fail_silently')
     html_message = kwargs.get('html_message')
     message = kwargs.get('message')
-    recipients = kwargs.get('recipients')
+    # recipients = kwargs.get('recipients')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
-    django_send_mail(
+    send_mail(
         subject,
         message,
         sender, (sender, ),
@@ -246,8 +256,8 @@ def edit(request, **kwargs):
                     invoice_model=invoice_model,
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
-            except AttributeError:  # 'MailForm' object has no attribute 'save'
-                send_mail(**compose_mail())
+            except AttributeError:
+                mail_send(**mail_compose())
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -607,16 +617,6 @@ def set_items_name(model_name, items=None, _items={}):
     """
     _items[ITEMS_NAME[model_name]] = items
     return _items
-
-
-def compose_mail():
-    kwargs = {}
-    fake = Faker()
-    kwargs['message'] = fake.text()
-    kwargs['sender'] = django_settings.EMAIL_FROM
-    kwargs['recipients'] = django_settings.ADMINS
-    kwargs['subject'] = fake.text()
-    return kwargs
 
 
 def get_note_stats(note_model):
