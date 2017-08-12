@@ -138,12 +138,16 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def mail_compose():
+def mail_compose(model, request):
+    qs_contact = request.GET.get('contact')
+    if qs_contact:
+        contact = get_object_or_404(model, pk=qs_contact)
     kwargs = {}
     message = fake.text()
     kwargs['message'] = message
     kwargs['html_message'] = mail_html(message)
     kwargs['sender'] = django_settings.EMAIL_FROM
+    kwargs['recipients'] = (contact.email, )
     kwargs['subject'] = fake.text()
     return kwargs
 
@@ -267,7 +271,7 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                if mail_send(**mail_compose()):
+                if mail_send(**mail_compose(model, request)):
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent!')
                 else:
