@@ -277,3 +277,13 @@ Webpack
 
 - http://geezhawk.github.io/using-react-with-django-rest-framework
 - http://owaislone.org/blog/webpack-plus-reactjs-and-django/
+
+.bashrc
+-------
+
+::
+
+    set -o vi
+    # https://unix.stackexchange.com/questions/79064/how-to-export-variables-from-a-file
+    source /srv/aclarknet-env/db
+    export $(cut -d= -f1 /srv/aclarknet-env/db)
