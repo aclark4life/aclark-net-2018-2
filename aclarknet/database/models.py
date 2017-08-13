@@ -355,9 +355,7 @@ class Newsletter(BaseModel):
     text = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
     contacts = models.ManyToManyField(
-        'Contact',
-        blank=True,
-        limit_choices_to={'subscribed': True})
+        'Contact', blank=True, limit_choices_to={'subscribed': True})
 
     def __str__(self):
         if self.name:
@@ -379,9 +377,7 @@ class Note(BaseModel):
     tags = TaggableManager(blank=True, help_text='')
     note = models.TextField(blank=True, null=True)
     contacts = models.ManyToManyField(
-        'Contact',
-        blank=True,
-        limit_choices_to={'subscribed': True})
+        'Contact', blank=True, limit_choices_to={'subscribed': True})
 
     def __str__(self):
         if self.title:
@@ -536,9 +532,7 @@ class Report(BaseModel):
         blank=True, null=True, max_digits=12, decimal_places=2)
     notes = models.TextField(blank=True, null=True)
     invoices = models.ManyToManyField(
-        'Invoice',
-        blank=True,
-        limit_choices_to={'last_payment_date': None})
+        'Invoice', blank=True, limit_choices_to={'last_payment_date': None})
 
     def __str__(self):
         return 'report-%s' % self.date

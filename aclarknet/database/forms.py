@@ -195,6 +195,11 @@ class NoteForm(forms.ModelForm):
         required=False,
         widget=forms.SelectMultiple(attrs={'size': '5'}))
 
+    contacts = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.filter(
+            subscribed=True).exclude(email='').order_by('first_name'),
+        widget=forms.SelectMultiple(attrs={'size': '50'}))
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
