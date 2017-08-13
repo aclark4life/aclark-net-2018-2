@@ -197,8 +197,7 @@ class NoteForm(forms.ModelForm):
 
     contacts = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.filter(
-            subscribed=True,
-            required=False).exclude(email='').order_by('first_name'),
+            subscribed=True).exclude(email='').order_by('first_name'),
         widget=forms.SelectMultiple(attrs={'size': '50'}))
 
 
