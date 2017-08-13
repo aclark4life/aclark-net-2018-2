@@ -69,7 +69,7 @@
                   </table>
                 </div>
               </div>
-              <br>
+              {% if reports.gross and reports.net %}
               <h2>Year To Date</h2>
               <table data-toggle="table" data-classes="table table-no-bordered" {% if pdf %}border=1 {% endif %}>
                 <thead>
@@ -81,3 +81,5 @@
                 <tbody>
                   <tr><td align="right"><strong>{{ reports.gross }}</strong></td><td align="right"><strong>{{ reports.net }}</strong></td></tr>
                 </tbody>
+              </table>
+              {% endif %}

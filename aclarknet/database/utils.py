@@ -216,33 +216,31 @@ def edit(request, **kwargs):
     app_settings_model = kwargs.get('app_settings_model')
     client_model = kwargs.get('client_model')
     company_model = kwargs.get('company_model')
+    contact_model = kwargs.get('contact_model')
     estimate_model = kwargs.get('estimate_model')
     form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
+    note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
     task_model = kwargs.get('task_model')
     time_model = kwargs.get('time_model')
-    model_name = model._meta.verbose_name
     if pk is None:
         form = get_form(
             request,
-            form_model,
-            model,
             client_model=client_model,
             company_model=company_model,
             estimate_model=estimate_model,
+            form_model=form_model,
             invoice_model=invoice_model,
+            model=model,
             project_model=project_model,
             task_model=task_model,
             time_model=time_model)
     else:
         obj = get_object_or_404(model, pk=pk)
-        if model_name == 'note':  # Populate form with tags already set
-            form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
-        else:
-            form = form_model(instance=obj)
+        form = get_form(request, model=model, pk=pk)
     if request.method == 'POST':
         refer = request.META['HTTP_REFERER']
         if pk is None:
@@ -292,7 +290,11 @@ def edit(request, **kwargs):
         gross, net = get_invoice_totals(invoice_model)
         context['gross'] = gross
         context['net'] = net
-    template_name = get_template_and_url_names(model_name, page_type='edit')
+    template_name = get_template_and_url_names(
+        model=model,
+        contact_model=contact_model,
+        note_model=note_model,
+        page_type='edit')
     return render(request, template_name, context)
 
 
@@ -388,13 +390,21 @@ def get_fields(items):
     return items
 
 
-def get_form(request, form_model, model, **kwargs):
-    model_name = model._meta.verbose_name
-    if model_name == 'report':  # Populate report with gross, net.
-        invoice_model = kwargs['invoice_model']
-        gross, net = get_invoice_totals(invoice_model)
-        obj = model(gross=gross, net=net)
-        form = form_model(instance=obj)
+def get_form(request, **kwargs):
+    form_model = kwargs.get('form_model')
+    invoice_model = kwargs.get('invoice_model')
+    model = kwargs.get('model')
+    if model:
+        model_name = model._meta.verbose_name
+        if model_name == 'report' and invoice_model:  # Populate report
+            # with gross, net.
+            gross, net = get_invoice_totals(invoice_model)
+            obj = model(gross=gross, net=net)
+            form = form_model(instance=obj)
+        elif model_name == 'note':  # Populate form with tags already set
+            form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
+        else:
+            form = form_model(instance=obj)
     else:
         form = form_model()
     return form
@@ -513,6 +523,18 @@ def get_query(request, query):
         cb_query['subscribe'] = cb_subscribe
         cb_query['condition'] = cb_condition
         return cb_query
+    elif query == 'doc':
+        doc = request.GET.get('doc')
+        if doc:
+            return True
+        else:
+            return False
+    elif query == 'pdf':
+        pdf = request.GET.get('pdf')
+        if pdf:
+            return True
+        else:
+            return False
     else:  # Normal handling
         return request.GET.get(query, '')
 
@@ -578,22 +600,38 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         return app_settings.exclude_hidden_notes
 
 
-def get_template_and_url_names(model_name, page_type=None):
+def get_template_and_url_names(**kwargs):
     """
     """
-    if page_type == 'view':
-        url_name = URL_NAMES[model_name][0]
-        template_name = '%s.html' % url_name
-        return template_name, url_name
-    elif page_type == 'edit':
-        template_name = '%s.html' % URL_NAMES[model_name][1]
-        return template_name
-    elif page_type == 'home':
-        url_name = 'home'
-        return url_name
-    elif page_type == 'index':
-        url_name = URL_NAMES[model_name][2]
-        return url_name
+    model = kwargs.get('model')
+    contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    page_type = kwargs.get('page_type')
+    if model:
+        model_name = model._meta.verbose_name
+        if page_type == 'view':
+            url_name = URL_NAMES[model_name][0]
+            template_name = '%s.html' % url_name
+            return template_name, url_name
+        elif page_type == 'edit':
+            template_name = '%s.html' % URL_NAMES[model_name][1]
+            return template_name
+        elif page_type == 'home':
+            url_name = 'home'
+            return url_name
+        elif page_type == 'index':
+            url_name = URL_NAMES[model_name][2]
+            return url_name
+    elif contact_model:  # Mail
+        model_name = contact_model._meta.verbose_name
+        if page_type == 'edit':
+            template_name = '%s.html' % URL_NAMES[model_name][1]
+            return template_name
+    elif note_model:  # Mail
+        model_name = note_model._meta.verbose_name
+        if page_type == 'edit':
+            template_name = '%s.html' % URL_NAMES[model_name][1]
+            return template_name
 
 
 def get_times_for_obj(obj, time_model):
@@ -666,8 +704,6 @@ def get_page_items(request, **kwargs):
     time_model = kwargs.get('time_model')
     user_model = kwargs.get('user_model')
     context = {}
-    context['icon_size'] = get_setting(request, app_settings_model,
-                                       'icon_size')
     items = None
     if company_model:
         company = company_model.get_solo()
@@ -714,9 +750,7 @@ def get_page_items(request, **kwargs):
             context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
-            doc = get_query(request, 'doc')
             estimate = contract.statement_of_work
-            pdf = get_query(request, 'pdf')
             if estimate:
                 times_client = time_model.objects.filter(
                     client=estimate.client,
@@ -729,10 +763,8 @@ def get_page_items(request, **kwargs):
             else:
                 times = None
             context['active_nav'] = 'contract'
-            context['doc'] = doc
             context['edit_url'] = 'contract_edit'
             context['item'] = contract
-            context['pdf'] = pdf
             context['times'] = times
         elif model_name == 'estimate':
             estimate = get_object_or_404(model, pk=pk)
@@ -740,7 +772,6 @@ def get_page_items(request, **kwargs):
                 doc_type = model_name
             else:
                 doc_type = 'statement of work'
-            pdf = get_query(request, 'pdf')
             times_client = time_model.objects.filter(
                 client=estimate.client,
                 estimate=None,
@@ -756,7 +787,6 @@ def get_page_items(request, **kwargs):
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
-            context['pdf'] = pdf
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
@@ -768,15 +798,18 @@ def get_page_items(request, **kwargs):
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
-            pdf = get_query(request, 'pdf')
             context['active_nav'] = 'invoice'
             context['document_type'] = model_name
-            context['edit_url'] = 'invoice_edit'  # Delete modal
+            context['edit_url'] = 'invoice_edit'
             context['entries'] = times
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
-            context['pdf'] = pdf
+        elif model_name == 'note':
+            note = get_object_or_404(model, pk=pk)
+            context['edit_url'] = 'note_edit'
+            context['active_nav'] = 'note'
+            context['item'] = note
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.all()
@@ -793,20 +826,27 @@ def get_page_items(request, **kwargs):
             users = user_model.objects.filter(project=project)
             items = set_items_name('user', items=users, _items=items)
             context['active_nav'] = 'project'
-            context['edit_url'] = 'project_edit'  # Delete modal
+            context['edit_url'] = 'project_edit'
             context['item'] = project
             context['items'] = items
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
-            pdf = get_query(request, 'pdf')
             context['active_nav'] = 'dropdown'
-            context['edit_url'] = 'proposal_edit'  # Delete modal
+            context['edit_url'] = 'proposal_edit'
             context['item'] = proposal
-            context['pdf'] = pdf
+        elif model_name == 'report':
+            report = get_object_or_404(model, pk=pk)
+            reports = model.objects.filter(active=True)
+            reports = reports.aggregate(
+                gross=Sum(F('gross')), net=Sum(F('net')))
+            context['active_nav'] = 'dropdown'
+            context['cost'] = report.gross - report.net
+            context['edit_url'] = 'report_edit'
+            context['item'] = report
         elif model_name == 'time':
             time_entry = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'time'
-            context['edit_url'] = 'time_edit'  # Delete modal
+            context['edit_url'] = 'time_edit'
             context['item'] = time_entry
         elif model_name == 'user':
             user = get_object_or_404(model, pk=pk)
@@ -856,6 +896,12 @@ def get_page_items(request, **kwargs):
             context['projects'] = projects
             context['times'] = times
             context['total_hours'] = get_total_hours(times)
+    context['icon_size'] = get_setting(request, app_settings_model,
+                                       'icon_size')
+    doc = get_query(request, 'doc')
+    pdf = get_query(request, 'pdf')
+    context['doc'] = doc
+    context['pdf'] = pdf
     return context
 
 

@@ -59,7 +59,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models import F, Sum
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -135,7 +134,7 @@ def client_index(request):
         Client,
         active_nav='client',
         app_settings_model=AppSettings,
-        edit_url='client_edit',  # Delete modal
+        edit_url='client_edit',
         order_by=('-active', '-updated', 'name'),
         search_fields=('address', 'name'),
         show_search=True)
@@ -167,7 +166,7 @@ def contact_index(request):
         Contact,
         active_nav='contact',
         app_settings_model=AppSettings,
-        edit_url='contact_edit',  # Delete modal
+        edit_url='contact_edit',
         order_by=('-active', 'first_name'),
         search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'),
         show_search=True)
@@ -287,7 +286,7 @@ def estimate_index(request):
         Estimate,
         active_nav='estimate',
         app_settings_model=AppSettings,
-        edit_url='estimate_edit',  # Delete modal
+        edit_url='estimate_edit',
         order_by=('-issue_date', ),
         search_fields=('subject', ),
         show_search=True)
@@ -398,7 +397,7 @@ def invoice_index(request):
         Invoice,
         active_nav='invoice',
         app_settings_model=AppSettings,
-        edit_url='invoice_edit',  # Delete modal
+        edit_url='invoice_edit',
         order_by=('-updated', ),
         search_fields=search_fields,
         show_search=True)
@@ -478,14 +477,9 @@ def newsletter_index(request, pk=None):
 
 @staff_member_required
 def note(request, pk=None):
-    context = {}
-    pdf = get_query(request, 'pdf')
-    context['pdf'] = pdf
-    note = get_object_or_404(Note, pk=pk)
-    context['active_nav'] = 'note'
-    context['edit_url'] = 'note_edit'
-    context['item'] = note
-    if pdf:
+    context = get_page_items(
+        request, app_settings_model=AppSettings, model=Note, pk=pk)
+    if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
         return generate_pdf(
@@ -518,7 +512,7 @@ def note_index(request, pk=None):
         order_by=('-active', '-updated'),
         search_fields=('note', 'title'),
         show_search=True)
-    context['edit_url'] = 'note_edit'  # Delete modal
+    context['edit_url'] = 'note_edit'
     return render(request, 'note_index.html', context)
 
 
@@ -559,7 +553,7 @@ def project_index(request, pk=None):
         columns_visible={'project': {
             'notes': 'true',
         }, },
-        edit_url='project_edit',  # Delete modal
+        edit_url='project_edit',
         order_by=(
             '-active',
             '-updated', ),
@@ -602,26 +596,15 @@ def proposal_index(request, pk=None):
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         show_search=True)
-    context['edit_url'] = 'proposal_edit'  # Delete modal
+    context['edit_url'] = 'proposal_edit'
     return render(request, 'proposal_index.html', context)
 
 
 @staff_member_required
 def report(request, pk=None):
-    company = Company.get_solo()
-    context = {}
-    pdf = get_query(request, 'pdf')
-    context['pdf'] = pdf
-    report = get_object_or_404(Report, pk=pk)
-    reports = Report.objects.filter(active=True)
-    reports = reports.aggregate(gross=Sum(F('gross')), net=Sum(F('net')))
-    context['active_nav'] = 'dropdown'
-    context['company'] = company
-    context['cost'] = report.gross - report.net
-    context['edit_url'] = 'report_edit'  # Delete modal
-    context['item'] = report
-    context['reports'] = reports
-    if pdf:
+    context = get_page_items(
+        request, model=Report, app_settings_model=AppSettings, pk=pk)
+    if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
         return generate_pdf(
@@ -648,7 +631,7 @@ def report_index(request):
         Report,
         active_nav='dropdown',
         app_settings_model=AppSettings,
-        edit_url='report_edit',  # Delete modal
+        edit_url='report_edit',
         order_by=('-updated', '-active'),
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
@@ -681,9 +664,12 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 def mail(request):
     """
     """
-    qs_contact = request.GET.get('contact')
-    if qs_contact:
-        return edit(request, form_model=MailForm, model=Contact)
+    return edit(
+        request,
+        contact_model=Contact,
+        form_model=MailForm,
+        note_model=Note,
+        page_type='edit')
 
 
 # https://stackoverflow.com/a/42038839/185820
@@ -754,7 +740,7 @@ def task(request, pk=None):
     context = {}
     task = get_object_or_404(Task, pk=pk)
     context['active_nav'] = 'task'
-    context['edit_url'] = 'task_edit'  # Delete modal
+    context['edit_url'] = 'task_edit'
     context['item'] = task
     return render(request, 'task.html', context)
 
@@ -772,7 +758,7 @@ def task_index(request):
         Task,
         active_nav='task',
         app_settings_model=AppSettings,
-        edit_url='task_edit',  # Delete modal
+        edit_url='task_edit',
         order_by=('-updated', ),
         search_fields=('name', ),
         show_search=True)
@@ -824,7 +810,7 @@ def time_index(request):
                 'estimate': 'true',
             },
         },
-        edit_url='time_edit',  # Delete modal
+        edit_url='time_edit',
         order_by=('-updated', ),
         search_fields=search_fields,
         show_search=True)
