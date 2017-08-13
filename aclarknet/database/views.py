@@ -169,7 +169,7 @@ def contact_index(request):
         app_settings_model=AppSettings,
         edit_url='contact_edit',  # Delete modal
         order_by=('-active', 'first_name'),
-        search_fields=('first_name', 'last_name', 'email', 'notes'),
+        search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'),
         show_search=True)
     return render(request, 'contact_index.html', context)
 
