@@ -162,27 +162,48 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
 
 
 def mail_compose(**kwargs):
-    request = kwargs.get('request')
     contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    contact = note = None
     pk = kwargs.get('pk')
+    request = kwargs.get('request')
     if request:
         query_contact = get_query(request, 'contact')
+        query_note = get_query(request, 'note')
         if query_contact:
             contact = get_object_or_404(contact_model, pk=query_contact)
-    elif pk:  # send_mail.py
-        contact = contact_model.objects.get(pk=pk)
+        elif query_note:
+            note = get_object_or_404(note_model, pk=query_note)
+    elif pk:  # python manage.py send_mail.py
+        if contact_model:
+            contact = contact_model.objects.get(pk=pk)
+        elif note_model:
+            note = note_model.objects.get(pk=pk)
+    if contact:
+        recipients = mail_recipients(contact=contact)
+    elif note:
+        recipients = mail_recipients(note=note)
     kwargs = {}
     message = fake.text()
     kwargs['message'] = message
     kwargs['html_message'] = mail_html(message)
     kwargs['sender'] = django_settings.EMAIL_FROM
-    kwargs['recipients'] = (contact.email, )
+    kwargs['recipients'] = recipients
     kwargs['subject'] = fake.text()
     return kwargs
 
 
 def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
     return render_to_string('cerberus-fluid.html', {'message': message, })
+
+
+def mail_recipients(**kwargs):
+    contact = kwargs.get('contact')
+    note = kwargs.get('note')
+    if contact:
+        return (contact.email, )
+    elif note:
+        return note.contacts.all()
 
 
 def mail_send(**kwargs):
@@ -993,13 +1014,19 @@ def obj_copy(obj):
 
 def obj_mail(**kwargs):
     contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
     request = kwargs.get('request')
     if contact_model:
         template_name, url_name = get_template_and_url_names(
             contact_model=contact_model, page_type='view')
+    elif note_model:
+        template_name, url_name = get_template_and_url_names(
+            note_model=note_model, page_type='view')
     query_contact = get_query(request, 'contact')
+    query_note = get_query(request, 'note')
     kwargs = {}
     kwargs['pk'] = query_contact
+    kwargs['pk'] = query_note
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
