@@ -101,7 +101,6 @@ urlpatterns = [
     url(r'^report$', views.report_index, name='report_index'),
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
-    url(r'^report_plot$', views.report_plot, name='report_plot'),
     # Send mail
     url(r'^mail$', views.mail, name='mail'),
     # Services
