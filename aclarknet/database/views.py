@@ -173,22 +173,6 @@ def contact_index(request):
     return render(request, 'contact_index.html', context)
 
 
-def contact_unsubscribe(request, pk=None):
-    contact = get_object_or_404(Contact, pk=pk)
-    uuid = request.GET.get('id')
-    if uuid == contact.uuid:
-        contact.subscribed = False
-        contact.save()
-        messages.add_message(request, messages.SUCCESS,
-                             'You have been unsubscribed!')
-        log = Log(entry='%s unsubscribed.' % contact.email)
-        log.save()
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        messages.add_message(request, messages.WARNING, 'Nothing to see here.')
-        return HttpResponseRedirect(reverse('home'))
-
-
 @staff_member_required
 def contract(request, pk=None):
     """
