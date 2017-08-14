@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.db.models import F
 from django.db.models import Sum
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -24,8 +25,14 @@ from faker import Faker
 from functools import reduce
 from import_export import widgets
 from hashlib import md5
+from io import BytesIO
 from io import StringIO
 from lxml import etree
+from matplotlib.dates import DateFormatter
+from matplotlib.dates import MonthLocator
+from matplotlib.dates import date2num
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 from operator import or_ as OR
 
 fake = Faker()
@@ -136,23 +143,23 @@ def add_user_to_contacts(request, model, pk=None):
                 user.profile.is_contact = True
                 user.save()
             return HttpResponseRedirect(reverse('contact_index'))
-        
-        
-def contact_unsubscribe(request, pk=None):
-    contact = get_object_or_404(Contact, pk=pk)
+
+
+def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
+    contact = get_object_or_404(contact_model, pk=pk)
     uuid = request.GET.get('id')
     if uuid == contact.uuid:
         contact.subscribed = False
         contact.save()
         messages.add_message(request, messages.SUCCESS,
                              'You have been unsubscribed!')
-        log = Log(entry='%s unsubscribed.' % contact.email)
+        log = log_model(entry='%s unsubscribed.' % contact.email)
         log.save()
         return HttpResponseRedirect(reverse('home'))
     else:
         messages.add_message(request, messages.WARNING, 'Nothing to see here.')
         return HttpResponseRedirect(reverse('home'))
-        
+
 
 def mail_compose(**kwargs):
     request = kwargs.get('request')
@@ -1041,6 +1048,30 @@ def paginate(items, page, page_size):
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
     return items
+
+
+def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
+    """
+    """
+    values = get_query(request, 'values')
+    # http://matplotlib.org/examples/api/date_demo.html
+    x = [
+        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in values
+    ]
+    y = [i[0] for i in values]
+    figure = Figure()
+    canvas = FigureCanvasAgg(figure)
+    axes = figure.add_subplot(1, 1, 1)
+    axes.grid(True)
+    axes.plot(x, y)
+    axes.xaxis.set_major_locator(MonthLocator())
+    axes.xaxis.set_major_formatter(DateFormatter('%m'))
+    # write image data to a string buffer and get the PNG image bytes
+    buf = BytesIO()
+    canvas.print_png(buf)
+    data = buf.getvalue()
+    # write image bytes back to the browser
+    return HttpResponse(data, content_type="image/png")
 
 
 def set_relationship(obj,
