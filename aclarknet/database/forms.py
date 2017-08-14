@@ -199,7 +199,7 @@ class NoteForm(forms.ModelForm):
         queryset=Contact.objects.filter(
             subscribed=True).exclude(email='').order_by('first_name'),
         required=False,
-        widget=forms.SelectMultiple(attrs={'size': '50'}))
+        widget=forms.SelectMultiple(attrs={'size': '5'}))
 
 
 class ProfileForm(forms.ModelForm):
