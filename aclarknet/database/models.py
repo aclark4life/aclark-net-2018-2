@@ -356,8 +356,7 @@ class Newsletter(BaseModel):
     updated = models.DateTimeField(auto_now=True)
     text = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
-    contacts = models.ManyToManyField(
-        'Contact', blank=True, limit_choices_to={'subscribed': True})
+    contacts = models.ManyToManyField('Contact', blank=True)
 
     def __str__(self):
         if self.name:
@@ -378,7 +377,7 @@ class Note(BaseModel):
     title = models.CharField(max_length=300, blank=True, null=True)
     tags = TaggableManager(blank=True, help_text='')
     note = models.TextField(blank=True, null=True)
-    contacts = models.ManyToManyField('Contact', blank=True, limit_choices_to={'active': True})
+    contacts = models.ManyToManyField('Contact', blank=True)
 
     def __str__(self):
         if self.title:
