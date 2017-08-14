@@ -172,7 +172,7 @@ class NewsletterForm(forms.ModelForm):
 
     contacts = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.filter(
-            subscribed=True).exclude(email='').order_by('first_name'),
+            subscribed=True).exclude(email=None).order_by('first_name'),
         widget=forms.SelectMultiple(attrs={'size': '50'}))
 
 
@@ -192,7 +192,7 @@ class NoteForm(forms.ModelForm):
 
     contacts = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.filter(active=True).exclude(
-            email='').order_by('first_name'),
+            email=None).order_by('first_name'),
         required=False,
         widget=forms.SelectMultiple(attrs={'size': '5'}))
 
