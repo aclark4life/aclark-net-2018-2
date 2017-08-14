@@ -71,6 +71,8 @@ urlpatterns = [
     url(r'^file$', views.file_index, name='file_index'),
     # Logs
     url(r'^log$', views.log_index, name='log_index'),
+    # Mail
+    url(r'^mail$', views.mail, name='mail'),
     # Newsletter
     url(r'^newsletter/(?P<pk>\d+)$', views.newsletter, name='newsletter'),
     url(r'^newsletter/(?P<pk>\d+)/edit$',
@@ -83,6 +85,8 @@ urlpatterns = [
     url(r'^note/(?P<pk>\d+)/edit$', views.note_edit, name='note_edit'),
     url(r'^note/add$', views.note_edit, name='note_edit'),
     url(r'^note$', views.note_index, name='note_index'),
+    # Plot
+    url(r'^plot$', views.plot, name='plot'),
     # Project
     url(r'^project/(?P<pk>\d+)$', views.project, name='project'),
     url(r'^project/(?P<pk>\d+)/edit$', views.project_edit,
@@ -101,8 +105,6 @@ urlpatterns = [
     url(r'^report$', views.report_index, name='report_index'),
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
-    # Send mail
-    url(r'^mail$', views.mail, name='mail'),
     # Services
     url(r'^service/(?P<pk>\d+)/edit$', views.service_edit,
         name='service_edit'),

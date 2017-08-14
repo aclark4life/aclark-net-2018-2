@@ -164,7 +164,6 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
 def mail_compose(**kwargs):
     request = kwargs.get('request')
     contact_model = kwargs.get('contact_model')
-    # note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     if request:
         query_contact = get_query(request, 'contact')
@@ -251,23 +250,12 @@ def edit(request, **kwargs):
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
-    task_model = kwargs.get('task_model')
-    time_model = kwargs.get('time_model')
     if pk is None:
         form = get_form(
-            request,
-            client_model=client_model,
-            company_model=company_model,
-            estimate_model=estimate_model,
-            form_model=form_model,
-            invoice_model=invoice_model,
-            model=model,
-            project_model=project_model,
-            task_model=task_model,
-            time_model=time_model)
+            form_model=form_model, invoice_model=invoice_model, model=model)
     else:
         obj = get_object_or_404(model, pk=pk)
-        form = get_form(request, form_model=form_model, obj=obj, pk=pk)
+        form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
         refer = request.META['HTTP_REFERER']
         if pk is None:
@@ -425,26 +413,47 @@ def get_fields(items):
     return items
 
 
-def get_form(request, **kwargs):
+def get_form(**kwargs):
+    """
+    Return appropriate form based on new or edit
+    """
     form_model = kwargs.get('form_model')
-    invoice_model = kwargs.get('invoice_model')
-    model = kwargs.get('model')
     obj = kwargs.get('obj')
-    if model:
+    if obj:  # Existing object
+        model_name = obj._meta.verbose_name
+        if model_name == 'note':  # Populate form with tags already set
+            form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
+        else:
+            form = form_model(instance=obj)
+    else:  # New object
+        invoice_model = kwargs.get('invoice_model')
+        model = kwargs.get('model')
         model_name = model._meta.verbose_name
         if model_name == 'report' and invoice_model:  # Populate report
             # with gross, net.
             gross, net = get_invoice_totals(invoice_model)
             obj = model(gross=gross, net=net)
             form = form_model(instance=obj)
-    elif obj:
-        model_name = obj._meta.verbose_name
-        if model_name == 'note':  # Populate form with tags already set
-            form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
         else:
-            form = form_model(instance=obj)
-    else:
-        form = form_model()
+            form = form_model()
+
+    # model = kwargs.get('model')
+    # invoice_model = kwargs.get('invoice_model')
+    # if model:
+    #     model_name = model._meta.verbose_name
+    #     if model_name == 'report' and invoice_model:
+    #         # with gross, net.
+    #         gross, net = get_invoice_totals(invoice_model)
+    #         obj = model(gross=gross, net=net)
+    #         form = form_model(instance=obj)
+    # elif obj:
+    #     model_name = obj._meta.verbose_name
+    #     if model_name == 'note':  # Populate form with tags already set
+    #         form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
+    #     else:
+    #         form = form_model(instance=obj)
+    # else:
+    #     form = form_model()
     return form
 
 
@@ -643,7 +652,6 @@ def get_template_and_url_names(**kwargs):
     """
     model = kwargs.get('model')
     contact_model = kwargs.get('contact_model')
-    # note_model = kwargs.get('note_model')
     page_type = kwargs.get('page_type')
     if model:
         model_name = model._meta.verbose_name
@@ -669,11 +677,6 @@ def get_template_and_url_names(**kwargs):
         elif page_type == 'edit':
             template_name = '%s.html' % URL_NAMES[model_name][1]
             return template_name
-    # elif note_model:  # Mail
-    #     model_name = note_model._meta.verbose_name
-    #     if page_type == 'edit':
-    #         template_name = '%s.html' % URL_NAMES[model_name][1]
-    #         return template_name
 
 
 def get_times_for_obj(obj, time_model):
@@ -995,15 +998,11 @@ def obj_copy(obj):
 
 def obj_mail(**kwargs):
     contact_model = kwargs.get('contact_model')
-    # note_model = kwargs.get('note_model')
     request = kwargs.get('request')
     if contact_model:
         template_name, url_name = get_template_and_url_names(
             contact_model=contact_model, page_type='view')
-    # elif note_modal:
-    #     model_name = note_model._meta.verbose_name
     query_contact = get_query(request, 'contact')
-    # query_note = get_query(request, 'note')
     kwargs = {}
     kwargs['pk'] = query_contact
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
