@@ -435,6 +435,8 @@ def get_form(**kwargs):
                 gross, net = get_invoice_totals(invoice_model)
                 obj = model(gross=gross, net=net)
                 form = form_model(instance=obj)
+            else:
+                form = form_model()
         else:
             form = form_model()
     return form
