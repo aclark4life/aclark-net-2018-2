@@ -425,35 +425,18 @@ def get_form(**kwargs):
             form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
         else:
             form = form_model(instance=obj)
-    else:  # New object
-        invoice_model = kwargs.get('invoice_model')
-        model = kwargs.get('model')
-        model_name = model._meta.verbose_name
-        if model_name == 'report' and invoice_model:  # Populate report
-            # with gross, net.
-            gross, net = get_invoice_totals(invoice_model)
-            obj = model(gross=gross, net=net)
-            form = form_model(instance=obj)
+    else:  # New object or mail
+        invoice_model = kwargs.get('invoice_model')  # Populate new report
+        # with gross, net.
+        if invoice_model:
+            model = kwargs.get('model')
+            model_name = model._meta.verbose_name
+            if model_name == 'report' and invoice_model:
+                gross, net = get_invoice_totals(invoice_model)
+                obj = model(gross=gross, net=net)
+                form = form_model(instance=obj)
         else:
             form = form_model()
-
-    # model = kwargs.get('model')
-    # invoice_model = kwargs.get('invoice_model')
-    # if model:
-    #     model_name = model._meta.verbose_name
-    #     if model_name == 'report' and invoice_model:
-    #         # with gross, net.
-    #         gross, net = get_invoice_totals(invoice_model)
-    #         obj = model(gross=gross, net=net)
-    #         form = form_model(instance=obj)
-    # elif obj:
-    #     model_name = obj._meta.verbose_name
-    #     if model_name == 'note':  # Populate form with tags already set
-    #         form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
-    #     else:
-    #         form = form_model(instance=obj)
-    # else:
-    #     form = form_model()
     return form
 
 
