@@ -636,14 +636,14 @@ def get_template_and_url_names(**kwargs):
             return url_name
     elif contact_model:  # Mail
         model_name = contact_model._meta.verbose_name
-        if page_type == 'edit':
+        if page_type == 'view':
             template_name = '%s.html' % URL_NAMES[model_name][1]
             return template_name
-    elif note_model:  # Mail
-        model_name = note_model._meta.verbose_name
-        if page_type == 'edit':
-            template_name = '%s.html' % URL_NAMES[model_name][1]
-            return template_name
+    # elif note_model:  # Mail
+    #     model_name = note_model._meta.verbose_name
+    #     if page_type == 'edit':
+    #         template_name = '%s.html' % URL_NAMES[model_name][1]
+    #         return template_name
 
 
 def get_times_for_obj(obj, time_model):
