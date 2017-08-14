@@ -179,13 +179,8 @@ class NewsletterForm(forms.ModelForm):
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = (
-            'active',
-            'hidden',
-            'title',
-            'tags',
-            'note',
-            'due_date', )
+        fields = ('active', 'hidden', 'title', 'tags', 'note', 'due_date',
+                  'contacts')
         widgets = {
             'note': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
@@ -196,8 +191,7 @@ class NoteForm(forms.ModelForm):
         widget=forms.SelectMultiple(attrs={'size': '5'}))
 
     contacts = forms.ModelMultipleChoiceField(
-        queryset=Contact.objects.filter(
-            subscribed=True).exclude(email='').order_by('first_name'),
+        queryset=Contact.objects.exclude(email='').order_by('first_name'),
         required=False,
         widget=forms.SelectMultiple(attrs={'size': '5'}))
 
