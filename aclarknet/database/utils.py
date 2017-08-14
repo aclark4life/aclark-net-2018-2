@@ -658,6 +658,7 @@ def get_template_and_url_names(**kwargs):
     """
     model = kwargs.get('model')
     contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
     page_type = kwargs.get('page_type')
     if model:
         model_name = model._meta.verbose_name
@@ -676,6 +677,15 @@ def get_template_and_url_names(**kwargs):
             return url_name
     elif contact_model:  # Mail
         model_name = contact_model._meta.verbose_name
+        if page_type == 'view':
+            url_name = URL_NAMES[model_name][0]
+            template_name = '%s.html' % url_name
+            return template_name, url_name
+        elif page_type == 'edit':
+            template_name = '%s.html' % URL_NAMES[model_name][1]
+            return template_name
+    elif note_model:  # Mail
+        model_name = note_model._meta.verbose_name
         if page_type == 'view':
             url_name = URL_NAMES[model_name][0]
             template_name = '%s.html' % url_name
