@@ -559,6 +559,7 @@ def proposal(request, pk=None):
         return render(request, 'proposal.html', context)
 
 
+@staff_member_required
 def proposal_edit(request, pk=None):
     """
     """
