@@ -161,28 +161,8 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
         return HttpResponseRedirect(reverse('home'))
 
 
-def mail_compose(**kwargs):
-    contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
-    contact = note = None
-    pk = kwargs.get('pk')
-    request = kwargs.get('request')
-    if request:
-        query_contact = get_query(request, 'contact')
-        query_note = get_query(request, 'note')
-        if query_contact:
-            contact = get_object_or_404(contact_model, pk=query_contact)
-        elif query_note:
-            note = get_object_or_404(note_model, pk=query_note)
-    elif pk:  # python manage.py send_mail.py
-        if contact_model:
-            contact = contact_model.objects.get(pk=pk)
-        elif note_model:
-            note = note_model.objects.get(pk=pk)
-    if contact:
-        recipients = mail_recipients(contact=contact)
-    elif note:
-        recipients = mail_recipients(note=note)
+def mail_compose(obj):
+    recipients = mail_recipients(obj)
     kwargs = {}
     message = fake.text()
     kwargs['message'] = message
@@ -197,13 +177,24 @@ def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
     return render_to_string('cerberus-fluid.html', {'message': message, })
 
 
-def mail_recipients(**kwargs):
-    contact = kwargs.get('contact')
-    note = kwargs.get('note')
-    if contact:
-        return (contact.email, )
-    elif note:
-        return note.contacts.all()
+def mail_obj(request, **kwargs):
+    query_contact = get_query(request, 'contact')
+    query_note = get_query(request, 'note')
+    contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    if contact_model and query_contact:
+        obj = contact_model.objects.get(pk=query_contact)
+    elif note_model and query_note:
+        obj = note_model.objects.get(pk=query_note)
+    return obj
+
+
+def mail_recipients(obj):
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
+        return (obj.email, )
+    elif model_name == 'note':
+        return obj.contacts.all()
 
 
 def mail_send(**kwargs):
@@ -308,21 +299,16 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                if mail_send(
-                        **mail_compose(
-                            model=model,
-                            request=request,
-                            contact_model=contact_model,
-                            note_model=note_model)):
+                obj = mail_obj(
+                    request,
+                    contact_model=contact_model,
+                    note_model=note_model)
+                if mail_send(**mail_compose(obj)):
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent!')
                 else:
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail not sent!')
-                return obj_mail(
-                    contact_model=contact_model,
-                    request=request,
-                    note_model=note_model)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -334,11 +320,14 @@ def edit(request, **kwargs):
         gross, net = get_invoice_totals(invoice_model)
         context['gross'] = gross
         context['net'] = net
+    if model:
+        model_name = model._meta.verbose_name
+    elif contact_model:
+        model_name = contact_model._meta.verbose_name
+    elif note_model:
+        model_name = note_model._meta.verbose_name
     template_name = get_template_and_url_names(
-        model=model,
-        contact_model=contact_model,
-        note_model=note_model,
-        page_type='edit')
+        model_name=model_name, page_type='edit')
     return render(request, template_name, context)
 
 
@@ -656,43 +645,21 @@ def get_setting(request, app_settings_model, setting, page_size=None):
 def get_template_and_url_names(**kwargs):
     """
     """
-    model = kwargs.get('model')
-    contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
+    model_name = kwargs.get('model_name')
     page_type = kwargs.get('page_type')
-    if model:
-        model_name = model._meta.verbose_name
-        if page_type == 'view':
-            url_name = URL_NAMES[model_name][0]
-            template_name = '%s.html' % url_name
-            return template_name, url_name
-        elif page_type == 'edit':
-            template_name = '%s.html' % URL_NAMES[model_name][1]
-            return template_name
-        elif page_type == 'home':
-            url_name = 'home'
-            return url_name
-        elif page_type == 'index':
-            url_name = URL_NAMES[model_name][2]
-            return url_name
-    elif contact_model:  # Mail
-        model_name = contact_model._meta.verbose_name
-        if page_type == 'view':
-            url_name = URL_NAMES[model_name][0]
-            template_name = '%s.html' % url_name
-            return template_name, url_name
-        elif page_type == 'edit':
-            template_name = '%s.html' % URL_NAMES[model_name][1]
-            return template_name
-    elif note_model:  # Mail
-        model_name = note_model._meta.verbose_name
-        if page_type == 'view':
-            url_name = URL_NAMES[model_name][0]
-            template_name = '%s.html' % url_name
-            return template_name, url_name
-        elif page_type == 'edit':
-            template_name = '%s.html' % URL_NAMES[model_name][1]
-            return template_name
+    if page_type == 'view':
+        url_name = URL_NAMES[model_name][0]
+        template_name = '%s.html' % url_name
+        return template_name, url_name
+    elif page_type == 'edit':
+        template_name = '%s.html' % URL_NAMES[model_name][1]
+        return template_name
+    elif page_type == 'home':
+        url_name = 'home'
+        return url_name
+    elif page_type == 'index':
+        url_name = URL_NAMES[model_name][2]
+        return url_name
 
 
 def get_times_for_obj(obj, time_model):
@@ -1017,28 +984,9 @@ def obj_copy(obj):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
+    model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        model=obj, page_type='edit')
-    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-
-
-def obj_mail(**kwargs):
-    contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
-    request = kwargs.get('request')
-    if contact_model:
-        template_name, url_name = get_template_and_url_names(
-            contact_model=contact_model, page_type='view')
-    elif note_model:
-        template_name, url_name = get_template_and_url_names(
-            note_model=note_model, page_type='view')
-    query_contact = get_query(request, 'contact')
-    query_note = get_query(request, 'note')
-    kwargs = {}
-    if query_contact:
-        kwargs['pk'] = query_contact
-    elif query_note:
-        kwargs['pk'] = query_note
+        model_name=model_name, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
