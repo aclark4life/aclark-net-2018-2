@@ -267,7 +267,7 @@ def edit(request, **kwargs):
             time_model=time_model)
     else:
         obj = get_object_or_404(model, pk=pk)
-        form = get_form(request, model=model, pk=pk)
+        form = get_form(request, form_model=form_model, obj=obj, pk=pk)
     if request.method == 'POST':
         refer = request.META['HTTP_REFERER']
         if pk is None:
@@ -429,6 +429,7 @@ def get_form(request, **kwargs):
     form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
+    obj = kwargs.get('obj')
     if model:
         model_name = model._meta.verbose_name
         if model_name == 'report' and invoice_model:  # Populate report
@@ -436,7 +437,9 @@ def get_form(request, **kwargs):
             gross, net = get_invoice_totals(invoice_model)
             obj = model(gross=gross, net=net)
             form = form_model(instance=obj)
-        elif model_name == 'note':  # Populate form with tags already set
+    elif obj:
+        model_name = obj._meta.verbose_name
+        if model_name == 'note':  # Populate form with tags already set
             form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
         else:
             form = form_model(instance=obj)
