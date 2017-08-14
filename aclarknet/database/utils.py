@@ -1035,8 +1035,10 @@ def obj_mail(**kwargs):
     query_contact = get_query(request, 'contact')
     query_note = get_query(request, 'note')
     kwargs = {}
-    kwargs['pk'] = query_contact
-    kwargs['pk'] = query_note
+    if query_contact:
+        kwargs['pk'] = query_contact
+    elif query_note:
+        kwargs['pk'] = query_note
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
