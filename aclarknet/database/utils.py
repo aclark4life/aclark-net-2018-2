@@ -637,8 +637,9 @@ def get_template_and_url_names(**kwargs):
     elif contact_model:  # Mail
         model_name = contact_model._meta.verbose_name
         if page_type == 'view':
-            template_name = '%s.html' % URL_NAMES[model_name][0]
-            return template_name
+            url_name = URL_NAMES[model_name][0]
+            template_name = '%s.html' % url_name
+            return template_name, url_name
         elif page_type == 'edit':
             template_name = '%s.html' % URL_NAMES[model_name][1]
             return template_name
