@@ -138,7 +138,11 @@ def add_user_to_contacts(request, model, pk=None):
             return HttpResponseRedirect(reverse('contact_index'))
 
 
-def mail_compose(contact_model, pk=None, request=None):
+def mail_compose(**kwargs):
+    request = kwargs.get('request')
+    contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    pk = kwargs.get('pk')
     if request:
         query_contact = get_query(request, 'contact')
         if query_contact:
@@ -272,13 +276,21 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                if mail_send(**mail_compose(model, request=request)):
+                if mail_send(
+                        **mail_compose(
+                            model=model,
+                            request=request,
+                            contact_model=contact_model,
+                            note_model=note_model)):
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent!')
                 else:
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail not sent!')
-                return obj_mail(model, request)
+                return obj_mail(
+                    contact_model=contact_model,
+                    request=request,
+                    note_model=note_model)
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
@@ -952,11 +964,18 @@ def obj_copy(obj):
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
-def obj_mail(model, request):
+def obj_mail(**kwargs):
+    contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    request = kwargs.get('request')
+    if contact_model:
+        model_name = contact_model._meta.verbose_name
+    elif note_modal:
+        model_name = note_model._meta.verbose_name
     query_contact = get_query(request, 'contact')
+    query_note = get_query(request, 'note')
     kwargs = {}
     kwargs['pk'] = query_contact
-    model_name = model._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
         model_name, page_type='view')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
