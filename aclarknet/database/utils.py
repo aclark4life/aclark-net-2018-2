@@ -141,7 +141,7 @@ def add_user_to_contacts(request, model, pk=None):
 def mail_compose(**kwargs):
     request = kwargs.get('request')
     contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
+    # note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     if request:
         query_contact = get_query(request, 'contact')
@@ -958,26 +958,24 @@ def obj_copy(obj):
     dup.save()
     kwargs = {}
     kwargs['pk'] = dup.pk
-    model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        model_name, page_type='edit')
+        model=obj, page_type='edit')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_mail(**kwargs):
     contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
+    # note_model = kwargs.get('note_model')
     request = kwargs.get('request')
     if contact_model:
-        model_name = contact_model._meta.verbose_name
-    elif note_modal:
-        model_name = note_model._meta.verbose_name
+        template_name, url_name = get_template_and_url_names(
+            contact_model=contact_model, page_type='view')
+    # elif note_modal:
+    #     model_name = note_model._meta.verbose_name
     query_contact = get_query(request, 'contact')
-    query_note = get_query(request, 'note')
+    # query_note = get_query(request, 'note')
     kwargs = {}
     kwargs['pk'] = query_contact
-    template_name, url_name = get_template_and_url_names(
-        model_name, page_type='view')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
@@ -985,10 +983,10 @@ def obj_remove(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'time':
         url_name = get_template_and_url_names(
-            model_name, page_type='home')  # Redir to home
+            model=obj, page_type='home')  # Redir to home
     else:
         url_name = get_template_and_url_names(
-            model_name, page_type='index')  # Redir to index
+            model=obj, page_type='index')  # Redir to index
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
@@ -996,7 +994,7 @@ def obj_remove(obj):
 def obj_edit(obj, pk=None):
     model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        model_name, page_type='view')  # Redir to view
+        model=obj, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
     if pk:  # Special cases for settings
