@@ -59,7 +59,6 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
@@ -417,12 +416,8 @@ def log_index(request):
 def newsletter(request, pk=None):
     """
     """
-    context = {}
-    newsletter = get_object_or_404(Newsletter, pk=pk)
-    context['active_nav'] = 'dropdown'
-    context['contacts'] = newsletter.contacts.all()
-    context['edit_url'] = 'newsletter_edit'
-    context['item'] = newsletter
+    context = get_page_items(
+        request, app_settings_model=AppSettings, model=Newsletter, pk=pk)
     return render(request, 'newsletter.html', context)
 
 

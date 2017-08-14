@@ -16,13 +16,13 @@
                     </div>
                   </div>
                   <div class="offset-md-1 col-md-3">
-                    <div class="dropdown">
-                      <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                    <div class="dropdown pull-right">
+                      <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle fa-{{ icon_size }}"></i> Copy</a></li>
                         <li><a class="dropdown-item" href="{% url 'newsletter_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                         <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                        <li><a class="dropdown-item" href="{% url 'newsletter_send' pk=item.pk %}"><i class="fa fa-send-o"></i> Send</a></li>
+                        <li><a class="dropdown-item" href="{% url 'mail' %}?newsletter=item.pk"><i class="fa fa-send-o"></i> Send Mail</a></li>
                       </ul>
                     </div>
                   </div>

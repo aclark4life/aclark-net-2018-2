@@ -850,6 +850,11 @@ def get_page_items(request, **kwargs):
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
+        elif model_name == 'newsletter':
+            newsletter = get_object_or_404(model, pk=pk)
+            context['edit_url'] = 'newsletter_edit'
+            context['active_nav'] = 'newsletter'
+            context['item'] = newsletter
         elif model_name == 'note':
             note = get_object_or_404(model, pk=pk)
             context['edit_url'] = 'note_edit'
