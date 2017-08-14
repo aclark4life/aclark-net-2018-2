@@ -412,6 +412,18 @@ def log_index(request):
     return render(request, 'log_index.html', context)
 
 
+@staff_member_required(login_url='login')
+def mail(request):
+    """
+    """
+    return edit(
+        request,
+        contact_model=Contact,
+        form_model=MailForm,
+        note_model=Note,
+        page_type='edit')
+
+
 @staff_member_required
 def newsletter(request, pk=None):
     """
@@ -609,18 +621,6 @@ def report_index(request):
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
     return render(request, 'report_index.html', context)
-
-
-@staff_member_required(login_url='login')
-def mail(request):
-    """
-    """
-    return edit(
-        request,
-        contact_model=Contact,
-        form_model=MailForm,
-        note_model=Note,
-        page_type='edit')
 
 
 # https://stackoverflow.com/a/42038839/185820
