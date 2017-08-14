@@ -12,5 +12,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         contact_id = options.get('contact_id')[0]
-        mail_send(**mail_compose(Contact, pk=contact_id))
-        self.stdout.write(self.style.SUCCESS('Mail sent!'))
+        obj = Contact.objects.get(pk=contact_id)
+        if mail_send(**mail_compose(obj)):
+            self.stdout.write(self.style.SUCCESS('Mail sent!'))
+        else:
+            self.stdout.write(self.style.SUCCESS('Mail not sent!'))
