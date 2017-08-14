@@ -888,6 +888,11 @@ def get_page_items(request, **kwargs):
             context['cost'] = report.gross - report.net
             context['edit_url'] = 'report_edit'
             context['item'] = report
+        elif model_name == 'task':
+            task = get_object_or_404(model, pk=pk)
+            context['edit_url'] = 'task_edit'
+            context['active_nav'] = 'task'
+            context['item'] = task
         elif model_name == 'time':
             time_entry = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'time'

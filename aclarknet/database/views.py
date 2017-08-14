@@ -693,11 +693,8 @@ def settings_contract_edit(request, pk=None):
 
 @staff_member_required
 def task(request, pk=None):
-    context = {}
-    task = get_object_or_404(Task, pk=pk)
-    context['active_nav'] = 'task'
-    context['edit_url'] = 'task_edit'
-    context['item'] = task
+    context = get_page_items(
+        request, model=Task, app_settings_model=AppSettings, pk=pk)
     return render(request, 'task.html', context)
 
 
