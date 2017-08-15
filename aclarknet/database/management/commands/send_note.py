@@ -14,7 +14,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         note_id = options.get('note_id')[0]
         obj = Note.objects.get(pk=note_id)
-        if mail_send(**mail_compose(obj)):
+        recipients, status = mail_send(**mail_compose(obj))
+        if status:
             self.stdout.write(self.style.SUCCESS('Mail sent!'))
         else:
             self.stdout.write(self.style.SUCCESS('Mail not sent!'))
