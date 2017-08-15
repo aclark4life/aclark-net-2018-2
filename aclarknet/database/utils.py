@@ -1005,7 +1005,7 @@ def obj_remove(obj):
 def obj_edit(obj, pk=None):
     model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url_names(
-        model=obj, page_type='view')  # Redir to view
+        model_name=model_name, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
     if pk:  # Special cases for settings
