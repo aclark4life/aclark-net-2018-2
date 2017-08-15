@@ -1005,10 +1005,10 @@ def obj_remove(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'time':
         url_name = get_template_and_url_names(
-            model=obj, page_type='home')  # Redir to home
+            model_name=model_name, page_type='home')  # Redir to home
     else:
         url_name = get_template_and_url_names(
-            model=obj, page_type='index')  # Redir to index
+            model_name=model_name, page_type='index')  # Redir to index
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
