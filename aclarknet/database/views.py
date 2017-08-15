@@ -308,10 +308,15 @@ def home(request):
         request,
         app_settings_model=AppSettings,
         company_model=Company,
-        columns_visible={'note': {
-            'due': 'false',
-            'hidden': 'false'
-        }, },
+        columns_visible={
+            'note': {
+                'due': 'false',
+                'hidden': 'false'
+            },
+            'invoice': {
+                'paid': 'false',
+            },
+        },
         invoice_model=Invoice,
         note_model=Note,
         order_by={
