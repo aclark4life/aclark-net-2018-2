@@ -161,7 +161,7 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
         return HttpResponseRedirect(reverse('home'))
 
 
-def mail_compose(form, obj):
+def mail_compose(form, obj, request):
     recipients = mail_recipients(obj)
     kwargs = {}
     if 'test' in form.data:
@@ -174,6 +174,7 @@ def mail_compose(form, obj):
     kwargs['html_message'] = mail_html(message)
     kwargs['sender'] = django_settings.EMAIL_FROM
     kwargs['recipients'] = recipients
+    kwargs['request'] = request
     kwargs['subject'] = subject
     return kwargs
 
@@ -206,18 +207,23 @@ def mail_send(**kwargs):
     fail_silently = kwargs.get('fail_silently')
     html_message = kwargs.get('html_message')
     message = kwargs.get('message')
+    recipients = kwargs.get('recipients')
+    request = kwargs.get('request')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
     try:
         send_mail(
             subject,
             message,
-            sender, (sender, ),
+            sender,
+            recipients,
             fail_silently=fail_silently,
             html_message=html_message)
-        return True
+        messages.add_message(request, messages.SUCCESS, 'Mail sent to %s!' %
+                             ', '.join(recipients))
     except BotoServerError:
-        return False
+        messages.add_message(request, messages.SUCCESS, 'Mail not sent to %s!'
+                             % ', '.join(recipients))
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -308,12 +314,7 @@ def edit(request, **kwargs):
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                if mail_send(**mail_compose(form, obj)):
-                    messages.add_message(request, messages.SUCCESS,
-                                         'Mail sent!')
-                else:
-                    messages.add_message(request, messages.SUCCESS,
-                                         'Mail not sent!')
+                mail_send(**mail_compose(form, obj, request))
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
