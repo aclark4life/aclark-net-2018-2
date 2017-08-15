@@ -148,6 +148,7 @@ def contact_edit(request, pk=None):
         model=Contact,
         active_nav='contact',
         client_model=Client,
+        user_model=User,
         pk=pk)
 
 

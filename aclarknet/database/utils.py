@@ -285,10 +285,15 @@ def edit(request, **kwargs):
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
-    if pk is None:
+    user_model = kwargs.get('user_model')
+    if pk is None:  # New
         form = get_form(
-            form_model=form_model, invoice_model=invoice_model, model=model)
-    else:
+            form_model=form_model,
+            invoice_model=invoice_model,
+            model=model,
+            user_model=user_model,
+            request=request)
+    else:  # Existing
         obj = get_object_or_404(model, pk=pk)
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
@@ -457,7 +462,11 @@ def get_form(**kwargs):
     """
     form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
+    model = kwargs.get('model')
     obj = kwargs.get('obj')
+    request = kwargs.get('request')
+    user_model = kwargs.get('user_model')
+    query_user = get_query(request, 'user')
     if obj:  # Existing object
         model_name = obj._meta.verbose_name
         if model_name == 'note':  # Populate form with tags already set
@@ -465,12 +474,17 @@ def get_form(**kwargs):
         else:
             form = form_model(instance=obj)
     else:  # New object or mail
-        if invoice_model:  # Populate new report with gross, net.
-            model = kwargs.get('model')
+        if model:
             model_name = model._meta.verbose_name
-            if model_name == 'report' and invoice_model:
+            if model_name == 'report' and invoice_model:  # Populate new report
+                # with gross, net.
                 gross, net = get_invoice_totals(invoice_model)
                 obj = model(gross=gross, net=net)
+                form = form_model(instance=obj)
+            elif model_name == 'contact':  # Populate new contact
+                # with user fields
+                user = get_object_or_404(user_model, pk=query_user)
+                obj = model(email=user.email)
                 form = form_model(instance=obj)
             else:
                 form = form_model()

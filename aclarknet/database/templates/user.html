@@ -9,12 +9,11 @@
                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'user_edit' item.pk %}"><i class="fa fa-cog"></i> Edit Profile</a></li>
-                      {% if request.user.is_staff %}<li data-toggle="tooltip" title="Add {{ item.get_full_name }} to Contacts"><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-contact-modal-sm"><i class="fa fa-plus-circle"></i> Add to Contacts</a></li>{% endif %}
+                      {% if request.user.is_staff %}<li data-toggle="tooltip" title="Add {{ item.get_full_name }} to Contacts"><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Contacts</a></li>{% endif %}
                     </ul>
                   </div>
                 </div>
               </div>
-{% include 'contact_form.html' %}
 {% if request.user.is_staff %}
 {% include 'table_items.html' %}
 {% else %}
