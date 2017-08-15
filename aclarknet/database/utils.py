@@ -162,7 +162,7 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
 
 
 def mail_compose(form, obj, request):
-    kwargs = {}
+    context = {}
     model_name = obj._meta.verbose_name
     recipients = mail_recipients(obj)
     if model_name == 'contact':
@@ -181,13 +181,13 @@ def mail_compose(form, obj, request):
         message = 'test'
         context = {}
         context['items'] = items
-    kwargs['message'] = message
-    kwargs['html_message'] = mail_html(template, context)
-    kwargs['sender'] = django_settings.EMAIL_FROM
-    kwargs['recipients'] = recipients
-    kwargs['request'] = request
-    kwargs['subject'] = subject
-    return kwargs
+    context['message'] = message
+    context['html_message'] = mail_html(template, context)
+    context['sender'] = django_settings.EMAIL_FROM
+    context['recipients'] = recipients
+    context['request'] = request
+    context['subject'] = subject
+    return context
 
 
 def mail_html(template, context):  # http://stackoverflow.com/a/28476681/185820
