@@ -161,8 +161,10 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
         return HttpResponseRedirect(reverse('home'))
 
 
-def mail_compose(form, obj, request):
+def mail_compose(obj, **kwargs):
     context = {}
+    form = kwargs.get('form')
+    request = kwargs.get('request')
     model_name = obj._meta.verbose_name
     recipients = mail_recipients(obj)
     if model_name == 'contact':
@@ -219,7 +221,6 @@ def mail_send(**kwargs):
     html_message = kwargs.get('html_message')
     message = kwargs.get('message')
     recipients = kwargs.get('recipients')
-    request = kwargs.get('request')
     sender = kwargs.get('sender')
     subject = kwargs.get('subject')
     try:
@@ -230,11 +231,9 @@ def mail_send(**kwargs):
             recipients,
             fail_silently=fail_silently,
             html_message=html_message)
-        messages.add_message(request, messages.SUCCESS,
-                             'Mail sent to %s!' % ', '.join(recipients))
+        return recipients
     except BotoServerError:
-        messages.add_message(request, messages.SUCCESS,
-                             'Mail not sent to %s!' % ', '.join(recipients))
+        return False
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -325,7 +324,17 @@ def edit(request, **kwargs):
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                mail_send(**mail_compose(form, obj, request))
+                recipients = mail_send(
+                    **mail_compose(
+                        obj, form=form, request=request))
+                if recipients:
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Mail sent to %s!' %
+                                         ', '.join(recipients))
+                else:
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Mail not sent to %s!' %
+                                         ', '.join(recipients))
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
