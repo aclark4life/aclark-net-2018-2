@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from aclarknet.database.models import Contact
+from aclarknet.database.models import Note
 from aclarknet.database.utils import mail_compose
 from aclarknet.database.utils import mail_send
 
