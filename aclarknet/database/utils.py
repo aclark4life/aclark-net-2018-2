@@ -161,10 +161,10 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
         return HttpResponseRedirect(reverse('home'))
 
 
-def mail_compose(form, obj, test=False):
+def mail_compose(form, obj):
     recipients = mail_recipients(obj)
     kwargs = {}
-    if test:
+    if 'test' in form.data:
         message = fake.text()
         subject = fake.text()
     else:
@@ -185,14 +185,13 @@ def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
 def mail_obj(request, **kwargs):
     query_contact = get_query(request, 'contact')
     query_note = get_query(request, 'note')
-    query_test = get_query(request, 'test')
     contact_model = kwargs.get('contact_model')
     note_model = kwargs.get('note_model')
     if contact_model and query_contact:
         obj = contact_model.objects.get(pk=query_contact)
     elif note_model and query_note:
         obj = note_model.objects.get(pk=query_note)
-    return obj, query_test
+    return obj
 
 
 def mail_recipients(obj):
@@ -305,11 +304,11 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                obj, test = mail_obj(
+                obj = mail_obj(
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                if mail_send(**mail_compose(form, obj, test=test)):
+                if mail_send(**mail_compose(form, obj)):
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent!')
                 else:
