@@ -200,7 +200,7 @@ def mail_recipients(obj):
     if model_name == 'contact':
         return (obj.email, )
     elif model_name == 'note':
-        return obj.contacts.all()
+        return [i.email for i in obj.contacts.all()]
 
 
 def mail_send(**kwargs):
@@ -219,11 +219,11 @@ def mail_send(**kwargs):
             recipients,
             fail_silently=fail_silently,
             html_message=html_message)
-        messages.add_message(request, messages.SUCCESS, 'Mail sent to %s!' %
-                             ', '.join(recipients))
+        messages.add_message(request, messages.SUCCESS,
+                             'Mail sent to %s!' % ', '.join(recipients))
     except BotoServerError:
-        messages.add_message(request, messages.SUCCESS, 'Mail not sent to %s!'
-                             % ', '.join(recipients))
+        messages.add_message(request, messages.SUCCESS,
+                             'Mail not sent to %s!' % ', '.join(recipients))
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
