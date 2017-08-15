@@ -6,7 +6,7 @@
           <tbody>
           {% for item in items %}
             {% for key, value in item.fields.items %}
-            <tr><td><strong>{{ key }}</strong></td><td>{{ value|default:'' }} </td></tr>
+            <tr><td><strong>{{ key }}</strong></td><td>{{ value|safe|default:'' }} </td></tr>
             {% endfor %}
           {% endfor %}
           </tbody>
