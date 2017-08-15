@@ -37,26 +37,6 @@ from operator import or_ as OR
 
 fake = Faker()
 
-ITEMS_NAME = {
-    'client': 'clients',
-    'contact': 'contacts',
-    'contract': 'contracts',
-    'estimate': 'estimates',
-    'file': 'files',
-    'invoice': 'invoices',
-    'log': 'logs',
-    'newsletter': 'newsletters',
-    'note': 'notes',
-    'profile': 'profiles',
-    'project': 'projects',
-    'proposal': 'proposals',
-    'report': 'reports',
-    'service': 'services',
-    'task': 'tasks',
-    'time': 'times',
-    'user': 'users',
-}
-
 URL_NAMES = {
     'app settings': ('settings_app', 'settings_app_edit', ''),
     'client': ('client', 'client_edit', 'client_index'),
@@ -743,7 +723,7 @@ def set_items_name(model_name, items=None, _items={}):
     instead of:
         for item in reports
     """
-    _items[ITEMS_NAME[model_name]] = items
+    _items['%ss' % model_name] = items
     return _items
 
 
