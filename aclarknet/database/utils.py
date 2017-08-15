@@ -180,7 +180,7 @@ def mail_compose(obj, **kwargs):
         items = get_fields([obj, ])
         subject = obj.title
         template = 'table_items.html'
-        message = 'test'
+        message = obj.title
         context = {}
         context['items'] = items
     context['message'] = message
