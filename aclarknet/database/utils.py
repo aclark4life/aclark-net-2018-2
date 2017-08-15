@@ -231,9 +231,11 @@ def mail_send(**kwargs):
             recipients,
             fail_silently=fail_silently,
             html_message=html_message)
-        return recipients
+        status = True
+        return recipients, status
     except BotoServerError:
-        return False
+        status = False
+        return recipients, status
 
 
 def set_check_boxes(obj, cb_query, refer, app_settings_model):
@@ -324,10 +326,10 @@ def edit(request, **kwargs):
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                recipients = mail_send(
+                recipients, status = mail_send(
                     **mail_compose(
                         obj, form=form, request=request))
-                if recipients:
+                if status:
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent to %s!' %
                                          ', '.join(recipients))
