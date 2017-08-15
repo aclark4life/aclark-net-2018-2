@@ -164,16 +164,13 @@ def mail_compose(obj, **kwargs):
         context = {}
         context['items'] = items
     context['message'] = message
-    context['html_message'] = mail_html(template, context)
+    # http://stackoverflow.com/a/28476681/185820
+    context['html_message'] = render_to_string(template, context)
     context['sender'] = django_settings.EMAIL_FROM
     context['recipients'] = recipients
     context['request'] = request
     context['subject'] = subject
     return context
-
-
-def mail_html(template, context):  # http://stackoverflow.com/a/28476681/185820
-    return render_to_string(template, context)
 
 
 def mail_obj(request, **kwargs):
