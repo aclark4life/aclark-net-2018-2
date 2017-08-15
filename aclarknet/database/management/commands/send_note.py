@@ -1,19 +1,19 @@
-from django.core.management.base import BaseCommand, CommandError
-from aclarknet.database.models import Contact
+from django.core.management.base import BaseCommand
+from django.core.management.base import CommandError
 from aclarknet.database.models import Note
 from aclarknet.database.utils import mail_compose
 from aclarknet.database.utils import mail_send
 
 
 class Command(BaseCommand):
-    help = 'Sends mail'
+    help = 'Send note'
 
     def add_arguments(self, parser):
-        parser.add_argument('contact_id', nargs='+', type=int)
+        parser.add_argument('note_id', nargs='+', type=int)
 
     def handle(self, *args, **options):
-        contact_id = options.get('contact_id')[0]
-        obj = Contact.objects.get(pk=contact_id)
+        note_id = options.get('note_id')[0]
+        obj = Note.objects.get(pk=note_id)
         if mail_send(**mail_compose(obj)):
             self.stdout.write(self.style.SUCCESS('Mail sent!'))
         else:
