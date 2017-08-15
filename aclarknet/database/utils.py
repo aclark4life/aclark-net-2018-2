@@ -583,6 +583,12 @@ def get_query(request, query):
             return True
         else:
             return False
+    elif query == 'test':
+        test = request.GET.get('test')
+        if test:
+            return True
+        else:
+            return False
     else:  # Normal handling
         return request.GET.get(query, '')
 
