@@ -456,6 +456,7 @@ def get_form(**kwargs):
     Return appropriate form based on new or edit
     """
     form_model = kwargs.get('form_model')
+    invoice_model = kwargs.get('invoice_model')
     obj = kwargs.get('obj')
     if obj:  # Existing object
         model_name = obj._meta.verbose_name
@@ -464,9 +465,7 @@ def get_form(**kwargs):
         else:
             form = form_model(instance=obj)
     else:  # New object or mail
-        invoice_model = kwargs.get('invoice_model')  # Populate new report
-        # with gross, net.
-        if invoice_model:
+        if invoice_model:  # Populate new report with gross, net.
             model = kwargs.get('model')
             model_name = model._meta.verbose_name
             if model_name == 'report' and invoice_model:
