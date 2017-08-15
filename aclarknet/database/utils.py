@@ -466,7 +466,8 @@ def get_form(**kwargs):
     obj = kwargs.get('obj')
     request = kwargs.get('request')
     user_model = kwargs.get('user_model')
-    query_user = get_query(request, 'user')
+    if request:
+        query_user = get_query(request, 'user')
     if obj:  # Existing object
         model_name = obj._meta.verbose_name
         if model_name == 'note':  # Populate form with tags already set
