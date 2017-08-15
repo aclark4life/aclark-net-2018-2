@@ -175,8 +175,9 @@ def mail_compose(form, obj, request):
     elif model_name == 'note':
         message = get_fields([obj, ])[0].fields
         subject = obj.title
+    fields = {'message': message, }
     kwargs['message'] = message
-    kwargs['html_message'] = mail_html(message)
+    kwargs['html_message'] = mail_html(fields, 'cerberus-fluid.html')
     kwargs['sender'] = django_settings.EMAIL_FROM
     kwargs['recipients'] = recipients
     kwargs['request'] = request
@@ -184,8 +185,8 @@ def mail_compose(form, obj, request):
     return kwargs
 
 
-def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
-    return render_to_string('cerberus-fluid.html', {'message': message, })
+def mail_html(fields, template):  # http://stackoverflow.com/a/28476681/185820
+    return render_to_string(template, fields)
 
 
 def mail_obj(request, **kwargs):
