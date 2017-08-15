@@ -161,15 +161,20 @@ def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
         return HttpResponseRedirect(reverse('home'))
 
 
-def mail_compose(obj):
+def mail_compose(form, obj, test=False):
     recipients = mail_recipients(obj)
     kwargs = {}
-    message = fake.text()
+    if test:
+        message = fake.text()
+        subject = fake.text()
+    else:
+        message = form.cleaned_data['message']
+        subject = form.cleaned_data['subject']
     kwargs['message'] = message
     kwargs['html_message'] = mail_html(message)
     kwargs['sender'] = django_settings.EMAIL_FROM
     kwargs['recipients'] = recipients
-    kwargs['subject'] = fake.text()
+    kwargs['subject'] = subject
     return kwargs
 
 
@@ -180,13 +185,14 @@ def mail_html(message):  # http://stackoverflow.com/a/28476681/185820
 def mail_obj(request, **kwargs):
     query_contact = get_query(request, 'contact')
     query_note = get_query(request, 'note')
+    query_test = get_query(request, 'test')
     contact_model = kwargs.get('contact_model')
     note_model = kwargs.get('note_model')
     if contact_model and query_contact:
         obj = contact_model.objects.get(pk=query_contact)
     elif note_model and query_note:
         obj = note_model.objects.get(pk=query_note)
-    return obj
+    return obj, query_test
 
 
 def mail_recipients(obj):
@@ -299,11 +305,11 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
             except AttributeError:
-                obj = mail_obj(
+                obj, test = mail_obj(
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                if mail_send(**mail_compose(obj)):
+                if mail_send(**mail_compose(form, obj, test=test)):
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent!')
                 else:
