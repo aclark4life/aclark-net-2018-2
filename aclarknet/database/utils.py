@@ -3,7 +3,6 @@ from collections import OrderedDict
 from decimal import Decimal
 from django.conf import settings as django_settings
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.contrib.gis.geoip2 import GeoIP2
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -91,54 +90,6 @@ class UserWidget(widgets.Widget):
 
     def clean(self, value):
         return value
-
-
-def add_user_to_contacts(request, model, pk=None):
-    """
-    """
-    if request.method == 'POST':
-        if pk is None:
-            return HttpResponseRedirect(reverse('user_index'))
-        else:
-            user = get_object_or_404(User, pk=pk)
-            if not user.email or not user.first_name or not user.last_name:
-                messages.add_message(request, messages.WARNING,
-                                     'No email no contact!')
-                return HttpResponseRedirect(reverse('user_index'))
-            contact = model.objects.filter(email=user.email)
-            if contact:
-                contact = contact[0].email
-                messages.add_message(request, messages.WARNING,
-                                     'Found duplicate: %s!' % contact)
-                return HttpResponseRedirect(reverse('user_index'))
-            contact = model(
-                email=user.email,
-                active=True,
-                first_name=user.first_name,
-                last_name=user.last_name)
-            contact.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'User added to contacts!')
-            if hasattr(user, 'profile'):
-                user.profile.is_contact = True
-                user.save()
-            return HttpResponseRedirect(reverse('contact_index'))
-
-
-def contact_unsubscribe(request, pk=None, log_model=None, contact_model=None):
-    contact = get_object_or_404(contact_model, pk=pk)
-    uuid = request.GET.get('id')
-    if uuid == contact.uuid:
-        contact.subscribed = False
-        contact.save()
-        messages.add_message(request, messages.SUCCESS,
-                             'You have been unsubscribed!')
-        log = log_model(entry='%s unsubscribed.' % contact.email)
-        log.save()
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        messages.add_message(request, messages.WARNING, 'Nothing to see here.')
-        return HttpResponseRedirect(reverse('home'))
 
 
 def mail_compose(obj, **kwargs):
@@ -238,16 +189,6 @@ def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
     return HttpResponseRedirect(refer)
 
 
-def daily_burn(project):
-    try:
-        days = (project.end_date - project.start_date).days
-        hours = project.budget
-        burn = hours / days
-        return '%.2f' % burn
-    except (TypeError, ZeroDivisionError):
-        return ''
-
-
 def edit(request, **kwargs):
     context = {}
     obj = None
@@ -317,7 +258,7 @@ def edit(request, **kwargs):
                                          'Mail sent to %s!' %
                                          ', '.join(recipients))
                 else:
-                    messages.add_message(request, messages.SUCCESS,
+                    messages.add_message(request, messages.WARNING,
                                          'Mail not sent to %s!' %
                                          ', '.join(recipients))
     context['active_nav'] = active_nav
