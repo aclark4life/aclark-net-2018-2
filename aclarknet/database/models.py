@@ -50,8 +50,6 @@ class BaseModel(models.Model):
 class Client(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
@@ -100,8 +98,6 @@ class Contact(BaseModel):
     Client, First Name, Last Name, Title, Email, Office Phone, Mobile Phone,
     Fax
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     subscribed = models.BooleanField(default=True)
     client = models.ForeignKey(
@@ -205,8 +201,6 @@ class Estimate(BaseModel):
     Issue Date, Estimate ID, Client, Subject, Estimate Amount, Subtotal,
     Discount, Tax, Tax2, Currency, Accepted Date, Declined Date
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, null=True, default=timezone.now)
@@ -262,8 +256,6 @@ class Invoice(BaseModel):
     Invoice Amount, Paid Amount, Balance, Subtotal, Discount, Tax, Tax2,
     Currency, Currency Symbol, Document Type
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
     issue_date = models.DateField(
         "Issue Date", blank=True, default=timezone.now, null=True)
@@ -338,8 +330,6 @@ class Log(BaseModel):
     """
     Log sending of marketing emails and other interesting events.
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     entry = models.CharField(max_length=3000, blank=True, null=True)
 
     def __str__(self):
@@ -352,8 +342,6 @@ class Log(BaseModel):
 class Newsletter(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     text = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
     contacts = models.ManyToManyField('Contact', blank=True)
@@ -369,8 +357,6 @@ class Note(BaseModel):
     """
     """
 
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
     due_date = models.DateField("Due", blank=True, null=True)
@@ -389,8 +375,6 @@ class Note(BaseModel):
 class Profile(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     app_admin = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
@@ -441,8 +425,6 @@ class Project(BaseModel):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     hidden = models.BooleanField(default=False)
     client = models.ForeignKey(
@@ -492,8 +474,6 @@ class Project(BaseModel):
 class Proposal(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     client = models.ForeignKey(
         'Client', blank=True, null=True, limit_choices_to={'active': True})
     project = models.ForeignKey(
@@ -521,8 +501,6 @@ class Proposal(BaseModel):
 class Report(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     date = models.DateField(default=timezone.now)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -541,8 +519,6 @@ class Report(BaseModel):
 class Service(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -577,8 +553,6 @@ class AppSettings(SingletonModel):
 class Testimonial(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     company = models.ForeignKey(Company, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -598,8 +572,6 @@ class Testimonial(BaseModel):
 class Task(BaseModel):
     """
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     billable = models.BooleanField(default=True)
     name = models.CharField(max_length=300, blank=True, null=True)
@@ -630,8 +602,6 @@ class Time(BaseModel):
     Rate, Billable Amount, Cost Rate, Cost Amount, Currency,
     External Reference URL
     """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     billable = models.BooleanField(default=True)
     employee = models.BooleanField(default=True)
     invoiced = models.BooleanField(default=False)
