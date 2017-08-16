@@ -215,10 +215,11 @@ def mail_send(**kwargs):
         return recipients, status
 
 
-def set_check_boxes(obj, cb_query, refer, app_settings_model):
+def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
     model_name = obj._meta.verbose_name
-    if cb_query['active'] == 'on' or cb_query['active'] == 'off':  # Active
-        if cb_query['active'] == 'on':
+    if query_checkbox['active'] == 'on' or query_checkbox[
+            'active'] == 'off':  # Active
+        if query_checkbox['active'] == 'on':
             obj.active = True
         else:
             obj.active = False
@@ -227,9 +228,9 @@ def set_check_boxes(obj, cb_query, refer, app_settings_model):
             app_settings = app_settings_model.get_solo()
             if app_settings.auto_hide_notes:
                 obj.hidden = True
-    elif cb_query['subscribe'] == 'on' or cb_query[
+    elif query_checkbox['subscribe'] == 'on' or query_checkbox[
             'subscribe'] == 'off':  # Subscribe
-        if cb_query['active'] == 'on':
+        if query_checkbox['active'] == 'on':
             obj.subscribed = True
         else:
             obj.subscribed = False
@@ -286,9 +287,9 @@ def edit(request, **kwargs):
             if delete:
                 return obj_remove(obj)
             # Check boxes
-            cb_query = get_query(request, 'checkbox')
-            if cb_query['condition']:
-                return set_check_boxes(obj, cb_query, refer,
+            query_checkbox = get_query(request, 'checkbox')
+            if query_checkbox['condition']:
+                return set_check_boxes(obj, query_checkbox, refer,
                                        app_settings_model)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
@@ -574,16 +575,17 @@ def get_query(request, query):
         values = [i.split(',') for i in values]
         return values
     elif query == 'checkbox':
-        cb_query = {}
-        cb_active = request.POST.get('checkbox-active')
-        cb_subscribe = request.POST.get('checkbox-subscribe')
-        cb_condition = (  # if any of these exist
-            cb_active == 'on' or cb_active == 'off' or cb_subscribe == 'on' or
-            cb_subscribe == 'off')
-        cb_query['active'] = cb_active
-        cb_query['subscribe'] = cb_subscribe
-        cb_query['condition'] = cb_condition
-        return cb_query
+        query_checkbox = {}
+        query_checkbox_active = request.POST.get('checkbox-active')
+        query_checkbox_subscribe = request.POST.get('checkbox-subscribe')
+        condition = (  # if any of these exist
+            query_checkbox_active == 'on' or query_checkbox_active == 'off' or
+            query_checkbox_subscribe == 'on' or
+            query_checkbox_subscribe == 'off')
+        query_checkbox['active'] = query_checkbox_active
+        query_checkbox['subscribe'] = query_checkbox_subscribe
+        query_checkbox['condition'] = condition
+        return query_checkbox
     elif query == 'doc':
         doc = request.GET.get('doc')
         if doc:
