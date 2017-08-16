@@ -499,7 +499,7 @@ def note_index(request, pk=None):
         Note,
         active_nav='note',
         app_settings_model=AppSettings,
-        order_by=('-active', '-updated'),
+        order_by=('-active', ),
         search_fields=('note', 'title'),
         show_search=True)
     context['edit_url'] = 'note_edit'
