@@ -144,8 +144,8 @@
                   <td>{{ project.start_date|date:'U' }}</td>
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.end_date|date:'U' }}</td>
-                  <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} text-{{ icon_color }}"></i> View item</a></td>
-                  <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }} text-{{ icon_color }}"></i></a></td>
+                  <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} text-{{ icon_color }}" style="vertical-align: middle"></i> View item</a></td>
+                  <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }} text-{{ icon_color }}" style="vertical-align: middle"></i></a></td>
                 </tr>
                 {% endfor %} 
                 </tbody>
