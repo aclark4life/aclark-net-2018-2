@@ -482,7 +482,7 @@ def get_index_items(request, model, **kwargs):
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
-                                       'icon_color')
+                                        'icon_color')
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
@@ -574,7 +574,7 @@ def get_search_results(model,
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
-                                       'icon_color')
+                                        'icon_color')
     context['show_search'] = True
     items = set_items_name(model_name, items=items)
     context['items'] = items
@@ -921,7 +921,7 @@ def get_page_items(request, **kwargs):
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
-                                       'icon_color')
+                                        'icon_color')
     doc = get_query(request, 'doc')
     pdf = get_query(request, 'pdf')
     context['doc'] = doc
