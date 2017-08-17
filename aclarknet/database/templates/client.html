@@ -72,7 +72,7 @@
                   <tr>
                     <td>{{ contact.first_name|default:'' }}</td>
                     <td>{{ contact.last_name|default:'' }}</td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}"  style="vertical-align: middle"></i> View</a></td>
+                    <td><a class="text-{{ icon_color }}" href="{% url 'contact' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
                     <td><a class="text-{{ icon_color }}" href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
                   </tr>
                   {% endfor %}
@@ -100,8 +100,8 @@
                   {% for contract in contracts %}
                   <tr>
                     <td>{{ contract }}</td>
-                    <td><a href="{% url 'contract' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} text-{{ icon_color }}"></i> View item</a></td>
-                    <td><a href="{% url 'contract_edit' contract.pk %}"><i class="fa fa-cog fa-{{ icon_size }} text-{{ icon_color }}"></i></a></td>
+                    <td><a style="text-{{ icon_color }}" href="{% url 'contract' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
+                    <td><a style="text-{{ icon_color }}" href="{% url 'contract_edit' contract.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -144,8 +144,8 @@
                   <td>{{ project.start_date|date:'U' }}</td>
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.end_date|date:'U' }}</td>
-                  <td><a href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} text-{{ icon_color }}" style="vertical-align: middle"></i> View item</a></td>
-                  <td><a href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }} text-{{ icon_color }}" style="vertical-align: middle"></i></a></td>
+                  <td><a class="text-{{ icon_color }}" href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
+                  <td><a class="text-{{ icon_color }}" href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
                 </tr>
                 {% endfor %} 
                 </tbody>
