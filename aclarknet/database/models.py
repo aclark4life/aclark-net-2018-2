@@ -34,6 +34,14 @@ EDITOR_CHOICES = (
     ('ckeditor', 'CKEditor'),
     ('tinymce', 'TinyMCE'), )
 
+ICON_CHOICES = (
+    ('1x', 'Small'),
+    ('2x', 'Medium'), 
+    ('3x', 'Large'), 
+    ('4x', 'XL'), 
+    ('5x', 'XXL'), 
+)
+
 # Create your models here.
 
 
@@ -393,7 +401,7 @@ class Profile(BaseModel):
         decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
     notify = models.BooleanField(default=True)
-    icon_size = models.CharField(max_length=255, blank=True, null=True)
+    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     dashboard_choices = MultiSelectField(
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
@@ -541,7 +549,7 @@ class AppSettings(SingletonModel):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    icon_size = models.CharField(max_length=255, blank=True, null=True)
+    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
