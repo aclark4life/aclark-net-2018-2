@@ -481,6 +481,8 @@ def get_index_items(request, model, **kwargs):
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
+    context['icon_color'] = get_setting(request, app_settings_model,
+                                       'icon_color')
     context['page'] = page
     context['paginated'] = paginated
     context['show_search'] = show_search
@@ -571,6 +573,8 @@ def get_search_results(model,
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
+    context['icon_color'] = get_setting(request, app_settings_model,
+                                       'icon_color')
     context['show_search'] = True
     items = set_items_name(model_name, items=items)
     context['items'] = items
@@ -592,6 +596,13 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return user_pref
         else:
             return app_settings.icon_size
+    elif setting == 'icon_color':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.icon_color
+        if user_pref:
+            return user_pref
+        else:
+            return app_settings.icon_color
     elif setting == 'page_size':
         if hasattr(request.user, 'profile'):
             user_pref = request.user.profile.page_size
@@ -909,6 +920,8 @@ def get_page_items(request, **kwargs):
             context['total_hours'] = get_total_hours(times)
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
+    context['icon_color'] = get_setting(request, app_settings_model,
+                                       'icon_color')
     doc = get_query(request, 'doc')
     pdf = get_query(request, 'pdf')
     context['doc'] = doc

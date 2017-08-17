@@ -397,6 +397,8 @@ class Profile(BaseModel):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     icon_size = models.CharField(
         max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    icon_color = models.CharField(
+        max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     username = models.CharField(max_length=300, blank=True, null=True)
     rate = models.DecimalField(
@@ -551,6 +553,8 @@ class AppSettings(SingletonModel):
     updated = models.DateTimeField(auto_now=True)
     icon_size = models.CharField(
         max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    icon_color = models.CharField(
+        max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)

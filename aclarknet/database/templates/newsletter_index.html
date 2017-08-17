@@ -25,8 +25,8 @@
               <tr>
                 <td>{{ item.created }}</td>
                 <td>{{ item.subject|default:'' }}</td>
-                <td><a href="{% url 'newsletter' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} {{ icon_color }}" style="vertical-align: middle"></i> View</a></td>
-                <td><a href="{% url 'newsletter_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }} {{ icon_color }}" style="vertical-align: middle"></i> Edit</a></td>
+                <td><a href="{% url 'newsletter' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} text-{{ icon_color }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a href="{% url 'newsletter_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }} text-{{ icon_color }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
             {% endfor %}
             </tbody>
