@@ -203,6 +203,7 @@ def edit(request, **kwargs):
     user_model = kwargs.get('user_model')
     if pk is None:  # New
         form = get_form(
+            client_model=client_model,
             form_model=form_model,
             invoice_model=invoice_model,
             model=model,
@@ -375,14 +376,18 @@ def get_form(**kwargs):
     """
     Return appropriate form based on new or edit
     """
+    client_model = kwargs.get('client_model')
     form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
     obj = kwargs.get('obj')
     request = kwargs.get('request')
     user_model = kwargs.get('user_model')
+    query_client = None
+    query_user = None
     if request:
         query_user = get_query(request, 'user')
+        query_client = get_query(request, 'client')
     if obj:  # Existing object
         model_name = obj._meta.verbose_name
         if model_name == 'note':  # Populate form with tags already set
@@ -398,9 +403,13 @@ def get_form(**kwargs):
                 obj = model(gross=gross, net=net)
                 form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
-                # with user fields
-                user = get_object_or_404(user_model, pk=query_user)
-                obj = model(email=user.email)
+                # with appropriate fields
+                if query_user:
+                    user = get_object_or_404(user_model, pk=query_user)
+                    obj = model(email=user.email)
+                elif query_client:
+                    client = get_object_or_404(client_model, pk=query_client)
+                    obj = model(client=client)
                 form = form_model(instance=obj)
             else:
                 form = form_model()
