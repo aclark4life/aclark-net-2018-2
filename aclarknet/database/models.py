@@ -383,8 +383,6 @@ class Note(BaseModel):
 class Profile(BaseModel):
     """
     """
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     app_admin = models.BooleanField(default=False)
     is_contact = models.BooleanField(default=False)
@@ -396,6 +394,8 @@ class Profile(BaseModel):
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
     editor = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     username = models.CharField(max_length=300, blank=True, null=True)
