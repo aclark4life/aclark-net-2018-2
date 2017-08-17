@@ -387,7 +387,6 @@ class Profile(BaseModel):
     app_admin = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
-    bio = models.TextField(blank=True, null=True)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     username = models.CharField(max_length=300, blank=True, null=True)
@@ -410,6 +409,7 @@ class Profile(BaseModel):
     editor_choices = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     is_contact = models.BooleanField(default=False)
+    bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
