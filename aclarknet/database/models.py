@@ -386,6 +386,7 @@ class Profile(BaseModel):
     active = models.BooleanField(default=True)
     app_admin = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
+    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     bio = models.TextField(blank=True, null=True)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -401,7 +402,6 @@ class Profile(BaseModel):
         decimal_places=2)
     avatar_url = models.URLField(blank=True, null=True)
     notify = models.BooleanField(default=True)
-    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     dashboard_choices = MultiSelectField(
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
