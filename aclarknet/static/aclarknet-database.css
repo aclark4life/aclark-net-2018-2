@@ -27,8 +27,3 @@ a:hover.mute-url, a.mute-url {
        -o-transition: height 0.2s ease;
           transition: height 0.2s ease;
 }
-
-/* https://stackoverflow.com/a/18541484/185820 */
-.valign-middle {
-    vertical-align: middle !important;
-}
