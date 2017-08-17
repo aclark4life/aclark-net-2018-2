@@ -105,20 +105,17 @@ def mail_compose(obj, **kwargs):
         else:
             message = form.cleaned_data['message']
             subject = form.cleaned_data['subject']
-        context['message'] = message
-        template = 'cerberus-fluid.html'
     elif model_name == 'note':
         items = get_fields([obj, ])
-        message = obj.title
+        message = render_to_string('table_items.html', {'items': items, })
         subject = obj.title
-        context['items'] = items
-        template = 'table_items.html'
-    context['message'] = message
     # http://stackoverflow.com/a/28476681/185820
-    context['html_message'] = render_to_string(template, context)
-    context['sender'] = django_settings.EMAIL_FROM
+    context['html_message'] = render_to_string('cerberus-fluid.html',
+                                               {'message': message, })
+    context['message'] = message
     context['recipients'] = recipients
     context['request'] = request
+    context['sender'] = django_settings.EMAIL_FROM
     context['subject'] = subject
     return context
 
