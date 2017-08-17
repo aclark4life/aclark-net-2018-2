@@ -165,6 +165,7 @@ class InvoiceForm(forms.ModelForm):
 
 class MailForm(forms.Form):
     test = forms.BooleanField(required=False)
+    html = forms.BooleanField(required=True)
     subject = forms.CharField(required=False)
     message = forms.CharField(widget=forms.Textarea(), required=False)
 
