@@ -383,15 +383,26 @@ class Note(BaseModel):
 class Profile(BaseModel):
     """
     """
-    active = models.BooleanField(default=True)
-    app_admin = models.BooleanField(default=False)
-    published = models.BooleanField(default=False)
-    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+    app_admin = models.BooleanField(default=False)
+    is_contact = models.BooleanField(default=False)
+    notify = models.BooleanField(default=True)
+    published = models.BooleanField(default=False)
+    dashboard_override = models.BooleanField(
+        'Dashboard Override', default=False)
+    dashboard_choices = MultiSelectField(
+        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
+    editor = models.CharField(
+        max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
+    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    page_size = models.PositiveIntegerField(blank=True, null=True)
     username = models.CharField(max_length=300, blank=True, null=True)
     rate = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
+    avatar_url = models.URLField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
     unit = models.DecimalField(
         "Unit",
         default=1.0,
@@ -399,17 +410,6 @@ class Profile(BaseModel):
         null=True,
         max_digits=12,
         decimal_places=2)
-    avatar_url = models.URLField(blank=True, null=True)
-    notify = models.BooleanField(default=True)
-    page_size = models.PositiveIntegerField(blank=True, null=True)
-    dashboard_choices = MultiSelectField(
-        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
-    dashboard_override = models.BooleanField(
-        'Dashboard Override', default=False)
-    editor_choices = models.CharField(
-        max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
-    is_contact = models.BooleanField(default=False)
-    bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
