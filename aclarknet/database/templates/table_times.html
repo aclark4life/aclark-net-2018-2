@@ -32,8 +32,8 @@
                 {% if item.user %}<td><a href="{% url 'user' item.user.pk %}">{{ item.user|default:'' }}</a></td>{% else %}<td>{{ item.user|default:'' }}</td>{% endif %}
                 {% if request.user.is_staff %}{% if item.invoice %}<td><a href="{% url 'invoice' item.invoice.pk %}">{{ item.invoice.document_id|default:'' }}</a></td>{% else %}<td></td>{% endif %}{% endif %}
                 {% if request.user.is_staff %}{% if item.estimate %}<td><a href="{% url 'estimate' item.estimate.pk %}">{{ item.estimate.document_id|default:'' }}</a></td>{% else %}<td>{{ item.estimate|default:'' }}</td>{% endif %}{% endif %}
-                <td><a href="{% url 'time_entry' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
-                <td><a href="{% url 'time_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
+                <td><a href="{% url 'time_entry' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a href="{% url 'time_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
               {% endfor %}
             </tbody>
