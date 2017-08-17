@@ -401,8 +401,6 @@ class Profile(BaseModel):
     username = models.CharField(max_length=300, blank=True, null=True)
     rate = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
-    avatar_url = models.URLField(blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
     unit = models.DecimalField(
         "Unit",
         default=1.0,
@@ -410,6 +408,8 @@ class Profile(BaseModel):
         null=True,
         max_digits=12,
         decimal_places=2)
+    avatar_url = models.URLField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username

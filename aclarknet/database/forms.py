@@ -27,6 +27,7 @@ class AdminProfileForm(forms.ModelForm):
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
+        exclude = ('notify', )
 
 
 class AdminTimeForm(forms.ModelForm):
