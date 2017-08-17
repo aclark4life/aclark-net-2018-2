@@ -32,9 +32,9 @@
                 <td>{{ item.first_name|default:'' }}</td>
                 <td>{{ item.last_name|default:'' }}</td>
                 <td>{{ item.email|default:'' }}</td>
-                <td>{% if item.client %}<a href="{% url 'client' item.client.pk %}"><i class="fa fa-building fa-{{ icon_size }} valign-middle"></i> {{ item.client }}</a>{% else %} {{ item.client|default:'' }}{% endif %}</td>
-                <td><a href="{% url 'contact' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
-                <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
+                <td>{% if item.client %}<a href="{% url 'client' item.client.pk %}">{{ item.client }}</a>{% else %} {{ item.client|default:'' }}{% endif %}</td>
+                <td><a href="{% url 'contact' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} {{ icon_color }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a href="{% url 'contact_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }} {{ icon_color }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
             {% endfor %}
             </tbody>

@@ -26,13 +26,13 @@
             <tbody>
             {% for item in items.clients %}
               <tr>
-                <td><a href="{% url 'client' item.pk %}"><i class="fa fa-building fa-{{ icon_size }} valign-middle"></i> {{ item.name|default:'' }}</a></td>
+                <td><a href="{% url 'client' item.pk %}">{{ item.name|default:'' }}</a></td>
                 <td>{{ item.name|default:'' }}</td>
                 <td>{{ item.address }}</td>
                 <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ item.active }}</td>
-                <td><a href="{% url 'client' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} valign-middle"></i> View</a></td>
-                <td><a href="{% url 'client_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}"></i> Edit</a></td>
+                <td><a href="{% url 'client' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} {{ icon_color }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a href="{% url 'client_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }} {{ icon_color }}"></i> Edit</a></td>
               </tr>
             {% endfor %}
             </tbody>
