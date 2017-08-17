@@ -26,7 +26,7 @@
                 <td>{{ item.client|default:'' }}</td>
                 {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"></i> {{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                 <td>{{ item.notes|default:'' }}</td>
-                <td><a href="{% url 'project' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a href="{% url 'project' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }} text-success" style="vertical-align: middle"></i> View</a></td>
                 <td><a href="{% url 'project_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
             {% endfor %}
