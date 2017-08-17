@@ -39,7 +39,7 @@
                 </table>
                 <h2>Contacts</h2>
                 <ol>  
-                  {% for contact in item.contacts %}
+                  {% for contact in contacts %}
                   <li>{{ contact.first_name }} {{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
                   {% endfor %}
                 </ol>
