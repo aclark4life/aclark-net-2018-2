@@ -19,7 +19,7 @@
                     <div class="dropdown pull-right">
                       <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle fa-{{ icon_size }}"></i> Copy</a></li>
+                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a></li>
                         <li><a class="dropdown-item" href="{% url 'newsletter_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                         <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                         <li><a class="dropdown-item" href="{% url 'mail' %}?newsletter=item.pk"><i class="fa fa-send-o"></i> Send Mail</a></li>
@@ -39,7 +39,7 @@
                 </table>
                 <h2>Contacts</h2>
                 <ol>  
-                  {% for contact in contacts %}
+                  {% for contact in item.contacts %}
                   <li>{{ contact.first_name }} {{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
                   {% endfor %}
                 </ol>
