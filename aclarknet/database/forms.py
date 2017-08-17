@@ -16,6 +16,7 @@ from .models import Service
 from .models import AppSettings
 from .models import Task
 from .models import Time
+from .models import DASHBOARD_CHOICES
 from django import forms
 from taggit.models import Tag
 
@@ -28,6 +29,11 @@ class AdminProfileForm(forms.ModelForm):
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
         exclude = ('notify', )
+
+    dashboard_choices = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(attrs={'size': '6'}),
+        choices=DASHBOARD_CHOICES)
 
 
 class AdminTimeForm(forms.ModelForm):

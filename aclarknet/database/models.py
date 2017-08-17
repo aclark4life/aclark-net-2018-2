@@ -36,11 +36,10 @@ EDITOR_CHOICES = (
 
 ICON_CHOICES = (
     ('1x', 'Small'),
-    ('2x', 'Medium'), 
-    ('3x', 'Large'), 
-    ('4x', 'XL'), 
-    ('5x', 'XXL'), 
-)
+    ('2x', 'Medium'),
+    ('3x', 'Large'),
+    ('4x', 'XL'),
+    ('5x', 'XXL'), )
 
 # Create your models here.
 
@@ -396,7 +395,8 @@ class Profile(BaseModel):
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    icon_size = models.CharField(
+        max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     username = models.CharField(max_length=300, blank=True, null=True)
     rate = models.DecimalField(
@@ -549,7 +549,8 @@ class AppSettings(SingletonModel):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    icon_size = models.CharField(max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    icon_size = models.CharField(
+        max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
