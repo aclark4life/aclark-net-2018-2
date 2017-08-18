@@ -98,18 +98,24 @@ def mail_compose(obj, **kwargs):
     request = kwargs.get('request')
     model_name = obj._meta.verbose_name
     recipients = mail_recipients(obj)
-    if model_name == 'contact':
-        if 'test' in form.data:
-            message = fake.text()
-            subject = fake.text()
-        else:
-            message = form.cleaned_data['message']
-            subject = form.cleaned_data['subject']
-    elif model_name == 'note':
-        items = get_fields([obj, ])
-        message = render_to_string('table_items.html', {'items': items, })
-        subject = obj.title
+    # if model_name == 'contact':
+    #     if 'test' in form.data:
+    #         message = fake.text()
+    #         subject = fake.text()
+    #     else:
+    #         message = form.cleaned_data['message']
+    #         subject = form.cleaned_data['subject']
+    # elif model_name == 'note':
+    #     items = get_fields([obj, ])
+    #     message = render_to_string('table_items.html', {'items': items, })
+    #     subject = obj.title
     # http://stackoverflow.com/a/28476681/185820
+    if 'test' in form.data:
+        message = fake.text()
+        subject = fake.text()
+    else:
+        message = form.cleaned_data['message']
+        subject = form.cleaned_data['subject']
     if 'html' in form.data:
         context['html_message'] = render_to_string('cerberus-fluid.html',
                                                    {'message': message, })
