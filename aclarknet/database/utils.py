@@ -110,8 +110,9 @@ def mail_compose(obj, **kwargs):
         message = render_to_string('table_items.html', {'items': items, })
         subject = obj.title
     # http://stackoverflow.com/a/28476681/185820
-    context['html_message'] = render_to_string('cerberus-fluid.html',
-                                               {'message': message, })
+    if 'html' in form.data:
+        context['html_message'] = render_to_string('cerberus-fluid.html',
+                                                   {'message': message, })
     context['message'] = message
     context['recipients'] = recipients
     context['request'] = request
