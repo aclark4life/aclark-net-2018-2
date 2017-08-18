@@ -102,14 +102,13 @@ def mail_compose(obj, **kwargs):
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'note':
-        items = get_fields([obj, ])
-        message = render_to_string('table_items.html', {'items': items, })
+        message = obj.note
         subject = obj.title
     if 'test' in form.data:
         message = fake.text()
         subject = fake.text()
     if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
-        context['html_message'] = render_to_string('cerberus-fluid.html',
+        context['html_message'] = render_to_string(form.template,
                                                    {'message': message, })
     context['message'] = message
     context['recipients'] = recipients

@@ -41,6 +41,11 @@ ICON_CHOICES = (
     ('4x', 'XL'),
     ('5x', 'XXL'), )
 
+TEMPLATE_CHOICES = (
+    ('cerberus-fluid.html', 'Fluid'),
+    ('cerberus-hybrid.html', 'Hybrid'),
+    ('cerberus-responsive.html', 'Responsive'), )
+
 # Create your models here.
 
 

@@ -17,6 +17,7 @@ from .models import AppSettings
 from .models import Task
 from .models import Time
 from .models import DASHBOARD_CHOICES
+from .models import TEMPLATE_CHOICES
 from django import forms
 from taggit.models import Tag
 
@@ -164,8 +165,9 @@ class InvoiceForm(forms.ModelForm):
 
 
 class MailForm(forms.Form):
+    html = forms.BooleanField(label='HTML', required=False)
     test = forms.BooleanField(required=False)
-    html = forms.BooleanField(required=False)
+    template = forms.ChoiceField(required=False, choices=TEMPLATE_CHOICES)
     subject = forms.CharField(required=False)
     message = forms.CharField(widget=forms.Textarea(), required=False)
 
