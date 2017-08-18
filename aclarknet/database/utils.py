@@ -256,7 +256,7 @@ def edit(request, **kwargs):
                     note_model=note_model)
                 recipients, status = mail_send(
                     **mail_compose(
-                        obj, form=form, request=request))
+                        obj, form=form, fail_silently=False, request=request))
                 if status:
                     messages.add_message(request, messages.SUCCESS,
                                          'Mail sent to %s!' %
