@@ -18,6 +18,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.html import strip_tags
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from faker import Faker
@@ -104,7 +105,7 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'note':
         # items = get_fields([obj, ])
         # message = render_to_string('table_items.html', {'items': items, })
-        message = obj.note
+        message = strip_tags(obj.note)
         subject = obj.title
     if 'test' in form.data:
         message = fake.text()
