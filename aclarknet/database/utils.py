@@ -104,6 +104,11 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
+    if obj.first_name:
+        message = render_to_string('first_name.html', {
+            'first_name': obj.first_name,
+            'message': message,
+        })
     if 'test' in form.data:
         message = fake.text()
         subject = fake.text()
