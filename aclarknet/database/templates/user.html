@@ -15,7 +15,7 @@
                     </ul>
                   </div>
                   {% else %}
-                  <a class="btn btn-lg btn-block btn-success" href="{% url 'user_edit' pk=request.user.pk %}">Edit <i class="fa fa-cog"></i></a>
+                  <a class="btn btn-lg btn-block btn-success" href="{% url 'user_edit' pk=item.pk %}">Edit <i class="fa fa-cog"></i></a>
                   {% endif %}
                 </div>
               </div>
