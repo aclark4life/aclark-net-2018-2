@@ -886,8 +886,6 @@ def get_page_items(request, **kwargs):
             context['active_nav'] = 'dropdown'
             context['item'] = user
             context['items'] = get_fields([user.profile, ])  # table_items.html
-            context['profile'] = profile_model.objects.get_or_create(
-                user=user)[0]
             context['projects'] = projects
             context['times'] = times
     else:  # home
