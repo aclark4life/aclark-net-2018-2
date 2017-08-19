@@ -416,7 +416,7 @@ class Profile(BaseModel):
         null=True,
         max_digits=12,
         decimal_places=2)
-    avatar_url = models.URLField(blank=True, null=True)
+    avatar_url = models.URLField("Avatar URL", blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
 
     def __str__(self):

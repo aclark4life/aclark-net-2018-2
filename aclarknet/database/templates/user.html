@@ -3,7 +3,7 @@
               <div class="row">
                 <div class="col-md-10">
                   <h1>Profile</h1>
-                  <h2><a class="mute-url" href="{% url 'user_index' %}">Users</a> &raquo; User &rsaquo; {{ item }}</h2>
+                  <h2>{% if request.user.is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; User &rsaquo; {{ item }}</h2>
                 </div>                
                 <div class="col-md-2">
                   {% if request.user.is_staff %}
@@ -19,20 +19,5 @@
                   {% endif %}
                 </div>
               </div>
-{% if request.user.is_staff %}
 {% include 'table_items.html' %}
-{% else %}
-              <table class="table">
-                <thead>
-                  <th>Field</th>
-                  <th>Value</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Rate</strong></th>
-                    <td>{{ item.profile.rate|default:'' }}</th>
-                  </tr>
-                </tbody>
-              </table>
-{% endif %}
 {% endblock %}

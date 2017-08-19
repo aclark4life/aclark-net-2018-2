@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-              <h1>User</h1>
+              <div class="col-md-10">
+                <h1>Profile</h1>
+                <h2>Users &raquo; <a href="{% url 'user' item.pk %}">User</a> &rsaquo; {{ item.user }}</h2>
+              </div>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save User">
