@@ -2,10 +2,10 @@
 {% block content %}
           {% if request.user.is_authenticated %}
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
               <h1>Dashboard</h1>
             </div>
-            <div class="col-md-3"> 
+            <div class="col-md-2"> 
               {% if request.user.is_staff %}
               <div class="dropdown">
                 <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Item</button>
@@ -16,9 +16,12 @@
                 </div>
               </div>
               {% else %}
-              <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
-                <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
-                <a class="dropdown-item" href="{% url 'profile_edit' %}"><i class="fa fa-user"></i> Edit Profile</a>
+              <div class="dropdown pull-right">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
+                  <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
+                  <a class="dropdown-item" href="{% url 'user_edit' pk=request.user.pk %}"><i class="fa fa-user"></i> Edit Profile</a>
+                </div>
               </div>
               {% endif %}
             </div>
