@@ -876,6 +876,7 @@ def get_page_items(request, **kwargs):
             context['item'] = time_entry
         elif model_name == 'user':
             user = get_object_or_404(model, pk=pk)
+            profile_model.objects.get_or_create(user=user)
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
@@ -996,14 +997,17 @@ def obj_edit(obj, pk=None):
         model_name=model_name, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
-    if pk:  # Special cases for settings
+    if pk:  # Special cases for some objects e.g. settings, user
         if model_name == 'Company':
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'app settings':
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'contract settings':
             return HttpResponseRedirect(reverse(url_name))
-        kwargs['pk'] = pk
+        if model_name == 'profile':  # Redir to user pk not profile pk
+            kwargs['pk'] = obj.user.pk
+        else:
+            kwargs['pk'] = pk
     else:  # New
         kwargs['pk'] = obj.pk
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
