@@ -3,7 +3,7 @@
 {% block content %}
               <div class="col-md-10">
                 <h1>Profile</h1>
-                <h2>Users &raquo; <a href="{% url 'user' item.pk %}">User</a> &rsaquo; {{ item.user }}</h2>
+                <h2>Users &raquo; <a href="{% url 'user' item.profile.pk %}">User</a> &rsaquo; {{ item.user }}</h2>
               </div>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
