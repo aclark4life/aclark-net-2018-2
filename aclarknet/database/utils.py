@@ -94,6 +94,7 @@ class UserWidget(widgets.Widget):
 
 def mail_compose(obj, **kwargs):
     context = {}
+    first_name = kwargs.get('first_name')
     form = kwargs.get('form')
     mail_to = kwargs.get('mail_to')
     request = kwargs.get('request')
@@ -104,9 +105,9 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
-    if obj.first_name:
+    if first_name:
         message = render_to_string('first_name.html', {
-            'first_name': obj.first_name,
+            'first_name': first_name,
             'message': message,
         })
     if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
@@ -132,12 +133,12 @@ def mail_obj(request, **kwargs):
     return obj
 
 
-def mail_addresses(obj):
+def mail_recipients(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
-        return (obj.email, )
+        return ((obj.first_name, obj.email), )
     elif model_name == 'note':
-        return [i.email for i in obj.contacts.all()]
+        return [(i.first_name, i.email) for i in obj.contacts.all()]
 
 
 def mail_send(**kwargs):
@@ -243,11 +244,15 @@ def edit(request, **kwargs):
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                addresses = mail_addresses(obj)
-                for address in addresses:
+                recipients = mail_recipients(obj)
+                for address, first_name in recipients:
                     mail_send(
                         **mail_compose(
-                            obj, form=form, mail_to=address, request=request))
+                            obj,
+                            form=form,
+                            first_name=first_name,
+                            mail_to=address,
+                            request=request))
                 # if status:
                 #     messages.add_message(request, messages.SUCCESS,
                 #                          'Mail sent to %s!' %
