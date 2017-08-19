@@ -114,7 +114,7 @@ def mail_compose(obj, **kwargs):
         paragraphs = 1
         if 'test_num' in form.data:
             paragraphs = form.data['test_num']
-        for i in range(paragraphs):
+        for i in range(0, int(paragraphs)):
             message += fake.text()
         subject = fake.text()
     if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
