@@ -25,7 +25,7 @@
                 <tbody>
                   <tr>
                     <td><strong>Rate</strong></th>
-                    <td>{{ item.profile.rate }}</th>
+                    <td>{{ item.profile.rate|default:'' }}</th>
                   </tr>
                 </tbody>
               </table>
