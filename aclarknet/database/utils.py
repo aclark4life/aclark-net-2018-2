@@ -902,7 +902,7 @@ def get_page_items(request, **kwargs):
             projects = projects.order_by(*order_by['project'])
             items = set_items_name('project', items=projects, _items=items)
             times = time_model.objects.filter(
-                invoiced=False, project__active=True, user=request.user)
+                invoiced=False, user=request.user)
             times = times.order_by(*order_by['time'])
             items = set_items_name('time', items=times, _items=items)
             # Plot
