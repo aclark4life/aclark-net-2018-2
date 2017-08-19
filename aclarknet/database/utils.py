@@ -92,96 +92,6 @@ class UserWidget(widgets.Widget):
         return value
 
 
-def mail_compose(obj, **kwargs):
-    context = {}
-    first_name = kwargs.get('first_name')
-    form = kwargs.get('form')
-    mail_to = kwargs.get('mail_to')
-    request = kwargs.get('request')
-    model_name = obj._meta.verbose_name
-    if model_name == 'contact':
-        message = form.cleaned_data['message']
-        subject = form.cleaned_data['subject']
-    elif model_name == 'note':
-        message = obj.note
-        subject = obj.title
-    if first_name:
-        message = render_to_string('first_name.html', {
-            'first_name': first_name,
-            'message': message,
-        })
-    if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
-        context['html_message'] = render_to_string(form.data['template'],
-                                                   {'message': message, })
-    context['mail_to'] = mail_to
-    context['mail_from'] = django_settings.EMAIL_FROM
-    context['message'] = message
-    context['subject'] = subject
-    context['request'] = request
-    return context
-
-
-def mail_obj(request, **kwargs):
-    query_contact = get_query(request, 'contact')
-    query_note = get_query(request, 'note')
-    contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
-    if contact_model and query_contact:
-        obj = contact_model.objects.get(pk=query_contact)
-    elif note_model and query_note:
-        obj = note_model.objects.get(pk=query_note)
-    return obj
-
-
-def mail_recipients(obj):
-    model_name = obj._meta.verbose_name
-    if model_name == 'contact':
-        return ((obj.first_name, obj.email), )
-    elif model_name == 'note':
-        return [(i.first_name, i.email) for i in obj.contacts.all()]
-
-
-def mail_send(**kwargs):
-    html_message = kwargs.get('html_message')
-    mail_from = kwargs.get('mail_from')
-    mail_to = kwargs.get('mail_to')
-    message = kwargs.get('message')
-    subject = kwargs.get('subject')
-    try:
-        send_mail(
-            subject,
-            message,
-            mail_from, (mail_to, ),
-            html_message=html_message)
-        status = True
-    except BotoServerError:
-        status = False
-    return status
-
-
-def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
-    model_name = obj._meta.verbose_name
-    if query_checkbox['active'] == 'on' or query_checkbox[
-            'active'] == 'off':  # Active
-        if query_checkbox['active'] == 'on':
-            obj.active = True
-        else:
-            obj.active = False
-        # Auto-hide notes
-        if model_name == 'note' and app_settings_model:
-            app_settings = app_settings_model.get_solo()
-            if app_settings.auto_hide_notes:
-                obj.hidden = True
-    elif query_checkbox['subscribe'] == 'on' or query_checkbox[
-            'subscribe'] == 'off':  # Subscribe
-        if query_checkbox['active'] == 'on':
-            obj.subscribed = True
-        else:
-            obj.subscribed = False
-    obj.save()
-    return HttpResponseRedirect(refer)
-
-
 def edit(request, **kwargs):
     context = {}
     obj = None
@@ -245,7 +155,7 @@ def edit(request, **kwargs):
                     contact_model=contact_model,
                     note_model=note_model)
                 recipients = mail_recipients(obj)
-                for address, first_name in recipients:
+                for first_name, address in recipients:
                     mail_send(
                         **mail_compose(
                             obj,
@@ -673,6 +583,96 @@ def gravatar_url(email):
     MD5 hash of email address for use with Gravatar
     """
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+
+
+def mail_compose(obj, **kwargs):
+    context = {}
+    first_name = kwargs.get('first_name')
+    form = kwargs.get('form')
+    mail_to = kwargs.get('mail_to')
+    request = kwargs.get('request')
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
+        message = form.cleaned_data['message']
+        subject = form.cleaned_data['subject']
+    elif model_name == 'note':
+        message = obj.note
+        subject = obj.title
+    if first_name:
+        message = render_to_string('first_name.html', {
+            'first_name': first_name,
+            'message': message,
+        })
+    if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
+        context['html_message'] = render_to_string(form.data['template'],
+                                                   {'message': message, })
+    context['mail_to'] = mail_to
+    context['mail_from'] = django_settings.EMAIL_FROM
+    context['message'] = message
+    context['subject'] = subject
+    context['request'] = request
+    return context
+
+
+def mail_obj(request, **kwargs):
+    query_contact = get_query(request, 'contact')
+    query_note = get_query(request, 'note')
+    contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    if contact_model and query_contact:
+        obj = contact_model.objects.get(pk=query_contact)
+    elif note_model and query_note:
+        obj = note_model.objects.get(pk=query_note)
+    return obj
+
+
+def mail_recipients(obj):
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
+        return ((obj.first_name, obj.email), )
+    elif model_name == 'note':
+        return [(i.first_name, i.email) for i in obj.contacts.all()]
+
+
+def mail_send(**kwargs):
+    html_message = kwargs.get('html_message')
+    mail_from = kwargs.get('mail_from')
+    mail_to = kwargs.get('mail_to')
+    message = kwargs.get('message')
+    subject = kwargs.get('subject')
+    try:
+        send_mail(
+            subject,
+            message,
+            mail_from, (mail_to, ),
+            html_message=html_message)
+        status = True
+    except BotoServerError:
+        status = False
+    return status
+
+
+def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
+    model_name = obj._meta.verbose_name
+    if query_checkbox['active'] == 'on' or query_checkbox[
+            'active'] == 'off':  # Active
+        if query_checkbox['active'] == 'on':
+            obj.active = True
+        else:
+            obj.active = False
+        # Auto-hide notes
+        if model_name == 'note' and app_settings_model:
+            app_settings = app_settings_model.get_solo()
+            if app_settings.auto_hide_notes:
+                obj.hidden = True
+    elif query_checkbox['subscribe'] == 'on' or query_checkbox[
+            'subscribe'] == 'off':  # Subscribe
+        if query_checkbox['active'] == 'on':
+            obj.subscribed = True
+        else:
+            obj.subscribed = False
+    obj.save()
+    return HttpResponseRedirect(refer)
 
 
 def set_items_name(model_name, items=None, _items={}):
