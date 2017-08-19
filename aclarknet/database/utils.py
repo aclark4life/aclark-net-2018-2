@@ -95,23 +95,15 @@ class UserWidget(widgets.Widget):
 def mail_compose(obj, **kwargs):
     context = {}
     form = kwargs.get('form')
+    mail_to = kwargs.get('mail_to')
     request = kwargs.get('request')
     model_name = obj._meta.verbose_name
-    recipients = mail_recipients(obj)
     if model_name == 'contact':
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
-    if 'test' in form.data:
-        message = ''
-        paragraphs = 1
-        if 'test_num' in form.data:
-            paragraphs = form.data['test_num']
-        for i in range(0, int(paragraphs)):
-            message += fake.text()
-        subject = fake.text()
     if obj.first_name:
         message = render_to_string('first_name.html', {
             'first_name': obj.first_name,
@@ -120,11 +112,11 @@ def mail_compose(obj, **kwargs):
     if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
         context['html_message'] = render_to_string(form.data['template'],
                                                    {'message': message, })
+    context['mail_to'] = mail_to
+    context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
-    context['recipients'] = recipients
-    context['request'] = request
-    context['sender'] = django_settings.EMAIL_FROM
     context['subject'] = subject
+    context['request'] = request
     return context
 
 
@@ -140,7 +132,7 @@ def mail_obj(request, **kwargs):
     return obj
 
 
-def mail_recipients(obj):
+def mail_addresses(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
         return (obj.email, )
@@ -149,25 +141,21 @@ def mail_recipients(obj):
 
 
 def mail_send(**kwargs):
-    fail_silently = kwargs.get('fail_silently')
     html_message = kwargs.get('html_message')
+    mail_from = kwargs.get('mail_from')
+    mail_to = kwargs.get('mail_to')
     message = kwargs.get('message')
-    recipients = kwargs.get('recipients')
-    sender = kwargs.get('sender')
     subject = kwargs.get('subject')
     try:
         send_mail(
             subject,
             message,
-            sender,
-            recipients,
-            fail_silently=fail_silently,
+            mail_from, (mail_to, ),
             html_message=html_message)
         status = True
-        return recipients, status
     except BotoServerError:
         status = False
-        return recipients, status
+    return status
 
 
 def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
@@ -255,17 +243,19 @@ def edit(request, **kwargs):
                     request,
                     contact_model=contact_model,
                     note_model=note_model)
-                recipients, status = mail_send(
-                    **mail_compose(
-                        obj, form=form, request=request))
-                if status:
-                    messages.add_message(request, messages.SUCCESS,
-                                         'Mail sent to %s!' %
-                                         ', '.join(recipients))
-                else:
-                    messages.add_message(request, messages.WARNING,
-                                         'Mail not sent to %s!' %
-                                         ', '.join(recipients))
+                addresses = mail_addresses(obj)
+                for address in addresses:
+                    mail_send(
+                        **mail_compose(
+                            obj, form=form, mail_to=address, request=request))
+                # if status:
+                #     messages.add_message(request, messages.SUCCESS,
+                #                          'Mail sent to %s!' %
+                #                          ', '.join(recipients))
+                # else:
+                #     messages.add_message(request, messages.WARNING,
+                #                          'Mail not sent to %s!' %
+                #                          ', '.join(recipients))
     context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
