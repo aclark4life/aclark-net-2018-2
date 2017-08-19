@@ -110,7 +110,12 @@ def mail_compose(obj, **kwargs):
             'message': message,
         })
     if 'test' in form.data:
-        message = fake.text()
+        message = ''
+        paragraphs = 1
+        if 'test_num' in form.data:
+            paragraphs = form.data['test_num']
+        for i in range(paragraphs):
+            message += fake.text()
         subject = fake.text()
     if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
         context['html_message'] = render_to_string(form.data['template'],

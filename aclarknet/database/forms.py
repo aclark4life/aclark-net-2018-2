@@ -167,6 +167,10 @@ class InvoiceForm(forms.ModelForm):
 class MailForm(forms.Form):
     html = forms.BooleanField(label='HTML', required=False)
     test = forms.BooleanField(required=False)
+    test_num = forms.IntegerField(
+        widget=forms.NumberInput(attrs={'class': 'col-md-1'}),
+        label="Test paragraphs",
+        required=False)
     template = forms.ChoiceField(required=False, choices=TEMPLATE_CHOICES)
     subject = forms.CharField(required=False)
     message = forms.CharField(widget=forms.Textarea(), required=False)
