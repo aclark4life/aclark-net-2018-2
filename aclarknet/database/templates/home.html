@@ -16,7 +16,10 @@
                 </div>
               </div>
               {% else %}
-                <a class="btn btn-lg btn-block btn-success" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
+              <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
+                <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
+                <a class="dropdown-item" href="{% url 'profile_edit' %}"><i class="fa fa-user"></i> Edit Profile</a>
+              </div>
               {% endif %}
             </div>
           </div>
