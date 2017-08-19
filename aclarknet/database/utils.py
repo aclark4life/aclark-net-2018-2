@@ -308,14 +308,14 @@ def get_form(**kwargs):
         else:
             form = form_model(instance=obj)
     else:  # New object or mail
+        initial = {'send_html': True}
         if model:
             model_name = model._meta.verbose_name
-            initial = {'html': True}
             if model_name == 'report' and invoice_model:  # Populate new report
                 # with gross, net.
                 gross, net = get_invoice_totals(invoice_model)
                 obj = model(gross=gross, net=net)
-                form = form_model(initial=initial, instance=obj)
+                form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields
                 if query_user:
@@ -324,11 +324,11 @@ def get_form(**kwargs):
                 elif query_client:
                     client = get_object_or_404(client_model, pk=query_client)
                     obj = model(client=client)
-                form = form_model(initial=initial, instance=obj)
+                form = form_model(instance=obj)
             else:
-                form = form_model()
+                form = form_model(initial=initial)
         else:
-            form = form_model()
+            form = form_model(initial=initial)
     return form
 
 
@@ -604,7 +604,7 @@ def mail_compose(obj, **kwargs):
             'first_name': first_name,
             'message': message,
         })
-    if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
+    if 'send_html' in form.data:  # http://stackoverflow.com/a/28476681/185820
         context['html_message'] = render_to_string(form.data['template'],
                                                    {'message': message, })
     context['mail_to'] = mail_to

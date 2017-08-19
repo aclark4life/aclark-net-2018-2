@@ -165,10 +165,10 @@ class InvoiceForm(forms.ModelForm):
 
 
 class MailForm(forms.Form):
-    html = forms.BooleanField(label='HTML', required=False)
+    send_html = forms.BooleanField(label='Send HTML message', required=False)
     template = forms.ChoiceField(required=False, choices=TEMPLATE_CHOICES)
-    message = forms.CharField(widget=forms.Textarea(), required=False)
     subject = forms.CharField(required=False)
+    message = forms.CharField(widget=forms.Textarea(), required=False)
 
 
 class NewsletterForm(forms.ModelForm):
