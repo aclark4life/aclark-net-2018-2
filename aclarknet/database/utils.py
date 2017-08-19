@@ -108,7 +108,7 @@ def edit(request, **kwargs):
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
     user_model = kwargs.get('user_model')
-    if pk is None:  # New
+    if pk is None:  # New or mail
         form = get_form(
             client_model=client_model,
             form_model=form_model,
@@ -149,7 +149,7 @@ def edit(request, **kwargs):
                     invoice_model=invoice_model,
                     project_model=project_model)
                 return obj_edit(obj, pk=pk)
-            except AttributeError:
+            except AttributeError:  # Mail
                 obj = mail_obj(
                     request,
                     contact_model=contact_model,
@@ -310,11 +310,12 @@ def get_form(**kwargs):
     else:  # New object or mail
         if model:
             model_name = model._meta.verbose_name
+            initial = {'html': True}
             if model_name == 'report' and invoice_model:  # Populate new report
                 # with gross, net.
                 gross, net = get_invoice_totals(invoice_model)
                 obj = model(gross=gross, net=net)
-                form = form_model(instance=obj)
+                form = form_model(initial=initial, instance=obj)
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields
                 if query_user:
@@ -323,7 +324,7 @@ def get_form(**kwargs):
                 elif query_client:
                     client = get_object_or_404(client_model, pk=query_client)
                     obj = model(client=client)
-                form = form_model(instance=obj)
+                form = form_model(initial=initial, instance=obj)
             else:
                 form = form_model()
         else:
