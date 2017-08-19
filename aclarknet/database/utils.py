@@ -104,11 +104,6 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
-    if obj.first_name:
-        message = render_to_string('first_name.html', {
-            'first_name': obj.first_name,
-            'message': message,
-        })
     if 'test' in form.data:
         message = ''
         paragraphs = 1
@@ -117,6 +112,11 @@ def mail_compose(obj, **kwargs):
         for i in range(0, int(paragraphs)):
             message += fake.text()
         subject = fake.text()
+    if obj.first_name:
+        message = render_to_string('first_name.html', {
+            'first_name': obj.first_name,
+            'message': message,
+        })
     if 'html' in form.data:  # http://stackoverflow.com/a/28476681/185820
         context['html_message'] = render_to_string(form.data['template'],
                                                    {'message': message, })
