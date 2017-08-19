@@ -549,6 +549,9 @@ def get_template_and_url_names(**kwargs):
         url_name = URL_NAMES[model_name][0]
         template_name = '%s.html' % url_name
         return template_name, url_name
+    elif page_type == 'copy':
+        url_name = URL_NAMES[model_name][1]
+        return url_name
     elif page_type == 'edit':
         template_name = '%s.html' % URL_NAMES[model_name][1]
         return template_name
@@ -974,8 +977,8 @@ def obj_copy(obj):
     kwargs = {}
     kwargs['pk'] = dup.pk
     model_name = obj._meta.verbose_name
-    template_name, url_name = get_template_and_url_names(
-        model_name=model_name, page_type='edit')
+    url_name = get_template_and_url_names(
+        model_name=model_name, page_type='copy')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
