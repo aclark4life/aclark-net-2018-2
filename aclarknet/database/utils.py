@@ -599,11 +599,11 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
-    if first_name:
-        message = render_to_string('first_name.html', {
-            'first_name': first_name,
-            'message': message,
-        })
+    # if first_name:
+    #     message = render_to_string('first_name.html', {
+    #         'first_name': first_name,
+    #         'message': message,
+    #     })
     if 'send_html' in form.data:  # http://stackoverflow.com/a/28476681/185820
         context['html_message'] = render_to_string(form.data['template'],
                                                    {'message': message, })
