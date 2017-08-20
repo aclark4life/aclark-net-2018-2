@@ -127,9 +127,7 @@ class Contact(BaseModel):
     fax = PhoneNumberField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-    # XXX Should this CharField be a UUIDField instead?
-    # https://docs.djangoproject.com/en/1.11/ref/models/fields/#uuidfield
-    uuid = models.CharField('UUID', max_length=300, default=uuid4)
+    uuid = models.UUIDField('UUID', max_length=300, default=uuid4)
 
     def __str__(self):
         if self.email and self.first_name and self.last_name:
