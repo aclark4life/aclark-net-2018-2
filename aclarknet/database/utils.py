@@ -1010,6 +1010,35 @@ def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
     return HttpResponseRedirect(refer)
 
 
+def set_invoice_totals(times, estimate=None, invoice=None):
+    """
+    Set invoice, estimate and time totals
+    """
+    invoice_amount = invoice_cog = 0
+    time_entry_amount = time_entry_cog = 0
+    for time_entry in times:
+        hours = time_entry.hours
+        if time_entry.task:
+            rate = time_entry.task.rate
+            time_entry_amount = rate * hours
+        if time_entry.user:
+            rate = time_entry.user.profile.rate
+            if rate:
+                time_entry_cog = rate * hours
+        time_entry.amount = '%.2f' % time_entry_amount
+        time_entry.cog = '%.2f' % time_entry_cog
+        invoice_amount += time_entry_amount
+        invoice_cog += time_entry_cog
+    if invoice:
+        invoice.amount = '%.2f' % invoice_amount
+        invoice.cog = '%.2f' % invoice_cog
+        invoice.save()
+    elif estimate:
+        estimate.amount = '%.2f' % invoice_amount
+        estimate.save()
+    return times
+
+
 def set_items_name(model_name, items=None, _items={}):
     """
     Share templates by returning dictionary of items e.g.
@@ -1083,32 +1112,3 @@ def set_relationship(obj,
             obj.task = project.task
         obj.save()
         return True
-
-
-def set_invoice_totals(times, estimate=None, invoice=None):
-    """
-    Set invoice, estimate and time totals
-    """
-    invoice_amount = invoice_cog = 0
-    time_entry_amount = time_entry_cog = 0
-    for time_entry in times:
-        hours = time_entry.hours
-        if time_entry.task:
-            rate = time_entry.task.rate
-            time_entry_amount = rate * hours
-        if time_entry.user:
-            rate = time_entry.user.profile.rate
-            if rate:
-                time_entry_cog = rate * hours
-        time_entry.amount = '%.2f' % time_entry_amount
-        time_entry.cog = '%.2f' % time_entry_cog
-        invoice_amount += time_entry_amount
-        invoice_cog += time_entry_cog
-    if invoice:
-        invoice.amount = '%.2f' % invoice_amount
-        invoice.cog = '%.2f' % invoice_cog
-        invoice.save()
-    elif estimate:
-        estimate.amount = '%.2f' % invoice_amount
-        estimate.save()
-    return times
