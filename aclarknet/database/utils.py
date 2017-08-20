@@ -785,41 +785,6 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         return app_settings.exclude_hidden_notes
 
 
-def is_allowed_to_view(model,
-                       pk,
-                       request,
-                       app_settings_model=None,
-                       profile_model=None):
-    """
-    Normal users can only see their own time entries
-    """
-    msg = 'Sorry, you are not allowed to see that.'
-    time_entry = get_object_or_404(model, pk=pk)
-    if not time_entry.user and not request.user.is_staff:
-        messages.add_message(request, messages.WARNING, msg)
-        return HttpResponseRedirect(reverse('home'))
-    if (not time_entry.user.username == request.user.username and
-            not request.user.is_staff):
-        messages.add_message(request, messages.WARNING, msg)
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        context = get_page_items(
-            request,
-            app_settings_model=app_settings_model,
-            model=model,
-            profile_model=profile_model,
-            pk=pk)
-        return render(request, 'time.html', context)
-
-
-def last_month():
-    """
-    Returns last day of last month
-    """
-    first = timezone.now().replace(day=1)
-    return first - timezone.timedelta(days=1)
-
-
 def get_template_and_url_names(**kwargs):
     """
     """
@@ -867,6 +832,41 @@ def gravatar_url(email):
     MD5 hash of email address for use with Gravatar
     """
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+
+
+def is_allowed_to_view(model,
+                       pk,
+                       request,
+                       app_settings_model=None,
+                       profile_model=None):
+    """
+    Normal users can only see their own time entries
+    """
+    msg = 'Sorry, you are not allowed to see that.'
+    time_entry = get_object_or_404(model, pk=pk)
+    if not time_entry.user and not request.user.is_staff:
+        messages.add_message(request, messages.WARNING, msg)
+        return HttpResponseRedirect(reverse('home'))
+    if (not time_entry.user.username == request.user.username and
+            not request.user.is_staff):
+        messages.add_message(request, messages.WARNING, msg)
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        context = get_page_items(
+            request,
+            app_settings_model=app_settings_model,
+            model=model,
+            profile_model=profile_model,
+            pk=pk)
+        return render(request, 'time.html', context)
+
+
+def last_month():
+    """
+    Returns last day of last month
+    """
+    first = timezone.now().replace(day=1)
+    return first - timezone.timedelta(days=1)
 
 
 def mail_compose(obj, **kwargs):
