@@ -188,7 +188,7 @@ def edit(request, **kwargs):
         model_name = contact_model._meta.verbose_name
     elif note_model:
         model_name = note_model._meta.verbose_name
-    template_name = get_template_and_url_names(
+    template_name = get_template_and_url(
         model_name=model_name, page_type='edit')
     return render(request, template_name, context)
 
@@ -219,37 +219,6 @@ def generate_doc(contract):
         elif element.tag == 'p':
             document.add_paragraph(element.text)
     return document
-
-
-def get_active_kwarg(model, active=False, user=None):
-    """
-    Kwarg for "active" varies by type
-    """
-    kwargs = {}
-    model_name = model._meta.verbose_name
-    if model_name == 'estimate':
-        # Unaccepted invoices are "active"
-        if active:
-            kwargs['accepted_date'] = None
-    elif model_name == 'invoice':
-        # Unpaid invoices are "active"
-        if active:
-            kwargs['last_payment_date'] = None
-    elif model_name == 'time':
-        # Only staff can see all items
-        if not user.is_staff:
-            kwargs['user'] = user
-        # Uninvoiced times are "active"
-        kwargs['invoiced'] = not (active)
-        # Estimated times are never "active"
-        kwargs['estimate'] = None
-    elif model_name == 'user':
-        # Use related model's active field
-        kwargs['profile__active'] = active
-    else:
-        # All other models check active field
-        kwargs['active'] = active
-    return kwargs
 
 
 def get_client_city(request):
@@ -785,7 +754,7 @@ def get_setting(request, app_settings_model, setting, page_size=None):
         return app_settings.exclude_hidden_notes
 
 
-def get_template_and_url_names(**kwargs):
+def get_template_and_url(**kwargs):
     """
     """
     model_name = kwargs.get('model_name')
@@ -943,18 +912,17 @@ def obj_copy(obj):
     kwargs = {}
     kwargs['pk'] = dup.pk
     model_name = obj._meta.verbose_name
-    url_name = get_template_and_url_names(
-        model_name=model_name, page_type='copy')
+    url_name = get_template_and_url(model_name=model_name, page_type='copy')
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
 def obj_remove(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'time':
-        url_name = get_template_and_url_names(
+        url_name = get_template_and_url(
             model_name=model_name, page_type='home')  # Redir to home
     else:
-        url_name = get_template_and_url_names(
+        url_name = get_template_and_url(
             model_name=model_name, page_type='index')  # Redir to index
     obj.delete()
     return HttpResponseRedirect(reverse(url_name))
@@ -962,7 +930,7 @@ def obj_remove(obj):
 
 def obj_edit(obj, pk=None):
     model_name = obj._meta.verbose_name
-    template_name, url_name = get_template_and_url_names(
+    template_name, url_name = get_template_and_url(
         model_name=model_name, page_type='view')  # Redir to view
     # New or existing object
     kwargs = {}
