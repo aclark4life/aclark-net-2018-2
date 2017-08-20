@@ -211,7 +211,7 @@ class NoteForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('active', 'rate', 'bio', 'avatar_url')
+        fields = ('active', 'rate', 'bio', 'address', 'avatar_url')
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
