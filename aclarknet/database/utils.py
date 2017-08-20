@@ -618,7 +618,9 @@ def get_page_items(request, **kwargs):
             context['plot_items'] = plot_items
             context['projects'] = projects
             context['times'] = times
-            context['total_hours'] = get_total_hours(times)
+            total_hours = get_total_hours(times)
+            context['total_hours'] = total_hours
+            context['total_earned'] = get_total_earned(request, total_hours)
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
@@ -788,6 +790,15 @@ def get_times_for_obj(obj, time_model):
         times = time_model.objects.filter(
             invoiced=False, estimate=None, invoice=None, project=obj)
     return times
+
+
+def get_total_earned(request, total_hours):
+    total_earned = 0
+    if request.user.profile:
+        if request.user.profile.rate:
+            rate = request.user.profile.rate
+            total_earned = total_hours * rate
+    return '%.2f' % total_earned
 
 
 def get_total_hours(items):
