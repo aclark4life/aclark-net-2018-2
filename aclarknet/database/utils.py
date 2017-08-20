@@ -416,246 +416,6 @@ def get_invoice_totals(model):
     return invoice_amount, invoice_amount - invoice_cog
 
 
-def get_query(request, query):
-    """
-    """
-    # Special handling for some query strings
-    if query == 'paginated':
-        paginated = request.GET.get('paginated')
-        if paginated == u'false':
-            return False
-        else:
-            return True
-    elif query == 'search' and request.method == 'POST':
-        return request.POST.get('search', '')
-    elif query == 'values':  # plot
-        values = request.GET.get('values')
-        if values:
-            values = values.split(' ')
-        else:
-            values = []
-        values = [i.split(',') for i in values]
-        return values
-    elif query == 'checkbox':
-        query_checkbox = {}
-        query_checkbox_active = request.POST.get('checkbox-active')
-        query_checkbox_subscribe = request.POST.get('checkbox-subscribe')
-        condition = (  # if any of these exist
-            query_checkbox_active == 'on' or query_checkbox_active == 'off' or
-            query_checkbox_subscribe == 'on' or
-            query_checkbox_subscribe == 'off')
-        query_checkbox['active'] = query_checkbox_active
-        query_checkbox['subscribe'] = query_checkbox_subscribe
-        query_checkbox['condition'] = condition
-        return query_checkbox
-    elif query == 'doc':
-        doc = request.GET.get('doc')
-        if doc:
-            return True
-        else:
-            return False
-    elif query == 'pdf':
-        pdf = request.GET.get('pdf')
-        if pdf:
-            return True
-        else:
-            return False
-    elif query == 'test':
-        test = request.GET.get('test')
-        if test:
-            return True
-        else:
-            return False
-    else:  # Normal handling
-        return request.GET.get(query, '')
-
-
-def get_search_results(model,
-                       search_fields,
-                       search,
-                       active_nav='',
-                       app_settings_model=None,
-                       edit_url='',
-                       request=None):
-    context = {}
-    query = []
-    model_name = model._meta.verbose_name
-    for field in search_fields:
-        query.append(Q(**{field + '__icontains': search}))
-    items = model.objects.filter(reduce(OR, query))
-    context['active_nav'] = active_nav
-    context['edit_url'] = edit_url
-    context['icon_size'] = get_setting(request, app_settings_model,
-                                       'icon_size')
-    context['icon_color'] = get_setting(request, app_settings_model,
-                                        'icon_color')
-    context['show_search'] = True
-    items = set_items_name(model_name, items=items)
-    context['items'] = items
-    return context
-
-
-def get_setting(request, app_settings_model, setting, page_size=None):
-    """
-    Allow user to override global setting
-    """
-    if not request.user.is_authenticated:
-        return
-    dashboard_override = user_pref = None
-    app_settings = app_settings_model.get_solo()
-    if setting == 'icon_size':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.icon_size
-        if user_pref:
-            return user_pref
-        else:
-            return app_settings.icon_size
-    elif setting == 'icon_color':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.icon_color
-        if user_pref:
-            return user_pref
-        else:
-            return app_settings.icon_color
-    elif setting == 'page_size':
-        if hasattr(request.user, 'profile'):
-            user_pref = request.user.profile.page_size
-        if user_pref:
-            return user_pref
-        elif page_size:  # View's page_size preference
-            return page_size
-        else:
-            return app_settings.page_size
-    elif setting == 'dashboard_choices':
-        dashboard_choices = app_settings.dashboard_choices
-        dashboard_override = has_profile = False
-        if hasattr(request.user, 'profile'):
-            has_profile = True
-        if has_profile:
-            dashboard_override = request.user.profile.dashboard_override
-        if has_profile and dashboard_override:
-            dashboard_choices = request.user.profile.dashboard_choices
-        return dashboard_choices
-    elif setting == 'exclude_hidden_notes':
-        return app_settings.exclude_hidden_notes
-
-
-def get_template_and_url_names(**kwargs):
-    """
-    """
-    model_name = kwargs.get('model_name')
-    page_type = kwargs.get('page_type')
-    if page_type == 'view':
-        url_name = URL_NAMES[model_name][0]
-        template_name = '%s.html' % url_name
-        return template_name, url_name
-    elif page_type == 'copy':
-        url_name = URL_NAMES[model_name][1]
-        return url_name
-    elif page_type == 'edit':
-        template_name = '%s.html' % URL_NAMES[model_name][1]
-        return template_name
-    elif page_type == 'home':
-        url_name = 'home'
-        return url_name
-    elif page_type == 'index':
-        url_name = URL_NAMES[model_name][2]
-        return url_name
-
-
-def get_times_for_obj(obj, time_model):
-    model_name = obj._meta.verbose_name
-    if model_name == 'invoice':
-        times_project = time_model.objects.filter(
-            invoiced=False, project=obj.project, estimate=None, invoice=None)
-        times_invoice = time_model.objects.filter(invoice=obj)
-        times = times_project | times_invoice
-    elif model_name == 'project':
-        times = time_model.objects.filter(
-            invoiced=False, estimate=None, invoice=None, project=obj)
-    return times
-
-
-def get_total_hours(items):
-    total_hours = items.aggregate(hours=Sum(F('hours')))
-    total_hours = total_hours['hours']
-    return total_hours
-
-
-def gravatar_url(email):
-    """
-    MD5 hash of email address for use with Gravatar
-    """
-    return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
-
-
-def mail_compose(obj, **kwargs):
-    context = {}
-    first_name = kwargs.get('first_name')
-    form = kwargs.get('form')
-    mail_to = kwargs.get('mail_to')
-    request = kwargs.get('request')
-    model_name = obj._meta.verbose_name
-    if model_name == 'contact':
-        message = form.cleaned_data['message']
-        subject = form.cleaned_data['subject']
-    elif model_name == 'note':
-        message = obj.note
-        subject = obj.title
-    if first_name:
-        message = render_to_string('first_name.html', {
-            'first_name': first_name,
-            'message': message,
-        })
-    if 'send_html' in form.data:  # http://stackoverflow.com/a/28476681/185820
-        context['html_message'] = render_to_string(form.data['template'],
-                                                   {'message': message, })
-    context['mail_to'] = mail_to
-    context['mail_from'] = django_settings.EMAIL_FROM
-    context['message'] = message
-    context['subject'] = subject
-    context['request'] = request
-    return context
-
-
-def mail_obj(request, **kwargs):
-    query_contact = get_query(request, 'contact')
-    query_note = get_query(request, 'note')
-    contact_model = kwargs.get('contact_model')
-    note_model = kwargs.get('note_model')
-    if contact_model and query_contact:
-        obj = contact_model.objects.get(pk=query_contact)
-    elif note_model and query_note:
-        obj = note_model.objects.get(pk=query_note)
-    return obj
-
-
-def mail_recipients(obj):
-    model_name = obj._meta.verbose_name
-    if model_name == 'contact':
-        return ((obj.first_name, obj.email), )
-    elif model_name == 'note':
-        return [(i.first_name, i.email) for i in obj.contacts.all()]
-
-
-def mail_send(**kwargs):
-    html_message = kwargs.get('html_message')
-    mail_from = kwargs.get('mail_from')
-    mail_to = kwargs.get('mail_to')
-    message = kwargs.get('message')
-    subject = kwargs.get('subject')
-    try:
-        send_mail(
-            subject,
-            message,
-            mail_from, (mail_to, ),
-            html_message=html_message)
-        status = True
-    except BotoServerError:
-        status = False
-    return status
-
-
 def get_note_stats(note_model):
     note_stats = {}
     active = len(note_model.objects.filter(active=True))
@@ -901,6 +661,130 @@ def get_page_items(request, **kwargs):
     return context
 
 
+def get_query(request, query):
+    """
+    """
+    # Special handling for some query strings
+    if query == 'paginated':
+        paginated = request.GET.get('paginated')
+        if paginated == u'false':
+            return False
+        else:
+            return True
+    elif query == 'search' and request.method == 'POST':
+        return request.POST.get('search', '')
+    elif query == 'values':  # plot
+        values = request.GET.get('values')
+        if values:
+            values = values.split(' ')
+        else:
+            values = []
+        values = [i.split(',') for i in values]
+        return values
+    elif query == 'checkbox':
+        query_checkbox = {}
+        query_checkbox_active = request.POST.get('checkbox-active')
+        query_checkbox_subscribe = request.POST.get('checkbox-subscribe')
+        condition = (  # if any of these exist
+            query_checkbox_active == 'on' or query_checkbox_active == 'off' or
+            query_checkbox_subscribe == 'on' or
+            query_checkbox_subscribe == 'off')
+        query_checkbox['active'] = query_checkbox_active
+        query_checkbox['subscribe'] = query_checkbox_subscribe
+        query_checkbox['condition'] = condition
+        return query_checkbox
+    elif query == 'doc':
+        doc = request.GET.get('doc')
+        if doc:
+            return True
+        else:
+            return False
+    elif query == 'pdf':
+        pdf = request.GET.get('pdf')
+        if pdf:
+            return True
+        else:
+            return False
+    elif query == 'test':
+        test = request.GET.get('test')
+        if test:
+            return True
+        else:
+            return False
+    else:  # Normal handling
+        return request.GET.get(query, '')
+
+
+def get_search_results(model,
+                       search_fields,
+                       search,
+                       active_nav='',
+                       app_settings_model=None,
+                       edit_url='',
+                       request=None):
+    context = {}
+    query = []
+    model_name = model._meta.verbose_name
+    for field in search_fields:
+        query.append(Q(**{field + '__icontains': search}))
+    items = model.objects.filter(reduce(OR, query))
+    context['active_nav'] = active_nav
+    context['edit_url'] = edit_url
+    context['icon_size'] = get_setting(request, app_settings_model,
+                                       'icon_size')
+    context['icon_color'] = get_setting(request, app_settings_model,
+                                        'icon_color')
+    context['show_search'] = True
+    items = set_items_name(model_name, items=items)
+    context['items'] = items
+    return context
+
+
+def get_setting(request, app_settings_model, setting, page_size=None):
+    """
+    Allow user to override global setting
+    """
+    if not request.user.is_authenticated:
+        return
+    dashboard_override = user_pref = None
+    app_settings = app_settings_model.get_solo()
+    if setting == 'icon_size':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.icon_size
+        if user_pref:
+            return user_pref
+        else:
+            return app_settings.icon_size
+    elif setting == 'icon_color':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.icon_color
+        if user_pref:
+            return user_pref
+        else:
+            return app_settings.icon_color
+    elif setting == 'page_size':
+        if hasattr(request.user, 'profile'):
+            user_pref = request.user.profile.page_size
+        if user_pref:
+            return user_pref
+        elif page_size:  # View's page_size preference
+            return page_size
+        else:
+            return app_settings.page_size
+    elif setting == 'dashboard_choices':
+        dashboard_choices = app_settings.dashboard_choices
+        dashboard_override = has_profile = False
+        if hasattr(request.user, 'profile'):
+            has_profile = True
+        if has_profile:
+            dashboard_override = request.user.profile.dashboard_override
+        if has_profile and dashboard_override:
+            dashboard_choices = request.user.profile.dashboard_choices
+        return dashboard_choices
+    elif setting == 'exclude_hidden_notes':
+        return app_settings.exclude_hidden_notes
+
+
 def is_allowed_to_view(model,
                        pk,
                        request,
@@ -934,6 +818,122 @@ def last_month():
     """
     first = timezone.now().replace(day=1)
     return first - timezone.timedelta(days=1)
+
+
+def get_template_and_url_names(**kwargs):
+    """
+    """
+    model_name = kwargs.get('model_name')
+    page_type = kwargs.get('page_type')
+    if page_type == 'view':
+        url_name = URL_NAMES[model_name][0]
+        template_name = '%s.html' % url_name
+        return template_name, url_name
+    elif page_type == 'copy':
+        url_name = URL_NAMES[model_name][1]
+        return url_name
+    elif page_type == 'edit':
+        template_name = '%s.html' % URL_NAMES[model_name][1]
+        return template_name
+    elif page_type == 'home':
+        url_name = 'home'
+        return url_name
+    elif page_type == 'index':
+        url_name = URL_NAMES[model_name][2]
+        return url_name
+
+
+def get_times_for_obj(obj, time_model):
+    model_name = obj._meta.verbose_name
+    if model_name == 'invoice':
+        times_project = time_model.objects.filter(
+            invoiced=False, project=obj.project, estimate=None, invoice=None)
+        times_invoice = time_model.objects.filter(invoice=obj)
+        times = times_project | times_invoice
+    elif model_name == 'project':
+        times = time_model.objects.filter(
+            invoiced=False, estimate=None, invoice=None, project=obj)
+    return times
+
+
+def get_total_hours(items):
+    total_hours = items.aggregate(hours=Sum(F('hours')))
+    total_hours = total_hours['hours']
+    return total_hours
+
+
+def gravatar_url(email):
+    """
+    MD5 hash of email address for use with Gravatar
+    """
+    return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+
+
+def mail_compose(obj, **kwargs):
+    context = {}
+    first_name = kwargs.get('first_name')
+    form = kwargs.get('form')
+    mail_to = kwargs.get('mail_to')
+    request = kwargs.get('request')
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
+        message = form.cleaned_data['message']
+        subject = form.cleaned_data['subject']
+    elif model_name == 'note':
+        message = obj.note
+        subject = obj.title
+    if first_name:
+        message = render_to_string('first_name.html', {
+            'first_name': first_name,
+            'message': message,
+        })
+    if 'send_html' in form.data:  # http://stackoverflow.com/a/28476681/185820
+        context['html_message'] = render_to_string(form.data['template'],
+                                                   {'message': message, })
+    context['mail_to'] = mail_to
+    context['mail_from'] = django_settings.EMAIL_FROM
+    context['message'] = message
+    context['subject'] = subject
+    context['request'] = request
+    return context
+
+
+def mail_obj(request, **kwargs):
+    query_contact = get_query(request, 'contact')
+    query_note = get_query(request, 'note')
+    contact_model = kwargs.get('contact_model')
+    note_model = kwargs.get('note_model')
+    if contact_model and query_contact:
+        obj = contact_model.objects.get(pk=query_contact)
+    elif note_model and query_note:
+        obj = note_model.objects.get(pk=query_note)
+    return obj
+
+
+def mail_recipients(obj):
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
+        return ((obj.first_name, obj.email), )
+    elif model_name == 'note':
+        return [(i.first_name, i.email) for i in obj.contacts.all()]
+
+
+def mail_send(**kwargs):
+    html_message = kwargs.get('html_message')
+    mail_from = kwargs.get('mail_from')
+    mail_to = kwargs.get('mail_to')
+    message = kwargs.get('message')
+    subject = kwargs.get('subject')
+    try:
+        send_mail(
+            subject,
+            message,
+            mail_from, (mail_to, ),
+            html_message=html_message)
+        status = True
+    except BotoServerError:
+        status = False
+    return status
 
 
 def obj_copy(obj):
