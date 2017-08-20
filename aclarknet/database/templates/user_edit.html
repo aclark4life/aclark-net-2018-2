@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-              <div class="col-md-10">
-                <h1>Profile</h1>
-                <h2>Users &raquo; <a href="{% url 'user' pk=request.user.pk %}">User</a> &rsaquo; {{ item.user }}</h2>
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Profile</h1>
+                  <h2>Users &raquo; <a href="{% url 'user' pk=request.user.pk %}">User</a> &rsaquo; {{ item.user }}</h2>
+                </div>
               </div>
               <form action="" method="post">{% csrf_token %}
-              {{ form|crispy }}
-              <input class="btn btn-lg btn-success" type="submit" value="Save User">
-              <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
+                {{ form|crispy }}
+                <input class="btn btn-lg btn-success" type="submit" value="Save User">
+                <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
               </form>
 {% endblock %}
 {% block js %}
