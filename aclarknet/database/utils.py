@@ -656,40 +656,6 @@ def mail_send(**kwargs):
     return status
 
 
-def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
-    model_name = obj._meta.verbose_name
-    if query_checkbox['active'] == 'on' or query_checkbox[
-            'active'] == 'off':  # Active
-        if query_checkbox['active'] == 'on':
-            obj.active = True
-        else:
-            obj.active = False
-        # Auto-hide notes
-        if model_name == 'note' and app_settings_model:
-            app_settings = app_settings_model.get_solo()
-            if app_settings.auto_hide_notes:
-                obj.hidden = True
-    elif query_checkbox['subscribe'] == 'on' or query_checkbox[
-            'subscribe'] == 'off':  # Subscribe
-        if query_checkbox['active'] == 'on':
-            obj.subscribed = True
-        else:
-            obj.subscribed = False
-    obj.save()
-    return HttpResponseRedirect(refer)
-
-
-def set_items_name(model_name, items=None, _items={}):
-    """
-    Share templates by returning dictionary of items e.g.
-        for item in items.reports
-    instead of:
-        for item in reports
-    """
-    _items['%ss' % model_name] = items
-    return _items
-
-
 def get_note_stats(note_model):
     note_stats = {}
     active = len(note_model.objects.filter(active=True))
@@ -1051,6 +1017,40 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
     data = buf.getvalue()
     # write image bytes back to the browser
     return HttpResponse(data, content_type="image/png")
+
+
+def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
+    model_name = obj._meta.verbose_name
+    if query_checkbox['active'] == 'on' or query_checkbox[
+            'active'] == 'off':  # Active
+        if query_checkbox['active'] == 'on':
+            obj.active = True
+        else:
+            obj.active = False
+        # Auto-hide notes
+        if model_name == 'note' and app_settings_model:
+            app_settings = app_settings_model.get_solo()
+            if app_settings.auto_hide_notes:
+                obj.hidden = True
+    elif query_checkbox['subscribe'] == 'on' or query_checkbox[
+            'subscribe'] == 'off':  # Subscribe
+        if query_checkbox['active'] == 'on':
+            obj.subscribed = True
+        else:
+            obj.subscribed = False
+    obj.save()
+    return HttpResponseRedirect(refer)
+
+
+def set_items_name(model_name, items=None, _items={}):
+    """
+    Share templates by returning dictionary of items e.g.
+        for item in items.reports
+    instead of:
+        for item in reports
+    """
+    _items['%ss' % model_name] = items
+    return _items
 
 
 def set_relationship(obj,
