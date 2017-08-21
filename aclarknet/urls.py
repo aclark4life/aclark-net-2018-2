@@ -88,7 +88,8 @@ urlpatterns = [
     # Plot
     url(r'^plot$', views.plot, name='plot'),
     # Profile
-    url(r'^profile/(?P<pk>\d+)/edit$', views.profile_edit, name='profile_edit'),
+    url(r'^profile/(?P<pk>\d+)/edit$', views.profile_edit,
+        name='profile_edit'),
     # Project
     url(r'^project/(?P<pk>\d+)$', views.project, name='project'),
     url(r'^project/(?P<pk>\d+)/edit$', views.project_edit,
