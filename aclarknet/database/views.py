@@ -510,7 +510,7 @@ def note_index(request, pk=None):
 @login_required
 def profile_edit(request, pk=None):
     if not request.user.profile.pk == int(pk) and not request.user.is_staff:
-        message = 'Sorry, you are not allowed to view that profile.'
+        message = 'Sorry, you are not allowed to edit that profile.'
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
