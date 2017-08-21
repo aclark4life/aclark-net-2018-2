@@ -730,12 +730,12 @@ def time(request, pk=None):
     time_entry = get_object_or_404(Time, pk=pk)
     # No user
     if not time_entry.user and not request.user.is_staff:
-        messages.add_message(request, messages.DANGER, message)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     # Time entry user does not much request user
     elif (not time_entry.user.username == request.user.username and
           not request.user.is_staff):
-        messages.add_message(request, messages.DANGER, message)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
