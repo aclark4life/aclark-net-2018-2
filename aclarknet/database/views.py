@@ -732,7 +732,7 @@ def time(request, pk=None):
     if not time_entry.user and not request.user.is_staff:
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
-    # Time entry user does not much request user
+    # Time entry user does not match current user
     elif (not time_entry.user.username == request.user.username and
           not request.user.is_staff):
         messages.add_message(request, messages.WARNING, message)
@@ -794,21 +794,26 @@ def time_index(request):
 
 @login_required
 def user(request, pk=None):
-    order_by = {
-        'time': ('-updated', ),
-        'project': ('-updated', ),
-    }
-    context = get_page_items(
-        request,
-        app_settings_model=AppSettings,
-        contact_model=Contact,
-        model=User,
-        order_by=order_by,
-        profile_model=Profile,
-        project_model=Project,
-        time_model=Time,
-        pk=pk)
-    return render(request, 'user.html', context)
+    if not request.user.pk == pk and not request.user.is_staff:
+        message = 'Sorry, you are not allowed to view that user.'
+        messages.add_message(request, messages.WARNING, message)
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        order_by = {
+            'time': ('-updated', ),
+            'project': ('-updated', ),
+        }
+        context = get_page_items(
+            request,
+            app_settings_model=AppSettings,
+            contact_model=Contact,
+            model=User,
+            order_by=order_by,
+            profile_model=Profile,
+            project_model=Project,
+            time_model=Time,
+            pk=pk)
+        return render(request, 'user.html', context)
 
 
 @login_required
