@@ -409,7 +409,7 @@ class Profile(BaseModel):
         max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     username = models.CharField(max_length=300, blank=True, null=True)
-    rate = models.DecimalField(
+    rate = models.DecimalField('USD',
         blank=True, null=True, max_digits=12, decimal_places=2)
     unit = models.DecimalField(
         "Unit",
