@@ -507,6 +507,20 @@ def note_index(request, pk=None):
     return render(request, 'note_index.html', context)
 
 
+@login_required
+def profile_edit(request, pk=None):
+    if request.user.is_staff:
+        profile_form = AdminProfileForm
+    else:
+        profile_form = ProfileForm
+    return edit(
+        request,
+        form_model=profile_form,
+        model=Profile,
+        active_nav='dropdown',
+        pk=pk)
+
+
 @staff_member_required
 def project(request, pk=None):
     context = get_page_items(
@@ -814,20 +828,6 @@ def user(request, pk=None):
             time_model=Time,
             pk=pk)
         return render(request, 'user.html', context)
-
-
-@login_required
-def user_edit(request, pk=None):
-    if request.user.is_staff:
-        profile_form = AdminProfileForm
-    else:
-        profile_form = ProfileForm
-    return edit(
-        request,
-        form_model=profile_form,
-        model=Profile,
-        active_nav='dropdown',
-        pk=pk)
 
 
 @staff_member_required

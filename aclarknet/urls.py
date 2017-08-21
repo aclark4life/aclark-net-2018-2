@@ -87,6 +87,8 @@ urlpatterns = [
     url(r'^note$', views.note_index, name='note_index'),
     # Plot
     url(r'^plot$', views.plot, name='plot'),
+    # Profile
+    url(r'^profile/(?P<pk>\d+)/edit$', views.profile_edit, name='profile_edit'),
     # Project
     url(r'^project/(?P<pk>\d+)$', views.project, name='project'),
     url(r'^project/(?P<pk>\d+)/edit$', views.project_edit,
@@ -141,7 +143,6 @@ urlpatterns = [
     url(r'^time$', views.time_index, name='time_index'),
     # User
     url(r'^user/(?P<pk>\d+)$', views.user, name='user'),
-    url(r'^user/(?P<pk>\d+)/edit$', views.user_edit, name='user_edit'),
     url(r'^user$', views.user_index, name='user_index'),
 ]
 
