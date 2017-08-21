@@ -746,13 +746,11 @@ def time(request, pk=None):
     """
     time_entry = get_object_or_404(Time, pk=pk)
     message = 'Sorry, you are not allowed to view that time entry.'
-    # No user
-    if not time_entry.user and not request.user.is_staff:
+    if not request.user.is_staff and not time_entry.user:  # No user
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
-    # Time entry user does not match current user
-    elif (not time_entry.user.username == request.user.username and
-          not request.user.is_staff):
+    elif (not request.user.is_staff and not time_entry.user.username ==
+          request.user.username):  # Time entry user does not match user
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     else:
@@ -769,13 +767,11 @@ def time(request, pk=None):
 def time_edit(request, pk=None):
     time_entry = get_object_or_404(Time, pk=pk)
     message = 'Sorry, you are not allowed to edit that time entry.'
-    # No user
-    if not time_entry.user and not request.user.is_staff:
+    if not request.user.is_staff and not time_entry.user:  # No user
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
-    # Time entry user does not match current user
-    elif (not time_entry.user.username == request.user.username and
-          not request.user.is_staff):
+    elif (not request.user.is_staff and not time_entry.user.username ==
+          request.user.username):  # Time entry user does not match user
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
