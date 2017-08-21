@@ -150,8 +150,6 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
 
-# Send mail with AWS SES
-EMAIL_BACKEND = 'django_ses.SESBackend'
 EMAIL_FROM = 'aclark@aclark.net'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
@@ -196,3 +194,10 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # Errors sent to admins
 SERVER_MAIL = 'aclark@aclark.net'
 ADMINS = [('Alex Clark', 'aclark@aclark.net')]
+
+# SES
+
+EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.environ.get('SMTP_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASS')
