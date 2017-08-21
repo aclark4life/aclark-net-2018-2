@@ -744,8 +744,8 @@ def time(request, pk=None):
     Authenticate users can only see their own time entries unless
     they are staff members.
     """
-    message = 'Sorry, you are not allowed to view that time entry.'
     time_entry = get_object_or_404(Time, pk=pk)
+    message = 'Sorry, you are not allowed to view that time entry.'
     # No user
     if not time_entry.user and not request.user.is_staff:
         messages.add_message(request, messages.WARNING, message)
@@ -767,6 +767,17 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
+    time_entry = get_object_or_404(Time, pk=pk)
+    message = 'Sorry, you are not allowed to edit that time entry.'
+    # No user
+    if not time_entry.user and not request.user.is_staff:
+        messages.add_message(request, messages.WARNING, message)
+        return HttpResponseRedirect(reverse('home'))
+    # Time entry user does not match current user
+    elif (not time_entry.user.username == request.user.username and
+          not request.user.is_staff):
+        messages.add_message(request, messages.WARNING, message)
+        return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         time_form = AdminTimeForm
     else:
