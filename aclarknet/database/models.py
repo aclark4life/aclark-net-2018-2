@@ -47,6 +47,10 @@ TEMPLATE_CHOICES = (
     ('cerberus-hybrid.html', 'Hybrid'),
     ('cerberus-responsive.html', 'Responsive'), )
 
+PAYMENT_CHOICES = (
+    ('paypal', 'PayPal'),
+    ('check', 'Check'), )
+
 # Create your models here.
 
 
@@ -417,6 +421,12 @@ class Profile(BaseModel):
     avatar_url = models.URLField("Avatar URL", blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
+    payment_choices = models.CharField(
+        'Preferred Payment Method',
+        max_length=255,
+        blank=True,
+        null=True,
+        choices=PAYMENT_CHOICES)
 
     def __str__(self):
         return self.user.username
