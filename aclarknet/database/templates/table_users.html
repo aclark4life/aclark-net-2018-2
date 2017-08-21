@@ -16,7 +16,7 @@
             <tbody>
             {% for item in items.users %}
               <tr>
-                <td>{% if item.profile %}<form action="{% url 'user_edit' item.profile.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active" {% if item.profile.active %} checked {% endif %} onChange="this.form.submit()"></form>{% endif %}</td>
+                <td>{% if item.profile %}<form action="{% url 'profile_edit' item.profile.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active" {% if item.profile.active %} checked {% endif %} onChange="this.form.submit()"></form>{% endif %}</td>
                 <td>{{ item.profile.active }}</td>
                 <td>{% if item.profile.app_admin %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
                 <td>{{ item.profile.pk }}</td>
@@ -25,7 +25,7 @@
                 <td>{{ item.username|default:'' }}</td>
                 <td>{% if item.profile.is_contact %}<i class="fa fa-check-circle text-success"></i>{% endif %}</td>
                 <td><a class="text-{{ icon_color }}" href="{% url 'user' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                <td>{% if item.profile %}<a class="text-{{ icon_color }}" href="{% url 'user_edit' item.profile.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a>{% endif %}</td>
+                <td>{% if item.profile %}<a class="text-{{ icon_color }}" href="{% url 'profile_edit' item.profile.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a>{% endif %}</td>
               </tr>
             {% endfor %}
             </tbody>
