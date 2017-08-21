@@ -195,9 +195,9 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 SERVER_MAIL = 'aclark@aclark.net'
 ADMINS = [('Alex Clark', 'aclark@aclark.net')]
 
-# SES
-
+# AWS SES
 EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = os.environ.get('SMTP_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASS')
+EMAIL_USE_TLS = True
