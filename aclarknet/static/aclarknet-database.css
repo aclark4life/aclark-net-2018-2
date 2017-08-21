@@ -18,7 +18,7 @@ tbody tr:hover a {
     font-size: 400%;
 }
 .fixed-table-loading {
-    display: none;
+    display: none !important;
 }
 .sidebar {
     opacity: 0.9;
