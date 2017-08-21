@@ -49,7 +49,6 @@ from .utils import get_client_city
 from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
-from .utils import is_allowed_to_view
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -59,6 +58,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
@@ -722,12 +722,28 @@ def task_index(request):
 
 @login_required
 def time(request, pk=None):
-    return is_allowed_to_view(
-        Time,
-        pk,
-        request,
-        app_settings_model=AppSettings,
-        profile_model=Profile)
+    """
+    Users can only see their own time entries unless staff.
+    """
+    message = 'Not allowed.'
+    time_entry = get_object_or_404(Time, pk=pk)
+    # No user
+    if not time_entry.user and not request.user.is_staff:
+        messages.add_message(request, messages.WARNING, message)
+        return HttpResponseRedirect(reverse('home'))
+    # Time entry user does not much request user
+    elif (not time_entry.user.username == request.user.username and
+          not request.user.is_staff):
+        messages.add_message(request, messages.WARNING, message)
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        context = get_page_items(
+            request,
+            app_settings_model=AppSettings,
+            model=Time,
+            profile_model=Profile,
+            pk=pk)
+        return render(request, 'time.html', context)
 
 
 @login_required
