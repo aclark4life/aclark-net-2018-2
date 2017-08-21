@@ -808,7 +808,7 @@ def time_index(request):
 
 @login_required
 def user(request, pk=None):
-    if not request.user.pk == pk:
+    if not request.user.pk == int(pk):
         message = 'Sorry, you are not allowed to view that user.'
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
