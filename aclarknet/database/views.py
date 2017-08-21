@@ -769,15 +769,16 @@ def time_edit(request, pk=None):
     Authenticated users can only edit their own time entries unless
     they are staff.
     """
-    time_entry = get_object_or_404(Time, pk=pk)
-    message = 'Sorry, you are not allowed to edit that time entry.'
-    if not request.user.is_staff and not time_entry.user:  # No user
-        messages.add_message(request, messages.WARNING, message)
-        return HttpResponseRedirect(reverse('home'))
-    elif (not request.user.is_staff and not time_entry.user.username ==
-          request.user.username):  # Time entry user does not match user
-        messages.add_message(request, messages.WARNING, message)
-        return HttpResponseRedirect(reverse('home'))
+    if pk is not None:
+        time_entry = get_object_or_404(Time, pk=pk)
+        message = 'Sorry, you are not allowed to edit that time entry.'
+        if not request.user.is_staff and not time_entry.user:  # No user
+            messages.add_message(request, messages.WARNING, message)
+            return HttpResponseRedirect(reverse('home'))
+        elif (not request.user.is_staff and not time_entry.user.username ==
+              request.user.username):  # Time entry user does not match user
+            messages.add_message(request, messages.WARNING, message)
+            return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         time_form = AdminTimeForm
     else:
