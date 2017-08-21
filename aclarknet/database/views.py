@@ -726,7 +726,7 @@ def time(request, pk=None):
     Authenticate users can only see their own time entries unless
     they are staff members.
     """
-    message = 'Sorry, you are not allowed to view that entry.'
+    message = 'Sorry, you are not allowed to view that time entry.'
     time_entry = get_object_or_404(Time, pk=pk)
     # No user
     if not time_entry.user and not request.user.is_staff:
