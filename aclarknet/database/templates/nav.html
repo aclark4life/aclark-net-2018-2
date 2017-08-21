@@ -7,16 +7,16 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">  <!-- http://stackoverflow.com/a/25044880/185820 -->
 {% include 'dropdown.html' %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contact' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contract' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'contract_index' %}">Contracts</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'estimate' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'invoice' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'note' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'project' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'proposal' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'proposal_index' %}">Proposals</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'task' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'time' %}bg-success rounded{% endif %}"><a class="nav-link text-muted" href="{% url 'time_index' %}">Times</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'client' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contact' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'contract' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'contract_index' %}">Contracts</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'estimate' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'invoice' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'note' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'project' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'proposal' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'proposal_index' %}">Proposals</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'task' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'time' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'time_index' %}">Times</a></li>{% endif %}
         </ul>
       </div>
     </nav>
