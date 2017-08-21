@@ -741,8 +741,8 @@ def task_index(request):
 @login_required
 def time(request, pk=None):
     """
-    Authenticate users can only see their own time entries unless
-    they are staff members.
+    Authenticated users can only view their own time entries unless
+    they are staff. 
     """
     time_entry = get_object_or_404(Time, pk=pk)
     message = 'Sorry, you are not allowed to view that time entry.'
@@ -765,6 +765,10 @@ def time(request, pk=None):
 
 @login_required
 def time_edit(request, pk=None):
+    """
+    Authenticated users can only edit their own time entries unless
+    they are staff. 
+    """
     time_entry = get_object_or_404(Time, pk=pk)
     message = 'Sorry, you are not allowed to edit that time entry.'
     if not request.user.is_staff and not time_entry.user:  # No user
