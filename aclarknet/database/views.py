@@ -319,8 +319,8 @@ def home(request):
         columns_visible={
             'note': {
                 'due': 'false',
-                'hidden': 'false'
-                'note': 'false'
+                'hidden': 'false',
+                'note': 'false',
             },
             'invoice': {
                 'paid': 'false',
