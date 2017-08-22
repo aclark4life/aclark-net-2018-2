@@ -192,7 +192,6 @@ GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Errors sent to admins
-SERVER_MAIL = 'aclark@aclark.net'
 ADMINS = [('Alex Clark', 'aclark@aclark.net'), ]
 
 # AWS SES
