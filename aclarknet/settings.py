@@ -193,7 +193,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Errors sent to admins
 SERVER_MAIL = 'aclark@aclark.net'
-ADMINS = [('Alex Clark', 'aclark@aclark.net')]
+ADMINS = [('Alex Clark', 'aclark@aclark.net'), ]
 
 # AWS SES
 EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
