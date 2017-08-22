@@ -21,7 +21,7 @@
                 <td><form action="{% url 'note_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                 <td>{{ item.active }}</td>
                 <td>{{ forloop.counter }}</a></td>
-                <td>{% for tag in item.tags.all %}<span class="badge badge-default">{{ tag }}</span>{% endfor %}</td>
+                <td>{% for tag in item.tags.all %}<span class="badge badge-dark">{{ tag }}</span>{% endfor %}</td>
                 <td>{{ item.title|default:'' }}</td>
                 <td>{{ item.note|safe }}</td>
                 <td>{{ item.note|striptags|truncatechars:8 }}</td>
