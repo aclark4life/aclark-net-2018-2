@@ -1,6 +1,10 @@
 {% if not 'search' in request.POST %}
 <div class="row">
-  <div class="col-md-2"><strong>Active</strong> {{ note_stats.active_note_count }}</div>
+  <div class="col-md-2">
+    <button class="btn">
+      Active <span class="badge badge-secondary">{{ note_stats.active_note_count }}</span>
+    </button>
+  </div>
   <div class="col-md-2"><strong>Inactive</strong> {{ note_stats.inactive_note_count }}</div>
   <div class="col-md-2"><strong>Visible</strong> {{ note_stats.not_hidden_count }}</div>
   <div class="col-md-2"><strong>Hidden</strong> {{ note_stats.hidden_note_count }}</div>
