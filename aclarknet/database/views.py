@@ -222,6 +222,10 @@ def contract_index(request):
     return render(request, 'contract_index.html', context)
 
 
+def error(request):
+    raise
+
+
 @staff_member_required
 def estimate(request, pk=None):
     order_by = {'time': ('date', ), }
