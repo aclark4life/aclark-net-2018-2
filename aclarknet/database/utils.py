@@ -840,9 +840,12 @@ def mail_compose(obj, **kwargs):
             'message': message,
         })
     # http://stackoverflow.com/a/28476681/185820
-    if 'send_html' in form.data or not form:  # python manage.py send_note.py
-        context['html_message'] = render_to_string(form.data['template'],
-                                                   {'message': message, })
+    html_message = render_to_string(form.data['template'], {'message': message, })
+    if form:
+        if 'send_html' in form.data: 
+            context['html_message'] = html_message
+    else:  # python manage.py send_note
+        context['html_message'] = html_message
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
