@@ -1,3 +1,4 @@
+/*
 $(document).ready(function() {
     $('.dateinput').datepicker({ format: "yyyy-mm-dd", todayHighlight: "true"});
     $('.datetimeinput').datepicker({ format: "yyyy-mm-dd", todayHighlight: "true"});
@@ -12,3 +13,4 @@ $(document).ready(function() {
         return false;
     });
 });
+*/
