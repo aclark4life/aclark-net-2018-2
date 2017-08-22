@@ -225,7 +225,8 @@ def contract_index(request):
 def error(request):
     """
     """
-    return HttpResponse()
+    # return HttpResponse()
+    raise
 
 
 @staff_member_required
