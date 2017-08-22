@@ -847,7 +847,7 @@ def mail_compose(obj, **kwargs):
             context['html_message'] = html_message
     else:  # python manage.py send_note
         context['html_message'] = html_message = render_to_string(
-            'mail', {'message': message, })
+            'mail.html', {'message': message, })
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
