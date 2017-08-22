@@ -151,7 +151,7 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
 
-DEFAULT_EMAIL_FROM = 'db@aclark.net'
+EMAIL_FROM = 'db@aclark.net'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
