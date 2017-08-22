@@ -818,6 +818,7 @@ def time_index(request):
                 'invoiced': 'true',
                 'invoice': 'true',
                 'estimate': 'true',
+                'log': 'false',
             },
         },
         edit_url='time_edit',
