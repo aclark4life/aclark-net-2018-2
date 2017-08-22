@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block css %}
+{% include 'datepicker-css.html' %}
+{% endblock %}
 {% block content %}
               <h1>Time</h1>
               <form action="" method="post">{% csrf_token %}
@@ -9,5 +12,5 @@
               </form>
 {% endblock %}
 {% block js %}
-{% include 'datepicker.html' %}
+{% include 'datepicker-js.html' %}
 {% endblock %}
