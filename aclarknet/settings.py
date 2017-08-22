@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get(
     'SECRET_KEY', 'zsrzbhfdf4o&+%lgcqqd9pxa^u5+qe9&6d#g=g-@8e)f&a-1v&')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -192,7 +192,7 @@ GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Errors sent to admins
-SERVER_EMAIL = 'aclark@aclark.net'
+SERVER_EMAIL = 'db@aclark.net'
 ADMINS = [('Alex Clark', 'aclark@aclark.net'), ]
 
 # AWS SES
