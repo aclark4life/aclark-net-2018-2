@@ -1,21 +1,20 @@
 {% if not 'search' in request.POST %}
 <div class="row">
-  <div class="col-md-12">
-    <button class="btn btn-light">
-      Active <span class="badge badge-secondary">{{ note_stats.active_note_count }}</span>
-    </button>
-    <button class="btn btn-light">
-      Inactive <span class="badge badge-secondary">{{ note_stats.inactive_note_count }}</span>
-    </button>
-    <button class="btn btn-light">
-      Visible <span class="badge badge-secondary">{{ note_stats.not_hidden_count }}</span>
-    </button>
-    <button class="btn btn-light">
-      Hidden <span class="badge badge-secondary">{{ note_stats.hidden_note_count }}</span>
-    </button>
-    <button class="btn btn-light">
-      Total <span class="badge badge-secondary">{{ note_stats.total_note_count }}</span>
-    </button>
+  <div class="col-md-2">
+      Active    <span class="">{{ note_stats.active_note_count }}</span>
+  </div>
+  <div class="col-md-2">
+      Inactive  <span class="">{{ note_stats.inactive_note_count }}</span>
+  </div>
+  <div class="col-md-2">
+      Visible   <span class="">{{ note_stats.not_hidden_count }}</span>
+  </div>
+  <div class="col-md-2">
+      Hidden    <span class="">{{ note_stats.hidden_note_count }}</span>
+  </div>
+  <div class="col-md-2">
+      Total     <span class="">{{ note_stats.total_note_count }}</span>
+  </div>
   </div>
 </div>
 {% endif %}
