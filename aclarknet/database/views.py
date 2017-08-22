@@ -320,6 +320,7 @@ def home(request):
             'note': {
                 'due': 'false',
                 'hidden': 'false'
+                'note': 'false'
             },
             'invoice': {
                 'paid': 'false',
