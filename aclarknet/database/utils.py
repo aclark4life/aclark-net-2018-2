@@ -839,7 +839,8 @@ def mail_compose(obj, **kwargs):
             'first_name': first_name,
             'message': message,
         })
-    if 'send_html' in form.data:  # http://stackoverflow.com/a/28476681/185820
+    # http://stackoverflow.com/a/28476681/185820
+    if 'send_html' in form.data or not form:  # python manage.py send_note.py
         context['html_message'] = render_to_string(form.data['template'],
                                                    {'message': message, })
     context['mail_to'] = mail_to
