@@ -155,13 +155,12 @@ def edit(request, **kwargs):
                     note_model=note_model)
                 recipients = mail_recipients(obj)
                 for first_name, address in recipients:
-                    mail_send(
-                        **mail_compose(
-                            obj,
-                            form=form,
-                            first_name=first_name,
-                            mail_to=address,
-                            request=request))
+                    mail_send(**mail_compose(
+                        obj,
+                        form=form,
+                        first_name=first_name,
+                        mail_to=address,
+                        request=request))
                 # if status:
                 #     messages.add_message(request, messages.SUCCESS,
                 #                          'Mail sent to %s!' %
@@ -428,13 +427,16 @@ def get_page_items(request, **kwargs):
         context['model_name'] = model_name
         if model_name == 'app settings':
             app_settings = app_settings_model.get_solo()
-            context['items'] = get_fields([app_settings, ])  # table_items.html
+            context['items'] = get_fields([
+                app_settings,
+            ])  # table_items.html
             context['active_tab'] = 'system'
             context['active_nav'] = 'dropdown'
         elif model_name == 'contract settings':
             contract_settings = model.get_solo()
-            context['items'] = get_fields(
-                [contract_settings, ])  # table_items.html
+            context['items'] = get_fields([
+                contract_settings,
+            ])  # table_items.html
             context['active_tab'] = 'contract'
             context['active_nav'] = 'dropdown'
         elif model_name == 'client':
@@ -451,15 +453,18 @@ def get_page_items(request, **kwargs):
             context['projects'] = projects
         elif model_name == 'Company':
             company_settings = model.get_solo()
-            context['items'] = get_fields(
-                [company_settings, ])  # table_items.html
+            context['items'] = get_fields([
+                company_settings,
+            ])  # table_items.html
             context['active_nav'] = 'dropdown'
             context['active_tab'] = 'company'
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
-            context['items'] = get_fields([contact, ])  # table_items.html
+            context['items'] = get_fields([
+                contact,
+            ])  # table_items.html
             context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
@@ -575,7 +580,9 @@ def get_page_items(request, **kwargs):
             user = get_object_or_404(model, pk=pk)
             profile_model.objects.get_or_create(user=user)
             projects = project_model.objects.filter(
-                team__in=[user, ], active=True)
+                team__in=[
+                    user,
+                ], active=True)
             projects = projects.order_by(*order_by['project'])
             times = time_model.objects.filter(
                 estimate=None, invoiced=False, user=user)
@@ -583,7 +590,9 @@ def get_page_items(request, **kwargs):
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
             context['item'] = user
-            context['items'] = get_fields([user.profile, ])  # table_items.html
+            context['items'] = get_fields([
+                user.profile,
+            ])  # table_items.html
             context['projects'] = projects
             context['times'] = times
     else:  # home
@@ -842,12 +851,15 @@ def mail_compose(obj, **kwargs):
     # http://stackoverflow.com/a/28476681/185820
     if form:
         if 'send_html' in form.data:
-            html_message = render_to_string(form.data['template'],
-                                            {'message': message, })
+            html_message = render_to_string(form.data['template'], {
+                'message': message,
+            })
             context['html_message'] = html_message
     else:  # python manage.py send_note
         context['html_message'] = html_message = render_to_string(
-            'mail.html', {'message': message, })
+            'mail.html', {
+                'message': message,
+            })
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
@@ -978,8 +990,8 @@ def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
 
 def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
     model_name = obj._meta.verbose_name
-    if query_checkbox['active'] == 'on' or query_checkbox[
-            'active'] == 'off':  # Active
+    if (query_checkbox['active'] == 'on' or
+            query_checkbox['active'] == 'off'):  # Active
         if query_checkbox['active'] == 'on':
             obj.active = True
         else:
@@ -989,8 +1001,8 @@ def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
             app_settings = app_settings_model.get_solo()
             if app_settings.auto_hide_notes:
                 obj.hidden = True
-    elif query_checkbox['subscribe'] == 'on' or query_checkbox[
-            'subscribe'] == 'off':  # Subscribe
+    elif (query_checkbox['subscribe'] == 'on' or
+          query_checkbox['subscribe'] == 'off'):  # Subscribe
         if query_checkbox['active'] == 'on':
             obj.subscribed = True
         else:
@@ -1085,7 +1097,10 @@ def set_relationship(obj,
         query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
         if not request.user.is_staff:  # Staff have more than one project
-            user_projects = project_model.objects.filter(team__in=[obj.user, ])
+            user_projects = project_model.objects.filter(
+                team__in=[
+                    obj.user,
+                ])
             if len(user_projects) > 0:
                 obj.project = user_projects[0]
                 obj.task = obj.project.task

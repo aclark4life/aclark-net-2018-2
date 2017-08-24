@@ -40,17 +40,8 @@ class AdminProfileForm(forms.ModelForm):
 class AdminTimeForm(forms.ModelForm):
     class Meta:
         model = Time
-        fields = (
-            'date',
-            'hours',
-            'log',
-            'client',
-            'estimate',
-            'invoice',
-            'project',
-            'user',
-            'task',
-            'invoiced', )
+        fields = ('date', 'hours', 'log', 'client', 'estimate', 'invoice',
+                  'project', 'user', 'task', 'invoiced', )
 
 
 class ClientForm(forms.ModelForm):
@@ -75,18 +66,9 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = (  # Exclude uuid instead of include everything else?
-            'active',
-            'subscribed',
-            'first_name',
-            'last_name',
-            'title',
-            'email',
-            'mobile_phone',
-            'office_phone',
-            'fax',
-            'address',
-            'client',
-            'notes', )
+            'active', 'subscribed', 'first_name', 'last_name', 'title',
+            'email', 'mobile_phone', 'office_phone', 'fax', 'address',
+            'client', 'notes', )
 
 
 class ContractForm(forms.ModelForm):
@@ -103,7 +85,8 @@ class ContractSettingsForm(forms.ModelForm):
         model = ContractSettings
         fields = '__all__'
         widgets = {
-            'parties': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'parties':
+            forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'scope_of_work':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'payment_terms':
@@ -114,14 +97,16 @@ class ContractSettingsForm(forms.ModelForm):
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'authority_to_act':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-            'termination': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'termination':
+            forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'governing_laws':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'period_of_agreement':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'confidentiality':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-            'taxes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'taxes':
+            forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'limited_warranty':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'complete_agreement':
@@ -132,13 +117,8 @@ class ContractSettingsForm(forms.ModelForm):
 class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
-        fields = (
-            'subject',
-            'client',
-            'project',
-            'accepted_date',
-            'issue_date',
-            'is_sow', )
+        fields = ('subject', 'client', 'project', 'accepted_date',
+                  'issue_date', 'is_sow', )
 
 
 class FileForm(forms.ModelForm):
@@ -156,12 +136,8 @@ class InvoiceForm(forms.ModelForm):
 
     class Meta:
         model = Invoice
-        fields = (
-            'subject',
-            'client',
-            'project',
-            'issue_date',
-            'last_payment_date', )
+        fields = ('subject', 'client', 'project', 'issue_date',
+                  'last_payment_date', )
 
 
 class MailForm(forms.Form):
@@ -182,8 +158,8 @@ class NewsletterForm(forms.ModelForm):
         }
 
     contacts = forms.ModelMultipleChoiceField(
-        queryset=Contact.objects.filter(
-            subscribed=True).exclude(email=None).order_by('first_name'),
+        queryset=Contact.objects.filter(subscribed=True).exclude(
+            email=None).order_by('first_name'),
         widget=forms.SelectMultiple(attrs={'size': '50'}))
 
 
