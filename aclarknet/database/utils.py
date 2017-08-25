@@ -890,6 +890,7 @@ def mail_send(**kwargs):
             subject,
             message,
             mail_from, (mail_to, ),
+            fail_silently=False,
             html_message=html_message)
         status = True
     except BotoServerError:
