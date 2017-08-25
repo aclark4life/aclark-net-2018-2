@@ -988,11 +988,11 @@ def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
             obj.hidden = False
         else:
             obj.active = False
-        # Auto-hide notes
-        if model_name == 'note' and app_settings_model:
-            app_settings = app_settings_model.get_solo()
-            if app_settings.auto_hide_notes:
-                obj.hidden = True
+            # Auto-hide notes
+            if model_name == 'note' and app_settings_model:
+                app_settings = app_settings_model.get_solo()
+                if app_settings.auto_hide_notes:
+                    obj.hidden = True
     elif (query_checkbox['subscribe'] == 'on' or
           query_checkbox['subscribe'] == 'off'):  # Subscribe
         if query_checkbox['active'] == 'on':
