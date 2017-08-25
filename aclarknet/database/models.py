@@ -59,6 +59,8 @@ class BaseModel(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    hidden = models.BooleanField(default=False)
 
     class Meta:
         abstract = True
@@ -67,8 +69,6 @@ class BaseModel(models.Model):
 class Client(BaseModel):
     """
     """
-    active = models.BooleanField(default=True)
-    hidden = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     name = models.CharField(max_length=300, blank=True, null=True)
     icon = models.CharField(max_length=25, blank=True, null=True)
@@ -372,8 +372,6 @@ class Note(BaseModel):
     """
     """
 
-    active = models.BooleanField(default=True)
-    hidden = models.BooleanField(default=False)
     due_date = models.DateField("Due", blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)
     tags = TaggableManager(blank=True, help_text='')
@@ -454,8 +452,6 @@ class Project(BaseModel):
     Total Hours, Billable Hours, Billable Amount, Budget, Budget Spent,
     Budget Remaining, Total Costs, Team Costs, Expenses
     """
-    active = models.BooleanField(default=True)
-    hidden = models.BooleanField(default=False)
     client = models.ForeignKey(
         Client,
         blank=True,
