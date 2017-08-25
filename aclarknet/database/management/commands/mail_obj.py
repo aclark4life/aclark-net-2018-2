@@ -6,14 +6,16 @@ from aclarknet.database.utils import mail_send
 
 
 class Command(BaseCommand):
-    help = 'Send note'
+    help = 'Mail obj'
 
     def add_arguments(self, parser):
-        parser.add_argument('note_id', nargs='+', type=int)
+        parser.add_argument('obj_type')
+        parser.add_argument('obj_id')
 
     def handle(self, *args, **options):
-        note_id = options.get('note_id')[0]
-        obj = Note.objects.get(pk=note_id)
+        obj_id = options.get('obj_id')
+        obj_type = options.get('obj_type')
+        obj = model.objects.get(pk=obj_id)
         if mail_send(**mail_compose(obj)):
             self.stdout.write(self.style.SUCCESS('Mail sent!'))
         else:
