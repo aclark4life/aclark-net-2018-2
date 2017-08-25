@@ -50,7 +50,7 @@ TEMPLATE_CHOICES = (
 PAYMENT_CHOICES = (
     ('check', 'Check'),
     ('paypal', 'PayPal'),
-    ('wire', 'Wire Transfer'), )
+    ('wire', 'Wire'), )
 
 # Create your models here.
 
