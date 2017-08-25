@@ -1,6 +1,5 @@
           <!-- https://stackoverflow.com/a/1070414/185820 -->
           {% if items.paginator %}
-        <div class="px-3">
           <div class="row">
             <div class="col-md-10 ml-auto"> <!-- Paginated -->
               <strong>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</strong>
@@ -18,6 +17,5 @@
               <button class="btn btn-secondary" disabled><i class="fa fa-step-backward"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-left"></i></button> <strong>Page 1 of 1</strong> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-right"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-step-forward"></i></button>
               <strong><a class="btn btn-secondary" href="?paginated=true">Show paginated</a></strong>
             </div>
-          </div>
           </div>
           {% endif %}
