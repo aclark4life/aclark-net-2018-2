@@ -6,7 +6,7 @@ from aclarknet.database.utils import mail_send
 
 
 class Command(BaseCommand):
-    help = 'Mail obj'
+    help = 'Mail obj.field to obj => contacts'
 
     def add_arguments(self, parser):
         parser.add_argument('obj_type')
