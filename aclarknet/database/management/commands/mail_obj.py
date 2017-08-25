@@ -23,8 +23,7 @@ class Command(BaseCommand):
                 **mail_compose(
                     obj,
                     first_name=first_name,
-                    mail_to=email_address,
-                    request=request))
+                    mail_to=email_address))
         # if mail_send(**mail_compose(obj)):
         #     self.stdout.write(self.style.SUCCESS('Mail sent!'))
         # else:
