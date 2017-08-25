@@ -985,6 +985,7 @@ def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
             query_checkbox['active'] == 'off'):  # Active
         if query_checkbox['active'] == 'on':
             obj.active = True
+            obj.hidden = False
         else:
             obj.active = False
         # Auto-hide notes
