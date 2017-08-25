@@ -13,24 +13,43 @@ from uuid import uuid4
 fake = Faker()
 
 # https://github.com/goinnn/django-multiselectfield
-COLOR_CHOICES = (('danger', 'Danger'), ('faded', 'Faded'), ('info', 'Info'),
-                 ('inverse', 'Inverse'), ('primary', 'Primary'),
-                 ('success', 'Success'), ('warning', 'Warning'), )
+COLOR_CHOICES = (
+    ('danger', 'Danger'),
+    ('faded', 'Faded'),
+    ('info', 'Info'),
+    ('inverse', 'Inverse'),
+    ('primary', 'Primary'),
+    ('success', 'Success'),
+    ('warning', 'Warning'), )
 
-DASHBOARD_CHOICES = (('data', 'Data'), ('invoices', 'Invoices'),
-                     ('notes', 'Notes'), ('projects', 'Projects'),
-                     ('times', 'Times'), ('totals', 'Totals'), )
+DASHBOARD_CHOICES = (
+    ('data', 'Data'),
+    ('invoices', 'Invoices'),
+    ('notes', 'Notes'),
+    ('projects', 'Projects'),
+    ('times', 'Times'),
+    ('totals', 'Totals'), )
 
-EDITOR_CHOICES = (('ckeditor', 'CKEditor'), ('tinymce', 'TinyMCE'), )
+EDITOR_CHOICES = (
+    ('ckeditor', 'CKEditor'),
+    ('tinymce', 'TinyMCE'), )
 
-ICON_CHOICES = (('1x', 'Small'), ('2x', 'Medium'), ('3x', 'Large'),
-                ('4x', 'XL'), ('5x', 'XXL'), )
+ICON_CHOICES = (
+    ('1x', 'Small'),
+    ('2x', 'Medium'),
+    ('3x', 'Large'),
+    ('4x', 'XL'),
+    ('5x', 'XXL'), )
 
-TEMPLATE_CHOICES = (('mail.html', 'Mail'), ('cerberus-fluid.html', 'Fluid'),
-                    ('cerberus-hybrid.html',
-                     'Hybrid'), ('cerberus-responsive.html', 'Responsive'), )
+TEMPLATE_CHOICES = (
+    ('mail.html', 'Mail'),
+    ('cerberus-fluid.html', 'Fluid'),
+    ('cerberus-hybrid.html', 'Hybrid'),
+    ('cerberus-responsive.html', 'Responsive'), )
 
-PAYMENT_CHOICES = (('paypal', 'PayPal'), ('check', 'Check'), )
+PAYMENT_CHOICES = (
+    ('paypal', 'PayPal'),
+    ('check', 'Check'), )
 
 # Create your models here.
 
@@ -117,14 +136,11 @@ class Contact(BaseModel):
     def __str__(self):
         if self.email and self.first_name and self.last_name:
             return ' '.join(
-                [self.first_name, self.last_name,
-                 '<%s>' % self.email])
+                [self.first_name, self.last_name, '<%s>' % self.email])
         elif self.first_name and self.last_name:
             return ' '.join([self.first_name, self.last_name])
         elif self.first_name:
-            return ' '.join([
-                self.first_name,
-            ])
+            return ' '.join([self.first_name, ])
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
@@ -235,8 +251,7 @@ class Estimate(BaseModel):
     def __str__(self):
         if self.client and self.document_id:
             return ' '.join(
-                [self.client.name, 'Estimate',
-                 '#%s' % self.document_id])
+                [self.client.name, 'Estimate', '#%s' % self.document_id])
         else:
             return 'estimate-%s' % self.document_id
 

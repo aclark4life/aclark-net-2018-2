@@ -77,23 +77,21 @@ else:
 
 ROOT_URLCONF = 'aclarknet.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
-            ],
-        },
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'social_django.context_processors.backends',
+            'social_django.context_processors.login_redirect',
+        ],
     },
-]
+}, ]
 
 WSGI_APPLICATION = 'aclarknet.wsgi.application'
 
@@ -101,8 +99,7 @@ WSGI_APPLICATION = 'aclarknet.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    'default':
-    dj_database_url.config(default=os.environ.get(
+    'default': dj_database_url.config(default=os.environ.get(
         'DATABASE_URL', 'postgres://%s:%s@%s:%s/%s' %
         (os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''),
          os.environ.get('DB_HOST', 'localhost'),
@@ -142,8 +139,9 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Django social auth
-AUTHENTICATION_BACKENDS = ('social_core.backends.google.GoogleOAuth2',
-                           'django.contrib.auth.backends.ModelBackend', )
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend', )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
@@ -196,9 +194,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Errors sent to admins
 SERVER_EMAIL = 'db@aclark.net'
-ADMINS = [
-    ('Alex Clark', 'aclark@aclark.net'),
-]
+ADMINS = [('Alex Clark', 'aclark@aclark.net'), ]
 
 # AWS SES
 EMAIL_BACKEND = 'django_ses.SESBackend'

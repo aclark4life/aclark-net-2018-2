@@ -231,9 +231,7 @@ def error(request):
 
 @staff_member_required
 def estimate(request, pk=None):
-    order_by = {
-        'time': ('date', ),
-    }
+    order_by = {'time': ('date', ), }
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
@@ -378,8 +376,12 @@ def invoice_edit(request, pk=None):
 
 @staff_member_required
 def invoice_index(request):
-    search_fields = ('client__name', 'document_id', 'issue_date',
-                     'project__name', 'subject', )
+    search_fields = (
+        'client__name',
+        'document_id',
+        'issue_date',
+        'project__name',
+        'subject', )
     context = get_index_items(
         request,
         Invoice,
@@ -565,13 +567,13 @@ def project_index(request, pk=None):
         Project,
         active_nav='project',
         app_settings_model=AppSettings,
-        columns_visible={
-            'project': {
-                'notes': 'true',
-            },
-        },
+        columns_visible={'project': {
+            'notes': 'true',
+        }, },
         edit_url='project_edit',
-        order_by=('-active', '-updated', ),
+        order_by=(
+            '-active',
+            '-updated', ),
         search_fields=('id', 'name'),
         show_search=True)
     return render(request, 'project_index.html', context)

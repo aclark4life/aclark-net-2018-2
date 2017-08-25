@@ -155,12 +155,13 @@ def edit(request, **kwargs):
                     note_model=note_model)
                 recipients = mail_recipients(obj)
                 for first_name, address in recipients:
-                    mail_send(**mail_compose(
-                        obj,
-                        form=form,
-                        first_name=first_name,
-                        mail_to=address,
-                        request=request))
+                    mail_send(
+                        **mail_compose(
+                            obj,
+                            form=form,
+                            first_name=first_name,
+                            mail_to=address,
+                            request=request))
                 # if status:
                 #     messages.add_message(request, messages.SUCCESS,
                 #                          'Mail sent to %s!' %
@@ -427,16 +428,13 @@ def get_page_items(request, **kwargs):
         context['model_name'] = model_name
         if model_name == 'app settings':
             app_settings = app_settings_model.get_solo()
-            context['items'] = get_fields([
-                app_settings,
-            ])  # table_items.html
+            context['items'] = get_fields([app_settings, ])  # table_items.html
             context['active_tab'] = 'system'
             context['active_nav'] = 'dropdown'
         elif model_name == 'contract settings':
             contract_settings = model.get_solo()
-            context['items'] = get_fields([
-                contract_settings,
-            ])  # table_items.html
+            context['items'] = get_fields([contract_settings,
+                                           ])  # table_items.html
             context['active_tab'] = 'contract'
             context['active_nav'] = 'dropdown'
         elif model_name == 'client':
@@ -453,18 +451,15 @@ def get_page_items(request, **kwargs):
             context['projects'] = projects
         elif model_name == 'Company':
             company_settings = model.get_solo()
-            context['items'] = get_fields([
-                company_settings,
-            ])  # table_items.html
+            context['items'] = get_fields([company_settings,
+                                           ])  # table_items.html
             context['active_nav'] = 'dropdown'
             context['active_tab'] = 'company'
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
-            context['items'] = get_fields([
-                contact,
-            ])  # table_items.html
+            context['items'] = get_fields([contact, ])  # table_items.html
             context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
@@ -580,9 +575,7 @@ def get_page_items(request, **kwargs):
             user = get_object_or_404(model, pk=pk)
             profile_model.objects.get_or_create(user=user)
             projects = project_model.objects.filter(
-                team__in=[
-                    user,
-                ], active=True)
+                team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
             times = time_model.objects.filter(
                 estimate=None, invoiced=False, user=user)
@@ -590,9 +583,7 @@ def get_page_items(request, **kwargs):
             contacts = contact_model.objects.all()
             context['active_nav'] = 'dropdown'
             context['item'] = user
-            context['items'] = get_fields([
-                user.profile,
-            ])  # table_items.html
+            context['items'] = get_fields([user.profile, ])  # table_items.html
             context['projects'] = projects
             context['times'] = times
     else:  # home
@@ -728,21 +719,21 @@ def get_setting(request, app_settings_model, setting, page_size=None):
     dashboard_override = user_pref = None
     app_settings = app_settings_model.get_solo()
     if setting == 'icon_size':
-        if hasattr(request.user, 'profile'):
+        if has_profile(request.user):
             user_pref = request.user.profile.icon_size
         if user_pref:
             return user_pref
         else:
             return app_settings.icon_size
     elif setting == 'icon_color':
-        if hasattr(request.user, 'profile'):
+        if has_profile(request.user):
             user_pref = request.user.profile.icon_color
         if user_pref:
             return user_pref
         else:
             return app_settings.icon_color
     elif setting == 'page_size':
-        if hasattr(request.user, 'profile'):
+        if has_profile(request.user):
             user_pref = request.user.profile.page_size
         if user_pref:
             return user_pref
@@ -752,12 +743,10 @@ def get_setting(request, app_settings_model, setting, page_size=None):
             return app_settings.page_size
     elif setting == 'dashboard_choices':
         dashboard_choices = app_settings.dashboard_choices
-        dashboard_override = has_profile = False
-        if hasattr(request.user, 'profile'):
-            has_profile = True
-        if has_profile:
+        dashboard_override = False
+        if has_profile(request.user):
             dashboard_override = request.user.profile.dashboard_override
-        if has_profile and dashboard_override:
+        if has_profile(request.user) and dashboard_override:
             dashboard_choices = request.user.profile.dashboard_choices
         return dashboard_choices
     elif setting == 'exclude_hidden_notes':
@@ -802,11 +791,10 @@ def get_times_for_obj(obj, time_model):
 
 def get_total_earned(request, total_hours):
     total_earned = 0
-    if request.user:
-        if request.user.profile:
-            if request.user.profile.rate:
-                rate = request.user.profile.rate
-                total_earned = total_hours * rate
+    if has_profile(request):
+        if request.user.profile.rate:
+            rate = request.user.profile.rate
+            total_earned = total_hours * rate
     return '%.2f' % total_earned
 
 
@@ -821,6 +809,10 @@ def gravatar_url(email):
     MD5 hash of email address for use with Gravatar
     """
     return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+
+
+def has_profile(user):
+    return hasattr(user, 'profile')
 
 
 def last_month():
@@ -858,9 +850,7 @@ def mail_compose(obj, **kwargs):
             context['html_message'] = html_message
     else:  # python manage.py send_note
         context['html_message'] = html_message = render_to_string(
-            'mail.html', {
-                'message': message,
-            })
+            'mail.html', {'message': message, })
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
@@ -1098,10 +1088,7 @@ def set_relationship(obj,
         query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
         if not request.user.is_staff:  # Staff have more than one project
-            user_projects = project_model.objects.filter(
-                team__in=[
-                    obj.user,
-                ])
+            user_projects = project_model.objects.filter(team__in=[obj.user, ])
             if len(user_projects) > 0:
                 obj.project = user_projects[0]
                 obj.task = obj.project.task
