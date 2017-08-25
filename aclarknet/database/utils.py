@@ -835,7 +835,7 @@ def mail_compose(obj, **kwargs):
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
-        message = obj.times
+        message = obj.times.all()
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
