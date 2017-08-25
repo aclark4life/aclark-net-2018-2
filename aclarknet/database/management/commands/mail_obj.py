@@ -22,7 +22,6 @@ class Command(BaseCommand):
             mail_send(
                 **mail_compose(
                     obj,
-                    form=form,
                     first_name=first_name,
                     mail_to=email_address,
                     request=request))
