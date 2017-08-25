@@ -138,8 +138,14 @@ class EstimateForm(forms.ModelForm):
             'project',
             'accepted_date',
             'issue_date',
-            'is_sow', 
+            'is_sow',
             'contacts', )
+
+    contacts = forms.ModelMultipleChoiceField(
+        queryset=Contact.objects.filter(active=True).exclude(
+            email=None).order_by('first_name'),
+        required=False,
+        widget=forms.SelectMultiple(attrs={'size': '5'}))
 
 
 class FileForm(forms.ModelForm):
