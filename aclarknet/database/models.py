@@ -48,7 +48,7 @@ TEMPLATE_CHOICES = (
     ('cerberus-responsive.html', 'Responsive'), )
 
 PAYMENT_CHOICES = (
-    ('', ''),
+    ('', '---'),
     ('check', 'Check'),
     ('paypal', 'PayPal'),
     ('wire', 'Wire'), )
