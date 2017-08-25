@@ -48,8 +48,9 @@ TEMPLATE_CHOICES = (
     ('cerberus-responsive.html', 'Responsive'), )
 
 PAYMENT_CHOICES = (
+    ('check', 'Check'),
     ('paypal', 'PayPal'),
-    ('check', 'Check'), )
+    ('wire', 'Wire Transfer'), )
 
 # Create your models here.
 
