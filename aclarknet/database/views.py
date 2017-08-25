@@ -842,7 +842,6 @@ def user(request, pk=None):
         order_by = {
             'time': ('-updated', ),
             'project': ('-updated', ),
-            'user': ('-profile__updated', ),
         }
         context = get_page_items(
             request,
@@ -866,7 +865,7 @@ def user_index(request):
         app_settings_model=AppSettings,
         company_model=Company,
         contact_model=Contact,
-        order_by=('-profile__active', '-profile__updated'),
+        order_by=('-profile__updated', '-profile__active'),
         show_search=False)
     return render(request, 'user_index.html', context)
 
