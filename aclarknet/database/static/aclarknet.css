@@ -5,9 +5,6 @@ a:hover.mute-url, a.mute-url {
     text-decoration: none;
     color: black;
 }
-h1 {
-    text-decoration: none;
-}
 tbody tr:hover a {
     text-decoration: none;
 }
