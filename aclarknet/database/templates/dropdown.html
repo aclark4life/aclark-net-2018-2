@@ -9,7 +9,7 @@
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'error' %}" target="_blank"><i class="fa fa-file-o"></i> Error</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'file_index' %}"><i class="fa fa-file-o"></i> Files</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-file-o"></i> Logs</a>{% endif %}
-              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-file-o"></i> Newsletters</a>{% endif %}
+              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-newspaper-o"></i> Newsletters</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'report_index' %}"><i class="fa fa-file-o"></i> Reports</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'settings_company' %}"><i class="fa fa-cog"></i> Settings</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'user_index' %}"><i class="fa fa-user-o"></i> Users</a>{% endif %}
