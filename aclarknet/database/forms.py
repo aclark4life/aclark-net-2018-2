@@ -138,7 +138,8 @@ class EstimateForm(forms.ModelForm):
             'project',
             'accepted_date',
             'issue_date',
-            'is_sow', )
+            'is_sow', 
+            'contacts', )
 
 
 class FileForm(forms.ModelForm):
