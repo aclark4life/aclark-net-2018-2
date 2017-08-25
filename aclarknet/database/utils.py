@@ -154,13 +154,13 @@ def edit(request, **kwargs):
                     contact_model=contact_model,
                     note_model=note_model)
                 recipients = mail_recipients(obj)
-                for first_name, address in recipients:
+                for first_name, email_address in recipients:
                     mail_send(
                         **mail_compose(
                             obj,
                             form=form,
                             first_name=first_name,
-                            mail_to=address,
+                            mail_to=email_address,
                             request=request))
                 # if status:
                 #     messages.add_message(request, messages.SUCCESS,
