@@ -74,19 +74,7 @@ class CompanyForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = (  # Exclude uuid instead of include everything else?
-            'active',
-            'subscribed',
-            'first_name',
-            'last_name',
-            'title',
-            'email',
-            'mobile_phone',
-            'office_phone',
-            'fax',
-            'address',
-            'client',
-            'notes', )
+        fields = '__all__'
 
 
 class ContractForm(forms.ModelForm):
