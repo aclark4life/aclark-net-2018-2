@@ -651,7 +651,11 @@ class Time(BaseModel):
         limit_choices_to={'active': True}, )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     estimate = models.ForeignKey(
-        Estimate, blank=True, null=True, on_delete=models.SET_NULL, related_name='times')
+        Estimate,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='times')
     invoice = models.ForeignKey(
         Invoice, blank=True, null=True, on_delete=models.SET_NULL)
     date = models.DateField(default=timezone.now)
