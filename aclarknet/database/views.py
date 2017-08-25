@@ -842,6 +842,7 @@ def user(request, pk=None):
         order_by = {
             'time': ('-updated', ),
             'project': ('-updated', ),
+            'user': ('-profile__updated', ),
         }
         context = get_page_items(
             request,
