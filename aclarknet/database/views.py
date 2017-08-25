@@ -434,6 +434,7 @@ def mail(request):
     return edit(
         request,
         contact_model=Contact,
+        estimate_model=Estimate,
         form_model=MailForm,
         note_model=Note,
         page_type='edit')

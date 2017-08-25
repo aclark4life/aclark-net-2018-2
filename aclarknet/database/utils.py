@@ -152,6 +152,7 @@ def edit(request, **kwargs):
                 obj = mail_obj(
                     request,
                     contact_model=contact_model,
+                    estimate_model=estimate_model,
                     note_model=note_model)
                 recipients = mail_recipients(obj)
                 for first_name, email_address in recipients:
@@ -833,6 +834,9 @@ def mail_compose(obj, **kwargs):
     if model_name == 'contact':
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
+    elif model_name == 'estimate':
+        message = obj.times
+        subject = obj.subject
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
@@ -861,13 +865,17 @@ def mail_compose(obj, **kwargs):
 
 def mail_obj(request, **kwargs):
     query_contact = get_query(request, 'contact')
+    query_estimate = get_query(request, 'estimate')
     query_note = get_query(request, 'note')
     contact_model = kwargs.get('contact_model')
+    estimate_model = kwargs.get('estimate_model')
     note_model = kwargs.get('note_model')
     if contact_model and query_contact:
         obj = contact_model.objects.get(pk=query_contact)
     elif note_model and query_note:
         obj = note_model.objects.get(pk=query_note)
+    elif estimate_model and query_estimate:
+        obj = estimate_model.objects.get(pk=query_estimate)
     return obj
 
 
