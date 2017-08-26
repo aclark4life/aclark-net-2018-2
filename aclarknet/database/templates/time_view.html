@@ -2,7 +2,7 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h1>{% if request.user.is_staff %}<a class="mute-url" href="{% url 'time_index' %}">Times</a> &raquo; {% endif %}Time Entry</h1>
+                  <h1 style="border-bottom: none;">{% if request.user.is_staff %}<a class="mute-url" href="{% url 'time_index' %}">Times</a> &raquo; {% endif %}Time Entry</h1>
                 </div>
                 <div class="col-md-2">
                   <div class="dropdown pull-right">
