@@ -611,7 +611,7 @@ def proposal_index(request, pk=None):
     context = get_index_items(
         request,
         Proposal,
-        active_nav='proposal',
+        active_nav='dropdown',
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         show_search=True)
@@ -648,7 +648,7 @@ def report_index(request):
     context = get_index_items(
         request,
         Report,
-        active_nav='dropdown',
+        active_nav='report',
         app_settings_model=AppSettings,
         edit_url='report_edit',
         order_by=('-updated', '-active'),

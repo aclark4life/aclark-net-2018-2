@@ -13,7 +13,7 @@
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'invoice' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'note' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'project' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
-          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'proposal' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'proposal_index' %}">Proposals</a></li>{% endif %}
+          {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'report' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'report_index' %}">Reports</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'task' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'time' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'time_index' %}">Times</a></li>{% endif %}
           {% if request.user.is_staff %}<li class="nav-item {% if active_nav == 'user' %}bg-success rounded{% endif %}"><a class="nav-link text-white" href="{% url 'user_index' %}">Users</a></li>{% endif %}
