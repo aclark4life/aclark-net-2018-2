@@ -505,6 +505,7 @@ def get_page_items(request, **kwargs):
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
+            context['document_type'] = model_name
             context['edit_url'] = 'file_edit'
             context['item'] = file_obj
         elif model_name == 'invoice':
