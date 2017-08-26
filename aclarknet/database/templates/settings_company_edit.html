@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-              <h1>Company</h1>
+              <h1 style="border-bottom: none;">Company</h1>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
               <input class="btn btn-lg btn-success" type="submit" value="Save">
