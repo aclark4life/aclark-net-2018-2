@@ -1,5 +1,5 @@
 {% load l10n %}
-              <div class="navbar" style="border: 1px solid #ebebeb; margin-bottom: 1em">
+              <div class="navbar" style="border: 1px solid #ebebeb">
                 <div class="col-md-12" style="text-align: center;">
                   <img class="rounded" style="width: 50%" src="{% url 'plot' %}?plot=1&values={% for item in plot_items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
                 </div>

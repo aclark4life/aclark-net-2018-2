@@ -6,7 +6,7 @@
 {% include 'note_stats.html' %}
             </div>
             <div class="col-md-3">
-              <div style="margin-bottom: 1em"><a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a></div>
+              <a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a>
             </div>
           </div>
 {% with items=items.notes %}
