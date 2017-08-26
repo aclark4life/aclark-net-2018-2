@@ -137,7 +137,7 @@ urlpatterns = [
     url('', include(
         'social_django.urls', namespace='social')),
     # Task
-    url(r'^task/(?P<pk>\d+)$', views.task, name='task'),
+    url(r'^task/(?P<pk>\d+)$', views.task_view, name='task_view'),
     url(r'^task/(?P<pk>\d+)/edit$', views.task_edit, name='task_edit'),
     url(r'^task/add$', views.task_edit, name='task_edit'),
     url(r'^task$', views.task_index, name='task_index'),

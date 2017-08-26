@@ -721,10 +721,10 @@ def settings_contract_edit(request, pk=None):
 
 
 @staff_member_required
-def task(request, pk=None):
+def task_view(request, pk=None):
     context = get_page_items(
         request, model=Task, app_settings_model=AppSettings, pk=pk)
-    return render(request, 'task.html', context)
+    return render(request, 'task_view.html', context)
 
 
 @staff_member_required
