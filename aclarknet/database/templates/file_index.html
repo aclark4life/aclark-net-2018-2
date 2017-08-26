@@ -20,7 +20,7 @@
               <tbody>
               {% for item in items.files %}
                 <tr>
-                  <td><a href="{% url 'file' item.pk %}">{{ item.name }}</td>
+                  <td><a href="{% url 'file_view' item.pk %}">{{ item.name }}</td>
                 </tr>
               {% endfor %}
               </tbody>
