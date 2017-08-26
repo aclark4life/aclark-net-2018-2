@@ -23,7 +23,7 @@
                 </div>
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
-                <h2>{{ item.subject }}</h2>
+                <h2>{{ item.subject|default:'' }}</h2>
                 <table data-toggle="table" data-classes="table table-no-bordered">
                   <tbody>
                     <tr>
