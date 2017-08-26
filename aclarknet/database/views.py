@@ -170,9 +170,14 @@ def contact_index(request):
 def contract(request, pk=None):
     """
     """
-    company = Company.get_solo()
     context = get_page_items(
-        request, company_model=Company, model=Contract, pk=pk, time_model=Time)
+        request,
+        app_settings_model=AppSettings,
+        company_model=Company,
+        model=Contract,
+        pk=pk,
+        time_model=Time)
+    company = Company.get_solo()
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(company)
