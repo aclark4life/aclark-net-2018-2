@@ -5,13 +5,7 @@
                 <h1><a class="mute-url" href="{% url 'contract_index' %}">Contracts</a> &raquo; Contract</h1>
               </div>
               <div class="col-md-4">
-                <div class="card">
-                  <div class="card-block">
-                    <p class="card-text text-muted">Created: {{ item.created }}</p>
-                    <p class="card-text text-muted">Updated: {{ item.updated }}</p>
-                    {% if item.due_date %}<p class="card-text text-muted">Due: {{ item.due_date }}</p>{% endif %}
-                  </div>
-                </div>
+{% include 'info.html' %}
               </div>
               <div class="col-md-4">
                 <div class="dropdown pull-right">
