@@ -167,7 +167,7 @@ def contact_index(request):
 
 
 @staff_member_required
-def contract(request, pk=None):
+def contract_view(request, pk=None):
     """
     """
     context = get_page_items(
@@ -199,7 +199,7 @@ def contract(request, pk=None):
         response['Content-Length'] = length
         return response
     else:
-        return render(request, 'contract.html', context)
+        return render(request, 'contract_view.html', context)
 
 
 @staff_member_required

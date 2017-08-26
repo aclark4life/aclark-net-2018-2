@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^contact/add$', views.contact_edit, name='contact_edit'),
     url(r'^contact$', views.contact_index, name='contact_index'),
     # Contract
-    url(r'^contract/(?P<pk>\d+)$', views.contract, name='contract'),
+    url(r'^contract/(?P<pk>\d+)$', views.contract_view, name='contract_view'),
     url(r'^contract/(?P<pk>\d+)/edit$',
         views.contract_edit,
         name='contract_edit'),
