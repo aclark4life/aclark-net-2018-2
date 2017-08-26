@@ -85,7 +85,7 @@ urlpatterns = [
     url(r'^newsletter/add$', views.newsletter_edit, name='newsletter_edit'),
     url(r'^newsletter$', views.newsletter_index, name='newsletter_index'),
     # Note
-    url(r'^note/(?P<pk>\d+)$', views.note, name='note'),
+    url(r'^note/(?P<pk>\d+)$', views.note_view, name='note_view'),
     url(r'^note/(?P<pk>\d+)/edit$', views.note_edit, name='note_edit'),
     url(r'^note/add$', views.note_edit, name='note_edit'),
     url(r'^note$', views.note_index, name='note_index'),

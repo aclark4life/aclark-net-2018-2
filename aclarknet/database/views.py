@@ -476,7 +476,7 @@ def newsletter_index(request, pk=None):
 
 
 @staff_member_required
-def note(request, pk=None):
+def note_view(request, pk=None):
     context = get_page_items(
         request, app_settings_model=AppSettings, model=Note, pk=pk)
     if context['pdf']:
@@ -485,7 +485,7 @@ def note(request, pk=None):
         return generate_pdf(
             'pdf_note.html', context=context, file_object=response)
     else:
-        return render(request, 'note.html', context)
+        return render(request, 'note_view.html', context)
 
 
 # https://stackoverflow.com/a/42038839/185820

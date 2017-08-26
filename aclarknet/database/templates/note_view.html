@@ -13,7 +13,7 @@
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a></li>
                     <li><a class="dropdown-item" href="{% url 'note_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                    <li><a class="dropdown-item" href="{% url 'note' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
+                    <li><a class="dropdown-item" href="{% url 'note_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
                     <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                     <li><a class="dropdown-item" href="{% url 'mail' %}?note={{ item.pk }}"><i class="fa fa-send-o"></i> Send Mail</a></li>
                   </ul>
