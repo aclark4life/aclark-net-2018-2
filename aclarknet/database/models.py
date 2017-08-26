@@ -409,7 +409,7 @@ class Profile(BaseModel):
     icon_color = models.CharField(
         max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    username = models.CharField(max_length=300, blank=True, null=True)
+    preferred_username = models.CharField('Preferred Username', max_length=300, blank=True, null=True)
     rate = models.DecimalField(
         'Hourly Rate (United States Dollar - USD)',
         blank=True,
@@ -443,8 +443,8 @@ class Profile(BaseModel):
             return gravatar_url(self.user.email)
 
     def get_username(self):
-        if self.username is not None:
-            return self.username
+        if self.preferred_username is not None:
+            return self.preferred_username
         else:
             return self.user.username
 
