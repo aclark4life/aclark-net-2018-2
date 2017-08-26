@@ -24,13 +24,11 @@
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
                 <h2>{{ item.subject|default:'' }}</h2>
-                <table data-toggle="table" data-classes="table table-no-bordered">
-                  <tbody>
-                    <tr>
-                      <td>{{ item.text|safe }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="row">
+                  <div class="col-md-12">
+                    {{ item.text|safe }}
+                  </div>
+                </div>
                 {% if contacts %}
                 <h2>Contacts</h2>
                 <ol>  
