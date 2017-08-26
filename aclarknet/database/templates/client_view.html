@@ -100,7 +100,7 @@
                   {% for contract in contracts %}
                   <tr>
                     <td>{{ contract }}</td>
-                    <td><a style="text-{{ icon_color }}" href="{% url 'contract' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
+                    <td><a style="text-{{ icon_color }}" href="{% url 'contract_view' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
                     <td><a style="text-{{ icon_color }}" href="{% url 'contract_edit' contract.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
                   </tr>
                   {% endfor %}
