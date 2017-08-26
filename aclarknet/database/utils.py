@@ -477,6 +477,7 @@ def get_page_items(request, **kwargs):
             else:
                 times = None
             context['active_nav'] = 'contract'
+            context['document_type'] = model_name
             context['edit_url'] = 'contract_edit'
             context['item'] = contract
             context['times'] = times
