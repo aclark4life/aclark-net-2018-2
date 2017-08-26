@@ -620,7 +620,7 @@ def proposal_index(request, pk=None):
 
 
 @staff_member_required
-def report(request, pk=None):
+def report_view(request, pk=None):
     context = get_page_items(
         request, model=Report, app_settings_model=AppSettings, pk=pk)
     if context['pdf']:
@@ -629,7 +629,7 @@ def report(request, pk=None):
         return generate_pdf(
             'pdf_report.html', context=context, file_object=response)
     else:
-        return render(request, 'report.html', context)
+        return render(request, 'report_view.html', context)
 
 
 @staff_member_required

@@ -108,7 +108,7 @@ urlpatterns = [
     url(r'^proposal/add$', views.proposal_edit, name='proposal_edit'),
     url(r'^proposal$', views.proposal_index, name='proposal_index'),
     # Report
-    url(r'^report/(?P<pk>\d+)$', views.report, name='report'),
+    url(r'^report/(?P<pk>\d+)$', views.report_view, name='report_view'),
     url(r'^report$', views.report_index, name='report_index'),
     url(r'^report/add$', views.report_edit, name='report_edit'),
     url(r'^report/(?P<pk>\d+)/edit$', views.report_edit, name='report_edit'),
