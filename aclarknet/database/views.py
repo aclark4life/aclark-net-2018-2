@@ -186,7 +186,7 @@ def contract_view(request, pk=None):
             'pdf_contract.html', context=context, file_object=response)
     if context['doc']:
         # https://stackoverflow.com/a/24122313/185820
-        document = generate_doc(contract)
+        document = generate_doc(context['item'])
         filename = get_company_name(company)
         f = BytesIO()
         document.save(f)
