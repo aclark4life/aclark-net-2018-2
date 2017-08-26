@@ -45,7 +45,8 @@ TEMPLATE_CHOICES = (
     ('mail.html', 'Mail'),
     ('cerberus-fluid.html', 'Fluid'),
     ('cerberus-hybrid.html', 'Hybrid'),
-    ('cerberus-responsive.html', 'Responsive'), )
+    ('cerberus-responsive.html', 'Responsive'),
+    ('table_items.html', 'Table'), )
 
 PAYMENT_CHOICES = (
     ('', '---'),
