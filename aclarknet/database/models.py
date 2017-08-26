@@ -360,8 +360,8 @@ class Log(BaseModel):
 class Newsletter(BaseModel):
     """
     """
-    text = models.TextField(blank=True, null=True)
     subject = models.CharField(max_length=300, blank=True, null=True)
+    text = models.TextField(blank=True, null=True)
     contacts = models.ManyToManyField('Contact', blank=True)
 
     def __str__(self):
