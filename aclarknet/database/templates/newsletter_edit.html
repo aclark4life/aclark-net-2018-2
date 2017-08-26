@@ -8,3 +8,6 @@
               <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
               </form>
 {% endblock %}
+{% block js %}
+{% include 'tinymce.html' %}
+{% endblock %}
