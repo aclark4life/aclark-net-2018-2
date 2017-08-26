@@ -588,7 +588,11 @@ def project_index(request, pk=None):
 @staff_member_required
 def proposal(request, pk=None):
     context = get_page_items(
-        request, company_model=Company, model=Proposal, pk=pk)
+        request,
+        app_settings_model=AppSettings,
+        company_model=Company,
+        model=Proposal,
+        pk=pk)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
