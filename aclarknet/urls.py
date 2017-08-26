@@ -78,7 +78,7 @@ urlpatterns = [
     # Mail
     url(r'^mail$', views.mail, name='mail'),
     # Newsletter
-    url(r'^newsletter/(?P<pk>\d+)$', views.newsletter, name='newsletter'),
+    url(r'^newsletter/(?P<pk>\d+)$', views.newsletter_view, name='newsletter_view'),
     url(r'^newsletter/(?P<pk>\d+)/edit$',
         views.newsletter_edit,
         name='newsletter_edit'),

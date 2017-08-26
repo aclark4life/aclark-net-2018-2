@@ -446,12 +446,12 @@ def mail(request):
 
 
 @staff_member_required
-def newsletter(request, pk=None):
+def newsletter_view(request, pk=None):
     """
     """
     context = get_page_items(
         request, app_settings_model=AppSettings, model=Newsletter, pk=pk)
-    return render(request, 'newsletter.html', context)
+    return render(request, 'newsletter_view.html', context)
 
 
 @staff_member_required

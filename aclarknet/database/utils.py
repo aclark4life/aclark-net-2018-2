@@ -524,6 +524,7 @@ def get_page_items(request, **kwargs):
             newsletter = get_object_or_404(model, pk=pk)
             context['edit_url'] = 'newsletter_edit'
             context['active_nav'] = 'newsletter'
+            context['document_type'] = model_name
             context['item'] = newsletter
         elif model_name == 'note':
             note = get_object_or_404(model, pk=pk)
@@ -552,9 +553,9 @@ def get_page_items(request, **kwargs):
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             context['active_nav'] = 'dropdown'
+            context['document_type'] = model_name
             context['edit_url'] = 'proposal_edit'
             context['item'] = proposal
-            context['document_type'] = model_name
         elif model_name == 'report':
             report = get_object_or_404(model, pk=pk)
             reports = model.objects.filter(active=True)
