@@ -45,8 +45,7 @@ TEMPLATE_CHOICES = (
     ('mail.html', 'Mail'),
     ('cerberus-fluid.html', 'Fluid'),
     ('cerberus-hybrid.html', 'Hybrid'),
-    ('cerberus-responsive.html', 'Responsive'),
-    ('table_items.html', 'Table'), )
+    ('cerberus-responsive.html', 'Responsive'), )
 
 PAYMENT_CHOICES = (
     ('', '---'),
@@ -410,7 +409,8 @@ class Profile(BaseModel):
     icon_color = models.CharField(
         max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
-    preferred_username = models.CharField('Preferred Username', max_length=300, blank=True, null=True)
+    preferred_username = models.CharField(
+        'Preferred Username', max_length=300, blank=True, null=True)
     rate = models.DecimalField(
         'Hourly Rate (United States Dollar - USD)',
         blank=True,

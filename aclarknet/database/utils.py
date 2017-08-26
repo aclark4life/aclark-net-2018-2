@@ -838,7 +838,7 @@ def mail_compose(obj, **kwargs):
         # message = '<ul><li>'
         # message += '</li><li>'.join([i.log for i in obj.times.all()])
         # message += '</li></ul>'
-        message = get_fields([obj, ])
+        message = render_to_string('table_items.html', get_fields([obj, ]))
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
@@ -856,8 +856,8 @@ def mail_compose(obj, **kwargs):
             })
             context['html_message'] = html_message
     else:  # python manage.py send_note
-        context['html_message'] = html_message = render_to_string(
-            'mail.html', {'message': message, })
+        context['html_message'] = render_to_string('mail.html',
+                                                   {'message': message, })
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
