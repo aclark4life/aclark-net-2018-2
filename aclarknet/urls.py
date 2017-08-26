@@ -34,7 +34,7 @@ urlpatterns = [
     # SES
     url(r'^admin/django-ses/', include('django_ses.urls')),
     # Client
-    url(r'^client/(?P<pk>\d+)$', views.client, name='client'),
+    url(r'^client/(?P<pk>\d+)$', views.client_view, name='client_view'),
     url(r'^client/(?P<pk>\d+)/edit$', views.client_edit, name='client_edit'),
     url(r'^client/add$', views.client_edit, name='client_edit'),
     url(r'^client$', views.client_index, name='client_index'),

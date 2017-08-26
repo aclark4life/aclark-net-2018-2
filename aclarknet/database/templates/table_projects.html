@@ -22,7 +22,7 @@
                 <td>{{ item.daily_burn }}</td>
                 <td>{{ item.name|default:'' }}</td>
                 <td>{{ item.task.color|default:'' }}</td>
-                {% if item.client.pk %}<td><a href="{% url 'client' item.client.pk %}"></i> {{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
+                {% if item.client.pk %}<td><a href="{% url 'client_view' item.client.pk %}"></i> {{ item.client }}</a></td>{% else %}<td>{{ item.client|default:'' }}</td>{% endif %}
                 <td>{{ item.client|default:'' }}</td>
                 {% if item.task %}<td><a href="{% url 'task' item.task.pk %}"></i> {{ item.task.name }}</a></td>{% else %}<td>{{ task.name }}</td>{% endif %}
                 <td>{{ item.notes|default:'' }}</td>

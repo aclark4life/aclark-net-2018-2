@@ -97,7 +97,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
 @staff_member_required
-def client(request, pk=None):
+def client_view(request, pk=None):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
@@ -106,7 +106,7 @@ def client(request, pk=None):
         model=Client,
         pk=pk,
         project_model=Project)
-    return render(request, 'client.html', context)
+    return render(request, 'client_view.html', context)
 
 
 @staff_member_required

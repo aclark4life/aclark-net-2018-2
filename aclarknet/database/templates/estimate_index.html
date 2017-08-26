@@ -38,7 +38,7 @@
                 <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                 <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                 <td>{{ item.document_id|default:'' }}</td>
-                {% if item.client %}<td><a href="{% url 'client' item.client.pk %}">{{ item.client|default:'' }}</a></td>{% else %}<td></td>{% endif %}
+                {% if item.client %}<td><a href="{% url 'client_view' item.client.pk %}">{{ item.client|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                 <td>{{ item.client }}</td>
                 <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
                 <td>{{ item.amount|unlocalize|default:'' }}</td>
