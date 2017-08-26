@@ -6,13 +6,13 @@
               {% if request.user.is_staff %}<a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API Root</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new" target="_blank"><i class="fa fa-github"></i> Add Issue</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Admin</a>{% endif %}
+              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'contract_index' %}"><i class="fa fa-file-o"></i> Contracts</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'error' %}" target="_blank"><i class="fa fa-times"></i> Error</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'file_index' %}"><i class="fa fa-file-o"></i> Files</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-folder-open-o"></i> Logs</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-newspaper-o"></i> Newsletters</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'report_index' %}"><i class="fa fa-line-chart"></i> Reports</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'settings_company' %}"><i class="fa fa-cog"></i> Settings</a>{% endif %}
-              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'user_index' %}"><i class="fa fa-user-o"></i> Users</a>{% endif %}
               {% if request.user.is_staff %}<div class="dropdown-divider"></div>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'login'  %}"><i class="fa fa-sign-in"></i> Login</a>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-sign-in"></i> Login with Google</a>{% endif %}

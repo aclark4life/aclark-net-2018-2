@@ -216,7 +216,7 @@ def contract_index(request):
     context = get_index_items(
         request,
         Contract,
-        active_nav='contract',
+        active_nav='dropdown',
         order_by=('-updated', ),
         app_settings_model=AppSettings)
     return render(request, 'contract_index.html', context)
@@ -861,7 +861,7 @@ def user_index(request):
     context = get_index_items(
         request,
         User,
-        active_nav='dropdown',
+        active_nav='user',
         app_settings_model=AppSettings,
         company_model=Company,
         contact_model=Contact,
