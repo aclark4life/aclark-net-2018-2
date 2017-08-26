@@ -26,7 +26,7 @@
                 <td>{{ item.document_id|default:'' }}</td>
                 {% if item.client %}<td><a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                 <td>{{ item.client }}</td>
-                {% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
+                {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                 <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                 <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                 <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>

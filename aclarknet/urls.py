@@ -95,7 +95,7 @@ urlpatterns = [
     url(r'^profile/(?P<pk>\d+)/edit$', views.profile_edit,
         name='profile_edit'),
     # Project
-    url(r'^project/(?P<pk>\d+)$', views.project, name='project'),
+    url(r'^project/(?P<pk>\d+)$', views.project_view, name='project_view'),
     url(r'^project/(?P<pk>\d+)/edit$', views.project_edit,
         name='project_edit'),
     url(r'^project/add$', views.project_edit, name='project_edit'),

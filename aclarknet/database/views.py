@@ -535,7 +535,7 @@ def profile_edit(request, pk=None):
 
 
 @staff_member_required
-def project(request, pk=None):
+def project_view(request, pk=None):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
@@ -547,7 +547,7 @@ def project(request, pk=None):
         order_by={'time': ('date', )},  # For time entries
         time_model=Time,
         pk=pk)
-    return render(request, 'project.html', context)
+    return render(request, 'project_view.html', context)
 
 
 @staff_member_required

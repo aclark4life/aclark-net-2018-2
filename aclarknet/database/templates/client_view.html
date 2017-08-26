@@ -139,12 +139,12 @@
                 <tbody> 
                 {% for project in projects %}
                 <tr>
-                  <td><a href="{% url 'project' project.pk %}">{{ project.name|default:'' }}</a></td>
+                  <td><a href="{% url 'project_view' project.pk %}">{{ project.name|default:'' }}</a></td>
                   <td>{{ project.start_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.start_date|date:'U' }}</td>
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.end_date|date:'U' }}</td>
-                  <td><a class="text-{{ icon_color }}" href="{% url 'project' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
+                  <td><a class="text-{{ icon_color }}" href="{% url 'project_view' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
                   <td><a class="text-{{ icon_color }}" href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
                 </tr>
                 {% endfor %} 

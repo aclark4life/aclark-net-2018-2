@@ -46,7 +46,7 @@
                     <td>{{ item.hours|default:'' }}</td>
                     <td>{{ item.log|default:'' }}</td>
                     <td>{{ item.client|default:'' }}</td>
-                    {% if request.user.is_staff %}{% if item.project %}<td><a href="{% url 'project' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}
+                    {% if request.user.is_staff %}{% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}
                     <td>{{ item.user|default:'' }}</td>
                     <td>{{ item.task|default:'' }}</td>
                     {% if request.user.is_staff %}
