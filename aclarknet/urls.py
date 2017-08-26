@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^client/add$', views.client_edit, name='client_edit'),
     url(r'^client$', views.client_index, name='client_index'),
     # Contact
-    url(r'^contact/(?P<pk>\d+)$', views.contact, name='contact'),
+    url(r'^contact/(?P<pk>\d+)$', views.contact_view, name='contact_view'),
     url(r'^contact/(?P<pk>\d+)/edit$', views.contact_edit,
         name='contact_edit'),
     url(r'^contact/add$', views.contact_edit, name='contact_edit'),

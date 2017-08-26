@@ -134,7 +134,7 @@ def client_index(request):
 
 
 @staff_member_required
-def contact(request, pk=None):
+def contact_view(request, pk=None):
     context = get_page_items(
         request, app_settings_model=AppSettings, model=Contact, pk=pk)
     return render(request, 'contact.html', context)
