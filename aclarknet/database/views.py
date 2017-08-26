@@ -291,7 +291,7 @@ def file_view(request, pk=None):
         company_model=Company,
         model=File,
         pk=pk)
-    return render(request, 'file.html', context)
+    return render(request, 'file_view.html', context)
 
 
 @staff_member_required
