@@ -4,16 +4,10 @@
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-4">
-                    <h1><a class="mute-url" href="{% url 'proposal_index' %}">Proposals</a> &raquo; Proposal</h1>
+                    <h1 style="border-bottom: none">{{ document_type|upper }}</h1>
                   </div>
                   <div class="col-md-4">
-                    <div class="card">
-                      <div class="card-block">
-                        <p class="card-text text-muted">Created: <span class="float-right">{{ item.created }}</span></p>
-                        <p class="card-text text-muted">Updated: <span class="float-right">{{ item.updated }}</span></p>
-                        {% if item.due_date %}<p class="card-text text-muted">Due: <span class="float-right">{{ item.due_date }}</span></p>{% endif %}
-                      </div>
-                    </div>
+{% include 'info.html' %}
                   </div>
                   <div class="col-md-3 ml-auto">
                     <div class="dropdown pull-right">
