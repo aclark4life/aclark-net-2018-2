@@ -554,6 +554,7 @@ def get_page_items(request, **kwargs):
             context['active_nav'] = 'dropdown'
             context['edit_url'] = 'proposal_edit'
             context['item'] = proposal
+            context['document_type'] = model_name
         elif model_name == 'report':
             report = get_object_or_404(model, pk=pk)
             reports = model.objects.filter(active=True)

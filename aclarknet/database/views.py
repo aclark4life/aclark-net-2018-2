@@ -586,7 +586,7 @@ def project_index(request, pk=None):
 
 
 @staff_member_required
-def proposal(request, pk=None):
+def proposal_view(request, pk=None):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
@@ -599,7 +599,7 @@ def proposal(request, pk=None):
         return generate_pdf(
             'pdf_proposal.html', context=context, file_object=response)
     else:
-        return render(request, 'proposal.html', context)
+        return render(request, 'proposal_view.html', context)
 
 
 @staff_member_required
