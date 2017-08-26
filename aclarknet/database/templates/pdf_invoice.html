@@ -92,7 +92,7 @@
                 <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>
                 <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.task|default:'' }}</td>
                 <td valign="top" align="left" class="border-right" style="width: 100%">{{ entry.log|linebreaks|default:'' }}</td>
-                <td valign="top" align="right" class="border-right" style="width: 20%">{% if not pdf %}<a href="{% url 'time_entry' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours }}{% endif %} <a href="{% url 'time_edit' entry.pk %}"><i class="fa fa-cog"></i></a></td>
+                <td valign="top" align="right" class="border-right" style="width: 20%">{% if not pdf %}<a href="{% url 'time_view' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours }}{% endif %} <a href="{% url 'time_edit' entry.pk %}"><i class="fa fa-cog"></i></a></td>
                 <td valign="top" align="right" class="border-right" style="width: 20%">{{ company.currency_symbol }}{% if entry.task %}{{ entry.task.rate|default:'' }}{% endif %}</td>
                 <td valign="top" align="right" style="width: 20%"><strong>{{ company.currency_symbol }}{{ entry.amount|default:'0' }}</strong></td>
               </tr>

@@ -748,7 +748,7 @@ def task_index(request):
 
 
 @login_required
-def time(request, pk=None):
+def time_view(request, pk=None):
     """
     Authenticated users can only view their own time entries unless
     they are staff.
@@ -769,7 +769,7 @@ def time(request, pk=None):
             model=Time,
             profile_model=Profile,
             pk=pk)
-        return render(request, 'time.html', context)
+        return render(request, 'time_view.html', context)
 
 
 @login_required

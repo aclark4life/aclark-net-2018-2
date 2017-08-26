@@ -142,7 +142,7 @@ urlpatterns = [
     url(r'^task/add$', views.task_edit, name='task_edit'),
     url(r'^task$', views.task_index, name='task_index'),
     # Time
-    url(r'^time/(?P<pk>\d+)$', views.time, name='time_entry'),
+    url(r'^time/(?P<pk>\d+)$', views.time_view, name='time_view'),
     url(r'^time/(?P<pk>\d+)/edit$', views.time_edit, name='time_edit'),
     url(r'^time/add$', views.time_edit, name='time_edit'),
     url(r'^time$', views.time_index, name='time_index'),
