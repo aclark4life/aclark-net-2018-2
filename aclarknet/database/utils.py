@@ -839,13 +839,9 @@ def mail_compose(obj, **kwargs):
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
-        # message = '<ul><li>'
-        # message += '</li><li>'.join([i.log for i in obj.times.all()])
-        # message += '</li></ul>'
         message = render_to_string(
             'table_items.html',
-            # {'items': get_fields([i for i in obj.times.all()])})
-            {'items': [i for i in obj.times.all()]})
+            {'items': get_fields([i for i in obj.times.all()])})
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
