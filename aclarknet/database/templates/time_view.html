@@ -51,12 +51,12 @@
                     <td>{{ item.task|default:'' }}</td>
                     {% if request.user.is_staff %}
                       {% if item.invoice %}
-                      <td><a href="{% url 'invoice' item.invoice.pk %}">{{ item.invoice.pk|default:'' }}</a></td>
+                      <td><a href="{% url 'invoice_view' item.invoice.pk %}">{{ item.invoice.pk|default:'' }}</a></td>
                       {% else %}
                       <td></td>
                       {% endif %}
                     {% if item.estimate %}
-                    <td><a href="{% url 'estimate' item.estimate.pk %}">{{ item.estimate.pk|default:'' }}</a></td>
+                    <td><a href="{% url 'estimate_view' item.estimate.pk %}">{{ item.estimate.pk|default:'' }}</a></td>
                     {% else %}
                     <td></td>
                     {% endif %}

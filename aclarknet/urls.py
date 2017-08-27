@@ -54,14 +54,14 @@ urlpatterns = [
     # Error (forced)
     url(r'^error$', views.error, name='error'),
     # Estimate
-    url(r'^estimate/(?P<pk>\d+)$', views.estimate, name='estimate'),
+    url(r'^estimate/(?P<pk>\d+)$', views.estimate_view, name='estimate_view'),
     url(r'^estimate/(?P<pk>\d+)/edit$',
         views.estimate_edit,
         name='estimate_edit'),
     url(r'^estimate/add$', views.estimate_edit, name='estimate_edit'),
     url(r'^estimate$', views.estimate_index, name='estimate_index'),
     # Invoice
-    url(r'^invoice/(?P<pk>\d+)$', views.invoice, name='invoice'),
+    url(r'^invoice/(?P<pk>\d+)$', views.invoice_view, name='invoice_view'),
     url(r'^invoice/(?P<pk>\d+)/edit$', views.invoice_edit,
         name='invoice_edit'),
     url(r'^invoice/add$', views.invoice_edit, name='invoice_edit'),

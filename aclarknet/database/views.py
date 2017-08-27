@@ -221,7 +221,7 @@ def error(request):
 
 
 @staff_member_required
-def estimate(request, pk=None):
+def estimate_view(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
         request,
@@ -238,7 +238,7 @@ def estimate(request, pk=None):
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)
     else:
-        return render(request, 'estimate.html', context)
+        return render(request, 'estimate_view.html', context)
 
 
 @staff_member_required
@@ -324,7 +324,7 @@ def home(request):
 
 
 @staff_member_required
-def invoice(request, pk=None):
+def invoice_view(request, pk=None):
     context = get_page_items(
         request,
         app_settings_model=AppSettings,
@@ -343,7 +343,7 @@ def invoice(request, pk=None):
         return generate_pdf(
             'pdf_invoice.html', context=context, file_object=response)
     else:
-        return render(request, 'invoice.html', context)
+        return render(request, 'invoice_view.html', context)
 
 
 @staff_member_required

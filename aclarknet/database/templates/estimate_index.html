@@ -33,7 +33,7 @@
             {% for item in items.estimates %}
               <tr>
                 <td>{% if item.accepted_date %}<i class="fa fa-check"></i>{% endif %}</td>
-                <td><a href="{% url 'estimate' item.pk %}">{{ item.subject|default:'' }}</a></td>
+                <td><a href="{% url 'estimate_view' item.pk %}">{{ item.subject|default:'' }}</a></td>
                 <td>{{ item.subject|default:'' }}</td>
                 <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                 <td>{{ item.issue_date|date:'U'|default:'' }}</td>
@@ -42,7 +42,7 @@
                 <td>{{ item.client }}</td>
                 <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
                 <td>{{ item.amount|unlocalize|default:'' }}</td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'estimate' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a class="text-{{ icon_color }}" href="{% url 'estimate_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
                 <td><a class="text-{{ icon_color }}" href="{% url 'estimate_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
             {% endfor %}
