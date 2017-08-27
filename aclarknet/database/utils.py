@@ -352,7 +352,7 @@ def get_index_items(request, model, **kwargs):
         items = []
     # Per model extras
     if model_name == 'note':
-        context['note_stats'] = get_note_stats(model)
+        context['note_info'] = get_note_info(model)
     elif model_name == 'time':
         context['total_hours'] = get_total_hours(items)
     # Paginate if paginated
@@ -385,19 +385,19 @@ def get_invoice_totals(model):
     return invoice_amount, invoice_amount - invoice_cog
 
 
-def get_note_stats(note_model):
-    note_stats = {}
+def get_note_info(note_model):
+    note_info = {}
     active = len(note_model.objects.filter(active=True))
-    hidden = len(note_model.objects.filter(hidden=True))
     inactive = len(note_model.objects.filter(active=False))
-    total = len(note_model.objects.all())
+    hidden = len(note_model.objects.filter(hidden=True))
     not_hidden = inactive - hidden
-    note_stats['active_note_count'] = active
-    note_stats['hidden_note_count'] = hidden
-    note_stats['inactive_note_count'] = inactive
-    note_stats['total_note_count'] = total
-    note_stats['not_hidden_count'] = not_hidden
-    return note_stats
+    total = len(note_model.objects.all())
+    note_info['active'] = active
+    note_info['inactive'] = inactive
+    note_info['hidden'] = hidden
+    note_info['not_hidden'] = not_hidden
+    note_info['total'] = total
+    return note_info
 
 
 def get_page_items(request, **kwargs):
@@ -618,7 +618,7 @@ def get_page_items(request, **kwargs):
             context['items'] = items
             context['net'] = net
             context['notes'] = notes
-            context['note_stats'] = get_note_stats(note_model)
+            context['note_info'] = get_note_info(note_model)
             context['plot_items'] = plot_items
             context['projects'] = projects
             context['times'] = times
