@@ -1,7 +1,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white {% if active_nav == 'dropdown' %}bg-success rounded{% endif %}" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              {% if not request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'user' request.user.pk %}"><i class="fa fa-user-o"></i> {{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a>{% endif %}
+              {% if not request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'user_view' request.user.pk %}"><i class="fa fa-user-o"></i> {{ request.user.get_full_name|default:request.user.username }} {% if request.user.email %}({{ request.user.email }}){% endif %}</a>{% endif %}
               {% if not request.user.is_anonymous %}<div class="dropdown-divider"></div>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API Root</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new" target="_blank"><i class="fa fa-github"></i> Add Issue</a>{% endif %}

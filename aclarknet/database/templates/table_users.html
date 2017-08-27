@@ -20,7 +20,7 @@
                 <td>{{ item.get_full_name }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.profile.get_username }}</td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'user' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a class="text-{{ icon_color }}" href="{% url 'user_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
                 <td>{% if item.profile %}<a class="text-{{ icon_color }}" href="{% url 'profile_edit' item.profile.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a>{% endif %}</td>
               </tr>
             {% endfor %}
