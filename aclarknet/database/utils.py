@@ -48,14 +48,13 @@ URL_NAMES = {
     'log': ('log_view', 'log_edit', 'log_index'),
     'newsletter': ('newsletter_view', 'newsletter_edit', 'newsletter_index'),
     'note': ('note_view', 'note_edit', 'note_index'),
-    'profile': ('user_view', 'profile_edit', 'user_index'),
+    'profile': ('user_view', 'user_edit', 'user_index'),
     'project': ('project_view', 'project_edit', 'project_index'),
     'proposal': ('proposal_view', 'proposal_edit', 'proposal_index'),
     'report': ('report_view', 'report_edit', 'report_index'),
     'service': ('company', 'service_edit', ''),
     'task': ('task_view', 'task_edit', 'task_index'),
     'time': ('time_entry', 'time_edit', 'time_index'),
-    'user': ('user_view', 'profile_edit', 'user_index'),
 }
 
 
