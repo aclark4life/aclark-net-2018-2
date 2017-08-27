@@ -521,24 +521,6 @@ def note_index(request, pk=None):
     return render(request, 'note_index.html', context)
 
 
-@login_required
-def profile_edit(request, pk=None):
-    if not request.user.profile.pk == int(pk) and not request.user.is_staff:
-        message = 'Sorry, you are not allowed to edit that profile.'
-        messages.add_message(request, messages.WARNING, message)
-        return HttpResponseRedirect(reverse('home'))
-    if request.user.is_staff:
-        profile_form = AdminProfileForm
-    else:
-        profile_form = ProfileForm
-    return edit(
-        request,
-        form_model=profile_form,
-        model=Profile,
-        active_nav='dropdown',
-        pk=pk)
-
-
 @staff_member_required
 def project_view(request, pk=None):
     context = get_page_items(
@@ -863,6 +845,24 @@ def user_view(request, pk=None):
             time_model=Time,
             pk=pk)
         return render(request, 'user_view.html', context)
+
+
+@login_required
+def user_edit(request, pk=None):
+    if not request.user.profile.pk == int(pk) and not request.user.is_staff:
+        message = 'Sorry, you are not allowed to edit that profile.'
+        messages.add_message(request, messages.WARNING, message)
+        return HttpResponseRedirect(reverse('home'))
+    if request.user.is_staff:
+        profile_form = AdminProfileForm
+    else:
+        profile_form = ProfileForm
+    return edit(
+        request,
+        form_model=profile_form,
+        model=Profile,
+        active_nav='dropdown',
+        pk=pk)
 
 
 @staff_member_required

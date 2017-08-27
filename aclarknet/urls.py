@@ -148,8 +148,7 @@ urlpatterns = [
     # User
     url(r'^user/(?P<pk>\d+)$', views.user_view, name='user_view'),
     url(r'^user$', views.user_index, name='user_index'),
-    url(r'^user/(?P<pk>\d+)/edit$', views.user_edit,
-        name='user_edit'),
+    url(r'^user/(?P<pk>\d+)/edit$', views.user_edit, name='user_edit'),
 ]
 
 if settings.DEBUG:
