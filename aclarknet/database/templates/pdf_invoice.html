@@ -102,7 +102,7 @@
             </table>
             <table style="margin: 35px;">
               <tr>
-                <td align="right" colspan=4 class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1>{% endif %}</td>
-                <td align="right" colspan=1 class="total"><h1>{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
+                <td align="right" colspan=4 class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1> {% endif %}</td>
+                <td align="right" colspan=1 class="total"><h1>{{ company.currency_symbol }}{{ item.amount|intcomma|default:'' }}</h1></td>
               </tr>
             </table>
