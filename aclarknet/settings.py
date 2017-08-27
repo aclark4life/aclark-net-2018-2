@@ -156,7 +156,7 @@ EMAIL_FROM = 'aclark@aclark.net'
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
 # Commas please
-USE_L10N = True
+# https://docs.djangoproject.com/en/1.11/ref/settings/#use-thousand-separator
 USE_THOUSAND_SEPARATOR = True
 
 # https://docs.djangoproject.com/en/dev/topics/logging/#examples
@@ -204,5 +204,3 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASS')
 # EMAIL_USE_SSL = True
 
-# https://docs.djangoproject.com/en/1.11/ref/settings/#use-thousand-separator
-USE_THOUSAND_SEPARATOR = True
