@@ -1,4 +1,3 @@
-{% load l10n %}
             <!-- Used by invoice and estimate -->
             <!-- Include styles here for pdf conversion -->
             <style>
@@ -100,9 +99,9 @@
               {% endfor %}
               </tbody>
             </table>
-            <table style="margin: 35px;">
+            <table style="margin: 40px;">
               <tr>
-                <td align="right" colspan=4 class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1> {% endif %}</td>
+                <td align="right" colspan=4 class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1>&nbsp;{% endif %}</td>
                 <td align="right" colspan=1 class="total"><h1>{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
               </tr>
             </table>
