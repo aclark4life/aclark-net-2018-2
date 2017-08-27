@@ -1,3 +1,4 @@
+                {% if not 'search' in request.POST %}
                 <div class="card px-3 py-3 mb-3">
                   <div class="card-block">
                     <p class="card-text text-muted">Created: <span class="float-right">{{ item.created }}</span></p>
@@ -7,5 +8,11 @@
                     {% if item.company_set.all %}{% if item.company_set.all.0 %}<p class="card-text text-muted">Company: <span class="float-right"><a href="{% url 'settings_company'  %}">{{ item.company_set.all.0 }}</a></span></p>{% endif %}{% endif %}
                     {% if item.tags.all %}<p class="card-text text-muted">Tags: <span class="badge badge-default float-right">{{ item.tags.all.0 }}</span></p>{% endif %}
                     {% if item.contacts.all %}<p class="card-text text-muted">Contacts: <span class="float-right">{% for contact in item.contacts.all %}{{ contact }}{% if not forloop.last %}, {% endif %}{% endfor %}</span></p>{% endif %}
+                    {% if note_stats %}<p class="card-text text-muted">Active Notes: <span class="float-right">{{ note_stats.active_note_count }}</span>{% endif %}
+                    {% if note_stats %}<p class="card-text text-muted">Inactive Notes: <span class="float-right">{{ note_stats.inactive_note_count }}</span>{% endif %}
+                    {% if note_stats %}<p class="card-text text-muted">Visible Notes: <span class="float-right">{{ note_stats.not_hidden_count }}</span>{% endif %}
+                    {% if note_stats %}<p class="card-text text-muted">Hidden Notes: <span class="float-right">{{ note_stats.hidden_note_count }}</span>{% endif %}
+                    {% if note_stats %}<p class="card-text text-muted">Total Notes: <span class="float-right">{{ note_stats.total_note_count }}</span>{% endif %}
                   </div>
                 </div>
+                {% endif %}

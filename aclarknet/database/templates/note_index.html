@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-4">
               <h1 style="border-bottom: none;">Notes</h1>
-{% include 'note_stats.html' %}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
+{% include 'info.html' %}
+            </div>
+            <div class="col-md-3 ml-auto">
               <a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a>
             </div>
           </div>
