@@ -99,9 +99,9 @@
               {% endfor %}
               </tbody>
             </table>
-            <table style="margin: 40px;">
+            <table> 
               <tr>
-                <td align="right" colspan=4 class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1>&nbsp;{% endif %}</td>
-                <td align="right" colspan=1 class="total"><h1>{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
+                <td class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1>{% endif %}</td>
+                <td class="total"><h1>{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
               </tr>
             </table>
