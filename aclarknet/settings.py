@@ -203,3 +203,6 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_HOST_USER = os.environ.get('SMTP_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASS')
 # EMAIL_USE_SSL = True
+
+# https://docs.djangoproject.com/en/1.11/ref/settings/#use-thousand-separator
+USE_THOUSAND_SEPARATOR = True
