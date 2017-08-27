@@ -2,20 +2,19 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h1>Profile</h1>
-                  <h2>{% if request.user.is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; User &rsaquo; {{ item }}</h2>
+                  <h1 style="border-bottom: none;">{% if request.user.is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; User &rsaquo; {{ item }}</h1>
                 </div>                
                 <div class="col-md-2">
                   {% if request.user.is_staff %}
                   <div class="dropdown pull-right">
                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'profile_edit' item.profile.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                      <li><a class="dropdown-item" href="{% url 'user_edit' item.profile.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                       {% if request.user.is_staff %}<li data-toggle="tooltip" title="Add {{ item.get_full_name }} to Contacts"><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Contact</a></li>{% endif %}
                     </ul>
                   </div>
                   {% else %}
-                  <a class="btn btn-lg btn-block btn-success" href="{% url 'profile_edit' pk=item.profile.pk %}">Edit <i class="fa fa-cog"></i></a>
+                  <a class="btn btn-lg btn-block btn-success" href="{% url 'user_edit' pk=item.profile.pk %}">Edit <i class="fa fa-cog"></i></a>
                   {% endif %}
                 </div>
               </div>
