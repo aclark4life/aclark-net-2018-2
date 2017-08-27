@@ -111,12 +111,7 @@ def client_view(request, pk=None):
 
 @staff_member_required
 def client_edit(request, pk=None):
-    return edit(
-        request,
-        form_model=ClientForm,
-        model=Client,
-        active_nav='client',
-        pk=pk)
+    return edit(request, form_model=ClientForm, model=Client, pk=pk)
 
 
 @staff_member_required
@@ -124,7 +119,6 @@ def client_index(request):
     context = get_index_items(
         request,
         Client,
-        active_nav='client',
         app_settings_model=AppSettings,
         edit_url='client_edit',
         order_by=('-active', '-updated', 'name'),
@@ -146,7 +140,6 @@ def contact_edit(request, pk=None):
         request,
         form_model=ContactForm,
         model=Contact,
-        active_nav='contact',
         client_model=Client,
         user_model=User,
         pk=pk)
@@ -157,7 +150,6 @@ def contact_index(request):
     context = get_index_items(
         request,
         Contact,
-        active_nav='contact',
         app_settings_model=AppSettings,
         edit_url='contact_edit',
         order_by=('-active', 'first_name'),
@@ -206,12 +198,7 @@ def contract_view(request, pk=None):
 def contract_edit(request, pk=None):
     """
     """
-    return edit(
-        request,
-        form_model=ContractForm,
-        model=Contract,
-        active_nav='contract',
-        pk=pk)
+    return edit(request, form_model=ContractForm, model=Contract, pk=pk)
 
 
 @staff_member_required
@@ -221,7 +208,6 @@ def contract_index(request):
     context = get_index_items(
         request,
         Contract,
-        active_nav='dropdown',
         order_by=('-updated', ),
         app_settings_model=AppSettings)
     return render(request, 'contract_index.html', context)
@@ -261,7 +247,6 @@ def estimate_edit(request, pk=None):
         request,
         form_model=EstimateForm,
         model=Estimate,
-        active_nav='estimate',
         company_model=Company,
         project_model=Project,
         pk=pk)
@@ -273,7 +258,6 @@ def estimate_index(request):
     context = get_index_items(
         request,
         Estimate,
-        active_nav='estimate',
         app_settings_model=AppSettings,
         edit_url='estimate_edit',
         order_by=('-issue_date', ),
@@ -300,7 +284,6 @@ def file_edit(request, pk=None):
         request,
         form_model=FileForm,
         model=File,
-        active_nav='dropdown',
         company_model=Company,
         pk=pk, )
 
@@ -308,11 +291,7 @@ def file_edit(request, pk=None):
 @staff_member_required
 def file_index(request):
     context = get_index_items(
-        request,
-        File,
-        active_nav='dropdown',
-        app_settings_model=AppSettings,
-        order_by=('-updated', ))
+        request, File, app_settings_model=AppSettings, order_by=('-updated', ))
     return render(request, 'file_index.html', context)
 
 
@@ -373,7 +352,6 @@ def invoice_edit(request, pk=None):
         request,
         form_model=InvoiceForm,
         model=Invoice,
-        active_nav='invoice',
         company_model=Company,
         project_model=Project,
         pk=pk, )
@@ -390,7 +368,6 @@ def invoice_index(request):
     context = get_index_items(
         request,
         Invoice,
-        active_nav='invoice',
         app_settings_model=AppSettings,
         edit_url='invoice_edit',
         order_by=('-updated', ),
@@ -425,7 +402,6 @@ def log_index(request):
     context = get_index_items(
         request,
         Log,
-        active_nav='dropdown',
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         search_fields=('entry', ))
@@ -458,12 +434,7 @@ def newsletter_view(request, pk=None):
 def newsletter_edit(request, pk=None):
     """
     """
-    return edit(
-        request,
-        form_model=NewsletterForm,
-        model=Newsletter,
-        active_nav='dropdown',
-        pk=pk)
+    return edit(request, form_model=NewsletterForm, model=Newsletter, pk=pk)
 
 
 @staff_member_required
@@ -473,7 +444,6 @@ def newsletter_index(request, pk=None):
     context = get_index_items(
         request,
         Newsletter,
-        active_nav='dropdown',
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         search_fields=('text', ))
@@ -500,7 +470,6 @@ def note_edit(request, pk=None):
         request,
         form_model=NoteForm,
         model=Note,
-        active_nav='note',
         app_settings_model=AppSettings,
         client_model=Client,
         company_model=Company,
@@ -512,7 +481,6 @@ def note_index(request, pk=None):
     context = get_index_items(
         request,
         Note,
-        active_nav='note',
         app_settings_model=AppSettings,
         order_by=('-active', '-updated'),
         search_fields=('note', 'title'),
@@ -544,7 +512,6 @@ def project_edit(request, pk=None):
         form_model=ProjectForm,
         model=Project,
         client_model=Client,
-        active_nav='project',
         pk=pk)
 
 
@@ -553,7 +520,6 @@ def project_index(request, pk=None):
     context = get_index_items(
         request,
         Project,
-        active_nav='project',
         app_settings_model=AppSettings,
         columns_visible={'project': {
             'notes': 'true',
@@ -592,7 +558,6 @@ def proposal_edit(request, pk=None):
         request,
         form_model=ProposalForm,
         model=Proposal,
-        active_nav='proposal',
         company_model=Company,
         pk=pk)
 
@@ -602,7 +567,6 @@ def proposal_index(request, pk=None):
     context = get_index_items(
         request,
         Proposal,
-        active_nav='dropdown',
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         show_search=True)
@@ -629,7 +593,6 @@ def report_edit(request, pk=None):
         request,
         form_model=ReportForm,
         model=Report,
-        active_nav='dropdown',
         invoice_model=Invoice,
         pk=pk)
 
@@ -639,7 +602,6 @@ def report_index(request):
     context = get_index_items(
         request,
         Report,
-        active_nav='report',
         app_settings_model=AppSettings,
         edit_url='report_edit',
         order_by=('-updated', '-active'),
@@ -655,7 +617,6 @@ def service_edit(request, pk=None):
         request,
         form_model=ServiceForm,
         model=Service,
-        active_nav='dropdown',
         company_model=Company,
         pk=pk)
 
@@ -669,22 +630,12 @@ def settings_app(request):
 
 @staff_member_required
 def settings_app_edit(request, pk=None):
-    return edit(
-        request,
-        form_model=AppSettingsForm,
-        model=AppSettings,
-        active_nav='dropdown',
-        pk=1)
+    return edit(request, form_model=AppSettingsForm, model=AppSettings, pk=1)
 
 
 @staff_member_required
 def settings_company_edit(request, pk=None):
-    return edit(
-        request,
-        form_model=CompanyForm,
-        model=Company,
-        active_nav='dropdown',
-        pk=1)
+    return edit(request, form_model=CompanyForm, model=Company, pk=1)
 
 
 @staff_member_required
@@ -704,11 +655,7 @@ def settings_contract(request):
 @staff_member_required
 def settings_contract_edit(request, pk=None):
     return edit(
-        request,
-        form_model=ContractSettingsForm,
-        model=ContractSettings,
-        pk=1,
-        active_nav='dropdown')
+        request, form_model=ContractSettingsForm, model=ContractSettings, pk=1)
 
 
 @staff_member_required
@@ -720,8 +667,7 @@ def task_view(request, pk=None):
 
 @staff_member_required
 def task_edit(request, pk=None):
-    return edit(
-        request, form_model=TaskForm, model=Task, active_nav='task', pk=pk)
+    return edit(request, form_model=TaskForm, model=Task, pk=pk)
 
 
 @staff_member_required
@@ -729,7 +675,6 @@ def task_index(request):
     context = get_index_items(
         request,
         Task,
-        active_nav='task',
         app_settings_model=AppSettings,
         edit_url='task_edit',
         order_by=('-updated', ),
@@ -787,7 +732,6 @@ def time_edit(request, pk=None):
         request,
         form_model=time_form,
         model=Time,
-        active_nav='time',
         invoice_model=Invoice,
         estimate_model=Estimate,
         project_model=Project,
@@ -803,7 +747,6 @@ def time_index(request):
     context = get_index_items(
         request,
         Time,
-        active_nav='time',
         app_settings_model=AppSettings,
         columns_visible={
             'time': {
@@ -836,7 +779,6 @@ def user_view(request, pk=None):
         }
         context = get_page_items(
             request,
-            active_nav='user',
             app_settings_model=AppSettings,
             contact_model=Contact,
             model=User,
@@ -858,12 +800,7 @@ def user_edit(request, pk=None):
         profile_form = AdminProfileForm
     else:
         profile_form = ProfileForm
-    return edit(
-        request,
-        form_model=profile_form,
-        model=Profile,
-        active_nav='user',
-        pk=pk)
+    return edit(request, form_model=profile_form, model=Profile, pk=pk)
 
 
 @staff_member_required
@@ -871,7 +808,6 @@ def user_index(request):
     context = get_index_items(
         request,
         User,
-        active_nav='user',
         app_settings_model=AppSettings,
         company_model=Company,
         contact_model=Contact,

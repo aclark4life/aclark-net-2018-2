@@ -93,7 +93,6 @@ class UserWidget(widgets.Widget):
 def edit(request, **kwargs):
     context = {}
     obj = None
-    active_nav = kwargs.get('active_nav')
     app_settings_model = kwargs.get('app_settings_model')
     client_model = kwargs.get('client_model')
     company_model = kwargs.get('company_model')
@@ -170,7 +169,6 @@ def edit(request, **kwargs):
                 #     messages.add_message(request, messages.WARNING,
                 #                          'Mail not sent to %s!' %
                 #                          ', '.join(recipients))
-    context['active_nav'] = active_nav
     context['form'] = form
     context['item'] = obj
     context['pk'] = pk
@@ -183,6 +181,7 @@ def edit(request, **kwargs):
         context['net'] = net
     if model:
         model_name = model._meta.verbose_name
+        context['active_nav'] = model_name
     elif contact_model:
         model_name = contact_model._meta.verbose_name
     elif note_model:
@@ -306,7 +305,6 @@ def get_index_items(request, model, **kwargs):
     context = {}
     model_name = model._meta.verbose_name
     app_settings_model = kwargs.get('app_settings_model')
-    active_nav = kwargs.get('active_nav')
     columns_visible = kwargs.get('columns_visible')
     company_model = kwargs.get('company_model')
     edit_url = kwargs.get('edit_url')
@@ -325,7 +323,6 @@ def get_index_items(request, model, **kwargs):
     # Search is easy
     if request.method == 'POST':
         if search == u'':  # Empty search returns none
-            context['active_nav'] = active_nav
             context['show_search'] = True
             return context
         else:
@@ -333,7 +330,6 @@ def get_index_items(request, model, **kwargs):
                 model,
                 search_fields,
                 search,
-                active_nav=active_nav,
                 app_settings_model=app_settings_model,
                 edit_url=edit_url,
                 request=request)
@@ -359,7 +355,6 @@ def get_index_items(request, model, **kwargs):
         page_size = get_setting(
             request, app_settings_model, 'page_size', page_size=page_size)
         items = paginate(items, page, page_size)
-    context['active_nav'] = active_nav
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
@@ -370,6 +365,7 @@ def get_index_items(request, model, **kwargs):
     context['show_search'] = show_search
     items = set_items_name(model_name, items=items)
     context['items'] = items
+    context['active_nav'] = model_name
     return context
 
 
@@ -426,23 +422,20 @@ def get_page_items(request, **kwargs):
     if model:
         model_name = model._meta.verbose_name
         context['model_name'] = model_name
+        context['active_nav'] = model_name
+        context['active_tab'] = model_name
         if model_name == 'app settings':
             app_settings = app_settings_model.get_solo()
             context['items'] = get_fields([app_settings, ])  # table_items.html
-            context['active_tab'] = 'system'
-            context['active_nav'] = 'dropdown'
         elif model_name == 'contract settings':
             contract_settings = model.get_solo()
             context['items'] = get_fields([contract_settings,
                                            ])  # table_items.html
-            context['active_tab'] = 'contract'
-            context['active_nav'] = 'dropdown'
         elif model_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
             contracts = contract_model.objects.filter(client=client)
             projects = project_model.objects.filter(client=client)
-            context['active_nav'] = 'client'
             context['contacts'] = contacts
             context['contracts'] = contracts
             context['edit_url'] = 'client_edit'
@@ -453,11 +446,8 @@ def get_page_items(request, **kwargs):
             company_settings = model.get_solo()
             context['items'] = get_fields([company_settings,
                                            ])  # table_items.html
-            context['active_nav'] = 'dropdown'
-            context['active_tab'] = 'company'
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
-            context['active_nav'] = 'contact'
             context['edit_url'] = 'contact_edit'
             context['items'] = get_fields([contact, ])  # table_items.html
             context['item'] = contact
@@ -475,7 +465,6 @@ def get_page_items(request, **kwargs):
                 times = times_client | times_estimate
             else:
                 times = None
-            context['active_nav'] = 'contract'
             context['document_type'] = model_name
             context['edit_url'] = 'contract_edit'
             context['item'] = contract
@@ -496,14 +485,12 @@ def get_page_items(request, **kwargs):
             times = times_client | times_estimate
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, estimate=estimate)
-            context['active_nav'] = 'estimate'
             context['document_type'] = doc_type
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
-            context['active_nav'] = 'dropdown'
             context['document_type'] = model_name
             context['edit_url'] = 'file_edit'
             context['item'] = file_obj
@@ -513,7 +500,6 @@ def get_page_items(request, **kwargs):
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
-            context['active_nav'] = 'invoice'
             context['document_type'] = model_name
             context['edit_url'] = 'invoice_edit'
             context['entries'] = times
@@ -523,13 +509,11 @@ def get_page_items(request, **kwargs):
         elif model_name == 'newsletter':
             newsletter = get_object_or_404(model, pk=pk)
             context['edit_url'] = 'newsletter_edit'
-            context['active_nav'] = 'newsletter'
             context['document_type'] = model_name
             context['item'] = newsletter
         elif model_name == 'note':
             note = get_object_or_404(model, pk=pk)
             context['edit_url'] = 'note_edit'
-            context['active_nav'] = 'note'
             context['item'] = note
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
@@ -546,13 +530,11 @@ def get_page_items(request, **kwargs):
             items = set_items_name('time', items=times, _items=items)
             users = user_model.objects.filter(project=project)
             items = set_items_name('user', items=users, _items=items)
-            context['active_nav'] = 'project'
             context['edit_url'] = 'project_edit'
             context['item'] = project
             context['items'] = items
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
-            context['active_nav'] = 'dropdown'
             context['document_type'] = model_name
             context['edit_url'] = 'proposal_edit'
             context['item'] = proposal
@@ -561,18 +543,15 @@ def get_page_items(request, **kwargs):
             reports = model.objects.filter(active=True)
             reports = reports.aggregate(
                 gross=Sum(F('gross')), net=Sum(F('net')))
-            context['active_nav'] = 'dropdown'
             context['cost'] = report.gross - report.net
             context['edit_url'] = 'report_edit'
             context['item'] = report
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
             context['edit_url'] = 'task_edit'
-            context['active_nav'] = 'task'
             context['item'] = task
         elif model_name == 'time':
             time_entry = get_object_or_404(model, pk=pk)
-            context['active_nav'] = 'time'
             context['edit_url'] = 'time_edit'
             context['item'] = time_entry
         elif model_name == 'user':
@@ -585,7 +564,6 @@ def get_page_items(request, **kwargs):
                 estimate=None, invoiced=False, user=user)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
-            context['active_nav'] = 'dropdown'
             context['item'] = user
             context['items'] = get_fields([user.profile, ])  # table_items.html
             context['projects'] = projects
@@ -692,7 +670,6 @@ def get_query(request, query):
 def get_search_results(model,
                        search_fields,
                        search,
-                       active_nav='',
                        app_settings_model=None,
                        edit_url='',
                        request=None):
@@ -702,7 +679,7 @@ def get_search_results(model,
     for field in search_fields:
         query.append(Q(**{field + '__icontains': search}))
     items = model.objects.filter(reduce(OR, query))
-    context['active_nav'] = active_nav
+    context['active_nav'] = model_name
     context['edit_url'] = edit_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
