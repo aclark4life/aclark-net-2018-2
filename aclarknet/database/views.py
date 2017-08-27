@@ -836,6 +836,7 @@ def user_view(request, pk=None):
         }
         context = get_page_items(
             request,
+            active_nav='user',
             app_settings_model=AppSettings,
             contact_model=Contact,
             model=User,
@@ -861,7 +862,7 @@ def user_edit(request, pk=None):
         request,
         form_model=profile_form,
         model=Profile,
-        active_nav='dropdown',
+        active_nav='user',
         pk=pk)
 
 
