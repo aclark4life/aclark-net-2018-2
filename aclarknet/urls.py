@@ -149,7 +149,7 @@ urlpatterns = [
     url(r'^time/add$', views.time_edit, name='time_edit'),
     url(r'^time$', views.time_index, name='time_index'),
     # User
-    url(r'^user/(?P<pk>\d+)$', views.user, name='user'),
+    url(r'^user/(?P<pk>\d+)$', views.user_view, name='user_view'),
     url(r'^user$', views.user_index, name='user_index'),
 ]
 
