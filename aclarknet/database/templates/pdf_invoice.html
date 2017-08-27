@@ -101,7 +101,7 @@
             </table>
             <table> 
               <tr>
-                <td class="total">{% if invoice %}<h1>Amount Due</h1>{% else %}<h1>Estimate Total</h1>{% endif %}</td>
-                <td class="total"><h1>{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
+                <td class="total">{% if invoice %}<h1 style="border-bottom: none;">Amount Due</h1>{% else %}<h1 style="border-bottom: none;">Estimate Total</h1>{% endif %}</td>
+                <td class="total"><h1 style="border-bottom: none;">{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
               </tr>
             </table>
