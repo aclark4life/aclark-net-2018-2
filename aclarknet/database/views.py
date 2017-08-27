@@ -842,7 +842,7 @@ def time_index(request):
 
 
 @login_required
-def user(request, pk=None):
+def user_view(request, pk=None):
     if not request.user.pk == int(pk) and not request.user.is_staff:
         message = 'Sorry, you are not allowed to view that user.'
         messages.add_message(request, messages.WARNING, message)
@@ -862,7 +862,7 @@ def user(request, pk=None):
             project_model=Project,
             time_model=Time,
             pk=pk)
-        return render(request, 'user.html', context)
+        return render(request, 'user_view.html', context)
 
 
 @staff_member_required
