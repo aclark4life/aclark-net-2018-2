@@ -1,13 +1,13 @@
-        <table data-toggle="table">
-          <thead>
-            <th data-sortable="true">Field</th>
-            <th data-sortable="true">Value</th>
-          </thead>
-          <tbody>
-          {% for item in items %}
-            {% for key, value in item.fields.items %}
-            <tr><td valign="top"><strong>{{ key }}</strong></td><td>{{ value|default:''|safe }} </td></tr>
+          <table data-toggle="table">
+            <thead>
+              <th data-sortable="true">Field</th>
+              <th data-sortable="true">Value</th>
+            </thead>
+            <tbody>
+            {% for item in items %}
+              {% for key, value in item.fields.items %}
+              <tr><td valign="top"><strong>{{ key }}</strong></td><td>{{ value|default:''|safe }} </td></tr>
+              {% endfor %}
             {% endfor %}
-          {% endfor %}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
