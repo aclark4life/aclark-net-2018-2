@@ -404,6 +404,7 @@ def get_page_items(**kwargs):
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
     note_model = kwargs.get('note_model')
+    obj = kwargs.get('obj')
     profile_model = kwargs.get('profile_model')
     project_model = kwargs.get('project_model')
     report_model = kwargs.get('report_model')
@@ -419,8 +420,11 @@ def get_page_items(**kwargs):
         context['company'] = company
     if columns_visible:
         context['columns_visible'] = columns_visible
-    if model:
-        model_name = model._meta.verbose_name
+    if model or obj:
+        if model:
+            model_name = model._meta.verbose_name
+        elif obj:
+            model_name = obj._meta.verbose_name
         context['model_name'] = model_name
         context['active_nav'] = model_name
         context['active_tab'] = model_name
@@ -469,20 +473,26 @@ def get_page_items(**kwargs):
             context['edit_url'] = 'contract_edit'
             context['item'] = contract
             context['times'] = times
-        elif model_name == 'estimate':
-            estimate = get_object_or_404(model, pk=pk)
+        elif model_name == 'estimate':  # handle obj or model
+            if not obj:
+                estimate = get_object_or_404(model, pk=pk)
+            else:
+                estimate = obj
             if not estimate.is_sow:
                 doc_type = model_name
             else:
                 doc_type = 'statement of work'
-            times_client = time_model.objects.filter(
-                client=estimate.client,
-                estimate=None,
-                project=None,
-                invoiced=False,
-                invoice=None)
-            times_estimate = time_model.objects.filter(estimate=estimate)
-            times = times_client | times_estimate
+            if not obj:
+                times_client = time_model.objects.filter(
+                    client=estimate.client,
+                    estimate=None,
+                    project=None,
+                    invoiced=False,
+                    invoice=None)
+                times_estimate = time_model.objects.filter(estimate=estimate)
+                times = times_client | times_estimate
+            else:
+                times = obj.times.all()
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, estimate=estimate)
             context['doc_type'] = doc_type
@@ -846,8 +856,7 @@ def mail_compose(obj, **kwargs):
             doc_type = 'statement of work'.upper()
         message = '<h1>%s</h1>' % doc_type
         message += render_to_string(
-            'pdf_invoice.html',
-            {'items': get_fields([i for i in obj.times.all()])})
+            'pdf_invoice.html', {'context': get_page_items(obj=obj)})
         message += '<h1>%s</h1>' % obj.amount
         subject = obj.subject
     elif model_name == 'note':
