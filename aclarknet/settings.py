@@ -203,4 +203,3 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_HOST_USER = os.environ.get('SMTP_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASS')
 # EMAIL_USE_SSL = True
-
