@@ -858,7 +858,7 @@ def mail_compose(obj, **kwargs):
             doc_type = 'statement of work'.upper()
         message = '<h1>%s</h1>' % doc_type
         message += render_to_string(
-            'pdf_invoice.html', {'context': get_page_items(obj=obj)})
+            'pdf_invoice.html', {'items': get_page_items(obj=obj)})
         message += '<h1>%s</h1>' % obj.amount
         subject = obj.subject
     elif model_name == 'note':
