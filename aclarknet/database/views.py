@@ -327,12 +327,12 @@ def home(request):
 @staff_member_required
 def invoice_view(request, pk=None):
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         company_model=Company,
         model=Invoice,
         order_by={'time': ('date', )},  # For time entries
         pk=pk,
+        request=request,
         time_model=Time)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
