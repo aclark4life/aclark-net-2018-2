@@ -100,13 +100,13 @@ class ProfileViewSet(viewsets.ModelViewSet):
 @staff_member_required
 def client_view(request, pk=None):
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         contact_model=Contact,
         contract_model=Contract,
         model=Client,
         pk=pk,
-        project_model=Project)
+        project_model=Project,
+        request=request)
     return render(request, 'client_view.html', context)
 
 
@@ -131,7 +131,7 @@ def client_index(request):
 @staff_member_required
 def contact_view(request, pk=None):
     context = get_page_items(
-        request, app_settings_model=AppSettings, model=Contact, pk=pk)
+        app_settings_model=AppSettings, model=Contact, pk=pk, request=request)
     return render(request, 'contact_view.html', context)
 
 
@@ -164,12 +164,12 @@ def contract_view(request, pk=None):
     """
     """
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         company_model=Company,
         model=Contract,
         pk=pk,
-        time_model=Time)
+        time_model=Time,
+        request=request)
     company = Company.get_solo()
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
@@ -225,13 +225,13 @@ def error(request):
 def estimate_view(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         company_model=Company,
         model=Estimate,
         order_by=order_by,
         pk=pk,
-        time_model=Time)
+        time_model=Time,
+        request=request)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = '-'.join(['estimate', pk])
@@ -271,11 +271,11 @@ def estimate_index(request):
 @staff_member_required
 def file_view(request, pk=None):
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         company_model=Company,
         model=File,
-        pk=pk)
+        pk=pk,
+        request=request)
     return render(request, 'file_view.html', context)
 
 
@@ -298,7 +298,6 @@ def file_index(request):
 
 def home(request):
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         company_model=Company,
         columns_visible={
@@ -320,7 +319,8 @@ def home(request):
         },
         project_model=Project,
         time_model=Time,
-        report_model=Report)
+        report_model=Report,
+        request=request)
     return render(request, 'home.html', context)
 
 
@@ -427,7 +427,10 @@ def newsletter_view(request, pk=None):
     """
     """
     context = get_page_items(
-        request, app_settings_model=AppSettings, model=Newsletter, pk=pk)
+        app_settings_model=AppSettings,
+        model=Newsletter,
+        pk=pk,
+        request=request)
     return render(request, 'newsletter_view.html', context)
 
 
@@ -454,7 +457,7 @@ def newsletter_index(request, pk=None):
 @staff_member_required
 def note_view(request, pk=None):
     context = get_page_items(
-        request, app_settings_model=AppSettings, model=Note, pk=pk)
+        app_settings_model=AppSettings, model=Note, pk=pk, request=request)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
@@ -498,7 +501,6 @@ def plot(request):
 @staff_member_required
 def project_view(request, pk=None):
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         model=Project,
         contact_model=Contact,
@@ -507,7 +509,8 @@ def project_view(request, pk=None):
         user_model=User,
         order_by={'time': ('date', )},  # For time entries
         time_model=Time,
-        pk=pk)
+        pk=pk,
+        request=request)
     return render(request, 'project_view.html', context)
 
 
@@ -542,11 +545,11 @@ def project_index(request, pk=None):
 @staff_member_required
 def proposal_view(request, pk=None):
     context = get_page_items(
-        request,
         app_settings_model=AppSettings,
         company_model=Company,
         model=Proposal,
-        pk=pk)
+        pk=pk,
+        request=request)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
@@ -583,7 +586,7 @@ def proposal_index(request, pk=None):
 @staff_member_required
 def report_view(request, pk=None):
     context = get_page_items(
-        request, model=Report, app_settings_model=AppSettings, pk=pk)
+        model=Report, app_settings_model=AppSettings, pk=pk, request=request)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
@@ -630,7 +633,7 @@ def service_edit(request, pk=None):
 @staff_member_required
 def settings_app(request):
     context = get_page_items(
-        request, model=AppSettings, app_settings_model=AppSettings)
+        model=AppSettings, app_settings_model=AppSettings, request=request)
     return render(request, 'settings.html', context)
 
 
@@ -647,14 +650,16 @@ def settings_company_edit(request, pk=None):
 @staff_member_required
 def settings_company(request):
     context = get_page_items(
-        request, app_settings_model=AppSettings, model=Company)
+        app_settings_model=AppSettings, model=Company, request=request)
     return render(request, 'company.html', context)
 
 
 @staff_member_required
 def settings_contract(request):
     context = get_page_items(
-        request, model=ContractSettings, app_settings_model=AppSettings)
+        model=ContractSettings,
+        app_settings_model=AppSettings,
+        request=request)
     return render(request, 'contract_settings.html', context)
 
 
@@ -667,7 +672,7 @@ def settings_contract_edit(request, pk=None):
 @staff_member_required
 def task_view(request, pk=None):
     context = get_page_items(
-        request, model=Task, app_settings_model=AppSettings, pk=pk)
+        model=Task, app_settings_model=AppSettings, pk=pk, request=request)
     return render(request, 'task_view.html', context)
 
 
@@ -706,11 +711,11 @@ def time_view(request, pk=None):
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
-            request,
             app_settings_model=AppSettings,
             model=Time,
             profile_model=Profile,
-            pk=pk)
+            pk=pk,
+            request=request)
         return render(request, 'time_view.html', context)
 
 
@@ -784,7 +789,6 @@ def user_view(request, pk=None):
             'project': ('-updated', ),
         }
         context = get_page_items(
-            request,
             app_settings_model=AppSettings,
             contact_model=Contact,
             model=User,
@@ -792,7 +796,8 @@ def user_view(request, pk=None):
             profile_model=Profile,
             project_model=Project,
             time_model=Time,
-            pk=pk)
+            pk=pk,
+            request=request)
         return render(request, 'user_view.html', context)
 
 

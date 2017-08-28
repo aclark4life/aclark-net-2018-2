@@ -27,7 +27,6 @@ from io import BytesIO
 from io import StringIO
 from lxml import etree
 from matplotlib.dates import DateFormatter
-from matplotlib.dates import MonthLocator
 from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -395,7 +394,7 @@ def get_note_info(note_model):
     return note_info
 
 
-def get_page_items(request, **kwargs):
+def get_page_items(**kwargs):
     app_settings_model = kwargs.get('app_settings_model')
     company_model = kwargs.get('company_model')
     columns_visible = kwargs.get('columns_visible')
@@ -408,6 +407,7 @@ def get_page_items(request, **kwargs):
     profile_model = kwargs.get('profile_model')
     project_model = kwargs.get('project_model')
     report_model = kwargs.get('report_model')
+    request = kwargs.get('request')
     order_by = kwargs.get('order_by')
     pk = kwargs.get('pk')
     time_model = kwargs.get('time_model')
@@ -569,39 +569,42 @@ def get_page_items(request, **kwargs):
             context['projects'] = projects
             context['times'] = times
     else:  # home
-        if request.user.is_authenticated:
-            # Items
-            invoices = invoice_model.objects.filter(last_payment_date=None)
-            items = set_items_name('invoice', items=invoices)
-            notes = note_model.objects.filter(active=True, hidden=False)
-            notes = notes.order_by(*order_by['note'])[:5]
-            items = set_items_name('note', items=notes, _items=items)
-            projects = project_model.objects.filter(active=True, hidden=False)
-            projects = projects.order_by(*order_by['project'])
-            items = set_items_name('project', items=projects, _items=items)
-            times = time_model.objects.filter(
-                invoiced=False, user=request.user)
-            times = times.order_by(*order_by['time'])
-            items = set_items_name('time', items=times, _items=items)
-            # Plot
-            points = report_model.objects.filter(active=True)
-            # Totals
-            gross, net = get_invoice_totals(invoice_model)
-            context['city_data'] = get_client_city(request)
-            context['dashboard_choices'] = get_setting(
-                request, app_settings_model, 'dashboard_choices')
-            context['gross'] = gross
-            context['invoices'] = invoices
-            context['items'] = items
-            context['net'] = net
-            context['notes'] = notes
-            context['note_info'] = get_note_info(note_model)
-            context['points'] = points
-            context['projects'] = projects
-            context['times'] = times
-            total_hours = get_total_hours(times)
-            context['total_hours'] = total_hours
-            context['total_earned'] = get_total_earned(request, total_hours)
+        if request:
+            if request.user.is_authenticated:
+                # Items
+                invoices = invoice_model.objects.filter(last_payment_date=None)
+                items = set_items_name('invoice', items=invoices)
+                notes = note_model.objects.filter(active=True, hidden=False)
+                notes = notes.order_by(*order_by['note'])[:5]
+                items = set_items_name('note', items=notes, _items=items)
+                projects = project_model.objects.filter(
+                    active=True, hidden=False)
+                projects = projects.order_by(*order_by['project'])
+                items = set_items_name('project', items=projects, _items=items)
+                times = time_model.objects.filter(
+                    invoiced=False, user=request.user)
+                times = times.order_by(*order_by['time'])
+                items = set_items_name('time', items=times, _items=items)
+                # Plot
+                points = report_model.objects.filter(active=True)
+                # Totals
+                gross, net = get_invoice_totals(invoice_model)
+                context['city_data'] = get_client_city(request)
+                context['dashboard_choices'] = get_setting(
+                    request, app_settings_model, 'dashboard_choices')
+                context['gross'] = gross
+                context['invoices'] = invoices
+                context['items'] = items
+                context['net'] = net
+                context['notes'] = notes
+                context['note_info'] = get_note_info(note_model)
+                context['points'] = points
+                context['projects'] = projects
+                context['times'] = times
+                total_hours = get_total_hours(times)
+                context['total_hours'] = total_hours
+                context['total_earned'] = get_total_earned(request,
+                                                           total_hours)
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
@@ -627,9 +630,7 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     axes = figure.add_subplot(1, 1, 1)
     axes.grid(True)
     axes.plot(x, y)
-    # axes.xaxis.set_major_locator(MonthLocator())
     axes.xaxis.set_major_formatter(DateFormatter('%m'))
-
     # write image data to a string buffer and get the PNG image bytes
     buf = BytesIO()
     canvas.print_png(buf)
@@ -845,7 +846,7 @@ def mail_compose(obj, **kwargs):
             doc_type = 'statement of work'.upper()
         message = '<h1>%s</h1>' % doc_type
         message += render_to_string(
-            'table_items.html',
+            'pdf_invoice.html',
             {'items': get_fields([i for i in obj.times.all()])})
         message += '<h1>%s</h1>' % obj.amount
         subject = obj.subject
