@@ -627,8 +627,9 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     axes = figure.add_subplot(1, 1, 1)
     axes.grid(True)
     axes.plot(x, y)
-    axes.xaxis.set_major_locator(MonthLocator())
+    # axes.xaxis.set_major_locator(MonthLocator())
     axes.xaxis.set_major_formatter(DateFormatter('%m'))
+
     # write image data to a string buffer and get the PNG image bytes
     buf = BytesIO()
     canvas.print_png(buf)

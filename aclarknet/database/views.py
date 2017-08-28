@@ -820,9 +820,3 @@ def user_index(request):
         order_by=('-profile__active', '-profile__updated'),
         show_search=False)
     return render(request, 'user_index.html', context)
-
-
-@staff_member_required
-def plot(request):
-    """
-    """
