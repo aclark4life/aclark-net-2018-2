@@ -847,7 +847,7 @@ def mail_compose(obj, **kwargs):
         message += render_to_string(
             'table_items.html',
             {'items': get_fields([i for i in obj.times.all()])})
-        message += '<h1>%s</h1>' % obj.total
+        message += '<h1>%s</h1>' % obj.amount
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
