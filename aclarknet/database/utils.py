@@ -854,7 +854,7 @@ def mail_compose(obj, **kwargs):
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
         message = render_to_string(
-            'mail_invoice.html', {'context': get_page_items(obj=obj)})
+            'mail_invoice.html', {'message': 'wtf'})
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
