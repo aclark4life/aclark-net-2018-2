@@ -1,4 +1,4 @@
-          <table data-toggle="table" data-classes="table table-no-bordered">
+          <table data-toggle="table" data-classes="table table-no-bordered table-hover">
             <thead>
               <tr>
                 {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" data-visible="{{ columns_visible.time.invoiced }}">Invoiced</th>{% endif %}
