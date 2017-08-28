@@ -32,7 +32,7 @@
             <table border=0 style="margin: 0 0 75px 0;">
               <tr> 
                 <!-- Left column -->
-                <td colspan=2 class="title"><h1 style="border-bottom: none;">{{ document_type|upper }}</h1></td>
+                <td colspan=2 class="title"><h1 style="border-bottom: none;">{{ doc_type|upper }}</h1></td>
                 <!-- Right column -->
                 <td valign="top" class="field-name border-right" align="right">From</td>
                 <td valign="top" class="field-value"> 
@@ -47,7 +47,7 @@
                 <td valign="top" align="left" style="width: 20%" class="field-name border-right">Document ID</td>
                 <td valign="top" align="left" style="width: 20%" class="field-value">{{ item.document_id|default:'' }}</td>
                 <!-- Right column -->
-                <td rowspan=5 valign="top" align="right" class="field-name border-right">{{ document_type|title }} For</td>
+                <td rowspan=5 valign="top" align="right" class="field-name border-right">{{ doc_type|title }} For</td>
                 <td rowspan=5 valign="top" class="field-value">
                   <strong>{% if not pdf and item.client %}<a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|linebreaksbr|default:'' }}</a> <a href="{% url 'client_edit' item.client.pk %}"><i class="fa fa-cog"></i></a>{% else %}{{ item.client.name|linebreaksbr|default:'' }}{% endif %}</strong>
                   <br>

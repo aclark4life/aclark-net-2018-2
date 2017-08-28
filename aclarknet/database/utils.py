@@ -465,7 +465,7 @@ def get_page_items(request, **kwargs):
                 times = times_client | times_estimate
             else:
                 times = None
-            context['document_type'] = model_name
+            context['doc_type'] = model_name
             context['edit_url'] = 'contract_edit'
             context['item'] = contract
             context['times'] = times
@@ -485,13 +485,13 @@ def get_page_items(request, **kwargs):
             times = times_client | times_estimate
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, estimate=estimate)
-            context['document_type'] = doc_type
+            context['doc_type'] = doc_type
             context['entries'] = times
             context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
-            context['document_type'] = model_name
+            context['doc_type'] = model_name
             context['edit_url'] = 'file_edit'
             context['item'] = file_obj
         elif model_name == 'invoice':
@@ -500,7 +500,7 @@ def get_page_items(request, **kwargs):
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
-            context['document_type'] = model_name
+            context['doc_type'] = model_name
             context['edit_url'] = 'invoice_edit'
             context['entries'] = times
             context['item'] = invoice
@@ -509,7 +509,7 @@ def get_page_items(request, **kwargs):
         elif model_name == 'newsletter':
             newsletter = get_object_or_404(model, pk=pk)
             context['edit_url'] = 'newsletter_edit'
-            context['document_type'] = model_name
+            context['doc_type'] = model_name
             context['item'] = newsletter
         elif model_name == 'note':
             note = get_object_or_404(model, pk=pk)
@@ -535,7 +535,7 @@ def get_page_items(request, **kwargs):
             context['items'] = items
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
-            context['document_type'] = model_name
+            context['doc_type'] = model_name
             context['edit_url'] = 'proposal_edit'
             context['item'] = proposal
         elif model_name == 'report':
