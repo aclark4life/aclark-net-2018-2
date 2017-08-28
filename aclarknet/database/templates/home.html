@@ -2,10 +2,10 @@
 {% block content %}
           {% if request.user.is_authenticated %}
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-9">
               <h1 style="border-bottom: none;">Dashboard</h1>
             </div>
-            <div class="col-md-2"> 
+            <div class="col-md-3"> 
               {% if request.user.is_staff %}
               <div class="dropdown">
                 <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Item</button>
