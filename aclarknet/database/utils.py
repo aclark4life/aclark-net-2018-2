@@ -840,7 +840,8 @@ def mail_compose(obj, **kwargs):
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
-        message = render_to_string(
+        message = '<h1>%s</h1>' % model_name
+        message += render_to_string(
             'table_items.html',
             {'items': get_fields([i for i in obj.times.all()])})
         subject = obj.subject
@@ -852,8 +853,7 @@ def mail_compose(obj, **kwargs):
             'first_name': first_name,
             'message': message,
         })
-    # http://stackoverflow.com/a/28476681/185820
-    if form:
+    if form:  # http://stackoverflow.com/a/28476681/185820
         if 'send_html' in form.data:
             html_message = render_to_string(form.data['template'], {
                 'message': message,
