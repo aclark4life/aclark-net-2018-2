@@ -54,7 +54,7 @@ URL_NAMES = {
     'report': ('report_view', 'report_edit', 'report_index'),
     'service': ('company', 'service_edit', ''),
     'task': ('task_view', 'task_edit', 'task_index'),
-    'time': ('time_entry', 'time_edit', 'time_index'),
+    'time': ('time_view', 'time_edit', 'time_index'),
 }
 
 
