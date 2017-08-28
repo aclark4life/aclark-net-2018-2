@@ -8,7 +8,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h1 class="modal-title">Graph</h1>
+                      <h1 class="modal-title">Plot</h1>
                     </div>
                     <div class="modal-body">
                         <img style="width: 100%" class="rounded" src="{% url 'plot' %}?plot=1&points={% for item in points %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}">
