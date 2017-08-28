@@ -853,13 +853,8 @@ def mail_compose(obj, **kwargs):
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
-        doc_type = model_name.upper()
-        if obj.is_sow:
-            doc_type = 'statement of work'.upper()
-        message = '<h1>%s</h1>' % doc_type
-        message += render_to_string(
-            'pdf_invoice.html', {'context': {'items': get_page_items(obj=obj)}})
-        message += '<h1>%s</h1>' % obj.amount
+        context = get_page_items(obj=obj)
+        message = render_to_string('pdf_invoice.html', {'context': context})
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
