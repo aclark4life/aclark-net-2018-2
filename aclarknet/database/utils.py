@@ -493,7 +493,8 @@ def get_page_items(**kwargs):
                 times = times_client | times_estimate
             else:
                 times = obj.times.all()
-            times = times.order_by(*order_by['time'])
+            if order_by:
+                times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, estimate=estimate)
             context['doc_type'] = doc_type
             context['entries'] = times
@@ -615,14 +616,15 @@ def get_page_items(**kwargs):
                 context['total_hours'] = total_hours
                 context['total_earned'] = get_total_earned(request,
                                                            total_hours)
-    context['icon_size'] = get_setting(request, app_settings_model,
-                                       'icon_size')
-    context['icon_color'] = get_setting(request, app_settings_model,
-                                        'icon_color')
-    doc = get_query(request, 'doc')
-    pdf = get_query(request, 'pdf')
-    context['doc'] = doc
-    context['pdf'] = pdf
+    if request:
+        context['icon_size'] = get_setting(request, app_settings_model,
+                                           'icon_size')
+        context['icon_color'] = get_setting(request, app_settings_model,
+                                            'icon_color')
+        doc = get_query(request, 'doc')
+        pdf = get_query(request, 'pdf')
+        context['doc'] = doc
+        context['pdf'] = pdf
     return context
 
 
