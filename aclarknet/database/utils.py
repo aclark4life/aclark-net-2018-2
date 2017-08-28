@@ -584,7 +584,7 @@ def get_page_items(request, **kwargs):
             times = times.order_by(*order_by['time'])
             items = set_items_name('time', items=times, _items=items)
             # Plot
-            plot_items = report_model.objects.filter(active=True)
+            points = report_model.objects.filter(active=True)
             # Totals
             gross, net = get_invoice_totals(invoice_model)
             context['city_data'] = get_client_city(request)
@@ -596,7 +596,7 @@ def get_page_items(request, **kwargs):
             context['net'] = net
             context['notes'] = notes
             context['note_info'] = get_note_info(note_model)
-            context['plot_items'] = plot_items
+            context['points'] = points
             context['projects'] = projects
             context['times'] = times
             total_hours = get_total_hours(times)
@@ -613,6 +613,30 @@ def get_page_items(request, **kwargs):
     return context
 
 
+def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
+    """
+    """
+    points = get_query(request, 'points')
+    # http://matplotlib.org/examples/api/date_demo.html
+    x = [
+        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in points
+    ]
+    y = [i[0] for i in points]
+    figure = Figure()
+    canvas = FigureCanvasAgg(figure)
+    axes = figure.add_subplot(1, 1, 1)
+    axes.grid(True)
+    axes.plot(x, y)
+    axes.xaxis.set_major_locator(MonthLocator())
+    axes.xaxis.set_major_formatter(DateFormatter('%m'))
+    # write image data to a string buffer and get the PNG image bytes
+    buf = BytesIO()
+    canvas.print_png(buf)
+    data = buf.getvalue()
+    # write image bytes back to the browser
+    return HttpResponse(data, content_type="image/png")
+
+
 def get_query(request, query):
     """
     """
@@ -625,14 +649,14 @@ def get_query(request, query):
             return True
     elif query == 'search' and request.method == 'POST':
         return request.POST.get('search', '')
-    elif query == 'values':  # plot
-        values = request.GET.get('values')
-        if values:
-            values = values.split(' ')
+    elif query == 'points':  # plot
+        points = request.GET.get('points')
+        if points:
+            points = points.split(' ')
         else:
-            values = []
-        values = [i.split(',') for i in values]
-        return values
+            points = []
+        points = [i.split(',') for i in points]
+        return points
     elif query == 'checkbox':
         query_checkbox = {}
         query_checkbox_active = request.POST.get('checkbox-active')
@@ -946,30 +970,6 @@ def paginate(items, page, page_size):
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
     return items
-
-
-def report_plot(request):  # http://stackoverflow.com/a/5515994/185820
-    """
-    """
-    values = get_query(request, 'values')
-    # http://matplotlib.org/examples/api/date_demo.html
-    x = [
-        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in values
-    ]
-    y = [i[0] for i in values]
-    figure = Figure()
-    canvas = FigureCanvasAgg(figure)
-    axes = figure.add_subplot(1, 1, 1)
-    axes.grid(True)
-    axes.plot(x, y)
-    axes.xaxis.set_major_locator(MonthLocator())
-    axes.xaxis.set_major_formatter(DateFormatter('%m'))
-    # write image data to a string buffer and get the PNG image bytes
-    buf = BytesIO()
-    canvas.print_png(buf)
-    data = buf.getvalue()
-    # write image bytes back to the browser
-    return HttpResponse(data, content_type="image/png")
 
 
 def set_check_boxes(obj, query_checkbox, refer, app_settings_model):

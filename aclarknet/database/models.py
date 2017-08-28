@@ -23,9 +23,9 @@ COLOR_CHOICES = (
     ('warning', 'Warning'), )
 
 DASHBOARD_CHOICES = (
-    ('data', 'Data'),
     ('invoices', 'Invoices'),
     ('notes', 'Notes'),
+    ('plot', 'Plot'),
     ('projects', 'Projects'),
     ('times', 'Times'),
     ('totals', 'Totals'), )

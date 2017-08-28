@@ -49,6 +49,7 @@ from .utils import get_client_city
 from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
+from .utils import get_plot
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -487,6 +488,11 @@ def note_index(request, pk=None):
         show_search=True)
     context['edit_url'] = 'note_edit'
     return render(request, 'note_index.html', context)
+
+
+@staff_member_required
+def plot(request):
+    return get_plot(request)
 
 
 @staff_member_required

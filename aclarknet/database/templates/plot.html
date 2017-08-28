@@ -1,9 +1,5 @@
 {% load l10n %}
-              <div class="navbar" style="border: 1px solid #ebebeb">
-                <div class="col-md-12" style="text-align: center;">
-                  <img class="rounded" style="width: 50%" src="{% url 'plot' %}?plot=1&values={% for item in plot_items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
-                </div>
-              </div>
+              <img class="rounded" style="width: 50%" src="{% url 'plot' %}?plot=1&points={% for item in points %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
               <!-- Modal -->
               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -15,7 +11,7 @@
                       <h1 class="modal-title">Graph</h1>
                     </div>
                     <div class="modal-body">
-                        <img style="width: 100%" class="rounded" src="{% url 'plot' %}?plot=1&values={% for item in plot_items %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}">
+                        <img style="width: 100%" class="rounded" src="{% url 'plot' %}?plot=1&points={% for item in points %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}">
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
