@@ -6,7 +6,7 @@
               {% if request.user.is_staff %}<a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-cog"></i> Admin</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'contract_index' %}"><i class="fa fa-file-o"></i> Contracts</a>{% endif %}
-              {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'error' %}" target="_blank"><i class="fa fa-times"></i> Error</a>{% endif %}
+              <!-- {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'error' %}" target="_blank"><i class="fa fa-times"></i> Error</a>{% endif %} -->
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'file_index' %}"><i class="fa fa-file-o"></i> Files</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new" target="_blank"><i class="fa fa-github"></i> Issue</a>{% endif %}
               {% if request.user.is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-folder-open-o"></i> Logs</a>{% endif %}
