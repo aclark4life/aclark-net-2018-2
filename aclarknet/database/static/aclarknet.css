@@ -29,6 +29,6 @@ tbody tr:hover a {
     color: black !important;
 }
 #navbarsExampleDefault > ul > li:hover {
-    background: white !important;
+    background: #5cb85c !important;
     border-radius: 3px;
 }
