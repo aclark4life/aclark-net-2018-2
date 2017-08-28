@@ -8,11 +8,13 @@ a:hover.mute-url, a.mute-url {
 tbody tr:hover a {
     text-decoration: none;
 }
-#content {
-    background: white;
-}
 .banner {
     text-align: center;padding: 10% 0 10% 0;
+}
+.collapsing {  /* https://stackoverflow.com/questions/26378785/how-can-i-speed-up-the-mobile-dropdown-in-the-bootstrap-navbar */
+  -webkit-transition: height 0.2s ease;
+       -o-transition: height 0.2s ease;
+          transition: height 0.2s ease;
 }
 .banner div, .banner h3 {
     font-size: 400%;
@@ -20,10 +22,13 @@ tbody tr:hover a {
 .sidebar {
     opacity: 0.9;
 }
-
-/* https://stackoverflow.com/questions/26378785/how-can-i-speed-up-the-mobile-dropdown-in-the-bootstrap-navbar */
-.collapsing {
-  -webkit-transition: height 0.2s ease;
-       -o-transition: height 0.2s ease;
-          transition: height 0.2s ease;
+#content {
+    background: white;
+}
+#navbarsExampleDefault > ul > li > a:hover {
+    color: black !important;
+}
+#navbarsExampleDefault > ul > li:hover {
+    background: white !important;
+    border-radius: 3px;
 }
