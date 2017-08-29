@@ -702,11 +702,7 @@ def time_view(request, pk=None):
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
-            app_settings_model=AppSettings,
-            model=Time,
-            profile_model=Profile,
-            pk=pk,
-            request=request)
+            app_settings_model=AppSettings, model=Time, pk=pk, request=request)
         return render(request, 'time_view.html', context)
 
 
