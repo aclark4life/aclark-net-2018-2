@@ -403,14 +403,17 @@ class Profile(BaseModel):
     editor = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True)
     icon_size = models.CharField(
         max_length=255, blank=True, null=True, choices=ICON_CHOICES)
     icon_color = models.CharField(
         max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
     page_size = models.PositiveIntegerField(blank=True, null=True)
     preferred_username = models.CharField(
-        'Preferred Username', max_length=300, blank=True, null=True)
+        'Preferred Username', max_length=150, blank=True, null=True)
     rate = models.DecimalField(
         'Hourly Rate (United States Dollar - USD)',
         blank=True,

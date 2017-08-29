@@ -5,7 +5,7 @@
               <h1 style="border-bottom: none;">Users</h1>
             </div>
             <div class="col-md-3">
-              <button class="btn btn-block btn-lg btn-success">Add User <i class="fa fa-plus"></i></button>
+              <a href="{% url 'user_edit' %}" class="btn btn-block btn-lg btn-success">Add User <i class="fa fa-plus"></i></a>
             </div>
           </div>
 {% with items=items.users %}
