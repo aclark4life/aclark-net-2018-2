@@ -54,6 +54,7 @@ URL_NAMES = {
     'service': ('company', 'service_edit', ''),
     'task': ('task_view', 'task_edit', 'task_index'),
     'time': ('time_view', 'time_edit', 'time_index'),
+    'user': ('user_view', 'user_edit', 'user_index'),
 }
 
 
@@ -104,6 +105,9 @@ def edit(request, **kwargs):
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
     user_model = kwargs.get('user_model')
+    if model:
+        model_name = model._meta.verbose_name
+        context['active_nav'] = model_name
     if pk is None:  # New or mail
         form = get_form(
             client_model=client_model,
@@ -113,6 +117,8 @@ def edit(request, **kwargs):
             user_model=user_model,
             request=request)
     else:  # Existing
+        if model_name == 'profile':
+            model = user_model
         obj = get_object_or_404(model, pk=pk)
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
@@ -178,9 +184,6 @@ def edit(request, **kwargs):
         gross, net = get_invoice_totals(invoice_model)
         context['gross'] = gross
         context['net'] = net
-    if model:
-        model_name = model._meta.verbose_name
-        context['active_nav'] = model_name
     elif contact_model:
         model_name = contact_model._meta.verbose_name
     elif note_model:
