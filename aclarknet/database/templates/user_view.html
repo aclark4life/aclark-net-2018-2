@@ -11,6 +11,7 @@
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'user_edit' item.profile.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                       {% if request.user.is_staff %}<li data-toggle="tooltip" title="Add {{ item.get_full_name }} to Contacts"><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Contact</a></li>{% endif %}
+                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                     </ul>
                   </div>
                   {% else %}
@@ -18,5 +19,6 @@
                   {% endif %}
                 </div>
               </div>
+{% include 'delete_form.html' %}
 {% include 'table_items.html' %}
 {% endblock %}

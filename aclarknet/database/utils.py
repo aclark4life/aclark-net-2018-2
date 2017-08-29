@@ -303,10 +303,10 @@ def get_index_items(request, model, **kwargs):
     """
     context = {}
     model_name = model._meta.verbose_name
+    edit_url = '%s_edit' % model_name
     app_settings_model = kwargs.get('app_settings_model')
     columns_visible = kwargs.get('columns_visible')
     company_model = kwargs.get('company_model')
-    edit_url = kwargs.get('edit_url')
     order_by = kwargs.get('order_by')
     page_size = kwargs.get('page_size')
     search_fields = kwargs.get('search_fields')
@@ -428,6 +428,7 @@ def get_page_items(**kwargs):
         context['model_name'] = model_name
         context['active_nav'] = model_name
         context['active_tab'] = model_name
+        context['edit_url'] = '%s_edit' % model_name
         if model_name == 'app settings':
             app_settings = app_settings_model.get_solo()
             context['items'] = get_fields([app_settings, ])  # table_items.html
@@ -442,7 +443,6 @@ def get_page_items(**kwargs):
             projects = project_model.objects.filter(client=client)
             context['contacts'] = contacts
             context['contracts'] = contracts
-            context['edit_url'] = 'client_edit'
             context['item'] = client
             context['notes'] = client.note.all()
             context['projects'] = projects
@@ -452,7 +452,6 @@ def get_page_items(**kwargs):
                                            ])  # table_items.html
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
-            context['edit_url'] = 'contact_edit'
             context['items'] = get_fields([contact, ])  # table_items.html
             context['item'] = contact
         elif model_name == 'contract':
@@ -470,7 +469,6 @@ def get_page_items(**kwargs):
             else:
                 times = None
             context['doc_type'] = model_name
-            context['edit_url'] = 'contract_edit'
             context['item'] = contract
             context['times'] = times
         elif model_name == 'estimate':  # handle obj or model
@@ -498,12 +496,10 @@ def get_page_items(**kwargs):
             times = set_invoice_totals(times, estimate=estimate)
             context['doc_type'] = doc_type
             context['entries'] = times
-            context['edit_url'] = 'estimate_edit'
             context['item'] = estimate
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
-            context['edit_url'] = 'file_edit'
             context['item'] = file_obj
         elif model_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
@@ -512,19 +508,16 @@ def get_page_items(**kwargs):
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             context['doc_type'] = model_name
-            context['edit_url'] = 'invoice_edit'
             context['entries'] = times
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
         elif model_name == 'newsletter':
             newsletter = get_object_or_404(model, pk=pk)
-            context['edit_url'] = 'newsletter_edit'
             context['doc_type'] = model_name
             context['item'] = newsletter
         elif model_name == 'note':
             note = get_object_or_404(model, pk=pk)
-            context['edit_url'] = 'note_edit'
             context['item'] = note
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
@@ -541,13 +534,11 @@ def get_page_items(**kwargs):
             items = set_items_name('time', items=times, _items=items)
             users = user_model.objects.filter(project=project)
             items = set_items_name('user', items=users, _items=items)
-            context['edit_url'] = 'project_edit'
             context['item'] = project
             context['items'] = items
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
-            context['edit_url'] = 'proposal_edit'
             context['item'] = proposal
         elif model_name == 'report':
             report = get_object_or_404(model, pk=pk)
@@ -555,15 +546,12 @@ def get_page_items(**kwargs):
             reports = reports.aggregate(
                 gross=Sum(F('gross')), net=Sum(F('net')))
             context['cost'] = report.gross - report.net
-            context['edit_url'] = 'report_edit'
             context['item'] = report
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
-            context['edit_url'] = 'task_edit'
             context['item'] = task
         elif model_name == 'time':
             time_entry = get_object_or_404(model, pk=pk)
-            context['edit_url'] = 'time_edit'
             context['item'] = time_entry
         elif model_name == 'user':
             user = get_object_or_404(model, pk=pk)

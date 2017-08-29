@@ -121,7 +121,6 @@ def client_index(request):
         request,
         Client,
         app_settings_model=AppSettings,
-        edit_url='client_edit',
         order_by=('-active', '-updated', 'name'),
         search_fields=('address', 'name'),
         show_search=True)
@@ -152,7 +151,6 @@ def contact_index(request):
         request,
         Contact,
         app_settings_model=AppSettings,
-        edit_url='contact_edit',
         order_by=('-active', 'first_name'),
         search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'),
         show_search=True)
@@ -260,7 +258,6 @@ def estimate_index(request):
         request,
         Estimate,
         app_settings_model=AppSettings,
-        edit_url='estimate_edit',
         order_by=('-issue_date', ),
         search_fields=('subject', ),
         show_search=True)
@@ -370,7 +367,6 @@ def invoice_index(request):
         request,
         Invoice,
         app_settings_model=AppSettings,
-        edit_url='invoice_edit',
         order_by=('-updated', ),
         search_fields=search_fields,
         show_search=True)
@@ -489,7 +485,6 @@ def note_index(request, pk=None):
         order_by=('-active', '-updated'),
         search_fields=('note', 'title'),
         show_search=True)
-    context['edit_url'] = 'note_edit'
     return render(request, 'note_index.html', context)
 
 
@@ -533,7 +528,6 @@ def project_index(request, pk=None):
         columns_visible={'project': {
             'notes': 'true',
         }, },
-        edit_url='project_edit',
         order_by=(
             '-active',
             '-updated', ),
@@ -579,7 +573,6 @@ def proposal_index(request, pk=None):
         app_settings_model=AppSettings,
         order_by=('-updated', ),
         show_search=True)
-    context['edit_url'] = 'proposal_edit'
     return render(request, 'proposal_index.html', context)
 
 
@@ -612,7 +605,6 @@ def report_index(request):
         request,
         Report,
         app_settings_model=AppSettings,
-        edit_url='report_edit',
         order_by=('-updated', '-active'),
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
@@ -687,7 +679,6 @@ def task_index(request):
         request,
         Task,
         app_settings_model=AppSettings,
-        edit_url='task_edit',
         order_by=('-updated', ),
         search_fields=('name', ),
         show_search=True)
@@ -767,7 +758,6 @@ def time_index(request):
                 'log': 'false',
             },
         },
-        edit_url='time_edit',
         order_by=('-updated', ),
         search_fields=search_fields,
         show_search=True)
