@@ -1,37 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-              <div class="row">
-                <div class="col-md-10">
-                  <h1 style="border-bottom: none;"><a class="mute-url" href="{% url 'task_index' %}">Tasks</a> &raquo; Task</h1>
-                </div>
-                <div class="col-md-2">
-                  <div class="dropdown pull-right">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'task_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-            
-                    </ul>
-                  </div>
-                </div>
+          <div class="row">
+            <div class="col-md-10">
+              <h1 style="border-bottom: none;"><a class="mute-url" href="{% url 'task_index' %}">Tasks</a> &raquo; Task</h1>
+            </div>
+            <div class="col-md-2">
+              <div class="dropdown pull-right">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'task_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
+                  <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
+          
+                </ul>
               </div>
+            </div>
+          </div>
 {% include 'delete_form.html' %}
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Active</th>
-                    <th>Name</th>
-                    <th>Rate</th>
-                    <th>Unit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="table-{{ item.color }}">
-                    <td><form action="{% url 'task_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ item.name|default:'' }}</td>
-                    <td>{{ item.rate|default:'' }}</td>
-                    <td>{{ item.unit|default:'' }}</td>
-                  </tr>
-                </tbody>
-              </table>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Active</th>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-{{ item.color }}">
+                <td><form action="{% url 'task_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
+                <td>{{ item.name|default:'' }}</td>
+                <td>{{ item.rate|default:'' }}</td>
+                <td>{{ item.unit|default:'' }}</td>
+              </tr>
+            </tbody>
+          </table>
 {% endblock %}
