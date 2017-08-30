@@ -34,6 +34,8 @@ from operator import or_ as OR
 
 fake = Faker()
 
+EXCLUDE_MODELS = ('note', 'project')
+
 URL_NAMES = {
     'app settings': ('settings_app', 'settings_app_edit', ''),
     'client': ('client_view', 'client_edit', 'client_index'),
@@ -342,8 +344,8 @@ def get_index_items(request, model, **kwargs):
                 edit_url=edit_url,
                 request=request)
     # Not a search
-    if model_name == 'note' and get_setting(request, app_settings_model,
-                                            'exclude_hidden'):
+    if model_name in EXCLUDE_MODELS and get_setting(
+            request, app_settings_model, 'exclude_hidden'):
         items = model.objects.exclude(hidden=True)
     else:
         items = model.objects.all()
