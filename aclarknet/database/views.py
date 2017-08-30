@@ -606,7 +606,7 @@ def report_index(request):
         request,
         Report,
         app_settings_model=AppSettings,
-        order_by=('-date'),
+        order_by=('-date', ),
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
     return render(request, 'report_index.html', context)
