@@ -807,7 +807,7 @@ def get_times_for_obj(obj, time_model):
 
 def get_total_earned(request, total_hours):
     total_earned = 0
-    if has_profile(request):
+    if has_profile(request.user):
         if request.user.profile.rate:
             rate = request.user.profile.rate
             total_earned = total_hours * rate

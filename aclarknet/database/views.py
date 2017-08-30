@@ -50,6 +50,7 @@ from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
 from .utils import get_plot
+from .utils import has_profile
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -790,7 +791,7 @@ def user_view(request, pk=None):
 @login_required
 def user_edit(request, pk=None):
     if pk is not None:
-        if request.user.profile:
+        if has_profile(request.user):
             if not request.user.profile.pk == int(
                     pk) and not request.user.is_staff:
                 message = 'Sorry, you are not allowed to edit that profile.'
