@@ -792,8 +792,7 @@ def user_view(request, pk=None):
 def user_edit(request, pk=None):
     if pk is not None:
         if has_profile(request.user):
-            if not request.user.profile.pk == int(
-                    pk) and not request.user.is_staff:
+            if not request.user.pk == int(pk) and not request.user.is_staff:
                 message = 'Sorry, you are not allowed to edit that profile.'
                 messages.add_message(request, messages.WARNING, message)
                 return HttpResponseRedirect(reverse('home'))
