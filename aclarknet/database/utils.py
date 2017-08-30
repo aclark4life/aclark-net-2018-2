@@ -118,7 +118,8 @@ def edit(request, **kwargs):
             request=request)
     else:  # Existing
         if model_name == 'profile':
-            model = user_model
+            model = user_model  # Swap profile_model with user_model
+            # for create_user
         obj = get_object_or_404(model, pk=pk)
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':

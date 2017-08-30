@@ -790,11 +790,12 @@ def user_view(request, pk=None):
 @login_required
 def user_edit(request, pk=None):
     if pk is not None:
-        if not request.user.profile.pk == int(
-                pk) and not request.user.is_staff:
-            message = 'Sorry, you are not allowed to edit that profile.'
-            messages.add_message(request, messages.WARNING, message)
-            return HttpResponseRedirect(reverse('home'))
+        if request.user.profile:
+            if not request.user.profile.pk == int(
+                    pk) and not request.user.is_staff:
+                message = 'Sorry, you are not allowed to edit that profile.'
+                messages.add_message(request, messages.WARNING, message)
+                return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         profile_form = AdminProfileForm
     else:
