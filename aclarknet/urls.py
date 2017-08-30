@@ -29,6 +29,7 @@ router.register(r'profiles', views.ProfileViewSet)
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^auth/', include('django.contrib.auth.urls')),
     # API
     url(r'^api/', include(router.urls)),
     # SES
