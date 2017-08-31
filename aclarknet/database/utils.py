@@ -1118,4 +1118,3 @@ def set_relationship(obj, request, **kwargs):
             obj.project = project
             obj.task = project.task
         obj.save()
-        return True
