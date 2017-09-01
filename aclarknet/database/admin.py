@@ -118,7 +118,6 @@ class DashboardItemAdmin(SortableAdminMixin, admin.ModelAdmin):
     """
 
 
-
 class EstimateResource(ImportExportModelResource):
     """
     """

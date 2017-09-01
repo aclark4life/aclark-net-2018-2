@@ -411,6 +411,7 @@ def get_page_items(**kwargs):
     columns_visible = kwargs.get('columns_visible')
     contact_model = kwargs.get('contact_model')
     contract_model = kwargs.get('contract_model')
+    dashboard_item_model = kwargs.get('dashboard_item_model')
     estimate_model = kwargs.get('estimate_model')
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
@@ -581,6 +582,14 @@ def get_page_items(**kwargs):
     else:  # home
         if request:
             if request.user.is_authenticated:
+                # Dashboard
+                dashboard_choices = get_setting(request, app_settings_model,
+                                                'dashboard_choices')
+                dashboard_items = [
+                    i.title for i in dashboard_item_model.objects.all()
+                ]
+                context['dashboard_choices'] = dashboard_choices
+                context['dashboard_items'] = dashboard_items
                 # Items
                 invoices = invoice_model.objects.filter(last_payment_date=None)
                 items = set_items_name('invoice', items=invoices)
@@ -600,8 +609,6 @@ def get_page_items(**kwargs):
                 # Totals
                 gross, net = get_invoice_totals(invoice_model)
                 context['city_data'] = get_client_city(request)
-                context['dashboard_choices'] = get_setting(
-                    request, app_settings_model, 'dashboard_choices')
                 context['gross'] = gross
                 context['invoices'] = invoices
                 context['items'] = items

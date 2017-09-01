@@ -1,5 +1,7 @@
-            {% for dashboard in dashboard_choices %}  <!-- https://stackoverflow.com/a/4524851/185820 -->
-              {% with "dashboard_"|add:dashboard|add:".html" as dashboard_html %}
+            {% for dashboard in dashboard_items.keys %}  <!-- https://stackoverflow.com/a/4524851/185820 -->
+              {% if dashboard in dashboard_choices %}
+                {% with "dashboard_"|add:dashboard|add:".html" as dashboard_html %}
 {% include dashboard_html %}
-              {% endwith %}
+                {% endwith %}
+              {% endif %}
             {% endfor %}

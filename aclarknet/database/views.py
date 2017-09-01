@@ -25,6 +25,7 @@ from .models import Company
 from .models import Contact
 from .models import Contract
 from .models import ContractSettings
+from .models import DashboardItem
 from .models import Estimate
 from .models import File
 from .models import Invoice
@@ -308,6 +309,7 @@ def home(request):
                 'paid': 'false',
             },
         },
+        dashboard_item_model=DashboardItem,
         invoice_model=Invoice,
         note_model=Note,
         order_by={
