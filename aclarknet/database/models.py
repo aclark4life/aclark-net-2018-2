@@ -296,6 +296,7 @@ class Invoice(BaseModel):
         "Issue Date", blank=True, default=timezone.now, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
     doc_id = models.IntegerField("Invoice ID", blank=True, null=True)
+    doc_type = models.CharField(max_length=300, blank=True, null=True)
     po_number = models.CharField(
         "PO Number", max_length=300, blank=True, null=True)
     client = models.ForeignKey(
