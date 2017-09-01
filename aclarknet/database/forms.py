@@ -121,6 +121,7 @@ class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
         fields = (
+            'doc_id',
             'subject',
             'client',
             'project',
@@ -152,6 +153,7 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = (
+            'doc_id',
             'subject',
             'client',
             'project',
