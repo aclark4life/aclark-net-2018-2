@@ -717,7 +717,7 @@ def get_search_results(model,
                        search_fields,
                        search,
                        app_settings_model=None,
-                       edit_url='',
+                       edit_url=None,
                        request=None):
     context = {}
     query = []
@@ -734,6 +734,7 @@ def get_search_results(model,
     context['show_search'] = True
     items = set_items_name(model_name, items=items)
     context['items'] = items
+    context['request'] = request
     return context
 
 
