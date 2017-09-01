@@ -673,7 +673,11 @@ class Time(BaseModel):
         on_delete=models.SET_NULL,
         related_name='times')
     invoice = models.ForeignKey(
-        Invoice, blank=True, null=True, on_delete=models.SET_NULL)
+        Invoice,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        limit_choices_to={'last_payment_date': None})
     date = models.DateField(default=timezone.now)
     hours = models.DecimalField(
         "Hours",
