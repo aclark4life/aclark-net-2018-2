@@ -249,7 +249,7 @@ class Estimate(BaseModel):
         null=True,
         max_digits=12,
         decimal_places=2)
-    doc_id = models.IntegerField("Estimate ID", blank=True, null=True)
+    doc_id = models.IntegerField("Doc ID", blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
@@ -302,6 +302,7 @@ class Invoice(BaseModel):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
+    doc_id = models.IntegerField("Doc ID", blank=True, null=True)
     amount = models.DecimalField(
         "Invoice Amount",
         blank=True,
