@@ -535,8 +535,7 @@ def get_page_items(**kwargs):
             project = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.all()
             items = set_items_name('contact', items=contacts)
-            estimates = estimate_model.objects.filter(
-                project=project, accepted_date=None)
+            estimates = estimate_model.objects.filter(project=project)
             items = set_items_name('estimate', items=estimates, _items=items)
             invoices = invoice_model.objects.filter(project=project)
             invoices = invoices.order_by('-issue_date')
