@@ -742,7 +742,7 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     search_fields = ('client__name', 'date', 'log', 'pk', 'project__name',
-                     'invoice__pk', 'user__username')
+                     'invoice__pk', 'user__username', 'task__name')
     context = get_index_items(
         request,
         Time,
