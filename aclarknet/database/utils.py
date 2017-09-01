@@ -334,6 +334,8 @@ def get_index_items(**kwargs):
     page = get_query(request, 'page')
     paginated = get_query(request, 'paginated')
     search = get_query(request, 'search')
+    if request:
+        context['is_staff'] = request.user.is_staff
     # Search is easy
     if request.method == 'POST':
         if search == u'':  # Empty search returns none
@@ -341,6 +343,7 @@ def get_index_items(**kwargs):
             return context
         else:
             return get_search_results(
+                context,
                 model,
                 search_fields,
                 search,
@@ -716,13 +719,13 @@ def get_query(request, query):
         return request.GET.get(query, '')
 
 
-def get_search_results(model,
+def get_search_results(context,
+                       model,
                        search_fields,
                        search,
                        app_settings_model=None,
                        edit_url=None,
                        request=None):
-    context = {}
     query = []
     model_name = model._meta.verbose_name
     for field in search_fields:
