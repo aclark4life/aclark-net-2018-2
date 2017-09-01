@@ -249,7 +249,6 @@ class Estimate(BaseModel):
         null=True,
         max_digits=12,
         decimal_places=2)
-    doc_id = models.IntegerField("Doc ID", blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
@@ -269,11 +268,7 @@ class Estimate(BaseModel):
     contacts = models.ManyToManyField('Contact', blank=True)
 
     def __str__(self):
-        if self.client and self.doc_id:
-            return ' '.join(
-                [self.client.name, 'Estimate', '#%s' % self.doc_id])
-        else:
-            return 'estimate-%s' % self.doc_id
+        return 'estimate-%s' % self.pk
 
 
 class File(BaseModel):
@@ -302,7 +297,6 @@ class Invoice(BaseModel):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    doc_id = models.IntegerField("Doc ID", blank=True, null=True)
     amount = models.DecimalField(
         "Invoice Amount",
         blank=True,
@@ -330,7 +324,6 @@ class Invoice(BaseModel):
         null=True)
     currency_symbol = models.CharField(
         default="$", max_length=300, blank=True, null=True)
-    doc_id = models.CharField(max_length=300, blank=True, null=True)
     cog = models.DecimalField(
         "Cost of goods",
         blank=True,
@@ -339,7 +332,7 @@ class Invoice(BaseModel):
         decimal_places=2)
 
     def __str__(self):
-        return 'invoice-%s' % self.doc_id
+        return 'invoice-%s' % self.pk
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/tutorial/#defining-a-geographic-model
