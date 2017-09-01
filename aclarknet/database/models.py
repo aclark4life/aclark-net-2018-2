@@ -249,7 +249,7 @@ class Estimate(BaseModel):
         null=True,
         max_digits=12,
         decimal_places=2)
-    document_id = models.IntegerField("Estimate ID", blank=True, null=True)
+    doc_id = models.IntegerField("Estimate ID", blank=True, null=True)
     discount = models.IntegerField(blank=True, null=True)
     tax = models.IntegerField(blank=True, null=True)
     tax2 = models.IntegerField(blank=True, null=True)
@@ -269,11 +269,11 @@ class Estimate(BaseModel):
     contacts = models.ManyToManyField('Contact', blank=True)
 
     def __str__(self):
-        if self.client and self.document_id:
+        if self.client and self.doc_id:
             return ' '.join(
-                [self.client.name, 'Estimate', '#%s' % self.document_id])
+                [self.client.name, 'Estimate', '#%s' % self.doc_id])
         else:
-            return 'estimate-%s' % self.document_id
+            return 'estimate-%s' % self.doc_id
 
 
 class File(BaseModel):
@@ -295,7 +295,7 @@ class Invoice(BaseModel):
     issue_date = models.DateField(
         "Issue Date", blank=True, default=timezone.now, null=True)
     last_payment_date = models.DateField(blank=True, null=True)
-    document_id = models.IntegerField("Invoice ID", blank=True, null=True)
+    doc_id = models.IntegerField("Invoice ID", blank=True, null=True)
     po_number = models.CharField(
         "PO Number", max_length=300, blank=True, null=True)
     client = models.ForeignKey(
@@ -330,7 +330,7 @@ class Invoice(BaseModel):
         null=True)
     currency_symbol = models.CharField(
         default="$", max_length=300, blank=True, null=True)
-    document_type = models.CharField(max_length=300, blank=True, null=True)
+    doc_id = models.CharField(max_length=300, blank=True, null=True)
     cog = models.DecimalField(
         "Cost of goods",
         blank=True,
@@ -339,7 +339,7 @@ class Invoice(BaseModel):
         decimal_places=2)
 
     def __str__(self):
-        return 'invoice-%s' % self.document_id
+        return 'invoice-%s' % self.doc_id
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/tutorial/#defining-a-geographic-model
