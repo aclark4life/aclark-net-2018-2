@@ -608,9 +608,9 @@ def get_page_items(**kwargs):
                 points = report_model.objects.filter(active=True)
                 # Totals
                 gross, net = get_invoice_totals(invoice_model)
-                context['city_data'] = get_client_city(request)
                 context['gross'] = gross
                 context['invoices'] = invoices
+                context['city_data'] = get_client_city(request)
                 context['items'] = items
                 context['net'] = net
                 context['notes'] = notes
