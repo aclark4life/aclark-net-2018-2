@@ -378,7 +378,6 @@ def get_index_items(request, model, **kwargs):
     items = set_items_name(model_name, items=items)
     context['items'] = items
     context['active_nav'] = model_name
-    context['request'] = request
     return context
 
 
@@ -885,7 +884,6 @@ def mail_compose(obj, **kwargs):
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
     context['subject'] = subject
-    context['request'] = request
     return context
 
 
