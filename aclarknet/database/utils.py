@@ -520,11 +520,8 @@ def get_page_items(**kwargs):
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
-            gross, net = get_invoice_totals([invoice, ])
             context['doc_type'] = model_name
             context['entries'] = times
-            context['gross'] = gross
-            context['net'] = net
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
