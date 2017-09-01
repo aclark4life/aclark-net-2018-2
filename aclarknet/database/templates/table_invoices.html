@@ -18,7 +18,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in items.invoices %}
+            {% for item in items %}
               <tr>
                 <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
                 <td><a href="{% url 'invoice_view' item.pk %}">{{ item.subject|default:'' }}</a></td>
