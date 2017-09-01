@@ -173,7 +173,7 @@ class Contract(BaseModel):
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
-     class Meta:
+    class Meta:
         verbose_name_plural = "Contract settings"
 
 
