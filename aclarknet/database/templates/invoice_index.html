@@ -11,46 +11,7 @@
           </div>
 {% with items=items.invoices %}
 {% include 'pagination.html' %}
-{% endwith %}
-          <table data-toggle="table" data-classes="table table-no-bordered table-hover">
-            <thead>
-              <tr>
-                <th data-align="center" data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true">Paid</th>
-                <th data-sort-name="hidden-subject" data-sortable="true">Subject</th>
-                <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
-                <th data-field="document-id" data-sortable="true">Id</th>
-                <th data-sort-name="hidden-client" data-sortable="true">Client</th>
-                <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
-                <th data-field="project" data-sortable="true">Project</th>
-                <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
-                <th data-field="hidden-issue-date" data-sortable="true" data-visible="false">Hidden Issue Date</th>
-                <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount</th>
-                <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                <th>View</th>
-                <th>Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for item in items.invoices %}
-              <tr>
-                <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
-                <td><a href="{% url 'invoice_view' item.pk %}">{{ item.subject|default:'' }}</a></td>
-                <td>{{ item.subject|default:'' }}</td>
-                <td>{{ item.doc_id|default:'' }}</td>
-                {% if item.client %}<td><a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
-                <td>{{ item.client }}</td>
-                {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
-                <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
-                <td>{{ item.issue_date|date:'U'|default:'' }}</td>
-                <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
-                <td>{{ item.amount|unlocalize|default:'' }}</td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'invoice_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-{% with items=items.invoices %}
+{% include 'table_invoices.html' %}
 {% include 'pagination.html' %}
 {% endwith %}
 {% endblock %}
