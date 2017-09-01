@@ -7,7 +7,7 @@
                 <div class="col-md-2">
                   {% if is_staff %}
                   <div class="dropdown pull-right">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                    <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'user_edit' item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                       {% if is_staff %}<li data-toggle="tooltip" title="Add {{ item.get_full_name }} to Contacts"><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Contact</a></li>{% endif %}

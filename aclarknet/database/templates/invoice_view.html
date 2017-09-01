@@ -4,7 +4,7 @@
               <div class="row">
                 <div class="col-md-2 ml-auto">
                   <div class="dropdown pull-right">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                    <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'time_edit' %}?invoice={{ item.pk|unlocalize }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
                       <li><a class="dropdown-item" href="{% url 'invoice_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
