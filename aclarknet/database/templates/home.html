@@ -6,7 +6,7 @@
               <h1 style="border-bottom: none;">Dashboard</h1>
             </div>
             <div class="col-md-3"> 
-              {% if request.user.is_staff %}
+              {% if is_staff %}
               <div class="dropdown">
                 <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Item</button>
                 <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->

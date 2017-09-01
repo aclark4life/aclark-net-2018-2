@@ -311,19 +311,21 @@ def get_form(**kwargs):
     return form
 
 
-def get_index_items(request, model, **kwargs):
+def get_index_items(**kwargs):
     """
     """
     context = {}
-    model_name = model._meta.verbose_name
-    edit_url = '%s_edit' % model_name
     app_settings_model = kwargs.get('app_settings_model')
     columns_visible = kwargs.get('columns_visible')
     company_model = kwargs.get('company_model')
+    model = kwargs.get('model')
     order_by = kwargs.get('order_by')
     page_size = kwargs.get('page_size')
+    request = kwargs.get('request')
     search_fields = kwargs.get('search_fields')
     show_search = kwargs.get('show_search')
+    model_name = model._meta.verbose_name
+    edit_url = '%s_edit' % model_name
     if columns_visible:
         context['columns_visible'] = columns_visible
     if company_model:
@@ -514,7 +516,7 @@ def get_page_items(**kwargs):
             file_obj = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
             context['item'] = file_obj
-        elif model_name == 'invoice': 
+        elif model_name == 'invoice':
             invoice = get_object_or_404(model, pk=pk)
             times = get_times_for_obj(invoice, time_model)
             times = times.order_by(*order_by['time'])
@@ -633,6 +635,7 @@ def get_page_items(**kwargs):
         pdf = get_query(request, 'pdf')
         context['doc'] = doc
         context['pdf'] = pdf
+        context['is_staff'] = request.user.is_staff
     return context
 
 
@@ -734,7 +737,6 @@ def get_search_results(model,
     context['show_search'] = True
     items = set_items_name(model_name, items=items)
     context['items'] = items
-    context['request'] = request
     return context
 
 
@@ -856,7 +858,6 @@ def mail_compose(obj, **kwargs):
     first_name = kwargs.get('first_name')
     form = kwargs.get('form')
     mail_to = kwargs.get('mail_to')
-    request = kwargs.get('request')
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
         message = form.cleaned_data['message']

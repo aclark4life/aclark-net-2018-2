@@ -120,10 +120,10 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = get_index_items(
-        request,
-        Client,
         app_settings_model=AppSettings,
+        model=Client,
         order_by=('-updated', ),
+        request=request,
         search_fields=('address', 'name'),
         show_search=True)
     return render(request, 'client_index.html', context)
@@ -150,10 +150,10 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = get_index_items(
-        request,
-        Contact,
         app_settings_model=AppSettings,
+        model=Contact,
         order_by=('-active', 'first_name'),
+        request=request,
         search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'),
         show_search=True)
     return render(request, 'contact_index.html', context)
@@ -207,10 +207,10 @@ def contract_index(request):
     """
     """
     context = get_index_items(
-        request,
-        Contract,
-        order_by=('-updated', ),
-        app_settings_model=AppSettings)
+        app_settings_model=AppSettings,
+        model=Contract,
+        request=request,
+        order_by=('-updated', ))
     return render(request, 'contract_index.html', context)
 
 
@@ -257,11 +257,11 @@ def estimate_edit(request, pk=None):
 def estimate_index(request):
     company = Company.get_solo()
     context = get_index_items(
-        request,
-        Estimate,
         app_settings_model=AppSettings,
+        model=Estimate,
         order_by=('-issue_date', ),
         search_fields=('subject', ),
+        request=request,
         show_search=True)
     context['company'] = company
     return render(request, 'estimate_index.html', context)
@@ -291,7 +291,10 @@ def file_edit(request, pk=None):
 @staff_member_required
 def file_index(request):
     context = get_index_items(
-        request, File, app_settings_model=AppSettings, order_by=('-updated', ))
+        app_settings_model=AppSettings,
+        model=File,
+        order_by=('-updated', ),
+        request=request, )
     return render(request, 'file_index.html', context)
 
 
@@ -365,10 +368,10 @@ def invoice_index(request):
         'project__name',
         'subject', )
     context = get_index_items(
-        request,
-        Invoice,
         app_settings_model=AppSettings,
+        model=Invoice,
         order_by=('-issue_date', ),
+        request=request,
         search_fields=search_fields,
         show_search=True)
     return render(request, 'invoice_index.html', context)
@@ -398,10 +401,10 @@ def login(request):
 @staff_member_required
 def log_index(request):
     context = get_index_items(
-        request,
-        Log,
         app_settings_model=AppSettings,
+        model=Log,
         order_by=('-updated', ),
+        request=request,
         search_fields=('entry', ))
     return render(request, 'log_index.html', context)
 
@@ -443,10 +446,10 @@ def newsletter_index(request, pk=None):
     """
     """
     context = get_index_items(
-        request,
-        Newsletter,
         app_settings_model=AppSettings,
+        model=Newsletter,
         order_by=('-updated', ),
+        request=request,
         search_fields=('text', ))
     return render(request, 'newsletter_index.html', context)
 
@@ -480,10 +483,10 @@ def note_edit(request, pk=None):
 @staff_member_required
 def note_index(request, pk=None):
     context = get_index_items(
-        request,
-        Note,
         app_settings_model=AppSettings,
+        model=Note,
         order_by=('-active', '-updated'),
+        request=request,
         search_fields=('note', 'title'),
         show_search=True)
     return render(request, 'note_index.html', context)
@@ -523,15 +526,15 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = get_index_items(
-        request,
-        Project,
         app_settings_model=AppSettings,
         columns_visible={'project': {
             'notes': 'true',
         }, },
+        model=Project,
         order_by=(
             '-active',
             '-updated', ),
+        request=request,
         search_fields=('id', 'name'),
         show_search=True)
     return render(request, 'project_index.html', context)
@@ -569,10 +572,10 @@ def proposal_edit(request, pk=None):
 @staff_member_required
 def proposal_index(request, pk=None):
     context = get_index_items(
-        request,
-        Proposal,
         app_settings_model=AppSettings,
+        model=Proposal,
         order_by=('-updated', ),
+        request=request,
         show_search=True)
     return render(request, 'proposal_index.html', context)
 
@@ -603,10 +606,10 @@ def report_edit(request, pk=None):
 @staff_member_required
 def report_index(request):
     context = get_index_items(
-        request,
-        Report,
+        model=Report,
         app_settings_model=AppSettings,
         order_by=('-date', ),
+        request=request,
         search_fields=('id', 'name', 'gross', 'net'),
         show_search=True)
     return render(request, 'report_index.html', context)
@@ -677,10 +680,10 @@ def task_edit(request, pk=None):
 @staff_member_required
 def task_index(request):
     context = get_index_items(
-        request,
-        Task,
+        model=Task,
         app_settings_model=AppSettings,
         order_by=('-updated', ),
+        request=request,
         search_fields=('name', ),
         show_search=True)
     return render(request, 'task_index.html', context)
@@ -744,8 +747,7 @@ def time_index(request):
     search_fields = ('client__name', 'date', 'log', 'pk', 'project__name',
                      'invoice__pk', 'user__username', 'task__name')
     context = get_index_items(
-        request,
-        Time,
+        model=Time,
         app_settings_model=AppSettings,
         columns_visible={
             'time': {
@@ -756,6 +758,7 @@ def time_index(request):
             },
         },
         order_by=('-updated', ),
+        request=request,
         search_fields=search_fields,
         show_search=True)
     if not request.user.is_staff:
@@ -811,11 +814,11 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = get_index_items(
-        request,
-        User,
         app_settings_model=AppSettings,
         company_model=Company,
         contact_model=Contact,
+        model=User,
         order_by=('-profile__active', '-profile__updated'),
+        request=request,
         show_search=False)
     return render(request, 'user_index.html', context)

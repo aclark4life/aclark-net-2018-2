@@ -2,7 +2,7 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h1 style="border-bottom: none;">{% if request.user.is_staff %}<a class="mute-url" href="{% url 'time_index' %}">Times</a> &raquo; {% endif %}Time Entry</h1>
+                  <h1 style="border-bottom: none;">{% if is_staff %}<a class="mute-url" href="{% url 'time_index' %}">Times</a> &raquo; {% endif %}Time Entry</h1>
                 </div>
                 <div class="col-md-2">
                   <div class="dropdown pull-right">
@@ -20,7 +20,7 @@
               <table class="table table-no-bordered table-hover"> 
                 <thead>
                   <tr>
-                    {% if request.user.is_staff %}
+                    {% if is_staff %}
                     <th data-field="invoiced" data-sortable="true">Invoiced</th>
                     {% endif %}
                     <th data-field="date" data-sortable="true">Date</th>
@@ -30,7 +30,7 @@
                     <th data-field="project" data-sortable="true">Project</th>
                     <th data-field="user" data-sortable="true">User</th>
                     <th data-field="task" data-sortable="true">Task</th>
-                    {% if request.user.is_staff %}
+                    {% if is_staff %}
                     <th data-field="invoice" data-sortable="true">Invoice</th>
                     <th data-field="estimate" data-sortable="true">Estimate</th>
                     {% endif %}
@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    {% if request.user.is_staff %}
+                    {% if is_staff %}
                     <td>{% if item.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
 
                     {% endif %}
@@ -46,10 +46,10 @@
                     <td>{{ item.hours|default:'' }}</td>
                     <td>{{ item.log|default:'' }}</td>
                     <td>{{ item.client|default:'' }}</td>
-                    {% if request.user.is_staff %}{% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}
+                    {% if is_staff %}{% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}
                     <td>{{ item.user|default:'' }}</td>
                     <td>{{ item.task|default:'' }}</td>
-                    {% if request.user.is_staff %}
+                    {% if is_staff %}
                       {% if item.invoice %}
                       <td><a href="{% url 'invoice_view' item.invoice.pk %}">{{ item.invoice.pk|default:'' }}</a></td>
                       {% else %}
