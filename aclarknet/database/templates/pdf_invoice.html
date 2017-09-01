@@ -96,5 +96,8 @@
                 <td align="left" colspan=5>{% if invoice %}<h1 style="border-bottom: none;font-weight: bold;font-size: 175%;padding: 1em 0 0 0.5em">Amount Due</h1>{% else %}<h1 style="border-bottom: none;">Total</h1>{% endif %}</td>
                 <td align="right"><h1 style="border-bottom: none;font-weight: bold;font-size: 175%;padding: 1em 0.5em 0 0">{{ company.currency_symbol }}{{ item.amount|default:'' }}</h1></td>
               </tr>
+              <tr>
+                <td align="left" colspan=5>{% if invoice %}<h1 style="border-bottom: none;font-weight: bold;font-size: 175%;padding: 1em 0 0 0.5em">Total Hours</h1>{% else %}<h1 style="border-bottom: none;">Total</h1>{% endif %}</td>
+                <td align="right"><h1 style="border-bottom: none;font-weight: bold;font-size: 175%;padding: 1em 0.5em 0 0">{{ total_hours }}</h1></td>
+              </tr>
             </table>
-            {{ total_hours }}
