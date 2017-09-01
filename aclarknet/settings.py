@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'storages',
     'taggit',
     'django_ses',
+    'adminsortable2',
 ]
 
 if DEBUG:

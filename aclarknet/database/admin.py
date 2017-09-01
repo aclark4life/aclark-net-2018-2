@@ -4,6 +4,7 @@ from .models import Contact
 from .models import Contract
 from .models import ContractSettings
 from .models import Company
+from .models import DashboardItem
 from .models import Estimate
 from .models import Invoice
 from .models import Location
@@ -21,6 +22,7 @@ from .models import Time
 from .utils import BooleanWidget
 from .utils import DecimalWidget
 from .utils import UserWidget
+from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
 from django.contrib.gis import admin as geo_admin
 from import_export import fields
@@ -108,6 +110,13 @@ class ContractAdmin(ImportExportModelAdmin):
 class ContractSettingsAdmin(ImportExportModelAdmin):
     """
     """
+
+
+@admin.register(DashboardItem)
+class DashboardItemAdmin(SortableAdminMixin, admin.ModelAdmin):
+    """
+    """
+
 
 
 class EstimateResource(ImportExportModelResource):

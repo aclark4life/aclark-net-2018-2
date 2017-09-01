@@ -207,6 +207,22 @@ class ContractSettings(SingletonModel):
         'Complete Agreement', blank=True, null=True, default=fake.text)
 
 
+class DashboardItem(models.Model):
+    title = models.CharField('Title', null=True, blank=True, max_length=255)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta(object):
+        ordering = ('order', )
+
+
+    def __str__(self):
+        if self.title:
+            return self.title
+        else:
+            return self.pk
+
+
+
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
 class Elevation(BaseModel):
     name = models.CharField(max_length=100)
