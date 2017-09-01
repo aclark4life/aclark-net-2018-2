@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block css %}
-{% include 'datepicker-css.html' %}
-{% endblock %}
 {% block content %}
               <h1 style="border-bottom: none;">Time</h1>
               <form action="" method="post">{% csrf_token %}
@@ -10,7 +7,4 @@
               <input class="btn btn-lg btn-success" type="submit" value="Save Time Entry">
               <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
               </form>
-{% endblock %}
-{% block js %}
-{% include 'datepicker-js.html' %}
 {% endblock %}
