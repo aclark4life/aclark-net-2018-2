@@ -338,7 +338,7 @@ def invoice_view(request, pk=None):
         response = HttpResponse(content_type='application/pdf')
         company_name = get_company_name(context['company'])
         model_name = context['model_name'].upper()
-        doc_id = context['item'].document_id or pk
+        doc_id = context['item'].doc_id or pk
         filename = '_'.join([company_name, model_name, str(doc_id)])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
@@ -362,7 +362,7 @@ def invoice_edit(request, pk=None):
 def invoice_index(request):
     search_fields = (
         'client__name',
-        'document_id',
+        'doc_id',
         'issue_date',
         'project__name',
         'subject', )
@@ -744,7 +744,7 @@ def time_edit(request, pk=None):
 @login_required
 def time_index(request):
     search_fields = ('client__name', 'date', 'log', 'pk', 'project__name',
-                     'invoice__document_id', 'user__username')
+                     'invoice__doc_id', 'user__username')
     context = get_index_items(
         request,
         Time,
