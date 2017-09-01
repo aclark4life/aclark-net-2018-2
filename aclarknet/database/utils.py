@@ -538,8 +538,7 @@ def get_page_items(**kwargs):
             estimates = estimate_model.objects.filter(
                 project=project, accepted_date=None)
             items = set_items_name('estimate', items=estimates, _items=items)
-            invoices = invoice_model.objects.filter(
-                project=project, last_payment_date=None)
+            invoices = invoice_model.objects.filter(project=project)
             items = set_items_name('invoice', items=invoices, _items=items)
             times = get_times_for_obj(project, time_model)
             times = times.order_by(*order_by['time'])
