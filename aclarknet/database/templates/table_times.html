@@ -1,7 +1,7 @@
           <table data-toggle="table" data-classes="table table-no-bordered table-hover">
             <thead>
               <tr>
-                {% if request.user.is_staff %}<th data-toggle="tooltip" data-placement="right" title="Time invoiced" data-field="invoiced" data-sortable="true" data-visible="{{ columns_visible.time.invoiced }}">Invoiced</th>{% endif %}
+                {% if request.user.is_staff %}<th data-field="invoiced" data-sortable="true" data-visible="{{ columns_visible.time.invoiced }}">Invoiced</th>{% endif %}
                 <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                 <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
                 <th data-field="hours" data-sortable="true">Hours</th>
@@ -20,7 +20,7 @@
             <tbody>
             {% for item in items.times %}
               <tr>
-                {% if request.user.is_staff %}<td>{% if item.invoiced %}<i data-toggle="tooltip" data-placement="right" title="Time invoiced" class="fa fa-check"></i>{% endif %}</td>{% endif %}
+                {% if request.user.is_staff %}<td>{% if item.invoiced %}<i class="fa fa-check"></i>{% endif %}</td>{% endif %}
                 <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
                 <td>{{ item.date|date:'U' }}</td>
                 <td>{{ item.hours|default:'' }}</td>
