@@ -3,7 +3,6 @@
             <thead>
               <tr>
                 <th data-align="center" data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true" data-visible="{{ columns_visible.invoice.paid }}">Paid</th>
-                <th data-field="document-id" data-sortable="true">Doc Id</th>
                 <th data-sort-name="hidden-subject" data-sortable="true">Subject</th>
                 <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
                 <th data-sort-name="hidden-client" data-sortable="true">Client</th>
@@ -22,7 +21,6 @@
               <tr>
                 <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
                 <td><a href="{% url 'invoice_view' item.pk %}">{{ item.subject|default:'' }}</a></td>
-                <td>{{ item.doc_id|default:'' }}</td>
                 <td>{{ item.subject|default:'' }}</td>
                 {% if item.client %}<td><a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                 <td>{{ item.client }}</td>
