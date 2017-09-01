@@ -13,14 +13,6 @@
               #line-items th, #line-items td {
                 padding: 5px;
               }
-              .title h1 {
-                font-weight: bold;
-                font-size: 300%;
-              }
-              .total h1 {
-                font-weight: bold;
-                font-size: 175%;
-              }
               .field-name {
                 color: gray;
                 padding: 0 3px 0 0;
@@ -32,7 +24,7 @@
             <table border=0 style="margin: 0 0 75px 0;">
               <tr> 
                 <!-- Left column -->
-                <td colspan=2 class="title"><h1 style="border-bottom: none;">{{ doc_type|upper }}</h1></td>
+                <td colspan=2 style="font-weight: bold; font-size: 300%;"><h1 style="border-bottom: none;">{{ doc_type|upper }}</h1></td>
                 <!-- Right column -->
                 <td valign="top" class="field-name border-right" align="right">From</td>
                 <td valign="top" class="field-value"> 
