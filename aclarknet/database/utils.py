@@ -189,7 +189,8 @@ def edit(request, **kwargs):
         company = company_model.get_solo()
         context['company'] = company
     if invoice_model:  # Dashboard totals for reporting
-        gross, net = get_invoice_totals(invoice_model)
+        invoices = invoice_model.objects.filter(last_payment_date=None)
+        gross, net = get_invoice_totals(invoices)
         context['gross'] = gross
         context['net'] = net
     elif contact_model:
@@ -290,7 +291,8 @@ def get_form(**kwargs):
             model_name = model._meta.verbose_name
             if model_name == 'report' and invoice_model:  # Populate new report
                 # with gross, net.
-                gross, net = get_invoice_totals(invoice_model)
+                invoices = invoice_model.objects.filter(last_payment_date=None)
+                gross, net = get_invoice_totals(invoices)
                 obj = model(gross=gross, net=net)
                 form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
@@ -379,14 +381,13 @@ def get_index_items(request, model, **kwargs):
     return context
 
 
-def get_invoice_totals(model):
-    invoices = model.objects.filter(last_payment_date=None)
+def get_invoice_totals(invoices):
     invoice_amount = invoice_cog = 0
     for invoice in invoices:
         if invoice.amount:
-            invoice_amount += invoice.amount
+            invoice_amount += float(invoice.amount)
         if invoice.cog:
-            invoice_cog += invoice.cog
+            invoice_cog += float(invoice.cog)
     return invoice_amount, invoice_amount - invoice_cog
 
 
@@ -513,14 +514,17 @@ def get_page_items(**kwargs):
             file_obj = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
             context['item'] = file_obj
-        elif model_name == 'invoice':
+        elif model_name == 'invoice': 
             invoice = get_object_or_404(model, pk=pk)
             times = get_times_for_obj(invoice, time_model)
             times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
+            gross, net = get_invoice_totals([invoice, ])
             context['doc_type'] = model_name
             context['entries'] = times
+            context['gross'] = gross
+            context['net'] = net
             context['item'] = invoice
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
@@ -606,7 +610,7 @@ def get_page_items(**kwargs):
                 # Plot
                 points = report_model.objects.filter(active=True)
                 # Totals
-                gross, net = get_invoice_totals(invoice_model)
+                gross, net = get_invoice_totals(invoices)
                 context['gross'] = gross
                 context['invoices'] = invoices
                 context['city_data'] = get_client_city(request)
