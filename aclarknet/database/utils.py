@@ -378,6 +378,7 @@ def get_index_items(request, model, **kwargs):
     items = set_items_name(model_name, items=items)
     context['items'] = items
     context['active_nav'] = model_name
+    context['request'] = request
     return context
 
 
@@ -734,8 +735,6 @@ def get_search_results(model,
     context['show_search'] = True
     items = set_items_name(model_name, items=items)
     context['items'] = items
-    if request:
-        context['request'] = request
     return context
 
 
