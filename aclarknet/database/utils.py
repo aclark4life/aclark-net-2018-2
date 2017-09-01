@@ -586,7 +586,7 @@ def get_page_items(**kwargs):
                 dashboard_choices = get_setting(request, app_settings_model,
                                                 'dashboard_choices')
                 dashboard_items = [
-                    i.title for i in dashboard_item_model.objects.all()
+                    i.title.lower() for i in dashboard_item_model.objects.all()
                 ]
                 context['dashboard_choices'] = dashboard_choices
                 context['dashboard_items'] = dashboard_items
