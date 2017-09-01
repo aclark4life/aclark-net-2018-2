@@ -370,7 +370,7 @@ def invoice_index(request):
         request,
         Invoice,
         app_settings_model=AppSettings,
-        order_by=('-updated', ),
+        order_by=('-issue_date', ),
         search_fields=search_fields,
         show_search=True)
     return render(request, 'invoice_index.html', context)
