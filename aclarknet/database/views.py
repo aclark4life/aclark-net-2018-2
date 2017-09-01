@@ -123,7 +123,7 @@ def client_index(request):
         request,
         Client,
         app_settings_model=AppSettings,
-        order_by=('-active', '-updated', 'name'),
+        order_by=('-issue_date', )
         search_fields=('address', 'name'),
         show_search=True)
     return render(request, 'client_index.html', context)
