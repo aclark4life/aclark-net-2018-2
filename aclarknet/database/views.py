@@ -5,7 +5,7 @@ from .forms import ClientForm
 # from .forms import CompanySettingsForm
 from .forms import ContactForm
 from .forms import ContractForm
-from .forms import ContractSettingsForm
+# from .forms import ContractSettingsForm
 from .forms import EstimateForm
 from .forms import FileForm
 from .forms import InvoiceForm
@@ -24,7 +24,7 @@ from .models import Client
 # from .models import CompanySettings
 from .models import Contact
 from .models import Contract
-from .models import ContractSettings
+# from .models import ContractSettings
 from .models import DashboardItem
 from .models import Estimate
 from .models import File
@@ -658,7 +658,7 @@ def settings_company(request):
 @staff_member_required
 def settings_contract(request):
     context = get_page_items(
-        model=ContractSettings,
+#        model=ContractSettings,
         app_settings_model=AppSettings,
         request=request)
     return render(request, 'settings_contract.html', context)
@@ -666,8 +666,10 @@ def settings_contract(request):
 
 @staff_member_required
 def settings_contract_edit(request, pk=None):
-    return edit(
-        request, form_model=ContractSettingsForm, model=ContractSettings, pk=1)
+    """
+    """
+    # return edit(
+    #     request, form_model=ContractSettingsForm, model=ContractSettings, pk=1)
 
 
 @staff_member_required

@@ -3,7 +3,7 @@ from .models import Client
 from .models import Contact
 from .models import Contract
 # from .models import CompanySettings
-from .models import ContractSettings
+# from .models import ContractSettings
 from .models import DashboardItem
 from .models import Estimate
 from .models import Invoice
@@ -106,10 +106,10 @@ class ContractAdmin(ImportExportModelAdmin):
     """
 
 
-@admin.register(ContractSettings)
-class ContractSettingsAdmin(ImportExportModelAdmin):
-    """
-    """
+# @admin.register(ContractSettings)
+# class ContractSettingsAdmin(ImportExportModelAdmin):
+#     """
+#     """
 
 
 @admin.register(DashboardItem)
