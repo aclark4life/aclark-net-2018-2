@@ -10,7 +10,7 @@ server {
 
     index index.html index.htm index.nginx-debian.html;
 
-    server_name _;
+    server_name db.aclark.net;
 
     location / {
         proxy_pass http://127.0.0.1:8000;
@@ -23,7 +23,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name _;
+    server_name db.aclark.net;
 
     root /var/www/example.com;
     index index.html;
