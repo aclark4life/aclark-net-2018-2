@@ -94,10 +94,6 @@ class CompanySettings(SingletonModel):
     updated = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
-    estimate_counter = models.IntegerField(
-        "Estimate Counter", blank=True, null=True)
-    invoice_counter = models.IntegerField(
-        "Invoice Counter", blank=True, null=True)
     currency_symbol = models.CharField(
         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
     note = models.ManyToManyField('Note', blank=True)
