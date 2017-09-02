@@ -630,7 +630,7 @@ def service_edit(request, pk=None):
 def settings_app(request):
     context = get_page_items(
         model=AppSettings, app_settings_model=AppSettings, request=request)
-    return render(request, 'settings.html', context)
+    return render(request, 'settings_app.html', context)
 
 
 @staff_member_required
@@ -656,7 +656,7 @@ def settings_contract(request):
         model=ContractSettings,
         app_settings_model=AppSettings,
         request=request)
-    return render(request, 'contract_settings.html', context)
+    return render(request, 'settings_contract.html', context)
 
 
 @staff_member_required
