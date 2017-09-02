@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
               <h1 style="border-bottom: none;">Default Field Values</h1>
+{% include 'settings_nav.html' %}
               <form action="" method="post">{% csrf_token %}
                 <div class="row">
                   <div class="col-md-2 ml-auto">
