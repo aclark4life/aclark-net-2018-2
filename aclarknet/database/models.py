@@ -85,7 +85,7 @@ class AppSettings(SingletonModel):
     tags = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = "App Settings"
+        verbose_name = "App Settings"
 
 
 class Client(BaseModel):
