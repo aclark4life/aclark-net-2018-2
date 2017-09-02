@@ -232,12 +232,14 @@ class DashboardItem(models.Model):
 
     class Meta(object):
         ordering = ('order', )
+        verbose_name_plural = "Dashboard Items"
 
     def __str__(self):
         if self.title:
             return self.title
         else:
             return self.pk
+
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
