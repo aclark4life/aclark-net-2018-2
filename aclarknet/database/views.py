@@ -647,7 +647,7 @@ def settings_company_edit(request, pk=None):
 def settings_company(request):
     context = get_page_items(
         app_settings_model=AppSettings, model=Company, request=request)
-    return render(request, 'company.html', context)
+    return render(request, 'settings_company.html', context)
 
 
 @staff_member_required
