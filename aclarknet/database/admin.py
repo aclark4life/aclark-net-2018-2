@@ -2,8 +2,8 @@ from .models import AppSettings
 from .models import Client
 from .models import Contact
 from .models import Contract
+from .models import CompanySettings
 from .models import ContractSettings
-from .models import Company
 from .models import DashboardItem
 from .models import Estimate
 from .models import Invoice
@@ -62,8 +62,8 @@ class ClientAdmin(ImportExportModelAdmin):
     resource_class = ClientResource
 
 
-@admin.register(Company)
-class CompanyAdmin(SingletonModelAdmin):
+@admin.register(CompanySettings)
+class CompanySettingsAdmin(SingletonModelAdmin):
     """
     """
 

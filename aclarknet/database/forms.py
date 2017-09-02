@@ -1,5 +1,6 @@
+from .models import AppSettings
 from .models import Client
-from .models import Company
+from .models import CompanySettings
 from .models import Contact
 from .models import Contract
 from .models import ContractSettings
@@ -13,7 +14,6 @@ from .models import Project
 from .models import Proposal
 from .models import Report
 from .models import Service
-from .models import AppSettings
 from .models import Task
 from .models import Time
 from .models import DASHBOARD_CHOICES
@@ -62,9 +62,9 @@ class ClientForm(forms.ModelForm):
         }
 
 
-class CompanyForm(forms.ModelForm):
+class CompanySettingsForm(forms.ModelForm):
     class Meta:
-        model = Company
+        model = CompanySettings
         fields = '__all__'
         widgets = {
             'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
