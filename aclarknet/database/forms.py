@@ -1,6 +1,6 @@
 from .models import AppSettings
 from .models import Client
-from .models import CompanySettings
+# from .models import CompanySettings
 from .models import Contact
 from .models import Contract
 from .models import ContractSettings
@@ -62,13 +62,13 @@ class ClientForm(forms.ModelForm):
         }
 
 
-class CompanySettingsForm(forms.ModelForm):
-    class Meta:
-        model = CompanySettings
-        fields = '__all__'
-        widgets = {
-            'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-        }
+# class CompanySettingsForm(forms.ModelForm):
+#     class Meta:
+#         model = CompanySettings
+#         fields = '__all__'
+#         widgets = {
+#             'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+#         }
 
 
 class ContactForm(forms.ModelForm):

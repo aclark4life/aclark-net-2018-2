@@ -87,25 +87,25 @@ class Client(BaseModel):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-class CompanySettings(SingletonModel):
-    """
-    """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
-    address = models.TextField(blank=True, null=True)
-    currency_symbol = models.CharField(
-        "Currency Symbol", default="$", max_length=300, blank=True, null=True)
-    note = models.ManyToManyField('Note', blank=True)
-
-    def __str__(self):
-        if self.name:
-            return self.name
-        else:
-            return '-'.join([self._meta.verbose_name, str(self.pk)])
-
-    class Meta:
-        verbose_name = u'Company'
+# class CompanySettings(SingletonModel):
+#     """
+#     """
+#     created = models.DateTimeField(auto_now_add=True)
+#     updated = models.DateTimeField(auto_now=True)
+#     name = models.CharField(max_length=255, blank=True, null=True)
+#     address = models.TextField(blank=True, null=True)
+#     currency_symbol = models.CharField(
+#         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
+#     note = models.ManyToManyField('Note', blank=True)
+# 
+#     def __str__(self):
+#         if self.name:
+#             return self.name
+#         else:
+#             return '-'.join([self._meta.verbose_name, str(self.pk)])
+# 
+#     class Meta:
+#         verbose_name = u'Company'
 
 
 class Contact(BaseModel):
@@ -558,7 +558,7 @@ class Service(BaseModel):
     """
     """
     active = models.BooleanField(default=True)
-    company = models.ForeignKey(CompanySettings, blank=True, null=True)
+    # company = models.ForeignKey(CompanySettings, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     icon = models.CharField(
@@ -595,7 +595,7 @@ class Testimonial(BaseModel):
     """
     """
     active = models.BooleanField(default=True)
-    company = models.ForeignKey(CompanySettings, blank=True, null=True)
+    # company = models.ForeignKey(CompanySettings, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)

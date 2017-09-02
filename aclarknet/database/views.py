@@ -2,7 +2,7 @@ from .forms import AdminProfileForm
 from .forms import AdminTimeForm
 from .forms import AppSettingsForm
 from .forms import ClientForm
-from .forms import CompanySettingsForm
+# from .forms import CompanySettingsForm
 from .forms import ContactForm
 from .forms import ContractForm
 from .forms import ContractSettingsForm
@@ -21,7 +21,7 @@ from .forms import TaskForm
 from .forms import TimeForm
 from .models import AppSettings
 from .models import Client
-from .models import CompanySettings
+# from .models import CompanySettings
 from .models import Contact
 from .models import Contract
 from .models import ContractSettings
@@ -165,12 +165,12 @@ def contract_view(request, pk=None):
     """
     context = get_page_items(
         app_settings_model=AppSettings,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         model=Contract,
         pk=pk,
         time_model=Time,
         request=request)
-    company = CompanySettings.get_solo()
+    # company = CompanySettings.get_solo()
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(company)
@@ -226,7 +226,7 @@ def estimate_view(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
         app_settings_model=AppSettings,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         model=Estimate,
         order_by=order_by,
         pk=pk,
@@ -248,14 +248,14 @@ def estimate_edit(request, pk=None):
         request,
         form_model=EstimateForm,
         model=Estimate,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         project_model=Project,
         pk=pk)
 
 
 @staff_member_required
 def estimate_index(request):
-    company = CompanySettings.get_solo()
+    # company = CompanySettings.get_solo()
     context = get_index_items(
         app_settings_model=AppSettings,
         model=Estimate,
@@ -301,7 +301,7 @@ def file_index(request):
 def home(request):
     context = get_page_items(
         app_settings_model=AppSettings,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         columns_visible={
             'note': {
                 'due': 'false',
@@ -331,7 +331,7 @@ def home(request):
 def invoice_view(request, pk=None):
     context = get_page_items(
         app_settings_model=AppSettings,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         model=Invoice,
         order_by={'time': ('date', )},  # For time entries
         pk=pk,
@@ -355,7 +355,7 @@ def invoice_edit(request, pk=None):
         request,
         form_model=InvoiceForm,
         model=Invoice,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         project_model=Project,
         pk=pk, )
 
@@ -476,7 +476,7 @@ def note_edit(request, pk=None):
         model=Note,
         app_settings_model=AppSettings,
         client_model=Client,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         pk=pk)
 
 
@@ -544,7 +544,7 @@ def project_index(request, pk=None):
 def proposal_view(request, pk=None):
     context = get_page_items(
         app_settings_model=AppSettings,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         model=Proposal,
         pk=pk,
         request=request)
@@ -565,7 +565,7 @@ def proposal_edit(request, pk=None):
         request,
         form_model=ProposalForm,
         model=Proposal,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         pk=pk)
 
 
@@ -622,7 +622,7 @@ def service_edit(request, pk=None):
         request,
         form_model=ServiceForm,
         model=Service,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         pk=pk)
 
 
@@ -640,15 +640,19 @@ def settings_app_edit(request, pk=None):
 
 @staff_member_required
 def settings_company_edit(request, pk=None):
-    return edit(
-        request, form_model=CompanySettingsForm, model=CompanySettings, pk=1)
+    """
+    """
+    # return edit(
+    #     request, form_model=CompanySettingsForm, model=CompanySettings, pk=1)
 
 
 @staff_member_required
 def settings_company(request):
-    context = get_page_items(
-        app_settings_model=AppSettings, model=CompanySettings, request=request)
-    return render(request, 'settings_company.html', context)
+    """
+    """
+    # context = get_page_items(
+    #     app_settings_model=AppSettings, model=CompanySettings, request=request)
+    # return render(request, 'settings_company.html', context)
 
 
 @staff_member_required
@@ -816,7 +820,7 @@ def user_edit(request, pk=None):
 def user_index(request):
     context = get_index_items(
         app_settings_model=AppSettings,
-        company_model=CompanySettings,
+        # company_model=CompanySettings,
         contact_model=Contact,
         model=User,
         order_by=('-profile__active', '-profile__updated'),
