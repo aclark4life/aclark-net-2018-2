@@ -658,7 +658,7 @@ def settings_company(request):
 @staff_member_required
 def settings_contract(request):
     context = get_page_items(
-#        model=ContractSettings,
+        #        model=ContractSettings,
         app_settings_model=AppSettings,
         request=request)
     return render(request, 'settings_contract.html', context)

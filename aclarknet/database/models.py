@@ -68,6 +68,26 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class AppSettings(SingletonModel):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    icon_size = models.CharField(
+        max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    icon_color = models.CharField(
+        max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
+    page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
+    dashboard_choices = MultiSelectField(
+        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
+    auto_hide_notes = models.BooleanField(default=True)
+    exclude_hidden = models.BooleanField(default=True)
+    tags = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "App Settings"
+
+
 class Client(BaseModel):
     """
     """
@@ -572,23 +592,6 @@ class Service(BaseModel):
             return self.name
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
-
-
-class AppSettings(SingletonModel):
-    """
-    """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    icon_size = models.CharField(
-        max_length=255, blank=True, null=True, choices=ICON_CHOICES)
-    icon_color = models.CharField(
-        max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
-    page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
-    dashboard_choices = MultiSelectField(
-        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
-    auto_hide_notes = models.BooleanField(default=True)
-    exclude_hidden = models.BooleanField(default=True)
-    tags = models.CharField(max_length=255, blank=True, null=True)
 
 
 class Testimonial(BaseModel):
