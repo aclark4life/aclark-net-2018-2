@@ -640,7 +640,8 @@ def settings_app_edit(request, pk=None):
 
 @staff_member_required
 def settings_company_edit(request, pk=None):
-    return edit(request, form_model=CompanySettingsForm, model=CompanySettings, pk=1)
+    return edit(
+        request, form_model=CompanySettingsForm, model=CompanySettings, pk=1)
 
 
 @staff_member_required
