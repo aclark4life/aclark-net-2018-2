@@ -107,25 +107,25 @@ class Client(BaseModel):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-# class CompanySettings(SingletonModel):
-#     """
-#     """
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now=True)
-#     name = models.CharField(max_length=255, blank=True, null=True)
-#     address = models.TextField(blank=True, null=True)
-#     currency_symbol = models.CharField(
-#         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
-#     note = models.ManyToManyField('Note', blank=True)
-# 
-#     def __str__(self):
-#         if self.name:
-#             return self.name
-#         else:
-#             return '-'.join([self._meta.verbose_name, str(self.pk)])
-# 
-#     class Meta:
-#         verbose_name = u'Company'
+class SettingsCompany(SingletonModel):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    currency_symbol = models.CharField(
+        "Currency Symbol", default="$", max_length=300, blank=True, null=True)
+    note = models.ManyToManyField('Note', blank=True)
+
+    def __str__(self):
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
+
+    class Meta:
+        verbose_name = u'Company'
 
 
 class Contact(BaseModel):
