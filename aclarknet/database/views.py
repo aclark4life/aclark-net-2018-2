@@ -218,7 +218,6 @@ def contract_index(request):
 def error(request):
     """
     """
-    # return HttpResponse()
     raise
 
 
@@ -227,7 +226,7 @@ def estimate_view(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
         app_settings_model=SettingsApp,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         model=Estimate,
         order_by=order_by,
         pk=pk,
@@ -249,7 +248,7 @@ def estimate_edit(request, pk=None):
         request,
         form_model=EstimateForm,
         model=Estimate,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         project_model=Project,
         pk=pk)
 
@@ -300,7 +299,7 @@ def file_index(request):
 def home(request):
     context = get_page_items(
         app_settings_model=SettingsApp,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         columns_visible={
             'note': {
                 'due': 'false',
@@ -330,7 +329,7 @@ def home(request):
 def invoice_view(request, pk=None):
     context = get_page_items(
         app_settings_model=SettingsApp,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         model=Invoice,
         order_by={'time': ('date', )},  # For time entries
         pk=pk,
@@ -354,7 +353,7 @@ def invoice_edit(request, pk=None):
         request,
         form_model=InvoiceForm,
         model=Invoice,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         project_model=Project,
         pk=pk, )
 
@@ -475,7 +474,7 @@ def note_edit(request, pk=None):
         model=Note,
         app_settings_model=SettingsApp,
         client_model=Client,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         pk=pk)
 
 
@@ -543,7 +542,7 @@ def project_index(request, pk=None):
 def proposal_view(request, pk=None):
     context = get_page_items(
         app_settings_model=SettingsApp,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         model=Proposal,
         pk=pk,
         request=request)
@@ -564,7 +563,7 @@ def proposal_edit(request, pk=None):
         request,
         form_model=ProposalForm,
         model=Proposal,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         pk=pk)
 
 
@@ -621,7 +620,7 @@ def service_edit(request, pk=None):
         request,
         form_model=ServiceForm,
         model=Service,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         pk=pk)
 
 
@@ -821,7 +820,7 @@ def user_edit(request, pk=None):
 def user_index(request):
     context = get_index_items(
         app_settings_model=SettingsApp,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         contact_model=Contact,
         model=User,
         order_by=('-profile__active', '-profile__updated'),
