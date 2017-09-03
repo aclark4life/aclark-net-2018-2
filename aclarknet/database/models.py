@@ -530,7 +530,7 @@ class SettingsApp(SingletonModel):
     page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
     dashboard_choices = MultiSelectField(
         'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
-    auto_hide_notes = models.BooleanField(default=True)
+    auto_hide = models.BooleanField(default=True)
     exclude_hidden = models.BooleanField(default=True)
     tags = models.CharField(max_length=255, blank=True, null=True)
 
