@@ -445,11 +445,14 @@ def get_page_items(**kwargs):
             model_name = obj._meta.verbose_name
         context['model_name'] = model_name
         context['active_nav'] = model_name
-        context['active_tab'] = model_name
         context['edit_url'] = '%s_edit' % model_name
         if model_name == 'Settings App':
             app_settings = app_settings_model.get_solo()
             context['items'] = get_fields([app_settings, ])  # table_items.html
+        elif model_name == 'Settings Company':
+            company_settings = model.get_solo()
+            context['items'] = get_fields([company_settings,
+                                           ])  # table_items.html
         elif model_name == 'contract settings':
             contract_settings = model.get_solo()
             context['items'] = get_fields([contract_settings,
@@ -464,10 +467,6 @@ def get_page_items(**kwargs):
             context['item'] = client
             context['notes'] = client.note.all()
             context['projects'] = projects
-        elif model_name == 'company settings':
-            company_settings = model.get_solo()
-            context['items'] = get_fields([company_settings,
-                                           ])  # table_items.html
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
             context['items'] = get_fields([contact, ])  # table_items.html
