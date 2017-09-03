@@ -559,40 +559,40 @@ class SettingsCompany(SingletonModel):
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
-# class ContractSettings(SingletonModel):
-#     """
-#     """
-#     parties = models.TextField(
-#         'Parties', blank=True, null=True, default=fake.text)
-#     scope_of_work = models.TextField(
-#         'Scope of Work', blank=True, null=True, default=fake.text)
-#     payment_terms = models.TextField(
-#         'Payment Terms', blank=True, null=True, default=fake.text)
-#     timing_of_payment = models.TextField(
-#         'Timing of Payment', blank=True, null=True, default=fake.text)
-#     contributor_assignment_agreement = models.TextField(
-#         'Contributor Assignment Agreement',
-#         blank=True,
-#         null=True,
-#         default=fake.text)
-#     authority_to_act = models.TextField(
-#         'Authority to Act', blank=True, null=True, default=fake.text)
-#     termination = models.TextField(
-#         'Termination', blank=True, null=True, default=fake.text)
-#     governing_laws = models.TextField(
-#         'Governing Laws', blank=True, null=True, default=fake.text)
-#     period_of_agreement = models.TextField(
-#         'Period of Agreement', blank=True, null=True, default=fake.text)
-#     confidentiality = models.TextField(
-#         'Confidentiality', blank=True, null=True, default=fake.text)
-#     taxes = models.TextField('Taxes', blank=True, null=True, default=fake.text)
-#     limited_warranty = models.TextField(
-#         'Limited Warranty', blank=True, null=True, default=fake.text)
-#     complete_agreement = models.TextField(
-#         'Complete Agreement', blank=True, null=True, default=fake.text)
-# 
-#     class Meta:
-#         verbose_name_plural = "Contract settings"
+class SettingsContract(SingletonModel):
+    """
+    """
+    parties = models.TextField(
+        'Parties', blank=True, null=True, default=fake.text)
+    scope_of_work = models.TextField(
+        'Scope of Work', blank=True, null=True, default=fake.text)
+    payment_terms = models.TextField(
+        'Payment Terms', blank=True, null=True, default=fake.text)
+    timing_of_payment = models.TextField(
+        'Timing of Payment', blank=True, null=True, default=fake.text)
+    contributor_assignment_agreement = models.TextField(
+        'Contributor Assignment Agreement',
+        blank=True,
+        null=True,
+        default=fake.text)
+    authority_to_act = models.TextField(
+        'Authority to Act', blank=True, null=True, default=fake.text)
+    termination = models.TextField(
+        'Termination', blank=True, null=True, default=fake.text)
+    governing_laws = models.TextField(
+        'Governing Laws', blank=True, null=True, default=fake.text)
+    period_of_agreement = models.TextField(
+        'Period of Agreement', blank=True, null=True, default=fake.text)
+    confidentiality = models.TextField(
+        'Confidentiality', blank=True, null=True, default=fake.text)
+    taxes = models.TextField('Taxes', blank=True, null=True, default=fake.text)
+    limited_warranty = models.TextField(
+        'Limited Warranty', blank=True, null=True, default=fake.text)
+    complete_agreement = models.TextField(
+        'Complete Agreement', blank=True, null=True, default=fake.text)
+
+    class Meta:
+        verbose_name = "Settings Contract"
 
 
 class Testimonial(BaseModel):
