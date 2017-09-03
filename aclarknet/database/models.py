@@ -118,6 +118,9 @@ class SettingsCompany(SingletonModel):
         "Currency Symbol", default="$", max_length=300, blank=True, null=True)
     note = models.ManyToManyField('Note', blank=True)
 
+    class Meta:
+        verbose_name = "Settings Company"
+
     def __str__(self):
         if self.name:
             return self.name
