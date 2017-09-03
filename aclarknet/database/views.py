@@ -638,20 +638,20 @@ def settings_app_edit(request, pk=None):
 
 
 @staff_member_required
-def settings_company_edit(request, pk=None):
-    """
-    """
-    return edit(
-        request, form_model=SettingsCompanyForm, model=SettingsCompany, pk=1)
-
-
-@staff_member_required
 def settings_company(request):
     """
     """
     context = get_page_items(
         app_settings_model=SettingsApp, model=SettingsCompany, request=request)
     return render(request, 'settings_company.html', context)
+
+
+@staff_member_required
+def settings_company_edit(request, pk=None):
+    """
+    """
+    return edit(
+        request, form_model=SettingsCompanyForm, model=SettingsCompany, pk=1)
 
 
 @staff_member_required
