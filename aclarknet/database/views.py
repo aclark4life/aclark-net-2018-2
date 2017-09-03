@@ -255,7 +255,6 @@ def estimate_edit(request, pk=None):
 
 @staff_member_required
 def estimate_index(request):
-    # company = CompanySettings.get_solo()
     context = get_index_items(
         app_settings_model=AppSettings,
         model=Estimate,
@@ -263,7 +262,6 @@ def estimate_index(request):
         search_fields=('subject', ),
         request=request,
         show_search=True)
-    context['company'] = company
     return render(request, 'estimate_index.html', context)
 
 
