@@ -68,26 +68,6 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class SettingsApp(SingletonModel):
-    """
-    """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    icon_size = models.CharField(
-        max_length=255, blank=True, null=True, choices=ICON_CHOICES)
-    icon_color = models.CharField(
-        max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
-    page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
-    dashboard_choices = MultiSelectField(
-        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
-    auto_hide_notes = models.BooleanField(default=True)
-    exclude_hidden = models.BooleanField(default=True)
-    tags = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        verbose_name = "Settings App"
-
-
 class Client(BaseModel):
     """
     """
@@ -105,30 +85,6 @@ class Client(BaseModel):
             return self.name
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
-
-
-class SettingsCompany(SingletonModel):
-    """
-    """
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
-    address = models.TextField(blank=True, null=True)
-    currency_symbol = models.CharField(
-        "Currency Symbol", default="$", max_length=300, blank=True, null=True)
-    note = models.ManyToManyField('Note', blank=True)
-
-    class Meta:
-        verbose_name = "Settings Company"
-
-    def __str__(self):
-        if self.name:
-            return self.name
-        else:
-            return '-'.join([self._meta.verbose_name, str(self.pk)])
-
-    class Meta:
-        verbose_name = u'Company'
 
 
 class Contact(BaseModel):
@@ -590,6 +546,47 @@ class Service(BaseModel):
         max_length=25,
         blank=True,
         null=True)
+
+    def __str__(self):
+        if self.name:
+            return self.name
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
+
+
+class SettingsApp(SingletonModel):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    icon_size = models.CharField(
+        max_length=255, blank=True, null=True, choices=ICON_CHOICES)
+    icon_color = models.CharField(
+        max_length=255, blank=True, null=True, choices=COLOR_CHOICES)
+    page_size = models.PositiveIntegerField(blank=True, default=1, null=True)
+    dashboard_choices = MultiSelectField(
+        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
+    auto_hide_notes = models.BooleanField(default=True)
+    exclude_hidden = models.BooleanField(default=True)
+    tags = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Settings App"
+
+
+class SettingsCompany(SingletonModel):
+    """
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    currency_symbol = models.CharField(
+        "Currency Symbol", default="$", max_length=300, blank=True, null=True)
+    note = models.ManyToManyField('Note', blank=True)
+
+    class Meta:
+        verbose_name = "Settings Company"
 
     def __str__(self):
         if self.name:
