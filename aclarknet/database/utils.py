@@ -453,7 +453,7 @@ def get_page_items(**kwargs):
             company_settings = model.get_solo()
             context['items'] = get_fields([company_settings,
                                            ])  # table_items.html
-        elif model_name == 'contract settings':
+        elif model_name == 'Settings Contract':
             contract_settings = model.get_solo()
             context['items'] = get_fields([contract_settings,
                                            ])  # table_items.html
@@ -958,7 +958,7 @@ def obj_edit(obj, pk=None):
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'Settings Company':
             return HttpResponseRedirect(reverse(url_name))
-        elif model_name == 'contract settings':
+        elif model_name == 'Settings Contract':
             return HttpResponseRedirect(reverse(url_name))
         if model_name == 'profile':  # Redir to user pk not profile pk
             kwargs['pk'] = obj.user.pk
