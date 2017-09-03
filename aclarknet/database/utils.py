@@ -53,7 +53,7 @@ URL_NAMES = {
     'project': ('project_view', 'project_edit', 'project_index'),
     'proposal': ('proposal_view', 'proposal_edit', 'proposal_index'),
     'report': ('report_view', 'report_edit', 'report_index'),
-    'service': ('company', 'service_edit', ''),
+    'service': ('', 'service_edit', ''),
     'task': ('task_view', 'task_edit', 'task_index'),
     'time': ('time_view', 'time_edit', 'time_index'),
     'user': ('user_view', 'user_edit', 'user_index'),
@@ -955,9 +955,9 @@ def obj_edit(obj, pk=None):
     # New or existing object
     kwargs = {}
     if pk:  # Special cases for some objects e.g. settings, user
-        if model_name == 'company settings':
+        if model_name == 'Settings App':
             return HttpResponseRedirect(reverse(url_name))
-        elif model_name == 'Settings App':
+        elif model_name == 'Settings Company':
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'contract settings':
             return HttpResponseRedirect(reverse(url_name))
