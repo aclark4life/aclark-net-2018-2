@@ -1,9 +1,6 @@
-from .models import AppSettings
 from .models import Client
-# from .models import CompanySettings
 from .models import Contact
 from .models import Contract
-# from .models import ContractSettings
 from .models import Estimate
 from .models import File
 from .models import Invoice
@@ -14,6 +11,9 @@ from .models import Project
 from .models import Proposal
 from .models import Report
 from .models import Service
+from .models import SettingsApp
+# from .models import CompanySettings
+# from .models import ContractSettings
 from .models import Task
 from .models import Time
 from .models import DASHBOARD_CHOICES
@@ -243,9 +243,9 @@ class ServiceForm(forms.ModelForm):
         }
 
 
-class AppSettingsForm(forms.ModelForm):
+class SettingsAppForm(forms.ModelForm):
     class Meta:
-        model = AppSettings
+        model = SettingsApp
         fields = '__all__'
 
 

@@ -68,7 +68,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class AppSettings(SingletonModel):
+class SettingsApp(SingletonModel):
     """
     """
     created = models.DateTimeField(auto_now_add=True)
@@ -85,7 +85,7 @@ class AppSettings(SingletonModel):
     tags = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        verbose_name = "App Settings"
+        verbose_name = "Settings App"
 
 
 class Client(BaseModel):
@@ -239,7 +239,6 @@ class DashboardItem(models.Model):
             return self.title
         else:
             return self.pk
-
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/

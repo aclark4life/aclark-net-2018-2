@@ -1,11 +1,8 @@
 from .forms import AdminProfileForm
 from .forms import AdminTimeForm
-from .forms import AppSettingsForm
 from .forms import ClientForm
-# from .forms import CompanySettingsForm
 from .forms import ContactForm
 from .forms import ContractForm
-# from .forms import ContractSettingsForm
 from .forms import EstimateForm
 from .forms import FileForm
 from .forms import InvoiceForm
@@ -17,14 +14,14 @@ from .forms import ProjectForm
 from .forms import ProposalForm
 from .forms import ReportForm
 from .forms import ServiceForm
+from .forms import SettingsAppForm
+# from .forms import SettingsCompanyForm
+# from .forms import SettingsContractForm
 from .forms import TaskForm
 from .forms import TimeForm
-from .models import AppSettings
 from .models import Client
-# from .models import CompanySettings
 from .models import Contact
 from .models import Contract
-# from .models import ContractSettings
 from .models import DashboardItem
 from .models import Estimate
 from .models import File
@@ -37,6 +34,9 @@ from .models import Project
 from .models import Proposal
 from .models import Report
 from .models import Service
+from .models import SettingsApp
+# from .models import SettingsCompany
+# from .models import SettingsContract
 from .models import Testimonial
 from .models import Task
 from .models import Time
@@ -102,7 +102,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 @staff_member_required
 def client_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         contact_model=Contact,
         contract_model=Contract,
         model=Client,
@@ -120,7 +120,7 @@ def client_edit(request, pk=None):
 @staff_member_required
 def client_index(request):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Client,
         order_by=('-updated', ),
         request=request,
@@ -132,7 +132,7 @@ def client_index(request):
 @staff_member_required
 def contact_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings, model=Contact, pk=pk, request=request)
+        app_settings_model=SettingsApp, model=Contact, pk=pk, request=request)
     return render(request, 'contact_view.html', context)
 
 
@@ -150,7 +150,7 @@ def contact_edit(request, pk=None):
 @staff_member_required
 def contact_index(request):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Contact,
         order_by=('-active', 'first_name'),
         request=request,
@@ -164,7 +164,7 @@ def contract_view(request, pk=None):
     """
     """
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         # company_model=CompanySettings,
         model=Contract,
         pk=pk,
@@ -207,7 +207,7 @@ def contract_index(request):
     """
     """
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Contract,
         request=request,
         order_by=('-updated', ))
@@ -225,7 +225,7 @@ def error(request):
 def estimate_view(request, pk=None):
     order_by = {'time': ('date', ), }
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         # company_model=CompanySettings,
         model=Estimate,
         order_by=order_by,
@@ -256,7 +256,7 @@ def estimate_edit(request, pk=None):
 @staff_member_required
 def estimate_index(request):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Estimate,
         order_by=('-issue_date', ),
         search_fields=('subject', ),
@@ -268,7 +268,7 @@ def estimate_index(request):
 @staff_member_required
 def file_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         company_model=CompanySettings,
         model=File,
         pk=pk,
@@ -289,7 +289,7 @@ def file_edit(request, pk=None):
 @staff_member_required
 def file_index(request):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=File,
         order_by=('-updated', ),
         request=request, )
@@ -298,7 +298,7 @@ def file_index(request):
 
 def home(request):
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         # company_model=CompanySettings,
         columns_visible={
             'note': {
@@ -328,7 +328,7 @@ def home(request):
 @staff_member_required
 def invoice_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         # company_model=CompanySettings,
         model=Invoice,
         order_by={'time': ('date', )},  # For time entries
@@ -366,7 +366,7 @@ def invoice_index(request):
         'project__name',
         'subject', )
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Invoice,
         order_by=('-issue_date', ),
         request=request,
@@ -399,7 +399,7 @@ def login(request):
 @staff_member_required
 def log_index(request):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Log,
         order_by=('-updated', ),
         request=request,
@@ -425,7 +425,7 @@ def newsletter_view(request, pk=None):
     """
     """
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Newsletter,
         pk=pk,
         request=request)
@@ -444,7 +444,7 @@ def newsletter_index(request, pk=None):
     """
     """
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Newsletter,
         order_by=('-updated', ),
         request=request,
@@ -455,7 +455,7 @@ def newsletter_index(request, pk=None):
 @staff_member_required
 def note_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings, model=Note, pk=pk, request=request)
+        app_settings_model=SettingsApp, model=Note, pk=pk, request=request)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
@@ -472,7 +472,7 @@ def note_edit(request, pk=None):
         request,
         form_model=NoteForm,
         model=Note,
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         client_model=Client,
         # company_model=CompanySettings,
         pk=pk)
@@ -481,7 +481,7 @@ def note_edit(request, pk=None):
 @staff_member_required
 def note_index(request, pk=None):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Note,
         order_by=('-active', '-updated'),
         request=request,
@@ -498,7 +498,7 @@ def plot(request):
 @staff_member_required
 def project_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Project,
         contact_model=Contact,
         estimate_model=Estimate,
@@ -524,7 +524,7 @@ def project_edit(request, pk=None):
 @staff_member_required
 def project_index(request, pk=None):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         columns_visible={'project': {
             'notes': 'true',
         }, },
@@ -541,7 +541,7 @@ def project_index(request, pk=None):
 @staff_member_required
 def proposal_view(request, pk=None):
     context = get_page_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         # company_model=CompanySettings,
         model=Proposal,
         pk=pk,
@@ -570,7 +570,7 @@ def proposal_edit(request, pk=None):
 @staff_member_required
 def proposal_index(request, pk=None):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         model=Proposal,
         order_by=('-updated', ),
         request=request,
@@ -581,7 +581,7 @@ def proposal_index(request, pk=None):
 @staff_member_required
 def report_view(request, pk=None):
     context = get_page_items(
-        model=Report, app_settings_model=AppSettings, pk=pk, request=request)
+        model=Report, app_settings_model=SettingsApp, pk=pk, request=request)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
@@ -605,7 +605,7 @@ def report_edit(request, pk=None):
 def report_index(request):
     context = get_index_items(
         model=Report,
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         order_by=('-date', ),
         request=request,
         search_fields=('id', 'name', 'gross', 'net'),
@@ -627,13 +627,13 @@ def service_edit(request, pk=None):
 @staff_member_required
 def settings_app(request):
     context = get_page_items(
-        model=AppSettings, app_settings_model=AppSettings, request=request)
+        model=SettingsApp, app_settings_model=SettingsApp, request=request)
     return render(request, 'settings_app.html', context)
 
 
 @staff_member_required
 def settings_app_edit(request, pk=None):
-    return edit(request, form_model=AppSettingsForm, model=AppSettings, pk=1)
+    return edit(request, form_model=SettingsAppForm, model=SettingsApp, pk=1)
 
 
 @staff_member_required
@@ -649,7 +649,7 @@ def settings_company(request):
     """
     """
     # context = get_page_items(
-    #     app_settings_model=AppSettings, model=CompanySettings, request=request)
+    #     app_settings_model=SettingsApp, model=CompanySettings, request=request)
     # return render(request, 'settings_company.html', context)
 
 
@@ -657,7 +657,7 @@ def settings_company(request):
 def settings_contract(request):
     context = get_page_items(
         #        model=ContractSettings,
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         request=request)
     return render(request, 'settings_contract.html', context)
 
@@ -673,7 +673,7 @@ def settings_contract_edit(request, pk=None):
 @staff_member_required
 def task_view(request, pk=None):
     context = get_page_items(
-        model=Task, app_settings_model=AppSettings, pk=pk, request=request)
+        model=Task, app_settings_model=SettingsApp, pk=pk, request=request)
     return render(request, 'task_view.html', context)
 
 
@@ -686,7 +686,7 @@ def task_edit(request, pk=None):
 def task_index(request):
     context = get_index_items(
         model=Task,
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         order_by=('-updated', ),
         request=request,
         search_fields=('name', ),
@@ -711,7 +711,7 @@ def time_view(request, pk=None):
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
-            app_settings_model=AppSettings, model=Time, pk=pk, request=request)
+            app_settings_model=SettingsApp, model=Time, pk=pk, request=request)
         return render(request, 'time_view.html', context)
 
 
@@ -753,7 +753,7 @@ def time_index(request):
                      'invoice__pk', 'user__username', 'task__name')
     context = get_index_items(
         model=Time,
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         columns_visible={
             'time': {
                 'invoiced': 'true',
@@ -784,7 +784,7 @@ def user_view(request, pk=None):
             'project': ('-updated', ),
         }
         context = get_page_items(
-            app_settings_model=AppSettings,
+            app_settings_model=SettingsApp,
             contact_model=Contact,
             model=User,
             order_by=order_by,
@@ -819,7 +819,7 @@ def user_edit(request, pk=None):
 @staff_member_required
 def user_index(request):
     context = get_index_items(
-        app_settings_model=AppSettings,
+        app_settings_model=SettingsApp,
         # company_model=CompanySettings,
         contact_model=Contact,
         model=User,
