@@ -183,6 +183,7 @@ def edit(request, **kwargs):
                 #                          'Mail not sent to %s!' %
                 #                          ', '.join(recipients))
     context['form'] = form
+    context['is_staff'] = request.user.is_staff
     context['item'] = obj
     context['pk'] = pk
     if company_model:
