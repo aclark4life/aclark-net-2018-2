@@ -15,7 +15,7 @@ from .forms import ProposalForm
 from .forms import ReportForm
 from .forms import ServiceForm
 from .forms import SettingsAppForm
-# from .forms import SettingsCompanyForm
+from .forms import SettingsCompanyForm
 # from .forms import SettingsContractForm
 from .forms import TaskForm
 from .forms import TimeForm
@@ -35,7 +35,7 @@ from .models import Proposal
 from .models import Report
 from .models import Service
 from .models import SettingsApp
-# from .models import SettingsCompany
+from .models import SettingsCompany
 # from .models import SettingsContract
 from .models import Testimonial
 from .models import Task
@@ -66,6 +66,8 @@ from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
 from rest_framework import viewsets
+
+company = SettingsCompany.get_solo()
 
 # Create your views here.
 
@@ -165,12 +167,11 @@ def contract_view(request, pk=None):
     """
     context = get_page_items(
         app_settings_model=SettingsApp,
-        # company_model=CompanySettings,
+        company_model=SettingsCompany,
         model=Contract,
         pk=pk,
         time_model=Time,
         request=request)
-    # company = CompanySettings.get_solo()
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
         filename = get_company_name(company)
@@ -269,7 +270,7 @@ def estimate_index(request):
 def file_view(request, pk=None):
     context = get_page_items(
         app_settings_model=SettingsApp,
-        company_model=CompanySettings,
+        company_model=SettingsCompany,
         model=File,
         pk=pk,
         request=request)
@@ -282,7 +283,7 @@ def file_edit(request, pk=None):
         request,
         form_model=FileForm,
         model=File,
-        company_model=CompanySettings,
+        company_model=SettingsCompany,
         pk=pk, )
 
 
@@ -640,17 +641,17 @@ def settings_app_edit(request, pk=None):
 def settings_company_edit(request, pk=None):
     """
     """
-    # return edit(
-    #     request, form_model=CompanySettingsForm, model=CompanySettings, pk=1)
+    return edit(
+        request, form_model=SettingsCompanyForm, model=SettingsCompany, pk=1)
 
 
 @staff_member_required
 def settings_company(request):
     """
     """
-    # context = get_page_items(
-    #     app_settings_model=SettingsApp, model=CompanySettings, request=request)
-    # return render(request, 'settings_company.html', context)
+    context = get_page_items(
+        app_settings_model=SettingsApp, model=SettingsCompany, request=request)
+    return render(request, 'settings_company.html', context)
 
 
 @staff_member_required

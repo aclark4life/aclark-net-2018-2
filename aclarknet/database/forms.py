@@ -12,7 +12,7 @@ from .models import Proposal
 from .models import Report
 from .models import Service
 from .models import SettingsApp
-# from .models import CompanySettings
+from .models import SettingsCompany
 # from .models import ContractSettings
 from .models import Task
 from .models import Time
@@ -60,15 +60,6 @@ class ClientForm(forms.ModelForm):
         widgets = {
             'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }
-
-
-# class CompanySettingsForm(forms.ModelForm):
-#     class Meta:
-#         model = CompanySettings
-#         fields = '__all__'
-#         widgets = {
-#             'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-#         }
 
 
 class ContactForm(forms.ModelForm):
@@ -247,6 +238,15 @@ class SettingsAppForm(forms.ModelForm):
     class Meta:
         model = SettingsApp
         fields = '__all__'
+
+
+class SettingsCompanyForm(forms.ModelForm):
+    class Meta:
+        model = SettingsCompany
+        fields = '__all__'
+        widgets = {
+            'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class TaskForm(forms.ModelForm):

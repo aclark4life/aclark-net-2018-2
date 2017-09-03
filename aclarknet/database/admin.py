@@ -14,7 +14,7 @@ from .models import Proposal
 from .models import Report
 from .models import Service
 from .models import SettingsApp
-# from .models import CompanySettings
+from .models import SettingsCompany
 # from .models import ContractSettings
 from .models import Task
 from .models import Testimonial
@@ -60,12 +60,6 @@ class ClientAdmin(ImportExportModelAdmin):
     """
     """
     resource_class = ClientResource
-
-
-# @admin.register(CompanySettings)
-# class CompanySettingsAdmin(SingletonModelAdmin):
-#     """
-#     """
 
 
 class ContactResource(ImportExportModelResource):
@@ -309,6 +303,12 @@ class ServiceAdmin(ImportExportModelAdmin):
 
 @admin.register(SettingsApp)
 class SettingsAppAdmin(SingletonModelAdmin):
+    """
+    """
+
+
+@admin.register(SettingsCompany)
+class SettingsCompany(SingletonModelAdmin):
     """
     """
 
