@@ -37,12 +37,12 @@ fake = Faker()
 EXCLUDE_MODELS = ('note', 'project')
 
 URL_NAMES = {
-    'App Settings': ('settings_app', 'settings_app_edit', ''),  # custom meta
+    'Settings App': ('settings_app', 'settings_app_edit', ''),  # custom meta
+    'Settings Company': ('settings_company', 'settings_company_edit', ''),
+    'Settings Contract': ('settings_contract', 'settings_contract_edit', ''),
     'client': ('client_view', 'client_edit', 'client_index'),
-    'company settings': ('settings_company', 'settings_company_edit', ''),
     'contact': ('contact_view', 'contact_edit', 'contact_index'),
     'contract': ('contract_view', 'contract_edit', 'contract_index'),
-    'contract settings': ('settings_contract', 'settings_contract_edit', ''),
     'estimate': ('estimate_view', 'estimate_edit', 'estimate_index'),
     'file': ('file_view', 'file_edit', 'file_index'),
     'invoice': ('invoice_view', 'invoice_edit', 'invoice_index'),
@@ -447,7 +447,7 @@ def get_page_items(**kwargs):
         context['active_nav'] = model_name
         context['active_tab'] = model_name
         context['edit_url'] = '%s_edit' % model_name
-        if model_name == 'App Settings':
+        if model_name == 'Settings App':
             app_settings = app_settings_model.get_solo()
             context['items'] = get_fields([app_settings, ])  # table_items.html
         elif model_name == 'contract settings':
@@ -957,7 +957,7 @@ def obj_edit(obj, pk=None):
     if pk:  # Special cases for some objects e.g. settings, user
         if model_name == 'company settings':
             return HttpResponseRedirect(reverse(url_name))
-        elif model_name == 'App Settings':
+        elif model_name == 'Settings App':
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'contract settings':
             return HttpResponseRedirect(reverse(url_name))
