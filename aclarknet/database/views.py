@@ -124,7 +124,7 @@ def client_index(request):
     context = get_index_items(
         app_settings_model=SettingsApp,
         model=Client,
-        order_by=('-updated', '-active'),
+        order_by=('-active', '-updated'),
         request=request,
         search_fields=('address', 'name'),
         show_search=True)
