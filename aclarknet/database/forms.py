@@ -113,6 +113,7 @@ class InvoiceForm(forms.ModelForm):
         model = Invoice
         fields = (
             'subject',
+            'po_number',
             'client',
             'project',
             'issue_date',
