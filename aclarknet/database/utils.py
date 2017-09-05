@@ -599,6 +599,7 @@ def get_page_items(**kwargs):
                 context['dashboard_items'] = dashboard_items
                 # Items
                 invoices = invoice_model.objects.filter(last_payment_date=None)
+                invoices = invoices.order_by(*order_by['invoice'])
                 items = set_items_name('invoice', items=invoices)
                 notes = note_model.objects.filter(active=True, hidden=False)
                 notes = notes.order_by(*order_by['note'])[:10]
