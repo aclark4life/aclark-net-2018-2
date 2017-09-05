@@ -314,6 +314,7 @@ def home(request):
         invoice_model=Invoice,
         note_model=Note,
         order_by={
+            'invoice': ('-amount', ),
             'note': ('-updated', ),
             'project': ('-updated', ),
             'time': ('-updated', ),
