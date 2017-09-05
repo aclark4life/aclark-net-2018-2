@@ -8,11 +8,11 @@
             <div class="col-md-3"> 
               {% if is_staff %}
               <div class="dropdown">
-                <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Item</button>
+                <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</button>
                 <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
-                  <a class="dropdown-item" href="{% url 'note_edit' %}"><i class="fa fa-sticky-note-o"></i> Add Note</a>
-                  <a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-file-o"></i> Add Report</a>
-                  <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
+                  <a class="dropdown-item" href="{% url 'note_edit' %}"><i class="fa fa-sticky-note-o"></i> Note</a>
+                  <a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-file-o"></i> Report</a>
+                  <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Time</a>
                 </div>
               </div>
               {% else %}
