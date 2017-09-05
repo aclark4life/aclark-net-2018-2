@@ -98,17 +98,6 @@
           <!------------------------------------------------------------------------------------>
           <div class="row">
             <div class="col-md-12">
-              <h2><a class="mute-url" href="{% url 'user_index' %}">Team</a></h2>
-            </div>
-          </div> 
-          <div class="row">
-            <div class="col-md-12">
-{% include 'table_users.html' %}
-            </div>
-          </div> 
-          <!------------------------------------------------------------------------------------>
-          <div class="row">
-            <div class="col-md-12">
               <h2><a class="mute-url" href="{% url 'time_index' %}">Times</a></h2>
             </div>
           </div> 
@@ -153,4 +142,15 @@
               </table>
             </div>
           </div>
+          <!------------------------------------------------------------------------------------>
+          <div class="row">
+            <div class="col-md-12">
+              <h2><a class="mute-url" href="{% url 'user_index' %}">Team</a></h2>
+            </div>
+          </div> 
+          <div class="row">
+            <div class="col-md-12">
+{% include 'table_users.html' %}
+            </div>
+          </div> 
 {% endblock %}
