@@ -368,7 +368,7 @@ aclarknet-pg-restore:
 aclarknet-remote-update:
 	@$(MAKE) git-commit-auto-push
 	@$(MAKE) aclarknet-remote-git-pull
-	@$(MAKE) aclarknet-remote-system-gunicorn-restart
+	@$(MAKE) aclarknet-remote-gunicorn-restart
 aclarknet-remote-aptitude-update:
 	ssh db "sudo aptitude update; sudo aptitude upgrade -y"
 aclarknet-remote-django-static:
@@ -380,20 +380,20 @@ aclarknet-remote-git-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
 aclarknet-remote-pip-install:
 	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
-aclarknet-remote-system-nginx-stop:
+aclarknet-remote-nginx-stop:
 	ssh db "sudo systemctl stop nginx"
-aclarknet-remote-system-nginx-start:
+aclarknet-remote-nginx-start:
 	ssh db "sudo systemctl start nginx"
-aclarknet-remote-system-nginx-restart:
+aclarknet-remote-nginx-restart:
 	ssh db "sudo systemctl restart nginx"
-aclarknet-remote-system-gunicorn-restart:
+aclarknet-remote-gunicorn-restart:
 	ssh db "sudo systemctl daemon-reload"
 	ssh db "sudo systemctl restart db"
-aclarknet-remote-system-gunicorn-start:
+aclarknet-remote-gunicorn-start:
 	ssh db "sudo systemctl start db"
-aclarknet-remote-system-gunicorn-stop:
+aclarknet-remote-gunicorn-stop:
 	ssh db "sudo systemctl stop db.service"
-aclarknet-remote-system-gunicorn-status:
+aclarknet-remote-gunicorn-status:
 	ssh db "sudo systemctl status db.service"
 aclarknet-webpack-pack:
 	./node_modules/.bin/webpack --config webpack.config.js
