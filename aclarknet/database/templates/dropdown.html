@@ -5,7 +5,7 @@
               {% if not request.user.is_anonymous %}<div class="dropdown-divider"></div>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="/api" target="_blank"><i class="fa fa-code"></i> API</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-user"></i> Admin</a>{% endif %}
-              {% if is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues/new" target="_blank"><i class="fa fa-github"></i> Issue</a>{% endif %}
+              {% if is_staff %}<a class="dropdown-item" href="https://github.com/ACLARKNET/aclarknet-database/issues" target="_blank"><i class="fa fa-github"></i> Issues</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'settings_app' %}"><i class="fa fa-cog"></i> Settings</a>{% endif %}
               {% if not request.user.is_anonymous %}<div class="dropdown-divider"></div>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'contract_index' %}"><i class="fa fa-file-o"></i> Contracts</a>{% endif %}
