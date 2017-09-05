@@ -254,6 +254,7 @@ def get_company_name(company):
     company_name = company_name.replace('# ', '_')
     company_name = company_name.replace('( ', '_')
     company_name = company_name.replace(') ', '_')
+    company_name = company.name.replace(' ', '_')
     company_name = company_name.upper()
     return company_name
 
