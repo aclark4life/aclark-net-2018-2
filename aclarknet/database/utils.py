@@ -365,6 +365,8 @@ def get_index_items(**kwargs):
     if model_name in EXCLUDE_MODELS and get_setting(
             request, app_settings_model, 'exclude_hidden'):
         items = model.objects.exclude(hidden=True)
+    elif model_name == 'time':
+        items = model.objects.filter(estimate=None)
     else:
         items = model.objects.all()
     # Order items (http://stackoverflow.com/a/20257999/185820)
