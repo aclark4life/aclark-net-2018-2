@@ -12,13 +12,13 @@
                 <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
                   <a class="dropdown-item" href="{% url 'note_edit' %}"><i class="fa fa-sticky-note-o"></i> Note</a>
                   <a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-file-o"></i> Report</a>
-                  <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Time</a>
                 </div>
               </div>
               {% else %}
               <div class="dropdown pull-right">
                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">  <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
+                  <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
                   <a class="dropdown-item" href="{% url 'user_edit' pk=request.user.pk %}"><i class="fa fa-user"></i> Edit Profile</a>
                 </div>
               </div>
