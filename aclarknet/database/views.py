@@ -763,7 +763,9 @@ def time_index(request):
                 'log': 'false',
             },
         },
-        order_by=('invoiced', '-updated', ),
+        order_by=(
+            'invoiced',
+            '-updated', ),
         request=request,
         search_fields=search_fields,
         show_search=True)

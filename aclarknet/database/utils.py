@@ -991,7 +991,6 @@ def obj_remove(obj):
 
 
 def obj_sent(obj, ref):
-    model_name = obj._meta.verbose_name
     for time in obj.time_set.all():
         time.invoiced = True
         time.save()
