@@ -11,7 +11,6 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'estimate_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Estimate</a></li>
                   <li><a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Invoice</a></li>
-                  <li><a class="dropdown-item" href="{% url 'time_edit' %}?project={{ item.pk }}" disabled><i class="fa fa-clock-o"></i> Add Time</a></li>
                   <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a></li>
 
                   <li><a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
