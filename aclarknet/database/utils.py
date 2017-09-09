@@ -144,7 +144,7 @@ def edit(request, **kwargs):
             # Invoice sent
             invoice_sent = request.POST.get('invoice_sent')
             if invoice_sent:
-                return obj_sent(obj)
+                return obj_sent(obj, ref)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             try:
