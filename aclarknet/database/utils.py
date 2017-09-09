@@ -823,7 +823,7 @@ def get_times_for_obj(obj, time_model):
             invoiced=False, project=obj.project, estimate=None, invoice=obj)
     elif model_name == 'project':
         times = time_model.objects.filter(
-            invoiced=False, estimate=None, project=obj, invoice=obj.invoice.pk)
+            invoiced=False, estimate=None, project=obj)
     return times
 
 

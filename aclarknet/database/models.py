@@ -666,8 +666,7 @@ class Time(BaseModel):
         Estimate,
         blank=True,
         null=True,
-        on_delete=models.SET_NULL,
-        related_name='times')
+        on_delete=models.SET_NULL)
     invoice = models.ForeignKey(
         Invoice,
         blank=True,
