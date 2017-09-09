@@ -661,12 +661,13 @@ class Time(BaseModel):
         blank=True,
         null=True,
         limit_choices_to={'active': True}, )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
-    estimate = models.ForeignKey(
-        Estimate,
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
-        on_delete=models.SET_NULL)
+        limit_choices_to={'active': True})
+    estimate = models.ForeignKey(
+        Estimate, blank=True, null=True, on_delete=models.SET_NULL)
     invoice = models.ForeignKey(
         Invoice,
         blank=True,
