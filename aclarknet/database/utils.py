@@ -125,7 +125,7 @@ def edit(request, **kwargs):
         obj = get_object_or_404(model, pk=pk)
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
-        refer = request.META['HTTP_REFERER']
+        ref = request.META['HTTP_REFERER']
         if pk is None:
             form = form_model(request.POST)
         else:
@@ -139,14 +139,12 @@ def edit(request, **kwargs):
             # Check boxes
             query_checkbox = get_query(request, 'checkbox')
             if query_checkbox['condition']:
-                return set_check_boxes(obj, query_checkbox, refer,
+                return set_check_boxes(obj, query_checkbox, ref,
                                        app_settings_model)
             # Invoice sent
             invoice_sent = request.POST.get('invoice_sent')
             if invoice_sent:
-                for time in obj.time_set.all():
-                    time.invoiced = True
-                    time.save()
+                return obj_sent(obj)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             try:
@@ -825,8 +823,7 @@ def get_template_and_url(**kwargs):
 def get_times_for_obj(obj, time_model):
     model_name = obj._meta.verbose_name
     if model_name == 'invoice':
-        times = time_model.objects.filter(
-            estimate=None, invoice=obj)
+        times = time_model.objects.filter(estimate=None, invoice=obj)
     elif model_name == 'project':
         times = time_model.objects.filter(
             invoiced=False, estimate=None, project=obj)
@@ -993,6 +990,14 @@ def obj_remove(obj):
     return HttpResponseRedirect(reverse(url_name))
 
 
+def obj_sent(obj, ref):
+    model_name = obj._meta.verbose_name
+    for time in obj.time_set.all():
+        time.invoiced = True
+        time.save()
+    return HttpResponseRedirect(ref)
+
+
 def paginate(items, page, page_size):
     """
     """
@@ -1006,7 +1011,7 @@ def paginate(items, page, page_size):
     return items
 
 
-def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
+def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
     model_name = obj._meta.verbose_name
     if (query_checkbox['active'] == 'on' or
             query_checkbox['active'] == 'off'):  # Active
@@ -1027,7 +1032,7 @@ def set_check_boxes(obj, query_checkbox, refer, app_settings_model):
         else:
             obj.subscribed = False
     obj.save()
-    return HttpResponseRedirect(refer)
+    return HttpResponseRedirect(ref)
 
 
 def set_invoice_totals(times, estimate=None, invoice=None):
