@@ -5,6 +5,13 @@ a:hover.mute-url, a.mute-url {
     text-decoration: none;
     color: black;
 }
+#content > div.row > div > div > ul > li:nth-child(4) > form > input.form-control.btn.btn-link {
+    color: black; 
+}
+#content > div.row > div > div > ul > li:nth-child(4) > form > input.form-control.btn.btn-link:hover {
+    text-decoration: none; 
+    color: black; 
+}
 tbody tr:hover a {
     text-decoration: none;
 }
