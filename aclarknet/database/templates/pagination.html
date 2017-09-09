@@ -1,7 +1,7 @@
           <!-- https://stackoverflow.com/a/1070414/185820 -->
           {% if items.paginator %}
-          <div class="row py-3">
-            <div class="col-md-6 mx-auto"> <!-- Paginated -->
+          <div class="row">
+            <div class="col-md-6 ml-auto"> <!-- Paginated -->
               <strong>Items {{ items.start_index }} to {{ items.end_index }} of {{ items.paginator.count }}</strong>
               {% if items.has_previous %} <a class="btn btn-secondary" href="?page=1"><i class="fa fa-step-backward"></i></a> <a class="btn btn-secondary" href="?page={{ items.previous_page_number }}"><i class="fa fa-chevron-circle-left"></i></a> {% else %} <button class="btn btn-secondary" disabled><i class="fa fa-step-backward"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-left"></i></button> {% endif %}
               <strong>Page {{ items.number }} of {{ items.paginator.num_pages }}</strong>
@@ -11,8 +11,8 @@
             </div>
           </div>
           {% else %}
-          <div class="row py-3">
-            <div class="col-md-10 mx-auto">  <!-- Single page -->
+          <div class="row">
+            <div class="col-md-6 ml-auto">  <!-- Single page -->
               <strong>{% if items.count %}Items 1 to {{ items.count }} of {{ items.count }}{% else %}Items 0 to {{ items.count }} of {{ items.count }}{% endif %}</strong> 
               <button class="btn btn-secondary" disabled><i class="fa fa-step-backward"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-left"></i></button> <strong>Page 1 of 1</strong> <button class="btn btn-secondary" disabled><i class="fa fa-chevron-circle-right"></i></button> <button class="btn btn-secondary" disabled><i class="fa fa-step-forward"></i></button>
               <strong><a class="btn btn-secondary" href="?paginated=true">Show paginated</a></strong>
