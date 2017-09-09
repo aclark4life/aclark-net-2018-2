@@ -665,7 +665,7 @@ class Time(BaseModel):
         settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
-        limit_choices_to={'active': True})
+        limit_choices_to={'profile__active': True})
     estimate = models.ForeignKey(
         Estimate, blank=True, null=True, on_delete=models.SET_NULL)
     invoice = models.ForeignKey(
