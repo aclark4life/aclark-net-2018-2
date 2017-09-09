@@ -141,6 +141,12 @@ def edit(request, **kwargs):
             if query_checkbox['condition']:
                 return set_check_boxes(obj, query_checkbox, refer,
                                        app_settings_model)
+            # Invoice sent
+            invoice_sent = request.POST.get('invoice_sent')
+            if invoice_sent:
+                for time in obj.time_set.all():
+                    time.invoiced = True
+                    time.save()
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             try:
