@@ -2,7 +2,7 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-10">
-                  <h1 style="border-bottom: none;">{% if is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; User &rsaquo; {{ item }}</h1>
+                  <h1 style="border-bottom: none;">{% if is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; {{ item }}</h1>
                 </div>                
                 <div class="col-md-2">
                   {% if is_staff %}
