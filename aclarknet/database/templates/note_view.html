@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-8">
                 <h1 style="border-bottom: none;"><a class="mute-url" href="{% url 'note_index' %}">Notes</a> &raquo; Note</h1>
-              </div>
-              <div class="col-md-4">
-{% include 'info.html' %}
               </div>
               <div class="col-md-3 ml-auto">
                 <div class="dropdown">
@@ -35,4 +32,9 @@
               </div>
             </div>
             {% endif %}
+            <div class="row">
+              <div class="col-md-12">
+{% include 'info.html' %}
+              </div>
+            </div>
 {% endblock %}
