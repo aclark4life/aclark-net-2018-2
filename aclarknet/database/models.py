@@ -388,7 +388,10 @@ class Profile(BaseModel):
         choices=PAYMENT_CHOICES)
 
     def __str__(self):
-        return self.user.username
+        if self.user:
+            return self.user.username
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
     def get_avatar_url(self):
         if self.avatar_url is not None:
@@ -399,8 +402,10 @@ class Profile(BaseModel):
     def get_username(self):
         if self.preferred_username is not None:
             return self.preferred_username
-        else:
+        elif self.user:
             return self.user.username
+        else:
+            return '-'.join([self._meta.verbose_name, str(self.pk)])
 
 
 class Project(BaseModel):
