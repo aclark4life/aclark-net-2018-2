@@ -405,7 +405,7 @@ class Profile(BaseModel):
         elif self.user:
             return self.user.username
         else:
-            return '-'.join([self._meta.verbose_name, str(self.pk)])
+            return '-'.join(['user', str(self.pk)])
 
 
 class Project(BaseModel):
