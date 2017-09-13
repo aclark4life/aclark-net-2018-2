@@ -1153,5 +1153,6 @@ def set_relationship(obj, request, **kwargs):
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.project = project
+            obj.save()  # Need save her to set task
             obj.task = project.task
         obj.save()
