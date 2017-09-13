@@ -1150,6 +1150,7 @@ def set_relationship(obj, request, **kwargs):
         if query_invoice:
             invoice = get_object_or_404(invoice_model, pk=query_invoice)
             obj.invoice = invoice
+            obj.task = invoice.project.task
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.project = project
