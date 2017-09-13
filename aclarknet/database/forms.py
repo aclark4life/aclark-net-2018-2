@@ -117,7 +117,7 @@ class InvoiceForm(forms.ModelForm):
             'client',
             'project',
             'issue_date',
-            'last_payment_date', )
+            'last_payment_date', 'hidden')
 
 
 class MailForm(forms.Form):
