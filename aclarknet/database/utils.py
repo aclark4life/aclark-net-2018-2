@@ -558,16 +558,16 @@ def get_page_items(**kwargs):
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.all()
-            items = set_items_name('contact', items=contacts)
             estimates = estimate_model.objects.filter(project=project)
-            items = set_items_name('estimate', items=estimates, _items=items)
             invoices = invoice_model.objects.filter(project=project)
             invoices = invoices.order_by('-issue_date')
-            items = set_items_name('invoice', items=invoices, _items=items)
             times = get_times_for_obj(project, time_model)
             times = times.order_by(*order_by['time'])
-            items = set_items_name('time', items=times, _items=items)
             users = user_model.objects.filter(project=project)
+            items = set_items_name('contact', items=contacts)
+            items = set_items_name('estimate', items=estimates, _items=items)
+            items = set_items_name('invoice', items=invoices, _items=items)
+            items = set_items_name('time', items=times, _items=items)
             items = set_items_name('user', items=users, _items=items)
             context['item'] = project
             context['items'] = items
@@ -616,18 +616,17 @@ def get_page_items(**kwargs):
                 # Items
                 invoices = invoice_model.objects.filter(last_payment_date=None)
                 invoices = invoices.order_by(*order_by['invoice'])
-                items = set_items_name('invoice', items=invoices)
                 notes = note_model.objects.filter(active=True, hidden=False)
-                # notes = notes.order_by(*order_by['note'])[:10]
                 notes = notes.order_by(*order_by['note'])
-                items = set_items_name('note', items=notes, _items=items)
                 projects = project_model.objects.filter(
                     active=True, hidden=False)
                 projects = projects.order_by(*order_by['project'])
-                items = set_items_name('project', items=projects, _items=items)
                 times = time_model.objects.filter(
                     invoiced=False, user=request.user)
                 times = times.order_by(*order_by['time'])
+                items = set_items_name('invoice', items=invoices)
+                items = set_items_name('note', items=notes, _items=items)
+                items = set_items_name('project', items=projects, _items=items)
                 items = set_items_name('time', items=times, _items=items)
                 # Plot
                 points = report_model.objects.filter(active=True)
