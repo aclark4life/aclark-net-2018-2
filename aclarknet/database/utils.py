@@ -337,6 +337,7 @@ def get_index_items(**kwargs):
     show_search = kwargs.get('show_search')
     model_name = model._meta.verbose_name
     edit_url = '%s_edit' % model_name
+    view_url = '%s_view' % model_name
     if columns_visible:
         context['columns_visible'] = columns_visible
     if company_model:
@@ -360,6 +361,7 @@ def get_index_items(**kwargs):
                 search,
                 app_settings_model=app_settings_model,
                 edit_url=edit_url,
+                view_url=view_url,
                 request=request)
     # Not a search
     if model_name in EXCLUDE_MODELS and get_setting(
@@ -386,6 +388,7 @@ def get_index_items(**kwargs):
             request, app_settings_model, 'page_size', page_size=page_size)
         items = paginate(items, page, page_size)
     context['edit_url'] = edit_url
+    context['view_url'] = view_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
@@ -459,6 +462,7 @@ def get_page_items(**kwargs):
         context['model_name'] = model_name
         context['active_nav'] = model_name
         context['edit_url'] = '%s_edit' % model_name
+        context['view_url'] = '%s_view' % model_name
         if model_name == 'Settings App':
             app_settings = app_settings_model.get_solo()
             context['items'] = get_fields([app_settings, ])  # table_items.html
@@ -739,6 +743,7 @@ def get_search_results(context,
                        search,
                        app_settings_model=None,
                        edit_url=None,
+                       view_url=None,
                        request=None):
     query = []
     model_name = model._meta.verbose_name
@@ -747,6 +752,7 @@ def get_search_results(context,
     items = model.objects.filter(reduce(OR, query))
     context['active_nav'] = model_name
     context['edit_url'] = edit_url
+    context['view_url'] = view_url
     context['icon_size'] = get_setting(request, app_settings_model,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
