@@ -112,12 +112,13 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = (
+            'hidden',
             'subject',
             'po_number',
             'client',
             'project',
             'issue_date',
-            'last_payment_date', 'hidden')
+            'last_payment_date', )
 
 
 class MailForm(forms.Form):
