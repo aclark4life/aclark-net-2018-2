@@ -10,7 +10,7 @@
                       <li><a class="dropdown-item" href="{% url 'invoice_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
                       <li><a class="dropdown-item" href="{% url 'invoice_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
                       <!-- https://stackoverflow.com/questions/15649001/bootstrap-input-field-and-dropdown-button-submit -->
-                      <li><form class="dropdown-item" method="post" action="{% url 'invoice_edit' pk=item.pk %}?sent=true">{% csrf_token %}<i class="fa fa-usd"></i><input class="form-control btn btn-link" type="submit" name="invoice_sent" value="Sent"></form></li>
+                      <li><form class="dropdown-item" method="post" action="{% url 'invoice_edit' pk=item.pk %}?sent=true">{% csrf_token %}<i class="fa fa-usd"></i><input type="submit" name="invoice_sent" value="Sent"></form></li>
                       <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                       {% if item.project %}<li><a class="dropdown-item" href="{% url 'project_view' pk=item.project.pk %}"><i class="fa fa-folder-open-o"></i> View Project</a></li>{% endif %}
                     </ul>
