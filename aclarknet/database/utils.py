@@ -428,7 +428,7 @@ def get_page_items(**kwargs):
     model = kwargs.get('model')
     note_model = kwargs.get('note_model')
     obj = kwargs.get('obj')
-    profile_model = kwargs.get('profile_model')
+    # profile_model = kwargs.get('profile_model')
     project_model = kwargs.get('project_model')
     report_model = kwargs.get('report_model')
     request = kwargs.get('request')
@@ -579,7 +579,7 @@ def get_page_items(**kwargs):
             context['item'] = time_entry
         elif model_name == 'user':
             user = get_object_or_404(model, pk=pk)
-            profile_model.objects.get_or_create(user=user)
+            # profile_model.objects.get_or_create(user=user)
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
