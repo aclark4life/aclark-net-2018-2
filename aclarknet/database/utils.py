@@ -239,7 +239,8 @@ def get_client_ip(request):
     return request.META.get('HTTP_X_REAL_IP')
 
 
-def get_company_name(company):
+def get_company_name(model):
+    company = model.get_solo()
     if company.name:
         company_name = company.name
     else:
@@ -428,7 +429,6 @@ def get_page_items(**kwargs):
     model = kwargs.get('model')
     note_model = kwargs.get('note_model')
     obj = kwargs.get('obj')
-    # profile_model = kwargs.get('profile_model')
     project_model = kwargs.get('project_model')
     report_model = kwargs.get('report_model')
     request = kwargs.get('request')
@@ -579,7 +579,6 @@ def get_page_items(**kwargs):
             context['item'] = time_entry
         elif model_name == 'user':
             user = get_object_or_404(model, pk=pk)
-            # profile_model.objects.get_or_create(user=user)
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
             projects = projects.order_by(*order_by['project'])
@@ -1107,14 +1106,6 @@ def set_relationship(obj, request, **kwargs):
             company = company_model.get_solo()
             company.note.add(obj)
             company.save()
-    # elif model_name == 'profile':
-    #     if obj.preferred_username:
-    #         username = obj.preferred_username
-    #     else:
-    #         username = fake.text()[:150]
-    #     new_user = user_model.objects.create_user(username=username)
-    #     model.objects.get_or_create(user=new_user)  # Create profile
-    #     return new_user  # Only condition that returns a value
     elif model_name == 'project':
         query_client = get_query(request, 'client')
         if query_client:

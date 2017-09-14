@@ -170,16 +170,15 @@ def contract_view(request, pk=None):
         pk=pk,
         time_model=Time,
         request=request)
+    filename = get_company_name(SettingsCompany)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
-        filename = get_company_name(company)
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
         return generate_pdf(
             'pdf_contract.html', context=context, file_object=response)
     if context['doc']:
         # https://stackoverflow.com/a/24122313/185820
         document = generate_doc(context['item'])
-        filename = get_company_name(company)
         f = BytesIO()
         document.save(f)
         length = f.tell()
@@ -336,7 +335,7 @@ def invoice_view(request, pk=None):
         time_model=Time)
     if context['pdf']:
         response = HttpResponse(content_type='application/pdf')
-        company_name = get_company_name(context['company'])
+        company_name = get_company_name(SettingsCompany)
         model_name = context['model_name'].upper()
         filename = '_'.join([company_name, model_name, pk])
         response['Content-Disposition'] = 'filename=%s.pdf' % filename
