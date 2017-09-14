@@ -129,20 +129,17 @@ def edit(request, **kwargs):
         if pk is None:
             form = form_model(request.POST)
         else:
-            # Copy or delete
-            copy = request.POST.get('copy')
+            copy = request.POST.get('copy')  # Copy or delete
             delete = request.POST.get('delete')
             if copy:
                 return obj_copy(obj)
             if delete:
                 return obj_remove(obj)
-            # Check boxes
-            query_checkbox = get_query(request, 'checkbox')
+            query_checkbox = get_query(request, 'checkbox')  # Check boxes
             if query_checkbox['condition']:
                 return set_check_boxes(obj, query_checkbox, ref,
                                        app_settings_model)
-            # Invoice sent
-            invoice_sent = request.POST.get('invoice_sent')
+            invoice_sent = request.POST.get('invoice_sent')  # Invoice sent
             if invoice_sent:
                 return obj_sent(obj, ref)
             form = form_model(request.POST, instance=obj)
@@ -371,19 +368,16 @@ def get_index_items(**kwargs):
         items = model.objects.filter(estimate=None)
     else:
         items = model.objects.all()
-    # Order items (http://stackoverflow.com/a/20257999/185820)
-    if order_by is not None:
+    if order_by is not None:  # Order items 
+        # http://stackoverflow.com/a/20257999/185820
         items = items.order_by(*order_by)
-    # Don't show items to anon
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated:  # Don't show items to anon
         items = []
-    # Per model extras
-    if model_name == 'note':
+    if model_name == 'note':  # Per model extras
         context['note_info'] = get_note_info(model)
     elif model_name == 'time':
         context['total_hours'] = get_total_hours(items)
-    # Paginate if paginated
-    if paginated:
+    if paginated:  # Paginate if paginated
         page_size = get_setting(
             request, app_settings_model, 'page_size', page_size=page_size)
         items = paginate(items, page, page_size)
@@ -684,8 +678,8 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
 
 def get_query(request, query):
     """
+    Special handling for some query strings
     """
-    # Special handling for some query strings
     if query == 'paginated':
         paginated = request.GET.get('paginated')
         if paginated == u'false':
@@ -1027,10 +1021,9 @@ def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
             obj.hidden = False
         else:
             obj.active = False
-            # Auto-hide
             if model_name == 'note' and app_settings_model:
                 app_settings = app_settings_model.get_solo()
-                if app_settings.auto_hide:
+                if app_settings.auto_hide:  # Auto-hide
                     obj.hidden = True
     elif (query_checkbox['subscribe'] == 'on' or
           query_checkbox['subscribe'] == 'off'):  # Subscribe
