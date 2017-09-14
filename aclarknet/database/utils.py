@@ -106,6 +106,7 @@ def edit(request, **kwargs):
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
+    profile_model = kwargs.get('profile_model')
     user_model = kwargs.get('user_model')
     if model:
         model_name = model._meta.verbose_name
@@ -126,6 +127,12 @@ def edit(request, **kwargs):
     if request.method == 'POST':
         ref = request.META['HTTP_REFERER']
         if pk is None:
+            if model_name == 'user':  # One-off to create user
+                username = fake.text()[:150]
+                new_user = model.objects.create_user(username=username)
+                profile = profile_model()
+                profile.user = new_user
+                profile.save()
             form = form_model(request.POST)
         else:
             copy = request.POST.get('copy')  # Copy or delete

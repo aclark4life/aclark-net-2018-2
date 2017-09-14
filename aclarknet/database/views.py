@@ -808,7 +808,12 @@ def user_edit(request, pk=None):
         profile_form = AdminProfileForm
     else:
         profile_form = ProfileForm
-    return edit(request, form_model=profile_form, model=User, pk=pk)
+    return edit(
+        request,
+        form_model=profile_form,
+        model=User,
+        pk=pk,
+        profile_model=Profile)
 
 
 @staff_member_required
