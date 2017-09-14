@@ -123,7 +123,6 @@ django-static:
 	bin/python manage.py collectstatic --noinput
 django-su:
 	bin/python manage.py createsuperuser
-django-user: django-su  # Alias
 django-yapf:
 	-yapf -i *.py
 	-yapf -i -e $(PROJECT)/urls.py $(PROJECT)/*.py  # Don't format urls.py
@@ -131,6 +130,7 @@ django-yapf:
 graph: django-graph
 migrate: django-migrate  # Alias
 migrations: django-migrations  # Alias
+su: django-su  # Alias
 
 # Git
 MESSAGE="Update"
@@ -308,6 +308,13 @@ redhat-update:
 	sudo yum update
 	sudo yum upgrade -y
 
+# Readme
+readme:
+	echo "Creating README.rst"
+	@echo $(PROJECT)-$(APP) > README.rst
+	@echo ================================================================================ >> README.rst
+	echo "Done."
+
 # Review
 review:
 ifeq ($(UNAME), Darwin)
@@ -318,21 +325,18 @@ else
 endif
 
 # Sphinx
-sphinx: sphinx-clean sphinx-install sphinx-init sphinx-build sphinx-serve  # Chain
-sphinx-clean:
-	@rm -rvf $(PROJECT)
 sphinx-build:
-	bin/sphinx-build -b html -d $(PROJECT)/_build/doctrees $(PROJECT) $(PROJECT)/_build/html
-sphinx-install:
-	@echo "ablog\n" > requirements.txt
-	@$(MAKE) python-install
+	bin/sphinx-build -b html -d _build/doctrees . _build/html
 sphinx-init:
 	bin/sphinx-quickstart -q -p $(PROJECT)-$(APP) -a $(NAME) -v 0.0.1 $(PROJECT)
+	rsync -av --partial --progress --exclude=Makefile $(PROJECT)/ .	
+sphinx-install:
+	@echo "Sphinx\n" > requirements.txt
+	@$(MAKE) python-install
+# https://stackoverflow.com/a/32302366/185820
 sphinx-serve:
-	@echo "\nServing HTTP on http://0.0.0.0:8000 ...\n"
-	pushd $(PROJECT)/_build/html
-	bin/python -m SimpleHTTPServer
-	popd
+	@echo "\n\tServing HTTP on http://0.0.0.0:8000\n"
+	pushd _build/html; ../../bin/python -m http.server
 
 # Ubuntu
 ubuntu-update:

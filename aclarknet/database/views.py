@@ -67,8 +67,6 @@ from django_xhtml2pdf.utils import generate_pdf
 from io import BytesIO
 from rest_framework import viewsets
 
-company = SettingsCompany.get_solo()
-
 # Create your views here.
 
 
