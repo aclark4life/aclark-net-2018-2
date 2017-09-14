@@ -146,7 +146,7 @@ def edit(request, **kwargs):
         if form.is_valid():
             try:
                 obj = form.save()
-                user = set_relationship(
+                new_user = set_relationship(
                     obj,
                     request,
                     client_model=client_model,
@@ -156,7 +156,7 @@ def edit(request, **kwargs):
                     model=model,
                     project_model=project_model,
                     user_model=user_model)
-                if user:
+                if new_user:
                     return obj_edit(user.profile, pk=user.pk)
                 else:
                     return obj_edit(obj, pk=pk)
@@ -1117,9 +1117,9 @@ def set_relationship(obj, request, **kwargs):
             username = obj.preferred_username
         else:
             username = fake.text()[:150]
-        user = user_model.objects.create_user(username=username)
+        new_user = user_model.objects.create_user(username=username)
         model.objects.get_or_create(user=user)  # Create profile
-        return user  # Only condition that returns a value
+        return new_user  # Only condition that returns a value
     elif model_name == 'project':
         query_client = get_query(request, 'client')
         if query_client:
