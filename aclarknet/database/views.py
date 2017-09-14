@@ -791,7 +791,7 @@ def user_view(request, pk=None):
             contact_model=Contact,
             model=User,
             order_by=order_by,
-            profile_model=Profile,
+            profile_model=Profile,  # Create new profile if needed
             project_model=Project,
             time_model=Time,
             pk=pk,
@@ -811,12 +811,7 @@ def user_edit(request, pk=None):
         profile_form = AdminProfileForm
     else:
         profile_form = ProfileForm
-    return edit(
-        request,
-        form_model=profile_form,
-        model=Profile,
-        pk=pk,
-        user_model=User)
+    return edit(request, form_model=profile_form, model=User, pk=pk)
 
 
 @staff_member_required

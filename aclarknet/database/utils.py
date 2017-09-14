@@ -119,9 +119,6 @@ def edit(request, **kwargs):
             user_model=user_model,
             request=request)
     else:  # Existing
-        if model_name == 'profile':
-            model = user_model  # Swap profile_model with user_model
-            # for create_user
         obj = get_object_or_404(model, pk=pk)
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
@@ -146,7 +143,7 @@ def edit(request, **kwargs):
         if form.is_valid():
             try:
                 obj = form.save()
-                new_user = set_relationship(
+                set_relationship(
                     obj,
                     request,
                     client_model=client_model,
@@ -154,12 +151,8 @@ def edit(request, **kwargs):
                     estimate_model=estimate_model,
                     invoice_model=invoice_model,
                     model=model,
-                    project_model=project_model,
-                    user_model=user_model)
-                if new_user:
-                    return obj_redir(new_user.profile, pk=new_user.pk)
-                else:
-                    return obj_redir(obj, pk=pk)
+                    project_model=project_model)
+                return obj_redir(obj, pk=pk)
             except AttributeError:  # Mail
                 obj = mail_obj(
                     request,
@@ -1080,16 +1073,13 @@ def set_items_name(model_name, items=None, _items={}):
 
 def set_relationship(obj, request, **kwargs):
     """
-    Sets relationships and returns None unless user is created then
-    return user.
+    Sets relationships after create or edit
     """
     client_model = kwargs.get('client_model')
     company_model = kwargs.get('company_model')
     estimate_model = kwargs.get('estimate_model')
     invoice_model = kwargs.get('invoice_model')
-    model = kwargs.get('model')
     project_model = kwargs.get('project_model')
-    user_model = kwargs.get('user_model')
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
         query_client = get_query(request, 'client')
@@ -1115,14 +1105,14 @@ def set_relationship(obj, request, **kwargs):
             company = company_model.get_solo()
             company.note.add(obj)
             company.save()
-    elif model_name == 'profile':
-        if obj.preferred_username:
-            username = obj.preferred_username
-        else:
-            username = fake.text()[:150]
-        new_user = user_model.objects.create_user(username=username)
-        model.objects.get_or_create(user=new_user)  # Create profile
-        return new_user  # Only condition that returns a value
+    # elif model_name == 'profile':
+    #     if obj.preferred_username:
+    #         username = obj.preferred_username
+    #     else:
+    #         username = fake.text()[:150]
+    #     new_user = user_model.objects.create_user(username=username)
+    #     model.objects.get_or_create(user=new_user)  # Create profile
+    #     return new_user  # Only condition that returns a value
     elif model_name == 'project':
         query_client = get_query(request, 'client')
         if query_client:
