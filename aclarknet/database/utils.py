@@ -139,6 +139,8 @@ def edit(request, **kwargs):
             invoice_sent = request.POST.get('invoice_sent')  # Invoice sent
             if invoice_sent:
                 return obj_sent(obj, ref)
+            if model_name == 'user':  # Edit user profile not user
+                obj = obj.profile
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             try:
