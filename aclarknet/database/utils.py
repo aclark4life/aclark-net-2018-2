@@ -157,9 +157,9 @@ def edit(request, **kwargs):
                     project_model=project_model,
                     user_model=user_model)
                 if new_user:
-                    return obj_edit(user.profile, pk=user.pk)
+                    return obj_redir(new_user.profile, pk=new_user.pk)
                 else:
-                    return obj_edit(obj, pk=pk)
+                    return obj_redir(obj, pk=pk)
             except AttributeError:  # Mail
                 obj = mail_obj(
                     request,
@@ -368,7 +368,7 @@ def get_index_items(**kwargs):
         items = model.objects.filter(estimate=None)
     else:
         items = model.objects.all()
-    if order_by is not None:  # Order items 
+    if order_by is not None:  # Order items
         # http://stackoverflow.com/a/20257999/185820
         items = items.order_by(*order_by)
     if not request.user.is_authenticated:  # Don't show items to anon
@@ -958,7 +958,10 @@ def obj_copy(obj):
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
-def obj_edit(obj, pk=None):
+def obj_redir(obj, pk=None):
+    """
+    Special cases for redir after edit
+    """
     model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url(
         model_name=model_name, page_type='view')  # Redir to view
@@ -1118,7 +1121,7 @@ def set_relationship(obj, request, **kwargs):
         else:
             username = fake.text()[:150]
         new_user = user_model.objects.create_user(username=username)
-        model.objects.get_or_create(user=user)  # Create profile
+        model.objects.get_or_create(user=new_user)  # Create profile
         return new_user  # Only condition that returns a value
     elif model_name == 'project':
         query_client = get_query(request, 'client')
