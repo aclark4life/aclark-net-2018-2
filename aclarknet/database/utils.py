@@ -120,6 +120,8 @@ def edit(request, **kwargs):
             request=request)
     else:  # Existing
         obj = get_object_or_404(model, pk=pk)
+        if model_name == 'user':  # One-off to edit user profile
+            obj = obj.profile
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
         ref = request.META['HTTP_REFERER']
