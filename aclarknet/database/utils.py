@@ -1112,14 +1112,14 @@ def set_relationship(obj, request, **kwargs):
             company = company_model.get_solo()
             company.note.add(obj)
             company.save()
-    # elif model_name == 'profile':
-    #     if obj.preferred_username:
-    #         username = obj.preferred_username
-    #     else:
-    #         username = fake.text()[:150]
-    #     user = user_model.objects.create_user(username=username)
-    #     model.objects.get_or_create(user=user)  # Create profile
-    #     return user  # Only condition that returns a value
+    elif model_name == 'profile':
+        if obj.preferred_username:
+            username = obj.preferred_username
+        else:
+            username = fake.text()[:150]
+        user = user_model.objects.create_user(username=username)
+        model.objects.get_or_create(user=user)  # Create profile
+        return user  # Only condition that returns a value
     elif model_name == 'project':
         query_client = get_query(request, 'client')
         if query_client:
