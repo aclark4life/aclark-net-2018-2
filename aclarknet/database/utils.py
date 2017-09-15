@@ -130,9 +130,6 @@ def edit(request, **kwargs):
             if model_name == 'user':  # One-off to create user
                 username = fake.text()[:150]
                 new_user = model.objects.create_user(username=username)
-                profile = profile_model()
-                profile.user = new_user
-                profile.save()
             form = form_model(request.POST)
         else:
             copy = request.POST.get('copy')  # Copy or delete
@@ -152,6 +149,10 @@ def edit(request, **kwargs):
         if form.is_valid():
             try:
                 obj = form.save()
+                if model_name == 'user':  # One-off to create profile
+                    if not obj.user:  # for new user
+                        obj.user = new_user
+                        obj.save()
                 set_relationship(
                     obj,
                     request,
@@ -976,7 +977,10 @@ def obj_redir(obj, pk=None):
         elif model_name == 'Settings Contract':
             return HttpResponseRedirect(reverse(url_name))
     else:  # New
-        kwargs['pk'] = obj.pk
+        if model_name == 'profile':  # One of to create profile for new
+            kwargs['pk'] = obj.user.pk  # user
+        else:
+            kwargs['pk'] = obj.pk
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
 
 
