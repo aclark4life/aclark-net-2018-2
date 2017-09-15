@@ -13,6 +13,6 @@
               {% if is_staff %}<a class="dropdown-item" href="{% url 'proposal_index' %}"><i class="fa fa-file-o"></i> Proposals</a>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'login'  %}"><i class="fa fa-sign-in"></i> Login</a>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><i class="fa fa-sign-in"></i> Login with Google</a>{% endif %}
-              {% if not request.user.is_anonymous  %}{% if request.user.is_staff %}<div class="dropdown-divider"></div>{% endif %}<a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a>{% endif %}
+              {% if not request.user.is_anonymous  %}{% if is_staff %}<div class="dropdown-divider"></div>{% endif %}<a class="dropdown-item" href="{% url 'auth:logout' %}?next={% url 'home' %}"><i class="fa fa-sign-out"></i> Logout</a>{% endif %}
             </div>
           </li>
