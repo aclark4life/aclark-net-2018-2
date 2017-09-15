@@ -991,7 +991,10 @@ def obj_remove(obj):
     else:
         url_name = get_template_and_url(
             model_name=model_name, page_type='index')  # Redir to index
-    obj.delete()
+    if model_name == 'profile':
+        obj.user.delete()
+    else:
+        obj.delete()
     return HttpResponseRedirect(reverse(url_name))
 
 
