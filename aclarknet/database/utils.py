@@ -961,24 +961,20 @@ def obj_copy(obj):
 
 def obj_redir(obj, pk=None):
     """
-    Special cases for redir after edit
+    Redir after edit, special cases for some objects
     """
     model_name = obj._meta.verbose_name
     template_name, url_name = get_template_and_url(
         model_name=model_name, page_type='view')  # Redir to view
-    # New or existing object
     kwargs = {}
-    if pk:  # Special cases for some objects e.g. settings, user
-        if model_name == 'Settings App':
+    if pk:  # Exists
+        kwargs['pk'] = pk
+        if model_name == 'Settings App':  # Special cases for settings
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'Settings Company':
             return HttpResponseRedirect(reverse(url_name))
         elif model_name == 'Settings Contract':
             return HttpResponseRedirect(reverse(url_name))
-        if model_name == 'profile':  # Redir to user pk not profile pk
-            kwargs['pk'] = obj.user.pk
-        else:
-            kwargs['pk'] = pk
     else:  # New
         kwargs['pk'] = obj.pk
     return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
@@ -997,6 +993,9 @@ def obj_remove(obj):
 
 
 def obj_sent(obj, ref):
+    """
+    Mark time entry as invoiced when invoice sent.
+    """
     for time in obj.time_set.all():
         time.invoiced = True
         time.save()
