@@ -106,7 +106,6 @@ def edit(request, **kwargs):
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
-    profile_model = kwargs.get('profile_model')
     user_model = kwargs.get('user_model')
     if model:
         model_name = model._meta.verbose_name
