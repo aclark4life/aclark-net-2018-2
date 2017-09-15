@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
     INTERNAL_IPS = ['34.203.238.227', '172.30.2.6', '127.0.0.1']
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,7 +66,7 @@ if DEBUG:
         'django.middleware.security.SecurityMiddleware',
         'debug_toolbar.middleware.DebugToolbarMiddleware', )
 else:
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
