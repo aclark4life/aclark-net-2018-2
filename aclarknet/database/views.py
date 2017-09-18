@@ -366,7 +366,7 @@ def invoice_index(request):
     context = get_index_items(
         app_settings_model=SettingsApp,
         model=Invoice,
-        order_by=('-issue_date', ),
+        order_by=('-amount', ),
         request=request,
         search_fields=search_fields,
         show_search=True)
