@@ -36,7 +36,3 @@ tbody tr:hover a {
     background: #28A745 !important;
     border-radius: 3px;
 }
-body > nav > a:hover {
-    background: #28A745 !important;
-    border-radius: 3px;
-}
