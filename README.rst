@@ -306,3 +306,13 @@ GitHub
       User git
       IdentityFile /home/alice/.ssh/repo2.alice_github.id_rsa
       IdentitiesOnly yes
+
+Env
+---
+
+`.bashrc`::
+
+    # https://unix.stackexchange.com/questions/79064/how-to-export-variables-from-a-file
+    source /srv/aclarknet-env/db
+    export $(cut -d= -f1 /srv/aclarknet-env/db)
+    export EDITOR=vim
