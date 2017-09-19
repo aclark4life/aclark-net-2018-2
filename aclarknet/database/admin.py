@@ -41,6 +41,8 @@ class ClientResource(ImportExportModelResource):
     class Meta:
         model = Client
 
+    # auto fill id? #295
+    # https://github.com/django-import-export/django-import-export/issues/295
     def get_instance(self, instance_loaders, row):
         return False
 
