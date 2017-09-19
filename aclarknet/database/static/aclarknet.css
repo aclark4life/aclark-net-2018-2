@@ -32,7 +32,7 @@ tbody tr:hover a {
 #content {
     background: white;
 }
-#navbarsExampleDefault > ul > li:hover {
+#navbarsExampleDefault > ul > li.hover:hover {
     background: #28A745 !important;
     border-radius: 3px;
 }
