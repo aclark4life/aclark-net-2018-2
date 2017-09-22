@@ -105,7 +105,7 @@ DATABASES = {
         (os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''),
          os.environ.get('DB_HOST', 'localhost'),
          os.environ.get('DB_PORT', '5432'),
-         os.environ.get('DB_NAME', 'aclarknet'))))
+         os.environ.get('DB_NAME', 'aclarknet-database'))))
 }
 
 # https://stackoverflow.com/a/21317596

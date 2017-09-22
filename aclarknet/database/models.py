@@ -205,6 +205,7 @@ class Estimate(BaseModel):
         null=True,
         limit_choices_to={'active': True}, )
     is_sow = models.BooleanField('Use for Statement of Work?', default=False)
+    is_to = models.BooleanField('Use for Task Order?', default=False)
     contacts = models.ManyToManyField('Contact', blank=True)
 
     def __str__(self):
