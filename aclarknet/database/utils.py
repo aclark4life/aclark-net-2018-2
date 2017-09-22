@@ -506,10 +506,12 @@ def get_page_items(**kwargs):
                 estimate = get_object_or_404(model, pk=pk)
             else:
                 estimate = obj
-            if not estimate.is_sow:
-                doc_type = model_name
-            else:
+            if estimate.is_sow:
                 doc_type = 'statement of work'
+            elif estimate.is_to:
+                doc_type = 'task order'
+            else:
+                doc_type = model_name
             if not obj:
                 times_client = time_model.objects.filter(
                     client=estimate.client,
