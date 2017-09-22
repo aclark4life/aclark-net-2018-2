@@ -87,6 +87,7 @@ class EstimateForm(forms.ModelForm):
             'accepted_date',
             'issue_date',
             'is_sow',
+            'is_to',
             'contacts', )
 
     contacts = forms.ModelMultipleChoiceField(
