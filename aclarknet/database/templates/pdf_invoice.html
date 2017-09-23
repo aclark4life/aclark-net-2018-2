@@ -42,6 +42,7 @@
                 <td rowspan=5 valign="top" align="right" class="field-name border-right">{{ doc_type|title }} For</td>
                 <td rowspan=5 valign="top" class="field-value">
                   <strong>{% if not pdf and item.client %}<a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|linebreaksbr|default:'' }}</a> <a href="{% url 'client_edit' item.client.pk %}"><i class="fa fa-cog"></i></a>{% else %}{{ item.client.name|linebreaksbr|default:'' }}{% endif %}</strong>
+                  <strong>{% if not pdf and item.user %}<a href="{% url 'user_view' item.user.pk %}">{{ item.user.get_full_name|linebreaksbr|default:'' }}</a> <a href="{% url 'user_edit' item.user.pk %}"><i class="fa fa-cog"></i></a>{% else %}{{ item.user.get_full_name|linebreaksbr|default:'' }}{% endif %}</strong>
                   <br>
                   {{ item.client.address|linebreaksbr|default:'' }}
                 </td>
