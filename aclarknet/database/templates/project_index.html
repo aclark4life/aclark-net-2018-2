@@ -5,7 +5,7 @@
               <h1 style="border-bottom: none;">Projects</h1>
             </div>
             <div class="col-md-3">
-              <a class="btn btn-block btn-lg btn-success" href="{% url 'project_edit' %}">Add Project <i class="fa fa-plus"></i></a>
+              <button class="btn btn-block btn-lg btn-success" href="{% url 'project_edit' %}" disabled>Add Project <i class="fa fa-plus"></i></button>
             </div>
           </div>
 {% with items=items.projects %}
