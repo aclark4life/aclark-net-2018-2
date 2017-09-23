@@ -106,6 +106,7 @@ def edit(request, **kwargs):
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
+    time_model = kwargs.get('time_model')
     user_model = kwargs.get('user_model')
     model_name = None
     if model:
@@ -177,6 +178,7 @@ def edit(request, **kwargs):
                             form=form,
                             first_name=first_name,
                             mail_to=email_address,
+                            time_model=time_model,
                             request=request))
                 # if status:
                 #     messages.add_message(request, messages.SUCCESS,
@@ -876,12 +878,15 @@ def mail_compose(obj, **kwargs):
     first_name = kwargs.get('first_name')
     form = kwargs.get('form')
     mail_to = kwargs.get('mail_to')
+    time_model = kwargs.get('time_model')
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
-        message = render_to_string('pdf_invoice.html', get_page_items(obj=obj))
+        message = render_to_string(
+            'pdf_invoice.html', get_page_items(
+                obj=obj, time_model=time_model))
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
