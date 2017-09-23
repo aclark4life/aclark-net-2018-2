@@ -1,0 +1,7 @@
+            <ul>
+            {% for item in items %}
+              {% for key, value in item.fields.items %}
+              <li><strong>{{ key }}</strong> {{ value|default:''|safe }}</li>
+              {% endfor %}
+            {% endfor %}
+            </ul>
