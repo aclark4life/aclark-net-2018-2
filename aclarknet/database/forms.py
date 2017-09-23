@@ -180,7 +180,8 @@ class ProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ('active', 'hidden', 'name', 'start_date', 'end_date',
+                  'notes', 'client', 'task')
 
 
 class ProposalForm(forms.ModelForm):

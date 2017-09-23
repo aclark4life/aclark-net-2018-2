@@ -212,6 +212,7 @@ class Estimate(BaseModel):
         blank=True,
         null=True,
         limit_choices_to={'profile__active': True})
+
     def __str__(self):
         return 'estimate-%s' % self.pk
 
