@@ -247,7 +247,8 @@ def estimate_edit(request, pk=None):
         model=Estimate,
         company_model=SettingsCompany,
         project_model=Project,
-        pk=pk)
+        pk=pk,
+        user_model=User)
 
 
 @staff_member_required

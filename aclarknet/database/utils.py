@@ -318,6 +318,10 @@ def get_form(**kwargs):
                     client = get_object_or_404(client_model, pk=query_client)
                     obj = model(client=client)
                 form = form_model(instance=obj)
+            elif model_name == 'estimate':
+                user = get_object_or_404(user_model, pk=query_user)
+                obj = model(user=user, is_to=True)
+                form = form_model(instance=obj)
             else:
                 form = form_model(initial=initial)
         else:

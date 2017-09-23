@@ -207,7 +207,11 @@ class Estimate(BaseModel):
     is_sow = models.BooleanField('Use for Statement of Work?', default=False)
     is_to = models.BooleanField('Use for Task Order?', default=False)
     contacts = models.ManyToManyField('Contact', blank=True)
-
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        limit_choices_to={'profile__active': True})
     def __str__(self):
         return 'estimate-%s' % self.pk
 

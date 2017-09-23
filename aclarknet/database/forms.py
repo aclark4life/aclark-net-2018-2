@@ -88,7 +88,8 @@ class EstimateForm(forms.ModelForm):
             'issue_date',
             'is_sow',
             'is_to',
-            'contacts', )
+            'contacts',
+            'user', )
 
     contacts = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.filter(active=True).exclude(
