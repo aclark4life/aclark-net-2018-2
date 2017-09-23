@@ -415,6 +415,7 @@ def mail(request):
         estimate_model=Estimate,
         form_model=MailForm,
         note_model=Note,
+        time_model=Time,
         page_type='edit')
 
 
