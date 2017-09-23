@@ -52,7 +52,7 @@
                     <a href="{% url 'user_edit' item.user.pk %}"><i class="fa fa-cog"></i></a>
                   {% else %} {{ item.user.get_full_name|linebreaksbr|default:'' }} {% endif %}
                   {% endif %}
-                  </strong>
+                  </strong> <br>
                   <!-- Address -->
                   {% if item.client %}
                   {{ item.client.address|linebreaksbr|default:'' }}
