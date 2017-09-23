@@ -107,11 +107,10 @@ def edit(request, **kwargs):
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
     user_model = kwargs.get('user_model')
+    model_name = None
     if model:
         model_name = model._meta.verbose_name
         context['active_nav'] = model_name
-    else:
-        model_name = obj._meta.verbose_name
     if pk is None:  # New or mail
         form = get_form(
             client_model=client_model,
