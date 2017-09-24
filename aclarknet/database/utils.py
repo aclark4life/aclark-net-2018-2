@@ -519,24 +519,15 @@ def get_page_items(**kwargs):
                 doc_type = 'task order'
             else:
                 doc_type = model_name
-            # if not obj:
-            #     times_client = time_model.objects.filter(
-            #         client=estimate.client,
-            #         estimate=None,
-            #         project=None,
-            #         invoiced=False,
-            #         invoice=None)
-            #     times_estimate = time_model.objects.filter(estimate=estimate)
-            #     times = times_client | times_estimate
-            # else:
-            #     times = obj.times.all()
             times = time_model.objects.filter(estimate=estimate)
             if order_by:
                 times = times.order_by(*order_by['time'])
             times = set_invoice_totals(times, estimate=estimate)
+            total_hours = get_total_hours(times)
             context['doc_type'] = doc_type
             context['entries'] = times
             context['item'] = estimate
+            context['total_hours'] = total_hours
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
