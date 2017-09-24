@@ -102,7 +102,7 @@
                   {% for contract in contracts %}
                   <tr>
                     <td>{{ contract }}</td>
-                    <td><a style="text-{{ icon_color }}" href="{% url 'contract_view' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
+                    <td><a style="text-{{ icon_color }}" href="{% url 'contract_view' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
                     <td><a style="text-{{ icon_color }}" href="{% url 'contract_edit' contract.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
                   </tr>
                   {% endfor %}
@@ -138,7 +138,7 @@
                   <td>{{ project.start_date|date:'U' }}</td>
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.end_date|date:'U' }}</td>
-                  <td><a class="text-{{ icon_color }}" href="{% url 'project_view' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View item</a></td>
+                  <td><a class="text-{{ icon_color }}" href="{% url 'project_view' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
                   <td><a class="text-{{ icon_color }}" href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
                 </tr>
                 {% endfor %} 
@@ -147,13 +147,11 @@
             </div>
           </div>
           <!-------------------------------------------------------------------------------->
-          {% if item.notes %}
           <div class="row">
             <div class="col-md-12">
               <h2>Notes</h2>
               <p>{{ item.notes|safe|default:'' }}</p>
             </div>
           </div>
-          {% endif %}
 {% include 'notes.html' %}
 {% endblock %}
