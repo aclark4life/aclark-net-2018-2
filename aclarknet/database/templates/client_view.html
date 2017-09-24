@@ -19,6 +19,7 @@
             </div>
           </div>
 {% include 'delete_form.html' %}
+          <!-------------------------------------------------------------------------------->
           <div class="row">
             <div class="col-md-12">
               <table data-toggle="table" data-classes="table table-no-bordered table-hover">
@@ -56,6 +57,7 @@
               <h2>Contacts</h2>
             </div>
           </div>
+          <!-------------------------------------------------------------------------------->
           <div class="row">
             <div class="col-md-12">
               <table data-toggle="table" data-classes="table table-no-bordered">
@@ -109,14 +111,6 @@
             </div>
           </div>
           <!-------------------------------------------------------------------------------->
-          {% if item.notes %}
-          <div class="row">
-            <div class="col-md-12">
-              <h2>Notes</h2>
-              <p>{{ item.notes|safe|default:'' }}</p>
-            </div>
-          </div>
-          {% endif %}
           <div class="row">
             <div class="col-md-12">
               <h2>Projects</h2>
@@ -152,5 +146,14 @@
               </table>
             </div>
           </div>
+          <!-------------------------------------------------------------------------------->
+          {% if item.notes %}
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Notes</h2>
+              <p>{{ item.notes|safe|default:'' }}</p>
+            </div>
+          </div>
+          {% endif %}
 {% include 'notes.html' %}
 {% endblock %}
