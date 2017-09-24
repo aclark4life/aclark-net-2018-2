@@ -851,11 +851,13 @@ def get_total_hours(items):
 
 def gravatar_url(email):
     """
-    MD5 hash of email address for use with Gravatar
+    MD5 hash of email address for use with Gravatar. Return generic
+    if none exists.
     """
     try:
         return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
     except:
+        # https://stackoverflow.com/a/7585378/185820
         return django_settings.GRAVATAR_URL % md5('db@aclark.net'.encode('utf-8')).hexdigest()
 
 
