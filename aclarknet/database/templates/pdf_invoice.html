@@ -28,9 +28,9 @@
                 <!-- Right column -->
                 <td valign="top" class="field-name border-right" align="right">From</td>
                 <td valign="top" class="field-value"> 
-                  <strong>{% if not pdf %}<a href="{% url 'settings_company' %}">{{ company.name|default:'' }}</a> <a href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|linebreaksbr|default:'' }}{% endif %}</strong>
+                  <strong>{% if not pdf %}<a href="{% url 'settings_company' %}">{{ company.name|default:'' }}</a> <a href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|default:''|linebreaksbr }}{% endif %}</strong>
                   <br>
-                  {{ company.address|linebreaksbr|default:'' }}
+                  {{ company.address|default:''|linebreaksbr }}
                 </td>
               </tr>
               <tr><!-- After "From" and before "Invoice For" --></tr>
@@ -44,18 +44,18 @@
                   <!-- Name -->
                   <strong>
                   {% if item.client %} {% if not pdf %}
-                    <a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|linebreaksbr|default:'' }}</a>
+                    <a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|default:''|linebreaksbr }}</a>
                     <a href="{% url 'client_edit' item.client.pk %}"><i class="fa fa-cog"></i></a>
-                  {% else %} {{ item.client.name|linebreaksbr|default:'' }} {% endif %}
+                  {% else %} {{ item.client.name|default:''|linebreaksbr }} {% endif %}
                   {% elif item.user %} {% if not pdf %}
-                    <a href="{% url 'user_view' item.user.pk %}">{{ item.user.get_full_name|linebreaksbr|default:'' }}</a>
+                    <a href="{% url 'user_view' item.user.pk %}">{{ item.user.get_full_name|default:''|linebreaksbr }}</a>
                     <a href="{% url 'user_edit' item.user.pk %}"><i class="fa fa-cog"></i></a>
-                  {% else %} {{ item.user.get_full_name|linebreaksbr|default:'' }} {% endif %}
+                  {% else %} {{ item.user.get_full_name|default:''|linebreaksbr }} {% endif %}
                   {% endif %}
                   </strong> <br>
                   <!-- Address -->
                   {% if item.client %}
-                  {{ item.client.address|linebreaksbr|default:'' }}
+                  {{ item.client.address|default:''|linebreaksbr }}
                   {% elif item.user %}
                   {{ item.user.profile.address|default:''|linebreaksbr }}
                   {% endif %}
