@@ -856,7 +856,7 @@ def gravatar_url(email):
     try:
         return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
     except:
-        return django_settings.GRAVATAR_URL % md5('db@aclark.net').hexdigest()
+        return django_settings.GRAVATAR_URL % md5('db@aclark.net'.encode('utf-8')).hexdigest()
 
 
 def has_profile(user):
