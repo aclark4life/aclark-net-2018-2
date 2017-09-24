@@ -5,6 +5,8 @@
                 <th data-align="center" data-toggle="tooltip" data-placement="right" title="Invoice Paid" data-field="invoiced" data-sortable="true" data-visible="{{ columns_visible.invoice.paid }}">Paid</th>
                 <th data-sort-name="hidden-client" data-sortable="true">Client</th>
                 <th data-field="hidden-client" data-sortable="true" data-visible="false">Hidden Client</th>
+                <th data-sort-name="hidden-user" data-sortable="true">User</th>
+                <th data-field="hidden-user" data-sortable="true" data-visible="false">Hidden User</th>
                 <th data-sort-name="subject" data-sortable="true">Subject</th>
                 <th data-field="project" data-sortable="true">Project</th>
                 <th data-sort-name="hidden-issue-date" data-sortable="true">Issue Date</th>
@@ -22,6 +24,8 @@
                 <td>{% if item.last_payment_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
                 {% if item.client %}<td><a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                 <td>{{ item.client }}</td>
+                {% if item.user %}<td><a href="{% url 'user_view' item.user.pk %}">{{ item.user.get_full_name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
+                <td>{{ item.user }}</td>
                 <td>{{ item.subject|default:'' }}</td>
                 {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                 <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
