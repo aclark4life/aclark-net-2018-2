@@ -853,7 +853,10 @@ def gravatar_url(email):
     """
     MD5 hash of email address for use with Gravatar
     """
-    return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+    try:
+        return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
+    except:
+        return django_settings.GRAVATAR_URL % md5('db@aclark.net').hexdigest()
 
 
 def has_profile(user):
