@@ -57,7 +57,7 @@
                   {% if item.client %}
                   {{ item.client.address|linebreaksbr|default:'' }}
                   {% elif item.user %}
-                  {{ item.user.profile.address|linebreaksbr|default:'' }}
+                  {{ item.user.profile.address|default:'' }}
                   {% endif %}
                 </td>
               </tr>
