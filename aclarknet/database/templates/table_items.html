@@ -6,7 +6,9 @@
             <tbody>
             {% for item in items %}
               {% for key, value in item.fields.items %}
+                {% if not key in exclude_fields %}
               <tr><td valign="top"><strong>{{ key }}</strong></td><td>{{ value|default:''|safe }} </td></tr>
+                {% endif %}
               {% endfor %}
             {% endfor %}
             </tbody>
