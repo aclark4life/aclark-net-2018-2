@@ -598,7 +598,7 @@ def get_page_items(**kwargs):
             items = []
             fields = get_fields([user.profile, ])  # table_items.html
             for field in fields:
-                if field in INCLUDE_FIELDS:
+                if field.name in INCLUDE_FIELDS:
                     items.append(field)
             context['item'] = user
             context['items'] = items
