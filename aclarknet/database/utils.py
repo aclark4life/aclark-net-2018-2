@@ -274,7 +274,10 @@ def get_fields(items, exclude_fields=None):
         for field in fields:
             if not field.is_relation and field.name not in exclude_fields:
                 field_name = field.name.title().replace('_', ' ')
-                item.fields[field_name] = getattr(item, field.name)
+                value = getattr(item, field.name)
+                if value:
+                    value = value.title()
+                item.fields[field_name] = value
     return items
 
 
