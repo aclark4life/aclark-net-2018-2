@@ -595,9 +595,13 @@ def get_page_items(**kwargs):
                 estimate=None, invoiced=False, user=user)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
-            context['include_fields'] = INCLUDE_FIELDS
+            items = []
+            fields = get_fields([user.profile, ])  # table_items.html
+            for field in fields:
+                if field in INCLUDE_FIELDS:
+                    items.append(field.title.replace('_', ' ')
             context['item'] = user
-            context['items'] = get_fields([user.profile, ])  # table_items.html
+            context['items'] = items
             context['projects'] = projects
             context['times'] = times
     else:  # home
