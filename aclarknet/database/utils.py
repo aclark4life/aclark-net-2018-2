@@ -34,8 +34,8 @@ from operator import or_ as OR
 
 fake = Faker()
 
-EXCLUDE_FIELDS = ('id', 'created', 'updated')
 EXCLUDE_MODELS = ('note', 'invoice', 'project', 'task')
+INCLUDE_FIELDS = ('id', 'created', 'updated')
 
 URL_NAMES = {
     'Settings App': ('settings_app', 'settings_app_edit', ''),  # custom meta
@@ -595,7 +595,7 @@ def get_page_items(**kwargs):
                 estimate=None, invoiced=False, user=user)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
-            context['exclude_fields'] = EXCLUDE_FIELDS
+            context['include_fields'] = INCLUDE_FIELDS
             context['item'] = user
             context['items'] = get_fields([user.profile, ])  # table_items.html
             context['projects'] = projects
