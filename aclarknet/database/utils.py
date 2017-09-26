@@ -34,7 +34,7 @@ from operator import or_ as OR
 
 fake = Faker()
 
-EXCLUDE_FIELDS = ('id', )
+EXCLUDE_FIELDS = ('id', 'created', 'updated')
 EXCLUDE_MODELS = ('note', 'invoice', 'project', 'task')
 
 URL_NAMES = {
