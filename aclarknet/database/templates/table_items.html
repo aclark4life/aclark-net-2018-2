@@ -7,7 +7,7 @@
             {% for item in items %}
               {% for key, value in item.fields.items %}
                 {% if key in include_fields %}
-              <tr><td valign="top"><strong>{{ key }}</strong></td><td>{{ value|default:''|safe }} </td></tr>
+              <tr><td valign="top"><strong>{{ key|title }}</strong></td><td>{{ value|default:''|safe }} </td></tr>
                 {% endif %}
               {% endfor %}
             {% endfor %}
