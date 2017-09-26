@@ -4,7 +4,11 @@
               <h1 style="border-bottom: none;">Time</h1>
               <form action="" method="post">{% csrf_token %}
               {{ form|crispy }}
+
               <input class="btn btn-lg btn-success" type="submit" value="Save Time Entry">
               <a class="btn btn-lg btn-secondary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>  <!-- http://stackoverflow.com/a/4406484 -->
               </form>
+{% endblock %}
+{% block js %}
+{{ form.media }}
 {% endblock %}
