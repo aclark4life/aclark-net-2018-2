@@ -590,7 +590,8 @@ def get_page_items(**kwargs):
             exclude_fields = ('id', 'created', 'updated', 'hidden', 'active',
                               'app_admin', 'is_contact', 'notify', 'published',
                               'dashboard_override', 'dashboard_choices',
-                              'editor', 'icon_size')
+                              'editor', 'icon_size', 'icon_color', 'page_size',
+                              'preferred_username', 'unit', 'avatar_url')
             user = get_object_or_404(model, pk=pk)
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
