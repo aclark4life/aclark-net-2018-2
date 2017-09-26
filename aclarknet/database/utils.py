@@ -35,7 +35,6 @@ from operator import or_ as OR
 fake = Faker()
 
 EXCLUDE_MODELS = ('note', 'invoice', 'project', 'task')
-INCLUDE_FIELDS = ('rate', 'bio', 'address', 'payment_choices')
 
 URL_NAMES = {
     'Settings App': ('settings_app', 'settings_app_edit', ''),  # custom meta
@@ -268,13 +267,14 @@ def get_company_name(model):
     return company_name
 
 
-def get_fields(items):
+def get_fields(items, exclude_fields=None):
     for item in items:
         fields = item._meta._get_fields()
         item.fields = OrderedDict()
         for field in fields:
-            if not field.is_relation:
-                item.fields[field.name] = getattr(item, field.name)
+            if not field.is_relation and field.name not in exclude_fields:
+                field_name = field.name.title().replace('_', ' ')
+                item.fields[field_name] = getattr(item, field.name)
     return items
 
 
@@ -587,6 +587,10 @@ def get_page_items(**kwargs):
             time_entry = get_object_or_404(model, pk=pk)
             context['item'] = time_entry
         elif model_name == 'user':
+            exclude_fields = ('id', 'created', 'updated', 'hidden', 'active',
+                              'app_admin', 'is_contact', 'notify', 'published',
+                              'dashboard_override', 'dashboard_choices',
+                              'editor', 'icon_size')
             user = get_object_or_404(model, pk=pk)
             projects = project_model.objects.filter(
                 team__in=[user, ], active=True)
@@ -595,13 +599,10 @@ def get_page_items(**kwargs):
                 estimate=None, invoiced=False, user=user)
             times = times.order_by(*order_by['time'])
             contacts = contact_model.objects.all()
-            items = []
-            fields = get_fields([user.profile, ])  # table_items.html
-            for field in fields:
-                if field.name in INCLUDE_FIELDS:
-                    items.append(field)
             context['item'] = user
-            context['items'] = items
+            context['items'] = get_fields(
+                [user.profile, ],
+                exclude_fields=exclude_fields)  # table_items.html
             context['projects'] = projects
             context['times'] = times
     else:  # home
@@ -864,7 +865,8 @@ def gravatar_url(email):
         return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
     except:
         # https://stackoverflow.com/a/7585378/185820
-        return django_settings.GRAVATAR_URL % md5('db@aclark.net'.encode('utf-8')).hexdigest()
+        return django_settings.GRAVATAR_URL % md5('db@aclark.net'.encode(
+            'utf-8')).hexdigest()
 
 
 def has_profile(user):

@@ -687,7 +687,9 @@ def task_index(request):
     context = get_index_items(
         model=Task,
         app_settings_model=SettingsApp,
-        order_by=('-active', 'name', ),
+        order_by=(
+            '-active',
+            'name', ),
         request=request,
         search_fields=('name', ),
         show_search=True)
