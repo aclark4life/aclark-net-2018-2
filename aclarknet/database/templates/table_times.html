@@ -38,21 +38,22 @@
               {% endfor %}
             </tbody>
           </table>
+          <h1>Total</h1>
           <table class="table">
             <tr>
               <td>
-                <h1 style="border-bottom: none">Hours</h1>
+                Hours
               </td>
               <td>
-                <h1 style="border-bottom: none">{{ total_hours }}</h1>
+                {{ total_hours }}
               </td>
             </tr>
             <tr>
               <td> 
-                <h1 style="border-bottom: none">Total</h1>
+                Earned
               </td>
               <td>
-                <h1 style="border-bottom: none">{{ company.currency_symbol }}{{ total_earned }}</h1>
+                {{ company.currency_symbol }}{{ total_earned }}
               </td>
             </tr>
           </table>
