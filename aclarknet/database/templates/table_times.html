@@ -36,19 +36,23 @@
                 <td><a class="text-{{ icon_color }}" href="{% url 'time_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
               {% endfor %}
+              <tr>
+                <td colspan=5>
+                  <h1>Total</h1>
+                </td>
+                <td>
+                  <h1>{{ company.currency_symbol }}{{ total_earned }}</h1>
+                </td>
+              </tr>
+              {% if not pdf %} 
+              <tr>
+                <td colspan=5>
+                  <h1>Hours</h1>
+                </td>
+                <td>
+                  <h1>{{ total_hours }}</h1>
+                </td>
+              </tr>
+              {% endif %}
             </tbody>
           </table>
-          {% if total_hours %}
-          <div class="row">
-            <div class="col-md-4 ml-auto">
-              <h3>Total Hours: {{ total_hours }}</h3>
-            </div>
-          </div>
-          {% endif %}
-          {% if total_earned %}
-          <div class="row">
-            <div class="col-md-4 ml-auto">
-              <h3>Total Earned: {{ company.currency_symbol }}{{ total_earned }}</h3>
-            </div>
-          </div>
-          {% endif %}
