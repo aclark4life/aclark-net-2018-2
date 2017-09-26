@@ -22,8 +22,6 @@ from django import forms
 from taggit.models import Tag
 
 
-
-
 class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -263,7 +261,6 @@ class TaskForm(forms.ModelForm):
 
 
 class TimeForm(forms.ModelForm):
-
     class Meta:
         model = Time
         fields = ('date', 'hours', 'log')
