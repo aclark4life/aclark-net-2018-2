@@ -276,7 +276,10 @@ def get_fields(items, exclude_fields=None):
                 field_name = field.name.title().replace('_', ' ')
                 value = getattr(item, field.name)
                 if value:
-                    value = value.title()
+                    try:
+                        value = value.title()
+                    except:  # Probably a decimal
+                        pass
                 item.fields[field_name] = value
     return items
 
