@@ -35,7 +35,7 @@ from operator import or_ as OR
 fake = Faker()
 
 EXCLUDE_MODELS = ('note', 'invoice', 'project', 'task')
-INCLUDE_FIELDS = ('id', 'created', 'updated')
+INCLUDE_FIELDS = ('rate', 'bio', 'address', 'payment_choices')
 
 URL_NAMES = {
     'Settings App': ('settings_app', 'settings_app_edit', ''),  # custom meta
