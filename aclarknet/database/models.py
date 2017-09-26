@@ -386,7 +386,7 @@ class Profile(BaseModel):
     avatar_url = models.URLField("Avatar URL", blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
-    payment_choices = models.CharField(
+    preferred_payment_method = models.CharField(
         'Preferred Payment Method',
         max_length=255,
         blank=True,
