@@ -19,7 +19,10 @@ from .models import Time
 from .models import DASHBOARD_CHOICES
 from .models import TEMPLATE_CHOICES
 from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
 from taggit.models import Tag
+
+
 
 
 class AdminProfileForm(forms.ModelForm):
@@ -51,6 +54,7 @@ class AdminTimeForm(forms.ModelForm):
             'user',
             'task',
             'invoiced', )
+    date = forms.DateField(widget=AdminDateWidget())
 
 
 class ClientForm(forms.ModelForm):
@@ -261,6 +265,9 @@ class TaskForm(forms.ModelForm):
 
 
 class TimeForm(forms.ModelForm):
+
     class Meta:
         model = Time
         fields = ('date', 'hours', 'log')
+
+    date = forms.DateField(widget=AdminDateWidget())
