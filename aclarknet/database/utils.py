@@ -3,6 +3,7 @@ from collections import OrderedDict
 from decimal import Decimal
 from django.conf import settings as django_settings
 from django.contrib.gis.geoip2 import GeoIP2
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -172,7 +173,7 @@ def edit(request, **kwargs):
                     note_model=note_model)
                 recipients = mail_recipients(obj)
                 for first_name, email_address in recipients:
-                    mail_send(
+                    status = mail_send(
                         **mail_compose(
                             obj,
                             form=form,
@@ -180,14 +181,14 @@ def edit(request, **kwargs):
                             mail_to=email_address,
                             time_model=time_model,
                             request=request))
-                # if status:
-                #     messages.add_message(request, messages.SUCCESS,
-                #                          'Mail sent to %s!' %
-                #                          ', '.join(recipients))
-                # else:
-                #     messages.add_message(request, messages.WARNING,
-                #                          'Mail not sent to %s!' %
-                #                          ', '.join(recipients))
+                if status:
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Mail sent to %s!' %
+                                         ', '.join(recipients))
+                else:
+                    messages.add_message(request, messages.WARNING,
+                                         'Mail not sent to %s!' %
+                                         ', '.join(recipients))
     context['form'] = form
     context['is_staff'] = request.user.is_staff
     context['item'] = obj
