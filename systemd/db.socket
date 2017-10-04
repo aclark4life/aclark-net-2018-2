@@ -1,8 +1,0 @@
-[Unit]
-Description=gunicorn socket
-
-[Socket]
-ListenStream=/run/db/socket
-
-[Install]
-WantedBy=sockets.target
