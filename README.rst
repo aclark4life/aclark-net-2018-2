@@ -205,12 +205,18 @@ PostGIS
 git-lfs
 ~~~~~~~
 
-(Via https://askubuntu.com/a/799451)
+(Via https://askubuntu.com/a/799451, https://github.com/git-lfs/git-lfs/wiki/Installation#ubuntu)
 
 ::
 
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt-get install git-lfs
+
+::
+
+    cd /srv/aclarknet-database
+    git lfs fetch
+    git lfs checkout
 
 
 Features
