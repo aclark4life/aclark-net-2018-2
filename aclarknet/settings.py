@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'taggit',
     'django_ses',
     'adminsortable2',
+    'rock_n_roll',
 ]
 
 if DEBUG:

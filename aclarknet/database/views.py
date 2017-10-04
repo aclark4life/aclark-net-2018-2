@@ -386,10 +386,6 @@ def login(request):
         if user is not None:
             # https://stackoverflow.com/a/39316967/185820
             auth_login(request, user)
-            city_data = get_client_city(request)
-            log = Log(entry='%s logged in from %s' % (user, city_data))
-            log.save()
-            Profile.objects.get_or_create(user=user)
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.add_message(request, messages.WARNING, 'Login failed.')
