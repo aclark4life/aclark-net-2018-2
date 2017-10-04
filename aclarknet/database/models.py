@@ -336,6 +336,11 @@ class Note(BaseModel):
     tags = TaggableManager(blank=True, help_text='')
     note = models.TextField(blank=True, null=True)
     contacts = models.ManyToManyField('Contact', blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        limit_choices_to={'profile__active': True})
 
     def __str__(self):
         if self.title:

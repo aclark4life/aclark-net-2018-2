@@ -69,6 +69,8 @@ from rest_framework import viewsets
 
 # Create your views here.
 
+MESSAGE = "Sorry, you are not allowed to see that."
+
 
 class ClientViewSet(viewsets.ModelViewSet):
     """
@@ -454,15 +456,24 @@ def newsletter_index(request, pk=None):
 
 @login_required
 def note_view(request, pk=None):
-    context = get_page_items(
-        app_settings_model=SettingsApp, model=Note, pk=pk, request=request)
-    if context['pdf']:
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
-        return generate_pdf(
-            'pdf_note.html', context=context, file_object=response)
+    note = get_object_or_404(Note, pk=pk)
+    if not request.user.is_staff and not time_entry.user:  # No user
+        messages.add_message(request, messages.WARNING, MESSAGE)
+        return HttpResponseRedirect(reverse('home'))
+    elif (not request.user.is_staff and not time_entry.user.username ==
+          request.user.username):  # Time entry user does not match user
+        messages.add_message(request, messages.WARNING, MESSAGE)
+        return HttpResponseRedirect(reverse('home'))
     else:
-        return render(request, 'note_view.html', context)
+        context = get_page_items(
+            app_settings_model=SettingsApp, model=Note, pk=pk, request=request)
+        if context['pdf']:
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
+            return generate_pdf(
+                'pdf_note.html', context=context, file_object=response)
+        else:
+            return render(request, 'note_view.html', context)
 
 
 @login_required
@@ -477,7 +488,7 @@ def note_edit(request, pk=None):
         pk=pk)
 
 
-@login_required
+@staff_member_required
 def note_index(request, pk=None):
     context = get_index_items(
         app_settings_model=SettingsApp,
@@ -702,13 +713,12 @@ def time_view(request, pk=None):
     they are staff.
     """
     time_entry = get_object_or_404(Time, pk=pk)
-    message = 'Sorry, you are not allowed to view that time entry.'
     if not request.user.is_staff and not time_entry.user:  # No user
-        messages.add_message(request, messages.WARNING, message)
+        messages.add_message(request, messages.WARNING, MESSAGE)
         return HttpResponseRedirect(reverse('home'))
     elif (not request.user.is_staff and not time_entry.user.username ==
           request.user.username):  # Time entry user does not match user
-        messages.add_message(request, messages.WARNING, message)
+        messages.add_message(request, messages.WARNING, MESSAGE)
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
@@ -724,13 +734,12 @@ def time_edit(request, pk=None):
     """
     if pk is not None:
         time_entry = get_object_or_404(Time, pk=pk)
-        message = 'Sorry, you are not allowed to edit that time entry.'
         if not request.user.is_staff and not time_entry.user:  # No user
-            messages.add_message(request, messages.WARNING, message)
+            messages.add_message(request, messages.WARNING, MESSAGE)
             return HttpResponseRedirect(reverse('home'))
         elif (not request.user.is_staff and not time_entry.user.username ==
               request.user.username):  # Time entry user does not match user
-            messages.add_message(request, messages.WARNING, message)
+            messages.add_message(request, messages.WARNING, MESSAGE)
             return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         time_form = AdminTimeForm
@@ -779,8 +788,7 @@ def time_index(request):
 @login_required
 def user_view(request, pk=None):
     if not request.user.pk == int(pk) and not request.user.is_staff:
-        message = 'Sorry, you are not allowed to view that user.'
-        messages.add_message(request, messages.WARNING, message)
+        messages.add_message(request, messages.WARNING, MESSAGE)
         return HttpResponseRedirect(reverse('home'))
     else:
         order_by = {
@@ -805,8 +813,7 @@ def user_edit(request, pk=None):
     if pk is not None:
         if has_profile(request.user):
             if not request.user.pk == int(pk) and not request.user.is_staff:
-                message = 'Sorry, you are not allowed to edit that profile.'
-                messages.add_message(request, messages.WARNING, message)
+                messages.add_message(request, messages.WARNING, MESSAGE)
                 return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         profile_form = AdminProfileForm
