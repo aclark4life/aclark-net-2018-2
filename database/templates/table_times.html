@@ -46,7 +46,7 @@
                   <strong>Hours</strong>
                 </td>
                 <td>
-                  {{ total_hours }}
+                  {{ total_hours|default:'' }}
                 </td>
               </tr>
               <tr>
@@ -54,7 +54,7 @@
                   <strong>Earned</strong>
                 </td>
                 <td>
-                  {{ company.currency_symbol }}{{ total_earned }}
+                  {{ company.currency_symbol }}{{ total_earned|default:'' }}
                 </td>
               </tr>
             </table>
