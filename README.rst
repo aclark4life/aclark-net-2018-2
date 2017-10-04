@@ -37,6 +37,7 @@ AWS
         postgresql python python-pip python3 python3-pip python-virtualenv    \
         python3-virtualenv python-dev -y
     sudo aptitude upgrade -y
+    sudo add-apt-repository ppa:git-core/ppa
 
 systemd
 ~~~~~~~
