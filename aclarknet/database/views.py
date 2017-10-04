@@ -452,7 +452,7 @@ def newsletter_index(request, pk=None):
     return render(request, 'newsletter_index.html', context)
 
 
-@staff_member_required
+@login_required
 def note_view(request, pk=None):
     context = get_page_items(
         app_settings_model=SettingsApp, model=Note, pk=pk, request=request)
@@ -465,8 +465,7 @@ def note_view(request, pk=None):
         return render(request, 'note_view.html', context)
 
 
-# https://stackoverflow.com/a/42038839/185820
-@staff_member_required(login_url='login')
+@login_required
 def note_edit(request, pk=None):
     return edit(
         request,
@@ -478,7 +477,7 @@ def note_edit(request, pk=None):
         pk=pk)
 
 
-@staff_member_required
+@login_required
 def note_index(request, pk=None):
     context = get_index_items(
         app_settings_model=SettingsApp,
