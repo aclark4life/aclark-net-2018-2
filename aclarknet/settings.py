@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'aclarknet.database',
+    'database',
     'crispy_forms',
     'django_extensions',
     'import_export',
