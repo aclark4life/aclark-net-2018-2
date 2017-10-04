@@ -748,7 +748,7 @@ def time_edit(request, pk=None):
         pk=pk, )
 
 
-@login_required
+@staff_member_required
 def time_index(request):
     search_fields = ('client__name', 'date', 'log', 'pk', 'project__name',
                      'invoice__pk', 'user__username', 'task__name')
@@ -769,10 +769,11 @@ def time_index(request):
         request=request,
         search_fields=search_fields,
         show_search=True)
-    if not request.user.is_staff:
-        return HttpResponseRedirect(reverse('login'))
-    else:
-        return render(request, 'time_index.html', context)
+    # if not request.user.is_staff:
+    #     return HttpResponseRedirect(reverse('login'))
+    # else:
+    #     return render(request, 'time_index.html', context)
+    return render(request, 'time_index.html', context)
 
 
 @login_required
