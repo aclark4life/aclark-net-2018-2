@@ -3,8 +3,8 @@ server {
     listen [::]:443 ssl default_server;
 
     ssl    on;
-    ssl_certificate    /etc/letsencrypt/live/db.aclark.net/fullchain.pem;
-    ssl_certificate_key    /etc/letsencrypt/live/db.aclark.net/privkey.pem;
+    ssl_certificate    /etc/letsencrypt/live/db.aclark.net-0001/fullchain.pem;
+    ssl_certificate_key    /etc/letsencrypt/live/db.aclark.net-0001/privkey.pem;
 
     root /var/www/html;
 
