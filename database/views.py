@@ -46,7 +46,6 @@ from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import edit
 from .utils import generate_doc
-from .utils import get_client_city
 from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
