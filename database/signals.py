@@ -1,11 +1,12 @@
 from .models import Log
 from .models import Profile
-from .utils import get_client_city
+from .utils import get_geo_ip_data
 
 
 # https://stackoverflow.com/a/6109366
 def login_receiver(sender, user, request, **kwargs):
-    city_data = get_client_city(request)
-    log = Log(entry='%s logged in from %s' % (user, city_data))
+    geo_ip_data = get_geo_ip_data(request)
+    ip_address = request.META.get('HTTP_X_REAL_IP')
+    log = Log(entry='%s logged in from %s with IP address %s' % (user, geo_ip_data, ip_address)
     log.save()
     Profile.objects.get_or_create(user=user)

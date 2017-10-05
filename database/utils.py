@@ -34,6 +34,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 from operator import or_ as OR
 
 fake = Faker()
+geo_ip = GeoIP2()
 
 EXCLUDE_MODELS = ('note', 'invoice', 'project', 'task')
 
@@ -238,16 +239,12 @@ def generate_doc(contract):
     return document
 
 
-def get_client_city(request):
-    ip_address = get_client_ip(request)
-    geo = GeoIP2()
+def get_geo_ip_data(request, ip_address=None):
+    if not ip_address:
+        # https://stackoverflow.com/a/4581997/185820
+        ip_address = request.META.get('HTTP_X_REAL_IP')
     if ip_address:
-        return geo.city(ip_address)
-
-
-# https://stackoverflow.com/a/4581997/185820
-def get_client_ip(request):
-    return request.META.get('HTTP_X_REAL_IP')
+        return geo_ip.city(ip_address)
 
 
 def get_company_name(model):
@@ -647,7 +644,8 @@ def get_page_items(**kwargs):
                 gross, net = get_invoice_totals(invoices)
                 context['gross'] = gross
                 context['invoices'] = invoices
-                context['city_data'] = get_client_city(request)
+                context['geo_ip_data'] = get_geo_ip_data(request)
+                context['ip_address'] = request.META.get('HTTP_X_REAL_IP')
                 context['items'] = items
                 context['net'] = net
                 context['notes'] = notes

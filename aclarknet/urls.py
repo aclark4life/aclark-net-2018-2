@@ -132,10 +132,8 @@ urlpatterns = [
         views.settings_contract,
         name='settings_contract'),
     # Social
-    url('', include(
-        'django.contrib.auth.urls', namespace='auth')),
-    url('', include(
-        'social_django.urls', namespace='social')),
+    url('', include('django.contrib.auth.urls', namespace='auth')),
+    url('', include('social_django.urls', namespace='social')),
     # Task
     url(r'^task/(?P<pk>\d+)$', views.task_view, name='task_view'),
     url(r'^task/(?P<pk>\d+)/edit$', views.task_edit, name='task_edit'),
@@ -155,5 +153,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns = [url(r'^__debug__/', include(debug_toolbar.urls)),
-                   ] + urlpatterns
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
