@@ -144,8 +144,8 @@ def edit(request, **kwargs):
             if query_checkbox['condition']:
                 return set_check_boxes(obj, query_checkbox, ref,
                                        app_settings_model)
-            invoice_sent = request.POST.get('invoice_sent')  # Invoice sent
-            if invoice_sent:
+            sent = request.POST.get('sent')  # Invoice sent
+            if sent:
                 return obj_sent(obj, ref)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
@@ -268,7 +268,7 @@ def get_company_name(model):
     return company_name
 
 
-def get_fields(items, exclude_fields=None):
+def get_fields(items, exclude_fields=[]):
     for item in items:
         fields = item._meta._get_fields()
         item.fields = OrderedDict()
@@ -379,11 +379,13 @@ def get_index_items(**kwargs):
                 view_url=view_url,
                 request=request)
     # Not a search
-    if model_name in EXCLUDE_MODELS and get_setting(
-            request, app_settings_model, 'exclude_hidden'):
-        items = model.objects.exclude(hidden=True)
-    elif model_name == 'time':
+    # if model_name in EXCLUDE_MODELS and get_setting(
+    #         request, app_settings_model, 'exclude_hidden'):
+    #     items = model.objects.exclude(hidden=True)
+    if model_name == 'time':
         items = model.objects.filter(estimate=None)
+    elif model_name == 'invoice':
+        items = model.objects.filter(last_payment_date=None)
     else:
         items = model.objects.all()
     if order_by is not None:  # Order items

@@ -1,0 +1,23 @@
+          <!-- Delete form modal -->
+          <div class="modal fade bd-sent-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title">Are you sure?</h4>
+                </div>
+                <div class="modal-body">
+                    You are about to mark this invoice sent!
+                </div>
+                <div class="modal-footer">
+                  <form action="{% url edit_url item.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success" name="sent" type="submit" value="X" onChange="this.form.submit()"><i class="fa fa-check"></i> Mark sent</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
