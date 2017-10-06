@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django_ses',
     'adminsortable2',
     'aclarknet.database',
-    'aclarknet.rock_n_roll',
 ]
 
 if DEBUG:

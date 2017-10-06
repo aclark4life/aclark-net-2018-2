@@ -6,7 +6,6 @@ from django.contrib.auth.signals import user_logged_in
 
 class DatabaseConfig(AppConfig):
     name = 'aclarknet.database'
-    verbose_name = "Rock ’n’ roll"
 
     def ready(self):
         from .signals import login_receiver
