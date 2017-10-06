@@ -3,6 +3,7 @@
 from django.apps import AppConfig
 from django.contrib.auth.signals import user_logged_in
 
+
 class DatabaseConfig(AppConfig):
     name = 'aclarknet.database'
     verbose_name = "Rock ’n’ roll"

@@ -174,22 +174,21 @@ def edit(request, **kwargs):
                     note_model=note_model)
                 recipients = mail_recipients(obj)
                 for first_name, email_address in recipients:
-                    status = mail_send(
-                        **mail_compose(
-                            obj,
-                            form=form,
-                            first_name=first_name,
-                            mail_to=email_address,
-                            time_model=time_model,
-                            request=request))
+                    status = mail_send(**mail_compose(
+                        obj,
+                        form=form,
+                        first_name=first_name,
+                        mail_to=email_address,
+                        time_model=time_model,
+                        request=request))
                 if status:
-                    messages.add_message(request, messages.SUCCESS,
-                                         'Mail sent to %s!' %
-                                         ', '.join(recipients))
+                    messages.add_message(
+                        request, messages.SUCCESS,
+                        'Mail sent to %s!' % ', '.join(recipients))
                 else:
-                    messages.add_message(request, messages.WARNING,
-                                         'Mail not sent to %s!' %
-                                         ', '.join(recipients))
+                    messages.add_message(
+                        request, messages.WARNING,
+                        'Mail not sent to %s!' % ', '.join(recipients))
     context['form'] = form
     context['is_staff'] = request.user.is_staff
     context['item'] = obj
@@ -475,15 +474,19 @@ def get_page_items(**kwargs):
         context['view_url'] = '%s_view' % model_name
         if model_name == 'Settings App':
             app_settings = app_settings_model.get_solo()
-            context['items'] = get_fields([app_settings, ])  # table_items.html
+            context['items'] = get_fields([
+                app_settings,
+            ])  # table_items.html
         elif model_name == 'Settings Company':
             company_settings = model.get_solo()
-            context['items'] = get_fields([company_settings,
-                                           ])  # table_items.html
+            context['items'] = get_fields([
+                company_settings,
+            ])  # table_items.html
         elif model_name == 'Settings Contract':
             contract_settings = model.get_solo()
-            context['items'] = get_fields([contract_settings,
-                                           ])  # table_items.html
+            context['items'] = get_fields([
+                contract_settings,
+            ])  # table_items.html
         elif model_name == 'client':
             client = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.filter(client=client)
@@ -496,7 +499,9 @@ def get_page_items(**kwargs):
             context['projects'] = projects
         elif model_name == 'contact':
             contact = get_object_or_404(model, pk=pk)
-            context['items'] = get_fields([contact, ])  # table_items.html
+            context['items'] = get_fields([
+                contact,
+            ])  # table_items.html
             context['item'] = contact
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
@@ -600,7 +605,9 @@ def get_page_items(**kwargs):
                               'preferred_username', 'unit', 'avatar_url')
             user = get_object_or_404(model, pk=pk)
             projects = project_model.objects.filter(
-                team__in=[user, ], active=True)
+                team__in=[
+                    user,
+                ], active=True)
             projects = projects.order_by(*order_by['project'])
             times = time_model.objects.filter(
                 estimate=None, invoiced=False, user=user)
@@ -608,8 +615,9 @@ def get_page_items(**kwargs):
             contacts = contact_model.objects.all()
             context['item'] = user
             context['items'] = get_fields(
-                [user.profile, ],
-                exclude_fields=exclude_fields)  # table_items.html
+                [
+                    user.profile,
+                ], exclude_fields=exclude_fields)  # table_items.html
             context['projects'] = projects
             context['times'] = times
     else:  # home
@@ -619,7 +627,8 @@ def get_page_items(**kwargs):
                 dashboard_choices = get_setting(request, app_settings_model,
                                                 'dashboard_choices')
                 dashboard_items = [
-                    i.title.lower() for i in dashboard_item_model.objects.all()
+                    i.title.lower()
+                    for i in dashboard_item_model.objects.all()
                 ]
                 context['dashboard_choices'] = dashboard_choices
                 context['dashboard_items'] = dashboard_items
@@ -655,8 +664,8 @@ def get_page_items(**kwargs):
                 context['times'] = times
                 total_hours = get_total_hours(times)
                 context['total_hours'] = total_hours
-                context['total_earned'] = get_total_earned(request,
-                                                           total_hours)
+                context['total_earned'] = get_total_earned(
+                    request, total_hours)
     if request:
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
@@ -718,9 +727,9 @@ def get_query(request, query):
         query_checkbox_active = request.POST.get('checkbox-active')
         query_checkbox_subscribe = request.POST.get('checkbox-subscribe')
         condition = (  # if any of these exist
-            query_checkbox_active == 'on' or query_checkbox_active == 'off' or
-            query_checkbox_subscribe == 'on' or
-            query_checkbox_subscribe == 'off')
+            query_checkbox_active == 'on' or query_checkbox_active == 'off'
+            or query_checkbox_subscribe == 'on'
+            or query_checkbox_subscribe == 'off')
         query_checkbox['active'] = query_checkbox_active
         query_checkbox['subscribe'] = query_checkbox_subscribe
         query_checkbox['condition'] = condition
@@ -873,8 +882,8 @@ def gravatar_url(email):
         return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
     except:
         # https://stackoverflow.com/a/7585378/185820
-        return django_settings.GRAVATAR_URL % md5('db@aclark.net'.encode(
-            'utf-8')).hexdigest()
+        return django_settings.GRAVATAR_URL % md5(
+            'db@aclark.net'.encode('utf-8')).hexdigest()
 
 
 def has_profile(user):
@@ -900,9 +909,9 @@ def mail_compose(obj, **kwargs):
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
     elif model_name == 'estimate':
-        message = render_to_string(
-            'pdf_invoice.html', get_page_items(
-                obj=obj, time_model=time_model))
+        message = render_to_string('pdf_invoice.html',
+                                   get_page_items(
+                                       obj=obj, time_model=time_model))
         subject = obj.subject
     elif model_name == 'note':
         message = obj.note
@@ -919,8 +928,9 @@ def mail_compose(obj, **kwargs):
             })
             context['html_message'] = html_message
     else:  # python manage.py send_note
-        context['html_message'] = render_to_string('mail.html',
-                                                   {'message': message, })
+        context['html_message'] = render_to_string('mail.html', {
+            'message': message,
+        })
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
@@ -1048,8 +1058,8 @@ def paginate(items, page, page_size):
 
 def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
     model_name = obj._meta.verbose_name
-    if (query_checkbox['active'] == 'on' or
-            query_checkbox['active'] == 'off'):  # Active
+    if (query_checkbox['active'] == 'on'
+            or query_checkbox['active'] == 'off'):  # Active
         if query_checkbox['active'] == 'on':
             obj.active = True
             obj.hidden = False
@@ -1059,8 +1069,8 @@ def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
                 app_settings = app_settings_model.get_solo()
                 if app_settings.auto_hide:  # Auto-hide
                     obj.hidden = True
-    elif (query_checkbox['subscribe'] == 'on' or
-          query_checkbox['subscribe'] == 'off'):  # Subscribe
+    elif (query_checkbox['subscribe'] == 'on'
+          or query_checkbox['subscribe'] == 'off'):  # Subscribe
         if query_checkbox['active'] == 'on':
             obj.subscribed = True
         else:
@@ -1155,7 +1165,10 @@ def set_relationship(obj, request, **kwargs):
         query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
         if not request.user.is_staff:  # Staff have more than one project
-            user_projects = project_model.objects.filter(team__in=[obj.user, ])
+            user_projects = project_model.objects.filter(
+                team__in=[
+                    obj.user,
+                ])
             if len(user_projects) > 0:
                 obj.project = user_projects[0]
                 obj.task = obj.project.task

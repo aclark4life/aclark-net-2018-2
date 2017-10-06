@@ -228,7 +228,8 @@ class SettingsContractForm(forms.ModelForm):
         model = SettingsContract
         fields = '__all__'
         widgets = {
-            'parties': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'parties':
+            forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'scope_of_work':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'payment_terms':
@@ -239,14 +240,16 @@ class SettingsContractForm(forms.ModelForm):
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'authority_to_act':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-            'termination': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'termination':
+            forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'governing_laws':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'period_of_agreement':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'confidentiality':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
-            'taxes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+            'taxes':
+            forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'limited_warranty':
             forms.widgets.TextInput(attrs={'class': 'tinymce'}),
             'complete_agreement':

@@ -221,7 +221,9 @@ def error(request):
 
 @staff_member_required
 def estimate_view(request, pk=None):
-    order_by = {'time': ('date', ), }
+    order_by = {
+        'time': ('date', ),
+    }
     context = get_page_items(
         app_settings_model=SettingsApp,
         company_model=SettingsCompany,
@@ -452,10 +454,10 @@ def newsletter_index(request, pk=None):
 @login_required
 def note_view(request, pk=None):
     note = get_object_or_404(Note, pk=pk)
-    if not request.user.is_staff and not time_entry.user:  # No user
+    if not request.user.is_staff and not note.user:  # No user
         messages.add_message(request, messages.WARNING, MESSAGE)
         return HttpResponseRedirect(reverse('home'))
-    elif (not request.user.is_staff and not time_entry.user.username ==
+    elif (not request.user.is_staff and not note.user.username ==
           request.user.username):  # Time entry user does not match user
         messages.add_message(request, messages.WARNING, MESSAGE)
         return HttpResponseRedirect(reverse('home'))
@@ -530,9 +532,11 @@ def project_edit(request, pk=None):
 def project_index(request, pk=None):
     context = get_index_items(
         app_settings_model=SettingsApp,
-        columns_visible={'project': {
-            'notes': 'true',
-        }, },
+        columns_visible={
+            'project': {
+                'notes': 'true',
+            },
+        },
         model=Project,
         order_by=(
             '-active',

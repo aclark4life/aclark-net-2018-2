@@ -113,11 +113,14 @@ class Contact(BaseModel):
     def __str__(self):
         if self.email and self.first_name and self.last_name:
             return ' '.join(
-                [self.first_name, self.last_name, '<%s>' % self.email])
+                [self.first_name, self.last_name,
+                 '<%s>' % self.email])
         elif self.first_name and self.last_name:
             return ' '.join([self.first_name, self.last_name])
         elif self.first_name:
-            return ' '.join([self.first_name, ])
+            return ' '.join([
+                self.first_name,
+            ])
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
