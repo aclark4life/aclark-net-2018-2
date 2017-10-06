@@ -13,12 +13,12 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from database import views
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
 from rest_framework import routers
+from .database import views
 
 router = routers.DefaultRouter()
 router.register(r'clients', views.ClientViewSet)

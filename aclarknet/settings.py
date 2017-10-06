@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'database',
     'crispy_forms',
     'django_extensions',
     'import_export',
@@ -50,6 +49,7 @@ INSTALLED_APPS = [
     'taggit',
     'django_ses',
     'adminsortable2',
+    'aclarknet.database',
     'aclarknet.rock_n_roll',
 ]
 
