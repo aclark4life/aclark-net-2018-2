@@ -2,6 +2,7 @@
 
 from django.apps import AppConfig
 
+
 class RockNRollConfig(AppConfig):
-    name = 'rock_n_roll'
+    name = 'aclarknet.rock_n_roll'
     verbose_name = "Rock ’n’ roll"
