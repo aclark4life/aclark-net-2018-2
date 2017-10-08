@@ -162,6 +162,14 @@ def edit(request, **kwargs):
                     invoice_model=invoice_model,
                     model=model,
                     project_model=project_model)
+                message_container = {
+                    'success': 'Created %s!',
+                }
+                mail_process(
+                    obj,
+                    form=form,
+                    message_container=message_container,
+                    request=request)
                 return obj_redir(obj, pk=pk)
             except AttributeError:  # No new object. Just sending mail.
                 message_container = {
@@ -750,7 +758,7 @@ def get_recipients(obj):
         return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'note':
         return [(i.first_name, i.email) for i in obj.contacts.all()]
-    elif model_name == 'settings_company':
+    elif model_name == 'time':
         return [('Alex', 'aclark@aclark.net')]
 
 
