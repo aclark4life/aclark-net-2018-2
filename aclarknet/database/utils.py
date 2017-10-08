@@ -36,8 +36,6 @@ from operator import or_ as OR
 fake = Faker()
 geo_ip = GeoIP2()
 
-EXCLUDE_MODELS = ('note', 'invoice', 'project', 'task')
-
 URL_NAMES = {
     'Settings App': ('settings_app', 'settings_app_edit', ''),  # custom meta
     'Settings Company': ('settings_company', 'settings_company_edit', ''),
@@ -375,9 +373,6 @@ def get_index_items(**kwargs):
                 view_url=view_url,
                 request=request)
     # Not a search
-    # if model_name in EXCLUDE_MODELS and get_setting(
-    #         request, app_settings_model, 'exclude_hidden'):
-    #     items = model.objects.exclude(hidden=True)
     if model_name == 'time':
         items = model.objects.filter(estimate=None)
     elif model_name == 'invoice':
@@ -664,8 +659,6 @@ def get_page_items(**kwargs):
                 context['times'] = times
                 total_hours = get_total_hours(times)
                 context['total_hours'] = total_hours
-                # context['total_earned'] = get_total_earned(
-                #     request, total_hours)
     if request:
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
