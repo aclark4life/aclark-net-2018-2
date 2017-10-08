@@ -162,15 +162,16 @@ def edit(request, **kwargs):
                     invoice_model=invoice_model,
                     model=model,
                     project_model=project_model)
-                status_message = {
-                    'success': 'Created time entry!',
-                    'failure': 'Failed to create time entry!',
-                }
-                mail_process(
-                    obj,
-                    form=form,
-                    status_message=status_message,
-                    request=request)
+                if model_name == 'time':
+                    status_message = {
+                        'success': 'Created time entry!',
+                        'failure': 'Failed to create time entry!',
+                    }
+                    mail_process(
+                        obj,
+                        form=form,
+                        status_message=status_message,
+                        request=request)
                 return obj_redir(obj, pk=pk)
             except AttributeError:  # No new object. Just sending mail.
                 status_message = {
