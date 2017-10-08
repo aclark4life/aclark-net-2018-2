@@ -957,7 +957,7 @@ def mail_obj(request, **kwargs):
 def mail_recipients(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
-        return ((obj.first_name, obj.email), )
+        return [(obj.first_name, obj.email), ]
     if model_name == 'estimate':
         return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'note':
