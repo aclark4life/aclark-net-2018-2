@@ -724,7 +724,7 @@ class Time(BaseModel):
 
     # https://docs.djangoproject.com/en/1.9/ref/models/instances/#get-absolute-url
     def get_absolute_url(self, hostname):
-        return '%s/%s' % (hostname, reverse('log', args=[str(self.id)]))
+        return '%s/%s' % (hostname, reverse('time_view', args=[str(self.id)]))
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/model-api/
