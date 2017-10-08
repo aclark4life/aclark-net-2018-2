@@ -125,7 +125,7 @@ def edit(request, **kwargs):
             obj = obj.profile
         form = get_form(form_model=form_model, obj=obj)
     if request.method == 'POST':
-        ref = request.META['HTTP_REFERER']
+        ref = request.META.get('HTTP_REFERER')
         if pk is None:
             if model_name == 'user':  # One-off to create user
                 username = fake.text()[:150]
@@ -644,10 +644,11 @@ def get_page_items(**kwargs):
                 points = report_model.objects.filter(active=True)
                 # Totals
                 gross, net = get_invoice_totals(invoices)
+                ip_address = request.META.get('HTTP_X_REAL_IP')
                 context['gross'] = gross
                 context['invoices'] = invoices
                 context['geo_ip_data'] = get_geo_ip_data(request)
-                context['ip_address'] = request.META.get('HTTP_X_REAL_IP')
+                context['ip_address'] = ip_address
                 context['items'] = items
                 context['net'] = net
                 context['notes'] = notes
@@ -907,12 +908,15 @@ def last_month():
 
 
 def mail_compose(obj, **kwargs):
-    context = {}
-    first_name = kwargs.get('first_name')
+    """
+    Compose message based on object type.
+    """
+    model_name = obj._meta.verbose_name
+    # Get kwargs
     form = kwargs.get('form')
+    hostname = kwargs.get('hostname')
     mail_to = kwargs.get('mail_to')
     time_model = kwargs.get('time_model')
-    model_name = obj._meta.verbose_name
     if model_name == 'contact':
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
@@ -925,24 +929,28 @@ def mail_compose(obj, **kwargs):
         message = obj.note
         subject = obj.title
     elif model_name == 'time':
-        message = 'Time entry created: %s.' % obj.get_absolute_url(
-            'db.aclark.net')
+        message = '%s' % obj.get_absolute_url(hostname)
         subject = 'Time entry created.'
-    if first_name:
-        message = render_to_string('first_name.html', {
-            'first_name': first_name,
-            'message': message,
-        })
-    if form:  # http://stackoverflow.com/a/28476681/185820
-        if 'send_html' in form.data:
-            html_message = render_to_string(form.data['template'], {
-                'message': message,
-            })
-            context['html_message'] = html_message
-    else:  # python manage.py send_note
-        context['html_message'] = render_to_string('mail.html', {
-            'message': message,
-        })
+
+    # first_name = kwargs.get('first_name')
+    # if first_name:
+    #     message = render_to_string('first_name.html', {
+    #         'first_name': first_name,
+    #         'message': message,
+    #     })
+    # if form:  # http://stackoverflow.com/a/28476681/185820
+    #     # HTML message
+    #     if 'send_html' in form.data:
+    #         html_message = render_to_string(form.data['template'], {
+    #             'message': message,
+    #         })
+    #         context['html_message'] = html_message
+    # else:  # python manage.py send_note
+    #     context['html_message'] = render_to_string('mail.html', {
+    #         'message': message,
+    #     })
+
+    context = {}
     context['mail_to'] = mail_to
     context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
@@ -968,27 +976,30 @@ def mail_obj(request, **kwargs):
 
 def mail_process(obj, **kwargs):
     """
-    Message container holds success/failure messages
     """
     form = kwargs.get('form')
     status_message = kwargs.get('status_message')
     request = kwargs.get('request')
     time_model = kwargs.get('time_model')
     recipients = get_recipients(obj)
+    hostname = request.META.get('HTTP_HOST')
+    # Iterate over recipients, compose and send mail to
+    # each.
     for first_name, email_address in recipients:
         status = mail_send(**mail_compose(
             obj,
             form=form,
             first_name=first_name,
+            hostname=hostname,
             mail_to=email_address,
             time_model=time_model,
             request=request))
     if status:
         messages.add_message(request, messages.SUCCESS,
-                             status_message['success'] % recipients)
+                             status_message.get('success') % recipients)
     else:
         messages.add_message(request, messages.WARNING,
-                             status_message['failure'] % recipients)
+                             status_message.get('failure') % recipients)
 
 
 def mail_send(**kwargs):
