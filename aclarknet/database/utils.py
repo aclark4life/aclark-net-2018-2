@@ -142,8 +142,8 @@ def edit(request, **kwargs):
             if query_checkbox['condition']:
                 return set_check_boxes(obj, query_checkbox, ref,
                                        app_settings_model)
-            sent = request.POST.get('sent')  # Invoice sent
-            if sent:
+            mark_sent = request.POST.get('mark_sent')  # Invoice sent
+            if mark_sent:
                 return obj_sent(obj, ref)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
