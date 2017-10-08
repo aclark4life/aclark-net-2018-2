@@ -925,7 +925,8 @@ def mail_compose(obj, **kwargs):
         message = obj.note
         subject = obj.title
     elif model_name == 'time':
-        message = 'Time entry created: %s.' % obj.get_absolute_url()
+        message = 'Time entry created: %s.' % obj.get_absolute_url(
+            'db.aclark.net')
         subject = 'Time entry created.'
     if first_name:
         message = render_to_string('first_name.html', {
