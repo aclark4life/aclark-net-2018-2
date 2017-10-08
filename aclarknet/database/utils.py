@@ -162,17 +162,17 @@ def edit(request, **kwargs):
                     invoice_model=invoice_model,
                     model=model,
                     project_model=project_model)
-                message_container = {
+                status_message = {
                     'success': 'Created %s!',
                 }
                 mail_process(
                     obj,
                     form=form,
-                    message_container=message_container,
+                    status_message=status_message,
                     request=request)
                 return obj_redir(obj, pk=pk)
             except AttributeError:  # No new object. Just sending mail.
-                message_container = {
+                status_message = {
                     'success': 'Mail sent to %s!',
                     'failure': 'Mail not sent to %s!',
                 }
@@ -184,7 +184,7 @@ def edit(request, **kwargs):
                 mail_process(
                     obj,
                     form=form,
-                    message_container=message_container,
+                    status_message=status_message,
                     request=request)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
@@ -965,7 +965,7 @@ def mail_process(obj, **kwargs):
     Message container holds success/failure messages
     """
     form = kwargs.get('form')
-    message_container = kwargs.get('message_container')
+    status_message = kwargs.get('status_message')
     request = kwargs.get('request')
     time_model = kwargs.get('time_model')
     recipients = get_recipients(obj)
@@ -979,10 +979,10 @@ def mail_process(obj, **kwargs):
             request=request))
     if status:
         messages.add_message(request, messages.SUCCESS,
-                             message_container['success'] % recipients)
+                             status_message['success'] % recipients)
     else:
         messages.add_message(request, messages.WARNING,
-                             message_container['failure'] % recipients)
+                             status_message['failure'] % recipients)
 
 
 def mail_send(**kwargs):
