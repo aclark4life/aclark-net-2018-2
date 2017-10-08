@@ -664,8 +664,8 @@ def get_page_items(**kwargs):
                 context['times'] = times
                 total_hours = get_total_hours(times)
                 context['total_hours'] = total_hours
-                context['total_earned'] = get_total_earned(
-                    request, total_hours)
+                # context['total_earned'] = get_total_earned(
+                #     request, total_hours)
     if request:
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
