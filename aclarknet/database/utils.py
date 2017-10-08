@@ -163,7 +163,7 @@ def edit(request, **kwargs):
                     model=model,
                     project_model=project_model)
                 status_message = {
-                    'success': 'Created %s!',
+                    'success': 'Created time entry',
                 }
                 mail_process(
                     obj,
