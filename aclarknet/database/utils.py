@@ -922,6 +922,9 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
+    elif model_name == 'time':
+        message = 'Test'
+        subject = 'Test'
     if first_name:
         message = render_to_string('first_name.html', {
             'first_name': first_name,
