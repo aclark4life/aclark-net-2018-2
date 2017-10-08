@@ -941,19 +941,19 @@ def mail_compose(obj, **kwargs):
     #         'first_name': first_name,
     #         'message': message,
     #     })
-    # if form:  # http://stackoverflow.com/a/28476681/185820
-    #     # HTML message
-    #     if 'send_html' in form.data:
-    #         html_message = render_to_string(form.data['template'], {
-    #             'message': message,
-    #         })
-    #         context['html_message'] = html_message
-    # else:  # python manage.py send_note
-    #     context['html_message'] = render_to_string('mail.html', {
-    #         'message': message,
-    #     })
 
+    # If a form is passed in, use the mail template selected by the user.
     context = {}
+    if form:  # http://stackoverflow.com/a/28476681/185820
+        if 'send_html' in form.data:
+            html_message = render_to_string(form.data['template'], {
+                'message': message,
+            })
+            context['html_message'] = html_message
+    else:  # No form, must be someone running `python manage.py send_note`.
+        context['html_message'] = render_to_string('mail.html', {
+            'message': message,
+        })
     context['mail_from'] = mail_from
     context['mail_to'] = mail_to
     context['message'] = message
