@@ -911,11 +911,11 @@ def mail_compose(obj, **kwargs):
     """
     Compose message based on object type.
     """
-    model_name = obj._meta.verbose_name
-    # Get kwargs
     form = kwargs.get('form')
     hostname = kwargs.get('hostname')
+    mail_from = kwargs.get('mail_from')
     mail_to = kwargs.get('mail_to')
+    model_name = obj._meta.verbose_name
     time_model = kwargs.get('time_model')
     if model_name == 'contact':
         message = form.cleaned_data['message']
@@ -951,8 +951,8 @@ def mail_compose(obj, **kwargs):
     #     })
 
     context = {}
+    context['mail_from'] = mail_from
     context['mail_to'] = mail_to
-    context['mail_from'] = django_settings.EMAIL_FROM
     context['message'] = message
     context['subject'] = subject
     return context
@@ -978,19 +978,21 @@ def mail_process(obj, **kwargs):
     """
     """
     form = kwargs.get('form')
-    status_message = kwargs.get('status_message')
     request = kwargs.get('request')
+    status_message = kwargs.get('status_message')
     time_model = kwargs.get('time_model')
-    recipients = get_recipients(obj)
-    hostname = request.META.get('HTTP_HOST')
     # Iterate over recipients, compose and send mail to
     # each.
+    hostname = request.META.get('HTTP_HOST')
+    mail_from = django_settings.EMAIL_FROM
+    recipients = get_recipients(obj)
     for first_name, email_address in recipients:
         status = mail_send(**mail_compose(
             obj,
             form=form,
             first_name=first_name,
             hostname=hostname,
+            mail_from=mail_from,
             mail_to=email_address,
             time_model=time_model,
             request=request))
