@@ -54,7 +54,7 @@
                   <strong>Earned</strong>
                 </td>
                 <td>
-                  {{ company.currency_symbol }}{{ total_earned }}
+                  {{ company.currency_symbol }}{{ total_earned|0 }}
                 </td>
               </tr>
             </table>
