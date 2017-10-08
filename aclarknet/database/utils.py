@@ -106,7 +106,6 @@ def edit(request, **kwargs):
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
-    time_model = kwargs.get('time_model')
     user_model = kwargs.get('user_model')
     model_name = None
     if model:
@@ -148,7 +147,7 @@ def edit(request, **kwargs):
                 return obj_sent(obj, ref)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
-            try:
+            try:  # New object
                 obj = form.save()
                 if model_name == 'user':  # One-off to create profile
                     if not obj.user:  # for new user
@@ -164,27 +163,21 @@ def edit(request, **kwargs):
                     model=model,
                     project_model=project_model)
                 return obj_redir(obj, pk=pk)
-            except AttributeError:  # Mail
+            except AttributeError:  # No new object. Just sending mail.
+                message_container = {
+                    'success': 'Mail sent to %s!',
+                    'failure': 'Mail not sent to %s!',
+                }
                 obj = mail_obj(
                     request,
                     contact_model=contact_model,
                     estimate_model=estimate_model,
                     note_model=note_model)
-                recipients = mail_recipients(obj)
-                for first_name, email_address in recipients:
-                    status = mail_send(**mail_compose(
-                        obj,
-                        form=form,
-                        first_name=first_name,
-                        mail_to=email_address,
-                        time_model=time_model,
-                        request=request))
-                if status:
-                    messages.add_message(request, messages.SUCCESS,
-                                         'Mail sent to %s!' % recipients)
-                else:
-                    messages.add_message(request, messages.WARNING,
-                                         'Mail not sent to %s!' % recipients)
+                mail_process(
+                    obj,
+                    form=form,
+                    message_container=message_container,
+                    request=request)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
     context['item'] = obj
@@ -744,6 +737,23 @@ def get_query(request, query):
         return request.GET.get(query, '')
 
 
+def get_recipients(obj):
+    """
+    Returns first name and email address
+    """
+    model_name = obj._meta.verbose_name
+    if model_name == 'contact':
+        return [
+            (obj.first_name, obj.email),
+        ]
+    elif model_name == 'estimate':
+        return [(i.first_name, i.email) for i in obj.contacts.all()]
+    elif model_name == 'note':
+        return [(i.first_name, i.email) for i in obj.contacts.all()]
+    elif model_name == 'settings_company':
+        return [('Alex', 'aclark@aclark.net')]
+
+
 def get_search_results(context,
                        model,
                        search_fields,
@@ -942,16 +952,29 @@ def mail_obj(request, **kwargs):
     return obj
 
 
-def mail_recipients(obj):
-    model_name = obj._meta.verbose_name
-    if model_name == 'contact':
-        return [
-            (obj.first_name, obj.email),
-        ]
-    if model_name == 'estimate':
-        return [(i.first_name, i.email) for i in obj.contacts.all()]
-    elif model_name == 'note':
-        return [(i.first_name, i.email) for i in obj.contacts.all()]
+def mail_process(obj, **kwargs):
+    """
+    Message container holds success/failure messages
+    """
+    form = kwargs.get('form')
+    message_container = kwargs.get('message_container')
+    request = kwargs.get('request')
+    time_model = kwargs.get('time_model')
+    recipients = get_recipients(obj)
+    for first_name, email_address in recipients:
+        status = mail_send(**mail_compose(
+            obj,
+            form=form,
+            first_name=first_name,
+            mail_to=email_address,
+            time_model=time_model,
+            request=request))
+    if status:
+        messages.add_message(request, messages.SUCCESS,
+                             message_container['success'] % recipients)
+    else:
+        messages.add_message(request, messages.WARNING,
+                             message_container['failure'] % recipients)
 
 
 def mail_send(**kwargs):
