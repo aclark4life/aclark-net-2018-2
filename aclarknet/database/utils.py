@@ -184,11 +184,11 @@ def edit(request, **kwargs):
                 if status:
                     messages.add_message(
                         request, messages.SUCCESS,
-                        'Mail sent to %s!' % ', '.join(recipients))
+                        'Mail sent to %s!' % recipients)
                 else:
                     messages.add_message(
                         request, messages.WARNING,
-                        'Mail not sent to %s!' % ', '.join(recipients))
+                        'Mail not sent to %s!' % recipients)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
     context['item'] = obj
