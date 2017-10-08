@@ -180,13 +180,11 @@ def edit(request, **kwargs):
                         time_model=time_model,
                         request=request))
                 if status:
-                    messages.add_message(
-                        request, messages.SUCCESS,
-                        'Mail sent to %s!' % recipients)
+                    messages.add_message(request, messages.SUCCESS,
+                                         'Mail sent to %s!' % recipients)
                 else:
-                    messages.add_message(
-                        request, messages.WARNING,
-                        'Mail not sent to %s!' % recipients)
+                    messages.add_message(request, messages.WARNING,
+                                         'Mail not sent to %s!' % recipients)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
     context['item'] = obj
@@ -273,7 +271,7 @@ def get_fields(items, exclude_fields=[]):
                 if value:
                     try:
                         value = value.title()
-                    except:  # Probably a decimal
+                    except:  # Probably not "regular" field
                         pass
                 item.fields[field_name] = value
     return items
@@ -501,17 +499,14 @@ def get_page_items(**kwargs):
         elif model_name == 'contract':
             contract = get_object_or_404(model, pk=pk)
             estimate = contract.statement_of_work
+            times = None
             if estimate:
-                times_client = time_model.objects.filter(
+                times = time_model.objects.filter(
                     client=estimate.client,
                     estimate=None,
                     project=None,
                     invoiced=False,
                     invoice=None)
-                times_estimate = time_model.objects.filter(estimate=estimate)
-                times = times_client | times_estimate
-            else:
-                times = None
             context['doc_type'] = model_name
             context['item'] = contract
             context['times'] = times
@@ -950,7 +945,9 @@ def mail_obj(request, **kwargs):
 def mail_recipients(obj):
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
-        return [(obj.first_name, obj.email), ]
+        return [
+            (obj.first_name, obj.email),
+        ]
     if model_name == 'estimate':
         return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'note':
