@@ -951,7 +951,7 @@ def mail_compose(obj, **kwargs):
             })
             context['html_message'] = html_message
     else:  # No form, must be someone running `python manage.py send_note`.
-        context['html_message'] = render_to_string('mail.html', {
+        context['html_message'] = render_to_string('html_message.html', {
             'message': message,
         })
     context['mail_from'] = mail_from
