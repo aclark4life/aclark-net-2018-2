@@ -164,8 +164,8 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 if model_name == 'time':
                     status_message = {
-                        'success': 'Time entry created.',
-                        'failure': 'Time entry not created.',
+                        'success': 'Time entry created',
+                        'failure': 'Time entry not created',
                     }
                     mail_process(
                         obj,
