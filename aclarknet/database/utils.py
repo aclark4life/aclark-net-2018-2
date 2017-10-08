@@ -911,12 +911,15 @@ def mail_compose(obj, **kwargs):
     """
     Compose message based on object type.
     """
+    model_name = obj._meta.verbose_name
+    # Get kwargs
     form = kwargs.get('form')
     hostname = kwargs.get('hostname')
     mail_from = kwargs.get('mail_from')
     mail_to = kwargs.get('mail_to')
-    model_name = obj._meta.verbose_name
+    status_message = kwargs.get('status_message')
     time_model = kwargs.get('time_model')
+    # Conditionally create message
     if model_name == 'contact':
         message = form.cleaned_data['message']
         subject = form.cleaned_data['subject']
@@ -930,7 +933,7 @@ def mail_compose(obj, **kwargs):
         subject = obj.title
     elif model_name == 'time':
         message = '%s' % obj.get_absolute_url(hostname)
-        subject = 'Time entry created.'
+        subject = status_message.get('success')
 
     # first_name = kwargs.get('first_name')
     # if first_name:
@@ -994,6 +997,7 @@ def mail_process(obj, **kwargs):
             hostname=hostname,
             mail_from=mail_from,
             mail_to=email_address,
+            status_message=status_message,
             time_model=time_model,
             request=request))
     if status:
