@@ -1204,7 +1204,7 @@ def set_relationship(obj, request, **kwargs):
             obj.client = client
             obj.save()
     elif model_name == 'time':
-        # obj.user = request.user
+        obj.user = request.user
         query_estimate = get_query(request, 'estimate')
         query_invoice = get_query(request, 'invoice')
         query_project = get_query(request, 'project')
