@@ -47,7 +47,7 @@
                     <td>{{ item.log|default:'' }}</td>
                     {% if is_staff %}
                     <td>{{ item.client|default:'' }}</td>
-                    {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}{% else %}<td>{{ item.project|default:'' }}</td>{% endif %}
+                    {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                     <td>{{ item.task|default:'' }}</td>
                     {% if item.invoice %}<td><a href="{% url 'invoice_view' item.invoice.pk %}">{{ item.invoice.pk|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                     {% if item.estimate %}<td><a href="{% url 'estimate_view' item.estimate.pk %}">{{ item.estimate.pk|default:'' }}</a></td>{% else %}<td></td>{% endif %}
