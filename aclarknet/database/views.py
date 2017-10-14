@@ -103,7 +103,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
 @staff_member_required
 def client_view(request, pk=None):
     order_by = {
-        'projects': ('-updated', ),
+        'project': ('-updated', ),
     }
     context = get_page_items(
         app_settings_model=SettingsApp,
