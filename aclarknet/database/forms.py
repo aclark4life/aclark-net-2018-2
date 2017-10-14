@@ -182,6 +182,9 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ('active', 'hidden', 'name', 'start_date', 'end_date',
                   'notes', 'client', 'task', 'team')
+        widgets = {
+            'notes': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
+        }
 
 
 class ProposalForm(forms.ModelForm):
