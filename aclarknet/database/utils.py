@@ -290,8 +290,10 @@ def get_form(**kwargs):
     model = kwargs.get('model')
     obj = kwargs.get('obj')
     request = kwargs.get('request')
+    project_model = kwargs.get('project_model')
     user_model = kwargs.get('user_model')
     query_client = None
+    query_project = None
     query_user = None
     if request:
         query_user = get_query(request, 'user')
@@ -322,8 +324,13 @@ def get_form(**kwargs):
                     obj = model(client=client)
                 form = form_model(instance=obj)
             elif model_name == 'estimate':
-                user = get_object_or_404(user_model, pk=query_user)
-                obj = model(user=user)
+                if query_user:
+                    user = get_object_or_404(user_model, pk=query_user)
+                    obj = model(user=user)
+                elif query_project:
+                    project = get_object_or_404(
+                        project_model, pk=query_project)
+                    obj = model(project=project)
                 form = form_model(instance=obj)
             else:
                 form = form_model(initial=initial)

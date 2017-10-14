@@ -234,6 +234,7 @@ def estimate_view(request, pk=None):
         model=Estimate,
         order_by=order_by,
         pk=pk,
+        project_model=Project,
         time_model=Time,
         request=request)
     if context['pdf']:
