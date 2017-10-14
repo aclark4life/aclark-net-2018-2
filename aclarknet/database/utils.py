@@ -488,6 +488,8 @@ def get_page_items(**kwargs):
             contacts = contact_model.objects.filter(client=client)
             contracts = contract_model.objects.filter(client=client)
             projects = project_model.objects.filter(client=client)
+            if order_by:
+                projects = projects.order_by(*order_by['project'])
             context['contacts'] = contacts
             context['contracts'] = contracts
             context['item'] = client
