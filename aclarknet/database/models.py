@@ -77,7 +77,8 @@ class Client(BaseModel):
     address = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     url = models.URLField("Website", blank=True, null=True)
-    note = models.ManyToManyField('Note', blank=True)
+    note = models.ManyToManyField('Note', blank=True,
+        limit_choices_to={'active': True}, )
 
     def __str__(self):
         if self.name:
