@@ -7,14 +7,7 @@
             </div>
             <div class="col-md-3 mb-3"> 
               {% if is_staff %}
-              <div class="dropdown">
-                <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</button>
-                <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
-                <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'note_edit' %}"><i class="fa fa-sticky-note-o"></i> Note</a>
-                  <a class="dropdown-item" href="{% url 'report_edit' %}"><i class="fa fa-file-o"></i> Report</a>
-                </div>
-              </div>
+              <a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a>
               {% else %}
               <div class="dropdown">
                 <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
