@@ -10,8 +10,8 @@
                     <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'user_edit' item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Contact</a></li>
-                      <li><a class="dropdown-item" href="{% url 'estimate_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Task Order</a></li>
+                      <li><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Contacts</a></li>
+                      <li><a class="dropdown-item" href="{% url 'estimate_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Task Order</a></li>
                       <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                     </ul>
                   </div>
