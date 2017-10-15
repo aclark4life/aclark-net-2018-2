@@ -1,11 +1,11 @@
 {% load staticfiles %}
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <nav class="navbar navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="{% url 'home' %}"><img width=18 src="{% static 'favicon.ico' %}"></a>
       <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav justify-content-center">  <!-- http://stackoverflow.com/a/25044880/185820 -->
+        <ul class="navbar-nav">  <!-- http://stackoverflow.com/a/25044880/185820 -->
 {% include 'dropdown.html' %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'client' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'contact' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
