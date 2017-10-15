@@ -26,7 +26,6 @@
                 <thead>
                   <tr>
                     <th>Active</th> 
-                    <th>Hidden Active</th> 
                     <th>Name</th>
                     <th>Address</th>
                     <th>Description</th>
@@ -35,7 +34,6 @@
                 <tbody>
                   <tr>
                     <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{{ item.active }}</td>
                     <td>{% if item.url %}<a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link"></i> {{ item.name|default:'' }}</a>{% else %}<i class="fa fa-building"></i> {{ item.name|default:'' }}{% endif %}</td>
                     <td>{{ item.address|default:'' }}</td>
                     <td>{{ item.description|default:'' }}</td>
