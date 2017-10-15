@@ -1,5 +1,5 @@
 {% load staticfiles %}
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light nav-fill">
       <a class="navbar-brand" href="{% url 'home' %}"><img width=18 src="{% static 'favicon.ico' %}"></a>
       <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,10 +9,10 @@
 {% include 'dropdown.html' %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'client' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'client_index' %}">Clients</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'contact' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'contact_index' %}">Contacts</a></li>{% endif %}
-          {% if is_staff %}<li class="nav-item hover {% if active_nav == 'user' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'user_index' %}">Users</a></li><li class="nav-item border border-secondary mx-1"></li>{% endif %}
+          {% if is_staff %}<li class="nav-item hover {% if active_nav == 'user' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'user_index' %}">Users</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'note' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'report' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'report_index' %}">Reports</a></li>{% endif %}
-          {% if is_staff %}<li class="nav-item hover {% if active_nav == 'task' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'task_index' %}">Tasks</a></li><li class="nav-item border border-secondary mx-1"></li>{% endif %}
+          {% if is_staff %}<li class="nav-item hover {% if active_nav == 'task' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'estimate' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'estimate_index' %}">Estimates</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'invoice' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'project' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'project_index' %}">Projects</a></li>{% endif %}
