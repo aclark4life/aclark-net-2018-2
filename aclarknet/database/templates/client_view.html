@@ -22,13 +22,14 @@
           <!-------------------------------------------------------------------------------->
           <div class="row">
             <div class="col-md-12 my-1">
-              <table data-toggle="table" data-classes="table table-no-bordered table-hover">
+              <table class="table">
                 <thead>
                   <tr>
-                    <th data-sort-name="hidden-active" data-sortable="false" {% if active %} data-visible="false" {% endif %}>Active</th> 
-                    <th data-field="hidden-active" data-sortable="false" data-visible="false">Hidden Active</th> 
-                    <th data-sort-name="hidden-name" data-sortable="false">Name</th>
-                    <th data-sortable="false">Address</th>
+                    <th>Active</th> 
+                    <th>Hidden Active</th> 
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Description</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -36,21 +37,13 @@
                     <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
                     <td>{{ item.active }}</td>
                     <td>{% if item.url %}<a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link"></i> {{ item.name|default:'' }}</a>{% else %}<i class="fa fa-building"></i> {{ item.name|default:'' }}{% endif %}</td>
-                    <td>{{ item.address }}</td>
+                    <td>{{ item.address|default:'' }}</td>
+                    <td>{{ item.description|default:'' }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
-          <!-------------------------------------------------------------------------------->
-          {% if item.description %}
-          <div class="row">
-            <div class="col-md-12 my-1">
-              <h2>Description</h2>
-              <p>{{ item.description|default:'' }}</p>
-            </div>
-          </div>
-          {% endif %}
           <!-------------------------------------------------------------------------------->
           <div class="row">
             <div class="col-md-12 my-1">
