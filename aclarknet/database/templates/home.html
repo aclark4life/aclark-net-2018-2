@@ -9,14 +9,7 @@
               {% if is_staff %}
               <a class="btn btn-block btn-lg btn-success" href="{% url 'note_edit' %}">Add Note <i class="fa fa-plus"></i></a>
               {% else %}
-              <div class="dropdown">
-                <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                <!-- https://stackoverflow.com/questions/20646548/bootstrap-dropdown-button-with-block-level -->
-                <div class="dropdown-menu btn-block" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'time_edit' %}"><i class="fa fa-clock-o"></i> Add Time</a>
-                  <a class="dropdown-item" href="{% url 'user_edit' pk=request.user.pk %}"><i class="fa fa-user"></i> Edit Profile</a>
-                </div>
-              </div>
+              <a class="btn btn-block btn-lg btn-success" href="{% url 'time_edit' %}"> Add Time <i class="fa fa-clock-o"></i></a>
               {% endif %}
             </div>
           </div>
