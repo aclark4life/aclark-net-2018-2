@@ -283,7 +283,10 @@ class Invoice(BaseModel):
         decimal_places=2)
 
     def __str__(self):
-        return 'invoice-%s' % self.pk
+        if self.subject:
+            return self.subject
+        else:
+            return 'invoice-%s' % self.pk
 
 
 # https://docs.djangoproject.com/en/1.11/ref/contrib/gis/tutorial/#defining-a-geographic-model
