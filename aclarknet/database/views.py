@@ -226,7 +226,7 @@ def error(request):
 @staff_member_required
 def estimate_view(request, pk=None):
     order_by = {
-        'time': ('-updated', ),
+        'time': ('updated', ),
     }
     context = get_page_items(
         app_settings_model=SettingsApp,
