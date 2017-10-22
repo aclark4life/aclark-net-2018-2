@@ -422,7 +422,7 @@ def get_invoice_totals(invoices):
             invoice_amount += float(invoice.amount)
         if invoice.cog:
             invoice_cog += float(invoice.cog)
-    return invoice_amount, invoice_amount - invoice_cog
+    return invoice_amount, invoice_amount
 
 
 def get_note_info(note_model):
