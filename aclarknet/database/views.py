@@ -322,6 +322,7 @@ def home(request):
         note_model=Note,
         order_by={
             'invoice': ('-amount', ),
+            'estimate': ('-issue_date', ),
             'note': ('tags', ),
             'project': ('-updated', ),
             'time': ('-updated', ),
