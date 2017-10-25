@@ -78,6 +78,7 @@ class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
         fields = (
+            'hidden',
             'subject',
             'client',
             'project',
