@@ -317,6 +317,7 @@ def home(request):
             },
         },
         dashboard_item_model=DashboardItem,
+        estimate_model=Estimate,
         invoice_model=Invoice,
         note_model=Note,
         order_by={
