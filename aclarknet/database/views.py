@@ -840,7 +840,7 @@ def user_index(request):
         company_model=SettingsCompany,
         contact_model=Contact,
         model=User,
-        order_by=('-profile__active', '-profile__updated'),
+        order_by=('-profile__active', 'last_name', 'first_name'),
         request=request,
         show_search=False)
     return render(request, 'user_index.html', context)
