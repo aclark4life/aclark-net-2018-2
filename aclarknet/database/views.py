@@ -157,7 +157,7 @@ def contact_index(request):
     context = get_index_items(
         app_settings_model=SettingsApp,
         model=Contact,
-        order_by=('-active', 'first_name'),
+        order_by=('last_name', 'first_name'),
         request=request,
         search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'),
         show_search=True)
