@@ -636,7 +636,7 @@ def get_page_items(**kwargs):
                 context['dashboard_items'] = dashboard_items
                 # Items
                 estimates = estimate_model.objects.filter(
-                    accepted_date=None, is_to=False, is_sow=False)
+                    accepted_date=None, hidden=False, is_to=False, is_sow=False)
                 invoices = invoice_model.objects.filter(last_payment_date=None)
                 invoices = invoices.order_by(*order_by['invoice'])
                 notes = note_model.objects.filter(active=True, hidden=False)
