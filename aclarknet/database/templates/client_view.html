@@ -26,7 +26,6 @@
                 <thead>
                   <tr>
                     <th>Active</th> 
-                    <th>Name</th>
                     <th>Address</th>
                     <th>Description</th>
                   </tr>
@@ -34,69 +33,9 @@
                 <tbody>
                   <tr>
                     <td><form action="{% url 'client_edit' item.pk %}" method="post">{% csrf_token %}<input type="hidden" value="off" name="checkbox-active"><input type="checkbox" value="on" name="checkbox-active"{% if item.active %} checked {% endif %} onChange="this.form.submit()"></form></td>
-                    <td>{% if item.url %}<a href="{{ item.url }}" target="_blank"><i class="fa fa-external-link"></i> {{ item.name|default:'' }}</a>{% else %}<i class="fa fa-building"></i> {{ item.name|default:'' }}{% endif %}</td>
                     <td>{{ item.address|default:'' }}</td>
                     <td>{{ item.description|default:'' }}</td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-------------------------------------------------------------------------------->
-          <div class="row">
-            <div class="col-md-12 my-1">
-              <h2>Contacts</h2>
-            </div>
-          </div>
-          <!-------------------------------------------------------------------------------->
-          <div class="row">
-            <div class="col-md-12 my-1">
-              <table data-toggle="table" data-classes="table table-no-bordered">
-                <thead>
-                  <tr>
-                    <th data-sortable="true">First Name</th>
-                    <th data-sortable="true">Last Name</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for contact in contacts %}
-                  <tr>
-                    <td>{{ contact.first_name|default:'' }}</td>
-                    <td>{{ contact.last_name|default:'' }}</td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'contact_view' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-------------------------------------------------------------------------------->
-          <div class="row">
-            <div class="col-md-12 my-1">
-              <h2>Contracts</h2>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 my-1">
-              <table data-toggle="table" data-classes="table table-no-bordered">
-                <thead>
-                  <tr>
-                    <th data-sortable="true">Contract</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for contract in contracts %}
-                  <tr>
-                    <td>{{ contract }}</td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'contract_view' contract.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'contract_edit' contract.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i></a></td>
-                  </tr>
-                  {% endfor %}
                 </tbody>
               </table>
             </div>
@@ -137,5 +76,45 @@
               </table>
             </div>
           </div>
+          <!-------------------------------------------------------------------------------->
+          <div class="row">
+            <div class="col-md-12 my-1">
+              <h2>Contacts</h2>
+            </div>
+          </div>
+          <!-------------------------------------------------------------------------------->
+          <div class="row">
+            <div class="col-md-12 my-1">
+              <table data-toggle="table" data-classes="table table-no-bordered">
+                <thead>
+                  <tr>
+                    <th data-sortable="true">First Name</th>
+                    <th data-sortable="true">Last Name</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for contact in contacts %}
+                  <tr>
+                    <td>{{ contact.first_name|default:'' }}</td>
+                    <td>{{ contact.last_name|default:'' }}</td>
+                    <td><a class="text-{{ icon_color }}" href="{% url 'contact_view' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                    <td><a class="text-{{ icon_color }}" href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 my-1">
+              <h2 class="my-1">Notes</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 my-1">
 {% include 'notes.html' %}
+            </div>
+          </div>
 {% endblock %}
