@@ -635,6 +635,7 @@ def get_page_items(**kwargs):
                 context['dashboard_choices'] = dashboard_choices
                 context['dashboard_items'] = dashboard_items
                 # Items
+                estimates = estimate_model.objects.filter(accepted_date=None)
                 invoices = invoice_model.objects.filter(last_payment_date=None)
                 invoices = invoices.order_by(*order_by['invoice'])
                 notes = note_model.objects.filter(active=True, hidden=False)
@@ -645,6 +646,7 @@ def get_page_items(**kwargs):
                 times = time_model.objects.filter(
                     invoiced=False, user=request.user)
                 times = times.order_by(*order_by['time'])
+                items = set_items_name('estimate', items=estimates)
                 items = set_items_name('invoice', items=invoices)
                 items = set_items_name('note', items=notes, _items=items)
                 items = set_items_name('project', items=projects, _items=items)
