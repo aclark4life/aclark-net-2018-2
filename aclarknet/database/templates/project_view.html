@@ -54,7 +54,7 @@
           <div class="card note">
             <div class="card-block">
               <h2 class="card-title">Notes</h2>
-              <p class="card-text">{{ item.notes|linebreaks|default:'' }}</p>
+              <p class="card-text">{{ item.notes|safe|default:'' }}</p>
             </div>
           </div>
           {% endif %}
