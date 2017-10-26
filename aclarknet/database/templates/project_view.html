@@ -2,10 +2,10 @@
 {% load l10n %}
 {% block content %}
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
               <h1 style="border-bottom: none;"><a class="mute-url" href="{% url 'project_index' %}">Projects</a> &raquo; {{ item.name|default:'' }}</h1>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
               <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
               <div class="btn-group">
                 <button type="button" class="btn btn-success btn-lg btn-block">
