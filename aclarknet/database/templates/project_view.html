@@ -130,9 +130,11 @@
               <h2>Notes</h2>
             </div>
           </div>
+          {% if item.notes %}
           <div class="card note">
             <div class="card-block p-3">
               <p class="card-text">{{ item.notes|safe }}</p>
             </div>
           </div>
+          {% endif %}
 {% endblock %}
