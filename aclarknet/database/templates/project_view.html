@@ -8,7 +8,9 @@
             <div class="col-md-3 mb-3">
               <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
               <div class="btn-group">
-                <button type="button" class="btn btn-success">Action</button>
+                <button type="button" class="btn btn-success">
+                  <a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                </button>
                 <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
@@ -16,7 +18,6 @@
                   <a class="dropdown-item" href="{% url 'estimate_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Estimate</a>
                   <a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Invoice</a>
                   <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a>
-                  <a class="dropdown-item" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
                   <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a>
                 </div>
               </div>
