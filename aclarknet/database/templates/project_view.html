@@ -125,12 +125,12 @@
             </div>
           </div>
           <!------------------------------------------------------------------------------------>
-          {% if item.notes %}
+          <div class="row">
+            <div class="col-md-12"><h2>Notes</h2></div>
+          </div>
           <div class="card note">
             <div class="card-block p-3">
-              <h2 class="card-title">Notes</h2>
               <p class="card-text">{{ item.notes|safe }}</p>
             </div>
           </div>
-          {% endif %}
 {% endblock %}
