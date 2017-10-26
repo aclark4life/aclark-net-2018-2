@@ -53,51 +53,6 @@
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
           <!------------------------------------------------------------------------------------>
-          {% if item.notes %}
-          <div class="card note">
-            <div class="card-block p-3">
-              <h2 class="card-title">Notes</h2>
-              <p class="card-text">{{ item.notes|safe }}</p>
-            </div>
-          </div>
-          {% endif %}
-          <!------------------------------------------------------------------------------------>
-          <div class="row">
-            <div class="col-md-12">
-              <h2>Invoices</h2>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <table data-toggle="table" data-classes="table table-no-bordered">
-                <thead>
-                  <tr>
-                    <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
-                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
-                    <th data-field="issued" data-sortable="true">Issue Date</th>
-                    <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount Due</th>
-                    <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 {% for invoice in items.invoices %}
-                  <tr>
-                    <td><a href="{% url 'invoice_view' invoice.pk %}">{{ invoice.subject|default:'' }}</a></td>
-                    <td>{{ invoice.subject|default:'' }}</td>
-                    <td>{{ invoice.issue_date|default:'' }}</td>
-                    <td>{% if invoice.amount %}{{ company.currency_symbol }}{% endif %}{{ invoice.amount|default:'' }}</td>
-                    <td>{{ invoice.amount|unlocalize|default:'' }}</td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'invoice_view' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!------------------------------------------------------------------------------------>
           <div class="row">
             <div class="col-md-12">
               <h2><a class="mute-url" href="{% url 'time_index' %}">Times</a></h2>
@@ -155,4 +110,49 @@
 {% include 'table_users.html' %}
             </div>
           </div> 
+          <!------------------------------------------------------------------------------------>
+          {% if item.notes %}
+          <div class="card note">
+            <div class="card-block p-3">
+              <h2 class="card-title">Notes</h2>
+              <p class="card-text">{{ item.notes|safe }}</p>
+            </div>
+          </div>
+          {% endif %}
+          <!------------------------------------------------------------------------------------>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Invoices</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table data-toggle="table" data-classes="table table-no-bordered">
+                <thead>
+                  <tr>
+                    <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
+                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
+                    <th data-field="issued" data-sortable="true">Issue Date</th>
+                    <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount Due</th>
+                    <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 {% for invoice in items.invoices %}
+                  <tr>
+                    <td><a href="{% url 'invoice_view' invoice.pk %}">{{ invoice.subject|default:'' }}</a></td>
+                    <td>{{ invoice.subject|default:'' }}</td>
+                    <td>{{ invoice.issue_date|default:'' }}</td>
+                    <td>{% if invoice.amount %}{{ company.currency_symbol }}{% endif %}{{ invoice.amount|default:'' }}</td>
+                    <td>{{ invoice.amount|unlocalize|default:'' }}</td>
+                    <td><a class="text-{{ icon_color }}" href="{% url 'invoice_view' invoice.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                    <td><a class="text-{{ icon_color }}" href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
 {% endblock %}
