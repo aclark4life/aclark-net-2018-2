@@ -1,17 +1,16 @@
                 {% if not show_search %}
                 <div class="card px-3 py-3 mb-3">
                   <div class="card-block">
-                    {% if not note_info %}<p class="card-text text-muted">Created: <span class="float-right">{{ item.created }}</span></p>{% endif %}
-                    {% if not note_info %}<p class="card-text text-muted">Updated: <span class="float-right">{{ item.updated }}</span></p>{% endif %}
-                    {% if item.due_date %}<p class="card-text text-muted">Due: <span class="float-right">{{ item.due_date }}</span></p>{% endif %}
-                    {% if item.client_set.all %}{% if item.client_set.all.0 %}<p class="card-text text-muted">Client: <span class="float-right"><a href="{% url 'client_view' item.client_set.all.0.pk %}">{{ item.client_set.all.0 }}</a></span></p>{% endif %}{% endif %}
-                    {% if item.company_set.all %}{% if item.company_set.all.0 %}<p class="card-text text-muted">Company: <span class="float-right"><a href="{% url 'settings_company'  %}">{{ item.company_set.all.0 }}</a></span></p>{% endif %}{% endif %}
-                    {% if item.tags.all %}<p class="card-text text-muted">Tags: <span class="badge badge-dark float-right">{{ item.tags.all.0 }}</span></p>{% endif %}
-                    {% if item.contacts.all %}<p class="card-text text-muted">Contacts: <span class="float-right">{% for contact in item.contacts.all %}{{ contact }}{% if not forloop.last %}, {% endif %}{% endfor %}</span></p>{% endif %}
+                    {% if not note_info %}<p class="card-text text-muted">Created<span class="float-right">{{ item.created }}</span></p>{% endif %}
+                    {% if not note_info %}<p class="card-text text-muted">Updated<span class="float-right">{{ item.updated }}</span></p>{% endif %}
+                    {% if item.due_date %}<p class="card-text text-muted">Due<span class="float-right">{{ item.due_date }}</span></p>{% endif %}
+                    {% if item.client_set.all %}{% if item.client_set.all.0 %}<p class="card-text text-muted">Client<span class="float-right"><a href="{% url 'client_view' item.client_set.all.0.pk %}">{{ item.client_set.all.0 }}</a></span></p>{% endif %}{% endif %}
+                    {% if item.company_set.all %}{% if item.company_set.all.0 %}<p class="card-text text-muted">Company<span class="float-right"><a href="{% url 'settings_company'  %}">{{ item.company_set.all.0 }}</a></span></p>{% endif %}{% endif %}
+                    {% if item.tags.all %}<p class="card-text text-muted">Tags<span class="badge badge-dark float-right">{{ item.tags.all.0 }}</span></p>{% endif %}
+                    {% if item.contacts.all %}<p class="card-text text-muted">Contacts<span class="float-right">{% for contact in item.contacts.all %}{{ contact }}{% if not forloop.last %}, {% endif %}{% endfor %}</span></p>{% endif %}
                     {% if note_info %}<p class="card-text text-muted">Active<span class="float-right">{{ note_info.active }}</span>{% endif %}
                     {% if note_info %}<p class="card-text text-muted">Inactive<span class="float-right">{{ note_info.inactive }}</span>{% endif %}
                     {% if note_info %}<p class="card-text text-muted">Hidden<span class="float-right">{{ note_info.hidden }}</span>{% endif %}
-                    <!-- {% if note_info %}<p class="card-text text-muted">Not Hidden<span class="float-right">{{ note_info.not_hidden }}</span>{% endif %} -->
                     {% if note_info %}<p class="card-text text-muted">Total<span class="float-right">{{ note_info.total }}</span>{% endif %}
                   </div>
                 </div>
