@@ -879,15 +879,6 @@ def get_times_for_obj(obj, time_model):
     return times
 
 
-def get_total_earned(request, total_hours):
-    total_earned = 0
-    if has_profile(request.user):
-        if request.user.profile.rate:
-            rate = request.user.profile.rate
-            total_earned = total_hours * rate
-    return '%.2f' % total_earned
-
-
 def get_total_hours(items):
     hours = items.aggregate(hours=Sum(F('hours')))['hours']
     if not hours:
