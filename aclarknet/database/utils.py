@@ -575,8 +575,10 @@ def get_page_items(**kwargs):
             items = set_items_name('invoice', items=invoices, _items=items)
             items = set_items_name('time', items=times, _items=items)
             items = set_items_name('user', items=users, _items=items)
+            total_hours = get_total_hours(times)
             context['item'] = project
             context['items'] = items
+            context['total_hours'] = total_hours
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
@@ -889,6 +891,8 @@ def get_total_earned(request, total_hours):
 def get_total_hours(items):
     total_hours = items.aggregate(hours=Sum(F('hours')))
     total_hours = total_hours['hours']
+    if not total_hours:
+        return 0
     return total_hours
 
 
