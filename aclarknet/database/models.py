@@ -276,12 +276,6 @@ class Invoice(BaseModel):
         null=True)
     currency_symbol = models.CharField(
         default="$", max_length=300, blank=True, null=True)
-    cog = models.DecimalField(
-        "Cost of goods",
-        blank=True,
-        null=True,
-        max_digits=12,
-        decimal_places=2)
 
     def __str__(self):
         if self.subject:
@@ -515,8 +509,6 @@ class Report(BaseModel):
         blank=True, null=True, max_digits=12, decimal_places=2)
     net = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
-    cog = models.DecimalField(
-        blank=True, null=True, max_digits=12, decimal_places=2)
     invoices = models.ManyToManyField(
         'Invoice', blank=True, limit_choices_to={'last_payment_date': None})
 
@@ -719,12 +711,6 @@ class Time(BaseModel):
     external_reference_url = models.URLField(blank=True, null=True)
     project_code = models.IntegerField(blank=True, null=True)
     log = models.TextField(blank=True, null=True)
-    cog = models.DecimalField(
-        "Cost of goods",
-        blank=True,
-        null=True,
-        max_digits=12,
-        decimal_places=2)
 
     def __str__(self):
         return '-'.join([self._meta.verbose_name, str(self.pk)])
