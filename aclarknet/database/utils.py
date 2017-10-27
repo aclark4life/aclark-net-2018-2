@@ -351,7 +351,6 @@ def get_index_items(**kwargs):
     page_size = kwargs.get('page_size')
     request = kwargs.get('request')
     search_fields = kwargs.get('search_fields')
-    show_search = kwargs.get('show_search')
     model_name = model._meta.verbose_name
     edit_url = '%s_edit' % model_name
     view_url = '%s_view' % model_name
@@ -408,7 +407,6 @@ def get_index_items(**kwargs):
                                         'icon_color')
     context['page'] = page
     context['paginated'] = paginated
-    context['show_search'] = show_search
     items = set_items_name(model_name, items=items)
     context['items'] = items
     context['active_nav'] = model_name
@@ -799,7 +797,6 @@ def get_search_results(context,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
                                         'icon_color')
-    context['show_search'] = True
     items = set_items_name(model_name, items=items)
     context['items'] = items
     return context

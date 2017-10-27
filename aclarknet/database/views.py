@@ -129,8 +129,7 @@ def client_index(request):
         model=Client,
         order_by=('-active', 'name'),
         request=request,
-        search_fields=('address', 'name'),
-        show_search=True)
+        search_fields=('address', 'name'))
     return render(request, 'client_index.html', context)
 
 
@@ -159,8 +158,7 @@ def contact_index(request):
         model=Contact,
         order_by=('-active', 'last_name', 'first_name'),
         request=request,
-        search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'),
-        show_search=True)
+        search_fields=('first_name', 'last_name', 'email', 'notes', 'pk'))
     return render(request, 'contact_index.html', context)
 
 
@@ -266,8 +264,7 @@ def estimate_index(request):
         model=Estimate,
         order_by=('-issue_date', ),
         search_fields=('subject', ),
-        request=request,
-        show_search=True)
+        request=request)
     return render(request, 'estimate_index.html', context)
 
 
@@ -379,8 +376,7 @@ def invoice_index(request):
         model=Invoice,
         order_by=('-amount', ),
         request=request,
-        search_fields=search_fields,
-        show_search=True)
+        search_fields=search_fields)
     return render(request, 'invoice_index.html', context)
 
 
@@ -499,8 +495,7 @@ def note_index(request, pk=None):
         model=Note,
         order_by=('-active', 'tags'),
         request=request,
-        search_fields=('note', 'title'),
-        show_search=True)
+        search_fields=('note', 'title'))
     return render(request, 'note_index.html', context)
 
 
@@ -549,8 +544,7 @@ def project_index(request, pk=None):
             '-active',
             '-updated', ),
         request=request,
-        search_fields=('id', 'name'),
-        show_search=True)
+        search_fields=('id', 'name'))
     return render(request, 'project_index.html', context)
 
 
@@ -589,8 +583,7 @@ def proposal_index(request, pk=None):
         app_settings_model=SettingsApp,
         model=Proposal,
         order_by=('-updated', ),
-        request=request,
-        show_search=True)
+        request=request)
     return render(request, 'proposal_index.html', context)
 
 
@@ -624,8 +617,7 @@ def report_index(request):
         app_settings_model=SettingsApp,
         order_by=('-date', ),
         request=request,
-        search_fields=('id', 'name', 'gross', 'net'),
-        show_search=True)
+        search_fields=('id', 'name', 'gross', 'net'))
     return render(request, 'report_index.html', context)
 
 
@@ -707,8 +699,7 @@ def task_index(request):
             '-active',
             'name', ),
         request=request,
-        search_fields=('name', ),
-        show_search=True)
+        search_fields=('name', ))
     return render(request, 'task_index.html', context)
 
 
@@ -782,12 +773,7 @@ def time_index(request):
             'invoiced',
             '-updated', ),
         request=request,
-        search_fields=search_fields,
-        show_search=True)
-    # if not request.user.is_staff:
-    #     return HttpResponseRedirect(reverse('login'))
-    # else:
-    #     return render(request, 'time_index.html', context)
+        search_fields=search_fields)
     return render(request, 'time_index.html', context)
 
 
@@ -841,6 +827,5 @@ def user_index(request):
         contact_model=Contact,
         model=User,
         order_by=('-profile__active', 'last_name', 'first_name'),
-        request=request,
-        show_search=False)
+        request=request)
     return render(request, 'user_index.html', context)
