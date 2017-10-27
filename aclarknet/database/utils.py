@@ -147,7 +147,7 @@ def edit(request, **kwargs):
                 return obj_sent(obj, ref)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
-            try:  # New object
+            try:
                 obj = form.save()
                 if model_name == 'user':  # One-off to create profile
                     if not obj.user:  # for new user
@@ -164,8 +164,7 @@ def edit(request, **kwargs):
                     project_model=project_model)
                 if model_name == 'time':
                     status_message = {
-                        'success': 'Time entry created',
-                        'failure': 'Time entry not created',
+                        'success': 'Time entry updated',
                     }
                     mail_process(
                         obj,
