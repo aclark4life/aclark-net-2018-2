@@ -563,7 +563,8 @@ def get_page_items(**kwargs):
         elif model_name == 'project':
             project = get_object_or_404(model, pk=pk)
             contacts = contact_model.objects.all()
-            estimates = estimate_model.objects.filter(project=project, is_to=False, is_sow=False)
+            estimates = estimate_model.objects.filter(
+                project=project, is_to=False, is_sow=False)
             invoices = invoice_model.objects.filter(
                 project=project, last_payment_date=None)
             times = get_times_for_obj(project, time_model)
