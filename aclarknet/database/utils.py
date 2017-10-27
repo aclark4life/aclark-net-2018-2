@@ -416,12 +416,10 @@ def get_index_items(**kwargs):
 
 
 def get_invoice_totals(invoices):
-    invoice_amount = invoice_cog = 0
+    invoice_amount = 0
     for invoice in invoices:
         if invoice.amount:
             invoice_amount += float(invoice.amount)
-        if invoice.cog:
-            invoice_cog += float(invoice.cog)
     return invoice_amount, invoice_amount
 
 
@@ -1155,12 +1153,10 @@ def set_invoice_totals(times, estimate=None, invoice=None):
             if rate:
                 time_entry_cog = rate * hours
         time_entry.amount = '%.2f' % time_entry_amount
-        time_entry.cog = '%.2f' % time_entry_cog
         invoice_amount += time_entry_amount
         invoice_cog += time_entry_cog
     if invoice:
         invoice.amount = '%.2f' % invoice_amount
-        invoice.cog = '%.2f' % invoice_cog
         invoice.save()
     elif estimate:
         estimate.amount = '%.2f' % invoice_amount
