@@ -367,7 +367,6 @@ def get_index_items(**kwargs):
     # Search is easy
     if request.method == 'POST':
         if search == u'':  # Empty search returns none
-            context['show_search'] = True
             return context
         else:
             return get_search_results(

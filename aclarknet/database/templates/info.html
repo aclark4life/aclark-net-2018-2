@@ -1,4 +1,3 @@
-                {% if not show_search %}
                 <div class="card px-3 py-3 mb-3">
                   <div class="card-block">
                     {% if item.created %}<p class="card-text text-muted">Created<span class="float-right">{{ item.created }}</span></p>{% endif %}
@@ -14,4 +13,3 @@
                     {% if note_info %}<p class="card-text text-muted">Total<span class="float-right">{{ note_info.total }}</span>{% endif %}
                   </div>
                 </div>
-                {% endif %}
