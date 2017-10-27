@@ -888,11 +888,10 @@ def get_total_earned(request, total_hours):
 
 
 def get_total_hours(items):
-    total_hours = items.aggregate(hours=Sum(F('hours')))
-    total_hours = total_hours['hours']
-    if not total_hours:
+    hours = items.aggregate(hours=Sum(F('hours')))['hours']
+    if not hours:
         return 0
-    return total_hours
+    return hours
 
 
 def gravatar_url(email):
