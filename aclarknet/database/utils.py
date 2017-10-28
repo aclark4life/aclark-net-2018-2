@@ -642,6 +642,7 @@ def get_page_items(**kwargs):
                 times = time_model.objects.filter(
                     invoiced=False, user=request.user)
                 times = times.order_by(*order_by['time'])
+                times = set_total_amount(times)
                 items = set_items_name('estimate', items=estimates)
                 items = set_items_name('invoice', items=invoices)
                 items = set_items_name('note', items=notes, _items=items)
@@ -663,6 +664,9 @@ def get_page_items(**kwargs):
                 context['projects'] = projects
                 context['times'] = times
                 total_hours = get_total_hours(times)['total']
+                total_cost = get_total_cost(projects)
+                context['cost'] = total_cost
+                context['net'] = gross - total_cost
                 context['total_hours'] = total_hours
     if request:
         context['icon_size'] = get_setting(request, app_settings_model,
@@ -877,6 +881,11 @@ def get_total_amount(invoices):
     return amount
 
 
+def get_total_cost(projects):
+    cost = projects.aggregate(cost=Sum(F('cost')))['cost']
+    return cost
+
+
 def get_total_hours(times, team=None):
     """
     Returns dict of total decimal hours. If team, users' decimal hours too.
@@ -951,14 +960,6 @@ def mail_compose(obj, **kwargs):
     elif model_name == 'time':
         message = '%s' % obj.get_absolute_url(hostname)
         subject = status_message.get('success')
-
-    # first_name = kwargs.get('first_name')
-    # if first_name:
-    #     message = render_to_string('first_name.html', {
-    #         'first_name': first_name,
-    #         'message': message,
-    #     })
-
     # If a form is passed in, use the mail template selected by the user.
     context = {}
     if form:  # http://stackoverflow.com/a/28476681/185820
