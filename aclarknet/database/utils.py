@@ -886,7 +886,11 @@ def get_total_hours(times, team=None):
     if team:
         for user in team:
             times_user = times.filter(user=user)
-            hours[user] = times_user.aggregate(hours=Sum(F('hours')))['hours']
+            hours_user = times_user.aggregate(hours=Sum(F('hours')))['hours']
+            if hours_user:
+                hours[user] = hours_user
+            else:
+                hours[user] = 0.0
     return hours
 
 
