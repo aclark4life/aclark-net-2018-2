@@ -569,8 +569,11 @@ def get_page_items(**kwargs):
             items = set_items_name('time', items=times, _items=items)
             items = set_items_name('user', items=users, _items=items)
             total_hours = get_total_hours(times, team=users)
+            context['gross'] = project.amount
+            context['cost'] = project.cost
             context['item'] = project
             context['items'] = items
+            context['net'] = float(project.amount) - float(project.cost)
             context['total_hours'] = total_hours
         elif model_name == 'proposal':
             proposal = get_object_or_404(model, pk=pk)
