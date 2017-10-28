@@ -873,19 +873,19 @@ def get_total_amount(invoices):
     return amount
 
 
-def get_total_hours(items, team=None):
+def get_total_hours(times, team=None):
     """
-    Returns dict of users' hours if team else hours
+    Returns dict of users' decimal hours if team, else decimal hours
     """
     if team:
         hours = {}
         for user in team:
-            items = items.filter(user=user)
-            hours[user] = items.aggregate(hours=Sum(F('hours')))['hours']
+            times_user = times.filter(user=user)
+            hours[user] = times_user.aggregate(hours=Sum(F('hours')))['hours']
     else:
-        hours = items.aggregate(hours=Sum(F('hours')))['hours']
+        hours = times.aggregate(hours=Sum(F('hours')))['hours']
     if not hours:
-        return 0
+        return 0.0
     return hours
 
 
