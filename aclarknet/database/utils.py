@@ -1157,7 +1157,15 @@ def set_total_amount(times, estimate=None, invoice=None, project=None):
         estimate.amount = '%.2f' % invoice_amount
         estimate.save()
     elif project:
+        cost = 0
+        team = project.team.all()
+        if team:
+            hours = get_total_hours(times, team=team)
+            for user in hours['users']:
+                rate = user.profile.rate
+                cost += rate * hours['users'][user]
         project.amount = '%.2f' % invoice_amount
+        project.cost = '%.2f' % cost
         project.save()
     return times
 

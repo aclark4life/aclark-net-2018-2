@@ -462,6 +462,8 @@ class Project(BaseModel):
         blank=True, null=True, max_digits=12, decimal_places=2)
     team_costs = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
+    cost = models.DecimalField(
+        blank=True, null=True, max_digits=12, decimal_places=2)
     expenses = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
 
