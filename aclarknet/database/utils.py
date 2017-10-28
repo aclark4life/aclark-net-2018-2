@@ -1122,22 +1122,17 @@ def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
 
 def set_total_amount(times, estimate=None, invoice=None):
     """
-    Set invoice, estimate and time totals
+    Set invoice, estimate totals
     """
-    invoice_amount = invoice_cog = 0
-    time_entry_amount = time_entry_cog = 0
+    invoice_amount = 0
+    time_entry_amount = 0
     for time_entry in times:
         hours = time_entry.hours
         if time_entry.task:
             rate = time_entry.task.rate
             time_entry_amount = rate * hours
-        if time_entry.user:
-            rate = time_entry.user.profile.rate
-            if rate:
-                time_entry_cog = rate * hours
         time_entry.amount = '%.2f' % time_entry_amount
         invoice_amount += time_entry_amount
-        invoice_cog += time_entry_cog
     if invoice:
         invoice.amount = '%.2f' % invoice_amount
         invoice.save()
