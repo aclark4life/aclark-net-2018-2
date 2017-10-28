@@ -90,7 +90,7 @@
           </div>
           <div class="row">
             <div class="col-md-12 py-1">
-              <h2>Times (Hours | Total: {{ total_hours.total }}{% if total_hours.users %}{% for user in total_hours.users.items %}, {{ user.0 }}: {{ user.1 }}{% endfor %}{% endif %})</h2>
+              <h2>Times (Total: {{ total_hours.total }}{% if total_hours.users %}{% for user in total_hours.users.items %}, {{ user.0 }}: {{ user.1 }}{% endfor %}{% endif %})</h2>
             </div>
           </div>
 {% include 'table_times.html' %}
