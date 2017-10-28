@@ -509,6 +509,7 @@ def project_view(request, pk=None):
     context = get_page_items(
         app_settings_model=SettingsApp,
         model=Project,
+        company_model=SettingsCompany,
         contact_model=Contact,
         estimate_model=Estimate,
         invoice_model=Invoice,
