@@ -450,7 +450,7 @@ class Project(BaseModel):
     notes = models.TextField(blank=True, null=True)
     total_hours = models.FloatField(blank=True, null=True)
     billable_hours = models.FloatField(blank=True, null=True)
-    billable_amount = models.DecimalField(
+    amount = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     budget = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)

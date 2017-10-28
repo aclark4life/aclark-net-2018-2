@@ -561,6 +561,7 @@ def get_page_items(**kwargs):
                 project=project, last_payment_date=None)
             times = get_times_for_obj(project, time_model)
             times = times.order_by(*order_by['time'])
+            times = set_total_amount(times, project=project)
             users = user_model.objects.filter(project=project)
             items = set_items_name('contact', items=contacts)
             items = set_items_name('estimate', items=estimates, _items=items)
@@ -1136,9 +1137,9 @@ def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
     return HttpResponseRedirect(ref)
 
 
-def set_total_amount(times, estimate=None, invoice=None):
+def set_total_amount(times, estimate=None, invoice=None, project=None):
     """
-    Set invoice, estimate totals
+    Set invoice, estimate and project totals based on task rate
     """
     invoice_amount = 0
     time_entry_amount = 0
@@ -1155,6 +1156,9 @@ def set_total_amount(times, estimate=None, invoice=None):
     elif estimate:
         estimate.amount = '%.2f' % invoice_amount
         estimate.save()
+    elif project:
+        project.amount = '%.2f' % invoice_amount
+        project.save()
     return times
 
 
