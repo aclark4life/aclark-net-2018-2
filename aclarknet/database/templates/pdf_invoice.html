@@ -74,7 +74,7 @@
               <tr>
                 <!-- Left column -->
                 <td valign="top" align="left" style="width: 16%" class="field-name border-right">Subject</td>
-                <td valign="top" align="left" style="width: 50%" class="field-value">{{ item.subject|default:'' }}</td>
+                <td valign="top" align="left" style="width: 50%" class="field-value">{{ item.subject|default:'' }}<a href="{% url 'project_view' item.project.pk %}"><i class="fa fa-arrow-circle-right"></a></td>
               </tr>
               <tr>
                 <!-- Left column -->
