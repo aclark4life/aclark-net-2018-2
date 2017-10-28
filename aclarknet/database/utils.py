@@ -165,6 +165,7 @@ def edit(request, **kwargs):
                 if model_name == 'time':
                     status_message = {
                         'success': 'Time entry updated',
+                        'failure': 'Time entry not updated',
                     }
                     mail_process(
                         obj,
@@ -174,8 +175,8 @@ def edit(request, **kwargs):
                 return obj_redir(obj, pk=pk)
             except AttributeError:  # No new object. Just sending mail.
                 status_message = {
-                    'success': 'Mail sent to %s!',
-                    'failure': 'Mail not sent to %s!',
+                    'success': 'Mail sent to %s',
+                    'failure': 'Mail not sent to %s',
                 }
                 obj = mail_obj(
                     request,
@@ -566,7 +567,7 @@ def get_page_items(**kwargs):
             items = set_items_name('invoice', items=invoices, _items=items)
             items = set_items_name('time', items=times, _items=items)
             items = set_items_name('user', items=users, _items=items)
-            total_hours = get_total_hours(times)
+            total_hours = get_total_hours(times, team=users)
             context['item'] = project
             context['items'] = items
             context['total_hours'] = total_hours
@@ -872,8 +873,17 @@ def get_total_amount(invoices):
     return amount
 
 
-def get_total_hours(items):
-    hours = items.aggregate(hours=Sum(F('hours')))['hours']
+def get_total_hours(items, team=None):
+    """
+    Returns dict of users' hours if team else hours
+    """
+    if team:
+        hours = {}
+        for user in team:
+            items = items.filter(user=user)
+            hours[user] = items.aggregate(hours=Sum(F('hours')))['hours']
+    else:
+        hours = items.aggregate(hours=Sum(F('hours')))['hours']
     if not hours:
         return 0
     return hours
