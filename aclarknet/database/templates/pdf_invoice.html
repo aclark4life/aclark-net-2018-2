@@ -94,33 +94,23 @@
                 </tr>
               </thead>
               <tbody>
-              {% for entry in entries %}
-              <tr class="border-bottom">
-                <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>
-                <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.task|default:'' }}</td>
-                <td valign="top" align="left" class="border-right" style="width: 100%">{{ entry.log|linebreaks|default:'' }}</td>
-                <td valign="top" align="right" class="border-right" style="width: 20%">{% if not pdf %}<a href="{% url 'time_view' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours }}{% endif %} <a href="{% url 'time_edit' entry.pk %}"><i class="fa fa-cog"></i></a></td>
-                <td valign="top" align="right" class="border-right" style="width: 20%">{{ company.currency_symbol }}{% if entry.task %}{{ entry.task.rate|default:'' }}{% endif %}</td>
-                <td valign="top" align="right" style="width: 20%"><strong>{{ company.currency_symbol }}{{ entry.amount|default:'0' }}</strong></td>
-              </tr>
-              {% endfor %}
-              <tr>
-                <td colspan=5>
-                  <h1>Total</h1>
-                </td>
-                <td>
-                  <h1>{{ company.currency_symbol }}{{ item.amount }}</h1>
-                </td>
-              </tr>
-              {% if not pdf %}
-              <tr>
-                <td colspan=5>
-                  <h1>Hours</h1>
-                </td>
-                <td>
-                  <h1>{{ total_hours|default:'0' }}</h1>
-                </td>
-              </tr>
-              {% endif %}
+                {% for entry in entries %}
+                <tr class="border-bottom">
+                  <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.date|date:'Y-m-d'|default:'' }}</td>
+                  <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.task|default:'' }}</td>
+                  <td valign="top" align="left" class="border-right" style="width: 100%">{{ entry.log|linebreaks|default:'' }}</td>
+                  <td valign="top" align="right" class="border-right" style="width: 20%">{% if not pdf %}<a href="{% url 'time_view' entry.pk %}">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours }}{% endif %} <a href="{% url 'time_edit' entry.pk %}"><i class="fa fa-cog"></i></a></td>
+                  <td valign="top" align="right" class="border-right" style="width: 20%">{{ company.currency_symbol }}{% if entry.task %}{{ entry.task.rate|default:'' }}{% endif %}</td>
+                  <td valign="top" align="right" style="width: 20%"><strong>{{ company.currency_symbol }}{{ entry.amount|default:'0' }}</strong></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan=5>
+                    <h1>Total</h1>
+                  </td>
+                  <td>
+                    <h1>{{ company.currency_symbol }}{{ item.amount }}</h1>
+                  </td>
+                </tr>
               </tbody>
             </table>
