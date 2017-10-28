@@ -196,7 +196,7 @@ def edit(request, **kwargs):
         context['company'] = company
     if invoice_model:  # Dashboard totals for reporting
         invoices = invoice_model.objects.filter(last_payment_date=None)
-        gross = get_invoice_totals(invoices)
+        gross = get_total_amount(invoices)
         context['gross'] = gross
     elif contact_model:
         model_name = contact_model._meta.verbose_name
@@ -309,7 +309,7 @@ def get_form(**kwargs):
             if model_name == 'report' and invoice_model:  # Populate new report
                 # with gross
                 invoices = invoice_model.objects.filter(last_payment_date=None)
-                gross = get_invoice_totals(invoices)
+                gross = get_total_amount(invoices)
                 obj = model(gross=gross)
                 form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
@@ -408,11 +408,6 @@ def get_index_items(**kwargs):
     context['items'] = items
     context['active_nav'] = model_name
     return context
-
-
-def get_invoice_totals(invoices):
-    amount = invoices.aggregate(amount=Sum(F('amount')))['amount']
-    return amount
 
 
 def get_note_info(note_model):
@@ -526,7 +521,7 @@ def get_page_items(**kwargs):
             times = time_model.objects.filter(estimate=estimate)
             if order_by:
                 times = times.order_by(*order_by['time'])
-            times = set_invoice_totals(times, estimate=estimate)
+            times = set_total_amount(times, estimate=estimate)
             total_hours = get_total_hours(times)
             context['doc_type'] = doc_type
             context['entries'] = times
@@ -540,7 +535,7 @@ def get_page_items(**kwargs):
             invoice = get_object_or_404(model, pk=pk)
             times = get_times_for_obj(invoice, time_model)
             times = times.order_by(*order_by['time'])
-            times = set_invoice_totals(times, invoice=invoice)
+            times = set_total_amount(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
             total_hours = get_total_hours(times)
             context['doc_type'] = model_name
@@ -650,7 +645,7 @@ def get_page_items(**kwargs):
                 # Plot
                 points = report_model.objects.filter(active=True)
                 # Totals
-                gross = get_invoice_totals(invoices)
+                gross = get_total_amount(invoices)
                 ip_address = request.META.get('HTTP_X_REAL_IP')
                 context['gross'] = gross
                 context['invoices'] = invoices
@@ -870,6 +865,11 @@ def get_times_for_obj(obj, time_model):
         times = time_model.objects.filter(
             invoiced=False, estimate=None, project=obj)
     return times
+
+
+def get_total_amount(invoices):
+    amount = invoices.aggregate(amount=Sum(F('amount')))['amount']
+    return amount
 
 
 def get_total_hours(items):
@@ -1120,7 +1120,7 @@ def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
     return HttpResponseRedirect(ref)
 
 
-def set_invoice_totals(times, estimate=None, invoice=None):
+def set_total_amount(times, estimate=None, invoice=None):
     """
     Set invoice, estimate and time totals
     """
