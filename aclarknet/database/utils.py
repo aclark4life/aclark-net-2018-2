@@ -196,9 +196,8 @@ def edit(request, **kwargs):
         context['company'] = company
     if invoice_model:  # Dashboard totals for reporting
         invoices = invoice_model.objects.filter(last_payment_date=None)
-        gross, net = get_invoice_totals(invoices)
+        gross = get_invoice_totals(invoices)
         context['gross'] = gross
-        context['net'] = net
     elif contact_model:
         model_name = contact_model._meta.verbose_name
     elif note_model:
@@ -308,10 +307,10 @@ def get_form(**kwargs):
         if model:
             model_name = model._meta.verbose_name
             if model_name == 'report' and invoice_model:  # Populate new report
-                # with gross, net.
+                # with gross
                 invoices = invoice_model.objects.filter(last_payment_date=None)
-                gross, net = get_invoice_totals(invoices)
-                obj = model(gross=gross, net=net)
+                gross = get_invoice_totals(invoices)
+                obj = model(gross=gross)
                 form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields
@@ -412,11 +411,8 @@ def get_index_items(**kwargs):
 
 
 def get_invoice_totals(invoices):
-    invoice_amount = 0
-    for invoice in invoices:
-        if invoice.amount:
-            invoice_amount += float(invoice.amount)
-    return invoice_amount, invoice_amount
+    amount = invoices.aggregate(amount=Sum(F('amount')))['amount']
+    return amount
 
 
 def get_note_info(note_model):
@@ -586,9 +582,7 @@ def get_page_items(**kwargs):
         elif model_name == 'report':
             report = get_object_or_404(model, pk=pk)
             reports = model.objects.filter(active=True)
-            reports = reports.aggregate(
-                gross=Sum(F('gross')), net=Sum(F('net')))
-            context['cost'] = report.gross - report.net
+            reports = reports.aggregate(gross=Sum(F('gross')))
             context['item'] = report
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
@@ -656,14 +650,13 @@ def get_page_items(**kwargs):
                 # Plot
                 points = report_model.objects.filter(active=True)
                 # Totals
-                gross, net = get_invoice_totals(invoices)
+                gross = get_invoice_totals(invoices)
                 ip_address = request.META.get('HTTP_X_REAL_IP')
                 context['gross'] = gross
                 context['invoices'] = invoices
                 context['geo_ip_data'] = get_geo_ip_data(request)
                 context['ip_address'] = ip_address
                 context['items'] = items
-                context['net'] = net
                 context['notes'] = notes
                 context['note_info'] = get_note_info(note_model)
                 context['points'] = points
