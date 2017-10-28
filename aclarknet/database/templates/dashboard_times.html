@@ -1,2 +1,2 @@
-              <h2 class="mt-3">{% if is_staff %}<a class="mute-url" href="{% url 'time_index' %}"> Times</a>{% else %} Times{% endif %}</h2>
+              <h2 class="mt-3">{% if is_staff %}<a class="mute-url" href="{% url 'time_index' %}"> Times</a>{% else %} Times{% endif %} {% if total_hours %}({{ total_hours }}){% endif %}</h2>
 {% include 'table_times.html' %}
