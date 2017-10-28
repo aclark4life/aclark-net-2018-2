@@ -1,14 +1,14 @@
                 <table class="table">
                   <thead>
+                    <th>Cost</th>
                     <th>Gross</th>
                     <th>Net</th>
-                    <th>Cost</th>
                   </thead>
                   <tbody>
                     <tr>
+                      <td>{{ company.currency_symbol }}{{ cost }}</td>
                       <td>{{ company.currency_symbol }}{{ gross }}</td>
                       <td>{{ company.currency_symbol }}{{ net }}</td>
-                      <td>{{ company.currency_symbol }}{{ cost }}</td>
                     </tr>
                   </tbody>
                 </table>
