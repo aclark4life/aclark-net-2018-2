@@ -46,6 +46,7 @@
 # https://www.gnu.org/software/make/manual/html_node/Using-Variables.html
 
 APP=app
+DOC=doc
 NAME="Alex Clark"
 PROJECT=project
 TMP:=$(shell echo `tmp`)
@@ -101,7 +102,7 @@ django-graph:
 	bin/python manage.py graph_models $(APP) -o graph_models_$(PROJECT)_$(APP).png 
 django-init: django-db-init django-app-init django-settings  # Chain
 django-install:
-	@echo "Django\ndj-database-url\n" > requirements.txt
+	@echo "Django\ndj-database-url\n\psycopg2\n" > requirements.txt
 	@$(MAKE) python-install
 django-lint: django-yapf  # Alias
 django-migrate:
@@ -116,7 +117,7 @@ django-test:
 django-settings:
 	echo "ALLOWED_HOSTS = ['*']" >> $(PROJECT)/settings.py
 	echo "AUTH_PASSWORD_VALIDATORS = [{'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', }, { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },]" >> $(PROJECT)/settings.py
-	echo "DATABASES = { 'default': dj_database_url.config(default=os.environ.get( 'DATABASE_URL', 'postgres://%s:%s@%s:%s/%s' % (os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''), os.environ.get('DB_HOST', 'localhost'), os.environ.get('DB_PORT', '5432'), os.environ.get('DB_NAME', 'project_app'))))}"
+	echo "import dj_database_url; DATABASES = { 'default': dj_database_url.config(default=os.environ.get( 'DATABASE_URL', 'postgres://%s:%s@%s:%s/%s' % (os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''), os.environ.get('DB_HOST', 'localhost'), os.environ.get('DB_PORT', '5432'), os.environ.get('DB_NAME', 'project_app'))))}" >> $(PROJECT)/settings.py
 django-shell:
 	bin/python manage.py shell
 django-static:
@@ -130,6 +131,7 @@ django-yapf:
 graph: django-graph
 migrate: django-migrate  # Alias
 migrations: django-migrations  # Alias
+static: django-static  # Alias
 su: django-su  # Alias
 
 # Git
@@ -221,7 +223,7 @@ pdf:
 # Node Package Manager
 npm: npm-init npm-install
 npm-init:
-	npm init
+	npm init -y
 npm-install:
 	npm install
 
@@ -270,9 +272,9 @@ python-serve:
 package-test:
 	bin/python setup.py test
 python-virtualenv:
-	virtualenv .
+	virtualenv --python=python2.7 .
 python-virtualenv-3:
-	virtualenv --python=python3 .
+	virtualenv --python=python3.6 .
 python-yapf:
 	-yapf -i *.py
 	-yapf -i $(PROJECT)/*.py
@@ -281,6 +283,8 @@ python-wc:
 	-wc -l *.py
 	-wc -l $(PROJECT)/*.py
 	-wc -l $(PROJECT)/$(APP)/*.py
+virtualenv: python-virtualenv  # Alias
+virtualenv-3: python-virtualenv-3  # Alias
 
 # Python Package
 package: package-init  # Alias
@@ -318,7 +322,7 @@ readme:
 # Review
 review:
 ifeq ($(UNAME), Darwin)
-	@open -a $(CODE_REVIEW_EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py`\
+	@open -a $(CODE_REVIEW_EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py | grep -v migrations`\
 		`find $(PROJECT) -name \*.html`
 else
 	@echo "Unsupported"
@@ -326,17 +330,16 @@ endif
 
 # Sphinx
 sphinx-build:
-	bin/sphinx-build -b html -d _build/doctrees . _build/html
+	bin/sphinx-build -b html -d $(DOC)/_build/doctrees $(DOC) $(DOC)/_build/html
 sphinx-init:
-	bin/sphinx-quickstart -q -p $(PROJECT)-$(APP) -a $(NAME) -v 0.0.1 $(PROJECT)
-	rsync -av --partial --progress --exclude=Makefile $(PROJECT)/ .	
+	bin/sphinx-quickstart -q -p $(PROJECT)-$(APP) -a $(NAME) -v 0.0.1 $(DOC)
 sphinx-install:
 	@echo "Sphinx\n" > requirements.txt
 	@$(MAKE) python-install
 # https://stackoverflow.com/a/32302366/185820
 sphinx-serve:
 	@echo "\n\tServing HTTP on http://0.0.0.0:8000\n"
-	pushd _build/html; ../../bin/python -m http.server
+	pushd $(DOC)/_build/html; python3 -m http.server
 
 # Ubuntu
 ubuntu-update:
@@ -359,9 +362,11 @@ vagrant-update:
 	vagrant box update
 
 # Webpack
-# Requires npm i -g create-webpack-config
 webpack-init:
-	webpack-config
+	touch entry.js
+	echo "module.exports = { entry: './entry.js', output: { filename: 'bundle.js' } }" > webpack.config.js
+webpack:
+	webpack
 
 # aclarknet-database
 APP=database
@@ -378,9 +383,6 @@ aclarknet-remote-aptitude-update:
 	ssh db "sudo aptitude update; sudo aptitude upgrade -y"
 aclarknet-remote-django-static:
 	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
-# XXX Fix me
-# aclarknet-remote-django-migrate:
-# 	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py migrate"
 aclarknet-remote-git-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
 aclarknet-remote-pip-install:
