@@ -569,8 +569,8 @@ def get_page_items(**kwargs):
             items = set_items_name('time', items=times, _items=items)
             items = set_items_name('user', items=users, _items=items)
             total_hours = get_total_hours(times, team=users)
-            context['gross'] = project.amount
-            context['cost'] = project.cost
+            context['cost'] = float(project.cost)
+            context['gross'] = float(project.amount)
             context['item'] = project
             context['items'] = items
             context['net'] = float(project.amount) - float(project.cost)
