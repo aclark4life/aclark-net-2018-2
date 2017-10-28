@@ -392,7 +392,7 @@ def get_index_items(**kwargs):
     if model_name == 'note':  # Per model extras
         context['note_info'] = get_note_info(model)
     elif model_name == 'time':
-        context['total_hours'] = get_total_hours(items)
+        context['total_hours'] = get_total_hours(items)['total']
     if paginated:  # Paginate if paginated
         page_size = get_setting(
             request, app_settings_model, 'page_size', page_size=page_size)
@@ -523,7 +523,7 @@ def get_page_items(**kwargs):
             if order_by:
                 times = times.order_by(*order_by['time'])
             times = set_total_amount(times, estimate=estimate)
-            total_hours = get_total_hours(times)
+            total_hours = get_total_hours(times)['total']
             context['doc_type'] = doc_type
             context['entries'] = times
             context['item'] = estimate
@@ -538,7 +538,7 @@ def get_page_items(**kwargs):
             times = times.order_by(*order_by['time'])
             times = set_total_amount(times, invoice=invoice)
             last_payment_date = invoice.last_payment_date
-            total_hours = get_total_hours(times)
+            total_hours = get_total_hours(times)['total']
             context['doc_type'] = model_name
             context['entries'] = times
             context['item'] = invoice
@@ -658,7 +658,7 @@ def get_page_items(**kwargs):
                 context['points'] = points
                 context['projects'] = projects
                 context['times'] = times
-                total_hours = get_total_hours(times)
+                total_hours = get_total_hours(times)['total']
                 context['total_hours'] = total_hours
     if request:
         context['icon_size'] = get_setting(request, app_settings_model,
@@ -875,17 +875,18 @@ def get_total_amount(invoices):
 
 def get_total_hours(times, team=None):
     """
-    Returns dict of users' decimal hours if team, else decimal hours
+    Returns dict of total decimal hours. If team, users' decimal hours too.
     """
+    hours = {}
+    total_hours = times.aggregate(hours=Sum(F('hours')))['hours']
+    if total_hours:
+        hours['total'] = total_hours
+    else:
+        hours['total'] = 0.0
     if team:
-        hours = {}
         for user in team:
             times_user = times.filter(user=user)
             hours[user] = times_user.aggregate(hours=Sum(F('hours')))['hours']
-    else:
-        hours = times.aggregate(hours=Sum(F('hours')))['hours']
-    if not hours:
-        return 0.0
     return hours
 
 
