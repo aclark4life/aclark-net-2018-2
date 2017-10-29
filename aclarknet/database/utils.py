@@ -32,6 +32,7 @@ from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from operator import or_ as OR
+import decimal
 
 fake = Faker()
 geo_ip = GeoIP2()
@@ -1167,7 +1168,7 @@ def set_total_amount(times, estimate=None, invoice=None, project=None):
             hours = get_total_hours(times, team=team)
             for user in hours['users']:
                 rate = user.profile.rate
-                cost += rate * hours['users'][user]
+                cost += rate * decimal.Decimal(hours['users'][user])
         project.amount = '%.2f' % invoice_amount
         project.cost = '%.2f' % cost
         project.save()
