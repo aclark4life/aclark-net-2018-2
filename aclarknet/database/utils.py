@@ -667,7 +667,8 @@ def get_page_items(**kwargs):
                 total_hours = get_total_hours(times)['total']
                 total_cost = get_total_cost(projects)
                 context['cost'] = total_cost
-                context['net'] = gross - total_cost
+                if gross and total_cost:
+                    context['net'] = gross - total_cost
                 context['total_hours'] = total_hours
     if request:
         context['icon_size'] = get_setting(request, app_settings_model,
