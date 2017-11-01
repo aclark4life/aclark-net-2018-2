@@ -507,6 +507,8 @@ class Report(BaseModel):
     active = models.BooleanField(default=True)
     date = models.DateField(default=timezone.now)
     name = models.CharField(max_length=300, blank=True, null=True)
+    cost = models.DecimalField(
+        blank=True, null=True, max_digits=12, decimal_places=2)
     gross = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     net = models.DecimalField(
