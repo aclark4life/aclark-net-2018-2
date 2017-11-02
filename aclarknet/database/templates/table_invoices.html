@@ -32,8 +32,8 @@
                       <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                       <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
                       <td>{{ item.amount|unlocalize|default:'' }}</td>
-                      <td><a class="text-{{ icon_color }}" href="{% url view_url item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td> <!-- https://stackoverflow.com/a/18541484/185820 -->
-                      <td><a class="text-{{ icon_color }}" href="{% url edit_url item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                      <td><a class="text-{{ icon_color }}" href="{% url 'invoice_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td> <!-- https://stackoverflow.com/a/18541484/185820 -->
+                      <td><a class="text-{{ icon_color }}" href="{% url 'invoice_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
                       <td><a class="text-{{ icon_color }}" href="{% url 'time_edit' %}?invoice={{ item.pk }}"><i class="fa fa-clock-o fa-{{ icon_size }}" style="vertical-align: middle"></i> Add</a></td>
                     </tr>
                   {% endfor %}

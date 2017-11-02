@@ -16,5 +16,8 @@
                 </div>
               </div>
 {% include 'delete_form.html' %}
-{% include 'pdf_report.html' %}
+{% include 'table_totals.html' %}
+{% with items=items.invoices %}
+{% include 'table_invoices.html' %}
+{% endwith %}
 {% endblock %}
