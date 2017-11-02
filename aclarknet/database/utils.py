@@ -146,6 +146,9 @@ def edit(request, **kwargs):
             mark_sent = request.POST.get('mark_sent')  # Invoice sent
             if mark_sent:
                 return obj_sent(obj, ref)
+            mark_not_sent = request.POST.get('mark_not_sent')
+            if mark_not_sent:
+                return obj_sent(obj, ref, invoiced=False)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
             try:
@@ -198,7 +201,7 @@ def edit(request, **kwargs):
         context['company'] = company
     if invoice_model and project_model:  # Dashboard totals for reporting
         invoices = invoice_model.objects.filter(last_payment_date=None)
-        projects = project_model.objects.filter(invoice=invoice)
+        projects = project_model.objects.filter(invoice__in=invoices)
         gross = get_total_amount(invoices)
         total_cost = get_total_cost(projects)
         context['cost'] = total_cost
@@ -1102,12 +1105,15 @@ def obj_remove(obj):
     return HttpResponseRedirect(reverse(url_name))
 
 
-def obj_sent(obj, ref):
+def obj_sent(obj, ref, invoiced=True):
     """
     Mark time entry as invoiced when invoice sent.
     """
     for time in obj.time_set.all():
-        time.invoiced = True
+        if invoiced:
+            time.invoiced = True
+        else:
+            time.invoiced = False
         time.save()
     return HttpResponseRedirect(ref)
 
