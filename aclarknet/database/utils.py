@@ -199,12 +199,9 @@ def edit(request, **kwargs):
     if company_model:
         company = company_model.get_solo()
         context['company'] = company
-    if invoice_model and project_model:  # Dashboard totals for reporting
+    if invoice_model:  # Dashboard totals for reporting
         invoices = invoice_model.objects.filter(last_payment_date=None)
-        projects = project_model.objects.filter(invoice__in=invoices)
         gross = get_total_amount(invoices)
-        total_cost = get_total_cost(projects)
-        context['cost'] = total_cost
         context['gross'] = gross
     elif contact_model:
         model_name = contact_model._meta.verbose_name
