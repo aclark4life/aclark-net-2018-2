@@ -118,6 +118,7 @@ def edit(request, **kwargs):
             form_model=form_model,
             invoice_model=invoice_model,
             model=model,
+            project_model=project_model,
             user_model=user_model,
             request=request)
     else:  # Existing
@@ -199,10 +200,10 @@ def edit(request, **kwargs):
     if company_model:
         company = company_model.get_solo()
         context['company'] = company
-    if invoice_model:  # Dashboard totals for reporting
-        invoices = invoice_model.objects.filter(last_payment_date=None)
-        gross = get_total_amount(invoices)
-        context['gross'] = gross
+    # if invoice_model:  # Dashboard totals for reporting
+    #     invoices = invoice_model.objects.filter(last_payment_date=None)
+    #     gross = get_total_amount(invoices)
+    #     context['gross'] = gross
     elif contact_model:
         model_name = contact_model._meta.verbose_name
     elif note_model:
@@ -314,8 +315,10 @@ def get_form(**kwargs):
             if model_name == 'report' and invoice_model:  # Populate new report
                 # with gross
                 invoices = invoice_model.objects.filter(last_payment_date=None)
+                projects = project_model.objects.filter(invoice__in=invoices)
                 gross = get_total_amount(invoices)
-                obj = model(gross=gross)
+                cost = get_total_cost(projects)
+                obj = model(cost=cost, gross=gross)
                 form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields

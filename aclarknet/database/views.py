@@ -613,7 +613,8 @@ def report_edit(request, pk=None):
         form_model=ReportForm,
         model=Report,
         invoice_model=Invoice,
-        pk=pk)
+        pk=pk,
+        project_model=Project)
 
 
 @staff_member_required
