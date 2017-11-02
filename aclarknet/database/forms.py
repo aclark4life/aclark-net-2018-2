@@ -25,7 +25,7 @@ from taggit.models import Tag
 class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('rate', 'bio', 'address', 'preferred_payment_method', 'dashboard_choices')
         widgets = {
             'bio': forms.widgets.TextInput(attrs={'class': 'tinymce'}),
         }

@@ -1,26 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-              <div class="row">
-                <div class="col-md-9">
-                  <h1 style="border-bottom: none;">{% if is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; {{ item }}</h1>
-                </div>                
-                <div class="col-md-3 mb-3">
-                  {% if is_staff %}
-                  <div class="dropdown">
-                    <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'user_edit' item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Contacts</a></li>
-                      <li><a class="dropdown-item" href="{% url 'estimate_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Task Order</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                    </ul>
-                  </div>
-                  {% else %}
-                  <a class="btn btn-lg btn-block btn-success" href="{% url 'user_edit' pk=item.pk %}">Edit <i class="fa fa-cog"></i></a>
-                  {% endif %}
+          <div class="row">
+            <div class="col-md-10">
+              <h1 style="border-bottom: none;">{% if is_staff %}<a class="mute-url" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; {{ item }}</h1>
+            </div>                
+            <div class="col-md-2 mb-3">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              {% if is_staff %}
+              <div class="btn-group">
+                <a class="btn btn-block btn-lg btn-success" href="{% url 'user_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'contact_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Contacts</a></li>
+                  <li><a class="dropdown-item" href="{% url 'estimate_edit' %}?user={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add to Task Order</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
                 </div>
               </div>
+              {% else %}
+              <a class="btn btn-lg btn-block btn-success" href="{% url 'user_edit' pk=item.pk %}">Edit <i class="fa fa-cog"></i></a>
+              {% endif %}
+            </div>
+          </div>
 {% include 'delete_form.html' %}
-              <h2>Profile</h2>
+          <h2>Profile</h2>
 {% include 'table_items.html' %}
 {% endblock %}
