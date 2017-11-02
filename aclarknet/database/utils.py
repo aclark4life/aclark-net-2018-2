@@ -1109,12 +1109,18 @@ def obj_sent(obj, ref, invoiced=True):
     """
     Mark time entry as invoiced when invoice sent.
     """
+    now = timezone.now()
     for time in obj.time_set.all():
         if invoiced:
             time.invoiced = True
         else:
             time.invoiced = False
         time.save()
+    if invoiced:
+        obj.last_payment_date = now
+    else:
+        obj.last_payment_date = None
+    obj.save()
     return HttpResponseRedirect(ref)
 
 
