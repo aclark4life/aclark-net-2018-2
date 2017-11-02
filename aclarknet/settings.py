@@ -64,7 +64,8 @@ if DEBUG:
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.middleware.security.SecurityMiddleware',
-        'debug_toolbar.middleware.DebugToolbarMiddleware', )
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
 else:
     MIDDLEWARE = (
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,7 +75,8 @@ else:
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'django.middleware.security.SecurityMiddleware', )
+        'django.middleware.security.SecurityMiddleware',
+    )
 
 ROOT_URLCONF = 'aclarknet.urls'
 
@@ -103,12 +105,12 @@ WSGI_APPLICATION = 'aclarknet.wsgi.application'
 
 DATABASES = {
     'default':
-    dj_database_url.config(default=os.environ.get(
-        'DATABASE_URL', 'postgres://%s:%s@%s:%s/%s' %
-        (os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''),
-         os.environ.get('DB_HOST', 'localhost'),
-         os.environ.get('DB_PORT', '5432'),
-         os.environ.get('DB_NAME', 'aclarknet-database'))))
+    dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'postgres://%s:%s@%s:%s/%s' % (
+            os.environ.get('DB_USER', ''), os.environ.get('DB_PASS', ''),
+            os.environ.get('DB_HOST', 'localhost'), os.environ.get(
+                'DB_PORT', '5432'), os.environ.get('DB_NAME',
+                                                   'aclarknet-database'))))
 }
 
 # https://stackoverflow.com/a/21317596
@@ -145,7 +147,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Django social auth
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend', )
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(

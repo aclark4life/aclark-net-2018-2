@@ -29,5 +29,6 @@ def run(verbose=True):
         world_shp,
         world_mapping,
         transform=False,
-        encoding='iso-8859-1', )
+        encoding='iso-8859-1',
+    )
     lm.save(strict=True, verbose=verbose)

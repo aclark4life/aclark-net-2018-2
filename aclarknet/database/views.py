@@ -286,7 +286,8 @@ def file_edit(request, pk=None):
         form_model=FileForm,
         model=File,
         company_model=SettingsCompany,
-        pk=pk, )
+        pk=pk,
+    )
 
 
 @staff_member_required
@@ -295,7 +296,8 @@ def file_index(request):
         app_settings_model=SettingsApp,
         model=File,
         order_by=('-updated', ),
-        request=request, )
+        request=request,
+    )
     return render(request, 'file_index.html', context)
 
 
@@ -361,7 +363,8 @@ def invoice_edit(request, pk=None):
         model=Invoice,
         company_model=SettingsCompany,
         project_model=Project,
-        pk=pk, )
+        pk=pk,
+    )
 
 
 @staff_member_required
@@ -370,7 +373,8 @@ def invoice_index(request):
         'client__name',
         'issue_date',
         'project__name',
-        'subject', )
+        'subject',
+    )
     context = get_index_items(
         app_settings_model=SettingsApp,
         model=Invoice,
@@ -543,7 +547,8 @@ def project_index(request, pk=None):
         model=Project,
         order_by=(
             '-active',
-            '-updated', ),
+            '-updated',
+        ),
         request=request,
         search_fields=('id', 'name'))
     return render(request, 'project_index.html', context)
@@ -698,7 +703,8 @@ def task_index(request):
         app_settings_model=SettingsApp,
         order_by=(
             '-active',
-            'name', ),
+            'name',
+        ),
         request=request,
         search_fields=('name', ))
     return render(request, 'task_index.html', context)
@@ -752,7 +758,8 @@ def time_edit(request, pk=None):
         project_model=Project,
         task_model=Task,
         time_model=Time,
-        pk=pk, )
+        pk=pk,
+    )
 
 
 @staff_member_required
@@ -772,7 +779,8 @@ def time_index(request):
         },
         order_by=(
             'invoiced',
-            '-updated', ),
+            '-updated',
+        ),
         request=request,
         search_fields=search_fields)
     return render(request, 'time_index.html', context)

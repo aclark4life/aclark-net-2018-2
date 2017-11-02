@@ -274,8 +274,8 @@ def get_fields(items, exclude_fields=[]):
                 if value:
                     try:
                         value = value.title()
-                    except:  # Probably not "regular" field
-                        pass
+                    except AttributeError:  # Probably not "regular" field
+                        value = 'unknown field'
                 item.fields[field_name] = value
     return items
 
@@ -618,8 +618,11 @@ def get_page_items(**kwargs):
         if request:
             if request.user.is_authenticated:
                 # Dashboard
-                dashboard_choices = get_setting(request, app_settings_model,
-                                                'dashboard_choices')
+                if request.user.is_staff:  # Staff get a choice of dashboards
+                    dashboard_choices = get_setting(
+                        request, app_settings_model, 'dashboard_choices')
+                else:  # Users get times dashboard only
+                    dashboard_choices = 'times'
                 dashboard_items = [
                     i.title.lower()
                     for i in dashboard_item_model.objects.all()
@@ -917,7 +920,7 @@ def gravatar_url(email):
     """
     try:
         return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
-    except:
+    except AttributeError:
         # https://stackoverflow.com/a/7585378/185820
         return django_settings.GRAVATAR_URL % md5(
             'db@aclark.net'.encode('utf-8')).hexdigest()

@@ -20,7 +20,8 @@ COLOR_CHOICES = (
     ('inverse', 'Inverse'),
     ('primary', 'Primary'),
     ('success', 'Success'),
-    ('warning', 'Warning'), )
+    ('warning', 'Warning'),
+)
 
 DASHBOARD_CHOICES = (
     ('estimates', 'Estimates'),
@@ -29,30 +30,35 @@ DASHBOARD_CHOICES = (
     ('plot', 'Plot'),
     ('projects', 'Projects'),
     ('times', 'Times'),
-    ('totals', 'Totals'), )
+    ('totals', 'Totals'),
+)
 
 EDITOR_CHOICES = (
     ('ckeditor', 'CKEditor'),
-    ('tinymce', 'TinyMCE'), )
+    ('tinymce', 'TinyMCE'),
+)
 
 ICON_CHOICES = (
     ('1x', 'Small'),
     ('2x', 'Medium'),
     ('3x', 'Large'),
     ('4x', 'XL'),
-    ('5x', 'XXL'), )
+    ('5x', 'XXL'),
+)
 
 TEMPLATE_CHOICES = (
     ('html_mail.html', 'Mail'),
     ('cerberus-fluid.html', 'Fluid'),
     ('cerberus-hybrid.html', 'Hybrid'),
-    ('cerberus-responsive.html', 'Responsive'), )
+    ('cerberus-responsive.html', 'Responsive'),
+)
 
 PAYMENT_CHOICES = (
     ('', '---'),
     ('check', 'Check'),
     ('paypal', 'PayPal'),
-    ('wire', 'Wire'), )
+    ('wire', 'Wire'),
+)
 
 # Create your models here.
 
@@ -81,7 +87,8 @@ class Client(BaseModel):
     note = models.ManyToManyField(
         'Note',
         blank=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
 
     def __str__(self):
         if self.name:
@@ -101,7 +108,8 @@ class Contact(BaseModel):
         Client,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     first_name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
     title = models.CharField(max_length=300, blank=True, null=True)
@@ -133,19 +141,26 @@ class Contract(BaseModel):
     """
     title = models.CharField(max_length=300, blank=True, null=True)
     client = models.ForeignKey(
-        'Client', blank=True, null=True, limit_choices_to={'active': True})
+        'Client', blank=True, null=True, limit_choices_to={
+            'active': True
+        })
     project = models.ForeignKey(
         "Project",
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     statement_of_work = models.ForeignKey(
         'Estimate',
         blank=True,
         null=True,
-        limit_choices_to={'accepted_date': None})
+        limit_choices_to={
+            'accepted_date': None
+        })
     task = models.ForeignKey(
-        'Task', blank=True, null=True, limit_choices_to={'active': True})
+        'Task', blank=True, null=True, limit_choices_to={
+            'active': True
+        })
     body = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -188,7 +203,8 @@ class Estimate(BaseModel):
         Client,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     amount = models.DecimalField(
         "Estimate Amount",
         blank=True,
@@ -202,14 +218,16 @@ class Estimate(BaseModel):
         max_length=300,
         blank=True,
         default='United States Dollar - USD',
-        null=True, )
+        null=True,
+    )
     accepted_date = models.DateField(blank=True, null=True)
     declined_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey(
         "Project",
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     is_sow = models.BooleanField('Use for Statement of Work?', default=False)
     is_to = models.BooleanField('Use for Task Order?', default=False)
     contacts = models.ManyToManyField('Contact', blank=True)
@@ -217,7 +235,9 @@ class Estimate(BaseModel):
         settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
-        limit_choices_to={'profile__active': True})
+        limit_choices_to={
+            'profile__active': True
+        })
 
     def __str__(self):
         return 'estimate-%s' % self.pk
@@ -248,7 +268,8 @@ class Invoice(BaseModel):
         Client,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     amount = models.DecimalField(
         "Invoice Amount",
         blank=True,
@@ -268,7 +289,8 @@ class Invoice(BaseModel):
         "Project",
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     currency = models.CharField(
         default="United States Dollar - USD",
         max_length=300,
@@ -343,7 +365,9 @@ class Note(BaseModel):
         settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
-        limit_choices_to={'profile__active': True})
+        limit_choices_to={
+            'profile__active': True
+        })
 
     def __str__(self):
         if self.title:
@@ -432,18 +456,22 @@ class Project(BaseModel):
         Client,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     name = models.CharField(
         "Project Name", max_length=300, blank=True, null=True)
     task = models.ForeignKey(
         "Task",
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     team = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         blank=True,
-        limit_choices_to={'profile__active': True})
+        limit_choices_to={
+            'profile__active': True
+        })
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     code = models.IntegerField("Project Code", blank=True, null=True)
@@ -478,19 +506,26 @@ class Proposal(BaseModel):
     """
     """
     client = models.ForeignKey(
-        'Client', blank=True, null=True, limit_choices_to={'active': True})
+        'Client', blank=True, null=True, limit_choices_to={
+            'active': True
+        })
     project = models.ForeignKey(
         "Project",
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     statement_of_work = models.ForeignKey(
         'Estimate',
         blank=True,
         null=True,
-        limit_choices_to={'accepted_date': None})
+        limit_choices_to={
+            'accepted_date': None
+        })
     task = models.ForeignKey(
-        'Task', blank=True, null=True, limit_choices_to={'active': True})
+        'Task', blank=True, null=True, limit_choices_to={
+            'active': True
+        })
     title = models.CharField(max_length=300, blank=True, null=True)
     body = models.TextField(blank=True, null=True)
 
@@ -514,7 +549,9 @@ class Report(BaseModel):
     net = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
     invoices = models.ManyToManyField(
-        'Invoice', blank=True, limit_choices_to={'last_payment_date': None})
+        'Invoice', blank=True, limit_choices_to={
+            'last_payment_date': None
+        })
 
     def __str__(self):
         return 'report-%s' % self.date
@@ -672,22 +709,27 @@ class Time(BaseModel):
         Client,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     project = models.ForeignKey(
         Project,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     task = models.ForeignKey(
         Task,
         blank=True,
         null=True,
-        limit_choices_to={'active': True}, )
+        limit_choices_to={'active': True},
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         blank=True,
         null=True,
-        limit_choices_to={'profile__active': True})
+        limit_choices_to={
+            'profile__active': True
+        })
     estimate = models.ForeignKey(
         Estimate, blank=True, null=True, on_delete=models.SET_NULL)
     invoice = models.ForeignKey(
@@ -695,7 +737,9 @@ class Time(BaseModel):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        limit_choices_to={'last_payment_date': None})
+        limit_choices_to={
+            'last_payment_date': None
+        })
     date = models.DateField(default=timezone.now)
     hours = models.DecimalField(
         "Hours",
