@@ -582,12 +582,13 @@ def get_page_items(**kwargs):
             context['item'] = proposal
         elif model_name == 'report':
             report = get_object_or_404(model, pk=pk)
-            # reports = model.objects.filter(active=True)
-            # reports = reports.aggregate(gross=Sum(F('gross')))
+            reports = model.objects.filter(active=True)
+            reports = reports.aggregate(gross=Sum(F('gross')))
             invoices = report.invoices.all()
             items = set_items_name('invoice', items=invoices)
             context['item'] = report
             context['items'] = items
+            context['reports'] = reports
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
             context['item'] = task
