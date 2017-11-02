@@ -275,7 +275,7 @@ def get_fields(items, exclude_fields=[]):
                     try:
                         value = value.title()
                     except AttributeError:  # Probably not "regular" field
-                        value = 'unknown field'
+                        pass
                 item.fields[field_name] = value
     return items
 
