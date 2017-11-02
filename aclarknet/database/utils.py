@@ -320,7 +320,7 @@ def get_form(**kwargs):
                 cost = get_total_cost(projects)
                 net = gross - cost
                 obj = model(cost=cost, gross=gross, net=net)
-                form = form_model(instance=obj)
+                form = form_model(instance=obj, initial={'invoices': invoices})
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields
                 if query_user:
