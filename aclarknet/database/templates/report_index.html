@@ -41,7 +41,7 @@
                     <td>{{ item.name|default:'' }}</td>
                     <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ item.date|date:'U'|default:'' }}</td>
-                    <td>{{ item.cost }}</td>
+                    <td>{{ item.cost|default:'0.00' }}</td>
                     <td>{{ item.gross }}</td>
                     <td>{{ item.gross|unlocalize }}</td>
                     <td>{{ item.net }}</td>
