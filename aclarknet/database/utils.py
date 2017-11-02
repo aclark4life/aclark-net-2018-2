@@ -318,7 +318,8 @@ def get_form(**kwargs):
                 projects = project_model.objects.filter(invoice__in=invoices)
                 gross = get_total_amount(invoices)
                 cost = get_total_cost(projects)
-                obj = model(cost=cost, gross=gross)
+                net = gross - cost
+                obj = model(cost=cost, gross=gross, net=net)
                 form = form_model(instance=obj)
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields
