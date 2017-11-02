@@ -548,10 +548,7 @@ class Report(BaseModel):
         blank=True, null=True, max_digits=12, decimal_places=2)
     net = models.DecimalField(
         blank=True, null=True, max_digits=12, decimal_places=2)
-    invoices = models.ManyToManyField(
-        'Invoice', blank=True, limit_choices_to={
-            'last_payment_date': None
-        })
+    invoices = models.ManyToManyField('Invoice', blank=True)
 
     def __str__(self):
         return 'report-%s' % self.date
