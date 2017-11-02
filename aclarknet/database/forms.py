@@ -229,6 +229,9 @@ class ReportForm(forms.ModelForm):
         model = Report
         fields = '__all__'
 
+    invoices = forms.ModelMultipleChoiceField(
+        queryset=Invoice.objects.all().order_by('-issue_date'))
+
 
 class ServiceForm(forms.ModelForm):
     class Meta:
