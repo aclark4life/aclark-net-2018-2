@@ -379,12 +379,7 @@ def get_index_items(**kwargs):
                 view_url=view_url,
                 request=request)
     # Not a search
-    if model_name == 'time':
-        items = model.objects.filter(estimate=None)
-    elif model_name == 'invoice':
-        items = model.objects.filter(last_payment_date=None)
-    else:
-        items = model.objects.all()
+    items = model.objects.all()
     if order_by is not None:  # Order items
         # http://stackoverflow.com/a/20257999/185820
         items = items.order_by(*order_by)
