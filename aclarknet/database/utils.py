@@ -587,8 +587,8 @@ def get_page_items(**kwargs):
             context['item'] = report
             context['items'] = items
             context['reports'] = reports
-            context['edit_url'] = 'invoice_edit'
-            context['view_url'] = 'invoice_view'
+            # context['edit_url'] = 'invoice_edit'
+            # context['view_url'] = 'invoice_view'
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
             context['item'] = task
@@ -657,7 +657,7 @@ def get_page_items(**kwargs):
                 items = set_items_name('project', items=projects, _items=items)
                 items = set_items_name('time', items=times, _items=items)
                 # Plot
-                grosses = report_model.objects.filter(active=True)
+                reports = report_model.objects.filter(active=True)
                 # Totals
                 gross = get_total_amount(invoices)
                 ip_address = request.META.get('HTTP_X_REAL_IP')
@@ -668,7 +668,7 @@ def get_page_items(**kwargs):
                 context['items'] = items
                 context['notes'] = notes
                 context['note_info'] = get_note_info(note_model)
-                context['grosses'] = grosses
+                context['reports'] = reports
                 context['projects'] = projects
                 context['times'] = times
                 total_hours = get_total_hours(times)['total']
@@ -694,16 +694,22 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
     grosses = get_query(request, 'grosses')
+    nets = get_query(request, 'nets')
     # http://matplotlib.org/examples/api/date_demo.html
-    x = [
+    x1 = [
         date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in grosses
     ]
-    y = [i[0] for i in grosses]
+    y1 = [i[0] for i in grosses]
+    x2 = [
+        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in nets
+    ]
+    y2 = [i[0] for i in grosses]
     figure = Figure()
     canvas = FigureCanvasAgg(figure)
     axes = figure.add_subplot(1, 1, 1)
     axes.grid(True)
-    axes.plot(x, y)
+    axes.plot(x1, y1)
+    axes.plot(x2, y2)
     axes.xaxis.set_major_formatter(DateFormatter('%m'))
     # write image data to a string buffer and get the PNG image bytes
     buf = BytesIO()
