@@ -388,7 +388,7 @@ aclarknet-remote-django-static:
 aclarknet-remote-git-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
 aclarknet-remote-pg-dump:
-	ssh db "pg_dump -U $(DB_USER) -H $(DB_HOST) $(DB_NAME) > latest.dump"
+	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump"
 aclarknet-remote-pip-install:
 	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
 aclarknet-remote-nginx-stop:
