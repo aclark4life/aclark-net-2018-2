@@ -1,5 +1,5 @@
 {% load l10n %}
-                  <img class="rounded" style="width: 50%" src="{% url 'plot' %}?plot=1&grosses={% for item in grosses %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
+                  <img class="rounded" style="width: 50%" src="{% url 'plot' %}?plot=1&grosses={% for item in grosses %}{{ item.gross|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}" data-toggle="modal" data-target="#myModal">
                   <!-- Modal -->
                   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -11,7 +11,7 @@
                           <h1 class="modal-title">Plot</h1>
                         </div>
                         <div class="modal-body">
-                            <img style="width: 100%" class="rounded" src="{% url 'plot' %}?plot=1&grosses={% for item in grosses %}{{ item.net|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}">
+                            <img style="width: 100%" class="rounded" src="{% url 'plot' %}?plot=1&grosses={% for item in grosses %}{{ item.gross|unlocalize }},{{ item.date|unlocalize }}{% if not forloop.last %}+{% endif %}{% endfor %}">
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
