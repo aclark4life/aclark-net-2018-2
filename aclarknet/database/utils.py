@@ -587,6 +587,8 @@ def get_page_items(**kwargs):
             context['item'] = report
             context['items'] = items
             context['reports'] = reports
+            context['edit_url'] = 'invoice_edit'
+            context['view_url'] = 'invoice_view'
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
             context['item'] = task
