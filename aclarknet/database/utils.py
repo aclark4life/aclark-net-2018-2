@@ -33,6 +33,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from operator import or_ as OR
 import decimal
+import numpy as np
 
 fake = Faker()
 geo_ip = GeoIP2()
@@ -700,10 +701,12 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
         date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in grosses
     ]
     y1 = [i[0] for i in grosses]
-    x2 = [
-        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in nets
-    ]
+    x2 = [date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in nets]
     y2 = [i[0] for i in grosses]
+    x1 = np.array(x1)
+    y1 = np.array(y1)
+    x2 = np.array(x2)
+    y2 = np.array(y2)
     figure = Figure()
     canvas = FigureCanvasAgg(figure)
     axes = figure.add_subplot(1, 1, 1)
