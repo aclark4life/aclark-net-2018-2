@@ -373,7 +373,7 @@ APP=database
 PROJECT=aclarknet
 .DEFAULT_GOAL=aclarknet-remote-update
 aclarknet-pg-dump:
-	pg_dump $(PROJECT)-$(APP)
+	pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump
 aclarknet-pg-restore:
 	psql -d aclarknet < latest.dump
 aclarknet-remote-update:
