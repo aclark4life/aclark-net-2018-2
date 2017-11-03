@@ -372,6 +372,8 @@ webpack:
 APP=database
 PROJECT=aclarknet
 .DEFAULT_GOAL=aclarknet-remote-update
+aclarknet-pg-dump:
+	pg_dump $(PROJECT)-$(APP)
 aclarknet-pg-restore:
 	psql -d aclarknet < latest.dump
 aclarknet-remote-update:
@@ -385,6 +387,8 @@ aclarknet-remote-django-static:
 	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 aclarknet-remote-git-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
+aclarknet-remote-pg-dump:
+	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) $(DB_NAME) > latest.dump"
 aclarknet-remote-pip-install:
 	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
 aclarknet-remote-nginx-stop:
