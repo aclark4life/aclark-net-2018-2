@@ -583,6 +583,7 @@ def get_page_items(**kwargs):
             report = get_object_or_404(model, pk=pk)
             reports = model.objects.filter(active=True)
             reports = reports.aggregate(gross=Sum(F('gross')))
+            reports = reports.aggregate(net=Sum(F('net')))
             invoices = report.invoices.all()
             items = set_items_name('invoice', items=invoices)
             context['item'] = report
@@ -702,11 +703,11 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     ]
     y1 = [i[0] for i in grosses]
     x2 = [date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in nets]
-    y2 = [i[0] for i in grosses]
-    x1 = np.array(x1)
-    y1 = np.array(y1)
-    x2 = np.array(x2)
-    y2 = np.array(y2)
+    y2 = [i[0] for i in nets]
+    # x1 = np.array(x1)
+    # y1 = np.array(y1)
+    # x2 = np.array(x2)
+    # y2 = np.array(y2)
     figure = Figure()
     canvas = FigureCanvasAgg(figure)
     axes = figure.add_subplot(1, 1, 1)
@@ -742,6 +743,14 @@ def get_query(request, query):
             grosses = []
         grosses = [i.split(',') for i in grosses]
         return grosses
+    elif query == 'nets':  # plot
+        nets = request.GET.get('nets')
+        if nets:
+            nets = nets.split(' ')
+        else:
+            nets = []
+        nets = [i.split(',') for i in nets]
+        return nets
     elif query == 'checkbox':
         query_checkbox = {}
         query_checkbox_active = request.POST.get('checkbox-active')
