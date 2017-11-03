@@ -657,7 +657,7 @@ def get_page_items(**kwargs):
                 items = set_items_name('project', items=projects, _items=items)
                 items = set_items_name('time', items=times, _items=items)
                 # Plot
-                points = report_model.objects.filter(active=True)
+                grosses = report_model.objects.filter(active=True)
                 # Totals
                 gross = get_total_amount(invoices)
                 ip_address = request.META.get('HTTP_X_REAL_IP')
@@ -668,7 +668,7 @@ def get_page_items(**kwargs):
                 context['items'] = items
                 context['notes'] = notes
                 context['note_info'] = get_note_info(note_model)
-                context['points'] = points
+                context['grosses'] = grosses
                 context['projects'] = projects
                 context['times'] = times
                 total_hours = get_total_hours(times)['total']
@@ -693,12 +693,12 @@ def get_page_items(**kwargs):
 def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
-    points = get_query(request, 'points')
+    grosses = get_query(request, 'grosses')
     # http://matplotlib.org/examples/api/date_demo.html
     x = [
-        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in points
+        date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in grosses
     ]
-    y = [i[0] for i in points]
+    y = [i[0] for i in grosses]
     figure = Figure()
     canvas = FigureCanvasAgg(figure)
     axes = figure.add_subplot(1, 1, 1)
@@ -725,14 +725,14 @@ def get_query(request, query):
             return True
     elif query == 'search' and request.method == 'POST':
         return request.POST.get('search', '')
-    elif query == 'points':  # plot
-        points = request.GET.get('points')
-        if points:
-            points = points.split(' ')
+    elif query == 'grosses':  # plot
+        grosses = request.GET.get('grosses')
+        if grosses:
+            grosses = grosses.split(' ')
         else:
-            points = []
-        points = [i.split(',') for i in points]
-        return points
+            grosses = []
+        grosses = [i.split(',') for i in grosses]
+        return grosses
     elif query == 'checkbox':
         query_checkbox = {}
         query_checkbox_active = request.POST.get('checkbox-active')
