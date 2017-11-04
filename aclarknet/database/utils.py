@@ -385,6 +385,7 @@ def get_index_items(**kwargs):
                 app_settings_model=app_settings_model,
                 edit_url=edit_url,
                 view_url=view_url,
+                order_by=order_by,
                 request=request)
     # Not a search
     items = model.objects.all()
@@ -826,6 +827,8 @@ def get_search_results(context,
                                        'icon_size')
     context['icon_color'] = get_setting(request, app_settings_model,
                                         'icon_color')
+    if order_by is not None:
+        items = items.order_by(*order_by)
     items = set_items_name(model_name, items=items)
     context['items'] = items
     return context
