@@ -27,7 +27,9 @@
 {% include 'nav.html' %}
     <div class="container-fluid">
       <div class="row">
+        {% if not request.user.is_anonymous %}
 {% include 'sidebar.html' %}
+        {% endif %}
         {% if request.user.is_anonymous and not login %}
         <div class="col-md-12" id="content">
 {% include 'messages.html' %}
