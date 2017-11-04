@@ -336,6 +336,10 @@ def get_form(**kwargs):
                         project_model, pk=query_project)
                     obj = model(project=project)
                 form = form_model(instance=obj)
+            elif model_name == 'invoice':
+                now = timezone.now()
+                obj = model(subject="%s" % now.strftime('%B %Y'))
+                form = form_model(instance=obj)
             else:
                 form = form_model(initial=initial)
         else:
