@@ -4,17 +4,21 @@
             <div class="col-md-9">
               <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'client_index' %}">Clients</a> &raquo; {% if item.url %}<a href="{{ item.url }}" target="_blank">{{ item.name|default:'' }}</a>{% else %}{{ item.name|default:'' }}{% endif %}</h1>
             </div>
-            <div class="col-md-3 mb-3">
-              <div class="dropdown">
-                <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-user"></i> Add Contact</a></li>
-                  <li><a class="dropdown-item" href="{% url 'note_edit' %}?client={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Note</a></li>
-                  <li><a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-folder-open"></i> Add Project</a></li>
-                  <li><a class="dropdown-item" href="{% url 'client_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                  <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-            
-                </ul>
+            <div class="col-md-2 mb-3">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              <div class="btn-group">
+                <a class="btn btn-block btn-lg btn-success" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-user"></i> Add Contact</a>
+                  <a class="dropdown-item" href="{% url 'note_edit' %}?client={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Note</a>
+                  <a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-folder-open"></i> Add Project</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a>
+                </div>
               </div>
             </div>
           </div>
