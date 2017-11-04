@@ -8,7 +8,6 @@
               <button class="btn btn-block btn-lg btn-success" href="{% url 'time_edit' %}" disabled>Add Time <i class="fa fa-plus"></i></button>
             </div>
           </div>
-{% include 'info.html' %}
 {% with items=items.times %}
 {% include 'pagination.html' %}
 {% endwith %}
