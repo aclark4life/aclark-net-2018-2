@@ -12,13 +12,15 @@
               <thead>
                 <tr>
                   <th>Created</th> 
-                  <th>Entry</th> 
+                  <th data-sortable="true" data-field="created-hidden" data-visible="false">Hidden Date</th>
+                  <th data-sortable="true">Entry</th> 
                 </tr>
               </thead>
               <tbody>
               {% for item in items.logs %}
                 <tr>
-                  <td>{{ item.created }}</td>
+                  <td>{{ item.created|date:'Y-m-d' }}</td>
+                  <td>{{ item.created|date:'U' }}</td>
                   <td>{{ item.entry }}</td>
                 </tr>
               {% endfor %}
