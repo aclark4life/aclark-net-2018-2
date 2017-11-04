@@ -406,7 +406,7 @@ def log_index(request):
     context = get_index_items(
         app_settings_model=SettingsApp,
         model=Log,
-        order_by=('created', ),
+        order_by=('-created', ),
         request=request,
         search_fields=('entry', ))
     return render(request, 'log_index.html', context)
