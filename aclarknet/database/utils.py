@@ -814,6 +814,7 @@ def get_search_results(context,
                        app_settings_model=None,
                        edit_url=None,
                        view_url=None,
+                       order_by=None,
                        request=None):
     query = []
     model_name = model._meta.verbose_name
