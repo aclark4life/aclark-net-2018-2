@@ -1,7 +1,7 @@
 a:hover {
     text-decoration: none;
 }
-a:hover.mute-url, a.mute-url {
+a:hover.url-dark, a.url-dark {
     text-decoration: none;
     color: black;
 }
