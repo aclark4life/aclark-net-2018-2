@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
               <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'client_index' %}">Clients</a> &raquo; {% if item.url %}<a href="{{ item.url }}" target="_blank">{{ item.name|default:'' }}</a>{% else %}{{ item.name|default:'' }}{% endif %}</h1>
             </div>
             <div class="col-md-2 mb-3">
