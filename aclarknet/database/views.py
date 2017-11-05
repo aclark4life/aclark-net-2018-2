@@ -324,6 +324,7 @@ def home(request):
             'estimate': ('-issue_date', ),
             'note': ('tags', ),
             'project': ('-updated', ),
+            'report': ('-date', ),
             'time': ('-updated', ),
         },
         project_model=Project,
