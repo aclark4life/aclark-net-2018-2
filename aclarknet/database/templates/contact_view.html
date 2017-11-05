@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-              <div class="row">
-                <div class="col-md-9">
-                  <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'contact_index' %}">Contacts</a> &raquo; {{ item }}</h1>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <div class="dropdown">
-                    <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'contact_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                      {% if item.email %}<li><a class="dropdown-item" href="{% url 'mail' %}?contact={{ item.pk }}"><i class="fa fa-send-o"></i> Send Mail</a></li>{% endif %}
-
-                    </ul>
-                  </div>
+          <div class="row">
+            <div class="col-md-9">
+              <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'contact_index' %}">Contacts</a> &raquo; {{ item }}</h1>
+            </div>
+            <div class="col-md-2 mb-3">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              <div class="btn-group">
+                <a class="btn btn-block btn-lg btn-success" href="{% url 'project_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'contact_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+{% include 'actions.html' %}
                 </div>
               </div>
+            </div>
+          </div>
+{% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
-              <div class="row">
-                <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
 {% include 'table_items.html' %}
-                </div>
-              </div>
+            </div>
+          </div>
 {% endblock %}
