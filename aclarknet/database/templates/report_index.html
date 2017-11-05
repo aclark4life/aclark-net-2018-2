@@ -23,11 +23,16 @@
                     <th data-field="hidden-name" data-sortable="true" data-visible="false">Hidden Name</th>
                     <th data-field="date" data-sort-name="hidden-date" data-sortable="true">Date</th>
                     <th data-field="hidden-date" data-sortable="true" data-visible="false">Hidden Date</th>
-                    <th data-field="cost" data-sortable="true">Cost</th>
+
+                    <th data-field="cost" data-sort-name="hidden-cost" data-sortable="true">Cost</th>
+                    <th data-field="hidden-cost" data-sortable="true" data-visible="false">Hidden Cost</th>
+
                     <th data-field="gross" data-sort-name="hidden-gross" data-sortable="true">Gross</th>
                     <th data-field="hidden-gross" data-sortable="true" data-visible="false">Hidden Gross</th>
+
                     <th data-field="net" data-sort-name="hidden-net" data-sortable="true">Net</th>
                     <th data-field="hidden-net" data-sortable="true" data-visible="false">Hidden Net</th>
+
                     <th>View</th>
                     <th>Edit</th>
                   </tr>
@@ -41,7 +46,8 @@
                     <td>{{ item.name|default:'' }}</td>
                     <td>{{ item.date|date:'Y-m-d'|default:'' }}</td>
                     <td>{{ item.date|date:'U'|default:'' }}</td>
-                    <td>{{ item.cost|default:'' }}</td>
+                    <td>{{ item.cost }}</td>
+                    <td>{{ item.cost|unlocalize }}</td>
                     <td>{{ item.gross }}</td>
                     <td>{{ item.gross|unlocalize }}</td>
                     <td>{{ item.net }}</td>

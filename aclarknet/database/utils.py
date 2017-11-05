@@ -702,7 +702,6 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     costs = get_query(request, 'costs')
     grosses = get_query(request, 'grosses')
     nets = get_query(request, 'nets')
-
     # Cost
     x1 = [  # http://matplotlib.org/examples/api/date_demo.html
         date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in costs
@@ -713,11 +712,9 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
         date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in grosses
     ]
     y2 = [i[0] for i in grosses]
-
     # Net
     x3 = [date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in nets]
     y3 = [i[0] for i in nets]
-
     figure = Figure()
     canvas = FigureCanvasAgg(figure)
     axes = figure.add_subplot(1, 1, 1)
