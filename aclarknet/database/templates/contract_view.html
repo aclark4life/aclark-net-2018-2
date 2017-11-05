@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <h1 style="border-bottom: none;">{{ doc_type|upper }}</h1>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
 {% include 'info.html' %}
             </div>
             <div class="col-md-2 mb-3">
@@ -22,14 +22,11 @@
               </div>
             </div>
           </div>
-              </ul>
-          </div>
-        </div>
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
-            <div class="row">
-              <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
 {% include 'pdf_contract.html' %}
-              </div>
             </div>
+          </div>
 {% endblock %}
