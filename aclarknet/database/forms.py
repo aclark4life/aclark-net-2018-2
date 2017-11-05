@@ -230,7 +230,7 @@ class ReportForm(forms.ModelForm):
         fields = '__all__'
 
     invoices = forms.ModelMultipleChoiceField(
-        queryset=Invoice.objects.all().order_by('-issue_date'))
+        required=False, queryset=Invoice.objects.all().order_by('-issue_date'))
 
 
 class ServiceForm(forms.ModelForm):
