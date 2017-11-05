@@ -586,6 +586,7 @@ def get_page_items(**kwargs):
         elif model_name == 'report':
             report = get_object_or_404(model, pk=pk)
             reports = model.objects.filter(active=True)
+            reports.aggregate(cost=Sum(F('cost')))
             reports.aggregate(gross=Sum(F('gross')))
             reports.aggregate(net=Sum(F('net')))
             invoices = report.invoices.all()
