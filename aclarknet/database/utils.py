@@ -746,6 +746,14 @@ def get_query(request, query):
             return True
     elif query == 'search' and request.method == 'POST':
         return request.POST.get('search', '')
+    elif query == 'costs':  # plot
+        costs = request.GET.get('costs')
+        if costs:
+            costs = costs.split(' ')
+        else:
+            costs = []
+        costs = [i.split(',') for i in costs]
+        return costs
     elif query == 'grosses':  # plot
         grosses = request.GET.get('grosses')
         if grosses:
