@@ -719,9 +719,9 @@ def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     canvas = FigureCanvasAgg(figure)
     axes = figure.add_subplot(1, 1, 1)
     axes.grid(True)
-    axes.plot(x1, y1)
+    # axes.plot(x1, y1)
     axes.plot(x2, y2)
-    axes.plot(x3, y3)
+    # axes.plot(x3, y3)
     axes.xaxis.set_major_formatter(DateFormatter('%m'))
     # write image data to a string buffer and get the PNG image bytes
     buf = BytesIO()
