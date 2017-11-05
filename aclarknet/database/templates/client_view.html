@@ -12,12 +12,12 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-user-o"></i> Add Contact</a>
-                  <a class="dropdown-item" href="{% url 'note_edit' %}?client={{ item.pk }}"><i class="fa fa-file-o"></i> Add Note</a>
-                  <a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-folder-open-o"></i> Add Project</a>
+                  <a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-address-book-o"></i> Add Contact</a>
+                  <a class="dropdown-item" href="{% url 'note_edit' %}?client={{ item.pk }}"><i class="fa fa-sticky-note-o"></i> Add Note</a>
+                  <a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-folder-o"></i> Add Project</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a>
-                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-copy"></i> Copy</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-remove"></i> Remove</a>
                 </div>
               </div>
             </div>
