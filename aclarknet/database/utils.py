@@ -665,6 +665,7 @@ def get_page_items(**kwargs):
                 items = set_items_name('time', items=times, _items=items)
                 # Plot
                 reports = report_model.objects.filter(active=True)
+                reports = reports.order_by(*order_by['report'])
                 # Totals
                 gross = get_total_amount(invoices)
                 ip_address = request.META.get('HTTP_X_REAL_IP')
