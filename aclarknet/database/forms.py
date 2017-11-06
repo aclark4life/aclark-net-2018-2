@@ -59,6 +59,11 @@ class AdminTimeForm(forms.ModelForm):
             'invoiced',
         )
 
+    date = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'type': 'date'
+        }), initial=timezone.now())
+
 
 class ClientForm(forms.ModelForm):
     class Meta:
