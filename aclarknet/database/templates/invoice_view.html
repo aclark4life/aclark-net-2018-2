@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 {% load l10n %}
 {% block content %}
-              <div class="row">
-                <div class="col-md-3 ml-auto mb-3">
-                  <div class="dropdown">
-                    <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'time_edit' %}?invoice={{ item.pk|unlocalize }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
-                      <li><a class="dropdown-item" href="{% url 'invoice_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="{% url 'invoice_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-sent-modal-sm"><i class="fa fa-check"></i> Mark sent</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-not-sent-modal-sm"><i class="fa fa-check"></i> Mark not sent</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                      {% if item.project %}<li><a class="dropdown-item" href="{% url 'project_view' pk=item.project.pk %}"><i class="fa fa-folder-open-o"></i> View Project</a></li>{% endif %}
-                    </ul>
-                  </div>
+          <div class="row">
+            <div class="col-md-12 mr-auto">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              <div class="btn-group float-right">
+                <a class="btn btn-lg btn-success" href="{% url 'invoice_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{% url 'time_edit' %}?invoice={{ item.pk|unlocalize }}"><i class="fa fa-clock-o"></i> Add Time</a>
+                  <a class="dropdown-item" href="{% url 'invoice_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-sent-modal-sm"><i class="fa fa-check"></i> Mark sent</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-not-sent-modal-sm"><i class="fa fa-check"></i> Mark not sent</a>
+                  <div class="dropdown-divider"></div>
+{% include 'actions.html' %}
                 </div>
               </div>
+            </div>
+          </div>
+{% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
 {% include 'sent_form.html' %}
 {% include 'pdf_invoice.html' %}

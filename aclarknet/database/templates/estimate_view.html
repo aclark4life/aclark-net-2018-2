@@ -1,22 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-              <div class="row">
-                <div class="col-md-6 ml-auto">
+          <div class="row">
+            <div class="col-md-4 mx-auto">
 {% include 'info.html' %}
-                </div>
-                <div class="col-md-3 mb-3">
-                  <div class="dropdown">
-                    <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'time_edit' %}?client={{ item.client.pk }}&estimate={{ item.pk }}&project={{ item.project.pk }}"><i class="fa fa-clock-o"></i> Add Time</a></li>
-                      <li><a class="dropdown-item" href="{% url 'estimate_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                      <li><a class="dropdown-item" href="{% url 'estimate_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
-                      <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                      <li><a class="dropdown-item" href="{% url 'mail' %}?estimate={{ item.pk }}"><i class="fa fa-send-o"></i> Send Mail</a></li>
-                    </ul>
-                  </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              <div class="btn-group float-right">
+                <a class="btn btn-lg btn-success" href="{% url 'estimate_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{% url 'time_edit' %}?client={{ item.client.pk }}&estimate={{ item.pk }}&project={{ item.project.pk }}"><i class="fa fa-clock-o"></i> Add Time</a>
+                  <a class="dropdown-item" href="{% url 'estimate_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
+                  <a class="dropdown-item" href="{% url 'mail' %}?estimate={{ item.pk }}"><i class="fa fa-send-o"></i> Send Mail</a>
+                  <div class="dropdown-divider"></div>
+{% include 'actions.html' %}
                 </div>
               </div>
-              {% include 'pdf_invoice.html' %}
-              {% include 'delete_form.html' %}
+            </div>
+          </div>
+{% include 'copy_form.html' %}
+{% include 'delete_form.html' %}
+{% include 'pdf_invoice.html' %}
 {% endblock %}

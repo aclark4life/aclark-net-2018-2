@@ -1,37 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-            <div class="row">
-              <div class="col-md-4">
-                <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'note_index' %}">Notes</a> &raquo; {% if item.title %}{{ item.title }}{% else %}Note{% endif %}</h1>
-              </div>
-              <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-4">
+              <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'note_index' %}">Notes</a> &raquo; {% if item.title %}{{ item.title }}{% else %}Note{% endif %}</h1>
+            </div>
+            <div class="col-md-4 mr-auto">
 {% include 'info.html' %}
-              </div>
-              <div class="col-md-3 ml-auto mb-3">
-                <div class="dropdown">
-                  <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a></li>
-                    <li><a class="dropdown-item" href="{% url 'note_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                    <li><a class="dropdown-item" href="{% url 'note_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
-                    <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                    <li><a class="dropdown-item" href="{% url 'mail' %}?note={{ item.pk }}"><i class="fa fa-send-o"></i> Send Mail</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div> 
-{% include 'copy_form.html' %}
-{% include 'delete_form.html' %}
-            <br>
-            {% if item.note %}
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-block">
-                    <div class="card-text p-3">{{ item.note|safe }}</div>
-                  </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              <div class="btn-group float-right">
+                <a class="btn btn-lg btn-success" href="{% url 'note_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{% url 'note_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
+                  <a class="dropdown-item" href="{% url 'mail' %}?note={{ item.pk }}"><i class="fa fa-send-o"></i> Send Mail</a>
+                  <div class="dropdown-divider"></div>
+{% include 'actions.html' %}
                 </div>
               </div>
             </div>
-            {% endif %}
+          </div>
+{% include 'copy_form.html' %}
+{% include 'delete_form.html' %}
+          {% if item.note %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-block">
+                  <div class="card-text p-3">{{ item.note|safe }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
 {% endblock %}
