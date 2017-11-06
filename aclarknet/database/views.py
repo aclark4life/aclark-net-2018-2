@@ -498,7 +498,7 @@ def note_index(request, pk=None):
     context = get_index_items(
         app_settings_model=SettingsApp,
         model=Note,
-        order_by=('-active', 'tags'),
+        order_by=('-active', '-updated', 'tags'),
         request=request,
         search_fields=('note', 'title'))
     return render(request, 'note_index.html', context)
