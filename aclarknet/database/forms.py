@@ -61,8 +61,10 @@ class AdminTimeForm(forms.ModelForm):
 
     date = forms.DateField(
         widget=forms.DateInput(attrs={
-            'type': 'date'
-        }), initial=timezone.now())
+            'type': 'date',
+            'class': 'col-2'
+        }),
+        initial=timezone.now())
 
 
 class ClientForm(forms.ModelForm):
@@ -340,5 +342,7 @@ class TimeForm(forms.ModelForm):
 
     date = forms.DateField(
         widget=forms.DateInput(attrs={
-            'type': 'date'
-        }), initial=timezone.now())
+            'type': 'date',
+            'class': 'col-2'
+        }),
+        initial=timezone.now())
