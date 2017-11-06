@@ -21,7 +21,7 @@
                   <tbody>
                   {% for item in items %}
                     <tr>
-                      <td>{% if item.last_payment_date or item.date_accepted %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
+                      <td>{% if item.last_payment_date or item.accepted_date %}<i data-toggle="tooltip" data-placement="right" title="Invoice Paid" class="fa fa-check"></i>{% endif %}</td>
                       {% if item.client %}<td><a href="{% url 'client_view' item.client.pk %}">{{ item.client.name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                       <td>{{ item.client }}</td>
                       {% if item.user %}<td><a href="{% url 'user_view' item.user.pk %}">{{ item.user.get_full_name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
