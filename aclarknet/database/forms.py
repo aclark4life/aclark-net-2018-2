@@ -20,6 +20,7 @@ from .models import DASHBOARD_CHOICES
 from .models import TEMPLATE_CHOICES
 from django import forms
 from taggit.models import Tag
+from django.utils import timezone
 
 
 class AdminProfileForm(forms.ModelForm):
@@ -331,3 +332,8 @@ class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
         fields = ('date', 'hours', 'log')
+
+    date = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'type': 'date'
+        }), initial=timezone.now())
