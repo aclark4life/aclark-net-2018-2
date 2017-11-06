@@ -58,6 +58,11 @@ class AdminTimeForm(forms.ModelForm):
             'task',
             'invoiced',
         )
+        widgets = {
+            'hours': forms.widgets.NumberInput(attrs={
+                'class': 'col-2'
+            }),
+        }
 
     date = forms.DateField(
         widget=forms.DateInput(attrs={
@@ -339,6 +344,11 @@ class TimeForm(forms.ModelForm):
     class Meta:
         model = Time
         fields = ('date', 'hours', 'log')
+        widgets = {
+            'hours': forms.widgets.NumberInput(attrs={
+                'class': 'col-2'
+            }),
+        }
 
     date = forms.DateField(
         widget=forms.DateInput(attrs={
