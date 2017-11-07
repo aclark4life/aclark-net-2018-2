@@ -6,7 +6,6 @@
                   <h1 style="border-bottom: none;">Users &raquo; <a class="url-dark" href="{% url 'user_view' pk=request.user.pk %}">{{ item.user }}</a> &rsaquo; Edit</h1>
                 </div>
               </div>
-              <h2>Profile</h2>
               <form action="" method="post">{% csrf_token %}
                 {{ form|crispy }}
                 <input class="btn btn-lg btn-success" type="submit" value="Save User">
