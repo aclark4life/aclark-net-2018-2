@@ -2,7 +2,7 @@
 {% block content %}
           <div class="row">
             <div class="col-md-10">
-              <h1 style="border-bottom: none;">{% if is_staff %}<a class="url-dark" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; {{ item }}</h1>
+              <h1 style="border-bottom: none;">{% if is_staff %}<a class="url-dark" href="{% url 'user_index' %}">Users</a>{% else %}Users{% endif %} &raquo; {{ item.get_full_name|default:item.username }} ({{ item }})</h1>
             </div>                
             <div class="col-md-2 mb-3">
               <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
@@ -25,6 +25,5 @@
             </div>
           </div>
 {% include 'delete_form.html' %}
-          <h2>Profile</h2>
 {% include 'table_items.html' %}
 {% endblock %}
