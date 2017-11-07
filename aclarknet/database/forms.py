@@ -27,7 +27,8 @@ class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('rate', 'bio', 'address', 'preferred_payment_method',
-                  'dashboard_choices', 'dashboard_override', 'icon_size', 'published')
+                  'dashboard_choices', 'dashboard_override', 'icon_size',
+                  'published')
         widgets = {
             'bio': forms.widgets.TextInput(attrs={
                 'class': 'tinymce'
@@ -207,7 +208,8 @@ class NoteForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('rate', 'bio', 'address', 'preferred_payment_method', 'icon_size')
+        fields = ('rate', 'bio', 'address', 'preferred_payment_method',
+                  'icon_size')
         widgets = {
             'bio': forms.widgets.TextInput(attrs={
                 'class': 'tinymce'
