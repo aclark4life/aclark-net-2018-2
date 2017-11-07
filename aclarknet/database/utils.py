@@ -678,6 +678,7 @@ def get_page_items(**kwargs):
                 context['note_info'] = get_note_info(note_model)
                 context['reports'] = reports
                 context['projects'] = projects
+                context['show_invoice_subject'] = 'false'
                 context['times'] = times
                 total_hours = get_total_hours(times)['total']
                 total_cost = get_total_cost(projects)
