@@ -397,6 +397,7 @@ def get_index_items(**kwargs):
         context['note_info'] = get_note_info(model)
     elif model_name == 'invoice':
         context['show_invoice_subject'] = 'true'
+        context['show_invoice_user'] = 'false'
     elif model_name == 'time':
         context['total_hours'] = get_total_hours(items)['total']
     if paginated:  # Paginate if paginated
@@ -681,6 +682,7 @@ def get_page_items(**kwargs):
                 context['reports'] = reports
                 context['projects'] = projects
                 context['show_invoice_subject'] = 'false'
+                context['show_invoice_user'] = 'false'
                 context['times'] = times
                 total_hours = get_total_hours(times)['total']
                 total_cost = get_total_cost(projects)
