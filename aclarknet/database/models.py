@@ -385,9 +385,9 @@ class Profile(BaseModel):
     notify = models.BooleanField(default=True)
     published = models.BooleanField(default=False)
     dashboard_override = models.BooleanField(
-        'Dashboard Override', default=False)
+        'Override Default Dashboard Settings', default=False)
     dashboard_choices = MultiSelectField(
-        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
+        'Dashboard choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
     editor = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     user = models.OneToOneField(

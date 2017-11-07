@@ -26,7 +26,7 @@ from django.utils import timezone
 class AdminProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('rate', 'bio', 'address', 'preferred_payment_method',
+        fields = ('rate', 'preferred_payment_method', 'bio', 'address',
                   'dashboard_override', 'dashboard_choices', 'icon_size',
                   'published')
         widgets = {
@@ -37,11 +37,12 @@ class AdminProfileForm(forms.ModelForm):
         exclude = ('notify', )
 
     dashboard_choices = forms.MultipleChoiceField(
+        choices=DASHBOARD_CHOICES,
+        label='Dashboard Choices',
         required=False,
         widget=forms.SelectMultiple(attrs={
-            'size': '6'
-        }),
-        choices=DASHBOARD_CHOICES)
+            'size': '6',
+        }))
 
 
 class AdminTimeForm(forms.ModelForm):
