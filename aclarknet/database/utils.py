@@ -104,6 +104,7 @@ def edit(request, **kwargs):
     form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
+    newsletter_model = kwargs.get('newsletter_model')
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
@@ -187,6 +188,7 @@ def edit(request, **kwargs):
                     request,
                     contact_model=contact_model,
                     estimate_model=estimate_model,
+                    newsletter_model=newsletter_model,
                     note_model=note_model)
                 mail_process(
                     obj,
@@ -1035,12 +1037,16 @@ def mail_compose(obj, **kwargs):
 def mail_obj(request, **kwargs):
     query_contact = get_query(request, 'contact')
     query_estimate = get_query(request, 'estimate')
+    query_newsletter = get_query(request, 'newsletter')
     query_note = get_query(request, 'note')
     contact_model = kwargs.get('contact_model')
     estimate_model = kwargs.get('estimate_model')
+    newsletter_model = kwargs.get('newsletter_model')
     note_model = kwargs.get('note_model')
     if contact_model and query_contact:
         obj = contact_model.objects.get(pk=query_contact)
+    elif newsletter_model and query_newsletter:
+        obj = newsletter_model.objects.get(pk=query_newsletter)
     elif note_model and query_note:
         obj = note_model.objects.get(pk=query_note)
     elif estimate_model and query_estimate:
