@@ -1,43 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
-            <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-4">
-                    <h1 style="border-bottom: none;">{{ doc_type|upper }}</h1>
-                  </div>
-                  <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-4">
+              <h1 style="border-bottom: none;">{{ doc_type|upper }}</h1>
+            </div>
+            <div class="col-md-4">
 {% include 'info.html' %}
-                  </div>
-                  <div class="col-md-3 ml-auto mb-3">
-                    <div class="dropdown">
-                      <button class="btn btn-block btn-lg btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-copy-modal-sm"><i class="fa fa-plus-circle"></i> Copy</a></li>
-                        <li><a class="dropdown-item" href="{% url 'newsletter_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a></li>
-                        <li><a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-delete-modal-sm"><i class="fa fa-times-circle-o"></i> Remove</a></li>
-                        <li><a class="dropdown-item" href="{% url 'mail' %}?newsletter=item.pk" data-toggle="modal" data-target=".bd-mail-modal-sm"><i class="fa fa-envelope-o"></i> Send Mail</a></li>
-
-                      </ul>
-                    </div>
-                  </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
+              <div class="btn-group float-right">
+                <a class="btn btn-lg btn-success" href="{% url 'newsletter_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{% url 'mail' %}?newsletter=item.pk" data-toggle="modal" data-target=".bd-mail-modal-sm"><i class="fa fa-envelope-o"></i> Send Mail</a>
+                  <div class="dropdown-divider"></div>
+{% include 'actions.html' %}
                 </div>
+              </div>
+            </div>
 {% include 'copy_form.html' %}
 {% include 'mail_form.html' %}
 {% include 'delete_form.html' %}
-                <h2>{{ item.subject|default:'' }}</h2>
-                <div class="row">
-                  <div class="col-md-12">
-                    {{ item.text|safe }}
-                  </div>
-                </div>
-                {% if contacts %}
-                <h2>Contacts</h2>
-                <ol>  
-                  {% for contact in contacts %}
-                  <li>{{ contact.first_name }} {{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
-                  {% endfor %}
-                </ol>
-                {% endif %}
+            <h2>{{ item.subject|default:'' }}</h2>
+            <div class="row">
+              <div class="col-md-12">
+                {{ item.text|safe }}
               </div>
+            </div>
+            {% if contacts %}
+            <h2>Contacts</h2>
+            <ol>  
+              {% for contact in contacts %}
+              <li>{{ contact.first_name }} {{ contact.last_name }} {% if contact.email %}&lt;{{ contact.email }}&gt;{% endif %}</li>
+              {% endfor %}
+            </ol>
+            {% endif %}
 {% endblock %}
