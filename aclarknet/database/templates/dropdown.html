@@ -7,8 +7,8 @@
               {% if is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank"><i class="fa fa-user"></i> Admin</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'settings_app' %}"><i class="fa fa-cog"></i> Settings</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'newsletter_index' %}"><i class="fa fa-file-o"></i> Newsletters</a>{% endif %}
-              {% if is_staff %}<a class="dropdown-item" href="{% url 'proposal_index' %}"><i class="fa fa-file-o"></i> Proposals</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'contract_index' %}"><i class="fa fa-file-o"></i> Contracts</a>{% endif %}
+              {% if is_staff %}<a class="dropdown-item" href="{% url 'proposal_index' %}"><i class="fa fa-file-o"></i> Proposals</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'file_index' %}"><i class="fa fa-file-o"></i> Files</a>{% endif %}
               {% if is_staff %}<a class="dropdown-item" href="{% url 'log_index' %}"><i class="fa fa-file-o"></i> Logs</a>{% endif %}
               {% if request.user.is_anonymous %}<a class="dropdown-item" href="{% url 'login'  %}"><i class="fa fa-sign-in"></i> Login</a>{% endif %}
