@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 
 URL_NAMES = {
     'Settings App': ('settings_app', 'settings_app_edit', ''),
@@ -96,3 +97,22 @@ def obj_remove(obj):
     else:
         obj.delete()
     return HttpResponseRedirect(reverse(url_name))
+
+
+def obj_sent(obj, ref, invoiced=True):
+    """
+    Mark time entry as invoiced when invoice sent.
+    """
+    now = timezone.now()
+    for time in obj.time_set.all():
+        if invoiced:
+            time.invoiced = True
+        else:
+            time.invoiced = False
+        time.save()
+    if invoiced:
+        obj.last_payment_date = now
+    else:
+        obj.last_payment_date = None
+    obj.save()
+    return HttpResponseRedirect(ref)
