@@ -22,6 +22,7 @@ from hashlib import md5
 from operator import or_ as OR
 import decimal
 from .conf import get_template_and_url
+from .query import get_query
 
 fake = Faker()
 geo_ip = GeoIP2()
@@ -611,76 +612,6 @@ def get_page_items(**kwargs):
         context['pdf'] = pdf
         context['is_staff'] = request.user.is_staff
     return context
-
-
-def get_query(request, query):
-    """
-    Special handling for some query strings
-    """
-    if query == 'paginated':
-        paginated = request.GET.get('paginated')
-        if paginated == u'false':
-            return False
-        else:
-            return True
-    elif query == 'search' and request.method == 'POST':
-        return request.POST.get('search', '')
-    elif query == 'costs':  # plot
-        costs = request.GET.get('costs')
-        if costs:
-            costs = costs.split(' ')
-        else:
-            costs = []
-        costs = [i.split(',') for i in costs]
-        return costs
-    elif query == 'grosses':  # plot
-        grosses = request.GET.get('grosses')
-        if grosses:
-            grosses = grosses.split(' ')
-        else:
-            grosses = []
-        grosses = [i.split(',') for i in grosses]
-        return grosses
-    elif query == 'nets':  # plot
-        nets = request.GET.get('nets')
-        if nets:
-            nets = nets.split(' ')
-        else:
-            nets = []
-        nets = [i.split(',') for i in nets]
-        return nets
-    elif query == 'checkbox':
-        query_checkbox = {}
-        query_checkbox_active = request.POST.get('checkbox-active')
-        query_checkbox_subscribe = request.POST.get('checkbox-subscribe')
-        condition = (  # if any of these exist
-            query_checkbox_active == 'on' or query_checkbox_active == 'off'
-            or query_checkbox_subscribe == 'on'
-            or query_checkbox_subscribe == 'off')
-        query_checkbox['active'] = query_checkbox_active
-        query_checkbox['subscribe'] = query_checkbox_subscribe
-        query_checkbox['condition'] = condition
-        return query_checkbox
-    elif query == 'doc':
-        doc = request.GET.get('doc')
-        if doc:
-            return True
-        else:
-            return False
-    elif query == 'pdf':
-        pdf = request.GET.get('pdf')
-        if pdf:
-            return True
-        else:
-            return False
-    elif query == 'test':
-        test = request.GET.get('test')
-        if test:
-            return True
-        else:
-            return False
-    else:  # Normal handling
-        return request.GET.get(query, '')
 
 
 def get_recipients(obj):
