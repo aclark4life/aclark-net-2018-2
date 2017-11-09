@@ -1013,6 +1013,9 @@ def mail_compose(obj, **kwargs):
                                    get_page_items(
                                        obj=obj, time_model=time_model))
         subject = obj.subject
+    elif model_name == 'newsletter':
+        message = obj.text
+        subject = obj.subject
     elif model_name == 'note':
         message = obj.note
         subject = obj.title
