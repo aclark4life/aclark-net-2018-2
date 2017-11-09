@@ -40,13 +40,13 @@ from .models import SettingsContract
 from .models import Testimonial
 from .models import Task
 from .models import Time
+from .doc import generate_doc
 from .plot import get_plot
 from .serializers import ClientSerializer
 from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import edit
-from .utils import generate_doc
 from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
