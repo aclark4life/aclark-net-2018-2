@@ -1,3 +1,12 @@
+from adminsortable2.admin import SortableAdminMixin
+from decimal import Decimal
+from django.contrib import admin
+from django.contrib.gis import admin as geo_admin
+from import_export import fields
+from import_export import widgets
+from import_export.admin import ImportExportModelAdmin
+from import_export.resources import ModelResource as ImportExportModelResource
+from solo.admin import SingletonModelAdmin
 from .models import Client
 from .models import Contact
 from .models import Contract
@@ -19,17 +28,39 @@ from .models import SettingsContract
 from .models import Task
 from .models import Testimonial
 from .models import Time
-from .utils import BooleanWidget
-from .utils import DecimalWidget
-from .utils import UserWidget
-from adminsortable2.admin import SortableAdminMixin
-from django.contrib import admin
-from django.contrib.gis import admin as geo_admin
-from import_export import fields
-from import_export import widgets
-from import_export.admin import ImportExportModelAdmin
-from import_export.resources import ModelResource as ImportExportModelResource
-from solo.admin import SingletonModelAdmin
+
+
+class BooleanWidget(widgets.Widget):
+    """
+    Convert strings to boolean values
+    """
+
+    def clean(self, value):
+        if value == 'Yes':
+            return True
+        else:
+            return False
+
+
+class DecimalWidget(widgets.Widget):
+    """
+    Convert strings to decimal values
+    """
+
+    def clean(self, value):
+        if value:
+            return Decimal(value.replace(',', ''))
+        else:
+            return Decimal(0)
+
+
+class UserWidget(widgets.Widget):
+    """
+    """
+
+    def clean(self, value):
+        return value
+
 
 # Register your models here.
 

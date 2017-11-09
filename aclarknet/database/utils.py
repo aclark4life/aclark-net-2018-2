@@ -1,6 +1,5 @@
 from boto.exception import BotoServerError
 from collections import OrderedDict
-from decimal import Decimal
 from django.conf import settings as django_settings
 from django.contrib.gis.geoip2 import GeoIP2
 from django.contrib import messages
@@ -21,7 +20,6 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from faker import Faker
 from functools import reduce
-from import_export import widgets
 from hashlib import md5
 from io import StringIO
 from lxml import etree
@@ -31,38 +29,6 @@ from .conf import get_template_and_url
 
 fake = Faker()
 geo_ip = GeoIP2()
-
-
-class BooleanWidget(widgets.Widget):
-    """
-    Convert strings to boolean values
-    """
-
-    def clean(self, value):
-        if value == 'Yes':
-            return True
-        else:
-            return False
-
-
-class DecimalWidget(widgets.Widget):
-    """
-    Convert strings to decimal values
-    """
-
-    def clean(self, value):
-        if value:
-            return Decimal(value.replace(',', ''))
-        else:
-            return Decimal(0)
-
-
-class UserWidget(widgets.Widget):
-    """
-    """
-
-    def clean(self, value):
-        return value
 
 
 def edit(request, **kwargs):
