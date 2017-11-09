@@ -40,6 +40,7 @@ from .models import SettingsContract
 from .models import Testimonial
 from .models import Task
 from .models import Time
+from .plot import get_plot
 from .serializers import ClientSerializer
 from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
@@ -49,7 +50,6 @@ from .utils import generate_doc
 from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
-from .utils import get_plot
 from .utils import has_profile
 from django.contrib import messages
 from django.contrib.auth import authenticate
