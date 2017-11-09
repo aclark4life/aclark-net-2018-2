@@ -322,7 +322,7 @@ def home(request):
         order_by={
             'invoice': ('-amount', ),
             'estimate': ('-issue_date', ),
-            'note': ('tags', ),
+            'note': ('-active', '-updated', 'tags'),
             'project': ('-updated', ),
             'report': ('date', ),
             'time': ('-updated', ),
