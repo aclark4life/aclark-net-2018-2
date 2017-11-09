@@ -1,3 +1,17 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django_xhtml2pdf.utils import generate_pdf
+from io import BytesIO
+from rest_framework import viewsets
 from .forms import AdminProfileForm
 from .forms import AdminTimeForm
 from .forms import ClientForm
@@ -51,20 +65,6 @@ from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
 from .utils import has_profile
-from django.contrib import messages
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django_xhtml2pdf.utils import generate_pdf
-from io import BytesIO
-from rest_framework import viewsets
 
 # Create your views here.
 
