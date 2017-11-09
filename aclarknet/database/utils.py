@@ -1,7 +1,6 @@
 from boto.exception import BotoServerError
 from collections import OrderedDict
 from django.conf import settings as django_settings
-from django.contrib.gis.geoip2 import GeoIP2
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
@@ -22,11 +21,11 @@ from hashlib import md5
 from operator import or_ as OR
 import decimal
 from .conf import get_template_and_url
+from .geo import get_geo_ip_data
 from .query import get_query
 from .query import set_check_boxes
 
 fake = Faker()
-geo_ip = GeoIP2()
 
 
 def edit(request, **kwargs):
@@ -145,14 +144,6 @@ def edit(request, **kwargs):
     template_name = get_template_and_url(
         model_name=model_name, page_type='edit')
     return render(request, template_name, context)
-
-
-def get_geo_ip_data(request, ip_address=None):
-    if not ip_address:
-        # https://stackoverflow.com/a/4581997/185820
-        ip_address = request.META.get('HTTP_X_REAL_IP')
-    if ip_address:
-        return geo_ip.city(ip_address)
 
 
 def get_company_name(model):
