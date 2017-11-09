@@ -823,6 +823,8 @@ def get_recipients(obj):
         ]
     elif model_name == 'estimate':
         return [(i.first_name, i.email) for i in obj.contacts.all()]
+    elif model_name == 'newsletter':
+        return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'note':
         return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'time':
