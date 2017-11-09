@@ -1,3 +1,6 @@
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 URL_NAMES = {
     'Settings App': ('settings_app', 'settings_app_edit', ''),
     'Settings Company': ('settings_company', 'settings_company_edit', ''),
@@ -43,3 +46,53 @@ def get_template_and_url(**kwargs):
     elif page_type == 'index':
         url_name = URL_NAMES[model_name][2]
         return url_name
+
+
+def obj_copy(obj):
+    dup = obj
+    dup.pk = None
+    dup.save()
+    kwargs = {}
+    kwargs['pk'] = dup.pk
+    model_name = obj._meta.verbose_name
+    url_name = get_template_and_url(model_name=model_name, page_type='copy')
+    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+
+
+def obj_redir(obj, pk=None):
+    """
+    Redir after edit, special cases for some objects
+    """
+    model_name = obj._meta.verbose_name
+    template_name, url_name = get_template_and_url(
+        model_name=model_name, page_type='view')  # Redir to view
+    kwargs = {}
+    if pk:  # Exists
+        kwargs['pk'] = pk
+        if model_name == 'Settings App':  # Special cases for settings
+            return HttpResponseRedirect(reverse(url_name))
+        elif model_name == 'Settings Company':
+            return HttpResponseRedirect(reverse(url_name))
+        elif model_name == 'Settings Contract':
+            return HttpResponseRedirect(reverse(url_name))
+    else:  # New
+        if model_name == 'profile':  # One of to create profile for new
+            kwargs['pk'] = obj.user.pk  # user
+        else:
+            kwargs['pk'] = obj.pk
+    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
+
+
+def obj_remove(obj):
+    model_name = obj._meta.verbose_name
+    if model_name == 'time':
+        url_name = get_template_and_url(
+            model_name=model_name, page_type='home')  # Redir to home
+    else:
+        url_name = get_template_and_url(
+            model_name=model_name, page_type='index')  # Redir to index
+    if model_name == 'profile':
+        obj.user.delete()
+    else:
+        obj.delete()
+    return HttpResponseRedirect(reverse(url_name))

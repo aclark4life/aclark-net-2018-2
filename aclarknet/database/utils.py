@@ -6,11 +6,9 @@ from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.db.models import F
 from django.db.models import Sum
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -20,8 +18,12 @@ from functools import reduce
 from hashlib import md5
 from operator import or_ as OR
 import decimal
-from .conf import get_template_and_url
 from .geo import get_geo_ip_data
+from .obj import get_template_and_url
+from .obj import obj_copy
+from .obj import obj_redir
+from .obj import obj_remove
+from .obj import obj_sent
 from .query import get_query
 from .query import set_check_boxes
 
@@ -880,75 +882,6 @@ def mail_send(**kwargs):
     except BotoServerError:
         status = False
     return status
-
-
-def obj_copy(obj):
-    dup = obj
-    dup.pk = None
-    dup.save()
-    kwargs = {}
-    kwargs['pk'] = dup.pk
-    model_name = obj._meta.verbose_name
-    url_name = get_template_and_url(model_name=model_name, page_type='copy')
-    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-
-
-def obj_redir(obj, pk=None):
-    """
-    Redir after edit, special cases for some objects
-    """
-    model_name = obj._meta.verbose_name
-    template_name, url_name = get_template_and_url(
-        model_name=model_name, page_type='view')  # Redir to view
-    kwargs = {}
-    if pk:  # Exists
-        kwargs['pk'] = pk
-        if model_name == 'Settings App':  # Special cases for settings
-            return HttpResponseRedirect(reverse(url_name))
-        elif model_name == 'Settings Company':
-            return HttpResponseRedirect(reverse(url_name))
-        elif model_name == 'Settings Contract':
-            return HttpResponseRedirect(reverse(url_name))
-    else:  # New
-        if model_name == 'profile':  # One of to create profile for new
-            kwargs['pk'] = obj.user.pk  # user
-        else:
-            kwargs['pk'] = obj.pk
-    return HttpResponseRedirect(reverse(url_name, kwargs=kwargs))
-
-
-def obj_remove(obj):
-    model_name = obj._meta.verbose_name
-    if model_name == 'time':
-        url_name = get_template_and_url(
-            model_name=model_name, page_type='home')  # Redir to home
-    else:
-        url_name = get_template_and_url(
-            model_name=model_name, page_type='index')  # Redir to index
-    if model_name == 'profile':
-        obj.user.delete()
-    else:
-        obj.delete()
-    return HttpResponseRedirect(reverse(url_name))
-
-
-def obj_sent(obj, ref, invoiced=True):
-    """
-    Mark time entry as invoiced when invoice sent.
-    """
-    now = timezone.now()
-    for time in obj.time_set.all():
-        if invoiced:
-            time.invoiced = True
-        else:
-            time.invoiced = False
-        time.save()
-    if invoiced:
-        obj.last_payment_date = now
-    else:
-        obj.last_payment_date = None
-    obj.save()
-    return HttpResponseRedirect(ref)
 
 
 def paginate(items, page, page_size):
