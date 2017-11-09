@@ -23,6 +23,7 @@ from operator import or_ as OR
 import decimal
 from .conf import get_template_and_url
 from .query import get_query
+from .query import set_check_boxes
 
 fake = Faker()
 geo_ip = GeoIP2()
@@ -970,29 +971,6 @@ def paginate(items, page, page_size):
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
     return items
-
-
-def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
-    model_name = obj._meta.verbose_name
-    if (query_checkbox['active'] == 'on'
-            or query_checkbox['active'] == 'off'):  # Active
-        if query_checkbox['active'] == 'on':
-            obj.active = True
-            obj.hidden = False
-        else:
-            obj.active = False
-            if model_name == 'note' and app_settings_model:
-                app_settings = app_settings_model.get_solo()
-                if app_settings.auto_hide:  # Auto-hide
-                    obj.hidden = True
-    elif (query_checkbox['subscribe'] == 'on'
-          or query_checkbox['subscribe'] == 'off'):  # Subscribe
-        if query_checkbox['active'] == 'on':
-            obj.subscribed = True
-        else:
-            obj.subscribed = False
-    obj.save()
-    return HttpResponseRedirect(ref)
 
 
 def set_total_amount(times, estimate=None, invoice=None, project=None):
