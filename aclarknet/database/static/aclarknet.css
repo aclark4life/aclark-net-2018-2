@@ -2,7 +2,6 @@ a:hover {
     text-decoration: none;
 }
 a:hover.url-dark, a.url-dark {
-    text-decoration: none;
     color: black;
 }
 #content > div.row > div > div > ul > li:nth-child(4) > form > input.form-control.btn.btn-link {
@@ -19,9 +18,6 @@ tbody tr:hover a {
   -webkit-transition: height 0.2s ease;
        -o-transition: height 0.2s ease;
           transition: height 0.2s ease;
-}
-.banner div, .banner h3 {
-    font-size: 400%;
 }
 .sidebar {
     opacity: 0.9;
