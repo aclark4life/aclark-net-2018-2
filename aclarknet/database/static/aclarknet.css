@@ -15,9 +15,6 @@ a:hover.url-dark, a.url-dark {
 tbody tr:hover a {
     text-decoration: none;
 }
-.banner {
-    text-align: center;padding: 10% 0 10% 0;
-}
 .collapsing {  /* https://stackoverflow.com/questions/26378785/how-can-i-speed-up-the-mobile-dropdown-in-the-bootstrap-navbar */
   -webkit-transition: height 0.2s ease;
        -o-transition: height 0.2s ease;
