@@ -820,6 +820,7 @@ def mail_process(obj, **kwargs):
     hostname = request.META.get('HTTP_HOST')
     mail_from = django_settings.EMAIL_FROM
     recipients = get_recipients(obj)
+    status = None
     for first_name, email_address in recipients:
         status = mail_send(**mail_compose(
             obj,
