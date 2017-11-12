@@ -615,6 +615,8 @@ def get_recipients(obj):
     """
     Returns first name and email address
     """
+    if not obj:
+        return []
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
         return [
