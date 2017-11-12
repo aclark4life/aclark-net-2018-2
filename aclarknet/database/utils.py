@@ -794,6 +794,7 @@ def mail_obj(request, **kwargs):
     estimate_model = kwargs.get('estimate_model')
     newsletter_model = kwargs.get('newsletter_model')
     note_model = kwargs.get('note_model')
+    obj = None
     if contact_model and query_contact:
         obj = contact_model.objects.get(pk=query_contact)
     elif newsletter_model and query_newsletter:
