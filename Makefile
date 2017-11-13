@@ -387,16 +387,8 @@ aclarknet-remote-django-static:
 	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
 aclarknet-remote-git-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
-aclarknet-remote-pg-dump:
-	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump"
 aclarknet-remote-install:
 	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
-aclarknet-remote-nginx-stop:
-	ssh db "sudo systemctl stop nginx"
-aclarknet-remote-nginx-start:
-	ssh db "sudo systemctl start nginx"
-aclarknet-remote-nginx-restart:
-	ssh db "sudo systemctl restart nginx"
 aclarknet-remote-gunicorn-restart:
 	ssh db "sudo systemctl daemon-reload"
 	ssh db "sudo systemctl restart db"
@@ -406,5 +398,13 @@ aclarknet-remote-gunicorn-stop:
 	ssh db "sudo systemctl stop db.service"
 aclarknet-remote-gunicorn-status:
 	ssh db "sudo systemctl status db.service"
+aclarknet-remote-nginx-stop:
+	ssh db "sudo systemctl stop nginx"
+aclarknet-remote-nginx-start:
+	ssh db "sudo systemctl start nginx"
+aclarknet-remote-nginx-restart:
+	ssh db "sudo systemctl restart nginx"
+aclarknet-remote-pg-dump:
+	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump"
 aclarknet-webpack-pack:
 	./node_modules/.bin/webpack --config webpack.config.js
