@@ -23,6 +23,7 @@ from .info import get_note_info
 from .info import get_recipients
 from .info import get_setting
 from .obj import get_template_and_url
+from .obj import get_times_for_obj
 from .obj import obj_copy
 from .obj import obj_redir
 from .obj import obj_remove
@@ -590,16 +591,6 @@ def get_search_results(context,
     items = set_items_name(model_name, items=items)
     context['items'] = items
     return context
-
-
-def get_times_for_obj(obj, time_model):
-    model_name = obj._meta.verbose_name
-    if model_name == 'invoice':
-        times = time_model.objects.filter(estimate=None, invoice=obj)
-    elif model_name == 'project':
-        times = time_model.objects.filter(
-            invoiced=False, estimate=None, project=obj)
-    return times
 
 
 def gravatar_url(email):

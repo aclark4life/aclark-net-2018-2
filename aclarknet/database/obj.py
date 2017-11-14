@@ -49,6 +49,16 @@ def get_template_and_url(**kwargs):
         return url_name
 
 
+def get_times_for_obj(obj, time_model):
+    model_name = obj._meta.verbose_name
+    if model_name == 'invoice':
+        times = time_model.objects.filter(estimate=None, invoice=obj)
+    elif model_name == 'project':
+        times = time_model.objects.filter(
+            invoiced=False, estimate=None, project=obj)
+    return times
+
+
 def obj_copy(obj):
     dup = obj
     dup.pk = None
