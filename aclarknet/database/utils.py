@@ -286,7 +286,7 @@ def get_index_items(**kwargs):
                                         'icon_color')
     context['page'] = page
     context['paginated'] = paginated
-    items = set_items_name(model_name, items=items)
+    items = set_items(model_name, items=items)
     context['items'] = items
     context['active_nav'] = model_name
     return context
@@ -429,11 +429,11 @@ def get_page_items(**kwargs):
             times = times.order_by(*order_by['time'])
             times = set_total_amount(times, project=project)
             users = user_model.objects.filter(project=project)
-            items = set_items_name('contact', items=contacts)
-            items = set_items_name('estimate', items=estimates, _items=items)
-            items = set_items_name('invoice', items=invoices, _items=items)
-            items = set_items_name('time', items=times, _items=items)
-            items = set_items_name('user', items=users, _items=items)
+            items = set_items('contact', items=contacts)
+            items = set_items('estimate', items=estimates, _items=items)
+            items = set_items('invoice', items=invoices, _items=items)
+            items = set_items('time', items=times, _items=items)
+            items = set_items('user', items=users, _items=items)
             total_hours = get_total_hours(times, team=users)
             context['cost'] = float(project.cost)
             context['gross'] = float(project.amount)
@@ -452,7 +452,7 @@ def get_page_items(**kwargs):
             reports.aggregate(gross=Sum(F('gross')))
             reports.aggregate(net=Sum(F('net')))
             invoices = report.invoices.all()
-            items = set_items_name('invoice', items=invoices)
+            items = set_items('invoice', items=invoices)
             context['item'] = report
             context['items'] = items
             context['reports'] = reports
@@ -520,11 +520,11 @@ def get_page_items(**kwargs):
                     invoiced=False, user=request.user)
                 times = times.order_by(*order_by['time'])
                 times = set_total_amount(times)
-                items = set_items_name('estimate', items=estimates)
-                items = set_items_name('invoice', items=invoices)
-                items = set_items_name('note', items=notes, _items=items)
-                items = set_items_name('project', items=projects, _items=items)
-                items = set_items_name('time', items=times, _items=items)
+                items = set_items('estimate', items=estimates)
+                items = set_items('invoice', items=invoices)
+                items = set_items('note', items=notes, _items=items)
+                items = set_items('project', items=projects, _items=items)
+                items = set_items('time', items=times, _items=items)
                 # Plot
                 reports = report_model.objects.filter(active=True)
                 reports = reports.order_by(*order_by['report'])
@@ -586,7 +586,7 @@ def get_search_results(context,
                                         'icon_color')
     if order_by is not None:
         items = items.order_by(*order_by)
-    items = set_items_name(model_name, items=items)
+    items = set_items(model_name, items=items)
     context['items'] = items
     return context
 
@@ -712,7 +712,7 @@ def mail_send(**kwargs):
     return status
 
 
-def set_items_name(model_name, items=None, _items={}):
+def set_items(model_name, items=None, _items={}):
     """
     Share templates by returning dictionary of items e.g.
         for item in items.reports
