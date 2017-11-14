@@ -14,7 +14,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from faker import Faker
 from functools import reduce
-from hashlib import md5
 from operator import or_ as OR
 import decimal
 from .fields import get_fields
@@ -35,6 +34,7 @@ from .total import get_total_cost
 from .total import get_total_hours
 
 fake = Faker()
+gravatar_url = 'https://www.gravatar.com/avatar/%s'
 
 
 def edit(request, **kwargs):
@@ -591,19 +591,6 @@ def get_search_results(context,
     items = set_items_name(model_name, items=items)
     context['items'] = items
     return context
-
-
-def gravatar_url(email):
-    """
-    MD5 hash of email address for use with Gravatar. Return generic
-    if none exists.
-    """
-    try:
-        return django_settings.GRAVATAR_URL % md5(email.lower()).hexdigest()
-    except AttributeError:
-        # https://stackoverflow.com/a/7585378/185820
-        return django_settings.GRAVATAR_URL % md5(
-            'db@aclark.net'.encode('utf-8')).hexdigest()
 
 
 def last_month():

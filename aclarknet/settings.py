@@ -160,8 +160,6 @@ LOGIN_URL = '/login/google-oauth2/?next=/'
 
 EMAIL_FROM = 'aclark@aclark.net'
 
-GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
-
 # Commas please
 # https://docs.djangoproject.com/en/1.11/ref/settings/#use-thousand-separator
 USE_THOUSAND_SEPARATOR = True
