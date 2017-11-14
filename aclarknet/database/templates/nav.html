@@ -12,6 +12,8 @@
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'note' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'note_index' %}">Notes</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'report' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'report_index' %}">Reports</a></li>{% endif %}
           {% if is_staff %}<li class="nav-item hover {% if active_nav == 'task' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'task_index' %}">Tasks</a></li>{% endif %}
+          {% if is_staff %}<li class="nav-item hover {% if active_nav == 'user' %}bg-success px-1 rounded{% endif %}"><a class="nav-link text-dark" href="{% url 'user_index' %}">Users</a></li>{% endif %}
+        </ul>
         </ul>
       </div>
     </nav>
