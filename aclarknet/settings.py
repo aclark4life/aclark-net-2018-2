@@ -158,7 +158,7 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
 
-EMAIL_FROM = 'aclark@aclark.net'
+EMAIL_FROM = 'aclark@dcpython.org'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
@@ -178,8 +178,6 @@ GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 
 # AWS S3 storage
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-SERVER_EMAIL = 'aclark@dcpython.org'
 
 # Errors sent to admins
 ADMINS = [
