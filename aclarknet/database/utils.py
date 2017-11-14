@@ -2,9 +2,6 @@ from boto.exception import BotoServerError
 from django.conf import settings as django_settings
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.core.paginator import Paginator
-from django.core.paginator import EmptyPage
-from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 from django.db.models import F
 from django.db.models import Sum
@@ -27,6 +24,7 @@ from .obj import obj_copy
 from .obj import obj_redir
 from .obj import obj_remove
 from .obj import obj_sent
+from .page import paginate
 from .query import get_query
 from .query import set_check_boxes
 from .total import get_total_amount
@@ -720,19 +718,6 @@ def mail_send(**kwargs):
     except BotoServerError:
         status = False
     return status
-
-
-def paginate(items, page, page_size):
-    """
-    """
-    paginator = Paginator(items, page_size, orphans=5)
-    try:
-        items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-    return items
 
 
 def set_total_amount(times, estimate=None, invoice=None, project=None):
