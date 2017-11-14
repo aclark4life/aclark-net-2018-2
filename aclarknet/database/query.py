@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 
 def get_query(request, query):
     """
-    Special handling for some query strings
+    Special handling for some query strings, else return value
     """
     if query == 'paginated':
         paginated = request.GET.get('paginated')
@@ -49,6 +49,8 @@ def get_query(request, query):
         query_checkbox['subscribe'] = query_checkbox_subscribe
         query_checkbox['condition'] = condition
         return query_checkbox
+    else:
+        return request.GET.get(query)
 
 
 def set_check_boxes(obj, query_checkbox, ref, app_settings_model):
