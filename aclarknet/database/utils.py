@@ -1,5 +1,4 @@
 from boto.exception import BotoServerError
-from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -18,6 +17,7 @@ from functools import reduce
 from hashlib import md5
 from operator import or_ as OR
 import decimal
+from .fields import get_fields
 from .geo import get_geo_ip_data
 from .obj import get_template_and_url
 from .obj import obj_copy
@@ -167,23 +167,6 @@ def get_company_name(model):
     company_name = company_name.replace(' ', '_')
     company_name = company_name.upper()
     return company_name
-
-
-def get_fields(items, exclude_fields=[]):
-    for item in items:
-        fields = item._meta._get_fields()
-        item.fields = OrderedDict()
-        for field in fields:
-            if not field.is_relation and field.name not in exclude_fields:
-                field_name = field.name.title().replace('_', ' ')
-                value = getattr(item, field.name)
-                if value:
-                    try:
-                        value = value.title()
-                    except AttributeError:  # Probably not "regular" field
-                        pass
-                item.fields[field_name] = value
-    return items
 
 
 def get_form(**kwargs):
