@@ -32,3 +32,50 @@ def get_recipients(obj):
         return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'time':
         return [('Alex', 'aclark@aclark.net')]
+
+
+def get_setting(request, app_settings_model, setting, page_size=None):
+    """
+    Allow user to override global setting
+    """
+    if not request.user.is_authenticated:
+        return
+    dashboard_override = user_pref = None
+    app_settings = app_settings_model.get_solo()
+    if setting == 'icon_size':
+        if has_profile(request.user):
+            user_pref = request.user.profile.icon_size
+        if user_pref:
+            return user_pref
+        else:
+            return app_settings.icon_size
+    elif setting == 'icon_color':
+        if has_profile(request.user):
+            user_pref = request.user.profile.icon_color
+        if user_pref:
+            return user_pref
+        else:
+            return app_settings.icon_color
+    elif setting == 'page_size':
+        if has_profile(request.user):
+            user_pref = request.user.profile.page_size
+        if user_pref:
+            return user_pref
+        elif page_size:  # View's page_size preference
+            return page_size
+        else:
+            return app_settings.page_size
+    elif setting == 'dashboard_choices':
+        dashboard_choices = app_settings.dashboard_choices
+        dashboard_override = False
+        if has_profile(request.user):
+            dashboard_override = request.user.profile.dashboard_override
+        if has_profile(request.user) and dashboard_override:
+            dashboard_choices = request.user.profile.dashboard_choices
+        return dashboard_choices
+    elif setting == 'exclude_hidden':
+        return app_settings.exclude_hidden
+
+
+def has_profile(user):
+    return hasattr(user, 'profile')

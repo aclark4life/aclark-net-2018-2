@@ -56,6 +56,7 @@ from .models import Testimonial
 from .models import Task
 from .models import Time
 from .doc import generate_doc
+from .info import has_profile
 from .plot import get_plot
 from .serializers import ClientSerializer
 from .serializers import ProfileSerializer
@@ -64,7 +65,6 @@ from .serializers import TestimonialSerializer
 from .utils import edit
 from .utils import get_index_items
 from .utils import get_page_items
-from .utils import has_profile
 
 fake = Faker()
 message = "Sorry, you are not allowed to see that."

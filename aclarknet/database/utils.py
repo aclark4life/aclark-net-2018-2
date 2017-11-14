@@ -21,6 +21,7 @@ from .fields import get_fields
 from .geo import get_geo_ip_data
 from .info import get_note_info
 from .info import get_recipients
+from .info import get_setting
 from .obj import get_template_and_url
 from .obj import obj_copy
 from .obj import obj_redir
@@ -591,49 +592,6 @@ def get_search_results(context,
     return context
 
 
-def get_setting(request, app_settings_model, setting, page_size=None):
-    """
-    Allow user to override global setting
-    """
-    if not request.user.is_authenticated:
-        return
-    dashboard_override = user_pref = None
-    app_settings = app_settings_model.get_solo()
-    if setting == 'icon_size':
-        if has_profile(request.user):
-            user_pref = request.user.profile.icon_size
-        if user_pref:
-            return user_pref
-        else:
-            return app_settings.icon_size
-    elif setting == 'icon_color':
-        if has_profile(request.user):
-            user_pref = request.user.profile.icon_color
-        if user_pref:
-            return user_pref
-        else:
-            return app_settings.icon_color
-    elif setting == 'page_size':
-        if has_profile(request.user):
-            user_pref = request.user.profile.page_size
-        if user_pref:
-            return user_pref
-        elif page_size:  # View's page_size preference
-            return page_size
-        else:
-            return app_settings.page_size
-    elif setting == 'dashboard_choices':
-        dashboard_choices = app_settings.dashboard_choices
-        dashboard_override = False
-        if has_profile(request.user):
-            dashboard_override = request.user.profile.dashboard_override
-        if has_profile(request.user) and dashboard_override:
-            dashboard_choices = request.user.profile.dashboard_choices
-        return dashboard_choices
-    elif setting == 'exclude_hidden':
-        return app_settings.exclude_hidden
-
-
 def get_times_for_obj(obj, time_model):
     model_name = obj._meta.verbose_name
     if model_name == 'invoice':
@@ -655,10 +613,6 @@ def gravatar_url(email):
         # https://stackoverflow.com/a/7585378/185820
         return django_settings.GRAVATAR_URL % md5(
             'db@aclark.net'.encode('utf-8')).hexdigest()
-
-
-def has_profile(user):
-    return hasattr(user, 'profile')
 
 
 def last_month():
