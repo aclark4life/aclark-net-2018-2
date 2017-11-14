@@ -97,13 +97,23 @@ django-db-clean:  # PostgreSQL
 	-dropdb $(PROJECT)
 django-db-init:  # PostgreSQL
 	-createdb $(PROJECT)_$(APP)
+db-init: django-db-init  # Alias
 django-debug: django-shell  # Alias
 django-graph:
 	bin/python manage.py graph_models $(APP) -o graph_models_$(PROJECT)_$(APP).png 
-django-init: django-db-init django-app-init django-settings  # Chain
+django-init: 
+	@$(MAKE) django-db-init
+	@$(MAKE) django-app-init
+	@$(MAKE) django-settings
+	git add $(PROJECT)
+	git add manage.py
+	@$(MAKE) git-commit-auto-push
 django-install:
-	@echo "Django\ndj-database-url\n\psycopg2\n" > requirements.txt
+	@echo "Django\ndj-database-url\npsycopg2\n" > requirements.txt
 	@$(MAKE) python-install
+	@$(MAKE) freeze
+	-git add requirements.txt
+	-@$(MAKE) git-commit-auto-push
 django-lint: django-yapf  # Alias
 django-migrate:
 	bin/python manage.py migrate
@@ -318,11 +328,13 @@ readme:
 	@echo $(PROJECT)-$(APP) > README.rst
 	@echo ================================================================================ >> README.rst
 	echo "Done."
+	git add README.rst
+	@$(MAKE) git-commit-auto-push
 
 # Review
 review:
 ifeq ($(UNAME), Darwin)
-	@open -a $(CODE_REVIEW_EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py | grep -v migrations`\
+	@open -a $(EDITOR) `find $(PROJECT) -name \*.py | grep -v __init__.py | grep -v migrations`\
 		`find $(PROJECT) -name \*.html`
 else
 	@echo "Unsupported"
