@@ -5,7 +5,7 @@ from matplotlib.dates import DateFormatter
 from matplotlib.dates import date2num
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from .utils import get_query
+from .query import get_query_string
 
 
 def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
