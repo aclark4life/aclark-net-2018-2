@@ -158,7 +158,7 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/google-oauth2/?next=/'
 
-EMAIL_FROM = 'aclark@dcpython.org'
+EMAIL_FROM = 'aclark@aclark.net'
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/%s'
 
