@@ -37,7 +37,7 @@
                 {% endif %}
                 {% if item.user %}<td><a href="{% url 'user_view' item.user.pk %}">{{ item.user|default:'' }}</a></td>{% else %}<td>{{ item.user|default:'' }}</td>{% endif %}
                 <td><a class="text-{{ icon_color }}" href="{% url 'time_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'time_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                <td><a class="text-{{ icon_color }}" href="{% url 'time_edit' item.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
               {% endfor %}
             </tbody>

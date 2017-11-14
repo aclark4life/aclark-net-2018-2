@@ -7,7 +7,7 @@
             <div class="col-md-2 mb-3">
               <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#split-button-dropdowns -->
               <div class="btn-group float-right">
-                <a class="btn btn-lg btn-success" href="{% url 'client_edit' pk=item.pk %}"><i class="fa fa-cog"></i> Edit</a>
+                <a class="btn btn-lg btn-success" href="{% url 'client_edit' pk=item.pk %}"><i class="fa fa-edit"></i> Edit</a>
                 <button type="button" class="btn btn-block btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
@@ -73,7 +73,7 @@
                   <td>{{ project.end_date|date:'Y-m-d'|default:'' }}</td>
                   <td>{{ project.end_date|date:'U' }}</td>
                   <td><a class="text-{{ icon_color }}" href="{% url 'project_view' project.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                  <td><a class="text-{{ icon_color }}" href="{% url 'project_edit' project.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                  <td><a class="text-{{ icon_color }}" href="{% url 'project_edit' project.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
                 </tr>
                 {% endfor %} 
                 </tbody>
@@ -104,7 +104,7 @@
                     <td>{{ contact.first_name|default:'' }}</td>
                     <td>{{ contact.last_name|default:'' }}</td>
                     <td><a class="text-{{ icon_color }}" href="{% url 'contact_view' contact.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                    <td><a class="text-{{ icon_color }}" href="{% url 'contact_edit' contact.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
                   </tr>
                   {% endfor %}
                 </tbody>

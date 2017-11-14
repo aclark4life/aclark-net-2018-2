@@ -36,7 +36,7 @@
                 <td>{{ item.rate|default:'' }}</td>
                 <td>{{ item.unit|default:'' }}</td>
                 <td><a class="text-{{ icon_color }}" href="{% url 'task_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'task_edit' item.pk %}"><i class="fa fa-cog fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
+                <td><a class="text-{{ icon_color }}" href="{% url 'task_edit' item.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
             {% endfor %}
             </tbody>
