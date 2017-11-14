@@ -24,7 +24,7 @@ from .obj import obj_redir
 from .obj import obj_remove
 from .obj import obj_sent
 from .page import paginate
-from .query import get_query
+from .query import get_query_string
 from .query import set_check_boxes
 from .total import get_total_amount
 from .total import get_total_cost
@@ -83,7 +83,8 @@ def edit(request, **kwargs):
                 return obj_copy(obj)
             if delete:
                 return obj_remove(obj)
-            query_checkbox = get_query(request, 'checkbox')  # Check boxes
+            query_checkbox = get_query_string(request,
+                                              'checkbox')  # Check boxes
             if query_checkbox['condition']:
                 return set_check_boxes(obj, query_checkbox, ref,
                                        app_settings_model)
@@ -169,8 +170,8 @@ def get_form(**kwargs):
     query_project = None
     query_user = None
     if request:
-        query_user = get_query(request, 'user')
-        query_client = get_query(request, 'client')
+        query_user = get_query_string(request, 'user')
+        query_client = get_query_string(request, 'client')
     if obj:  # Existing object
         model_name = obj._meta.verbose_name
         if model_name == 'note':  # Populate form with tags already set
@@ -239,9 +240,9 @@ def get_index_items(**kwargs):
     if company_model:
         company = company_model.get_solo()
         context['company'] = company
-    page = get_query(request, 'page')
-    paginated = get_query(request, 'paginated')
-    search = get_query(request, 'search')
+    page = get_query_string(request, 'page')
+    paginated = get_query_string(request, 'paginated')
+    search = get_query_string(request, 'search')
     if request:
         context['is_staff'] = request.user.is_staff
     # Search is easy
@@ -555,8 +556,8 @@ def get_page_items(**kwargs):
                                            'icon_size')
         context['icon_color'] = get_setting(request, app_settings_model,
                                             'icon_color')
-        doc = get_query(request, 'doc')
-        pdf = get_query(request, 'pdf')
+        doc = get_query_string(request, 'doc')
+        pdf = get_query_string(request, 'pdf')
         context['doc'] = doc
         context['pdf'] = pdf
         context['is_staff'] = request.user.is_staff
@@ -641,10 +642,10 @@ def mail_compose(obj, **kwargs):
 
 
 def mail_obj(request, **kwargs):
-    query_contact = get_query(request, 'contact')
-    query_estimate = get_query(request, 'estimate')
-    query_newsletter = get_query(request, 'newsletter')
-    query_note = get_query(request, 'note')
+    query_contact = get_query_string(request, 'contact')
+    query_estimate = get_query_string(request, 'estimate')
+    query_newsletter = get_query_string(request, 'newsletter')
+    query_note = get_query_string(request, 'note')
     contact_model = kwargs.get('contact_model')
     estimate_model = kwargs.get('estimate_model')
     newsletter_model = kwargs.get('newsletter_model')
@@ -734,21 +735,21 @@ def set_relationship(obj, request, **kwargs):
     project_model = kwargs.get('project_model')
     model_name = obj._meta.verbose_name
     if model_name == 'contact':
-        query_client = get_query(request, 'client')
+        query_client = get_query_string(request, 'client')
         if query_client:
             client = get_object_or_404(client_model, pk=query_client)
             obj.client = client
             obj.save()
     elif model_name == 'estimate' or model_name == 'invoice':
-        query_project = get_query(request, 'project')
+        query_project = get_query_string(request, 'project')
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.client = project.client
             obj.project = project
             obj.save()
     elif model_name == 'note':
-        query_client = get_query(request, 'client')
-        query_company = get_query(request, 'company')
+        query_client = get_query_string(request, 'client')
+        query_company = get_query_string(request, 'company')
         if query_client:
             client = get_object_or_404(client_model, pk=query_client)
             client.note.add(obj)
@@ -758,7 +759,7 @@ def set_relationship(obj, request, **kwargs):
             company.note.add(obj)
             company.save()
     elif model_name == 'project':
-        query_client = get_query(request, 'client')
+        query_client = get_query_string(request, 'client')
         if query_client:
             client = get_object_or_404(client_model, pk=query_client)
             obj.client = client
@@ -766,9 +767,9 @@ def set_relationship(obj, request, **kwargs):
     elif model_name == 'time':
         if not obj.user:  # If no user, set user, else do nothing.
             obj.user = request.user
-        query_estimate = get_query(request, 'estimate')
-        query_invoice = get_query(request, 'invoice')
-        query_project = get_query(request, 'project')
+        query_estimate = get_query_string(request, 'estimate')
+        query_invoice = get_query_string(request, 'invoice')
+        query_project = get_query_string(request, 'project')
         if not request.user.is_staff:  # Staff have more than one project
             user_projects = project_model.objects.filter(
                 team__in=[
