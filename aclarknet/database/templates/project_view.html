@@ -13,8 +13,8 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Invoice</a>
-                  <a class="dropdown-item" href="{% url 'estimate_edit' %}?project={{ item.pk }}"><i class="fa fa-plus-circle"></i> Add Estimate</a>
+                  <a class="dropdown-item" href="{% url 'invoice_edit' %}?project={{ item.pk }}"><i class="fa fa-plus"></i> Add Invoice</a>
+                  <a class="dropdown-item" href="{% url 'estimate_edit' %}?project={{ item.pk }}"><i class="fa fa-plus"></i> Add Estimate</a>
                   <div class="dropdown-divider"></div>
 {% include 'actions.html' %}
                 </div>
