@@ -27,7 +27,7 @@
                 <td>{{ item.client|default:'' }}</td>
                 <td>{{ item.created }}</td>
                 <td>{{ item.statement_of_work|default:'' }}</td>
-                <td><a class="text-{{ icon_color }}" href="{% url 'contract_view' item.pk %}"><i class="fa fa-chevron-circle-right fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
+                <td><a class="text-{{ icon_color }}" href="{% url 'contract_view' item.pk %}"><i class="fa fa-external-link fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
                 <td><a class="text-{{ icon_color }}" href="{% url 'contract_edit' item.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
               </tr>
             {% endfor %}
