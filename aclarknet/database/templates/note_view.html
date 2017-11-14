@@ -16,8 +16,6 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="{% url 'note_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a></li>
-                  <a class="dropdown-item" href="{% url 'mail' %}?note={{ item.pk }}"><i class="fa fa-envelope-o"></i> Send Mail</a>
-                  <div class="dropdown-divider"></div>
 {% include 'actions.html' %}
                 </div>
               </div>
