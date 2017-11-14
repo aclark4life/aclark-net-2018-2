@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django_xhtml2pdf.utils import generate_pdf
+from faker import Faker
 from io import BytesIO
 from rest_framework import viewsets
 from .forms import AdminProfileForm
@@ -61,14 +62,14 @@ from .serializers import ProfileSerializer
 from .serializers import ServiceSerializer
 from .serializers import TestimonialSerializer
 from .utils import edit
-from .utils import get_company_name
 from .utils import get_index_items
 from .utils import get_page_items
 from .utils import has_profile
 
-# Create your views here.
+fake = Faker()
+message = "Sorry, you are not allowed to see that."
 
-MESSAGE = "Sorry, you are not allowed to see that."
+# Create your views here.
 
 
 class ClientViewSet(viewsets.ModelViewSet):
@@ -98,6 +99,24 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.filter(
         published=True).order_by('user__first_name')
     serializer_class = ProfileSerializer
+
+
+def get_company_name(model):
+    company = model.get_solo()
+    if company.name:
+        company_name = company.name
+    else:
+        company_name = fake.text()
+    # Ghetto
+    company_name = company.name.replace('.', '_')
+    company_name = company_name.replace(', ', '_')
+    company_name = company_name.replace('#', '_')
+    company_name = company_name.replace('-', '_')
+    company_name = company_name.replace('(', '_')
+    company_name = company_name.replace(')', '_')
+    company_name = company_name.replace(' ', '_')
+    company_name = company_name.upper()
+    return company_name
 
 
 @staff_member_required
@@ -464,11 +483,11 @@ def newsletter_index(request, pk=None):
 def note_view(request, pk=None):
     note = get_object_or_404(Note, pk=pk)
     if not request.user.is_staff and not note.user:  # No user
-        messages.add_message(request, messages.WARNING, MESSAGE)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     elif (not request.user.is_staff and not note.user.username ==
           request.user.username):  # Time entry user does not match user
-        messages.add_message(request, messages.WARNING, MESSAGE)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
@@ -721,11 +740,11 @@ def time_view(request, pk=None):
     """
     time_entry = get_object_or_404(Time, pk=pk)
     if not request.user.is_staff and not time_entry.user:  # No user
-        messages.add_message(request, messages.WARNING, MESSAGE)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     elif (not request.user.is_staff and not time_entry.user.username ==
           request.user.username):  # Time entry user does not match user
-        messages.add_message(request, messages.WARNING, MESSAGE)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     else:
         context = get_page_items(
@@ -742,11 +761,11 @@ def time_edit(request, pk=None):
     if pk is not None:
         time_entry = get_object_or_404(Time, pk=pk)
         if not request.user.is_staff and not time_entry.user:  # No user
-            messages.add_message(request, messages.WARNING, MESSAGE)
+            messages.add_message(request, messages.WARNING, message)
             return HttpResponseRedirect(reverse('home'))
         elif (not request.user.is_staff and not time_entry.user.username ==
               request.user.username):  # Time entry user does not match user
-            messages.add_message(request, messages.WARNING, MESSAGE)
+            messages.add_message(request, messages.WARNING, message)
             return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         time_form = AdminTimeForm
@@ -792,7 +811,7 @@ def time_index(request):
 @login_required
 def user_view(request, pk=None):
     if not request.user.pk == int(pk) and not request.user.is_staff:
-        messages.add_message(request, messages.WARNING, MESSAGE)
+        messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(reverse('home'))
     else:
         order_by = {
@@ -817,7 +836,7 @@ def user_edit(request, pk=None):
     if pk is not None:
         if has_profile(request.user):
             if not request.user.pk == int(pk) and not request.user.is_staff:
-                messages.add_message(request, messages.WARNING, MESSAGE)
+                messages.add_message(request, messages.WARNING, message)
                 return HttpResponseRedirect(reverse('home'))
     if request.user.is_staff:
         profile_form = AdminProfileForm

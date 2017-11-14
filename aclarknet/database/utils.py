@@ -151,24 +151,6 @@ def edit(request, **kwargs):
     return render(request, template_name, context)
 
 
-def get_company_name(model):
-    company = model.get_solo()
-    if company.name:
-        company_name = company.name
-    else:
-        company_name = fake.text()
-    # Ghetto
-    company_name = company.name.replace('.', '_')
-    company_name = company_name.replace(', ', '_')
-    company_name = company_name.replace('#', '_')
-    company_name = company_name.replace('-', '_')
-    company_name = company_name.replace('(', '_')
-    company_name = company_name.replace(')', '_')
-    company_name = company_name.replace(' ', '_')
-    company_name = company_name.upper()
-    return company_name
-
-
 def get_form(**kwargs):
     """
     Return appropriate form based on new or edit
