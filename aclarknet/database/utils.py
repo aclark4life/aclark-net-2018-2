@@ -591,14 +591,6 @@ def get_search_results(context,
     return context
 
 
-def last_month():
-    """
-    Returns last day of last month
-    """
-    first = timezone.now().replace(day=1)
-    return first - timezone.timedelta(days=1)
-
-
 def mail_compose(obj, **kwargs):
     """
     Compose message based on object type.
