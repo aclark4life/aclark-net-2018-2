@@ -11,7 +11,6 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="{% url 'time_edit' %}?invoice={{ item.pk|unlocalize }}"><i class="fa fa-clock-o"></i> Add Time</a>
-                  <a class="dropdown-item" href="{% url 'invoice_view' pk=item.pk %}?pdf=true" target="_blank"><i class="fa fa-file-pdf-o"></i> Export PDF</a>
                   <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-sent-modal-sm"><i class="fa fa-check"></i> Mark sent</a>
                   <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-not-sent-modal-sm"><i class="fa fa-check"></i> Mark not sent</a>
                   <div class="dropdown-divider"></div>
