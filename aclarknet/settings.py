@@ -179,19 +179,12 @@ GEOIP_PATH = os.path.join(BASE_DIR, '..', 'data')
 # AWS S3 storage
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+SERVER_EMAIL = 'aclark@dcpython.org'
+
 # Errors sent to admins
-SERVER_EMAIL = 'aclark@aclark.net'
 ADMINS = [
     ('Alex', 'aclark@aclark.net'),
 ]
 
 # AWS SES
 EMAIL_BACKEND = 'django_ses.SESBackend'
-# EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = os.environ.get('SMTP_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASS')
-# EMAIL_USE_SSL = True
-
-# https://docs.djangoproject.com/en/1.11/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = 'aclark@dcpython.org'
