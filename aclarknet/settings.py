@@ -194,4 +194,4 @@ EMAIL_BACKEND = 'django_ses.SESBackend'
 # EMAIL_USE_SSL = True
 
 # https://docs.djangoproject.com/en/1.11/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = 'aclark@aclark.net'
+DEFAULT_FROM_EMAIL = 'aclark@dcpython.org'
