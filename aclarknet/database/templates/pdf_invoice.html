@@ -74,7 +74,7 @@
               <tr>
                 <!-- Left column -->
                 <td valign="top" align="left" style="width: 16%" class="field-name border-right">Subject</td>
-                <td valign="top" align="left" style="width: 50%" class="field-value">{{ item.subject|default:'' }} <a href="{% url 'project_view' item.project.pk %}"><i class="fa fa-arrow-circle-right"></a></td>
+                <td valign="top" align="left" style="width: 50%" class="field-value">{{ item.subject|default:'' }} {% if item.project %}<a href="{% url 'project_view' item.project.pk %}"><i class="fa fa-arrow-circle-right"></a>{% endif %}</td>
               </tr>
               <tr>
                 <!-- Left column -->
