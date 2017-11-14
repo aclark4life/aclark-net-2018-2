@@ -101,15 +101,15 @@ def edit(request, **kwargs):
                     if not obj.user:  # for new user
                         obj.user = new_user
                         obj.save()
-                set_relationship(
-                    obj,
-                    request,
-                    client_model=client_model,
-                    company_model=company_model,
-                    estimate_model=estimate_model,
-                    invoice_model=invoice_model,
-                    model=model,
-                    project_model=project_model)
+                # set_relationship(
+                #     obj,
+                #     request,
+                #     client_model=client_model,
+                #     company_model=company_model,
+                #     estimate_model=estimate_model,
+                #     invoice_model=invoice_model,
+                #     model=model,
+                #     project_model=project_model)
                 if model_name == 'time':
                     status_message = {
                         'success': 'Time entry updated',
@@ -723,71 +723,71 @@ def set_items(model_name, items=None, _items={}):
     return _items
 
 
-def set_relationship(obj, request, **kwargs):
-    """
-    Sets relationships after create or edit
-    """
-    client_model = kwargs.get('client_model')
-    company_model = kwargs.get('company_model')
-    estimate_model = kwargs.get('estimate_model')
-    invoice_model = kwargs.get('invoice_model')
-    project_model = kwargs.get('project_model')
-    model_name = obj._meta.verbose_name
-    if model_name == 'contact':
-        query_client = get_query(request, 'client')
-        if query_client:
-            client = get_object_or_404(client_model, pk=query_client)
-            obj.client = client
-            obj.save()
-    elif model_name == 'estimate' or model_name == 'invoice':
-        query_project = get_query(request, 'project')
-        if query_project:
-            project = get_object_or_404(project_model, pk=query_project)
-            obj.client = project.client
-            obj.project = project
-            obj.save()
-    elif model_name == 'note':
-        query_client = get_query(request, 'client')
-        query_company = get_query(request, 'company')
-        if query_client:
-            client = get_object_or_404(client_model, pk=query_client)
-            client.note.add(obj)
-            client.save()
-        elif query_company:
-            company = company_model.get_solo()
-            company.note.add(obj)
-            company.save()
-    elif model_name == 'project':
-        query_client = get_query(request, 'client')
-        if query_client:
-            client = get_object_or_404(client_model, pk=query_client)
-            obj.client = client
-            obj.save()
-    elif model_name == 'time':
-        if not obj.user:  # If no user, set user, else do nothing.
-            obj.user = request.user
-        query_estimate = get_query(request, 'estimate')
-        query_invoice = get_query(request, 'invoice')
-        query_project = get_query(request, 'project')
-        if not request.user.is_staff:  # Staff have more than one project
-            user_projects = project_model.objects.filter(
-                team__in=[
-                    obj.user,
-                ])
-            if len(user_projects) > 0:
-                obj.project = user_projects[0]
-                obj.task = obj.project.task
-        if query_estimate:
-            estimate = get_object_or_404(estimate_model, pk=query_estimate)
-            obj.estimate = estimate
-        if query_invoice:
-            invoice = get_object_or_404(invoice_model, pk=query_invoice)
-            obj.invoice = invoice
-            obj.task = invoice.project.task
-        if query_project:
-            project = get_object_or_404(project_model, pk=query_project)
-            obj.project = project
-            obj.save()  # Need save here to set task
-            if project.task:
-                obj.task = project.task
-        obj.save()
+# def set_relationship(obj, request, **kwargs):
+#     """
+#     Sets relationships after create or edit
+#     """
+#     client_model = kwargs.get('client_model')
+#     company_model = kwargs.get('company_model')
+#     estimate_model = kwargs.get('estimate_model')
+#     invoice_model = kwargs.get('invoice_model')
+#     project_model = kwargs.get('project_model')
+#     model_name = obj._meta.verbose_name
+#     if model_name == 'contact':
+#         query_client = get_query(request, 'client')
+#         if query_client:
+#             client = get_object_or_404(client_model, pk=query_client)
+#             obj.client = client
+#             obj.save()
+#     elif model_name == 'estimate' or model_name == 'invoice':
+#         query_project = get_query(request, 'project')
+#         if query_project:
+#             project = get_object_or_404(project_model, pk=query_project)
+#             obj.client = project.client
+#             obj.project = project
+#             obj.save()
+#     elif model_name == 'note':
+#         query_client = get_query(request, 'client')
+#         query_company = get_query(request, 'company')
+#         if query_client:
+#             client = get_object_or_404(client_model, pk=query_client)
+#             client.note.add(obj)
+#             client.save()
+#         elif query_company:
+#             company = company_model.get_solo()
+#             company.note.add(obj)
+#             company.save()
+#     elif model_name == 'project':
+#         query_client = get_query(request, 'client')
+#         if query_client:
+#             client = get_object_or_404(client_model, pk=query_client)
+#             obj.client = client
+#             obj.save()
+#     elif model_name == 'time':
+#         if not obj.user:  # If no user, set user, else do nothing.
+#             obj.user = request.user
+#         query_estimate = get_query(request, 'estimate')
+#         query_invoice = get_query(request, 'invoice')
+#         query_project = get_query(request, 'project')
+#         if not request.user.is_staff:  # Staff have more than one project
+#             user_projects = project_model.objects.filter(
+#                 team__in=[
+#                     obj.user,
+#                 ])
+#             if len(user_projects) > 0:
+#                 obj.project = user_projects[0]
+#                 obj.task = obj.project.task
+#         if query_estimate:
+#             estimate = get_object_or_404(estimate_model, pk=query_estimate)
+#             obj.estimate = estimate
+#         if query_invoice:
+#             invoice = get_object_or_404(invoice_model, pk=query_invoice)
+#             obj.invoice = invoice
+#             obj.task = invoice.project.task
+#         if query_project:
+#             project = get_object_or_404(project_model, pk=query_project)
+#             obj.project = project
+#             obj.save()  # Need save here to set task
+#             if project.task:
+#                 obj.task = project.task
+#         obj.save()
