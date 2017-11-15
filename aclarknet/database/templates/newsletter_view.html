@@ -2,7 +2,7 @@
 {% block content %}
           <div class="row">
             <div class="col-md-4">
-              <h1 style="border-bottom: none;">{{ doc_type|title }}</h1>
+              <h1 style="border-bottom: none;"><a class="url-dark" href="{% url 'newsletter_index' %}">Newsletters</a> &raquo; {% if item.subject %}{{ item.subject }}{% else %}{{ doc_type|title }}{% endif %}</h1> 
             </div>
             <div class="col-md-4">
 {% include 'info.html' %}
@@ -23,6 +23,5 @@
             </div>
 {% include 'copy_form.html' %}
 {% include 'delete_form.html' %}
-            <h2 class="p-3">{{ item.subject|default:'' }}</h2>
             <div class="p-3">{{ item.text|safe }}</div>
 {% endblock %}
