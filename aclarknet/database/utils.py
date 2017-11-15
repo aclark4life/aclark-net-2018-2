@@ -46,7 +46,6 @@ def edit(request, **kwargs):
     form_model = kwargs.get('form_model')
     invoice_model = kwargs.get('invoice_model')
     model = kwargs.get('model')
-    newsletter_model = kwargs.get('newsletter_model')
     note_model = kwargs.get('note_model')
     pk = kwargs.get('pk')
     project_model = kwargs.get('project_model')
@@ -96,48 +95,31 @@ def edit(request, **kwargs):
                 return obj_sent(obj, ref, invoiced=False)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
-            try:
-                obj = form.save()
-                if model_name == 'user':  # One-off to create profile
-                    if not obj.user:  # for new user
-                        obj.user = new_user
-                        obj.save()
-                set_relationship(
-                    obj,
-                    request,
-                    client_model=client_model,
-                    company_model=company_model,
-                    estimate_model=estimate_model,
-                    invoice_model=invoice_model,
-                    model=model,
-                    project_model=project_model)
-                if model_name == 'time':
-                    status_message = {
-                        'success': 'Time entry updated',
-                        'failure': 'Time entry not updated',
-                    }
-                    mail_proc(
-                        obj,
-                        form=form,
-                        status_message=status_message,
-                        request=request)
-                return obj_redir(obj, pk=pk)
-            except AttributeError:  # No new object. Just sending mail.
+            obj = form.save()
+            if model_name == 'user':  # One-off to create profile
+                if not obj.user:  # for new user
+                    obj.user = new_user
+                    obj.save()
+            set_relationship(
+                obj,
+                request,
+                client_model=client_model,
+                company_model=company_model,
+                estimate_model=estimate_model,
+                invoice_model=invoice_model,
+                model=model,
+                project_model=project_model)
+            if model_name == 'time':
                 status_message = {
-                    'success': 'Mail sent to %s',
-                    'failure': 'Mail not sent to %s',
+                    'success': 'Time entry updated',
+                    'failure': 'Time entry not updated',
                 }
-                obj = mail_obj(
-                    request,
-                    contact_model=contact_model,
-                    estimate_model=estimate_model,
-                    newsletter_model=newsletter_model,
-                    note_model=note_model)
                 mail_proc(
                     obj,
                     form=form,
                     status_message=status_message,
                     request=request)
+            return obj_redir(obj, pk=pk)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
     context['item'] = obj

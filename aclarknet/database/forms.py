@@ -83,7 +83,8 @@ class ClientForm(forms.ModelForm):
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = '__all__'
+        fields = ('active', 'first_name', 'last_name', 'email', 'office_phone',
+                  'mobile_phone', 'client', 'subscribed')
 
 
 class ContractForm(forms.ModelForm):
