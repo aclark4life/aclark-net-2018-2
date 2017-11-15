@@ -12,7 +12,7 @@
                             You are about to export this item!
                         </div>
                         <div class="modal-footer">
-                          <form action="{% url view_url item.pk %}?pdf=true" method="post">
+                          <form action="{% url view_url item.pk %}?pdf=true" method="get">
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <button class="btn btn-success" name="export" type="submit" value="export" onChange="this.form.submit()">Export</button>
