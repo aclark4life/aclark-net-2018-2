@@ -21,7 +21,6 @@ from .forms import ContractForm
 from .forms import EstimateForm
 from .forms import FileForm
 from .forms import InvoiceForm
-from .forms import MailForm
 from .forms import NewsletterForm
 from .forms import NoteForm
 from .forms import ProfileForm
@@ -430,21 +429,6 @@ def log_index(request):
         request=request,
         search_fields=('entry', ))
     return render(request, 'log_index.html', context)
-
-
-@staff_member_required(login_url='login')
-def mail(request):
-    """
-    """
-    return edit(
-        request,
-        contact_model=Contact,
-        estimate_model=Estimate,
-        form_model=MailForm,
-        newsletter_model=Newsletter,
-        note_model=Note,
-        time_model=Time,
-        page_type='edit')
 
 
 @staff_member_required

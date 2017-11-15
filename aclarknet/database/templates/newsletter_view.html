@@ -15,7 +15,7 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="{% url 'mail' %}?newsletter={{ item.pk }}"><i class="fa fa-envelope-o"></i> Send</a>
+                  <a class="dropdown-item" href="{% url 'newsletter_view' item.pk %}?mail=true"><i class="fa fa-envelope-o"></i> Send</a>
                   <div class="dropdown-divider"></div>
 {% include 'actions.html' %}
                 </div>

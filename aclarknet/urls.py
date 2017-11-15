@@ -76,8 +76,6 @@ urlpatterns = [
     url(r'^file$', views.file_index, name='file_index'),
     # Logs
     url(r'^log$', views.log_index, name='log_index'),
-    # Mail
-    url(r'^mail$', views.mail, name='mail'),
     # Newsletter
     url(r'^newsletter/(?P<pk>\d+)$',
         views.newsletter_view,

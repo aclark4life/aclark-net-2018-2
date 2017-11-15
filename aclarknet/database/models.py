@@ -342,6 +342,12 @@ class Newsletter(BaseModel):
     """
     """
     subject = models.CharField(max_length=300, blank=True, null=True)
+    template_choices = models.CharField(
+        'Template Choices',
+        max_length=300,
+        choices=TEMPLATE_CHOICES,
+        null=True,
+        blank=True)
     text = models.TextField(blank=True, null=True)
     contacts = models.ManyToManyField('Contact', blank=True)
 
@@ -387,7 +393,7 @@ class Profile(BaseModel):
     dashboard_override = models.BooleanField(
         'Override Default Dashboard Settings', default=False)
     dashboard_choices = MultiSelectField(
-        'Dashboard choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
+        'Dashboard Choices', choices=DASHBOARD_CHOICES, null=True, blank=True)
     editor = models.CharField(
         max_length=8, choices=EDITOR_CHOICES, null=True, blank=True)
     user = models.OneToOneField(

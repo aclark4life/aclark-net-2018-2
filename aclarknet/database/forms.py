@@ -17,7 +17,6 @@ from .models import SettingsContract
 from .models import Task
 from .models import Time
 from .models import DASHBOARD_CHOICES
-from .models import TEMPLATE_CHOICES
 from django import forms
 from taggit.models import Tag
 from django.utils import timezone
@@ -147,17 +146,6 @@ class InvoiceForm(forms.ModelForm):
             'issue_date',
             'last_payment_date',
         )
-
-
-class MailForm(forms.Form):
-    send_html = forms.BooleanField(label='Send HTML message', required=False)
-    template = forms.ChoiceField(required=False, choices=TEMPLATE_CHOICES)
-    subject = forms.CharField(required=False)
-    message = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={
-            'class': 'tinymce'
-        }),
-        required=False)
 
 
 class NewsletterForm(forms.ModelForm):
