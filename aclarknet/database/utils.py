@@ -641,25 +641,25 @@ def mail_compose(obj, **kwargs):
     return context
 
 
-def mail_obj(request, **kwargs):
-    query_contact = get_query_string(request, 'contact')
-    query_estimate = get_query_string(request, 'estimate')
-    query_newsletter = get_query_string(request, 'newsletter')
-    query_note = get_query_string(request, 'note')
-    contact_model = kwargs.get('contact_model')
-    estimate_model = kwargs.get('estimate_model')
-    newsletter_model = kwargs.get('newsletter_model')
-    note_model = kwargs.get('note_model')
-    obj = None
-    if contact_model and query_contact:
-        obj = contact_model.objects.get(pk=query_contact)
-    elif newsletter_model and query_newsletter:
-        obj = newsletter_model.objects.get(pk=query_newsletter)
-    elif note_model and query_note:
-        obj = note_model.objects.get(pk=query_note)
-    elif estimate_model and query_estimate:
-        obj = estimate_model.objects.get(pk=query_estimate)
-    return obj
+# def mail_obj(request, **kwargs):
+#     query_contact = get_query_string(request, 'contact')
+#     query_estimate = get_query_string(request, 'estimate')
+#     query_newsletter = get_query_string(request, 'newsletter')
+#     query_note = get_query_string(request, 'note')
+#     contact_model = kwargs.get('contact_model')
+#     estimate_model = kwargs.get('estimate_model')
+#     newsletter_model = kwargs.get('newsletter_model')
+#     note_model = kwargs.get('note_model')
+#     obj = None
+#     if contact_model and query_contact:
+#         obj = contact_model.objects.get(pk=query_contact)
+#     elif newsletter_model and query_newsletter:
+#         obj = newsletter_model.objects.get(pk=query_newsletter)
+#     elif note_model and query_note:
+#         obj = note_model.objects.get(pk=query_note)
+#     elif estimate_model and query_estimate:
+#         obj = estimate_model.objects.get(pk=query_estimate)
+#     return obj
 
 
 def mail_proc(obj, **kwargs):
