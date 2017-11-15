@@ -395,6 +395,7 @@ def get_page_items(**kwargs):
             context['entries'] = times
             context['item'] = estimate
             context['total_hours'] = total_hours
+            context['show_export'] = True
         if model_name == 'file':
             file_obj = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
@@ -412,6 +413,7 @@ def get_page_items(**kwargs):
             context['invoice'] = True
             context['last_payment_date'] = last_payment_date
             context['total_hours'] = total_hours
+            context['show_export'] = True
         elif model_name == 'newsletter':
             newsletter = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
