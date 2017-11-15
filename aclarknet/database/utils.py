@@ -52,7 +52,7 @@ def edit(request, **kwargs):
     if model:
         model_name = model._meta.verbose_name
         context['active_nav'] = model_name
-    if pk is None:  # New or mail
+    if pk is None:  # New
         form = get_form(
             client_model=client_model,
             form_model=form_model,
@@ -107,8 +107,9 @@ def edit(request, **kwargs):
                 invoice_model=invoice_model,
                 model=model,
                 project_model=project_model)
-            if model_name == 'time':
-                mail_proc(obj, form=form, request=request)
+            if model_name == 'time':  # XXX Use signal?
+                # Send mail
+                mail_proc(obj, request=request)
             return obj_redir(obj, pk=pk)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
@@ -155,7 +156,7 @@ def get_form(**kwargs):
             form = form_model(initial={'tags': obj.tags.all()}, instance=obj)
         else:
             form = form_model(instance=obj)
-    else:  # New object or mail
+    else:  # New object
         initial = {'send_html': True}
         if model:
             model_name = model._meta.verbose_name
@@ -613,16 +614,6 @@ def mail_compose(obj, **kwargs):
         subject = 'Time entry'
     # If a form is passed in, use the mail template selected by the user.
     context = {}
-    if form:  # http://stackoverflow.com/a/28476681/185820
-        if 'send_html' in form.data:
-            html_message = render_to_string(form.data['template'], {
-                'message': message,
-            })
-            context['html_message'] = html_message
-    else:  # No form, must be someone running `python manage.py send_note`.
-        context['html_message'] = render_to_string('html_message.html', {
-            'message': message,
-        })
     context['mail_from'] = mail_from
     context['mail_to'] = mail_to
     context['message'] = message
@@ -654,23 +645,19 @@ def mail_compose(obj, **kwargs):
 def mail_proc(obj, **kwargs):
     """
     """
-    form = kwargs.get('form')
-    request = kwargs.get('request')
-    time_model = kwargs.get('time_model')
     # Iterate over recipients, compose and send mail to
     # each.
+    request = kwargs.get('request')
     hostname = request.META.get('HTTP_HOST')
     mail_from = django_settings.EMAIL_FROM
     recipients = get_recipients(obj)
     for first_name, email_address in recipients:
         mail_send(**mail_compose(
             obj,
-            form=form,
             first_name=first_name,
             hostname=hostname,
             mail_from=mail_from,
             mail_to=email_address,
-            time_model=time_model,
             request=request))
 
 

@@ -30,7 +30,6 @@ from .forms import SettingsCompanyForm
 from .forms import SettingsContractForm
 from .forms import TaskForm
 from .forms import TimeForm
-from .mail import send_mail
 from .models import Client
 from .models import Contact
 from .models import Contract
@@ -405,8 +404,6 @@ def newsletter_view(request, pk=None):
         model=Newsletter,
         pk=pk,
         request=request)
-    if context['mail']:
-        send_mail(context)
     return render(request, 'newsletter_view.html', context)
 
 
