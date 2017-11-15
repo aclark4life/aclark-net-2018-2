@@ -1,6 +1,4 @@
-from boto.exception import BotoServerError
 from django.conf import settings as django_settings
-from django.contrib import messages
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.db.models import F
@@ -110,15 +108,7 @@ def edit(request, **kwargs):
                 model=model,
                 project_model=project_model)
             if model_name == 'time':
-                status_message = {
-                    'success': 'Time entry updated',
-                    'failure': 'Time entry not updated',
-                }
-                mail_proc(
-                    obj,
-                    form=form,
-                    status_message=status_message,
-                    request=request)
+                mail_proc(obj, form=form, request=request)
             return obj_redir(obj, pk=pk)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
@@ -602,7 +592,6 @@ def mail_compose(obj, **kwargs):
     hostname = kwargs.get('hostname')
     mail_from = kwargs.get('mail_from')
     mail_to = kwargs.get('mail_to')
-    status_message = kwargs.get('status_message')
     time_model = kwargs.get('time_model')
     # Conditionally create message
     if model_name == 'contact':
@@ -621,7 +610,7 @@ def mail_compose(obj, **kwargs):
         subject = obj.title
     elif model_name == 'time':
         message = '%s' % obj.get_absolute_url(hostname)
-        subject = status_message.get('success')
+        subject = 'Time entry'
     # If a form is passed in, use the mail template selected by the user.
     context = {}
     if form:  # http://stackoverflow.com/a/28476681/185820
@@ -667,31 +656,22 @@ def mail_proc(obj, **kwargs):
     """
     form = kwargs.get('form')
     request = kwargs.get('request')
-    status_message = kwargs.get('status_message')
     time_model = kwargs.get('time_model')
     # Iterate over recipients, compose and send mail to
     # each.
     hostname = request.META.get('HTTP_HOST')
     mail_from = django_settings.EMAIL_FROM
     recipients = get_recipients(obj)
-    status = None
     for first_name, email_address in recipients:
-        status = mail_send(**mail_compose(
+        mail_send(**mail_compose(
             obj,
             form=form,
             first_name=first_name,
             hostname=hostname,
             mail_from=mail_from,
             mail_to=email_address,
-            status_message=status_message,
             time_model=time_model,
             request=request))
-    if status:
-        messages.add_message(request, messages.SUCCESS,
-                             status_message.get('success') % recipients)
-    else:
-        messages.add_message(request, messages.WARNING,
-                             status_message.get('failure') % recipients)
 
 
 def mail_send(**kwargs):
@@ -700,17 +680,12 @@ def mail_send(**kwargs):
     mail_to = kwargs.get('mail_to')
     message = kwargs.get('message')
     subject = kwargs.get('subject')
-    try:
-        send_mail(
-            subject,
-            message,
-            mail_from, (mail_to, ),
-            fail_silently=False,
-            html_message=html_message)
-        status = True
-    except BotoServerError:
-        status = False
-    return status
+    send_mail(
+        subject,
+        message,
+        mail_from, (mail_to, ),
+        fail_silently=False,
+        html_message=html_message)
 
 
 def set_items(model_name, items=None, _items={}):
