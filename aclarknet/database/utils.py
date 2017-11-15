@@ -116,7 +116,7 @@ def edit(request, **kwargs):
                         'success': 'Time entry updated',
                         'failure': 'Time entry not updated',
                     }
-                    mail_process(
+                    mail_proc(
                         obj,
                         form=form,
                         status_message=status_message,
@@ -133,7 +133,7 @@ def edit(request, **kwargs):
                     estimate_model=estimate_model,
                     newsletter_model=newsletter_model,
                     note_model=note_model)
-                mail_process(
+                mail_proc(
                     obj,
                     form=form,
                     status_message=status_message,
@@ -680,7 +680,7 @@ def mail_obj(request, **kwargs):
     return obj
 
 
-def mail_process(obj, **kwargs):
+def mail_proc(obj, **kwargs):
     """
     """
     form = kwargs.get('form')
