@@ -624,17 +624,11 @@ def mail_proc(obj, **kwargs):
 
 
 def mail_send(**kwargs):
-    html_message = kwargs.get('html_message')
     mail_from = kwargs.get('mail_from')
     mail_to = kwargs.get('mail_to')
     message = kwargs.get('message')
     subject = kwargs.get('subject')
-    send_mail(
-        subject,
-        message,
-        mail_from, (mail_to, ),
-        fail_silently=False,
-        html_message=html_message)
+    send_mail(subject, message, mail_from, (mail_to, ), fail_silently=False)
 
 
 def set_items(model_name, items=None, _items={}):
