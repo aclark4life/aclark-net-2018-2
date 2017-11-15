@@ -108,7 +108,7 @@ def get_company_name(model):
     else:
         company_name = fake.text()
     # Ghetto
-    company_name = company.name.replace('.', '_')
+    company_name = company_name.replace('.', '_')
     company_name = company_name.replace(', ', '_')
     company_name = company_name.replace('#', '_')
     company_name = company_name.replace('-', '_')
