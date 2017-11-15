@@ -5,7 +5,6 @@ from django.db.models import F
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.utils import timezone
 from faker import Faker
 from functools import reduce
@@ -585,61 +584,25 @@ def get_search_results(context,
 
 def mail_compose(obj, **kwargs):
     """
-    Compose message based on object type.
+    Compose message based on type
     """
-    model_name = obj._meta.verbose_name
-    # Get kwargs
-    form = kwargs.get('form')
     hostname = kwargs.get('hostname')
     mail_from = kwargs.get('mail_from')
     mail_to = kwargs.get('mail_to')
-    time_model = kwargs.get('time_model')
     # Conditionally create message
-    if model_name == 'contact':
-        message = form.cleaned_data['message']
-        subject = form.cleaned_data['subject']
-    elif model_name == 'estimate':
-        message = render_to_string('pdf_invoice.html',
-                                   get_page_items(
-                                       obj=obj, time_model=time_model))
-        subject = obj.subject
-    elif model_name == 'newsletter':
+    model_name = obj._meta.verbose_name
+    if model_name == 'newsletter':
         message = obj.text
         subject = obj.subject
-    elif model_name == 'note':
-        message = obj.note
-        subject = obj.title
     elif model_name == 'time':
         message = '%s' % obj.get_absolute_url(hostname)
         subject = 'Time entry'
-    # If a form is passed in, use the mail template selected by the user.
     context = {}
     context['mail_from'] = mail_from
     context['mail_to'] = mail_to
     context['message'] = message
     context['subject'] = subject
     return context
-
-
-# def mail_obj(request, **kwargs):
-#     query_contact = get_query_string(request, 'contact')
-#     query_estimate = get_query_string(request, 'estimate')
-#     query_newsletter = get_query_string(request, 'newsletter')
-#     query_note = get_query_string(request, 'note')
-#     contact_model = kwargs.get('contact_model')
-#     estimate_model = kwargs.get('estimate_model')
-#     newsletter_model = kwargs.get('newsletter_model')
-#     note_model = kwargs.get('note_model')
-#     obj = None
-#     if contact_model and query_contact:
-#         obj = contact_model.objects.get(pk=query_contact)
-#     elif newsletter_model and query_newsletter:
-#         obj = newsletter_model.objects.get(pk=query_newsletter)
-#     elif note_model and query_note:
-#         obj = note_model.objects.get(pk=query_note)
-#     elif estimate_model and query_estimate:
-#         obj = estimate_model.objects.get(pk=query_estimate)
-#     return obj
 
 
 def mail_proc(obj, **kwargs):
