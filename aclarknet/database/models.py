@@ -343,7 +343,7 @@ class Newsletter(BaseModel):
     """
     subject = models.CharField(max_length=300, blank=True, null=True)
     template_choices = models.CharField(
-        'Template Choices',
+        'Template',
         max_length=300,
         choices=TEMPLATE_CHOICES,
         null=True,

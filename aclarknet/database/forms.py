@@ -151,7 +151,7 @@ class InvoiceForm(forms.ModelForm):
 class NewsletterForm(forms.ModelForm):
     class Meta:
         model = Newsletter
-        fields = '__all__'
+        fields = ('template_choices', 'contacts', 'subject', 'text')
         widgets = {
             'text': forms.widgets.TextInput(attrs={
                 'class': 'tinymce'
@@ -161,6 +161,7 @@ class NewsletterForm(forms.ModelForm):
     contacts = forms.ModelMultipleChoiceField(
         queryset=Contact.objects.filter(subscribed=True).exclude(
             email=None).order_by('first_name'),
+        label='Recipients',
         widget=forms.SelectMultiple(attrs={
             'size': '50'
         }),
