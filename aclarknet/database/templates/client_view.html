@@ -12,10 +12,12 @@
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-plus"></i> Add Contact</a>
-                  <a class="dropdown-item" href="{% url 'note_edit' %}?client={{ item.pk }}"><i class="fa fa-plus"></i> Add Note</a>
-                  <a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-plus"></i> Add Project</a>
-                    <div class="dropdown-divider"></div>
+                  <!-- http://getbootstrap.com/docs/4.0/components/dropdowns/#menu-headers -->
+                  <h6 class="dropdown-header">Add item</h6>
+                  <a class="dropdown-item" href="{% url 'contact_edit' %}?client={{ item.pk }}"><i class="fa fa-plus"></i> Contact</a>
+                  <a class="dropdown-item" href="{% url 'project_edit' %}?client={{ item.pk }}"><i class="fa fa-plus"></i> Project</a>
+                  <a class="dropdown-item" href="{% url 'note_edit' %}?client={{ item.pk }}"><i class="fa fa-plus"></i> Note</a>
+                  <div class="dropdown-divider"></div>
 {% include 'actions.html' %}
                 </div>
               </div>
