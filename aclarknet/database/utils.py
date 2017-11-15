@@ -144,7 +144,12 @@ def edit(request, **kwargs):
     context['pk'] = pk
     if company_model:
         company = company_model.get_solo()
-        context['company'] = company
+        company_name = company.name
+        company_address = company.address
+        company_currency_symbol = company.currency_symbol
+        context['company_name'] = company_name
+        context['company_address'] = company_address
+        context['company_currency_symbol'] = company_currency_symbol
     elif contact_model:
         model_name = contact_model._meta.verbose_name
     elif note_model:
@@ -239,7 +244,12 @@ def get_index_items(**kwargs):
         context['columns_visible'] = columns_visible
     if company_model:
         company = company_model.get_solo()
-        context['company'] = company
+        company_name = company.name
+        company_address = company.address
+        company_currency_symbol = company.currency_symbol
+        context['company_name'] = company_name
+        context['company_address'] = company_address
+        context['company_currency_symbol'] = company_currency_symbol
     page = get_query_string(request, 'page')
     paginated = get_query_string(request, 'paginated')
     search = get_query_string(request, 'search')
@@ -316,7 +326,12 @@ def get_page_items(**kwargs):
     items = None
     if company_model:
         company = company_model.get_solo()
-        context['company'] = company
+        company_name = company.name
+        company_address = company.address
+        company_currency_symbol = company.currency_symbol
+        context['company_name'] = company_name
+        context['company_address'] = company_address
+        context['company_currency_symbol'] = company_currency_symbol
     if columns_visible:
         context['columns_visible'] = columns_visible
     if model or obj:
@@ -552,15 +567,17 @@ def get_page_items(**kwargs):
                     context['net'] = gross - total_cost
                 context['total_hours'] = total_hours
     if request:
+        context['is_staff'] = request.user.is_staff  # Perms
+        context['icon_color'] = get_setting(request, app_settings_model,
+                                            'icon_color')  # Prefs
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
-        context['icon_color'] = get_setting(request, app_settings_model,
-                                            'icon_color')
-        doc = get_query_string(request, 'doc')
-        pdf = get_query_string(request, 'pdf')
+        doc = get_query_string(request, 'pdf')  # Export doc
+        mail = get_query_string(request, 'mail')  # Send mail
+        pdf = get_query_string(request, 'pdf')  # Export pdf
         context['doc'] = doc
+        context['mail'] = mail
         context['pdf'] = pdf
-        context['is_staff'] = request.user.is_staff
     return context
 
 

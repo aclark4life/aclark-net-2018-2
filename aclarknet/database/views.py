@@ -6,12 +6,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django_xhtml2pdf.utils import generate_pdf
 from faker import Faker
-from io import BytesIO
 from rest_framework import viewsets
 from .forms import AdminProfileForm
 from .forms import AdminTimeForm
@@ -54,7 +51,8 @@ from .models import SettingsContract
 from .models import Testimonial
 from .models import Task
 from .models import Time
-from .doc import generate_doc
+# from .doc import generate_doc
+from .export import render_pdf
 from .info import has_profile
 from .plot import get_plot
 from .serializers import ClientSerializer
@@ -191,27 +189,28 @@ def contract_view(request, pk=None):
         pk=pk,
         time_model=Time,
         request=request)
-    filename = get_company_name(SettingsCompany)
-    if context['pdf']:
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf(
-            'pdf_contract.html', context=context, file_object=response)
-    if context['doc']:
-        # https://stackoverflow.com/a/24122313/185820
-        document = generate_doc(context['item'])
-        f = BytesIO()
-        document.save(f)
-        length = f.tell()
-        f.seek(0)
-        content_type = 'application/vnd.openxmlformats-'
-        content_type += 'officedocument.wordprocessingml.document'
-        response = HttpResponse(f.getvalue(), content_type=content_type)
-        response['Content-Disposition'] = 'filename=%s.docx' % filename
-        response['Content-Length'] = length
-        return response
-    else:
-        return render(request, 'contract_view.html', context)
+    # filename = get_company_name(SettingsCompany)
+    # if context['pdf']:
+    #     response = HttpResponse(content_type='application/pdf')
+    #     response['Content-Disposition'] = 'filename=%s.pdf' % filename
+    #     return generate_pdf(
+    #         'pdf_contract.html', context=context, file_object=response)
+    # if context['doc']:
+    #     # https://stackoverflow.com/a/24122313/185820
+    #     document = generate_doc(context['item'])
+    #     f = BytesIO()
+    #     document.save(f)
+    #     length = f.tell()
+    #     f.seek(0)
+    #     content_type = 'application/vnd.openxmlformats-'
+    #     content_type += 'officedocument.wordprocessingml.document'
+    #     response = HttpResponse(f.getvalue(), content_type=content_type)
+    #     response['Content-Disposition'] = 'filename=%s.docx' % filename
+    #     response['Content-Length'] = length
+    #     return response
+    # else:
+    #     return render(request, 'contract_view.html', context)
+    return render(request, 'contract_view.html', context)
 
 
 @staff_member_required
@@ -253,14 +252,15 @@ def estimate_view(request, pk=None):
         project_model=Project,
         time_model=Time,
         request=request)
-    if context['pdf']:
-        response = HttpResponse(content_type='application/pdf')
-        filename = '-'.join(['estimate', pk])
-        response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf(
-            'pdf_invoice.html', context=context, file_object=response)
-    else:
-        return render(request, 'estimate_view.html', context)
+    # if context['pdf']:
+    #     response = HttpResponse(content_type='application/pdf')
+    #     filename = '-'.join(['estimate', pk])
+    #     response['Content-Disposition'] = 'filename=%s.pdf' % filename
+    #     return generate_pdf(
+    #         'pdf_invoice.html', context=context, file_object=response)
+    # else:
+    #     return render(request, 'estimate_view.html', context)
+    return render(request, 'estimate_view.html', context)
 
 
 @staff_member_required
@@ -363,13 +363,7 @@ def invoice_view(request, pk=None):
         request=request,
         time_model=Time)
     if context['pdf']:
-        response = HttpResponse(content_type='application/pdf')
-        company_name = get_company_name(SettingsCompany)
-        model_name = context['model_name'].upper()
-        filename = '_'.join([company_name, model_name, pk])
-        response['Content-Disposition'] = 'filename=%s.pdf' % filename
-        return generate_pdf(
-            'pdf_invoice.html', context=context, file_object=response)
+        return render_pdf(request, 'pdf_invoice.html', context, pk=pk)
     else:
         return render(request, 'invoice_view.html', context)
 
@@ -476,13 +470,14 @@ def note_view(request, pk=None):
     else:
         context = get_page_items(
             app_settings_model=SettingsApp, model=Note, pk=pk, request=request)
-        if context['pdf']:
-            response = HttpResponse(content_type='application/pdf')
-            response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
-            return generate_pdf(
-                'pdf_note.html', context=context, file_object=response)
-        else:
-            return render(request, 'note_view.html', context)
+        # if context['pdf']:
+        #     response = HttpResponse(content_type='application/pdf')
+        #     response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
+        #     return generate_pdf(
+        #         'pdf_note.html', context=context, file_object=response)
+        # else:
+        #     return render(request, 'note_view.html', context)
+        return render(request, 'note_view.html', context)
 
 
 @login_required
@@ -567,13 +562,14 @@ def proposal_view(request, pk=None):
         model=Proposal,
         pk=pk,
         request=request)
-    if context['pdf']:
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
-        return generate_pdf(
-            'pdf_proposal.html', context=context, file_object=response)
-    else:
-        return render(request, 'proposal_view.html', context)
+    # if context['pdf']:
+    #     response = HttpResponse(content_type='application/pdf')
+    #     response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
+    #     return generate_pdf(
+    #         'pdf_proposal.html', context=context, file_object=response)
+    # else:
+    #     return render(request, 'proposal_view.html', context)
+    return render(request, 'proposal_view.html', context)
 
 
 @staff_member_required
@@ -602,13 +598,14 @@ def proposal_index(request, pk=None):
 def report_view(request, pk=None):
     context = get_page_items(
         model=Report, app_settings_model=SettingsApp, pk=pk, request=request)
-    if context['pdf']:
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
-        return generate_pdf(
-            'pdf_report.html', context=context, file_object=response)
-    else:
-        return render(request, 'report_view.html', context)
+    # if context['pdf']:
+    #     response = HttpResponse(content_type='application/pdf')
+    #     response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
+    #     return generate_pdf(
+    #         'pdf_report.html', context=context, file_object=response)
+    # else:
+    #     return render(request, 'report_view.html', context)
+    return render(request, 'report_view.html', context)
 
 
 @staff_member_required

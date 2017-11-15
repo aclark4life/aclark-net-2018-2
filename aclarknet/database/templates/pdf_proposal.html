@@ -71,9 +71,9 @@
                 </style>
                 <div class="contract">
                   <br>
-                  <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name|default:'' }}</h1></div></div>
+                  <div class="row"><div class="col-md-12 center logo"><h1>{{ company_name|default:'' }}</h1></div></div>
                   <br>
-                  <div class="row"><div class="col-md-12 center"><h2>{{ company.name|default:'' }} {{ item.task|default:'Nothing'|upper }} PROPOSAL<br>PREPARED FOR:</h2></div></div>
+                  <div class="row"><div class="col-md-12 center"><h2>{{ company_name|default:'' }} {{ item.task|default:'Nothing'|upper }} PROPOSAL<br>PREPARED FOR:</h2></div></div>
                   <br>
                   <div class="row"><div class="col-md-12 center client"><h1>{{ item.client|default:'No One' }}</h1><h3>{{ item.client.address|linebreaksbr|default:'Nowhere ' }}</h3></div></div>
                   <div class="row"><div class="col-md-12">{{ item.body|safe }}</div></div>

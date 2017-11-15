@@ -28,9 +28,9 @@
                 <!-- Right column -->
                 <td valign="top" class="field-name border-right" align="right">From</td>
                 <td valign="top" class="field-value"> 
-                  <strong>{% if not pdf %}<a href="{% url 'settings_company' %}">{{ company.name|default:'' }}</a> <a href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company.name|default:''|linebreaksbr }}{% endif %}</strong>
+                  <strong>{% if not pdf %}<a href="{% url 'settings_company' %}">{{ company_name|default:'' }}</a> <a href="{% url 'settings_company_edit' %}"><i class="fa fa-cog"></i></a>{% else %}{{ company_name|default:''|linebreaksbr }}{% endif %}</strong>
                   <br>
-                  {{ company.address|default:''|linebreaksbr }}
+                  {{ company_address|default:''|linebreaksbr }}
                 </td>
               </tr>
               <tr><!-- After "From" and before "Invoice For" --></tr>
@@ -100,8 +100,8 @@
                   <td valign="top" align="left" class="border-right" style="width: 20%">{{ entry.task|default:'' }}</td>
                   <td valign="top" align="left" class="border-right" style="width: 100%">{{ entry.log|linebreaks|default:'' }}</td>
                   <td valign="top" align="right" class="border-right" style="width: 20%">{% if not pdf %}<a href="{% url 'time_view' entry.pk %}" target="_blank">{{ entry.hours|default:'0' }}</a>{% else %}{{ entry.hours }}{% endif %} <a href="{% url 'time_edit' entry.pk %}" target="_blank"><i class="fa fa-cog"></i></a></td>
-                  <td valign="top" align="right" class="border-right" style="width: 20%">{{ company.currency_symbol }}{% if entry.task %}{{ entry.task.rate|default:'' }}{% endif %}</td>
-                  <td valign="top" align="right" style="width: 20%"><strong>{{ company.currency_symbol }}{{ entry.amount|default:'0' }}</strong></td>
+                  <td valign="top" align="right" class="border-right" style="width: 20%">{{ company_currency_symbol }}{% if entry.task %}{{ entry.task.rate|default:'' }}{% endif %}</td>
+                  <td valign="top" align="right" style="width: 20%"><strong>{{ company_currency_symbol }}{{ entry.amount|default:'0' }}</strong></td>
                 </tr>
                 {% endfor %}
                 <tr>
@@ -109,7 +109,7 @@
                     <h1>Total</h1>
                   </td>
                   <td>
-                    <h1>{{ company.currency_symbol }}{{ item.amount }}</h1>
+                    <h1>{{ company_currency_symbol }}{{ item.amount }}</h1>
                   </td>
                 </tr>
               </tbody>

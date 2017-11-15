@@ -14,7 +14,7 @@
                   }
               </style>
               {% if pdf %}
-              <div class="row"><div class="col-md-12 center logo"><h1>{{ company.name }}</h1></div></div>
+              <div class="row"><div class="col-md-12 center logo"><h1>{{ company_name }}</h1></div></div>
               <div class="row"><div class="col-md-12 center"><h1>{{ item.name|default:'' }} Revenue Report</h1></div></div>
               {% endif %}
               <h2>Overview</h2>
@@ -62,7 +62,7 @@
                       {% for invoice in item.invoices.all %}
                       <tr>
                         <td><strong>{{ invoice.client }}</strong></td>
-                        <td align="right">{{ company.currency_symbol }}{{ invoice.amount }}</td>
+                        <td align="right">{{ company_currency_symbol }}{{ invoice.amount }}</td>
                        </tr>
                       {% endfor %}
                     </tbody>

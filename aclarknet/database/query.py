@@ -76,8 +76,6 @@ def get_query_string(request, key):
         return request.POST.get('copy')
     elif key == 'delete':
         return request.POST.get('delete')
-    elif key == 'export':
-        return request.POST.get('export')
     elif key == 'sent':
         return request.POST.get('sent')
     elif key == 'not_sent':

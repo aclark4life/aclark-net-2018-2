@@ -30,7 +30,7 @@
                       {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                       <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                       <td>{{ item.issue_date|date:'U'|default:'' }}</td>
-                      <td>{% if item.amount %}{{ company.currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
+                      <td>{% if item.amount %}{{ company_currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
                       <td>{{ item.amount|unlocalize|default:'' }}</td>
                       <td><a class="text-{{ icon_color }}" href="{% url view_url item.pk %}"><i class="fa fa-external-link fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td> <!-- https://stackoverflow.com/a/18541484/185820 -->
                       <td><a class="text-{{ icon_color }}" href="{% url edit_url item.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
