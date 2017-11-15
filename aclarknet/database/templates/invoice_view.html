@@ -12,8 +12,8 @@
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="{% url 'time_edit' %}?invoice={{ item.pk|unlocalize }}"><i class="fa fa-plus"></i> Add Time</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-sent-modal-sm"><i class="fa fa-check"></i> Sent</a>
-                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-not-sent-modal-sm"><i class="fa fa-check"></i> Not sent</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-sent-modal-sm"><i class="fa fa-check-square-o"></i> Sent</a>
+                  <a class="dropdown-item" href="" data-toggle="modal" data-target=".bd-not-sent-modal-sm"><i class="fa fa-square-o"></i> Sent</a>
                   <div class="dropdown-divider"></div>
 {% include 'actions.html' %}
                 </div>
