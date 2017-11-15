@@ -405,7 +405,9 @@ def get_page_items(**kwargs):
             newsletter = get_object_or_404(model, pk=pk)
             context['doc_type'] = model_name
             context['item'] = newsletter
-            mail_proc(newsletter, request=request)  # XXX Use signal?
+            mail = get_query_string(request, 'mail')  # Send mail
+            if mail:
+                mail_proc(newsletter, request=request)  # XXX Use signal?
         elif model_name == 'note':
             note = get_object_or_404(model, pk=pk)
             context['item'] = note
@@ -545,11 +547,7 @@ def get_page_items(**kwargs):
                                             'icon_color')  # Prefs
         context['icon_size'] = get_setting(request, app_settings_model,
                                            'icon_size')
-        doc = get_query_string(request, 'pdf')  # Export doc
-        mail = get_query_string(request, 'mail')  # Send mail
         pdf = get_query_string(request, 'pdf')  # Export pdf
-        context['doc'] = doc
-        context['mail'] = mail
         context['pdf'] = pdf
         context['request'] = request  # Include request
     return context
