@@ -578,6 +578,7 @@ def get_page_items(**kwargs):
         context['doc'] = doc
         context['mail'] = mail
         context['pdf'] = pdf
+        context['request'] = request  # Include request
     return context
 
 

@@ -30,6 +30,7 @@ from .forms import SettingsCompanyForm
 from .forms import SettingsContractForm
 from .forms import TaskForm
 from .forms import TimeForm
+from .mail import send_mail
 from .models import Client
 from .models import Contact
 from .models import Contract
@@ -51,7 +52,6 @@ from .models import SettingsContract
 from .models import Testimonial
 from .models import Task
 from .models import Time
-# from .doc import generate_doc
 from .export import render_pdf
 from .info import has_profile
 from .plot import get_plot
@@ -189,27 +189,6 @@ def contract_view(request, pk=None):
         pk=pk,
         time_model=Time,
         request=request)
-    # filename = get_company_name(SettingsCompany)
-    # if context['pdf']:
-    #     response = HttpResponse(content_type='application/pdf')
-    #     response['Content-Disposition'] = 'filename=%s.pdf' % filename
-    #     return generate_pdf(
-    #         'pdf_contract.html', context=context, file_object=response)
-    # if context['doc']:
-    #     # https://stackoverflow.com/a/24122313/185820
-    #     document = generate_doc(context['item'])
-    #     f = BytesIO()
-    #     document.save(f)
-    #     length = f.tell()
-    #     f.seek(0)
-    #     content_type = 'application/vnd.openxmlformats-'
-    #     content_type += 'officedocument.wordprocessingml.document'
-    #     response = HttpResponse(f.getvalue(), content_type=content_type)
-    #     response['Content-Disposition'] = 'filename=%s.docx' % filename
-    #     response['Content-Length'] = length
-    #     return response
-    # else:
-    #     return render(request, 'contract_view.html', context)
     return render(request, 'contract_view.html', context)
 
 
@@ -252,14 +231,6 @@ def estimate_view(request, pk=None):
         project_model=Project,
         time_model=Time,
         request=request)
-    # if context['pdf']:
-    #     response = HttpResponse(content_type='application/pdf')
-    #     filename = '-'.join(['estimate', pk])
-    #     response['Content-Disposition'] = 'filename=%s.pdf' % filename
-    #     return generate_pdf(
-    #         'pdf_invoice.html', context=context, file_object=response)
-    # else:
-    #     return render(request, 'estimate_view.html', context)
     return render(request, 'estimate_view.html', context)
 
 
@@ -434,6 +405,8 @@ def newsletter_view(request, pk=None):
         model=Newsletter,
         pk=pk,
         request=request)
+    if context['mail']:
+        send_mail(context)
     return render(request, 'newsletter_view.html', context)
 
 
@@ -470,13 +443,6 @@ def note_view(request, pk=None):
     else:
         context = get_page_items(
             app_settings_model=SettingsApp, model=Note, pk=pk, request=request)
-        # if context['pdf']:
-        #     response = HttpResponse(content_type='application/pdf')
-        #     response['Content-Disposition'] = 'filename=note-%s.pdf' % pk
-        #     return generate_pdf(
-        #         'pdf_note.html', context=context, file_object=response)
-        # else:
-        #     return render(request, 'note_view.html', context)
         return render(request, 'note_view.html', context)
 
 
@@ -562,13 +528,6 @@ def proposal_view(request, pk=None):
         model=Proposal,
         pk=pk,
         request=request)
-    # if context['pdf']:
-    #     response = HttpResponse(content_type='application/pdf')
-    #     response['Content-Disposition'] = 'filename=proposal-%s.pdf' % pk
-    #     return generate_pdf(
-    #         'pdf_proposal.html', context=context, file_object=response)
-    # else:
-    #     return render(request, 'proposal_view.html', context)
     return render(request, 'proposal_view.html', context)
 
 
@@ -598,13 +557,6 @@ def proposal_index(request, pk=None):
 def report_view(request, pk=None):
     context = get_page_items(
         model=Report, app_settings_model=SettingsApp, pk=pk, request=request)
-    # if context['pdf']:
-    #     response = HttpResponse(content_type='application/pdf')
-    #     response['Content-Disposition'] = 'filename=report-%s.pdf' % pk
-    #     return generate_pdf(
-    #         'pdf_report.html', context=context, file_object=response)
-    # else:
-    #     return render(request, 'report_view.html', context)
     return render(request, 'report_view.html', context)
 
 
