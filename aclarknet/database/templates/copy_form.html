@@ -15,7 +15,7 @@
                           <form action="{% url edit_url item.pk %}" method="post">
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button class="btn btn-success" name="copy" type="submit" value="+" onChange="this.form.submit()">Copy</button>
+                            <button class="btn btn-success" name="copy" type="submit" value="copy" onChange="this.form.submit()">Copy</button>
                           </form>
                         </div>
                       </div>

@@ -11,9 +11,9 @@ from .query import get_query_string
 def get_plot(request):  # http://stackoverflow.com/a/5515994/185820
     """
     """
-    costs = get_query(request, 'costs')
-    grosses = get_query(request, 'grosses')
-    nets = get_query(request, 'nets')
+    costs = get_query_string(request, 'costs')
+    grosses = get_query_string(request, 'grosses')
+    nets = get_query_string(request, 'nets')
     # Cost
     x1 = [  # http://matplotlib.org/examples/api/date_demo.html
         date2num(timezone.datetime.strptime(i[1], '%Y-%m-%d')) for i in costs

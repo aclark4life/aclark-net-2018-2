@@ -77,8 +77,8 @@ def edit(request, **kwargs):
                 new_user = model.objects.create_user(username=username)
             form = form_model(request.POST)
         else:
-            copy = request.POST.get('copy')  # Copy or delete
-            delete = request.POST.get('delete')
+            copy = get_query_string(request, 'copy')  # Copy or delete
+            delete = get_query_string(request, 'delete')
             if copy:
                 return obj_copy(obj)
             if delete:
@@ -88,11 +88,11 @@ def edit(request, **kwargs):
             if query_checkbox['condition']:
                 return set_check_boxes(obj, query_checkbox, ref,
                                        app_settings_model)
-            mark_sent = request.POST.get('mark_sent')  # Invoice sent
-            if mark_sent:
+            sent = get_query_string(request, 'sent')
+            if sent:
                 return obj_sent(obj, ref)
-            mark_not_sent = request.POST.get('mark_not_sent')
-            if mark_not_sent:
+            not_sent = get_query_string(request, 'not_sent')
+            if not_sent:
                 return obj_sent(obj, ref, invoiced=False)
             form = form_model(request.POST, instance=obj)
         if form.is_valid():
@@ -457,8 +457,6 @@ def get_page_items(**kwargs):
             context['item'] = report
             context['items'] = items
             context['reports'] = reports
-            # context['edit_url'] = 'invoice_edit'
-            # context['view_url'] = 'invoice_view'
         elif model_name == 'task':
             task = get_object_or_404(model, pk=pk)
             context['item'] = task

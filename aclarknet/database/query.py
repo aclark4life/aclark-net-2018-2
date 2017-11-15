@@ -72,5 +72,15 @@ def get_query_string(request, key):
         query_checkbox['subscribe'] = query_checkbox_subscribe
         query_checkbox['condition'] = condition
         return query_checkbox
+    elif key == 'copy':
+        return request.POST.get('copy')
+    elif key == 'delete':
+        return request.POST.get('delete')
+    elif key == 'export':
+        return request.POST.get('export')
+    elif key == 'sent':
+        return request.POST.get('sent')
+    elif key == 'not_sent':
+        return request.POST.get('not_sent')
     else:
         return request.GET.get(key)

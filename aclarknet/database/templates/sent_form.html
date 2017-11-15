@@ -14,7 +14,7 @@
                   <form action="{% url edit_url item.pk %}" method="post">
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-success" name="mark_sent" type="submit" value="X" onChange="this.form.submit()">Mark sent</button>
+                    <button class="btn btn-success" name="sent" type="submit" value="sent" onChange="this.form.submit()">Mark sent</button>
                   </form>
                 </div>
               </div>
@@ -36,7 +36,7 @@
                   <form action="{% url edit_url item.pk %}" method="post">
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-success" name="mark_not_sent" type="submit" value="X" onChange="this.form.submit()">Mark not sent</button>
+                    <button class="btn btn-success" name="not_sent" type="submit" value="not_sent" onChange="this.form.submit()">Mark not sent</button>
                   </form>
                 </div>
               </div>

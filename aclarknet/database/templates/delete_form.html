@@ -9,13 +9,13 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    You are about to remove this item forever!
+                    You are about to delete this item forever!
                 </div>
                 <div class="modal-footer">
                   <form action="{% url edit_url item.pk %}" method="post">
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-danger" name="delete" type="submit" value="X" onChange="this.form.submit()">Remove</button>
+                    <button class="btn btn-danger" name="delete" type="submit" value="delete" onChange="this.form.submit()">Delete</button>
                   </form>
                 </div>
               </div>
