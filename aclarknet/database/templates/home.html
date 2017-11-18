@@ -2,10 +2,10 @@
 {% block content %}
           {% if request.user.is_authenticated %}
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
               <h1 style="border-bottom: none;">Dashboard</h1>
             </div>
-            <div class="col-md-3 mb-3"> 
+            <div class="col-md-2 mb-3"> 
               <a class="btn btn-block btn-lg btn-success" href="{% url 'time_edit' %}"> Add Time</a>
             </div>
           </div>
