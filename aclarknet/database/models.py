@@ -507,6 +507,10 @@ class Project(BaseModel):
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
+    # https://stackoverflow.com/a/6062320/185820
+    class Meta:
+        ordering = ["name"]
+
 
 class Proposal(BaseModel):
     """
