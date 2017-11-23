@@ -34,7 +34,7 @@
                       <td>{{ item.amount|unlocalize|default:'' }}</td>
                       <td><a class="text-{{ icon_color }}" href="{% url view_url item.pk %}"><i class="fa fa-external-link fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td> <!-- https://stackoverflow.com/a/18541484/185820 -->
                       <td><a class="text-{{ icon_color }}" href="{% url edit_url item.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
-                      <td><a class="text-{{ icon_color }}" href="{% url 'time_edit' %}?invoice={{ item.pk }}"><i class="fa fa-plus-circle-o fa-{{ icon_size }}" style="vertical-align: middle"></i> Add Time</a></td>
+                      <td><a class="text-{{ icon_color }}" href="{% url 'time_edit' %}?invoice={{ item.pk }}"><i class="fa fa-plus-circle fa-{{ icon_size }}" style="vertical-align: middle"></i> Add Time</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
