@@ -688,25 +688,28 @@ def set_relationship(obj, request, **kwargs):
         query_estimate = get_query_string(request, 'estimate')
         query_invoice = get_query_string(request, 'invoice')
         query_project = get_query_string(request, 'project')
-        if not request.user.is_staff:  # Staff have more than one project
-            user_projects = project_model.objects.filter(
-                team__in=[
-                    obj.user,
-                ])
-            if len(user_projects) > 0:
-                obj.project = user_projects[0]
-                obj.task = obj.project.task
+        # if not request.user.is_staff:  # Staff have more than one project
+        #     user_projects = project_model.objects.filter(
+        #         team__in=[
+        #             obj.user,
+        #         ])
+        #     if len(user_projects) > 0:
+        #         obj.project = user_projects[0]
+        #         obj.task = obj.project.task
         if query_estimate:
             estimate = get_object_or_404(estimate_model, pk=query_estimate)
             obj.estimate = estimate
         if query_invoice:
             invoice = get_object_or_404(invoice_model, pk=query_invoice)
             obj.invoice = invoice
+            obj.save()  # Need save here to set more attrs
+            obj.project = invoice.project
+            obj.save()  # Need save here to set more attrs
             obj.task = invoice.project.task
         if query_project:
             project = get_object_or_404(project_model, pk=query_project)
             obj.project = project
-            obj.save()  # Need save here to set task
+            obj.save()  # Need save here to set more attrs
             if project.task:
                 obj.task = project.task
         obj.save()
