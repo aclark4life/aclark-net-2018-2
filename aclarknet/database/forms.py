@@ -219,6 +219,22 @@ class ProjectForm(forms.ModelForm):
             }),
         }
 
+    start_date = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'class': 'col-2'
+        }),
+        required=False,
+        initial=timezone.now())
+
+    end_date = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'class': 'col-2'
+        }),
+        required=False,
+        initial=timezone.now())
+
 
 class ProposalForm(forms.ModelForm):
     class Meta:
