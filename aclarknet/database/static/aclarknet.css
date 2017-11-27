@@ -25,10 +25,12 @@ tbody tr:hover a {
 #content {
     background: white;
 }
+/*
 #navbarsExampleDefault > ul > li.hover:hover {
     background: #28A745 !important;
     border-radius: 3px;
 }
+*/
 #sidebar > ul > li.nav-item.bg-success.px-1 > a {
     color: white;
 }
