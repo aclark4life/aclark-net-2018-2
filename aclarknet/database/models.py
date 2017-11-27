@@ -96,6 +96,10 @@ class Client(BaseModel):
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
 
+    # https://stackoverflow.com/a/6062320/185820
+    class Meta:
+        ordering = ["name"]
+
 
 class Contact(BaseModel):
     """
@@ -700,6 +704,10 @@ class Task(BaseModel):
             return self.name
         else:
             return '-'.join([self._meta.verbose_name, str(self.pk)])
+
+    # https://stackoverflow.com/a/6062320/185820
+    class Meta:
+        ordering = ["name"]
 
 
 class Time(BaseModel):
