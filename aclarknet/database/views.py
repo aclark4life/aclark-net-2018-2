@@ -333,7 +333,7 @@ def invoice_view(request, pk=None):
         request=request,
         time_model=Time)
     if context['pdf']:
-        return render_pdf(request, 'pdf_invoice.html', context, pk=pk)
+        return render_pdf(request, 'invoice_pdf.html', context, pk=pk)
     else:
         return render(request, 'invoice_view.html', context)
 
