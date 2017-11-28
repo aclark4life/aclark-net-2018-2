@@ -33,8 +33,6 @@ def get_recipients(obj):
         return [(i.first_name, i.email) for i in obj.contacts.all()]
     elif model_name == 'note':
         return [(i.first_name, i.email) for i in obj.contacts.all()]
-    elif model_name == 'time':
-        return [('Alex', 'aclark@aclark.net')]
 
 
 def get_setting(request, app_settings_model, setting, page_size=None):
