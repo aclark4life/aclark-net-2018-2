@@ -170,10 +170,10 @@ def get_form(**kwargs):
                 form = form_model(instance=obj, initial={'invoices': invoices})
             elif model_name == 'contact':  # Populate new contact
                 # with appropriate fields
-                if query_user:
-                    user = get_object_or_404(user_model, pk=query_user)
-                    obj = model(email=user.email)
-                elif query_client:
+                # if query_user:
+                #     user = get_object_or_404(user_model, pk=query_user)
+                #     obj = model(email=user.email)
+                if query_client:
                     client = get_object_or_404(client_model, pk=query_client)
                     obj = model(client=client)
                 form = form_model(instance=obj)

@@ -33,7 +33,6 @@ class AdminProfileForm(forms.ModelForm):
                 'class': 'tinymce'
             }),
         }
-        exclude = ('notify', )
 
     dashboard_choices = forms.MultipleChoiceField(
         choices=DASHBOARD_CHOICES,
