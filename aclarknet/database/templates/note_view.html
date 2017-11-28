@@ -2,7 +2,7 @@
 {% block content %}
           <div class="row">
             <div class="col-md-4">
-              <h1 style="border-bottom: none;"><a class="text-black" href="{% url 'note_index' %}">Notes</a> &raquo; {% if item.title %}{{ item.title }}{% else %}Note{% endif %}</h1>
+              <h1 style="border-bottom: none;"><a class="text-dark" href="{% url 'note_index' %}">Notes</a> &raquo; {% if item.title %}{{ item.title }}{% else %}Note{% endif %}</h1>
             </div>
             <div class="col-md-4 mr-auto">
 {% include 'info.html' %}

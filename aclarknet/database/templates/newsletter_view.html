@@ -2,7 +2,7 @@
 {% block content %}
           <div class="row">
             <div class="col-md-4">
-              <h1 style="border-bottom: none;"><a class="text-black" href="{% url 'newsletter_index' %}">Newsletters</a> &raquo; {% if item.subject %}{{ item.subject }}{% else %}{{ doc_type|title }}{% endif %}</h1> 
+              <h1 style="border-bottom: none;"><a class="text-dark" href="{% url 'newsletter_index' %}">Newsletters</a> &raquo; {% if item.subject %}{{ item.subject }}{% else %}{{ doc_type|title }}{% endif %}</h1> 
             </div>
             <div class="col-md-4">
 {% include 'info.html' %}

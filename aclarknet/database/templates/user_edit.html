@@ -3,7 +3,7 @@
 {% block content %}
               <div class="row">
                 <div class="col-md-12">
-                  <h1 style="border-bottom: none;">Users &raquo; <a class="text-black" href="{% url 'user_view' pk=item.user.pk %}">{{ item.user.get_full_name|default:item.user }} ({{ item.user }})</a> &rsaquo; Edit</h1>
+                  <h1 style="border-bottom: none;">Users &raquo; <a class="text-dark" href="{% url 'user_view' pk=item.user.pk %}">{{ item.user.get_full_name|default:item.user }} ({{ item.user }})</a> &rsaquo; Edit</h1>
                 </div>
               </div>
               <form action="" method="post">{% csrf_token %}
