@@ -1,4 +1,4 @@
-        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar" style="opacity: 0.9">
           <ul class="nav nav-pills flex-column">
             {% if request.user.is_authenticated %}
             {% if is_staff %}<li class="nav-item {% if active_nav == 'invoice' %}bg-success px-1 {% endif %}"><a class="nav-link text-dark" href="{% url 'invoice_index' %}">Invoices</a></li>{% endif %}
