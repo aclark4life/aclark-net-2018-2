@@ -27,7 +27,7 @@
                       {% if item.user %}<td><a href="{% url 'user_view' item.user.pk %}">{{ item.user.get_full_name|default:'' }}</a></td>{% else %}<td></td> {% endif %}
                       <td>{{ item.user }}</td>
                       <td>{{ item.subject|default:'' }}</td>
-                      {% if item.project %}<td><a href="{% url 'project_view' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
+                      {% if item.project %}<td><a class="text-dark" href="{% url 'project_view' item.project.pk %}">{{ item.project.name|default:'' }}</a></td>{% else %}<td></td>{% endif %}
                       <td>{{ item.issue_date|date:'Y-m-d'|default:'' }}</td>
                       <td>{{ item.issue_date|date:'U'|default:'' }}</td>
                       <td>{% if item.amount %}{{ company_currency_symbol }}{% endif %}{{ item.amount|default:'' }}</td>
