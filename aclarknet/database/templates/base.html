@@ -32,11 +32,11 @@
 {% include 'sidebar.html' %}
         {% endif %}
         {% if request.user.is_anonymous and not login %}
-        <main class="col-lg-12" role="main" id="content">
+        <main class="col-lg-12 bg-white" role="main" id="content">
 {% include 'messages.html' %}
 {% include 'welcome.html' %}
         {% else %}
-        <main class="col-sm-9 ml-sm-auto col-md-10 px-3 py-3" role="main" id="content">
+        <main class="col-sm-9 ml-sm-auto col-md-10 px-3 py-3 bg-white" role="main" id="content">
 {% include 'messages.html' %}
         {% endif %}
 {% include 'search.html' %}
