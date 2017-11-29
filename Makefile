@@ -390,33 +390,31 @@ aclarknet-pg-restore:
 	psql -d aclarknet < latest.dump
 aclarknet-remote-update:
 	@$(MAKE) git-commit-auto-push
-	@$(MAKE) aclarknet-remote-git-pull
-	@$(MAKE) aclarknet-remote-django-static
-	@$(MAKE) aclarknet-remote-gunicorn-restart
-aclarknet-remote-aptitude-update:
+	@$(MAKE) aclarknet-remote-pull
+	@$(MAKE) aclarknet-remote-static
+	@$(MAKE) aclarknet-remote-reload
+	@$(MAKE) aclarknet-remote-restart
+aclarknet-remote-package-update:
 	ssh db "sudo aptitude update; sudo aptitude upgrade -y"
-aclarknet-remote-django-static:
+aclarknet-remote-static:
 	ssh db "cd /srv/aclarknet-database; bin/python3 manage.py collectstatic --noinput"
-aclarknet-remote-git-pull:
+aclarknet-remote-pull:
 	ssh db "cd /srv/aclarknet-database; git pull"
 aclarknet-remote-install:
 	ssh db "cd /srv/aclarknet-database; bin/pip3 install -r requirements.txt"
-aclarknet-remote-gunicorn-restart:
+aclarknet-remote-reload:
 	ssh db "sudo systemctl daemon-reload"
+aclarknet-remote-restart:
 	ssh db "sudo systemctl restart db"
-aclarknet-remote-gunicorn-start:
-	ssh db "sudo systemctl start db"
-aclarknet-remote-gunicorn-stop:
-	ssh db "sudo systemctl stop db.service"
-aclarknet-remote-gunicorn-status:
-	ssh db "sudo systemctl status db.service"
-aclarknet-remote-nginx-stop:
-	ssh db "sudo systemctl stop nginx"
-aclarknet-remote-nginx-start:
-	ssh db "sudo systemctl start nginx"
-aclarknet-remote-nginx-restart:
 	ssh db "sudo systemctl restart nginx"
+aclarknet-remote-start:
+	ssh db "sudo systemctl start db"
+	ssh db "sudo systemctl start nginx"
+aclarknet-remote-stop:
+	ssh db "sudo systemctl stop db.service"
+	ssh db "sudo systemctl stop nginx"
+aclarknet-remote-status:
+	ssh db "sudo systemctl status db.service"
+	ssh db "sudo systemctl status nginx"
 aclarknet-remote-pg-dump:
 	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump"
-aclarknet-webpack-pack:
-	./node_modules/.bin/webpack --config webpack.config.js
