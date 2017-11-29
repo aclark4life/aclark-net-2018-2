@@ -106,9 +106,8 @@ def edit(request, **kwargs):
                 invoice_model=invoice_model,
                 model=model,
                 project_model=project_model)
-            if model_name == 'time':
-                # Send mail
-                mail_proc(obj, request=request)  # XXX Use signal?
+            # if model_name == 'time':
+            #     mail_proc(obj, request=request)  # XXX Use signal?
             return obj_redir(obj, pk=pk)
     context['form'] = form
     context['is_staff'] = request.user.is_staff
