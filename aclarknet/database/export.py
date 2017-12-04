@@ -8,7 +8,7 @@ def render_pdf(request, template, context, pk=None):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename=test.pdf'
     return generate_pdf(
-        'pdf_invoice.html', context=context, file_object=response)
+        'invoice_pdf.html', context=context, file_object=response)
 
 
 def render_doc(request, template, context, pk=None):
