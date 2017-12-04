@@ -61,32 +61,9 @@
           </div>
           <div class="row">
             <div class="col-md-12 py-1">
-              <table data-toggle="table" data-classes="table table-no-bordered">
-                <thead>
-                  <tr>
-                    <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
-                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
-                    <th data-field="issued" data-sortable="true">Issue Date</th>
-                    <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount Due</th>
-                    <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 {% for invoice in items.invoices %}
-                  <tr>
-                    <td><a href="{% url 'invoice_view' invoice.pk %}">{{ invoice.subject|default:'' }}</a></td>
-                    <td>{{ invoice.subject|default:'' }}</td>
-                    <td>{{ invoice.issue_date|default:'' }}</td>
-                    <td>{% if invoice.amount %}{{ company_currency_symbol }}{% endif %}{{ invoice.amount|default:'' }}</td>
-                    <td>{{ invoice.amount|unlocalize|default:'' }}</td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'invoice_view' invoice.pk %}"><i class="fa fa-external-link fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'invoice_edit' invoice.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
+{% with items=items.invoices view_url='invoice_view' edit_url='invoice_edit' %}
+{% include 'table_invoices.html' %}
+{% endwith %}
             </div>
           </div>
           <!------------------------------------------------------------------------------------>
@@ -118,36 +95,13 @@
           <div class="row">
             <div class="col-md-12 py-1">
               <h2>Estimates</h2>
+{% with items=items.invoices view_url='estimate_view' edit_url='estimate_edit' %}
+{% include 'table_invoices.html' %}
+{% endwith %}
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 py-1">
-              <table data-toggle="table" data-classes="table table-no-bordered">
-                <thead>
-                  <tr>
-                    <th data-sort-name="hidden-subject" data-sortable="true">Name</th>
-                    <th data-field="hidden-subject" data-sortable="true" data-visible="false">Hidden Subject</th>
-                    <th data-field="issued" data-sortable="true">Issue Date</th>
-                    <th data-field="amount" data-sort-name="hidden-amount" data-sortable="true">Amount Due</th>
-                    <th data-field="hidden-amount" data-sortable="true" data-visible="false">Hidden Amount</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 {% for estimate in items.estimates %}
-                  <tr>
-                    <td><a href="{% url 'estimate_view' estimate.pk %}">{{ estimate.subject|default:'' }}</a></td>
-                    <td>{{ estimate.subject|default:'' }}</td>
-                    <td>{{ estimate.issue_date|default:'' }}</td>
-                    <td>{% if estimate.amount %}{{ company_currency_symbol }}{% endif %}{{ estimate.amount|default:'' }}</td>
-                    <td>{{ estimate.amount|unlocalize|default:'' }}</td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'estimate_view' estimate.pk %}"><i class="fa fa-external-link fa-{{ icon_size }}" style="vertical-align: middle"></i> View</a></td>
-                    <td><a class="text-{{ icon_color }}" href="{% url 'estimate_edit' estimate.pk %}"><i class="fa fa-edit fa-{{ icon_size }}" style="vertical-align: middle"></i> Edit</a></td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
             </div>
           </div>
           <!------------------------------------------------------------------------------------>

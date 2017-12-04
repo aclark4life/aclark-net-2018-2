@@ -4,12 +4,10 @@ from io import BytesIO
 from .doc import generate_doc
 
 
-def render_pdf(request, template, context, pk=None, company_model=None):
+def render_pdf(request, template, context, pk=None, company_name=None): 
     filename = 'export.pdf'
-    company = company_model.get_solo()
-    company_name = company.name
     if company_name and pk:
-        filename = '%s-invoice-%s.pdf' % (company_name, pk)
+        filename = '%s_%s_%s.pdf' % (company_name, 'invoice'.upper(), pk)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename=%s' % filename
     return generate_pdf(
