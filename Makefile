@@ -419,4 +419,4 @@ aclarknet-remote-status:
 aclarknet-remote-pg-dump:
 	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump"
 aclarknet-export:
-	ssh db "/srv/aclarknet-database/bin/python /srv/aclarknet-database/manage.py dumpdata database.Time > time.json"
+	bin/python manage.py dumpdata database.Time > time.json
