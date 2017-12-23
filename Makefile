@@ -420,3 +420,6 @@ aclarknet-remote-pg-dump:
 	ssh db "pg_dump -U $(DB_USER) -h $(DB_HOST) -d $(DB_NAME) > latest.dump"
 aclarknet-export:
 	bin/python manage.py dumpdata database.Time > time.json
+	bin/python manage.py dumpdata database.Project > project.json
+	bin/python manage.py dumpdata database.Client > client.json
+	bin/python manage.py dumpdata database.Note > note.json
