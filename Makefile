@@ -425,4 +425,5 @@ aclarknet-export:
 	bin/python manage.py dumpdata database.Client > client.json
 	bin/python manage.py dumpdata database.Contact > contact.json
 	bin/python manage.py dumpdata database.Note > note.json
+	bin/python manage.py dumpdata database.Invoice > invoice.json
 	bin/python manage.py dumpdata auth.User > user.json
